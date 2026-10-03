@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">设置</string>
+    <string name="screens_home_outstanding_label">未还余额</string>
+    <string name="screens_home_no_loans_message">暂无进行中的贷款 — 先添加一笔。</string>
+    <string name="screens_home_total_outstanding_label">未还总额</string>
+    <string name="screens_home_active_loans_singular">%1$d 笔进行中的贷款</string>
+    <string name="screens_home_active_loans_plural">%1$d 笔进行中的贷款</string>
+    <string name="screens_home_monthly_emi_label">每月还款额</string>
+    <string name="screens_home_loans_label">贷款</string>
+    <string name="screens_home_loans_carousel_title">您的贷款 · %1$d</string>
+    <string name="screens_home_remaining_label">剩余</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">月供 $%1$s · 已还 %2$d%%</string>
+    <string name="screens_home_section_this_week">本周</string>
+    <string name="screens_home_section_tools">工具</string>
+    <string name="screens_home_section_tools_subtitle">计算器、对比、宏观指标</string>
+    <string name="screens_home_bills_card_title">即将到期的账单</string>
+    <string name="screens_home_bills_total_label">应付总额（未来 7 天）</string>
+    <string name="screens_home_bills_day_value">%1$d 日</string>
+    <string name="screens_home_bills_empty">未来 7 天没有到期账单。</string>
+    <string name="screens_home_rates_card_title">今日利率</string>
+    <string name="screens_home_rates_fed_funds_label">联邦基金利率</string>
+    <string name="screens_home_rates_mortgage_30y_label">30 年期房贷</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">美元汇率</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">查看全部</string>
+    <string name="screens_home_tool_emi_title">等额本息计算器</string>
+    <string name="screens_home_tool_emi_subtitle">任意贷款的月还款额</string>
+    <string name="screens_home_tool_affordability_title">可负担额度</string>
+    <string name="screens_home_tool_affordability_subtitle">我能安全借多少？</string>
+    <string name="screens_home_tool_amortization_title">摊还计划</string>
+    <string name="screens_home_tool_amortization_subtitle">完整还款计划</string>
+    <string name="screens_home_tool_compare_title">贷款对比</string>
+    <string name="screens_home_tool_compare_subtitle">并排比较总成本</string>
+    <string name="screens_home_tool_wizard_title">贷款向导</string>
+    <string name="screens_home_tool_wizard_subtitle">分步规划</string>
+    <string name="screens_home_tool_currency_title">汇率</string>
+    <string name="screens_home_tool_currency_subtitle">实时汇率</string>
+    <string name="screens_home_tool_history_title">汇率历史</string>
+    <string name="screens_home_tool_history_subtitle">历史外汇图表</string>
+    <string name="screens_home_tool_macro_title">国家宏观数据</string>
+    <string name="screens_home_tool_macro_subtitle">GDP、CPI、失业率</string>
+    <string name="screens_home_tool_crypto_title">币种行情</string>
+    <string name="screens_home_tool_crypto_subtitle">实时加密货币价格与自选</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

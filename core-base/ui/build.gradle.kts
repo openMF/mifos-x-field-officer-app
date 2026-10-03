@@ -5,9 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.convention.forkProp
 
 /*
  * Copyright 2025 Mifos Initiative
@@ -16,27 +18,45 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 plugins {
-    alias(libs.plugins.kmp.library.convention)
+    alias(libs.plugins.kmp.core.base.library.convention)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-}
-
-android {
-    namespace = "template.core.base.ui"
+    // Module-local BuildKonfig so AppInfo.appDisplayName (the SINGLE common-code accessor for the
+    // app's user-facing display name) reads the fork's app.display.name WITHOUT a hardcoded string
+    // resource. Same mechanism feature/settings + core/network use (white-label seam).
+    alias(libs.plugins.buildkonfig)
 }
 
 kotlin {
     sourceSets {
         androidMain.dependencies {
             api(libs.androidx.metrics)
-            implementation(libs.androidx.browser)
             implementation(libs.androidx.compose.runtime)
         }
 
         commonMain.dependencies {
+            implementation(projects.coreBase.store)
+            implementation(projects.coreBase.designsystem)
+            implementation(libs.cmp.network.monitor.compose)
+            implementation(libs.cmp.intent.launcher)
+
+            // Compose surfaces for the cores wired in core-base/platform. `api`, not
+            // `implementation`: these exist to be CALLED from feature screens, and the feature
+            // convention plugin already gives every feature core-base:ui — so exposing them here is
+            // what makes ShareButton / ShareSheet / AppIntentsRegistry / rememberSupportsIntent
+            // reachable without each feature declaring anything.
+            //
+            // Their composables call the libraries' global entry points (Share.share, AppIntents…)
+            // rather than the CompositionLocals these modules also export, so nothing here needs the
+            // toolkit locals provided. The template's own locals in kpt.core.base.platform stay
+            // canonical — see the note in LocalManagerProviders.kt about the name collision.
+            api(libs.cmp.share.compose)
+            api(libs.cmp.intent.launcher.compose)
+            api(libs.cmp.app.intents.compose)
+
             implementation(compose.ui)
             implementation(compose.material3)
             implementation(compose.foundation)
@@ -44,6 +64,12 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.uiToolingPreview)
+
+            // Compottie — first-class Lottie support for ScreenStateVisual.Lottie.
+            // `api` so apps that pass ScreenStateVisual.Lottie(spec = { ... }) can build
+            // a LottieCompositionSpec without re-declaring the dep.
+            api(libs.compottie)
+            api(libs.compottie.resources)
 
             implementation(libs.jb.composeViewmodel)
             implementation(libs.jb.lifecycle.compose)
@@ -78,5 +104,23 @@ kotlin {
 compose.resources {
     publicResClass = true
     generateResClass = always
-    packageOfResClass = "template.core.base.ui.generated.resources"
+    packageOfResClass = "kpt.core.base.ui.generated.resources"
+}
+
+// Fork app display name → `kpt.core.base.ui.BuildKonfig.APP_DISPLAY_NAME`, read from
+// `gradle/fork.properties#app.display.name` — the build-bridge that syncForkConfig generates from the
+// SoT `app-profile/app.yaml#identity.app_name`. AppInfo.appDisplayName exposes it as the single
+// common-code read point, so a fork rebrands in app-profile, not in per-feature strings.xml.
+// Read through the ONE Gradle-side reader (org.convention.ForkProperties).
+val coreBaseUiAppDisplayName = forkProp("app.display.name", "App Toolkit")
+
+buildkonfig {
+    packageName = "kpt.core.base.ui"
+    defaultConfigs {
+        buildConfigField(
+            STRING,
+            "APP_DISPLAY_NAME",
+            coreBaseUiAppDisplayName,
+        )
+    }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Cài đặt</string>
+    <string name="screens_home_outstanding_label">Số dư còn nợ</string>
+    <string name="screens_home_no_loans_message">Chưa có khoản vay nào — hãy thêm một khoản.</string>
+    <string name="screens_home_total_outstanding_label">Tổng còn nợ</string>
+    <string name="screens_home_active_loans_singular">%1$d khoản vay đang hoạt động</string>
+    <string name="screens_home_active_loans_plural">%1$d khoản vay đang hoạt động</string>
+    <string name="screens_home_monthly_emi_label">Trả góp hằng tháng</string>
+    <string name="screens_home_loans_label">Khoản vay</string>
+    <string name="screens_home_loans_carousel_title">Khoản vay của bạn · %1$d</string>
+    <string name="screens_home_remaining_label">Còn lại</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Trả góp $%1$s · đã trả %2$d%%</string>
+    <string name="screens_home_section_this_week">Tuần này</string>
+    <string name="screens_home_section_tools">Công cụ</string>
+    <string name="screens_home_section_tools_subtitle">Máy tính, so sánh, chỉ số vĩ mô</string>
+    <string name="screens_home_bills_card_title">Hóa đơn sắp tới</string>
+    <string name="screens_home_bills_total_label">Tổng phải trả (7 ngày tới)</string>
+    <string name="screens_home_bills_day_value">Ngày %1$d</string>
+    <string name="screens_home_bills_empty">Không có hóa đơn đến hạn trong 7 ngày tới.</string>
+    <string name="screens_home_rates_card_title">Lãi suất hôm nay</string>
+    <string name="screens_home_rates_fed_funds_label">Lãi suất Fed</string>
+    <string name="screens_home_rates_mortgage_30y_label">Vay mua nhà 30 năm</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">Tỷ giá USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Xem tất cả</string>
+    <string name="screens_home_tool_emi_title">Máy tính trả góp</string>
+    <string name="screens_home_tool_emi_subtitle">Khoản trả hằng tháng cho mọi khoản vay</string>
+    <string name="screens_home_tool_affordability_title">Khả năng vay</string>
+    <string name="screens_home_tool_affordability_subtitle">Tôi có thể vay bao nhiêu là an toàn?</string>
+    <string name="screens_home_tool_amortization_title">Khấu hao</string>
+    <string name="screens_home_tool_amortization_subtitle">Lịch thanh toán đầy đủ</string>
+    <string name="screens_home_tool_compare_title">So sánh khoản vay</string>
+    <string name="screens_home_tool_compare_subtitle">Tổng chi phí cạnh nhau</string>
+    <string name="screens_home_tool_wizard_title">Trình hướng dẫn vay</string>
+    <string name="screens_home_tool_wizard_subtitle">Công cụ lập kế hoạch từng bước</string>
+    <string name="screens_home_tool_currency_title">Tỷ giá tiền tệ</string>
+    <string name="screens_home_tool_currency_subtitle">Tỷ giá trực tiếp</string>
+    <string name="screens_home_tool_history_title">Lịch sử tỷ giá</string>
+    <string name="screens_home_tool_history_subtitle">Biểu đồ tỷ giá lịch sử</string>
+    <string name="screens_home_tool_macro_title">Vĩ mô theo quốc gia</string>
+    <string name="screens_home_tool_macro_subtitle">GDP, CPI, thất nghiệp</string>
+    <string name="screens_home_tool_crypto_title">Thị trường tiền mã hóa</string>
+    <string name="screens_home_tool_crypto_subtitle">Giá tiền mã hóa trực tiếp và danh sách theo dõi</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

@@ -1,0 +1,41 @@
+# app-profile/platforms/windows/windows.yaml — Microsoft Store packaging (Windows / MSIX).
+# Template default = a PLACEHOLDER MS Store identity. A FORK overrides msix_identity_name /
+# msix_publisher / msix_publisher_display_name (+ store_id / partner_center) with its own values.
+# Partner Center ids stay unset (YOUR_*) until the fork wires MS Store CI — the deployment-whitelabel
+# health check WARNs (not FAILs) on unset distribution placeholders.
+# Deep-merged under `windows.*` (top-level key), consumed via APP_PROFILE_MAP (windows.* flat keys).
+windows:
+  store_id: ""                             # windows.store.id (Partner Center App identity Store ID, 9XXXXXXXX)
+  ms_app_id: ""                            # store.windows.ms.app.id (StoreBroker App ID)
+  ms_publish_mode: Manual                  # store.windows.ms.publish.mode (Manual | Immediate | SpecificDate)
+  ms_visibility: Public                    # store.windows.ms.visibility (Public | Hidden | Private)
+  msix_identity_name: YourOrganization.AppToolkit         # PLACEHOLDER — windows.msix.identity.name
+  msix_publisher: CN=Your Organization Name               # PLACEHOLDER — windows.msix.identity.publisher (CN=…)
+  msix_publisher_display_name: Your Organization Name      # PLACEHOLDER — windows.msix.publisher.display.name
+  partner_center:
+    tenant_id: YOUR_PARTNER_CENTER_TENANT_ID   # windows.partner.center.tenant.id
+    client_id: YOUR_PARTNER_CENTER_CLIENT_ID   # windows.partner.center.client.id
+  store:                                     # Microsoft Store listing TEXT (win.store.*)
+    name: MifosXDroid                        # win.store.name
+    short_description: 'Track loans, calculate EMIs, and set bill reminders — 100% offline. No login, no ads.'   # win.store.short.description (<=100 chars)
+    description: 'YOUR_APP_DESCRIPTION — write your Microsoft Store long description here (<=10000 chars).'   # PLACEHOLDER — win.store.description
+    features:                                # win.store.features (list — unmapped, read direct)
+      - Offline loan tracker
+      - EMI calculator
+      - Bill reminders
+      - Live interest rates
+    search_terms:                            # win.store.search.terms (list, <=7 — unmapped, read direct)
+      - loan
+      - EMI
+      - finance
+      - budget
+      - offline
+      - bills
+      - interest
+    category: Finance                        # win.store.category
+    privacy_url: https://example.com/privacy   # PLACEHOLDER — win.store.privacy.url
+  winget:
+    package_id: YourOrganization.AppToolkit    # PLACEHOLDER — win.winget.package.id (Publisher.AppName)
+    publisher: Your Organization Name          # PLACEHOLDER — win.winget.publisher
+    name: MifosXDroid                          # win.winget.name
+    moniker: money-toolkit                     # win.winget.moniker

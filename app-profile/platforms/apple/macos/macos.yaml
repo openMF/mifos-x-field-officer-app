@@ -1,0 +1,10 @@
+# app-profile/platforms/apple/macos/macos.yaml — macOS-ONLY (deep-merged under `apple.macos`).
+apple:
+  macos:
+    keywords: 'loan tracker,EMI calculator,finance,desktop,bill reminder,interest rate,amortization,budget'  # store.macos.keywords
+    category: 'FINANCE'                        # store.macos.category
+    secondary_category: 'PRODUCTIVITY'                   # store.macos.secondary.category (optional)
+    app_category: public.app-category.finance  # mac.app.category (LSApplicationCategoryType / packaging)
+    homebrew:
+      cask_name: money-toolkit               # mac.homebrew.cask.name (kebab-case Homebrew Cask token)
+      tagline: Loan Tracker & Finance Tools  # mac.homebrew.tagline (mirrors store.subtitle)

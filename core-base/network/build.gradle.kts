@@ -5,15 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 plugins {
-    alias(libs.plugins.kmp.library.convention)
-    alias(libs.plugins.kotlin.serialization)
-}
-
-android {
-    namespace = "template.core.base.network"
+    alias(libs.plugins.kmp.core.base.library.convention)
 }
 
 kotlin {
@@ -26,6 +21,15 @@ kotlin {
             api(libs.ktor.client.auth)
             api(libs.ktorfit.lib)
             api(libs.kermit.logging)
+            // restApi<T> DSL registers Koin singles + resolves the AccessPointRegistry via get().
+            api(libs.koin.core)
+            implementation(projects.coreBase.security)
+            api(libs.supabase.postgrest)
+            // api-exported (not just postgrest) so any fork whose backend is Supabase-with-auth can
+            // install(Auth) + reference client.auth (RLS-gated RPCs needing a real auth.uid(),
+            // OAuth/email sign-in, anonymous guest sessions) WITHOUT adding the dep to a template-owned
+            // build file that a sync would clobber. The supabase-auth catalog alias already ships.
+            api(libs.supabase.auth)
         }
 
         androidMain.dependencies {

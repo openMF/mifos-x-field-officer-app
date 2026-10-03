@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Ustawienia</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Szukaj</string>
+    <string name="feature_settings_title">Ustawienia</string>
+    <string name="feature_settings_loading">Ładowanie…</string>
+    <string name="feature_settings_privacy_policy">Polityka prywatności</string>
+    <string name="feature_settings_licenses">Licencje</string>
+    <string name="feature_settings_brand_guidelines">Wytyczne marki</string>
+    <string name="feature_settings_feedback">Opinie</string>
+    <string name="feature_settings_theme">Motyw</string>
+    <string name="feature_settings_brand_default">Domyślny</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Preferencja trybu ciemnego</string>
+    <string name="feature_settings_dark_mode_config_system_default">Domyślny systemowy</string>
+    <string name="feature_settings_dark_mode_config_light">Jasny</string>
+    <string name="feature_settings_dark_mode_config_dark">Ciemny</string>
+    <string name="feature_settings_dynamic_color_preference">Użyj koloru dynamicznego</string>
+    <string name="feature_settings_dynamic_color_yes">Tak</string>
+    <string name="feature_settings_dynamic_color_no">Nie</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Zmień motyw</string>
+    <string name="feature_settings_change_theme_placeholder_text">Zmień motyw</string>
+    <string name="feature_settings_change_language_text">Zmień język</string>
+    <string name="feature_settings_change_language_placeholder_text">Zmień język</string>
+    <string name="feature_settings_language_preference">Język</string>
+    <string name="feature_settings_dev_tools_title">Narzędzia dewelopera</string>
+    <string name="feature_settings_dev_transition_gallery">Galeria przejść</string>
+    <string name="feature_settings_dev_state_gallery">Galeria stanów</string>
+    <string name="feature_settings_dev_close">Zamknij</string>
+    <string name="feature_settings_notifications_empty_title">Brak powiadomień</string>
+    <string name="feature_settings_notifications_empty_message">Zobaczysz tu przypomnienia o rachunkach i alerty o stopach.</string>
+    <string name="feature_settings_sync_drafts_row">Synchronizacja i wersje robocze</string>
+    <string name="feature_settings_sync_drafts_row_description">Przeglądaj wersje robocze i oczekujące synchronizacje oraz zarządzaj nimi</string>
+    <string name="feature_settings_rate_app_row">Oceń tę aplikację</string>
+    <string name="feature_settings_rate_app_row_description">Otwórz stronę sklepu, aby ocenić tę aplikację</string>
+    <string name="feature_settings_sync_drafts_title">Synchronizacja i wersje robocze</string>
+    <string name="feature_settings_sync_drafts_empty_title">Nie ma nic do zsynchronizowania</string>
+    <string name="feature_settings_sync_drafts_empty_message">Wersje robocze zapisane offline i rekordy oczekujące na synchronizację pojawią się tutaj.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Wersje robocze</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Synchronizowanie</string>
+    <string name="feature_settings_sync_drafts_section_failed">Niepowodzenia</string>
+    <string name="feature_settings_sync_drafts_status_pending">Oczekuje</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Ponawianie</string>
+    <string name="feature_settings_sync_drafts_status_failed">Niepowodzenie</string>
+    <string name="feature_settings_sync_drafts_retry">Ponów</string>
+    <string name="feature_settings_sync_drafts_discard">Odrzuć</string>
+    <string name="feature_settings_sync_drafts_prune">Usuń wygasłe</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Odrzucić wersję roboczą?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Spowoduje to trwałe usunięcie zapisanej wersji roboczej. Nie można tego cofnąć.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Anuluj</string>
+    <string name="feature_settings_conflicts_title">Konflikty synchronizacji</string>
+    <string name="feature_settings_conflicts_empty_title">Brak konfliktów</string>
+    <string name="feature_settings_conflicts_empty_message">Gdy Twoja zmiana koliduje z nowszą wersją na serwerze, pojawia się tutaj, abyś mógł zachować wersję serwera lub ponowić swoją.</string>
+    <string name="feature_settings_conflicts_row_label">Konflikt</string>
+    <string name="feature_settings_conflicts_accept_server">Zachowaj serwer</string>
+    <string name="feature_settings_conflicts_retry_local">Ponów moją</string>
+</resources>

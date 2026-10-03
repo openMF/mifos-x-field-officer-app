@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Instellingen</string>
+    <string name="screens_home_outstanding_label">Openstaand saldo</string>
+    <string name="screens_home_no_loans_message">Geen actieve leningen — voeg er eerst een toe.</string>
+    <string name="screens_home_total_outstanding_label">Totaal openstaand</string>
+    <string name="screens_home_active_loans_singular">%1$d actieve lening</string>
+    <string name="screens_home_active_loans_plural">%1$d actieve leningen</string>
+    <string name="screens_home_monthly_emi_label">Maandlast</string>
+    <string name="screens_home_loans_label">Leningen</string>
+    <string name="screens_home_loans_carousel_title">Jouw leningen · %1$d</string>
+    <string name="screens_home_remaining_label">Resterend</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Maandlast $%1$s · %2$d%% afgelost</string>
+    <string name="screens_home_section_this_week">Deze week</string>
+    <string name="screens_home_section_tools">Hulpmiddelen</string>
+    <string name="screens_home_section_tools_subtitle">Rekenmachines, vergelijkingen, macro-indicatoren</string>
+    <string name="screens_home_bills_card_title">Aankomende rekeningen</string>
+    <string name="screens_home_bills_total_label">Totaal te betalen (komende 7 d)</string>
+    <string name="screens_home_bills_day_value">Dag %1$d</string>
+    <string name="screens_home_bills_empty">Geen rekeningen te betalen in de komende 7 dagen.</string>
+    <string name="screens_home_rates_card_title">Tarieven vandaag</string>
+    <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
+    <string name="screens_home_rates_mortgage_30y_label">30-jaars hypotheek</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">USD-koers</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Alles bekijken</string>
+    <string name="screens_home_tool_emi_title">Maandlastcalculator</string>
+    <string name="screens_home_tool_emi_subtitle">Maandlast voor elke lening</string>
+    <string name="screens_home_tool_affordability_title">Leencapaciteit</string>
+    <string name="screens_home_tool_affordability_subtitle">Hoeveel kan ik veilig lenen?</string>
+    <string name="screens_home_tool_amortization_title">Aflossing</string>
+    <string name="screens_home_tool_amortization_subtitle">Volledig aflossingsschema</string>
+    <string name="screens_home_tool_compare_title">Leningen vergelijken</string>
+    <string name="screens_home_tool_compare_subtitle">Totale kosten naast elkaar</string>
+    <string name="screens_home_tool_wizard_title">Leningwizard</string>
+    <string name="screens_home_tool_wizard_subtitle">Stapsgewijze planner</string>
+    <string name="screens_home_tool_currency_title">Wisselkoersen</string>
+    <string name="screens_home_tool_currency_subtitle">Live wisselkoersen</string>
+    <string name="screens_home_tool_history_title">Koershistorie</string>
+    <string name="screens_home_tool_history_subtitle">Historische valutagrafieken</string>
+    <string name="screens_home_tool_macro_title">Land-macrodata</string>
+    <string name="screens_home_tool_macro_subtitle">Bbp, CPI, werkloosheid</string>
+    <string name="screens_home_tool_crypto_title">Coinmarkten</string>
+    <string name="screens_home_tool_crypto_subtitle">Live cryptoprijzen en volglijst</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

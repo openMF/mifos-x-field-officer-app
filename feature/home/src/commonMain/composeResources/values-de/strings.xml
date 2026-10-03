@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Einstellungen</string>
+    <string name="screens_home_outstanding_label">Offener Saldo</string>
+    <string name="screens_home_no_loans_message">Keine aktiven Darlehen – füge zuerst eines hinzu.</string>
+    <string name="screens_home_total_outstanding_label">Gesamt offen</string>
+    <string name="screens_home_active_loans_singular">%1$d aktives Darlehen</string>
+    <string name="screens_home_active_loans_plural">%1$d aktive Darlehen</string>
+    <string name="screens_home_monthly_emi_label">Monatliche Rate</string>
+    <string name="screens_home_loans_label">Darlehen</string>
+    <string name="screens_home_loans_carousel_title">Deine Darlehen · %1$d</string>
+    <string name="screens_home_remaining_label">Verbleibend</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Rate $%1$s · %2$d%% getilgt</string>
+    <string name="screens_home_section_this_week">Diese Woche</string>
+    <string name="screens_home_section_tools">Werkzeuge</string>
+    <string name="screens_home_section_tools_subtitle">Rechner, Vergleiche, Makroindikatoren</string>
+    <string name="screens_home_bills_card_title">Anstehende Rechnungen</string>
+    <string name="screens_home_bills_total_label">Fällig gesamt (nächste 7 T)</string>
+    <string name="screens_home_bills_day_value">Tag %1$d</string>
+    <string name="screens_home_bills_empty">In den nächsten 7 Tagen sind keine Rechnungen fällig.</string>
+    <string name="screens_home_rates_card_title">Zinssätze heute</string>
+    <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
+    <string name="screens_home_rates_mortgage_30y_label">30-J-Hypothek</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">USD-Kurs</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Alle anzeigen</string>
+    <string name="screens_home_tool_emi_title">Ratenrechner</string>
+    <string name="screens_home_tool_emi_subtitle">Monatliche Rate für jedes Darlehen</string>
+    <string name="screens_home_tool_affordability_title">Finanzierbarkeit</string>
+    <string name="screens_home_tool_affordability_subtitle">Wie viel kann ich sicher aufnehmen?</string>
+    <string name="screens_home_tool_amortization_title">Tilgung</string>
+    <string name="screens_home_tool_amortization_subtitle">Vollständiger Tilgungsplan</string>
+    <string name="screens_home_tool_compare_title">Darlehen vergleichen</string>
+    <string name="screens_home_tool_compare_subtitle">Gesamtkosten nebeneinander</string>
+    <string name="screens_home_tool_wizard_title">Darlehens-Assistent</string>
+    <string name="screens_home_tool_wizard_subtitle">Schritt-für-Schritt-Planer</string>
+    <string name="screens_home_tool_currency_title">Wechselkurse</string>
+    <string name="screens_home_tool_currency_subtitle">Live-Wechselkurse</string>
+    <string name="screens_home_tool_history_title">Kursverlauf</string>
+    <string name="screens_home_tool_history_subtitle">Historische Devisencharts</string>
+    <string name="screens_home_tool_macro_title">Länder-Makrodaten</string>
+    <string name="screens_home_tool_macro_subtitle">BIP, VPI, Arbeitslosigkeit</string>
+    <string name="screens_home_tool_crypto_title">Coin-Märkte</string>
+    <string name="screens_home_tool_crypto_subtitle">Live-Kryptopreise und Merkliste</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

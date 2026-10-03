@@ -1,0 +1,1 @@
+val ProjectStrandedModule = module { }

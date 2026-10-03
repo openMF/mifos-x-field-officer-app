@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dashboard freshness strip (DashboardProgressBar) — data staleness, not a load count. -->
+    <string name="dashboard_freshness_updated">Updated %1$s</string>
+    <string name="dashboard_freshness_updated_refreshing">Updated %1$s · refreshing…</string>
+    <string name="dashboard_freshness_loading">Loading…</string>
+</resources>

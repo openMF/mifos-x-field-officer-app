@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">การตั้งค่า</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">ค้นหา</string>
+    <string name="feature_settings_title">การตั้งค่า</string>
+    <string name="feature_settings_loading">กำลังโหลด…</string>
+    <string name="feature_settings_privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="feature_settings_licenses">สัญญาอนุญาต</string>
+    <string name="feature_settings_brand_guidelines">แนวทางแบรนด์</string>
+    <string name="feature_settings_feedback">ความคิดเห็น</string>
+    <string name="feature_settings_theme">ธีม</string>
+    <string name="feature_settings_brand_default">ค่าเริ่มต้น</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">การตั้งค่าโหมดมืด</string>
+    <string name="feature_settings_dark_mode_config_system_default">ค่าเริ่มต้นของระบบ</string>
+    <string name="feature_settings_dark_mode_config_light">สว่าง</string>
+    <string name="feature_settings_dark_mode_config_dark">มืด</string>
+    <string name="feature_settings_dynamic_color_preference">ใช้ Dynamic Color</string>
+    <string name="feature_settings_dynamic_color_yes">ใช่</string>
+    <string name="feature_settings_dynamic_color_no">ไม่</string>
+    <string name="feature_settings_dismiss_dialog_button_text">ตกลง</string>
+    <string name="feature_settings_change_theme_text">เปลี่ยนธีม</string>
+    <string name="feature_settings_change_theme_placeholder_text">เปลี่ยนธีม</string>
+    <string name="feature_settings_change_language_text">เปลี่ยนภาษา</string>
+    <string name="feature_settings_change_language_placeholder_text">เปลี่ยนภาษา</string>
+    <string name="feature_settings_language_preference">ภาษา</string>
+    <string name="feature_settings_dev_tools_title">เครื่องมือนักพัฒนา</string>
+    <string name="feature_settings_dev_transition_gallery">แกลเลอรีทรานซิชัน</string>
+    <string name="feature_settings_dev_state_gallery">แกลเลอรีสถานะ</string>
+    <string name="feature_settings_dev_close">ปิด</string>
+    <string name="feature_settings_notifications_empty_title">ยังไม่มีการแจ้งเตือน</string>
+    <string name="feature_settings_notifications_empty_message">การเตือนบิลและการแจ้งเตือนอัตราจะแสดงที่นี่</string>
+    <string name="feature_settings_sync_drafts_row">การซิงค์และฉบับร่าง</string>
+    <string name="feature_settings_sync_drafts_row_description">ดูและจัดการฉบับร่างและรายการที่รอซิงค์</string>
+    <string name="feature_settings_rate_app_row">ให้คะแนนแอปนี้</string>
+    <string name="feature_settings_rate_app_row_description">เปิดหน้าร้านค้าเพื่อให้คะแนนแอปนี้</string>
+    <string name="feature_settings_sync_drafts_title">การซิงค์และฉบับร่าง</string>
+    <string name="feature_settings_sync_drafts_empty_title">ไม่มีอะไรต้องซิงค์</string>
+    <string name="feature_settings_sync_drafts_empty_message">ฉบับร่างที่คุณบันทึกแบบออฟไลน์และระเบียนที่รอซิงค์จะแสดงที่นี่</string>
+    <string name="feature_settings_sync_drafts_section_drafts">ฉบับร่าง</string>
+    <string name="feature_settings_sync_drafts_section_syncing">กำลังซิงค์</string>
+    <string name="feature_settings_sync_drafts_section_failed">ล้มเหลว</string>
+    <string name="feature_settings_sync_drafts_status_pending">รอดำเนินการ</string>
+    <string name="feature_settings_sync_drafts_status_retrying">กำลังลองใหม่</string>
+    <string name="feature_settings_sync_drafts_status_failed">ล้มเหลว</string>
+    <string name="feature_settings_sync_drafts_retry">ลองใหม่</string>
+    <string name="feature_settings_sync_drafts_discard">ทิ้ง</string>
+    <string name="feature_settings_sync_drafts_prune">ล้างรายการหมดอายุ</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">ทิ้งฉบับร่างไหม</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">การดำเนินการนี้จะลบฉบับร่างที่บันทึกไว้อย่างถาวร และไม่สามารถย้อนกลับได้</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">ยกเลิก</string>
+    <string name="feature_settings_conflicts_title">ข้อขัดแย้งการซิงค์</string>
+    <string name="feature_settings_conflicts_empty_title">ไม่มีข้อขัดแย้ง</string>
+    <string name="feature_settings_conflicts_empty_message">เมื่อการเปลี่ยนแปลงของคุณขัดแย้งกับเวอร์ชันที่ใหม่กว่าบนเซิร์ฟเวอร์ จะแสดงที่นี่เพื่อให้คุณเก็บเวอร์ชันของเซิร์ฟเวอร์หรือลองเวอร์ชันของคุณอีกครั้ง</string>
+    <string name="feature_settings_conflicts_row_label">ข้อขัดแย้ง</string>
+    <string name="feature_settings_conflicts_accept_server">เก็บของเซิร์ฟเวอร์</string>
+    <string name="feature_settings_conflicts_retry_local">ลองของฉัน</string>
+</resources>

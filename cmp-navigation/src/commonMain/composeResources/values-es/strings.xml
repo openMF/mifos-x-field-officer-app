@@ -6,29 +6,29 @@
     If a copy of the MPL was not distributed with this file,
     You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
-    <string name="cmp_navigation_no_internet">¡No estás conectado a internet!</string>
-
-    <string name="cmp_navigation_mifos">Mifos</string>
-    <string name="cmp_navigation_search">Buscar</string>
-    <string name="cmp_navigation_clients">Clientes</string>
-    <string name="cmp_navigation_center">Centros</string>
-    <string name="cmp_navigation_groups">Grupos</string>
-
-    <string name="checker_inbox_tasks">Tareas de la bandeja del verificador</string>
-    <string name="collection_sheet">Hoja de cobranza</string>
-    <string name="run_reports">Ejecutar reportes</string>
-    <string name="path_tracker">Rastreador de ruta</string>
+    <string name="app_name">KPT Design</string>
+    <string name="home">Inicio</string>
+    <string name="profile">Perfil</string>
     <string name="settings">Configuración</string>
-    <string name="about">Acerca de</string>
-    <string name="offline_sync">Sincronización sin conexión</string>
-    <string name="powered_by">Desarrollado por</string>
+    <string name="not_connected">⚠️ No estás conectado a Internet</string>
 
-    <string name="cmp_navigation_profile_header">Encabezado de perfil</string>
-    <string name="cmp_navigation_dp_placeholder">FP</string> 
-    <string name="cmp_navigation_address">Domicilio</string>
-
-
+    <!-- ===== Screen-state default copy ===== -->
+    <string name="screenstate_empty_title">Aún no hay nada aquí</string>
+    <string name="screenstate_empty_message">Cuando tengas datos, aparecerán aquí.</string>
+    <string name="screenstate_error_title">Algo salió mal</string>
+    <string name="screenstate_error_retry">Reintentar</string>
+    <string name="screenstate_nonet_title">Estás sin conexión</string>
+    <string name="screenstate_nonet_message">Lo intentaremos de nuevo cuando te reconectes.</string>
+    <string name="screenstate_nonet_retry">Reintentar ahora</string>
+    <string name="screenstate_captive_title">Inicia sesión en el WiFi</string>
+    <string name="screenstate_captive_message">Tu red requiere que inicies sesión antes de conectarte.</string>
+    <string name="screenstate_captive_action">Abrir página de inicio de sesión</string>
+    <string name="error_category_network">No se puede conectar al servidor. Comprueba tu conexión.</string>
+    <string name="error_category_auth">Tu sesión expiró. Inicia sesión de nuevo.</string>
+    <string name="error_category_ratelimit">Demasiadas solicitudes. Espera e inténtalo de nuevo.</string>
+    <string name="error_category_server">Nuestros servidores están teniendo problemas. Inténtalo más tarde.</string>
+    <string name="error_category_generic">Algo salió mal</string>
 </resources>

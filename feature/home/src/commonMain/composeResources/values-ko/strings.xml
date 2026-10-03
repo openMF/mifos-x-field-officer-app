@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">설정</string>
+    <string name="screens_home_outstanding_label">미상환 잔액</string>
+    <string name="screens_home_no_loans_message">진행 중인 대출이 없습니다 — 먼저 하나 추가하세요.</string>
+    <string name="screens_home_total_outstanding_label">총 미상환액</string>
+    <string name="screens_home_active_loans_singular">진행 중인 대출 %1$d건</string>
+    <string name="screens_home_active_loans_plural">진행 중인 대출 %1$d건</string>
+    <string name="screens_home_monthly_emi_label">월 상환금</string>
+    <string name="screens_home_loans_label">대출</string>
+    <string name="screens_home_loans_carousel_title">내 대출 · %1$d</string>
+    <string name="screens_home_remaining_label">남음</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">상환금 $%1$s · %2$d%% 상환</string>
+    <string name="screens_home_section_this_week">이번 주</string>
+    <string name="screens_home_section_tools">도구</string>
+    <string name="screens_home_section_tools_subtitle">계산기, 비교, 거시지표</string>
+    <string name="screens_home_bills_card_title">다가오는 청구</string>
+    <string name="screens_home_bills_total_label">총 납부액 (향후 7일)</string>
+    <string name="screens_home_bills_day_value">%1$d일</string>
+    <string name="screens_home_bills_empty">향후 7일 내 납부할 청구가 없습니다.</string>
+    <string name="screens_home_rates_card_title">오늘의 금리</string>
+    <string name="screens_home_rates_fed_funds_label">연방기금금리</string>
+    <string name="screens_home_rates_mortgage_30y_label">30년 주택담보대출</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">USD 환율</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">전체 보기</string>
+    <string name="screens_home_tool_emi_title">월 상환금 계산기</string>
+    <string name="screens_home_tool_emi_subtitle">모든 대출의 월 상환금</string>
+    <string name="screens_home_tool_affordability_title">대출 여력</string>
+    <string name="screens_home_tool_affordability_subtitle">안전하게 얼마나 빌릴 수 있나요?</string>
+    <string name="screens_home_tool_amortization_title">상환 계획</string>
+    <string name="screens_home_tool_amortization_subtitle">전체 상환 일정</string>
+    <string name="screens_home_tool_compare_title">대출 비교</string>
+    <string name="screens_home_tool_compare_subtitle">총비용 나란히 비교</string>
+    <string name="screens_home_tool_wizard_title">대출 마법사</string>
+    <string name="screens_home_tool_wizard_subtitle">단계별 플래너</string>
+    <string name="screens_home_tool_currency_title">환율</string>
+    <string name="screens_home_tool_currency_subtitle">실시간 환율</string>
+    <string name="screens_home_tool_history_title">환율 기록</string>
+    <string name="screens_home_tool_history_subtitle">과거 환율 차트</string>
+    <string name="screens_home_tool_macro_title">국가 거시지표</string>
+    <string name="screens_home_tool_macro_subtitle">GDP, CPI, 실업률</string>
+    <string name="screens_home_tool_crypto_title">코인 시장</string>
+    <string name="screens_home_tool_crypto_subtitle">실시간 암호화폐 시세와 관심 목록</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

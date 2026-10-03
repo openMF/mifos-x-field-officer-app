@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2022 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">設定</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">検索</string>
+    <string name="feature_settings_title">設定</string>
+    <string name="feature_settings_loading">読み込み中…</string>
+    <string name="feature_settings_privacy_policy">プライバシーポリシー</string>
+    <string name="feature_settings_licenses">ライセンス</string>
+    <string name="feature_settings_brand_guidelines">ブランドガイドライン</string>
+    <string name="feature_settings_feedback">フィードバック</string>
+    <string name="feature_settings_theme">テーマ</string>
+    <string name="feature_settings_brand_default">デフォルト</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">ダークモード設定</string>
+    <string name="feature_settings_dark_mode_config_system_default">システムのデフォルト</string>
+    <string name="feature_settings_dark_mode_config_light">ライト</string>
+    <string name="feature_settings_dark_mode_config_dark">ダーク</string>
+    <string name="feature_settings_dynamic_color_preference">ダイナミックカラーを使用</string>
+    <string name="feature_settings_dynamic_color_yes">はい</string>
+    <string name="feature_settings_dynamic_color_no">いいえ</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">テーマを変更</string>
+    <string name="feature_settings_change_theme_placeholder_text">テーマを変更</string>
+    <string name="feature_settings_change_language_text">言語を変更</string>
+    <string name="feature_settings_change_language_placeholder_text">言語を変更</string>
+    <string name="feature_settings_language_preference">言語</string>
+    <string name="feature_settings_dev_tools_title">開発ツール</string>
+    <string name="feature_settings_dev_transition_gallery">トランジションギャラリー</string>
+    <string name="feature_settings_dev_state_gallery">ステートギャラリー</string>
+    <string name="feature_settings_dev_close">閉じる</string>
+    <string name="feature_settings_notifications_empty_title">通知はまだありません</string>
+    <string name="feature_settings_notifications_empty_message">請求リマインダーや金利アラートがここに表示されます。</string>
+    <string name="feature_settings_sync_drafts_row">同期と下書き</string>
+    <string name="feature_settings_sync_drafts_row_description">下書きと保留中の同期を確認・管理します</string>
+    <string name="feature_settings_rate_app_row">このアプリを評価</string>
+    <string name="feature_settings_rate_app_row_description">ストアのページを開いてこのアプリを評価します</string>
+    <string name="feature_settings_sync_drafts_title">同期と下書き</string>
+    <string name="feature_settings_sync_drafts_empty_title">同期するものはありません</string>
+    <string name="feature_settings_sync_drafts_empty_message">オフラインで保存した下書きと同期待ちのレコードがここに表示されます。</string>
+    <string name="feature_settings_sync_drafts_section_drafts">下書き</string>
+    <string name="feature_settings_sync_drafts_section_syncing">同期中</string>
+    <string name="feature_settings_sync_drafts_section_failed">失敗</string>
+    <string name="feature_settings_sync_drafts_status_pending">保留中</string>
+    <string name="feature_settings_sync_drafts_status_retrying">再試行中</string>
+    <string name="feature_settings_sync_drafts_status_failed">失敗</string>
+    <string name="feature_settings_sync_drafts_retry">再試行</string>
+    <string name="feature_settings_sync_drafts_discard">破棄</string>
+    <string name="feature_settings_sync_drafts_prune">期限切れを削除</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">下書きを破棄しますか？</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">保存された下書きを完全に削除します。元に戻せません。</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">キャンセル</string>
+    <string name="feature_settings_conflicts_title">同期の競合</string>
+    <string name="feature_settings_conflicts_empty_title">競合はありません</string>
+    <string name="feature_settings_conflicts_empty_message">あなたの変更がサーバー上の新しいバージョンと競合すると、ここに表示され、サーバー版を残すか自分の版を再試行するかを選べます。</string>
+    <string name="feature_settings_conflicts_row_label">競合</string>
+    <string name="feature_settings_conflicts_accept_server">サーバー版を保持</string>
+    <string name="feature_settings_conflicts_retry_local">自分の版で再試行</string>
+</resources>

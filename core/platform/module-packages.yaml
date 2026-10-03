@@ -1,0 +1,64 @@
+schema_version: "1.0"
+# ─────────────────────────────────────────────────────────────────────────────
+# core/platform — module-packages.yaml
+#
+# WHAT THIS IS
+# The lifecycle of every package in this module: which ones a clean fork keeps, which the customizer
+# deletes, and which are the fork's own. It sits next to the code it describes, so the module that
+# gains a package is the module whose file changes.
+#
+# WHY IT IS NOT IN app-profile/app.yaml
+# That file is `owner: merge` — it carries template AND fork declarations, so a template edit landing
+# beside a fork edit is a 3-way merge waiting to happen. This file is TEMPLATE-ONLY and full-copies.
+# Same split that took Room's `migration-units.yaml` out of app.yaml.
+# `app-profile/app.yaml#module_packages` lists every one of these files; G-CORE-PKG (MP-6) fails if
+# that list and the files on disk disagree.
+#
+# ── SECTIONS ─────────────────────────────────────────────────────────────────
+# The section IS the owner — there is no `owner:` field to keep in step with it.
+#
+#   demo:      template-authored SHOWCASE. `scripts/remove-demo.sh` DELETES these packages, and the
+#              ROW SURVIVES with `status: removed`. The row is deliberately kept: deleting it would
+#              delete the RECORD, and `/kmp-project-template-sync` then cannot tell a package that
+#              was stripped on purpose from one that went missing — "restore it" is right in exactly
+#              one of those cases.
+#   template:  template-authored FRAMEWORK code. A clean fork KEEPS it and a sync full-copies it, so
+#              the fork keeps receiving fixes. Do not edit these packages in a fork; extend them
+#              through the module's `Project*` seam instead.
+#   fork:      the fork's OWN packages. Never deleted, never synced over. A fork's package needs NO
+#              row at all — undeclared IS fork — so a row here is self-documenting only.
+#
+# ── FIELDS ───────────────────────────────────────────────────────────────────
+#   id:        the package directory under `src/<sourceSet>/kotlin/kpt/core/platform/<id>/`.
+#   status:    DERIVED FROM DISK, never hand-maintained. Rewritten by `remove-demo.sh --apply`.
+#                exists   the directory is present
+#                removed  absent and this is a `demo:` row — the customizer deleted it, as designed
+#                missing  absent and NOT a demo row — real drift: a hand-deletion, or a sync that
+#                         never delivered it. Investigate rather than "fix" the status.
+#              Because it is derived, a template sync full-copying this file cannot corrupt it: the
+#              next customizer run recomputes it from what is actually on disk.
+#
+# ── HOW TO UPDATE ────────────────────────────────────────────────────────────
+#   add a showcase package  create `kpt/core/platform/<id>/`, add a row under `demo:`, and add a
+#                           `demo-showcase` rule for it in customization-surface.yaml (MP-1 fails
+#                           without it — the package would silently stop syncing to forks).
+#   add framework code      create the package, add a row under `template:`.
+#   add your own (fork)     just create the package. Optionally add a row under `fork:`.
+#   never                   hand-edit `status:` — it is recomputed and your edit will be overwritten.
+#
+# Audited by scripts/product-health/checks/core-package-ownership.sh (MP-1..MP-6).
+# ─────────────────────────────────────────────────────────────────────────────
+module: platform
+
+
+# Kept by a clean fork, full-copied by a sync.
+template:
+  - { id: config, status: exists }          # the fork-extension seam — see config/README.md
+
+# THIS FORK's own packages. Empty is normal on the template — this module ships zero Kotlin source
+# by design (see CONSUMPTION.md); it is a re-export boundary until a feature needs a bridge.
+# `kmp-platform-gen` writes each expect/actual capability package (permissions/, biometrics/, …)
+# as features need them. Those stay UNDECLARED — the module catch-all resolves them `fork`, so a
+# sync never overwrites a fork's own bridges. That catch-all was missing until 2026-09-10, when
+# platform fell to the `core/**` blanket and resolved `template` instead.
+fork: []

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">الإعدادات</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">بحث</string>
+    <string name="feature_settings_title">الإعدادات</string>
+    <string name="feature_settings_loading">جارٍ التحميل…</string>
+    <string name="feature_settings_privacy_policy">سياسة الخصوصية</string>
+    <string name="feature_settings_licenses">التراخيص</string>
+    <string name="feature_settings_brand_guidelines">إرشادات العلامة التجارية</string>
+    <string name="feature_settings_feedback">ملاحظات</string>
+    <string name="feature_settings_theme">المظهر</string>
+    <string name="feature_settings_brand_default">افتراضي</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">تفضيل الوضع الداكن</string>
+    <string name="feature_settings_dark_mode_config_system_default">إعداد النظام</string>
+    <string name="feature_settings_dark_mode_config_light">فاتح</string>
+    <string name="feature_settings_dark_mode_config_dark">داكن</string>
+    <string name="feature_settings_dynamic_color_preference">استخدام الألوان الديناميكية</string>
+    <string name="feature_settings_dynamic_color_yes">نعم</string>
+    <string name="feature_settings_dynamic_color_no">لا</string>
+    <string name="feature_settings_dismiss_dialog_button_text">موافق</string>
+    <string name="feature_settings_change_theme_text">تغيير المظهر</string>
+    <string name="feature_settings_change_theme_placeholder_text">تغيير المظهر</string>
+    <string name="feature_settings_change_language_text">تغيير اللغة</string>
+    <string name="feature_settings_change_language_placeholder_text">تغيير اللغة</string>
+    <string name="feature_settings_language_preference">اللغة</string>
+    <string name="feature_settings_dev_tools_title">أدوات المطوّر</string>
+    <string name="feature_settings_dev_transition_gallery">معرض الانتقالات</string>
+    <string name="feature_settings_dev_state_gallery">معرض الحالات</string>
+    <string name="feature_settings_dev_close">إغلاق</string>
+    <string name="feature_settings_notifications_empty_title">لا توجد إشعارات بعد</string>
+    <string name="feature_settings_notifications_empty_message">سترى هنا تذكيرات الفواتير وتنبيهات الأسعار.</string>
+    <string name="feature_settings_sync_drafts_row">المزامنة والمسودات</string>
+    <string name="feature_settings_sync_drafts_row_description">عرض المسودات وعمليات المزامنة المعلّقة وإدارتها</string>
+    <string name="feature_settings_rate_app_row">قيّم هذا التطبيق</string>
+    <string name="feature_settings_rate_app_row_description">افتح صفحة المتجر لتقييم هذا التطبيق</string>
+    <string name="feature_settings_sync_drafts_title">المزامنة والمسودات</string>
+    <string name="feature_settings_sync_drafts_empty_title">لا شيء للمزامنة</string>
+    <string name="feature_settings_sync_drafts_empty_message">ستظهر هنا المسودات التي تحفظها دون اتصال والسجلات التي تنتظر المزامنة.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">المسودات</string>
+    <string name="feature_settings_sync_drafts_section_syncing">جارٍ المزامنة</string>
+    <string name="feature_settings_sync_drafts_section_failed">فشلت</string>
+    <string name="feature_settings_sync_drafts_status_pending">معلّق</string>
+    <string name="feature_settings_sync_drafts_status_retrying">إعادة المحاولة</string>
+    <string name="feature_settings_sync_drafts_status_failed">فشل</string>
+    <string name="feature_settings_sync_drafts_retry">أعد المحاولة</string>
+    <string name="feature_settings_sync_drafts_discard">تجاهل</string>
+    <string name="feature_settings_sync_drafts_prune">إزالة المنتهية</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">تجاهل المسودة؟</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">سيؤدي هذا إلى حذف المسودة المحفوظة نهائيًا. لا يمكن التراجع عن ذلك.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">إلغاء</string>
+    <string name="feature_settings_conflicts_title">تعارضات المزامنة</string>
+    <string name="feature_settings_conflicts_empty_title">لا توجد تعارضات</string>
+    <string name="feature_settings_conflicts_empty_message">عندما يتعارض تغيير أجريته مع نسخة أحدث على الخادم، سيظهر هنا لتختار الاحتفاظ بنسخة الخادم أو إعادة محاولة نسختك.</string>
+    <string name="feature_settings_conflicts_row_label">تعارض</string>
+    <string name="feature_settings_conflicts_accept_server">الاحتفاظ بالخادم</string>
+    <string name="feature_settings_conflicts_retry_local">إعادة محاولة نسختي</string>
+</resources>

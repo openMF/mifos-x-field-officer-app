@@ -5,3 +5,22 @@
 ij_kotlin_allow_trailing_comma=true
 ij_kotlin_allow_trailing_comma_on_call_site=true
 ktlint_function_naming_ignore_when_annotated_with=Composable, Test, Preview
+
+# ── core/store: file naming follows the STORE the file is built for ───────────────────────────────
+#
+# Each file in core/store is named for the domain its stores serve — `<Domain>KeyedReadStores.kt`,
+# `CollectionSheetStore.kt`, `DocumentStore.kt`. That is the project's convention: the name says what
+# the store is FOR, not which Kotlin class happens to sit in the file.
+#
+# ktlint's `standard:filename` rule fires only when such a file holds exactly ONE top-level class,
+# demanding it be renamed after that class's cache key — e.g. `ChargeKeyedReadStores.kt` →
+# `GetChargeTemplateKey.kt`. Applying it would make naming LESS consistent, not more: a domain file
+# would keep its domain name only while it happened to hold more than one store.
+# `SavingsKeyedReadStores.kt` (4 classes) and `CenterKeyedReadStores.kt` (0) never trip the rule,
+# so the same convention would be spelled two different ways across one module.
+#
+# Scoped here rather than in `build-logic/.../Spotless.kt`, whose `editorConfigOverride` is global AND
+# template-owned (a change there owes an upstream PR per RULE-TEMPLATE-MODULE-FIX-UPSTREAM-001).
+# Surfaced by the first-ever `spotlessApply` on this tree, Phase 10 T1.
+[core/store/src/**/*.kt]
+ktlint_standard_filename = disabled

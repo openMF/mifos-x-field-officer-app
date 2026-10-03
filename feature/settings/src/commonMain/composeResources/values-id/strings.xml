@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Pengaturan</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Cari</string>
+    <string name="feature_settings_title">Pengaturan</string>
+    <string name="feature_settings_loading">Memuat…</string>
+    <string name="feature_settings_privacy_policy">Kebijakan privasi</string>
+    <string name="feature_settings_licenses">Lisensi</string>
+    <string name="feature_settings_brand_guidelines">Panduan merek</string>
+    <string name="feature_settings_feedback">Masukan</string>
+    <string name="feature_settings_theme">Tema</string>
+    <string name="feature_settings_brand_default">Default</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Preferensi mode gelap</string>
+    <string name="feature_settings_dark_mode_config_system_default">Default sistem</string>
+    <string name="feature_settings_dark_mode_config_light">Terang</string>
+    <string name="feature_settings_dark_mode_config_dark">Gelap</string>
+    <string name="feature_settings_dynamic_color_preference">Gunakan Dynamic Color</string>
+    <string name="feature_settings_dynamic_color_yes">Ya</string>
+    <string name="feature_settings_dynamic_color_no">Tidak</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Ubah tema</string>
+    <string name="feature_settings_change_theme_placeholder_text">Ubah tema</string>
+    <string name="feature_settings_change_language_text">Ubah bahasa</string>
+    <string name="feature_settings_change_language_placeholder_text">Ubah bahasa</string>
+    <string name="feature_settings_language_preference">Bahasa</string>
+    <string name="feature_settings_dev_tools_title">Alat pengembang</string>
+    <string name="feature_settings_dev_transition_gallery">Galeri transisi</string>
+    <string name="feature_settings_dev_state_gallery">Galeri status</string>
+    <string name="feature_settings_dev_close">Tutup</string>
+    <string name="feature_settings_notifications_empty_title">Belum ada notifikasi</string>
+    <string name="feature_settings_notifications_empty_message">Pengingat tagihan dan peringatan suku bunga akan muncul di sini.</string>
+    <string name="feature_settings_sync_drafts_row">Sinkronisasi &amp; draf</string>
+    <string name="feature_settings_sync_drafts_row_description">Lihat dan kelola draf serta sinkronisasi yang tertunda</string>
+    <string name="feature_settings_rate_app_row">Beri rating aplikasi ini</string>
+    <string name="feature_settings_rate_app_row_description">Buka halaman toko untuk memberi rating aplikasi ini</string>
+    <string name="feature_settings_sync_drafts_title">Sinkronisasi &amp; draf</string>
+    <string name="feature_settings_sync_drafts_empty_title">Tidak ada yang perlu disinkronkan</string>
+    <string name="feature_settings_sync_drafts_empty_message">Draf yang Anda simpan offline dan catatan yang menunggu sinkronisasi akan muncul di sini.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Draf</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Menyinkronkan</string>
+    <string name="feature_settings_sync_drafts_section_failed">Gagal</string>
+    <string name="feature_settings_sync_drafts_status_pending">Tertunda</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Mencoba lagi</string>
+    <string name="feature_settings_sync_drafts_status_failed">Gagal</string>
+    <string name="feature_settings_sync_drafts_retry">Coba lagi</string>
+    <string name="feature_settings_sync_drafts_discard">Buang</string>
+    <string name="feature_settings_sync_drafts_prune">Bersihkan yang kedaluwarsa</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Buang draf?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Ini menghapus draf tersimpan secara permanen. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Batal</string>
+    <string name="feature_settings_conflicts_title">Konflik sinkronisasi</string>
+    <string name="feature_settings_conflicts_empty_title">Tidak ada konflik</string>
+    <string name="feature_settings_conflicts_empty_message">Saat perubahan Anda berkonflik dengan versi yang lebih baru di server, konflik itu muncul di sini agar Anda dapat mempertahankan versi server atau mencoba versi Anda lagi.</string>
+    <string name="feature_settings_conflicts_row_label">Konflik</string>
+    <string name="feature_settings_conflicts_accept_server">Pertahankan server</string>
+    <string name="feature_settings_conflicts_retry_local">Coba punya saya</string>
+</resources>

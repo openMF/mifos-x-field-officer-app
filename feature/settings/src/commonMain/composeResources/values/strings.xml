@@ -1,80 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright 2024 Mifos Initiative
+    Copyright 2022 Mifos Initiative
 
     This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
     If a copy of the MPL was not distributed with this file,
     You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
-    <string name="feature_settings_close_bottomsheet">CloseBottomSheetIcon</string>
-    <string name="feature_settings_update_config_btn_text">Update Config</string>
-    <string name="feature_settings_use_localhost_btn_text">Use Localhost</string>
-    <string name="feature_settings_use_default_config_btn_text">Reset to default</string>
-    <string name="feature_settings_note_text">The application will restart after a successful configuration update.</string>
-
-    <string name="feature_settings">Settings</string>
-    <string name="feature_settings_sync_survey">Sync Survey</string>
-    <string name="feature_settings_sync_survey_desc">Click to Sync Survey</string>
-    <string name="feature_settings_language">Language</string>
-    <string name="feature_settings_language_desc">Select your preferred language</string>
+    <string name="feature_settings_top_app_bar_action_icon_description">Settings</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Search</string>
+    <string name="feature_settings_title">Settings</string>
+    <string name="feature_settings_loading">Loading…</string>
+    <string name="feature_settings_privacy_policy">Privacy policy</string>
+    <string name="feature_settings_licenses">Licenses</string>
+    <string name="feature_settings_brand_guidelines">Brand Guidelines</string>
+    <string name="feature_settings_feedback">Feedback</string>
     <string name="feature_settings_theme">Theme</string>
-    <string name="feature_settings_theme_desc">Select theme</string>
-    <string name="feature_settings_change_passcode">Change Passcode</string>
-    <string name="feature_settings_change_passcode_desc">Change App Passcode</string>
-    <string name="feature_settings_enable_biometrics">Enable biometrics</string>
-    <string name="feature_settings_disable_biometrics">Disable biometrics</string>
-    <string name="feature_settings_enable_disable_biometrics">Enable/Disable Biometrics</string>
-    <string name="feature_settings_enable_disable_biometrics_desc">Enable/Disable Biometrics</string>
-    <string name="feature_settings_biometrics_not_set">Biometrics not set up on this device</string>
-    <string name="feature_settings_biometrics_not_available">Biometrics not available on this device</string>
-    <string name="feature_settings_biometrics_registration_error">Biometrics Registration Error</string>
-    <string name="feature_settings_verification_expired">Verification expired. Please try again.</string>
-    <string name="feature_settings_instance_url">Instance URL</string>
-    <string name="feature_settings_instance_url_desc">Update Instance URL</string>
-    <string name="feature_settings_server_config">Server Config</string>
-    <string name="feature_settings_server_config_desc">Update Server Config</string>
-    <string name="feature_settings_choose_language">Choose Language</string>
-    <string name="feature_settings_change_app_theme">Change App Theme</string>
-    <string name="feature_settings_error_network_not_available">Network is not Available</string>
-    <string name="feature_settings_sync_success">Successfully Synced</string>
-    <string name="feature_settings_space" translatable="false">" "</string>
-    <string name="feature_settings_surveys">Surveys</string>
-    <string name="feature_settings_slash" translatable="false">/</string>
-    <string name="feature_settings_cancel">Cancel</string>
-    <string name="feature_settings_failed_sync">Sync Failed</string>
-    <string name="feature_settings_hide">Hide</string>
-    <string name="feature_settings_total_sync_progress">Total Sync Progress</string>
-    <string name="feature_settings_syncing_response">Syncing Response</string>
-    <string name="feature_settings_syncing_question">Syncing Question</string>
-    <string name="feature_settings_syncing_survey">Syncing Surveys</string>
-    <string name="feature_settings_total">Total</string>
-    <string name="feature_settings_name">Name</string>
-    <string name="feature_settings_restart">Restarting the app in %1$d seconds</string>
-    <string name="feature_settings_sync_surveys_full_information">Sync Surveys All Information</string>
+    <string name="feature_settings_brand_default">Default</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Dark mode preference</string>
+    <string name="feature_settings_dark_mode_config_system_default">System default</string>
+    <string name="feature_settings_dark_mode_config_light">Light</string>
+    <string name="feature_settings_dark_mode_config_dark">Dark</string>
+    <string name="feature_settings_dynamic_color_preference">Use Dynamic Color</string>
+    <string name="feature_settings_dynamic_color_yes">Yes</string>
+    <string name="feature_settings_dynamic_color_no">No</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Change Theme</string>
+    <string name="feature_settings_change_theme_placeholder_text">Change Theme</string>
+    <string name="feature_settings_change_language_text">Change Language</string>
+    <string name="feature_settings_change_language_placeholder_text">Change Language</string>
+    <string name="feature_settings_language_preference">Language</string>
 
+    <!-- ===== RULE-IMPL-NO-HARDCODED-STRING-001 backfill (W2-6 store5-superbrain-v2) ===== -->
+    <!-- SettingsScreen — dev-tools sheet + app-info row -->
+    <string name="feature_settings_dev_tools_title">Dev tools</string>
+    <string name="feature_settings_dev_transition_gallery">Transition Gallery</string>
+    <string name="feature_settings_dev_state_gallery">State Gallery</string>
+    <string name="feature_settings_dev_close">Close</string>
 
-    <string-array name="feature_settings_languages" translatable="false">
-        <item>System Language</item>
-        <item>English</item>
-        <item>हिंदी</item>
-        <item>عربى</item>
-        <item>اُردُو</item>
-        <item>বাঙালি</item>
-        <item>Español</item>
-        <item>français</item>
-        <item>bahasa Indonesia</item>
-        <item>ភាសាខ្មែរ</item>
-        <item>ಕನ್ನಡ</item>
-        <item>తెలుగు</item>
-        <item>မြန်မာ</item>
-        <item>Polski</item>
-        <item>Português</item>
-        <item>русский</item>
-        <item>Kiswahili</item>
-        <item>فارسی</item>
-    </string-array>
+    <!-- NotificationScreen — empty state -->
+    <string name="feature_settings_notifications_empty_title">No notifications yet</string>
+    <string name="feature_settings_notifications_empty_message">You\'ll see bill reminders and rate alerts here.</string>
 
+    <!-- Sync &amp; Drafts screen (template-level draft/sync inventory) -->
+    <string name="feature_settings_sync_drafts_row">Sync &amp; Drafts</string>
+    <string name="feature_settings_sync_drafts_row_description">View and manage drafts and pending syncs</string>
+    <string name="feature_settings_rate_app_row">Rate this app</string>
+    <string name="feature_settings_rate_app_row_description">Open the store listing to rate this app</string>
+    <string name="feature_settings_sync_drafts_title">Sync &amp; Drafts</string>
+    <string name="feature_settings_sync_drafts_empty_title">Nothing to sync</string>
+    <string name="feature_settings_sync_drafts_empty_message">Drafts you save offline and records waiting to sync will appear here.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Drafts</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Syncing</string>
+    <string name="feature_settings_sync_drafts_section_failed">Failed</string>
+    <string name="feature_settings_sync_drafts_status_pending">Pending</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Retrying</string>
+    <string name="feature_settings_sync_drafts_status_failed">Failed</string>
+    <string name="feature_settings_sync_drafts_retry">Retry</string>
+    <string name="feature_settings_sync_drafts_discard">Discard</string>
+    <string name="feature_settings_sync_drafts_prune">Prune expired</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Discard draft?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">This permanently deletes the saved draft. This can\'t be undone.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Cancel</string>
+    <string name="feature_settings_conflicts_title">Sync conflicts</string>
+    <string name="feature_settings_conflicts_empty_title">No conflicts</string>
+    <string name="feature_settings_conflicts_empty_message">When a change you made conflicts with a newer version on the server, it shows up here so you can keep the server\'s version or retry yours.</string>
+    <string name="feature_settings_conflicts_row_label">Conflict</string>
+    <string name="feature_settings_conflicts_accept_server">Keep server</string>
+    <string name="feature_settings_conflicts_retry_local">Retry mine</string>
+    <!--
+        Server configuration (S1 T4) — ported from 6b66e8a43 feature/settings/updateServer.
+        Error copy names no numeric bound: ValidationFailure.TooShort / PortOutOfRange carry their
+        own parameters, so a bound can be formatted from the failure instead of hardcoded. The login
+        strings got this wrong ("at least 5 characters", against a rule of 4).
+        Only values/ is populated; the other 19 locales fall back to English until translated.
+    -->
+    <string name="feature_settings_server_config_title">Server configuration</string>
+    <string name="feature_settings_server_protocol">Protocol</string>
+    <string name="feature_settings_server_endpoint">Endpoint</string>
+    <string name="feature_settings_server_api_path">API path</string>
+    <string name="feature_settings_server_port">Port</string>
+    <string name="feature_settings_server_tenant">Tenant</string>
+    <string name="feature_settings_server_use_defaults">Use defaults</string>
+    <string name="feature_settings_server_use_localhost">Use localhost</string>
+    <string name="feature_settings_server_save">Save</string>
+    <string name="feature_settings_server_saved">Server configuration saved</string>
+    <string name="feature_settings_server_invalid">Fix the highlighted fields first</string>
+    <string name="feature_settings_server_error_required">Required</string>
+    <string name="feature_settings_server_error_too_short">Too short</string>
+    <string name="feature_settings_server_error_hostname">Enter a valid host name, without a scheme</string>
+    <string name="feature_settings_server_error_port_range">Enter a port between 1 and 65535</string>
+    <string name="feature_settings_server_error_protocol">Must be http:// or https://</string>
+    <string name="feature_settings_server_error_api_path_leading">Must start with /</string>
+    <string name="feature_settings_server_error_api_path_trailing">Must end with /</string>
+    <string name="feature_settings_server_error_tenant">Letters and digits only</string>
 </resources>

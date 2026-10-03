@@ -5,24 +5,25 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+ * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package cmp.navigation.utils
 
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.serializer
 import kotlin.reflect.KClass
+import kpt.core.ui.navigation.toObjectKClassNavigationRoute as coreToObjectKClassNavigationRoute
+import kpt.core.ui.navigation.toObjectNavigationRoute as coreToObjectNavigationRoute
 
 /**
  * Gets the route string for an object.
+ *
+ * The implementation moved to `kpt.core.ui.navigation` so a FEATURE module can produce the route
+ * strings its `@FeatureTab` must supply — `cmp-navigation` depends on the features, so nothing below
+ * it could import this. These two keep the original import path working and delegate, rather than
+ * carrying a second copy that could drift from the one features compile against.
  */
-@OptIn(InternalSerializationApi::class)
-fun <T : Any> T.toObjectNavigationRoute(): String = this::class.toObjectKClassNavigationRoute()
+fun <T : Any> T.toObjectNavigationRoute(): String = coreToObjectNavigationRoute()
 
 /**
  * Gets the route string for a [KClass] of an object.
  */
-@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
-fun <T : Any> KClass<T>.toObjectKClassNavigationRoute(): String =
-    this.serializer().descriptor.serialName
+fun <T : Any> KClass<T>.toObjectKClassNavigationRoute(): String = coreToObjectKClassNavigationRoute()

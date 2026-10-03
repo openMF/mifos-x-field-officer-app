@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Ayarlar</string>
+    <string name="screens_home_outstanding_label">Kalan bakiye</string>
+    <string name="screens_home_no_loans_message">Aktif kredi yok — önce bir tane ekleyin.</string>
+    <string name="screens_home_total_outstanding_label">Toplam kalan</string>
+    <string name="screens_home_active_loans_singular">%1$d aktif kredi</string>
+    <string name="screens_home_active_loans_plural">%1$d aktif kredi</string>
+    <string name="screens_home_monthly_emi_label">Aylık taksit</string>
+    <string name="screens_home_loans_label">Krediler</string>
+    <string name="screens_home_loans_carousel_title">Kredileriniz · %1$d</string>
+    <string name="screens_home_remaining_label">Kalan</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Taksit $%1$s · %2$d%% ödendi</string>
+    <string name="screens_home_section_this_week">Bu hafta</string>
+    <string name="screens_home_section_tools">Araçlar</string>
+    <string name="screens_home_section_tools_subtitle">Hesaplayıcılar, karşılaştırmalar, makro göstergeler</string>
+    <string name="screens_home_bills_card_title">Yaklaşan faturalar</string>
+    <string name="screens_home_bills_total_label">Toplam borç (önümüzdeki 7 gün)</string>
+    <string name="screens_home_bills_day_value">%1$d. gün</string>
+    <string name="screens_home_bills_empty">Önümüzdeki 7 günde ödenecek fatura yok.</string>
+    <string name="screens_home_rates_card_title">Bugünkü oranlar</string>
+    <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
+    <string name="screens_home_rates_mortgage_30y_label">30 yıllık konut kredisi</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">USD kuru</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Tümünü gör</string>
+    <string name="screens_home_tool_emi_title">Taksit hesaplayıcı</string>
+    <string name="screens_home_tool_emi_subtitle">Her kredi için aylık taksit</string>
+    <string name="screens_home_tool_affordability_title">Ödeme gücü</string>
+    <string name="screens_home_tool_affordability_subtitle">Güvenle ne kadar borçlanabilirim?</string>
+    <string name="screens_home_tool_amortization_title">Amortisman</string>
+    <string name="screens_home_tool_amortization_subtitle">Tam ödeme planı</string>
+    <string name="screens_home_tool_compare_title">Kredileri karşılaştır</string>
+    <string name="screens_home_tool_compare_subtitle">Toplam maliyeti yan yana</string>
+    <string name="screens_home_tool_wizard_title">Kredi sihirbazı</string>
+    <string name="screens_home_tool_wizard_subtitle">Adım adım planlayıcı</string>
+    <string name="screens_home_tool_currency_title">Döviz kurları</string>
+    <string name="screens_home_tool_currency_subtitle">Canlı döviz kurları</string>
+    <string name="screens_home_tool_history_title">Kur geçmişi</string>
+    <string name="screens_home_tool_history_subtitle">Geçmiş döviz grafikleri</string>
+    <string name="screens_home_tool_macro_title">Ülke makro verileri</string>
+    <string name="screens_home_tool_macro_subtitle">GSYH, TÜFE, işsizlik</string>
+    <string name="screens_home_tool_crypto_title">Coin piyasaları</string>
+    <string name="screens_home_tool_crypto_subtitle">Canlı kripto fiyatları ve izleme listesi</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

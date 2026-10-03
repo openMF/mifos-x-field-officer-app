@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">설정</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">검색</string>
+    <string name="feature_settings_title">설정</string>
+    <string name="feature_settings_loading">불러오는 중…</string>
+    <string name="feature_settings_privacy_policy">개인정보 처리방침</string>
+    <string name="feature_settings_licenses">라이선스</string>
+    <string name="feature_settings_brand_guidelines">브랜드 가이드라인</string>
+    <string name="feature_settings_feedback">피드백</string>
+    <string name="feature_settings_theme">테마</string>
+    <string name="feature_settings_brand_default">기본</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">다크 모드 설정</string>
+    <string name="feature_settings_dark_mode_config_system_default">시스템 기본값</string>
+    <string name="feature_settings_dark_mode_config_light">라이트</string>
+    <string name="feature_settings_dark_mode_config_dark">다크</string>
+    <string name="feature_settings_dynamic_color_preference">다이내믹 컬러 사용</string>
+    <string name="feature_settings_dynamic_color_yes">예</string>
+    <string name="feature_settings_dynamic_color_no">아니요</string>
+    <string name="feature_settings_dismiss_dialog_button_text">확인</string>
+    <string name="feature_settings_change_theme_text">테마 변경</string>
+    <string name="feature_settings_change_theme_placeholder_text">테마 변경</string>
+    <string name="feature_settings_change_language_text">언어 변경</string>
+    <string name="feature_settings_change_language_placeholder_text">언어 변경</string>
+    <string name="feature_settings_language_preference">언어</string>
+    <string name="feature_settings_dev_tools_title">개발자 도구</string>
+    <string name="feature_settings_dev_transition_gallery">전환 갤러리</string>
+    <string name="feature_settings_dev_state_gallery">상태 갤러리</string>
+    <string name="feature_settings_dev_close">닫기</string>
+    <string name="feature_settings_notifications_empty_title">아직 알림이 없습니다</string>
+    <string name="feature_settings_notifications_empty_message">청구 알림과 금리 알림이 여기에 표시됩니다.</string>
+    <string name="feature_settings_sync_drafts_row">동기화 및 임시 저장</string>
+    <string name="feature_settings_sync_drafts_row_description">임시 저장과 대기 중인 동기화를 보고 관리합니다</string>
+    <string name="feature_settings_rate_app_row">이 앱 평가하기</string>
+    <string name="feature_settings_rate_app_row_description">스토어 페이지를 열어 이 앱을 평가합니다</string>
+    <string name="feature_settings_sync_drafts_title">동기화 및 임시 저장</string>
+    <string name="feature_settings_sync_drafts_empty_title">동기화할 항목 없음</string>
+    <string name="feature_settings_sync_drafts_empty_message">오프라인에서 저장한 임시 항목과 동기화를 기다리는 레코드가 여기에 표시됩니다.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">임시 저장</string>
+    <string name="feature_settings_sync_drafts_section_syncing">동기화 중</string>
+    <string name="feature_settings_sync_drafts_section_failed">실패</string>
+    <string name="feature_settings_sync_drafts_status_pending">대기 중</string>
+    <string name="feature_settings_sync_drafts_status_retrying">재시도 중</string>
+    <string name="feature_settings_sync_drafts_status_failed">실패</string>
+    <string name="feature_settings_sync_drafts_retry">다시 시도</string>
+    <string name="feature_settings_sync_drafts_discard">삭제</string>
+    <string name="feature_settings_sync_drafts_prune">만료 항목 정리</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">임시 저장을 삭제할까요?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">저장된 임시 항목이 영구히 삭제됩니다. 되돌릴 수 없습니다.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">취소</string>
+    <string name="feature_settings_conflicts_title">동기화 충돌</string>
+    <string name="feature_settings_conflicts_empty_title">충돌 없음</string>
+    <string name="feature_settings_conflicts_empty_message">변경한 내용이 서버의 최신 버전과 충돌하면 여기에 표시되어 서버 버전을 유지하거나 사용자의 버전을 다시 시도할 수 있습니다.</string>
+    <string name="feature_settings_conflicts_row_label">충돌</string>
+    <string name="feature_settings_conflicts_accept_server">서버 유지</string>
+    <string name="feature_settings_conflicts_retry_local">내 것으로 재시도</string>
+</resources>

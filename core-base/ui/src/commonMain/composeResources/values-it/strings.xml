@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: it · translated by /idea-locale -->
+<resources>
+    <string name="dashboard_freshness_updated">Aggiornato %1$s</string>
+    <string name="dashboard_freshness_updated_refreshing">Aggiornato %1$s · aggiornamento…</string>
+    <string name="dashboard_freshness_loading">Caricamento…</string>
+</resources>

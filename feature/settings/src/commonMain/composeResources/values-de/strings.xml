@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2022 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Einstellungen</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Suchen</string>
+    <string name="feature_settings_title">Einstellungen</string>
+    <string name="feature_settings_loading">Lädt…</string>
+    <string name="feature_settings_privacy_policy">Datenschutzrichtlinie</string>
+    <string name="feature_settings_licenses">Lizenzen</string>
+    <string name="feature_settings_brand_guidelines">Markenrichtlinien</string>
+    <string name="feature_settings_feedback">Feedback</string>
+    <string name="feature_settings_theme">Design</string>
+    <string name="feature_settings_brand_default">Standard</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Dunkler Modus Einstellung</string>
+    <string name="feature_settings_dark_mode_config_system_default">Systemstandard</string>
+    <string name="feature_settings_dark_mode_config_light">Hell</string>
+    <string name="feature_settings_dark_mode_config_dark">Dunkel</string>
+    <string name="feature_settings_dynamic_color_preference">Dynamische Farbe verwenden</string>
+    <string name="feature_settings_dynamic_color_yes">Ja</string>
+    <string name="feature_settings_dynamic_color_no">Nein</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Design ändern</string>
+    <string name="feature_settings_change_theme_placeholder_text">Design ändern</string>
+    <string name="feature_settings_change_language_text">Sprache ändern</string>
+    <string name="feature_settings_change_language_placeholder_text">Sprache ändern</string>
+    <string name="feature_settings_language_preference">Sprache</string>
+    <string name="feature_settings_dev_tools_title">Entwicklertools</string>
+    <string name="feature_settings_dev_transition_gallery">Übergangsgalerie</string>
+    <string name="feature_settings_dev_state_gallery">Zustandsgalerie</string>
+    <string name="feature_settings_dev_close">Schließen</string>
+    <string name="feature_settings_notifications_empty_title">Noch keine Benachrichtigungen</string>
+    <string name="feature_settings_notifications_empty_message">Hier siehst du Rechnungserinnerungen und Zinswarnungen.</string>
+    <string name="feature_settings_sync_drafts_row">Synchronisierung &amp; Entwürfe</string>
+    <string name="feature_settings_sync_drafts_row_description">Entwürfe und ausstehende Synchronisierungen ansehen und verwalten</string>
+    <string name="feature_settings_rate_app_row">Diese App bewerten</string>
+    <string name="feature_settings_rate_app_row_description">Store-Eintrag öffnen, um diese App zu bewerten</string>
+    <string name="feature_settings_sync_drafts_title">Synchronisierung &amp; Entwürfe</string>
+    <string name="feature_settings_sync_drafts_empty_title">Nichts zu synchronisieren</string>
+    <string name="feature_settings_sync_drafts_empty_message">Offline gespeicherte Entwürfe und Datensätze, die auf Synchronisierung warten, erscheinen hier.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Entwürfe</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Wird synchronisiert</string>
+    <string name="feature_settings_sync_drafts_section_failed">Fehlgeschlagen</string>
+    <string name="feature_settings_sync_drafts_status_pending">Ausstehend</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Wird wiederholt</string>
+    <string name="feature_settings_sync_drafts_status_failed">Fehlgeschlagen</string>
+    <string name="feature_settings_sync_drafts_retry">Wiederholen</string>
+    <string name="feature_settings_sync_drafts_discard">Verwerfen</string>
+    <string name="feature_settings_sync_drafts_prune">Abgelaufene entfernen</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Entwurf verwerfen?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Dadurch wird der gespeicherte Entwurf endgültig gelöscht. Das lässt sich nicht rückgängig machen.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Abbrechen</string>
+    <string name="feature_settings_conflicts_title">Synchronisierungskonflikte</string>
+    <string name="feature_settings_conflicts_empty_title">Keine Konflikte</string>
+    <string name="feature_settings_conflicts_empty_message">Wenn eine deiner Änderungen mit einer neueren Version auf dem Server kollidiert, erscheint sie hier, damit du die Serverversion behalten oder deine erneut versuchen kannst.</string>
+    <string name="feature_settings_conflicts_row_label">Konflikt</string>
+    <string name="feature_settings_conflicts_accept_server">Server behalten</string>
+    <string name="feature_settings_conflicts_retry_local">Meine wiederholen</string>
+</resources>

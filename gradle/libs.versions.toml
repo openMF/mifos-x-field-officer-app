@@ -1,348 +1,271 @@
 [versions]
-accompanistPermission = "0.37.3"
+buildkonfig = "0.21.2"
+kmpProductFlavors = "2.10.0"
+
+# ── Fork Identity — edit ONLY these 5 lines, then run ./gradlew syncForkConfig ──────────────────
+appId            = "com.mifos.mifosxdroid"   # Android applicationId + iOS bundle ID
+appDisplayName   = "MifosXDroid"    # Android app_name, iOS CFBundleDisplayName
+desktopAppName   = "MifosXDroid"     # JVM package name, dock name
+projectName      = "kmp-project-template"      # rootProject.name, Fastlane PROJECT_NAME
+iosTeamId        = "YOUR_TEAM_ID"             # Apple Developer Team ID (PLACEHOLDER — set in app-profile/platforms/apple/apple.yaml#team_id)
+# ─────────────────────────────────────────────────────────────────────────────────────────────────
+# Android
 androidDesugarJdkLibs = "2.1.5"
-androidGradlePlugin = "8.12.3"
-androidTools = "31.12.3"
-androidxActivity = "1.12.2"
-androidxAppCompat = "1.7.0"
-androidxComposeBom = "2025.12.01"
-androidxComposeCompiler = "1.5.15"
-androidxComposeUi = "1.7.6"
-androidxComposeRuntime = "1.7.6"
-androidxComposeRuntimeTracing = "1.10.0"
-androidxComposeMaterial3 = "1.3.1"
-androidxCore = "1.17.0"
-androidxCoreSplashscreen = "1.2.0"
-androidxEspresso = "3.6.1"
-androidxLifecycle = "2.8.7"
-androidxMacroBenchmark = "1.4.1"
-androidxBaselineProfile = "1.3.3"
-androidxBenchmark = "1.3.3"
-androidxBenchmarkJunit4 = "1.1.1"
-androidxMaterial = "1.6.7"
-androidxMaterialVersion = "1.7.6"
-androidxMetrics = "1.0.0"
-androidxNavigation = "2.8.5"
-navigationevent = "1.0.1"
-androidxPagingCommon = "3.4.0"
-androidxProfileinstaller = "1.4.1"
-androidxStartup = "1.2.0"
-androidxTestCore = "1.6.1"
-androidxTestExt = "1.2.1"
-androidxTestRules = "1.6.1"
-androidxTestRunner = "1.6.2"
-androidxTracing = "1.3.0"
-androidxUiAutomator = "2.3.0"
-androidxWindowManager = "1.3.0"
-androidxWork = "2.11.0"
-androidxBrowser = "1.9.0"
-annotation = "1.9.1"
-cmpImagePickNCrop = "1.1.2"
-compiler = "1.5.15"
-converterScalars = "2.11.0"
-coreTesting = "2.2.0"
-espressoIdlingResource = "3.6.1"
-espressoIntents = "3.6.1"
-fineractClientVersion = "0.0.1"
-firebaseBom = "34.7.0"
-firebaseCrashlyticsPlugin = "3.0.6"
+androidGradlePlugin = "9.4.0"
+androidTools = "32.3.1"
+compileSdk = "37"
+minSdk = "26"
+targetSdk = "37"
+javaVersion = "17"
+jvmToolchain = "21"
+
+commonsCodec = "1.22.0"
+firebaseBom = "34.15.0"
+firebaseCrashlyticsPlugin = "3.0.7"
 firebasePerfPlugin = "2.0.2"
-fliptables = "1.0.1"
-glide = "4.15.1"
+androidxMacroBenchmark = "1.5.0-alpha06"
+githubApi = "1.330"
 gmsPlugin = "4.4.4"
-googleOss = "17.3.0"
-googleOssPlugin = "0.10.10"
-jacoco = "0.8.7"
-junit4 = "4.13.2"
-junitJupiter = "5.13.4"
-junitVersion = "1.2.1"
-koinAndroid = "4.0.1"
-koinAndroidxCompose = "3.5.0"
-kotlinxCoroutinesCoreVersion = "1.10.1"
-kotlinxCoroutinesRx2 = "1.5.1"
-legacySupportV4 = "1.0.0"
-lifecycleCommonJava8 = "2.8.7"
-lifecycleExtensions = "2.2.0"
-lifecycleReactivestreamsKtx = "2.8.7"
-lint = "31.3.0"
-libphonenumberAndroidVersion = "8.13.35"
-mapsCompose = "4.4.1"
-material = "1.12.0"
-materialIconsExtended = "1.6.2"
-materialshowcaseview = "1.3.7"
-materialVersion = "1.7.6"
-mifosAndroidSdkArchVersion = "0.0.1"
-fineract = "0.0.1"
-mifosPasscode = "1.0.0"
-mockitoCore = "5.6.0"
-moshiVersion = '1.15.1'
-mockkVersion = "1.13.5"
-multidex = "2.0.1"
-pagingRuntimeKtx = "3.4.0"
-playServicesLocation = "21.3.0"
-playServicesMaps = "19.0.0"
-playServicesPlaces = "17.1.0"
-preferenceKtx = "1.2.1"
-protobuf = "4.26.1"
-protobufPlugin = "0.9.4"
-playIntegrity = '1.4.0'
-playUpdate = "2.1.0"
-playScanner = "16.1.0"
-playService = "18.5.0"
-realmVersion = "1.13.0"
-roborazzi = "1.52.0"
-room = "2.8.4"
-sqliteBundled = "2.6.2"
-#roomKtxVersion = "2.7.0-rc02"
-#roomRuntimeVersion = "2.7.0-rc02"
-#roomTestingVersion = "2.7.0-rc02"
-rxandroidVersion = "1.1.0"
-rxandroid = "3.0.2" # 1.1.0
+
+# AndroidX Dependencies
+androidx-test-ext-junit = "1.3.0"
+androidxActivity = "1.13.0"
+androidxBrowser = "1.10.0"
+androidxComposeBom = "2026.06.01"
+androidxComposeCompiler = "1.5.15"
+androidxComposeRuntimeTracing = "1.11.0"
+androidxCoreSplashscreen = "1.2.0"
+androidxWork = "2.11.2"
+androidxMetrics = "1.0.0"
+androidxProfileinstaller = "1.4.1"
+androidxTracing = "1.3.0"
+appcompatVersion = "1.7.1"
+calfPermissions = "0.12.0"
+coreKtxVersion = "1.19.0"
+
+jacksonCore = "2.22.0"
+junitJupiterApi = "5.14.4"
+junitPlatformLauncherVersion = "1.14.4"
+okhttp = "5.4.0"
+robolectric = "4.16.1"
+roborazzi = "1.67.0"
+composablePreviewScanner = "0.9.1"
+
+# Testing Dependencies
+junitVersion = "4.13.2"
+truth = "1.4.5"
+
+# Security Dependencies
+androidxSecurityCrypto = "1.1.0"
+bouncycastle = "1.84"
+
+# Utility Dependencies
 dependencyGuard = "0.5.0"
-spotlessVersion = "7.0.2"
-ktlint = "12.1.1"
+googleOss = "17.5.1"
+googleOssPlugin = "0.12.0"
+appUpdate = "2.1.0"
+integrity = "1.6.0"
+
+# Static Analysis & Code Formatting
+ktlint = "14.2.0"
 detekt = "1.23.8"
+spotlessVersion = "8.10.2"
+turbine = "1.2.1"
 twitter-detekt-compose = "0.0.26"
 moduleGraph = "2.9.0"
-fluentui-icons = "1.0.0"
-
-secrets = "2.0.1"
-truthVersion = '1.4.5'
-runtimeLivedata = "1.7.6"
-appcompat = "1.7.1"
-openhtmltopdf = "1.0.10"
-kotlinxHtml = "0.12.0"
+# AGP 9 migration (agp9-migration-build-logic epic T2/T3):
+# Type-safe libs.* accessors in convention plugin source files.
+# Verify latest on plugins.gradle.org before bumping.
+typesafeConventions = "0.5.0"
 
 # Kotlin KMP Dependencies
-kotlin = "2.2.21"
-kotlinInject = "0.7.2"
-kotlinxCoroutines = "1.10.2"
-kotlinxDatetime = "0.7.1"
-kotlinxImmutable = "0.4.0"
-kotlinxSerializationJson = "1.9.0"
-ksp = "2.2.21-2.0.4"
+kotlin = "2.4.20"
+kover = "0.9.9"
+kotlinInject = "0.9.0"
+kotlinxBrowser = "0.5.0"
+kotlinxCoroutines = "1.11.0"
+kotlinxDatetime = "0.8.0"
+kotlinxImmutable = "0.5.1"
+kotlinxSerializationJson = "1.11.0"
+ksp = "2.3.11"
 
 # Ktor & Ktorfit
-ktorVersion = "3.3.3"
-ktorfit = "2.7.1"
+ktorVersion = "3.5.1"
+ktorfit = "2.7.5"
+
+# Supabase
+supabase = "3.6.0"
 
 # Koin CMP Dependencies
-koin = "4.1.1"
-koinAnnotationsVersion = "2.1.0"
+koin = "4.2.2"
+koinAnnotationsVersion = "4.2.2"
+
+
+# KMP Toolkit Libraries
+# 3.5.28: adds cmp-app-review, cmp-clipboard, cmp-app-intents, cmp-bubble, cmp-pdf-generator and
+#         cmp-toast to this template. Also drops nine transitive artifacts (firebase-perf,
+#         firebase-config, firebase-abt, protobuf-javalite, dagger and friends): cmp-observe no
+#         longer bundles the Firebase hooks — they moved to cmp-observe-firebase, which this
+#         template does not depend on and never registered. Add that artifact explicitly if a fork
+#         wants FirebaseCrashlyticsAttributionHook / FirebaseAnalyticsHealthHook / Performance.
+# 3.5.21: cmp-firebase on GitLive 3.0.0-alpha02 (Firebase BoM 34.18.0) — wasmJs PROMOTED from the
+#         Measurement-Protocol tier to the native Firebase tier, so wasmJs now reads FirebaseConfig.web
+#         (the same `web` entry as js) and needs applicationId/apiKey/projectId/authDomain populated.
+#         Also: cmp-share direct-to-app share (ShareOptions.targetPackage) + file:// → FileProvider
+#         content:// resolution; cmp-remote-config min/max app-version gate.
+kmptoolkit = "3.5.28"
 
 # CMP Libraries
-compose-plugin = "1.9.3"
-coil = "3.3.0"
+compose-plugin = "1.12.0"
+coil = "3.5.0"
 backHandlerVersion = "2.5.0"
-constraintLayout = "0.6.0"
+constraintLayout = "0.8.0"
 multiplatformSettings = "1.3.0"
-qroseVersion = "1.0.1"
-okioVersion = "3.16.4"
-kermit = "2.0.8"
-fileKit = "0.12.0"
-fileKitCompose = "0.8.8"
-wire = "5.4.0"
-uiBackhandler = "1.9.3"
-composeSignature = "1.0.1"
-krop = "0.2.0"
+mokoPermission = "0.20.1"
+qroseVersion = "1.1.2"
+okioVersion = "3.17.0"
+kermit = "2.1.0"
+# SKIE — Swift-friendly export of the KMP ComposeApp framework (E6 SwiftPM/XCFramework
+# migration). Pin the SKIE release whose supported-Kotlin range covers this repo's
+# `kotlin` version above; bump in lock-step with a Kotlin upgrade (SKIE gates the
+# compiler version and fails fast on a mismatch). See 07-ios-swiftpm.md.
+skie = "0.10.4"
+fileKit = "0.14.2"
+uiBackhandler = "1.11.1"
+wire = "6.2.0"
+compottie = "2.2.4"
+
 # Jetbrains CMP
-windowsSizeClass = "0.5.0"
-uiDesktopVersion = "1.7.0"
-composeLifecycle = "2.9.6"
-composeNavigation = "2.9.1"
+composeJB = "1.11.1"
+composeLifecycle = "2.11.0-beta01"
+composeNavigation = "2.9.2"
 jbCoreBundle = "1.0.1"
 jbSavedState = "1.4.0"
-gitLive = "2.4.0"
-material3adaptive = "1.1.2"
-calfPermissions = "0.8.0"
-appUpdate = "2.1.0"
-review = "2.0.2"
-integrity = "1.6.0"
-lottie = "6.6.7"
-compottie = "2.0.0-rc05"
-pdfbox = "2.0.30"
+material3adaptive = "1.2.0"
+aboutLibraries = "15.0.3"
 
 # Desktop Version
-packageName = "AndroidClient"
-packageNamespace = "org.mifos.client"
-packageVersion = "1.0.0"
-material3Android = "1.3.1"
+desktopPackageVersion = "1.0.0"
 
-# Android Version
-androidPackageName = "AndroidApp"
-androidPackageNamespace = "com.mifos.mifosxdroid"
-androidPackageVersion = "1.0.0"
-uiAndroidVersion = "1.7.8"
+# Store 5
+store = "5.1.0-alpha10"
 
-mokoPermissions = "0.20.1"
+#Room 3
+room = "3.1.0-alpha01"
+sqliteBundled = "2.7.0"
+sqliteWeb = "2.7.0"
 
-mifosAuthenticatorPasscode="2.2.0"
-mifosAuthenticatorBiometrics="2.2.0"
+# worker-kmp — single-API background + foreground worker scheduling across
+# Android / iOS / Desktop / Web. See https://github.com/MobileByteLabs/worker-kmp.
+# Pin tracks last published release on Maven Central.
+# 4.0.6: fixes the config-cache serialization discard (KSP/Gradle) seen on 4.0.4.
+# 4.0.7: aligns worker-kmp's own toolchain with this template's — Kotlin 2.4.20, AGP 9.4.0,
+#   Gradle 9.7.1, Compose MP 1.12.0 — and moves it to compileSdk 37, which upstream flags as
+#   BREAKING. This template is already on compileSdk 37 (see `compileSdk` above), so that break
+#   is pre-satisfied here. See https://github.com/MobileByteLabs/worker-kmp/releases/tag/v4.0.7.
+#   NOTE: that release body lists `cmp-`-prefixed module names (`cmp-worker-kmp`, ...). Those are
+#   NOT published — `cmp-worker-kmp` has no pom and no maven-metadata on Central. The real, and
+#   only, coordinates remain the un-prefixed ones used below.
+worker-version = "4.0.7"
+# KMPNotifier — Kotlin Multiplatform local + push notifications (Android/iOS/Desktop/Web).
+kmpnotifier = "2.0.0"
 
 [libraries]
-androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
-androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxLifecycle" }
-
-accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermission" }
+kmp-product-flavors-plugin = { group = "io.github.mobilebytelabs.kmpflavors", name = "flavor-plugin", version.ref = "kmpProductFlavors" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 
-# Androidx Activity Compose
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
-androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
-androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
 
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 
-# Androidx Preference
-androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "androidxPagingCommon" }
-androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingRuntimeKtx" }
-androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
-androidx-paging-common-ktx = { module = "androidx.paging:paging-common-ktx", version.ref = "pagingRuntimeKtx" }
-androidx-paging-testing = { module = "androidx.paging:paging-testing", version.ref = "pagingRuntimeKtx" }
-androidx-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
-
-# RxAndroid
-#cmp-image-pick-n-crop = { module = "network.chaintech:cmp-image-pick-n-crop", version.ref = "cmpImagePickNCrop" }
-mifos-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
-koin-androidx-compose-v350 = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroidxCompose" }
-maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
-
-# Androidx Compose UI
+androidx-compose-animation = { group = "androidx.compose.animation", name = "animation" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref = "androidxComposeCompiler" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 
-# Androidx Compose Material
-androidx-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compiler" }
-androidx-material = { module = "androidx.compose.material:material", version.ref = "materialVersion" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
-androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 
-# Android Material
-material = { module = "com.google.android.material:material", version.ref = "material" }
-materialshowcaseview = { module = "com.github.deano2390:MaterialShowcaseView", version.ref = "materialshowcaseview" }
-fluentui-system-icons = { module = "io.github.niyajali:fluentui-system-icons", version.ref = "fluentui-icons" }
+androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
+androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
 
-# Androidx Compose Runtime
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
-androidx-compose-animation = { group = "androidx.compose.animation", name = "animation" }
-androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "androidxComposeRuntime" }
-androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "androidxComposeRuntime" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-tracing = { group = "androidx.compose.runtime", name = "runtime-tracing", version.ref = "androidxComposeRuntimeTracing" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxComposeUi" }
-androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxComposeUi" }
-androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "androidxComposeUi" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxComposeUi" }
-androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxComposeUi" }
-androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util", version.ref = "androidxComposeUi" }
-androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "androidxComposeUi" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 
-# Androidx Startup and Splash Screen
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
+
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
-androidx-core-startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "androidxStartup" }
 
-# Androidx Lifecycle
-androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
-androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
-androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
-androidx-lifecycle-viewmodel-savedstate = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-savedstate", version.ref = "androidxLifecycle" }
-androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycleCommonJava8" }
-androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "lifecycleExtensions" }
-androidx-lifecycle-reactivestreams-ktx = { module = "androidx.lifecycle:lifecycle-reactivestreams-ktx", version.ref = "lifecycleReactivestreamsKtx" }
+androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "androidxSecurityCrypto" }
 
 androidx-metrics = { group = "androidx.metrics", name = "metrics-performance", version.ref = "androidxMetrics" }
 
-# AndroidX Compose Navigation
-androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
-androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
-
-#room
-androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
-androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
-
-androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqliteBundled" }
-
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
-androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
-androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
-androidx-espresso-idling-resource = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "espressoIdlingResource" }
-androidx-espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoIntents" }
-androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
-androidx-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4" }
-androidx-test-ext = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxTestExt" }
-androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
-androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
-androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidxUiAutomator" }
+
+androidx-room-gradle-plugin = { module = "androidx.room3:room3-gradle-plugin", version.ref = "room" }
+commons-codec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
+firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebasePerfPlugin" }
+
+androidx-room-compiler = { module = "androidx.room3:room3-compiler", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room3:room3-runtime", version.ref = "room" }
+androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqliteBundled" }
+androidx-sqlite-web = { module = "androidx.sqlite:sqlite-web", version.ref = "sqliteWeb" }
+
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-tracing-ktx = { group = "androidx.tracing", name = "tracing-ktx", version.ref = "androidxTracing" }
-androidx-lifecycle-runtimeTesting = { group = "androidx.lifecycle", name = "lifecycle-runtime-testing", version.ref = "androidxLifecycle" }
-androidx-window-manager = { module = "androidx.window:window", version.ref = "androidxWindowManager" }
 
-# Firebase Analytics & Bom
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
-firebase-cloud-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
-firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
-firebase-performance-gradle = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebasePerfPlugin" }
+calf-permissions = { module = "com.mohamedrejeb.calf:calf-permissions", version.ref = "calfPermissions" }
+github-api = { module = "org.kohsuke:github-api", version.ref = "githubApi" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jacksonCore" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonCore" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonCore" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiterApi" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiterApi" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiterApi" }
+ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+platform-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncherVersion" }
+spotless-gradle = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotlessVersion" }
+detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+kover-gradlePlugin = { group = "org.jetbrains.kotlinx", name = "kover-gradle-plugin", version.ref = "kover" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+twitter-detekt-compose = { group = "com.twitter.compose.rules", name = "detekt", version.ref = "twitter-detekt-compose" }
 
-# Google OSS Plugins
 google-oss-licenses = { group = "com.google.android.gms", name = "play-services-oss-licenses", version.ref = "googleOss" }
 google-oss-licenses-plugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "googleOssPlugin" }
 
-libphonenumber-android = { group = "io.michaelrocks", name = "libphonenumber-android", version.ref = "libphonenumberAndroidVersion" }
+junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
 
-#Android Lint
 lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = "androidTools" }
 lint-checks = { group = "com.android.tools.lint", name = "lint-checks", version.ref = "androidTools" }
 lint-tests = { group = "com.android.tools.lint", name = "lint-tests", version.ref = "androidTools" }
 
-# Mifos SDKs
-fineract-client = { module = "com.github.openMF:fineract-client-cmp", version.ref = "fineractClientVersion" }
-mifos-android-sdk-arch = { module = "com.github.openMF:fineract-client-sdk-cmp", version.ref = "mifosAndroidSdkArchVersion" }
-fineract-client-kmp-sdk = { module = "com.github.openMF:fineract-client-kmp-sdk", version.ref = "fineract" }
-mifos-passcode = { module = "com.mifos.mobile:mifos-passcode", version.ref = "mifosPasscode" }
+truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 
-#Google Play
-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
-
-# Truth
-truth = { group = "com.google.truth", name = "truth", version.ref = "truthVersion" }
-
-detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
-detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
-twitter-detekt-compose = { group = "com.twitter.compose.rules", name = "detekt", version.ref = "twitter-detekt-compose" }
-spotless-gradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotlessVersion" }
-ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
-
-# Dependencies of the included build-logic
-android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
-android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
-firebase-performance-gradlePlugin = { group = "com.google.firebase", name = "perf-plugin", version.ref = "firebasePerfPlugin" }
-room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-
-
-# Dependencies for pdf
-openhtmltopdf-pdfbox = { group = "com.openhtmltopdf", name = "openhtmltopdf-pdfbox", version.ref = "openhtmltopdf" }
-openhtmltopdf-svg-support = { group = "com.openhtmltopdf", name = "openhtmltopdf-svg-support", version.ref = "openhtmltopdf" }
-kotlinx-html = { group = "org.jetbrains.kotlinx", name = "kotlinx-html", version.ref = "kotlinxHtml" }
-
-# [New KMP Dependencies]
+app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
+integrity = { module = "com.google.android.play:integrity", version.ref = "integrity" }
+bouncycastle = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
 
 # jb Compose
 jb-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 jb-kotlin-stdlib-js = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-js", version.ref = "kotlin" }
 jb-kotlin-dom = { group = "org.jetbrains.kotlin", name = "kotlin-dom-api-compat", version.ref = "kotlin" }
-jb-composeRuntime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-plugin" }
+jb-composeRuntime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeJB" }
 jb-lifecycle-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "composeLifecycle" }
 jb-composeViewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "composeLifecycle" }
 jb-lifecycleViewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "composeLifecycle" }
@@ -351,7 +274,6 @@ jb-bundle = { module = "org.jetbrains.androidx.core:core-bundle", version.ref = 
 jb-savedstate = { module = "org.jetbrains.androidx.savedstate:savedstate", version.ref = "jbSavedState" }
 jb-composeNavigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 jb-navigation = { module = "org.jetbrains.androidx.navigation:navigation-common", version.ref = "composeNavigation" }
-jb-navigationevent = {group = "org.jetbrains.androidx.navigationevent", name = "navigationevent-compose", version.ref = "navigationevent"}
 
 jetbrains-compose-material3-adaptive = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive", version.ref = "material3adaptive" }
 jetbrains-compose-material3-adaptive-layout = { group = "org.jetbrains.compose.material3.adaptive", name = "adaptive-layout", version.ref = "material3adaptive" }
@@ -373,24 +295,29 @@ koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", versio
 koin-test-junit5 = { group = "io.insert-koin", name = "koin-test-junit5", version.ref = "koin" }
 
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-inject-compiler-ksp = { group = "me.tatarka.inject", name = "kotlin-inject-compiler-ksp", version.ref = "kotlinInject" }
+kotlin-inject-runtime = { group = "me.tatarka.inject", name = "kotlin-inject-runtime", version.ref = "kotlinInject" }
+kotlin-inject-runtime-kmp = { group = "me.tatarka.inject", name = "kotlin-inject-runtime-kmp", version.ref = "kotlinInject" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
+kotlinx-browser = { group = "org.jetbrains.kotlinx", name = "kotlinx-browser", version.ref = "kotlinxBrowser" }
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxImmutable" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-js = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-js", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerializationJson" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutines" }
 
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktorVersion" }
 ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktorVersion" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorVersion" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktorVersion" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorVersion" }
 ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktorVersion" }
@@ -398,73 +325,148 @@ ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.r
 ktor-client-js = { group = "io.ktor", name = "ktor-client-js", version.ref = "ktorVersion" }
 ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktorVersion" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktorVersion" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktorVersion" }
 ktor-client-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktorVersion" }
+ktor-client-websockets = { group = "io.ktor", name = "ktor-client-websockets", version.ref = "ktorVersion" }
+ktor-client-winhttp = { group = "io.ktor", name = "ktor-client-winhttp", version.ref = "ktorVersion" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
+ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth", version.ref = "ktorVersion" }
 
 ktorfit-ksp = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-ksp", version.ref = "ktorfit" }
+ktorfit-converters-flow = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-converters-flow", version.ref = "ktorfit" }
 ktorfit-lib = { group = "de.jensklingenberg.ktorfit", name = "ktorfit-lib", version.ref = "ktorfit" }
+
+supabase-postgrest = { group = "io.github.jan-tennert.supabase", name = "postgrest-kt", version.ref = "supabase" }
+supabase-auth = { group = "io.github.jan-tennert.supabase", name = "auth-kt", version.ref = "supabase" }
 
 coil-core = { group = "io.coil-kt.coil3", name = "coil-core", version.ref = "coil" }
 coil-kt = { group = "io.coil-kt.coil3", name = "coil", version.ref = "coil" }
-coil-kt-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-kt-compose = { group = "io.coil-kt.coil3", name = "coil-compose-core", version.ref = "coil" }
 coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
 coil-svg = { group = "io.coil-kt.coil3", name = "coil-svg", version.ref = "coil" }
-coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 
-calf-permissions = { module = "com.mohamedrejeb.calf:calf-permissions", version.ref = "calfPermissions" }
-crop-krop-ui = { module = "com.attafitamim.krop:ui", version.ref = "krop"}
-compose-signature = { module = "io.github.niyajali:compose-signature", version.ref = "composeSignature" }
+# Compottie — Lottie renderer for Compose Multiplatform (alexzhirkevich/compottie).
+# Used by core-base/ui:ScreenStateVisual.Lottie. Optional sub-modules (dot-lottie, network)
+# can be added later if .lottie/zip support or URL loading is needed.
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
+compottie-dot-lottie = { module = "io.github.alexzhirkevich:compottie-dot-lottie", version.ref = "compottie" }
+compottie-network = { module = "io.github.alexzhirkevich:compottie-network", version.ref = "compottie" }
+
 compose-gradlePlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 squareup-okio = { group = "com.squareup.okio", name = "okio", version.ref = "okioVersion" }
 back-handler = { group = "com.arkivanov.essenty", name = "back-handler", version.ref = "backHandlerVersion" }
+constraint-layout = { group = "tech.annexflow.compose", name = "constraintlayout-compose-multiplatform", version.ref = "constraintLayout" }
+qrose = { group = "io.github.alexzhirkevich", name = "qrose", version.ref = "qroseVersion" }
+
 filekit-core = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "fileKit" }
-filekit-compose = { group = "io.github.vinceglb", name = "filekit-compose", version.ref = "fileKitCompose" }
-filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs", version.ref = "fileKit" }
-filekit-dialog-compose = { group = "io.github.vinceglb", name = "filekit-dialogs-compose", version.ref = "fileKit" }
+filekit-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "fileKit" }
+filekit-dialog-compose = { module = "io.github.vinceglb:filekit-dialogs", version.ref = "fileKit" }
 filekit-coil = { module = "io.github.vinceglb:filekit-coil", version.ref = "fileKit" }
-ui-backhandler = { group = "org.jetbrains.compose.ui", name = "ui-backhandler", version.ref = "uiBackhandler" }
 
 kermit-logging = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 kermit-simple = { group = "co.touchlab", name = "kermit-simple", version.ref = "kermit" }
+kermit-koin = { group = "co.touchlab", name = "kermit-koin", version.ref = "kermit" }
 
 multiplatform-settings = { group = "com.russhwolf", name = "multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 multiplatform-settings-coroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
 multiplatform-settings-serialization = { group = "com.russhwolf", name = "multiplatform-settings-serialization", version.ref = "multiplatformSettings" }
 multiplatform-settings-test = { group = "com.russhwolf", name = "multiplatform-settings-test", version.ref = "multiplatformSettings" }
 
-app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
-app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
-integrity = { module = "com.google.android.play:integrity", version.ref = "integrity" }
-review = { module = "com.google.android.play:review", version.ref = "review" }
-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "review" }
+moko-permission = { group = "dev.icerock.moko", name = "permissions", version.ref = "mokoPermission" }
+moko-permission-compose = { group = "dev.icerock.moko", name = "permissions-compose", version.ref = "mokoPermission" }
 
-window-size = { group = "dev.chrisbanes.material3", name = "material3-window-size-class-multiplatform", version.ref = "windowsSizeClass" }
+ui-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "uiBackhandler" }
 
-# Animation Library
-compottie-lite = { module = "io.github.alexzhirkevich:compottie-lite", version.ref = "compottie" }
-compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
 
-pdfbox = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
+cmp-intent-launcher = { module = "io.github.mobilebytelabs:cmp-intent-launcher", version.ref = "kmptoolkit" }
+cmp-share = { module = "io.github.mobilebytelabs:cmp-share", version.ref = "kmptoolkit" }
+# cmp-open-url — commonMain URL opening (openUrl / openInBrowser / openWithApp / canOpen).
+# Ships `actual`s for 11 targets, so consumers stay in commonMain.
+cmp-open-url = { module = "io.github.mobilebytelabs:cmp-open-url", version.ref = "kmptoolkit" }
+# cmp-inapp-update — 11-target update check + store launch. Replaces the Play-Core-only
+# AppUpdateManagerImpl whose nonAndroidMain twin was two empty method bodies.
+# Alias is `cmp-inapp-update`, NOT `cmp-in-app-update`: the generated accessor would be
+# `libs.cmp.in.app.update` and `in` is a Kotlin keyword — the build script fails to compile.
+# The published coordinate is unchanged.
+cmp-inapp-update = { module = "io.github.mobilebytelabs:cmp-in-app-update", version.ref = "kmptoolkit" }
+cmp-network-monitor = { module = "io.github.mobilebytelabs:cmp-network-monitor", version.ref = "kmptoolkit" }
+cmp-network-monitor-compose = { module = "io.github.mobilebytelabs:cmp-network-monitor-compose", version.ref = "kmptoolkit" }
+# cmp-deep-link — commonMain deep-link handler. Android capture is auto-init (ContentProvider +
+# ActivityLifecycleCallbacks, zero Activity wiring); RootNavScreen collects DeepLinkHandler.lastReceived and
+# routes via the fork-owned DeepLinkRegistry seam. A fork with home-screen widgets / OS deep links fills the seam.
+cmp-deep-link = { module = "io.github.mobilebytelabs:cmp-deep-link", version.ref = "kmptoolkit" }
+# cmp-firebase — unified Firebase (Analytics + Crashlytics) engine + Compose companion.
+cmp-firebase = { module = "io.github.mobilebytelabs:cmp-firebase", version.ref = "kmptoolkit" }
+cmp-firebase-compose = { module = "io.github.mobilebytelabs:cmp-firebase-compose", version.ref = "kmptoolkit" }
+# Platform capabilities wired into core-base/platform (+ cmp-toast into core-base/designsystem).
+# All 21-target headless libraries except cmp-toast, which is Compose-only at 7.
+#
+# Bound in platformModule as the TOOLKIT types, not behind template-owned wrappers: a wrapper would
+# either mirror each library or hide most of it, and neither insulation nor testability justified
+# the cost — every one of these ships a public Fake* in its main artifact. cmp-app-review is the
+# exception, kept behind kpt.core.base.platform.review.AppReviewManager because that interface
+# already existed and reshapes rather than forwards.
+#
+# cmp-app-review replaces the hand-rolled AppReviewManagerImpl pair whose nonAndroidMain twin was an
+# empty `promptForReview() {}` + TODO — every non-Android fork shipped a review prompt that silently
+# did nothing. cmp-toast replaces KptSnackbarHost so ViewModels depend on an injectable
+# ToastDispatcher instead of a Compose SnackbarHostState.
+cmp-app-review = { module = "io.github.mobilebytelabs:cmp-app-review", version.ref = "kmptoolkit" }
+cmp-clipboard = { module = "io.github.mobilebytelabs:cmp-clipboard", version.ref = "kmptoolkit" }
+cmp-app-intents = { module = "io.github.mobilebytelabs:cmp-app-intents", version.ref = "kmptoolkit" }
+cmp-bubble = { module = "io.github.mobilebytelabs:cmp-bubble", version.ref = "kmptoolkit" }
+cmp-pdf-generator = { module = "io.github.mobilebytelabs:cmp-pdf-generator", version.ref = "kmptoolkit" }
+cmp-toast = { module = "io.github.mobilebytelabs:cmp-toast", version.ref = "kmptoolkit" }
+# Compose surfaces for cores already integrated above. Added to core-base/ui as `api`, which the
+# feature convention plugin already gives every feature. Taken for their COMPOSABLES — ShareButton /
+# ShareSheet / AppIntentsRegistry / rememberSupportsIntent — which call the libraries' global entry
+# points directly and do not depend on the CompositionLocals these modules also export.
+#
+# Their exported locals (LocalShareManager, LocalIntentManager, LocalAppIntentsManager) carry the
+# SAME simple names as the template's own in kpt.core.base.platform, and none of them throws when
+# unprovided — each falls back to constructing its own impl. All three are therefore PROVIDED by
+# LocalManagerProvider from the same DI instances, so either import resolves to the app's manager
+# rather than a private second one. See the note in LocalManagerProviders.kt.
+cmp-share-compose = { module = "io.github.mobilebytelabs:cmp-share-compose", version.ref = "kmptoolkit" }
+cmp-intent-launcher-compose = { module = "io.github.mobilebytelabs:cmp-intent-launcher-compose", version.ref = "kmptoolkit" }
+cmp-app-intents-compose = { module = "io.github.mobilebytelabs:cmp-app-intents-compose", version.ref = "kmptoolkit" }
 
-#Moko permissions
-moko-permissions = {group ="dev.icerock.moko", name="permissions", version.ref = "mokoPermissions"}
-moko-permissions-compose = {group ="dev.icerock.moko", name="permissions-compose", version.ref = "mokoPermissions"}
-moko-permissions-location = {group ="dev.icerock.moko", name="permissions-location", version.ref = "mokoPermissions"}
-moko-permissions-camera = {group ="dev.icerock.moko", name="permissions-camera", version.ref = "mokoPermissions"}
-moko-permissions-contacts = {group ="dev.icerock.moko", name="permissions-contacts", version.ref = "mokoPermissions"}
-moko-permissions-gallary = {group ="dev.icerock.moko", name="permissions-gallery", version.ref = "mokoPermissions"}
-moko-permissions-microphone = {group ="dev.icerock.moko", name="permissions-microphone", version.ref = "mokoPermissions"}
-moko-permissions-motion = {group ="dev.icerock.moko", name="permissions-motion", version.ref = "mokoPermissions"}
-moko-permissions-notification = {group ="dev.icerock.moko", name="permissions-notification", version.ref = "mokoPermissions"}
-moko-permissions-storage = {group ="dev.icerock.moko", name="permissions-storage", version.ref = "mokoPermissions"}
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-cloud-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
 
-gitlive-firebase-analytics = { module = "dev.gitlive:firebase-analytics", version.ref = "gitLive" }
-gitlive-firebase-crashlytics = { module = "dev.gitlive:firebase-crashlytics", version.ref = "gitLive" }
-gitlive-firebase-performance = { module = "dev.gitlive:firebase-performance", version.ref = "gitLive" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
+roborazzi-accessibility-check = { group = "io.github.takahirom.roborazzi", name = "roborazzi-accessibility-check", version.ref = "roborazzi" }
+# Device-free CMP render tier (SCREENSHOT_TEST.md CMP-PRIMARY path): roborazzi-compose-desktop renders
+# commonMain @Preview from desktopTest (JVM, no Robolectric/emulator); NEVER the plain `roborazzi` AAR
+# (no JVM variant) and NEVER commonTest (breaks js/wasm). CommonComposablePreviewScanner auto-discovers previews.
+roborazzi-composeDesktop = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose-desktop", version.ref = "roborazzi" }
+composablePreviewScanner-common = { group = "io.github.sergio-sastre.ComposablePreviewScanner", name = "common", version.ref = "composablePreviewScanner" }
+composablePreviewScanner-jvm = { group = "io.github.sergio-sastre.ComposablePreviewScanner", name = "jvm", version.ref = "composablePreviewScanner" }
+# Gradle-plugin marker so CMPFeatureConventionPlugin can pluginManager.apply("io.github.takahirom.roborazzi")
+# — must be `implementation` on build-logic/convention (like worker-app-plugin), not compileOnly.
+roborazzi-gradlePlugin = { group = "io.github.takahirom.roborazzi", name = "roborazzi-gradle-plugin", version.ref = "roborazzi" }
 
-mifos-authenticator-passcode = {group="io.github.openmf", name="mifos-authenticator-passcode", version.ref="mifosAuthenticatorPasscode"}
-mifos-authenticator-biometrics = {group="io.github.openmf", name="mifos-authenticator-biometrics", version.ref="mifosAuthenticatorBiometrics"}
+store5 = { group = "org.mobilenativefoundation.store", name = "store5", version.ref = "store" }
+store5-cache = { group = "org.mobilenativefoundation.store", name = "cache5", version.ref = "store" }
 
+aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
+aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }
+aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
+
+# worker-kmp
+worker-kmp         = { module = "io.github.mobilebytelabs:worker-kmp",         version.ref = "worker-version" }
+worker-compose-all = { module = "io.github.mobilebytelabs:worker-compose-all", version.ref = "worker-version" }
+worker-app-plugin  = { module = "io.github.mobilebytelabs:worker-app-plugin",  version.ref = "worker-version" }
+worker-android     = { module = "io.github.mobilebytelabs:worker-android",     version.ref = "worker-version" }
+worker-koin        = { module = "io.github.mobilebytelabs:worker-koin",        version.ref = "worker-version" }
+worker-sync        = { module = "io.github.mobilebytelabs:worker-sync",        version.ref = "worker-version" }
+worker-app-annotations = { module = "io.github.mobilebytelabs:worker-app-annotations", version.ref = "worker-version" }
+kmpnotifier-local  = { module = "io.github.mirzemehdi:kmpnotifier-local",       version.ref = "kmpnotifier" }
 
 [bundles]
 androidx-compose-ui-test = [
@@ -473,65 +475,74 @@ androidx-compose-ui-test = [
 ]
 
 [plugins]
-
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
+kmp-product-flavors = { id = "io.github.mobilebytelabs.kmp-product-flavors", version.ref = "kmpProductFlavors" }
+kmp-flavors-convention = { id = "org.convention.kmp.flavors" }
 # Android & Kotlin Plugins
-
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
-androidx-navigation = {id = "androidx.navigation.safeargs", version.ref = "androidxNavigation"}
-kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+# AGP 9 unified KMP+Android plugin — used by KMPLibraryConventionPlugin + KMPCoreBaseLibraryConventionPlugin
+android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "androidGradlePlugin" }
+# AGP 9 migration (T3): type-safe libs.* accessors in convention plugin source files.
+# When activated, convention plugins switch from libs.findVersion("compileSdk").get().requiredVersion
+# to the type-safe libs.versions.compileSdk.get() form.
+typesafe-conventions = { id = "dev.panuszewski.typesafe-conventions", version.ref = "typesafeConventions" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+# SKIE — applied in cmp-shared/build.gradle.kts to Swift-enhance the exported
+# ComposeApp framework/XCFramework (E6). iOS integration is SwiftPM/XCFramework.
+skie = { id = "co.touchlab.skie", version.ref = "skie" }
 
-# Hilt & Room Plugins
-room = { id = "androidx.room", version.ref = "room" }
-mifos-android-application = { id = "mifos.android.application", version = "unspecified" }
-mifos-android-application-compose = { id = "mifos.android.application.compose", version = "unspecified" }
-mifos-android-application-flavors = { id = "mifos.android.application.flavors", version = "unspecified" }
-mifos-android-library = { id = "mifos.android.library", version = "unspecified" }
-mifos-android-library-compose = { id = "mifos.android.library.compose", version = "unspecified" }
+android-application-convention = { id = "org.convention.android.application" }
+android-application-compose-convention = { id = "org.convention.android.application.compose" }
 
 # KMP & CMP Plugins
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
-wire = { id = "com.squareup.wire", version.ref = "wire" }
-baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark" }
-
-cmp-feature-convention = { id = "org.convention.cmp.feature", version = "unspecified" }
-kmp-koin-convention = { id = "org.convention.kmp.koin", version = "unspecified" }
-kmp-library-convention = { id = "org.convention.kmp.library", version = "unspecified" }
-mifos-android-koin = {id = "mifos.android.koin", version = "unspecified"}
-mifos-kmp-room = { id = "mifos.kmp.room", version = "unspecified" }
-kmp-core-base-library-convention = { id = "org.convention.kmp.core.base.library", version = "unspecified" }
-
-android-application-firebase = { id = "org.convention.android.application.firebase" }
-android-lint = { id = "org.convention.android.application.lint" }
-
-# Utility Plugins
-
-mifos-detekt-plugin = { id = "mifos.detekt.plugin", version = "unspecified" }
-mifos-git-hooks = { id = "mifos.git.hooks", version = "unspecified" }
-mifos-spotless-plugin = { id = "mifos.spotless.plugin", version = "unspecified" }
-
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
-firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
-
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+kover-convention = { id = "org.convention.kover.plugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+ktrofit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
+wire = { id = "com.squareup.wire", version.ref = "wire" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerfPlugin" }
+gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark" }
+aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 
-secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+cmp-feature-convention = { id = "org.convention.cmp.feature" }
+kmp-koin-convention = { id = "org.convention.kmp.koin" }
+kmp-library-convention = { id = "org.convention.kmp.library" }
+kmp-core-base-library-convention = { id = "org.convention.kmp.core.base.library" }
 
+android-application-firebase = { id = "org.convention.android.application.firebase" }
+android-lint = { id = "org.convention.android.application.lint" }
+
+# Utility Plugins
+detekt-convention = { id = "org.convention.detekt.plugin" }
+git-hooks-convention = { id = "org.convention.git.hooks" }
+ktlint-convention = { id = "org.convention.ktlint.plugin" }
+spotless-convention = { id = "org.convention.spotless.plugin" }
+keystore-management = { id = "org.convention.keystore.management" }
+
+dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
+moduleGraph = { id = "com.jraska.module.graph.assertion", version.ref = "moduleGraph" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotlessVersion" }
-module-graph = { id = "com.jraska.module.graph.assertion", version.ref = "moduleGraph" }
-dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
-roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
-gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 
-# Plugins defined by this project
-mifos-android-lint = { id = "mifos.android.lint", version = "unspecified" }
+#Room 3 Plugin
+room = { id = "androidx.room3", version.ref = "room" }
+mifos-kmp-room = { id = "mifos.kmp.room" }
+
+# worker-kmp — apply `id("io.github.mobilebytelabs.worker-app")` to a CMP module
+# to codegen per-platform launchers (Android Application/Activity, iOS
+# MainViewController + xcodegen, JVM main, wasmJs main + index.html).
+worker-app = { id = "io.github.mobilebytelabs.worker-app", version.ref = "worker-version" }
+
+# Supabase Config Plugin

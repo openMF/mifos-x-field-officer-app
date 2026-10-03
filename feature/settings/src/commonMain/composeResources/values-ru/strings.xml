@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Настройки</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Поиск</string>
+    <string name="feature_settings_title">Настройки</string>
+    <string name="feature_settings_loading">Загрузка…</string>
+    <string name="feature_settings_privacy_policy">Политика конфиденциальности</string>
+    <string name="feature_settings_licenses">Лицензии</string>
+    <string name="feature_settings_brand_guidelines">Руководство по бренду</string>
+    <string name="feature_settings_feedback">Обратная связь</string>
+    <string name="feature_settings_theme">Тема</string>
+    <string name="feature_settings_brand_default">По умолчанию</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Тёмная тема</string>
+    <string name="feature_settings_dark_mode_config_system_default">Как в системе</string>
+    <string name="feature_settings_dark_mode_config_light">Светлая</string>
+    <string name="feature_settings_dark_mode_config_dark">Тёмная</string>
+    <string name="feature_settings_dynamic_color_preference">Динамические цвета</string>
+    <string name="feature_settings_dynamic_color_yes">Да</string>
+    <string name="feature_settings_dynamic_color_no">Нет</string>
+    <string name="feature_settings_dismiss_dialog_button_text">ОК</string>
+    <string name="feature_settings_change_theme_text">Сменить тему</string>
+    <string name="feature_settings_change_theme_placeholder_text">Сменить тему</string>
+    <string name="feature_settings_change_language_text">Сменить язык</string>
+    <string name="feature_settings_change_language_placeholder_text">Сменить язык</string>
+    <string name="feature_settings_language_preference">Язык</string>
+    <string name="feature_settings_dev_tools_title">Инструменты разработчика</string>
+    <string name="feature_settings_dev_transition_gallery">Галерея переходов</string>
+    <string name="feature_settings_dev_state_gallery">Галерея состояний</string>
+    <string name="feature_settings_dev_close">Закрыть</string>
+    <string name="feature_settings_notifications_empty_title">Уведомлений пока нет</string>
+    <string name="feature_settings_notifications_empty_message">Здесь появятся напоминания о счетах и оповещения о ставках.</string>
+    <string name="feature_settings_sync_drafts_row">Синхронизация и черновики</string>
+    <string name="feature_settings_sync_drafts_row_description">Просмотр и управление черновиками и ожидающими синхронизациями</string>
+    <string name="feature_settings_rate_app_row">Оценить приложение</string>
+    <string name="feature_settings_rate_app_row_description">Открыть страницу в магазине, чтобы оценить приложение</string>
+    <string name="feature_settings_sync_drafts_title">Синхронизация и черновики</string>
+    <string name="feature_settings_sync_drafts_empty_title">Нечего синхронизировать</string>
+    <string name="feature_settings_sync_drafts_empty_message">Здесь появятся черновики, сохранённые офлайн, и записи, ожидающие синхронизации.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Черновики</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Синхронизация</string>
+    <string name="feature_settings_sync_drafts_section_failed">Ошибки</string>
+    <string name="feature_settings_sync_drafts_status_pending">Ожидает</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Повтор</string>
+    <string name="feature_settings_sync_drafts_status_failed">Ошибка</string>
+    <string name="feature_settings_sync_drafts_retry">Повторить</string>
+    <string name="feature_settings_sync_drafts_discard">Удалить</string>
+    <string name="feature_settings_sync_drafts_prune">Очистить истёкшие</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Удалить черновик?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Сохранённый черновик будет удалён безвозвратно. Отменить это нельзя.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Отмена</string>
+    <string name="feature_settings_conflicts_title">Конфликты синхронизации</string>
+    <string name="feature_settings_conflicts_empty_title">Конфликтов нет</string>
+    <string name="feature_settings_conflicts_empty_message">Когда ваше изменение конфликтует с более новой версией на сервере, оно появится здесь, чтобы вы оставили серверную версию или повторили свою.</string>
+    <string name="feature_settings_conflicts_row_label">Конфликт</string>
+    <string name="feature_settings_conflicts_accept_server">Оставить серверную</string>
+    <string name="feature_settings_conflicts_retry_local">Повторить мою</string>
+</resources>

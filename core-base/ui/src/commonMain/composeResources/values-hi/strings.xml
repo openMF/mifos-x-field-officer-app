@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: hi · translated by /idea-locale -->
+<resources>
+    <string name="dashboard_freshness_updated">%1$s को अपडेट किया गया</string>
+    <string name="dashboard_freshness_updated_refreshing">%1$s को अपडेट किया गया · रीफ़्रेश हो रहा है…</string>
+    <string name="dashboard_freshness_loading">लोड हो रहा है…</string>
+</resources>

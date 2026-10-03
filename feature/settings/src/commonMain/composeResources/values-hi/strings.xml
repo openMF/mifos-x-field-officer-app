@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2022 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">सेटिंग्स</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">खोजें</string>
+    <string name="feature_settings_title">सेटिंग्स</string>
+    <string name="feature_settings_loading">लोड हो रहा है…</string>
+    <string name="feature_settings_privacy_policy">गोपनीयता नीति</string>
+    <string name="feature_settings_licenses">लाइसेंस</string>
+    <string name="feature_settings_brand_guidelines">ब्रांड दिशानिर्देश</string>
+    <string name="feature_settings_feedback">फ़ीडबैक</string>
+    <string name="feature_settings_theme">थीम</string>
+    <string name="feature_settings_brand_default">डिफ़ॉल्ट</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">डार्क मोड प्राथमिकता</string>
+    <string name="feature_settings_dark_mode_config_system_default">सिस्टम डिफ़ॉल्ट</string>
+    <string name="feature_settings_dark_mode_config_light">लाइट</string>
+    <string name="feature_settings_dark_mode_config_dark">डार्क</string>
+    <string name="feature_settings_dynamic_color_preference">डायनामिक रंग का उपयोग करें</string>
+    <string name="feature_settings_dynamic_color_yes">हां</string>
+    <string name="feature_settings_dynamic_color_no">नहीं</string>
+    <string name="feature_settings_dismiss_dialog_button_text">ठीक है</string>
+    <string name="feature_settings_change_theme_text">थीम बदलें</string>
+    <string name="feature_settings_change_theme_placeholder_text">थीम बदलें</string>
+    <string name="feature_settings_change_language_text">भाषा बदलें</string>
+    <string name="feature_settings_change_language_placeholder_text">भाषा बदलें</string>
+    <string name="feature_settings_language_preference">भाषा</string>
+    <string name="feature_settings_dev_tools_title">डेव टूल</string>
+    <string name="feature_settings_dev_transition_gallery">ट्रांज़िशन गैलरी</string>
+    <string name="feature_settings_dev_state_gallery">स्टेट गैलरी</string>
+    <string name="feature_settings_dev_close">बंद करें</string>
+    <string name="feature_settings_notifications_empty_title">अभी कोई सूचना नहीं</string>
+    <string name="feature_settings_notifications_empty_message">यहाँ आपको बिल रिमाइंडर और दर अलर्ट दिखेंगे।</string>
+    <string name="feature_settings_sync_drafts_row">सिंक और ड्राफ़्ट</string>
+    <string name="feature_settings_sync_drafts_row_description">ड्राफ़्ट और लंबित सिंक देखें और प्रबंधित करें</string>
+    <string name="feature_settings_rate_app_row">इस ऐप को रेट करें</string>
+    <string name="feature_settings_rate_app_row_description">इस ऐप को रेट करने के लिए स्टोर लिस्टिंग खोलें</string>
+    <string name="feature_settings_sync_drafts_title">सिंक और ड्राफ़्ट</string>
+    <string name="feature_settings_sync_drafts_empty_title">सिंक करने के लिए कुछ नहीं</string>
+    <string name="feature_settings_sync_drafts_empty_message">ऑफ़लाइन सहेजे गए ड्राफ़्ट और सिंक की प्रतीक्षा कर रहे रिकॉर्ड यहाँ दिखेंगे।</string>
+    <string name="feature_settings_sync_drafts_section_drafts">ड्राफ़्ट</string>
+    <string name="feature_settings_sync_drafts_section_syncing">सिंक हो रहा है</string>
+    <string name="feature_settings_sync_drafts_section_failed">विफल</string>
+    <string name="feature_settings_sync_drafts_status_pending">लंबित</string>
+    <string name="feature_settings_sync_drafts_status_retrying">पुनः प्रयास हो रहा है</string>
+    <string name="feature_settings_sync_drafts_status_failed">विफल</string>
+    <string name="feature_settings_sync_drafts_retry">पुनः प्रयास करें</string>
+    <string name="feature_settings_sync_drafts_discard">हटाएँ</string>
+    <string name="feature_settings_sync_drafts_prune">समाप्त हो चुके हटाएँ</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">ड्राफ़्ट हटाएँ?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">इससे सहेजा गया ड्राफ़्ट स्थायी रूप से मिट जाएगा। इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">रद्द करें</string>
+    <string name="feature_settings_conflicts_title">सिंक विरोध</string>
+    <string name="feature_settings_conflicts_empty_title">कोई विरोध नहीं</string>
+    <string name="feature_settings_conflicts_empty_message">जब आपका कोई बदलाव सर्वर पर मौजूद नए संस्करण से टकराएगा, तो वह यहाँ दिखेगा ताकि आप सर्वर का संस्करण रखें या अपना दोबारा आज़माएँ।</string>
+    <string name="feature_settings_conflicts_row_label">विरोध</string>
+    <string name="feature_settings_conflicts_accept_server">सर्वर वाला रखें</string>
+    <string name="feature_settings_conflicts_retry_local">मेरा पुनः आज़माएँ</string>
+</resources>

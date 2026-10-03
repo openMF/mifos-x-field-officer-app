@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_signin_login">Login</string>
+    <string name="feature_signin_username">Username</string>
+    <string name="feature_signin_password">Password</string>
+
+    <!-- Restored from 6b66e8a43 (S1 T3): absent from the authored replacement. -->
+    <string name="feature_signin_enter_credentials">Please enter your credentials</string>
+    <string name="feature_signin_error_enter_credentials">Please enter the credentials</string>
+    <string name="feature_signin_error_not_connected_internet">No internet connection</string>
+
+    <!--
+        Deliberately carries NO number. The replacement read "Username must be at least 5
+        characters", which hardcoded a threshold into user-facing copy AND hardcoded the wrong one —
+        the rule is 4 (kpt.core.domain.validation.CredentialRules.MIN_USERNAME_LENGTH). The original
+        said "Invalid username length" for exactly this reason: copy that names a number drifts from
+        the rule silently. If a count is ever wanted here, format it from the constant.
+    -->
+    <string name="feature_signin_error_username_length">Invalid username length</string>
+    <string name="feature_signin_error_password_length">Invalid password length</string>
+
+    <string name="feature_signin_error_login_failed">Login failed. Check your credentials and try again.</string>
+
+    <!--
+        No original equivalent. The old app could not tell "offline" from "rejected" — DataState had
+        no such state. MutationResult.Blocked(OFFLINE) can, so this is a deliberate addition rather
+        than a port (ledger §5).
+    -->
+    <string name="feature_signin_error_offline">You are offline. Signing in needs a connection.</string>
+
+    <!-- Server-config entry point, reached from login (S1 T4). -->
+    <string name="feature_signin_update_server_config">Update server configuration</string>
+
+    <!--
+        ─────────── Added 2026-10-03 by the stitch-driven implement ───────────
+        Structure comes from the resolved stitch mockups (the design SoT per RULE-UI-SOURCE-001 US9);
+        the COPY is authored here rather than lifted from the renders. The mockups' own prompt marks
+        their concrete text as "REALISTIC SAMPLE data", and theirs read like a vendor demo
+        ("Verifying credentials with core banking...", "Successfully authenticated. Welcome!"). The
+        mockup is authoritative for what EXISTS and where it sits, not for what it says.
+    -->
+    <string name="feature_signin_username_placeholder">Enter username</string>
+    <string name="feature_signin_password_placeholder">Enter password</string>
+    <string name="feature_signin_authenticating">Signing in…</string>
+
+    <!-- a11y. Every Icon carries a contentDescription (RULE-FEATURE-A11Y-001). -->
+    <string name="feature_signin_cd_logo">Mifos logo</string>
+    <string name="feature_signin_cd_username_error">Username is invalid</string>
+    <string name="feature_signin_cd_password_error">Password is invalid</string>
+    <!--
+        NOT declared: show/hide-password descriptions. MifosOutlinedTextField hardcodes its own
+        ("VisibilityOn"/"VisibilityOff") and accepts no override, so a key here would be dead weight
+        that reads like a11y coverage. That hardcoded English string is a core/designsystem defect
+        (unlocalisable screen-reader text) — it belongs upstream, not worked around here.
+    -->
+</resources>

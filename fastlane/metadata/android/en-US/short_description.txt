@@ -1,1 +1,0 @@
-Mobile field operations app for financial inclusion built on Apache Fineract.

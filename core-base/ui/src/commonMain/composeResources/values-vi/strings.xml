@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: vi · translated by /idea-locale -->
+<resources>
+    <string name="dashboard_freshness_updated">Đã cập nhật %1$s</string>
+    <string name="dashboard_freshness_updated_refreshing">Đã cập nhật %1$s · đang làm mới…</string>
+    <string name="dashboard_freshness_loading">Đang tải…</string>
+</resources>

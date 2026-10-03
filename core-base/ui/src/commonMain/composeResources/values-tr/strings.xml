@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: tr · translated by /idea-locale -->
+<resources>
+    <string name="dashboard_freshness_updated">%1$s güncellendi</string>
+    <string name="dashboard_freshness_updated_refreshing">%1$s güncellendi · yenileniyor…</string>
+    <string name="dashboard_freshness_loading">Yükleniyor…</string>
+</resources>

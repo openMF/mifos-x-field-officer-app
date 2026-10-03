@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Ayarlar</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Ara</string>
+    <string name="feature_settings_title">Ayarlar</string>
+    <string name="feature_settings_loading">Yükleniyor…</string>
+    <string name="feature_settings_privacy_policy">Gizlilik politikası</string>
+    <string name="feature_settings_licenses">Lisanslar</string>
+    <string name="feature_settings_brand_guidelines">Marka kılavuzu</string>
+    <string name="feature_settings_feedback">Geri bildirim</string>
+    <string name="feature_settings_theme">Tema</string>
+    <string name="feature_settings_brand_default">Varsayılan</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Koyu mod tercihi</string>
+    <string name="feature_settings_dark_mode_config_system_default">Sistem varsayılanı</string>
+    <string name="feature_settings_dark_mode_config_light">Açık</string>
+    <string name="feature_settings_dark_mode_config_dark">Koyu</string>
+    <string name="feature_settings_dynamic_color_preference">Dinamik rengi kullan</string>
+    <string name="feature_settings_dynamic_color_yes">Evet</string>
+    <string name="feature_settings_dynamic_color_no">Hayır</string>
+    <string name="feature_settings_dismiss_dialog_button_text">Tamam</string>
+    <string name="feature_settings_change_theme_text">Temayı değiştir</string>
+    <string name="feature_settings_change_theme_placeholder_text">Temayı değiştir</string>
+    <string name="feature_settings_change_language_text">Dili değiştir</string>
+    <string name="feature_settings_change_language_placeholder_text">Dili değiştir</string>
+    <string name="feature_settings_language_preference">Dil</string>
+    <string name="feature_settings_dev_tools_title">Geliştirici araçları</string>
+    <string name="feature_settings_dev_transition_gallery">Geçiş galerisi</string>
+    <string name="feature_settings_dev_state_gallery">Durum galerisi</string>
+    <string name="feature_settings_dev_close">Kapat</string>
+    <string name="feature_settings_notifications_empty_title">Henüz bildirim yok</string>
+    <string name="feature_settings_notifications_empty_message">Fatura hatırlatıcıları ve oran uyarıları burada görünecek.</string>
+    <string name="feature_settings_sync_drafts_row">Senkronizasyon ve taslaklar</string>
+    <string name="feature_settings_sync_drafts_row_description">Taslakları ve bekleyen senkronizasyonları görüntüleyip yönetin</string>
+    <string name="feature_settings_rate_app_row">Bu uygulamayı değerlendir</string>
+    <string name="feature_settings_rate_app_row_description">Bu uygulamayı değerlendirmek için mağaza sayfasını aç</string>
+    <string name="feature_settings_sync_drafts_title">Senkronizasyon ve taslaklar</string>
+    <string name="feature_settings_sync_drafts_empty_title">Senkronize edilecek bir şey yok</string>
+    <string name="feature_settings_sync_drafts_empty_message">Çevrimdışı kaydettiğiniz taslaklar ve senkronizasyon bekleyen kayıtlar burada görünecek.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Taslaklar</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Senkronize ediliyor</string>
+    <string name="feature_settings_sync_drafts_section_failed">Başarısız</string>
+    <string name="feature_settings_sync_drafts_status_pending">Beklemede</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Yeniden deneniyor</string>
+    <string name="feature_settings_sync_drafts_status_failed">Başarısız</string>
+    <string name="feature_settings_sync_drafts_retry">Yeniden dene</string>
+    <string name="feature_settings_sync_drafts_discard">Sil</string>
+    <string name="feature_settings_sync_drafts_prune">Süresi dolanları temizle</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Taslak silinsin mi?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Bu, kaydedilen taslağı kalıcı olarak siler. Geri alınamaz.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">İptal</string>
+    <string name="feature_settings_conflicts_title">Senkronizasyon çakışmaları</string>
+    <string name="feature_settings_conflicts_empty_title">Çakışma yok</string>
+    <string name="feature_settings_conflicts_empty_message">Yaptığınız bir değişiklik sunucudaki daha yeni bir sürümle çakıştığında burada görünür; sunucudakini koruyabilir veya kendinizinkini yeniden deneyebilirsiniz.</string>
+    <string name="feature_settings_conflicts_row_label">Çakışma</string>
+    <string name="feature_settings_conflicts_accept_server">Sunucuyu koru</string>
+    <string name="feature_settings_conflicts_retry_local">Benimkini dene</string>
+</resources>

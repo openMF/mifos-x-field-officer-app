@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">الإعدادات</string>
+    <string name="screens_home_outstanding_label">الرصيد المستحق</string>
+    <string name="screens_home_no_loans_message">لا توجد قروض نشطة — ابدأ بإضافة واحد.</string>
+    <string name="screens_home_total_outstanding_label">إجمالي المستحق</string>
+    <string name="screens_home_active_loans_singular">قرض نشط واحد (%1$d)</string>
+    <string name="screens_home_active_loans_plural">%1$d قروض نشطة</string>
+    <string name="screens_home_monthly_emi_label">القسط الشهري</string>
+    <string name="screens_home_loans_label">القروض</string>
+    <string name="screens_home_loans_carousel_title">قروضك · %1$d</string>
+    <string name="screens_home_remaining_label">المتبقي</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">القسط $%1$s · تم سداد %2$d%%</string>
+    <string name="screens_home_section_this_week">هذا الأسبوع</string>
+    <string name="screens_home_section_tools">الأدوات</string>
+    <string name="screens_home_section_tools_subtitle">حاسبات ومقارنات ومؤشرات كلية</string>
+    <string name="screens_home_bills_card_title">الفواتير القادمة</string>
+    <string name="screens_home_bills_total_label">إجمالي المستحق (خلال 7 أيام)</string>
+    <string name="screens_home_bills_day_value">اليوم %1$d</string>
+    <string name="screens_home_bills_empty">لا توجد فواتير مستحقة خلال 7 أيام.</string>
+    <string name="screens_home_rates_card_title">أسعار اليوم</string>
+    <string name="screens_home_rates_fed_funds_label">الأموال الفيدرالية</string>
+    <string name="screens_home_rates_mortgage_30y_label">رهن عقاري 30 سنة</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">صرف الدولار</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">عرض الكل</string>
+    <string name="screens_home_tool_emi_title">حاسبة القسط الشهري</string>
+    <string name="screens_home_tool_emi_subtitle">القسط الشهري لأي قرض</string>
+    <string name="screens_home_tool_affordability_title">القدرة على الاقتراض</string>
+    <string name="screens_home_tool_affordability_subtitle">كم يمكنني أن أقترض بأمان؟</string>
+    <string name="screens_home_tool_amortization_title">الإطفاء</string>
+    <string name="screens_home_tool_amortization_subtitle">جدول السداد الكامل</string>
+    <string name="screens_home_tool_compare_title">مقارنة القروض</string>
+    <string name="screens_home_tool_compare_subtitle">إجمالي التكلفة جنبًا إلى جنب</string>
+    <string name="screens_home_tool_wizard_title">معالج القروض</string>
+    <string name="screens_home_tool_wizard_subtitle">مخطِّط خطوة بخطوة</string>
+    <string name="screens_home_tool_currency_title">أسعار العملات</string>
+    <string name="screens_home_tool_currency_subtitle">أسعار صرف مباشرة</string>
+    <string name="screens_home_tool_history_title">سجل الأسعار</string>
+    <string name="screens_home_tool_history_subtitle">رسوم بيانية تاريخية للعملات</string>
+    <string name="screens_home_tool_macro_title">المؤشرات الكلية للدولة</string>
+    <string name="screens_home_tool_macro_subtitle">الناتج المحلي ومؤشر الأسعار والبطالة</string>
+    <string name="screens_home_tool_crypto_title">أسواق العملات</string>
+    <string name="screens_home_tool_crypto_subtitle">أسعار العملات المشفّرة مباشرة وقائمة المتابعة</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

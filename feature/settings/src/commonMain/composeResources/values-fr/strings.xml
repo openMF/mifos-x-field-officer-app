@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2022 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Paramètres</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Rechercher</string>
+    <string name="feature_settings_title">Paramètres</string>
+    <string name="feature_settings_loading">Chargement…</string>
+    <string name="feature_settings_privacy_policy">Politique de confidentialité</string>
+    <string name="feature_settings_licenses">Licences</string>
+    <string name="feature_settings_brand_guidelines">Directives de marque</string>
+    <string name="feature_settings_feedback">Commentaires</string>
+    <string name="feature_settings_theme">Thème</string>
+    <string name="feature_settings_brand_default">Par défaut</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Préférence de mode sombre</string>
+    <string name="feature_settings_dark_mode_config_system_default">Valeur système par défaut</string>
+    <string name="feature_settings_dark_mode_config_light">Clair</string>
+    <string name="feature_settings_dark_mode_config_dark">Sombre</string>
+    <string name="feature_settings_dynamic_color_preference">Utiliser la couleur dynamique</string>
+    <string name="feature_settings_dynamic_color_yes">Oui</string>
+    <string name="feature_settings_dynamic_color_no">Non</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Changer le thème</string>
+    <string name="feature_settings_change_theme_placeholder_text">Changer le thème</string>
+    <string name="feature_settings_change_language_text">Changer la langue</string>
+    <string name="feature_settings_change_language_placeholder_text">Changer la langue</string>
+    <string name="feature_settings_language_preference">Langue</string>
+    <string name="feature_settings_dev_tools_title">Outils de développement</string>
+    <string name="feature_settings_dev_transition_gallery">Galerie de transitions</string>
+    <string name="feature_settings_dev_state_gallery">Galerie d\'états</string>
+    <string name="feature_settings_dev_close">Fermer</string>
+    <string name="feature_settings_notifications_empty_title">Aucune notification pour le moment</string>
+    <string name="feature_settings_notifications_empty_message">Vous verrez ici les rappels de factures et les alertes de taux.</string>
+    <string name="feature_settings_sync_drafts_row">Synchronisation &amp; brouillons</string>
+    <string name="feature_settings_sync_drafts_row_description">Consulter et gérer les brouillons et les synchronisations en attente</string>
+    <string name="feature_settings_rate_app_row">Noter cette application</string>
+    <string name="feature_settings_rate_app_row_description">Ouvrir la fiche du magasin pour noter cette application</string>
+    <string name="feature_settings_sync_drafts_title">Synchronisation &amp; brouillons</string>
+    <string name="feature_settings_sync_drafts_empty_title">Rien à synchroniser</string>
+    <string name="feature_settings_sync_drafts_empty_message">Les brouillons enregistrés hors ligne et les enregistrements en attente de synchronisation apparaîtront ici.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Brouillons</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Synchronisation</string>
+    <string name="feature_settings_sync_drafts_section_failed">Échecs</string>
+    <string name="feature_settings_sync_drafts_status_pending">En attente</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Nouvelle tentative</string>
+    <string name="feature_settings_sync_drafts_status_failed">Échec</string>
+    <string name="feature_settings_sync_drafts_retry">Réessayer</string>
+    <string name="feature_settings_sync_drafts_discard">Supprimer</string>
+    <string name="feature_settings_sync_drafts_prune">Purger les expirés</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Supprimer le brouillon ?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Cela supprime définitivement le brouillon enregistré. Cette action est irréversible.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Annuler</string>
+    <string name="feature_settings_conflicts_title">Conflits de synchronisation</string>
+    <string name="feature_settings_conflicts_empty_title">Aucun conflit</string>
+    <string name="feature_settings_conflicts_empty_message">Lorsqu\'une de vos modifications entre en conflit avec une version plus récente sur le serveur, elle apparaît ici pour que vous conserviez celle du serveur ou réessayiez la vôtre.</string>
+    <string name="feature_settings_conflicts_row_label">Conflit</string>
+    <string name="feature_settings_conflicts_accept_server">Conserver le serveur</string>
+    <string name="feature_settings_conflicts_retry_local">Réessayer la mienne</string>
+</resources>

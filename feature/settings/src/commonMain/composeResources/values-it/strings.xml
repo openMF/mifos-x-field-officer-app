@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Impostazioni</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Cerca</string>
+    <string name="feature_settings_title">Impostazioni</string>
+    <string name="feature_settings_loading">Caricamento…</string>
+    <string name="feature_settings_privacy_policy">Informativa sulla privacy</string>
+    <string name="feature_settings_licenses">Licenze</string>
+    <string name="feature_settings_brand_guidelines">Linee guida del marchio</string>
+    <string name="feature_settings_feedback">Feedback</string>
+    <string name="feature_settings_theme">Tema</string>
+    <string name="feature_settings_brand_default">Predefinito</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Preferenza modalità scura</string>
+    <string name="feature_settings_dark_mode_config_system_default">Predefinito di sistema</string>
+    <string name="feature_settings_dark_mode_config_light">Chiaro</string>
+    <string name="feature_settings_dark_mode_config_dark">Scuro</string>
+    <string name="feature_settings_dynamic_color_preference">Usa colore dinamico</string>
+    <string name="feature_settings_dynamic_color_yes">Sì</string>
+    <string name="feature_settings_dynamic_color_no">No</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Cambia tema</string>
+    <string name="feature_settings_change_theme_placeholder_text">Cambia tema</string>
+    <string name="feature_settings_change_language_text">Cambia lingua</string>
+    <string name="feature_settings_change_language_placeholder_text">Cambia lingua</string>
+    <string name="feature_settings_language_preference">Lingua</string>
+    <string name="feature_settings_dev_tools_title">Strumenti di sviluppo</string>
+    <string name="feature_settings_dev_transition_gallery">Galleria transizioni</string>
+    <string name="feature_settings_dev_state_gallery">Galleria stati</string>
+    <string name="feature_settings_dev_close">Chiudi</string>
+    <string name="feature_settings_notifications_empty_title">Ancora nessuna notifica</string>
+    <string name="feature_settings_notifications_empty_message">Qui vedrai i promemoria delle bollette e gli avvisi sui tassi.</string>
+    <string name="feature_settings_sync_drafts_row">Sincronizzazione e bozze</string>
+    <string name="feature_settings_sync_drafts_row_description">Visualizza e gestisci bozze e sincronizzazioni in sospeso</string>
+    <string name="feature_settings_rate_app_row">Valuta questa app</string>
+    <string name="feature_settings_rate_app_row_description">Apri la scheda dello store per valutare questa app</string>
+    <string name="feature_settings_sync_drafts_title">Sincronizzazione e bozze</string>
+    <string name="feature_settings_sync_drafts_empty_title">Niente da sincronizzare</string>
+    <string name="feature_settings_sync_drafts_empty_message">Le bozze salvate offline e i record in attesa di sincronizzazione appariranno qui.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Bozze</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Sincronizzazione</string>
+    <string name="feature_settings_sync_drafts_section_failed">Non riuscite</string>
+    <string name="feature_settings_sync_drafts_status_pending">In sospeso</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Nuovo tentativo</string>
+    <string name="feature_settings_sync_drafts_status_failed">Non riuscito</string>
+    <string name="feature_settings_sync_drafts_retry">Riprova</string>
+    <string name="feature_settings_sync_drafts_discard">Elimina</string>
+    <string name="feature_settings_sync_drafts_prune">Rimuovi scadute</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Eliminare la bozza?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">La bozza salvata verrà eliminata definitivamente. Non è possibile annullare.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Annulla</string>
+    <string name="feature_settings_conflicts_title">Conflitti di sincronizzazione</string>
+    <string name="feature_settings_conflicts_empty_title">Nessun conflitto</string>
+    <string name="feature_settings_conflicts_empty_message">Quando una tua modifica entra in conflitto con una versione più recente sul server, compare qui così puoi mantenere quella del server o riprovare la tua.</string>
+    <string name="feature_settings_conflicts_row_label">Conflitto</string>
+    <string name="feature_settings_conflicts_accept_server">Mantieni server</string>
+    <string name="feature_settings_conflicts_retry_local">Riprova la mia</string>
+</resources>

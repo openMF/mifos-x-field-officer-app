@@ -1,0 +1,78 @@
+/*
+ * Copyright 2024 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.core.designsystem.theme
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.LocalAbsoluteTonalElevation
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
+import kpt.core.base.designsystem.theme.KptTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
+
+/**
+ * The main background for the app.
+ * Uses [LocalBackgroundTheme] to set the color and tonal elevation of a [Surface].
+ *
+ * @param modifier Modifier to be applied to the background.
+ * @param content The background content.
+ */
+@Composable
+fun MifosBackground(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    val color = LocalBackgroundTheme.current.color
+    val tonalElevation = LocalBackgroundTheme.current.tonalElevation
+    Surface(
+        color = if (color == Color.Unspecified) Color.Transparent else color,
+        tonalElevation = if (tonalElevation == Dp.Unspecified) KptTheme.elevation.level0 else tonalElevation,
+        modifier = modifier.fillMaxSize(),
+    ) {
+        CompositionLocalProvider(LocalAbsoluteTonalElevation provides KptTheme.elevation.level0) {
+            content()
+        }
+    }
+}
+
+/**
+ * Multipreview annotation that represents light and dark themes. Add this annotation to a
+ * composable to render the both themes.
+ */
+@Preview
+annotation class ThemePreview
+
+@ThemePreview
+@Composable
+fun BackgroundDefault() {
+    MifosTheme {
+        MifosBackground(Modifier.size(DesignToken.sizes.backgroundDp100), content = {})
+    }
+}
+
+@ThemePreview
+@Composable
+fun BackgroundDynamic() {
+    MifosTheme {
+        MifosBackground(Modifier.size(DesignToken.sizes.backgroundDp100), content = {})
+    }
+}
+
+@ThemePreview
+@Composable
+fun BackgroundAndroid() {
+    MifosTheme {
+        MifosBackground(Modifier.size(DesignToken.sizes.backgroundDp100), content = {})
+    }
+}

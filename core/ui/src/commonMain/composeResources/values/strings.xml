@@ -6,7 +6,7 @@
     If a copy of the MPL was not distributed with this file,
     You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
     <string name="core_ui_no_internet">No Internet</string>
@@ -31,10 +31,6 @@
     <string name="core_ui_amount_paid">Amount Paid</string>
     <string name="core_ui_loan_balance">Loan Balance</string>
     <string name="core_ui_type">Type</string>
-
-    <!-- Mifos Loan PDF export Strings -->
-    <string name="feature_pdf_generation_date">Generation Date</string>
-    <string name="powered_by">Powered By</string>
 
     <!-- Mifos Savings -->
     <string name="core_ui_savings_product">Savings Product</string>
@@ -90,7 +86,6 @@
     <string name="core_ui_pay_outstanding_amount">Pay Outstanding Amount</string>
     <string name="core_ui_edit">Edit</string>
     <string name="core_ui_delete">Delete</string>
-    <string name="core_ui_transfer_fund">Transfer Fund</string>
 
     <!-- Mifos Note -->
     <string name="core_ui_note_createdBy">Created By:</string>

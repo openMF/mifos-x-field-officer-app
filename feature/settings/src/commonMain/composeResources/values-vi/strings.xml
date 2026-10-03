@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Cài đặt</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Tìm kiếm</string>
+    <string name="feature_settings_title">Cài đặt</string>
+    <string name="feature_settings_loading">Đang tải…</string>
+    <string name="feature_settings_privacy_policy">Chính sách quyền riêng tư</string>
+    <string name="feature_settings_licenses">Giấy phép</string>
+    <string name="feature_settings_brand_guidelines">Nguyên tắc thương hiệu</string>
+    <string name="feature_settings_feedback">Phản hồi</string>
+    <string name="feature_settings_theme">Giao diện</string>
+    <string name="feature_settings_brand_default">Mặc định</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Tùy chọn chế độ tối</string>
+    <string name="feature_settings_dark_mode_config_system_default">Mặc định hệ thống</string>
+    <string name="feature_settings_dark_mode_config_light">Sáng</string>
+    <string name="feature_settings_dark_mode_config_dark">Tối</string>
+    <string name="feature_settings_dynamic_color_preference">Dùng màu động</string>
+    <string name="feature_settings_dynamic_color_yes">Có</string>
+    <string name="feature_settings_dynamic_color_no">Không</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Đổi giao diện</string>
+    <string name="feature_settings_change_theme_placeholder_text">Đổi giao diện</string>
+    <string name="feature_settings_change_language_text">Đổi ngôn ngữ</string>
+    <string name="feature_settings_change_language_placeholder_text">Đổi ngôn ngữ</string>
+    <string name="feature_settings_language_preference">Ngôn ngữ</string>
+    <string name="feature_settings_dev_tools_title">Công cụ nhà phát triển</string>
+    <string name="feature_settings_dev_transition_gallery">Thư viện hiệu ứng chuyển</string>
+    <string name="feature_settings_dev_state_gallery">Thư viện trạng thái</string>
+    <string name="feature_settings_dev_close">Đóng</string>
+    <string name="feature_settings_notifications_empty_title">Chưa có thông báo</string>
+    <string name="feature_settings_notifications_empty_message">Nhắc hóa đơn và cảnh báo lãi suất sẽ hiển thị ở đây.</string>
+    <string name="feature_settings_sync_drafts_row">Đồng bộ &amp; bản nháp</string>
+    <string name="feature_settings_sync_drafts_row_description">Xem và quản lý bản nháp cùng các mục chờ đồng bộ</string>
+    <string name="feature_settings_rate_app_row">Đánh giá ứng dụng này</string>
+    <string name="feature_settings_rate_app_row_description">Mở trang cửa hàng để đánh giá ứng dụng này</string>
+    <string name="feature_settings_sync_drafts_title">Đồng bộ &amp; bản nháp</string>
+    <string name="feature_settings_sync_drafts_empty_title">Không có gì để đồng bộ</string>
+    <string name="feature_settings_sync_drafts_empty_message">Bản nháp bạn lưu khi ngoại tuyến và các bản ghi đang chờ đồng bộ sẽ hiển thị ở đây.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Bản nháp</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Đang đồng bộ</string>
+    <string name="feature_settings_sync_drafts_section_failed">Thất bại</string>
+    <string name="feature_settings_sync_drafts_status_pending">Đang chờ</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Đang thử lại</string>
+    <string name="feature_settings_sync_drafts_status_failed">Thất bại</string>
+    <string name="feature_settings_sync_drafts_retry">Thử lại</string>
+    <string name="feature_settings_sync_drafts_discard">Bỏ</string>
+    <string name="feature_settings_sync_drafts_prune">Dọn mục hết hạn</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Bỏ bản nháp?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Thao tác này xóa vĩnh viễn bản nháp đã lưu và không thể hoàn tác.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Hủy</string>
+    <string name="feature_settings_conflicts_title">Xung đột đồng bộ</string>
+    <string name="feature_settings_conflicts_empty_title">Không có xung đột</string>
+    <string name="feature_settings_conflicts_empty_message">Khi thay đổi của bạn xung đột với phiên bản mới hơn trên máy chủ, nó sẽ hiển thị ở đây để bạn giữ bản của máy chủ hoặc thử lại bản của mình.</string>
+    <string name="feature_settings_conflicts_row_label">Xung đột</string>
+    <string name="feature_settings_conflicts_accept_server">Giữ bản máy chủ</string>
+    <string name="feature_settings_conflicts_retry_local">Thử bản của tôi</string>
+</resources>

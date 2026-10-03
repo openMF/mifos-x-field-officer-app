@@ -8,16 +8,16 @@
  * See https://github.com/openMF/mobile-wallet/blob/master/LICENSE.md
  */
 
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.application
-import androidx.compose.ui.window.rememberWindowState
-import cmp.shared.SharedApp
-import cmp.shared.utils.initKoin
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
+import cmp.shared.SharedApp
+import cmp.shared.utils.initKoin
 import java.util.Locale
 
 /**
@@ -35,6 +35,9 @@ import java.util.Locale
  * @see SharedApp
  */
 fun main() {
+    val appName = System.getProperty("app.name", "App Toolkit")
+    // Must be set before AWT initialises — controls the macOS menu-bar process name.
+    System.setProperty("apple.awt.application.name", appName)
     application {
         // Initializes the Koin dependency injection framework.
         initKoin()
@@ -49,14 +52,19 @@ fun main() {
         Window(
             onCloseRequest = ::exitApplication,
             state = windowState,
-            title = "Android Client",
+            title = appName,
         ) {
             // Use key() to force complete recomposition when locale changes
             key(localeVersion) {
                 // Sets the content of the window.
                 SharedApp(
+                    updateScreenCapture = {},
+                    handleRecreate = {
+                        // Increment version to trigger recomposition
+                        localeVersion++
+                    },
                     handleThemeMode = {},
-                    handleAppLocale = { languageTag  ->
+                    handleAppLocale = { languageTag ->
                         if (languageTag != null) {
                             // Parse language tag and set as default locale
                             val locale = when {
@@ -64,7 +72,6 @@ fun main() {
                                     val parts = languageTag.split("-")
                                     Locale(parts[0], parts[1])
                                 }
-
                                 else -> Locale(languageTag)
                             }
                             Locale.setDefault(locale)
@@ -76,7 +83,7 @@ fun main() {
                         // Trigger recomposition with new locale
                         localeVersion++
                     },
-                    onSplashScreenRemoved = {},
+                    onSplashScreenRemoved = {}
                 )
             }
         }

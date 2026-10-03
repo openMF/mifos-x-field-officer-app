@@ -1,0 +1,35 @@
+# .github/workflows/tag-weekly-release.yml — v2 weekly Beta release
+#
+# Sunday 04:00 UTC. Default strategy: calver-week (vYYYY.W##.0). Lands at Stage 2 (Beta).
+name: Tag Weekly Release
+run-name: "🏷️ Tag Weekly · $(date +%Y-W%U)"
+
+on:
+  schedule:
+    - cron: '0 4 * * 0'
+  workflow_dispatch:
+
+concurrency:
+  group: weekly-release
+  cancel-in-progress: false
+
+jobs:
+  tag-and-release:
+    uses: openMF/mifos-x-actionhub/.github/workflows/tag-weekly-release-v2.yaml@v1.0.67
+    with:
+      version_strategy:      calver-week
+      starting_rung:         beta
+      target_branch:         dev
+      skip_if_no_commits:    true
+      android_package_name:  cmp-android
+      ios_package_name:      cmp-ios
+      mac_package_name:      cmp-desktop
+      shared_module:         cmp-shared
+      web_package_name:      cmp-web
+      include_android:       true
+      include_ios:           true
+      include_web:           true
+      include_mac:           false
+      include_desktop_win:   false
+      include_desktop_linux: false
+    secrets: inherit

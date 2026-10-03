@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Instellingen</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Zoeken</string>
+    <string name="feature_settings_title">Instellingen</string>
+    <string name="feature_settings_loading">Laden…</string>
+    <string name="feature_settings_privacy_policy">Privacybeleid</string>
+    <string name="feature_settings_licenses">Licenties</string>
+    <string name="feature_settings_brand_guidelines">Merkrichtlijnen</string>
+    <string name="feature_settings_feedback">Feedback</string>
+    <string name="feature_settings_theme">Thema</string>
+    <string name="feature_settings_brand_default">Standaard</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Voorkeur donkere modus</string>
+    <string name="feature_settings_dark_mode_config_system_default">Systeemstandaard</string>
+    <string name="feature_settings_dark_mode_config_light">Licht</string>
+    <string name="feature_settings_dark_mode_config_dark">Donker</string>
+    <string name="feature_settings_dynamic_color_preference">Dynamic Color gebruiken</string>
+    <string name="feature_settings_dynamic_color_yes">Ja</string>
+    <string name="feature_settings_dynamic_color_no">Nee</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+    <string name="feature_settings_change_theme_text">Thema wijzigen</string>
+    <string name="feature_settings_change_theme_placeholder_text">Thema wijzigen</string>
+    <string name="feature_settings_change_language_text">Taal wijzigen</string>
+    <string name="feature_settings_change_language_placeholder_text">Taal wijzigen</string>
+    <string name="feature_settings_language_preference">Taal</string>
+    <string name="feature_settings_dev_tools_title">Ontwikkelaarstools</string>
+    <string name="feature_settings_dev_transition_gallery">Overgangsgalerij</string>
+    <string name="feature_settings_dev_state_gallery">Statusgalerij</string>
+    <string name="feature_settings_dev_close">Sluiten</string>
+    <string name="feature_settings_notifications_empty_title">Nog geen meldingen</string>
+    <string name="feature_settings_notifications_empty_message">Hier zie je rekeningherinneringen en rentemeldingen.</string>
+    <string name="feature_settings_sync_drafts_row">Synchronisatie &amp; concepten</string>
+    <string name="feature_settings_sync_drafts_row_description">Concepten en openstaande synchronisaties bekijken en beheren</string>
+    <string name="feature_settings_rate_app_row">Deze app beoordelen</string>
+    <string name="feature_settings_rate_app_row_description">Open de winkelpagina om deze app te beoordelen</string>
+    <string name="feature_settings_sync_drafts_title">Synchronisatie &amp; concepten</string>
+    <string name="feature_settings_sync_drafts_empty_title">Niets te synchroniseren</string>
+    <string name="feature_settings_sync_drafts_empty_message">Offline opgeslagen concepten en records die wachten op synchronisatie verschijnen hier.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Concepten</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Synchroniseren</string>
+    <string name="feature_settings_sync_drafts_section_failed">Mislukt</string>
+    <string name="feature_settings_sync_drafts_status_pending">In afwachting</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Opnieuw proberen</string>
+    <string name="feature_settings_sync_drafts_status_failed">Mislukt</string>
+    <string name="feature_settings_sync_drafts_retry">Opnieuw</string>
+    <string name="feature_settings_sync_drafts_discard">Verwijderen</string>
+    <string name="feature_settings_sync_drafts_prune">Verlopen opruimen</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Concept verwijderen?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Hiermee wordt het opgeslagen concept definitief verwijderd. Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Annuleren</string>
+    <string name="feature_settings_conflicts_title">Synchronisatieconflicten</string>
+    <string name="feature_settings_conflicts_empty_title">Geen conflicten</string>
+    <string name="feature_settings_conflicts_empty_message">Wanneer een wijziging van jou botst met een nieuwere versie op de server, verschijnt die hier zodat je de serverversie kunt behouden of die van jou opnieuw kunt proberen.</string>
+    <string name="feature_settings_conflicts_row_label">Conflict</string>
+    <string name="feature_settings_conflicts_accept_server">Server behouden</string>
+    <string name="feature_settings_conflicts_retry_local">Mijne opnieuw</string>
+</resources>

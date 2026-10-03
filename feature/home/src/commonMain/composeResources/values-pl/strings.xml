@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Ustawienia</string>
+    <string name="screens_home_outstanding_label">Pozostałe saldo</string>
+    <string name="screens_home_no_loans_message">Brak aktywnych kredytów — zacznij od dodania jednego.</string>
+    <string name="screens_home_total_outstanding_label">Łącznie do spłaty</string>
+    <string name="screens_home_active_loans_singular">%1$d aktywny kredyt</string>
+    <string name="screens_home_active_loans_plural">%1$d aktywnych kredytów</string>
+    <string name="screens_home_monthly_emi_label">Rata miesięczna</string>
+    <string name="screens_home_loans_label">Kredyty</string>
+    <string name="screens_home_loans_carousel_title">Twoje kredyty · %1$d</string>
+    <string name="screens_home_remaining_label">Pozostało</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Rata $%1$s · spłacono %2$d%%</string>
+    <string name="screens_home_section_this_week">W tym tygodniu</string>
+    <string name="screens_home_section_tools">Narzędzia</string>
+    <string name="screens_home_section_tools_subtitle">Kalkulatory, porównania, wskaźniki makro</string>
+    <string name="screens_home_bills_card_title">Nadchodzące rachunki</string>
+    <string name="screens_home_bills_total_label">Łącznie do zapłaty (najbliższe 7 dni)</string>
+    <string name="screens_home_bills_day_value">Dzień %1$d</string>
+    <string name="screens_home_bills_empty">Brak rachunków w najbliższych 7 dniach.</string>
+    <string name="screens_home_rates_card_title">Dzisiejsze stopy</string>
+    <string name="screens_home_rates_fed_funds_label">Stopa Fed</string>
+    <string name="screens_home_rates_mortgage_30y_label">Kredyt hipoteczny 30 lat</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">Kurs USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Zobacz wszystko</string>
+    <string name="screens_home_tool_emi_title">Kalkulator raty</string>
+    <string name="screens_home_tool_emi_subtitle">Rata miesięczna dla dowolnego kredytu</string>
+    <string name="screens_home_tool_affordability_title">Zdolność kredytowa</string>
+    <string name="screens_home_tool_affordability_subtitle">Ile mogę bezpiecznie pożyczyć?</string>
+    <string name="screens_home_tool_amortization_title">Amortyzacja</string>
+    <string name="screens_home_tool_amortization_subtitle">Pełny harmonogram spłat</string>
+    <string name="screens_home_tool_compare_title">Porównaj kredyty</string>
+    <string name="screens_home_tool_compare_subtitle">Całkowity koszt obok siebie</string>
+    <string name="screens_home_tool_wizard_title">Kreator kredytu</string>
+    <string name="screens_home_tool_wizard_subtitle">Planer krok po kroku</string>
+    <string name="screens_home_tool_currency_title">Kursy walut</string>
+    <string name="screens_home_tool_currency_subtitle">Kursy na żywo</string>
+    <string name="screens_home_tool_history_title">Historia kursów</string>
+    <string name="screens_home_tool_history_subtitle">Historyczne wykresy walut</string>
+    <string name="screens_home_tool_macro_title">Makro kraju</string>
+    <string name="screens_home_tool_macro_subtitle">PKB, CPI, bezrobocie</string>
+    <string name="screens_home_tool_crypto_title">Rynki monet</string>
+    <string name="screens_home_tool_crypto_subtitle">Kursy krypto na żywo i lista obserwowanych</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

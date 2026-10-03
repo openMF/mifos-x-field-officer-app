@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">設定</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">搜尋</string>
+    <string name="feature_settings_title">設定</string>
+    <string name="feature_settings_loading">載入中…</string>
+    <string name="feature_settings_privacy_policy">隱私權政策</string>
+    <string name="feature_settings_licenses">授權</string>
+    <string name="feature_settings_brand_guidelines">品牌準則</string>
+    <string name="feature_settings_feedback">意見回饋</string>
+    <string name="feature_settings_theme">主題</string>
+    <string name="feature_settings_brand_default">預設</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">深色模式偏好</string>
+    <string name="feature_settings_dark_mode_config_system_default">系統預設</string>
+    <string name="feature_settings_dark_mode_config_light">淺色</string>
+    <string name="feature_settings_dark_mode_config_dark">深色</string>
+    <string name="feature_settings_dynamic_color_preference">使用動態色彩</string>
+    <string name="feature_settings_dynamic_color_yes">是</string>
+    <string name="feature_settings_dynamic_color_no">否</string>
+    <string name="feature_settings_dismiss_dialog_button_text">確定</string>
+    <string name="feature_settings_change_theme_text">變更主題</string>
+    <string name="feature_settings_change_theme_placeholder_text">變更主題</string>
+    <string name="feature_settings_change_language_text">變更語言</string>
+    <string name="feature_settings_change_language_placeholder_text">變更語言</string>
+    <string name="feature_settings_language_preference">語言</string>
+    <string name="feature_settings_dev_tools_title">開發者工具</string>
+    <string name="feature_settings_dev_transition_gallery">轉場藝廊</string>
+    <string name="feature_settings_dev_state_gallery">狀態藝廊</string>
+    <string name="feature_settings_dev_close">關閉</string>
+    <string name="feature_settings_notifications_empty_title">尚無通知</string>
+    <string name="feature_settings_notifications_empty_message">帳單提醒和利率提醒會顯示在這裡。</string>
+    <string name="feature_settings_sync_drafts_row">同步與草稿</string>
+    <string name="feature_settings_sync_drafts_row_description">檢視並管理草稿和待同步項目</string>
+    <string name="feature_settings_rate_app_row">為此應用程式評分</string>
+    <string name="feature_settings_rate_app_row_description">開啟商店頁面為此應用程式評分</string>
+    <string name="feature_settings_sync_drafts_title">同步與草稿</string>
+    <string name="feature_settings_sync_drafts_empty_title">沒有需要同步的項目</string>
+    <string name="feature_settings_sync_drafts_empty_message">你離線儲存的草稿和等待同步的記錄會顯示在這裡。</string>
+    <string name="feature_settings_sync_drafts_section_drafts">草稿</string>
+    <string name="feature_settings_sync_drafts_section_syncing">同步中</string>
+    <string name="feature_settings_sync_drafts_section_failed">失敗</string>
+    <string name="feature_settings_sync_drafts_status_pending">待處理</string>
+    <string name="feature_settings_sync_drafts_status_retrying">重試中</string>
+    <string name="feature_settings_sync_drafts_status_failed">失敗</string>
+    <string name="feature_settings_sync_drafts_retry">重試</string>
+    <string name="feature_settings_sync_drafts_discard">捨棄</string>
+    <string name="feature_settings_sync_drafts_prune">清理過期項目</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">捨棄草稿？</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">這會永久刪除已儲存的草稿，且無法復原。</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">取消</string>
+    <string name="feature_settings_conflicts_title">同步衝突</string>
+    <string name="feature_settings_conflicts_empty_title">沒有衝突</string>
+    <string name="feature_settings_conflicts_empty_message">當你的變更與伺服器上較新的版本衝突時，會顯示在這裡，你可以保留伺服器版本或重試自己的版本。</string>
+    <string name="feature_settings_conflicts_row_label">衝突</string>
+    <string name="feature_settings_conflicts_accept_server">保留伺服器</string>
+    <string name="feature_settings_conflicts_retry_local">重試我的</string>
+</resources>

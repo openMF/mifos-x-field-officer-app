@@ -1,114 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright 2025 Mifos Initiative
+    Copyright 2026 Mifos Initiative
 
     This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
     If a copy of the MPL was not distributed with this file,
     You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
-    <string name="core_ui_no_internet">Sin Internet</string>
+    <string name="core_ui_no_internet">Sin internet</string>
     <string name="core_ui_retry">Reintentar</string>
-    <string name="core_ui_no_data">Sin Datos</string>
+    <string name="core_ui_no_data">Sin datos</string>
     <string name="core_ui_something_went_wrong">Algo salió mal</string>
-    <string name="core_ui_core_common_working">Componente en funcionamiento</string>
-    <string name="core_ui_click_to_add_new">Toca para agregar nuevo</string>
+    <string name="core_ui_core_common_working">Funcionamiento del core común</string>
 
-    <!-- Mifos Client Fee -->
     <string name="core_ui_name">Nombre</string>
-    <string name="core_ui_due_as_of">Vencido a partir de</string>
-    <string name="core_ui_due">Vencido</string>
+    <string name="core_ui_due_as_of">Vencido al</string>
+    <string name="core_ui_due">Por pagar</string>
     <string name="core_ui_paid">Pagado</string>
     <string name="core_ui_waived">Condonado</string>
-    <string name="core_ui_outstanding">Pendiente</string>
+    <string name="core_ui_outstanding">Saldo pendiente</string>
 
-    <!-- Mifos Loan -->
-    <string name="core_ui_account_no">No. de Cuenta</string>
-    <string name="core_ui_loan_product">Producto de Crédito</string>
-    <string name="core_ui_original_loan">Crédito Original</string>
-    <string name="core_ui_amount_paid">Monto Pagado</string>
-    <string name="core_ui_loan_balance">Saldo del Crédito</string>
+    <string name="core_ui_account_no">No. de cuenta</string>
+    <string name="core_ui_loan_product">Producto de préstamo</string>
+    <string name="core_ui_original_loan">Préstamo original</string>
+    <string name="core_ui_amount_paid">Monto pagado</string>
+    <string name="core_ui_loan_balance">Saldo del préstamo</string>
     <string name="core_ui_type">Tipo</string>
 
-    <!-- Mifos Savings -->
-    <string name="core_ui_savings_product">Producto de Ahorro</string>
-    <string name="core_ui_last_active">Última Actividad</string>
+    <string name="core_ui_savings_product">Producto de ahorro</string>
+    <string name="core_ui_last_active">Última actividad</string>
     <string name="core_ui_balance">Saldo</string>
 
-    <!-- Mifos Collateral -->
     <string name="core_ui_quantity">Cantidad</string>
-    <string name="core_ui_total_value">Valor Total</string>
-    <string name="core_ui_total_collateral_value">Valor Total de Garantías</string>
+    <string name="core_ui_total_value">Valor total</string>
+    <string name="core_ui_total_collateral_value">Valor total de la garantía</string>
 
-    <!-- Mifos Identifier -->
-    <string name="core_ui_document_type">Tipo de Documento</string>
-    <string name="core_ui_document_id">ID de Documento</string>
-    <string name="core_ui_document_key">Clave del Documento</string>
-    <string name="core_ui_status">Estado</string>
+    <string name="core_ui_document_type">Tipo de documento</string>
+    <string name="core_ui_document_id">ID de documento</string>
+    <string name="core_ui_document_key">Clave de documento</string>
+    <string name="core_ui_status">Estatus</string>
     <string name="core_ui_description">Descripción</string>
-    <string name="core_ui_identify_documents">Documentos de Identificación</string>
+    <string name="core_ui_identify_documents">Identificar documentos</string>
 
-    <!-- Mifos Delinquency -->
     <string name="core_ui_action">Acción</string>
     <string name="core_ui_pause">Pausar</string>
     <string name="core_ui_resume">Reanudar</string>
-    <string name="core_ui_start_date">Fecha de Inicio</string>
-    <string name="core_ui_end_date">Fecha de Fin</string>
+    <string name="core_ui_start_date">Fecha de inicio</string>
+    <string name="core_ui_end_date">Fecha de fin</string>
 
-    <!-- Mifos Charges -->
-    <string name="core_ui_calculation_type">Tipo de Cálculo</string>
-    <string name="core_ui_title_processing_fee">Comisión de Procesamiento</string>
+    <string name="core_ui_calculation_type">Tipo de cálculo</string>
+    <string name="core_ui_title_processing_fee">Comisión por procesamiento</string>
 
-    <!-- Mifos Sell Loan -->
     <string name="core_ui_cancelled">Cancelado</string>
     <string name="core_ui_completed">Completado</string>
     <string name="core_ui_pending">Pendiente</string>
-    <string name="core_ui_effective_from">Efectivo Desde</string>
-    <string name="core_ui_owner_external_id">ID Externo del Propietario</string>
-    <string name="core_ui_transfer_external_id">ID Externo de Transferencia</string>
-    <string name="core_ui_settlement_date">Fecha de Liquidación</string>
-    <string name="core_ui_purchase_price_ratio">Relación de Precio de Compra</string>
+    <string name="core_ui_effective_from">Vigente desde</string>
+    <string name="core_ui_owner_external_id">ID externo del propietario</string>
+    <string name="core_ui_transfer_external_id">ID externo de transferencia</string>
+    <string name="core_ui_settlement_date">Fecha de liquidación</string>
+    <string name="core_ui_purchase_price_ratio">Proporción del precio de compra</string>
 
-    <string name="core_ui_click_here_to_view_filled_state">Toca aquí para ver el estado completado.</string>
-    <string name="core_ui_no_item_found">No se encontró ningún elemento</string>
+    <string name="core_ui_click_here_to_view_filled_state">Haz clic aquí para ver más detalles.</string>
+    <string name="core_ui_no_item_found">No se encontró el elemento</string>
 
-    <!-- Action Names -->
-    <string name="core_ui_view_account">Ver Cuenta</string>
-    <string name="core_ui_edit_note">Editar Nota</string>
-    <string name="core_ui_delete_note">Eliminar Nota</string>
-    <string name="core_ui_approve_account">Aprobar Cuenta</string>
-    <string name="core_ui_make_repayment">Realizar Pago</string>
-    <string name="core_ui_view_document">Ver Documento</string>
-    <string name="core_ui_upload_again">Subir Nuevamente</string>
-    <string name="core_ui_delete_document">Eliminar Documento</string>
-    <string name="core_ui_pay_outstanding_amount">Pagar Monto Pendiente</string>
+    <string name="core_ui_view_account">Ver cuenta</string>
+    <string name="core_ui_edit_note">Editar nota</string>
+    <string name="core_ui_delete_note">Eliminar nota</string>
+    <string name="core_ui_approve_account">Aprobar cuenta</string>
+    <string name="core_ui_make_repayment">Realizar pago</string>
+    <string name="core_ui_view_document">Ver documento</string>
+    <string name="core_ui_upload_again">Subir de nuevo</string>
+    <string name="core_ui_delete_document">Eliminar documento</string>
+    <string name="core_ui_pay_outstanding_amount">Pagar saldo pendiente</string>
     <string name="core_ui_edit">Editar</string>
     <string name="core_ui_delete">Eliminar</string>
 
-    <!-- Mifos Note -->
     <string name="core_ui_note_createdBy">Creado por:</string>
     <string name="core_ui_note_date">Fecha</string>
     <string name="core_ui_note_note">Nota</string>
 
-    <!-- MifosActionsIdentifierListingComponent -->
-    <string name="listing_component_identifier_not_available">No Disponible</string>
+    <string name="listing_component_identifier_not_available">No disponible</string>
 
-    <!-- Mifos Client Documents-->
-    <string name="client_documents_component_header_title">Nombre del Documento</string>
+    <string name="client_documents_component_header_title">Nombre del documento</string>
     <string name="client_documents_component_header_subtitle_description">Descripción</string>
-    <string name="client_documents_component_header_subtitle_file_name">Nombre del Archivo</string>
+    <string name="client_documents_component_header_subtitle_file_name">Nombre del archivo</string>
 
-    <!-- MifosFilePickerBottomSheet -->
     <string name="file_picker_bottom_sheet_gallery">Galería</string>
     <string name="file_picker_bottom_sheet_files">Archivos</string>
     <string name="file_picker_bottom_sheet_more">Más</string>
 
     <string name="error_field_empty">Este campo no puede estar vacío</string>
-    <string name="error_invalid_characters">Este campo contiene caracteres inválidos</string>
-    <string name="error_invalid_number">Número inválido ingresado</string>
-    <string name="error_digits_only">Este campo solo debe contener dígitos</string>
+    <string name="error_invalid_characters">Este campo contiene caracteres no válidos</string>
+    <string name="error_invalid_number">Número ingresado no válido</string>
+    <string name="error_digits_only">Este campo debe contener solo números</string>
     <string name="error_number_zero">El número no debe ser cero</string>
 
     <string name="ok">Aceptar</string>
@@ -117,9 +103,9 @@
     <string name="date">Fecha</string>
     <string name="amount">Monto</string>
     <string name="type">Tipo</string>
-    <string name="collected_on">Recaudado el</string>
+    <string name="collected_on">Cobrado el</string>
 
-    <string name="client_share_accounts_share_product">Producto de Acciones</string>
-    <string name="client_share_accounts_pending_for_approval_shares">Acciones Pendientes de Aprobación</string>
-    <string name="client_share_accounts_approved_shares">Acciones Aprobadas</string>
+    <string name="client_share_accounts_share_product">Producto de acciones</string>
+    <string name="client_share_accounts_pending_for_approval_shares">Acciones pendientes de aprobación</string>
+    <string name="client_share_accounts_approved_shares">Acciones aprobadas</string>
 </resources>

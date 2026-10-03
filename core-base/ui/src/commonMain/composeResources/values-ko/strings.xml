@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: ko · translated by /idea-locale -->
+<resources>
+    <string name="dashboard_freshness_updated">%1$s 업데이트됨</string>
+    <string name="dashboard_freshness_updated_refreshing">%1$s 업데이트됨 · 새로 고치는 중…</string>
+    <string name="dashboard_freshness_loading">불러오는 중…</string>
+</resources>

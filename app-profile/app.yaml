@@ -1,0 +1,285 @@
+# app-profile/app.yaml — fork-owned white-label deployment SoT (COMMON, platform-agnostic).
+#
+# This is the SINGLE source of truth for all fork-owned deployment data (text + media).
+# Edit HERE — never gradle/fork.properties (now a generated/fallback build-bridge).
+# deployment/ reads this via deployment/_shared/config.rb (AppProfile.get).
+# `sync-dirs.sh` NEVER rewrites app-profile/** (owner: fork in customization-surface.yaml).
+#
+# Platform-DIFFERENT values live in app-profile/platforms/<platform>/*.yaml — no duplication.
+
+identity:
+  app_id: com.mifos.mifosxdroid              # SoT for appId (from dev: libs.versions.androidPackageNamespace)
+  app_name: MifosXDroid                      # from dev: cmp-android/src/main/res/values/strings.xml#app_name
+  namespace: com.mifos.mifosxdroid           # mirrors app_id
+
+# Per-flavor network endpoints + demo credentials + log tag. syncForkConfig emits these into
+# gradle/fork.properties (network.base.url.{demo,prod} / demo.username / demo.password / log.tag),
+# which KMPFlavorsConventionPlugin reads into per-flavor BuildConfig (BASE_URL / DEMO_USERNAME /
+# DEMO_PASSWORD / LOG_TAG). Blank falls back to the template default baked into the plugin. (B4)
+network:
+  # Extra BuildKonfig fields for `core/network` that are NOT tied to an access point (analytics keys,
+  # feature flags). An access point's `anon_key_env:`/`api_key_env:` already generates its own field —
+  # declare those on the point, not here. Both feed the `syncForkConfig:buildkonfig` region of
+  # `core/network/build.gradle.kts`, so a declared key ALWAYS has a matching BuildKonfig field
+  # (NAP-8); the value is read at build time from the env var or local.properties, never committed.
+  #
+  #   build_config_fields:
+  #     - name: MY_ANALYTICS_KEY      # the BuildKonfig constant
+  #       from_env: MY_ANALYTICS_KEY  # env var / local.properties key (defaults to `name`)
+  build_config_fields: []
+  demo_base_url: https://demo.mifos.org      # Fineract demo (from dev)
+  prod_base_url: https://apis.mifos.community  # Fineract prod (from dev)
+  demo_username: demo
+  demo_password: demo
+  log_tag: MifosXDroid
+  # Declarative access-point topology — every REST + Supabase endpoint the app talks to, in ONE place.
+  # This is the SoT for core/network's AccessPointRegistry AND for the generated DI wiring: declare an
+  # endpoint here, run `./gradlew syncForkConfig`, and the only thing left to write is the API type.
+  #
+  # Per-entry fields:
+  #   id             stable key referenced by restApi("<id>") / supabaseApi("<id>").
+  #   type           rest | supabase  → AccessPointKind.
+  #   base_url       ORIGIN only — scheme + host, ending at the first `/`
+  #                  (`https://sandbox.mifos.community/`). For Supabase, the project URL.
+  #   base_path      optional — the API path under that origin (`fineract-provider/api/v1/`). Split
+  #                  from base_url because they change for different reasons: the ORIGIN is what a
+  #                  fork repoints (sandbox -> production, per-flavour host) and what
+  #                  DynamicBaseUrlPlugin rewrites at runtime, while the PATH belongs to the API and
+  #                  travels with the endpoint. Joined as origin + "/" + path + "/".
+  #   loggable_host  host enabled for HTTP logging.
+  #   proxied_host   optional — route via the platform proxy (CORS-blocked hosts).
+  #   secret_alias   optional — vault alias for a REQUEST-time key (e.g. FRED's @Query api_key).
+  #   (no `api:` field) — the class<->point link lives on the CLASS, as `@ApiBinding("<id>")`, which
+  #                  generates the Koin binding into core/network/.../di/GeneratedApiBindings.kt:
+  #                    rest      → `restApi("<id>") { it.create<Simple>() }`  (Ktorfit factory by convention)
+  #                    supabase  → `supabaseApi("<id>") { <Simple>(it) }`     (single-arg ctor taking
+  #                                SupabaseConfigClient)
+  #                  An endpoint declared here with no annotated class is simply not wired yet.
+  #   auth           optional — none | basic | bearer | oauth (default none). Declaring it makes the
+  #                  `Authorization` header AUTOMATIC: the generator emits its spec and the auth
+  #                  bridge fills the value from the stored credential in that scheme's wire format
+  #                  (`Basic <t>` / `Bearer <t>`), so no call site formats a credential by hand.
+  #                  An explicit `Authorization` row in `headers` overrides it, for a fork whose
+  #                  scheme is non-standard.
+  #   headers        optional — headers sent on EVERY request to this point. Two kinds:
+  #                    - { name: X, value: literal }   static, baked into AppAccessPoints
+  #                    - { name: X, runtime: some.key } value supplied at RUNTIME via
+  #                      RuntimeHeaderStore["some.key"] — set it at login (Basic / OAuth), clear it on
+  #                      sign-out. Declared here by NAME so "which header does this API need" is a
+  #                      property of the endpoint, not something a ViewModel invents; only the VALUE
+  #                      is runtime. An unset runtime header is OMITTED, never sent empty.
+  #
+  #                    Do NOT declare `Content-Type` or `Accept`: ContentNegotiation already sets
+  #                    them on every request — Accept from the plugin, Content-Type from the BODY, so
+  #                    a JSON post sends application/json, a text post sends text/plain, and a GET
+  #                    correctly sends none. Declaring them only adds a Content-Type to bodyless
+  #                    requests, describing a body that is not there. Enforced by NAP-13.
+  #   anon_key_env   supabase only — env / local.properties key holding the anon key. Generated into
+  #                  AppSupabaseAnonKeys as a BuildKonfig read, so no key is ever committed. Omit and
+  #                  the point resolves to an empty key (client stays inert, isConfigured == false).
+  #
+  # syncForkConfig regenerates AppAccessPoints.points, AppUrlTypes and AppSupabaseAnonKeys from this
+  # list. GeneratedApiBindings comes from `@ApiBinding` instead — see above. (B3, epic
+  # pure-white-label-store5-network)
+  # Every access point declares `owner:` — the ONE field that decides its lifecycle:
+  #
+  #   owner: fork      the CONSUMER's endpoint. Kept by the customizer, never touched by a sync.
+  #   owner: template  shipped to EVERY fork and KEPT by the customizer — `project` (Supabase) is the
+  #                    one: a fork gets a working backend access point by default.
+  #   owner: demo      the template's own showcase. `scripts/remove-demo.sh` DELETES the entry AND
+  #                    its `kpt/core/network/<id>/` package, so "forking = starting clean" is a
+  #                    declared property of each endpoint rather than a positional comment fence the
+  #                    strip has to parse (such a fence could not express `project`, whose point
+  #                    sat outside it while its `api:` sat inside).
+  #
+  # `main`/`staging` are `fork`: they are placeholders for the CONSUMER's own backend, and
+  # `UrlType.MAIN` is the framework default in core-base/network — every fork needs one.
+  access_points:
+    - id: mifos
+      owner: fork
+      type: rest
+      # The Field Officer API gateway. ORIGIN only; the API path travels with the endpoint.
+      #
+      # `1.0/field/v1/` — NOT the plain Fineract `fineract-provider/api/v1/`. This app talks to the
+      # field-officer gateway documented at
+      # https://mifosforge.jira.com/wiki/spaces/MP/pages/4537024513 (base URL
+      # `https://apis.mifos.community/1.0/field`). Measured 2026-10-01 by probing both paths with a
+      # throwaway credential: `1.0/field/v1/authentication` answers 401 (exists, rejected) while
+      # `fineract-provider/api/v1/authentication` answers 404. The old value made EVERY call 404, so
+      # sign-in failed with "Login failed. Check your credentials" no matter what was typed.
+      #
+      # These three values must stay equal to `ServerConfig.DEFAULT` (core/model) — that is what the
+      # server-config screen shows and restores with "Use defaults", and a user who repairs their
+      # settings with it must land on a working server.
+      base_url: https://apis.mifos.community/
+      base_path: 1.0/field/v1/
+      auth: basic                   # Fineract authenticates the field officer with basic credentials
+      loggable_host: apis.mifos.community
+      headers:
+        # Fineract requires a tenant on EVERY call; it is a build-time constant, unlike the
+        # Authorization header which the login flow writes to the runtime store.
+        #
+        # KNOWN GAP (S7): this is still a BUILD constant, so editing Tenant — or any other field —
+        # on the server-config screen does not reach the HTTP client; the access point's values win.
+        # Tracked in feature/settings/MIGRATION.md; until then the shipped default is the only
+        # server that works.
+        - { name: Fineract-Platform-TenantId, value: mifos-bank-1 }
+        # Declared here, per access point, because Fineract is a JSON API and every call to it is
+        # JSON — it is a property of THIS endpoint, not of the HTTP client.
+        #
+        # Without a Content-Type the request never leaves the device: `ContentNegotiation` only
+        # serializes a body whose declared type it has a converter for, and a Ktorfit `@Body`
+        # parameter sets none, so Ktor throws before opening a socket:
+        #
+        #   IllegalStateException: Fail to prepare request body for sending.
+        #   The body type is: …PostAuthenticationRequest, with Content-Type: null.
+        #
+        # On device 2026-10-01 that surfaced as "Login failed. Check your credentials and try
+        # again" with no HTTP log at all — indistinguishable from a wrong password.
+        - { name: Content-Type, value: application/json }
+        - { name: Accept, value: application/json }
+    - id: staging
+      owner: fork
+      type: rest
+      # Fineract demo (from dev) — mirrors `main`; keep the two in step.
+      base_url: https://demo.mifos.org/
+      base_path: fineract-provider/api/v1/
+      auth: basic
+      loggable_host: demo.mifos.org
+      headers:
+        # Fineract requires a tenant on EVERY call; it is a build-time constant, unlike the
+        # Authorization header which the login flow writes to the runtime store.
+        - { name: Fineract-Platform-TenantId, value: default }
+        # Same JSON contract as `mifos` — keep the two in step.
+        - { name: Content-Type, value: application/json }
+        - { name: Accept, value: application/json }
+
+# ── Room database — declared by ANNOTATION, not here (E1/C7, superseded by the KSP migration) ──
+# This block used to carry `entities:` / `daos:` / `type_converters:` / `auto_migrations:`, which
+# syncForkConfig projected into `gen-*` regions of `core/database/**/AppDatabase.kt`. All of it is
+# gone: the declaration is now the annotation ON the class, and AppDatabase is generated whole.
+#
+# Adding a fork table is: write the `@Entity` and annotate it `@DbEntity`; write the `@Dao` and
+# annotate it `@DbDao`. Nothing else — no row here, no accessor, no Koin binding. The one thing
+# still recorded by hand is schema HISTORY, in `app-profile/migration-ledger.yaml`, because a
+# `from`/`to` edge is a contract with every installed device that no class can carry.
+
+
+# ── Module package ownership ────────────────────────────────────────────────────────────────────
+#
+# Each module declares its own packages in `core/<module>/module-packages.yaml`, next to the code it
+# describes, using the three-value vocabulary `demo | template | fork`. They are NOT inlined here.
+#
+# Why not here: this file is `owner: merge` — it carries template AND fork declarations, so a
+# template edit landing beside a fork edit is a 3-way merge waiting to happen. A per-module file is
+# TEMPLATE-ONLY and full-copies, the same split that took Room's `migration-units.yaml` out of this
+# file. The module that gains a package is now the module whose file changes.
+#
+# `module_packages` below is the CONNECTION: the modules whose declarations make up this app. It is
+# what tells a reader (and `/kmp-project-template-sync`) where to look, and it is asserted against
+# what is on disk by G-CORE-PKG, so a module cannot be added here without its file — or the reverse.
+module_packages:
+  - core/common/module-packages.yaml
+  - core/data/module-packages.yaml
+  - core/database/module-packages.yaml
+  - core/datastore/module-packages.yaml
+  - core/designsystem/module-packages.yaml
+  - core/domain/module-packages.yaml
+  - core/firebase/module-packages.yaml
+  - core/model/module-packages.yaml
+  - core/network/module-packages.yaml
+  - core/platform/module-packages.yaml
+  - core/store/module-packages.yaml
+  - core/ui/module-packages.yaml
+  - feature/module-packages.yaml
+
+# The FORK's answer to those files is `app-profile/package-ledger.yaml` (owner: fork, never synced):
+# what the customizer actually did to each declared package — `removed` | `kept` | `absent`. A sync
+# reads it so it never has to guess whether a missing package was stripped on purpose or lost.
+
+org:
+  name: Mifos Initiative
+  email: team@mifos.org
+  first_name: Mifos
+  last_name: Initiative
+  phone: "+19078675309"
+  copyright: "© 2026 Mifos Initiative. All rights reserved."   # desktop / Mac App Store packaging copyright (org.copyright)
+  marketing_url: https://mifos.org
+  privacy_url: https://raw.githubusercontent.com/openMF/kmp-project-template/main/legal/output/privacy-policy.md
+  support_url: https://github.com/openMF/kmp-project-template
+
+legal:
+  company_name: Mifos Initiative
+  jurisdiction: United States
+  effective_date: June 6, 2026
+  contact_email: team@mifos.org
+
+keystore_dn:
+  org_unit: Mobile
+  city: Arusha
+  state: Arusha
+  country: TZ
+
+store:
+  primary_locale: en-US
+  # REFERENCE store listing — the Mifos "Money Toolkit" working-example copy the template ships.
+  # A fork MUST author its own (product-health store-listing / B8 warn while the Mifos reference
+  # copy remains on a fork; on the template repo it is the intended committed state).
+  title: 'Money Toolkit'                      # app display name (App Store name / Play title)
+  subtitle: 'Loan Tracker & Finance Tools'    # short subtitle (App Store)
+  promotional_text: 'Loans, EMI, bills, interest rates & currency — all offline. No login, no account, no ads. Free personal finance tools by Mifos Initiative.'
+  description: 'Track your loans, calculate EMIs, set bill reminders, and watch live interest rates — all 100% offline. No login. No account. No internet required.\n\nMoney Toolkit is a free personal finance companion for everyday financial decisions. Every calculation happens on your device. Your data never leaves your phone.\n\n— TOOLS INCLUDED —\n\nLoan Tracker\nAdd and manage personal loans. Track principal, interest rate, EMI amount, and due date for every loan you owe — stored locally, fully private.\n\nEMI Calculator\nEnter any loan amount, annual interest rate, and tenure to get your monthly payment instantly. Works offline, no server call.\n\nAffordability Calculator\nKnow before you borrow. Enter your income and maximum monthly EMI to see the largest loan you can safely take on.\n\nBill Reminders\nSet recurring reminders for rent, electricity, subscriptions, and loan payments. Get notified before the due date — no cloud sync needed.\n\nAmortization Schedule\nSee the complete month-by-month repayment breakdown for any loan: principal paid, interest paid, and outstanding balance at every step.\n\nLoan Comparison\nEvaluating two loan offers? Compare total cost, monthly payment, and total interest side-by-side before you sign.\n\nInterest Rates\nLive US Federal Reserve benchmark rates — federal funds rate, mortgage rates, treasury yields — via the free FRED API. Requires a free FRED key (fred.stlouisfed.org); shows a clear empty state without one.\n\nCountry Macro Data\nGDP growth, inflation (CPI), and unemployment rates for countries worldwide from World Bank Open Data. No API key needed.\n\nCurrency Exchange Rates\nLive foreign exchange rates for any base currency — useful for travel, international transfers, or tracking money across borders.\n\n— WHY MONEY TOOLKIT —\n\nNo login or account — open the app and start immediately.\nWorks offline — calculators, loan tracking, and bill reminders need no internet.\nNo ads, no tracking, no analytics — your financial data stays on your device.\nNo subscription — free forever.\nOpen source — MIT licensed. Code available on GitHub.\n\nBuilt by the Mifos Initiative, a nonprofit with 15+ years of experience building financial tools for underserved communities worldwide.\n\nGitHub: https://github.com/openMF/kmp-project-template'
+  release_notes: 'First release of Money Toolkit.\n\nIncludes: Loan Tracker, EMI Calculator, Affordability Calculator, Bill Reminders, Amortization Schedule, Loan Comparison, Live Interest Rates (FRED), Country Macro Indicators, and Currency Exchange Rates.\n\nEverything works offline. No account or login required.'
+  copyright: 'Copyright © 2025 Mifos Initiative'
+  age_rating: '4+'                            # iOS + macOS App Store age rating (store.ios.age.rating)
+  review:
+    notes: 'No login or account is required. All features work fully offline.\n\nApp features available for review:\n• Loan Tracker — add personal loans, track principal, EMI amounts, and due dates locally\n• EMI Calculator — compute monthly payments for any loan amount, rate, and tenure\n• Affordability Calculator — determine the maximum loan amount based on income and EMI budget\n• Bill Reminders — set recurring bill reminders with in-app notification scheduling\n• Amortization Schedule — view the full month-by-month payment breakdown for any loan\n• Loan Comparison — side-by-side total-cost comparison for up to two loan scenarios\n• Interest Rates — US Federal Reserve rate data (FRED API; a free key is needed for live data — the screen shows a clear empty state without it)\n• Country Macro Indicators — GDP, CPI, and unemployment data from World Bank Open Data (no key needed)\n• Currency Rates — live foreign exchange rates by base currency\n\nNo demo credentials are needed. No backend. No personal data is collected or transmitted. This is an open-source Kotlin Multiplatform reference implementation.'
+    first_name: 'Mifos'                        # App Store review contact (mirrors org.first_name)
+    last_name: 'Initiative'                    # App Store review contact (mirrors org.last_name)
+    demo_user: ""                            # store.review.demo.user (blank — no login)
+    demo_password: ""                        # store.review.demo.password
+  app_description: Money Toolkit desktop     # desktop packaging description (app.description)
+
+# In-app review prompting — NOT the `store.review` block above.
+#
+# `store.review` is the App STORE review TEAM's contact + demo notes, read at submission time.
+# This is the running app asking a user to rate it. The names sit one word apart and the meanings do
+# not overlap at all, so they are deliberately separate top-level keys rather than nested siblings.
+#
+# `syncForkConfig` projects this into the generated `core/platform/config/AppReviewConfig`, which
+# `AppViewModel` reads. Store identity is NOT duplicated here — it resolves from
+# `platforms/apple/apple.yaml#apple.app_store_id` (iOS) and `identity.app_id` (Android).
+in_app_review:
+  enabled: true
+  # These guard the CUSTOM path. The native prompt is rate-limited by the OS itself, but
+  # `promptForCustomReview()` deep-links to the store and would otherwise fire whenever asked.
+  min_launches: 5                            # never on first launch — before the app has earned it
+  min_days_since_install: 3
+  cooldown_days: 90                          # after a prompt, do not ask again inside this window
+
+media:
+  root: media
+
+# ── Deploy targets — fork-facing PLATFORM on/off intent ───────────────────────
+# This block is the FORK-owned answer to "which PLATFORMS does my fork ship?".
+# It is COARSE (one row per platform) and pairs with the template-owned, FINE-grained
+# deployment/DEPLOYMENT_MANIFEST.yaml (one row per deploy TARGET, e.g. android-firebase,
+# ios-testflight, desktop-msi-signed).
+#
+#   • app.yaml#targets      → which PLATFORMS a fork ships   (this file, owner: fork)
+#   • DEPLOYMENT_MANIFEST    → which TARGETS exist per platform (owner: merge — new template
+#                              targets propagate on sync; the fork keeps its enabled/tier)
+#
+# A concrete deploy TARGET is active iff BOTH hold:
+#   (1) its platform is enabled here in app.yaml#targets, AND
+#   (2) the target's own `enabled:` is true in DEPLOYMENT_MANIFEST.yaml.
+# The two coexist at different granularity — neither replaces the other.
+# NOTE: macOS deploy targets live UNDER the manifest's `desktop` platform (mac-app-store,
+# mac-testflight, dmg-notarized) — there is no separate `macos` platform block in the manifest.
+targets:
+  android: { enabled: true, tier: internal }
+  ios:     { enabled: true, tier: internal }
+  macos:   { enabled: true, tier: internal }
+  web:     { enabled: true, tier: internal }
+  windows: { enabled: true, tier: internal }
+  ubuntu:  { enabled: true, tier: internal }

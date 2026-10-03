@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">सेटिंग</string>
+    <string name="screens_home_outstanding_label">बकाया राशि</string>
+    <string name="screens_home_no_loans_message">कोई सक्रिय ऋण नहीं — एक जोड़कर शुरू करें।</string>
+    <string name="screens_home_total_outstanding_label">कुल बकाया</string>
+    <string name="screens_home_active_loans_singular">%1$d सक्रिय ऋण</string>
+    <string name="screens_home_active_loans_plural">%1$d सक्रिय ऋण</string>
+    <string name="screens_home_monthly_emi_label">मासिक ईएमआई</string>
+    <string name="screens_home_loans_label">ऋण</string>
+    <string name="screens_home_loans_carousel_title">आपके ऋण · %1$d</string>
+    <string name="screens_home_remaining_label">शेष</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">ईएमआई $%1$s · %2$d%% चुकाया</string>
+    <string name="screens_home_section_this_week">इस सप्ताह</string>
+    <string name="screens_home_section_tools">टूल</string>
+    <string name="screens_home_section_tools_subtitle">कैलकुलेटर, तुलना, मैक्रो संकेतक</string>
+    <string name="screens_home_bills_card_title">आगामी बिल</string>
+    <string name="screens_home_bills_total_label">कुल देय (अगले 7 दिन)</string>
+    <string name="screens_home_bills_day_value">दिन %1$d</string>
+    <string name="screens_home_bills_empty">अगले 7 दिनों में कोई बिल देय नहीं है।</string>
+    <string name="screens_home_rates_card_title">आज की दरें</string>
+    <string name="screens_home_rates_fed_funds_label">फ़ेडरल फ़ंड्स</string>
+    <string name="screens_home_rates_mortgage_30y_label">30 वर्ष गृह ऋण</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">USD विनिमय</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">सभी देखें</string>
+    <string name="screens_home_tool_emi_title">ईएमआई कैलकुलेटर</string>
+    <string name="screens_home_tool_emi_subtitle">किसी भी ऋण का मासिक भुगतान</string>
+    <string name="screens_home_tool_affordability_title">वहनीयता</string>
+    <string name="screens_home_tool_affordability_subtitle">मैं सुरक्षित रूप से कितना उधार ले सकता हूँ?</string>
+    <string name="screens_home_tool_amortization_title">परिशोधन</string>
+    <string name="screens_home_tool_amortization_subtitle">पूर्ण भुगतान अनुसूची</string>
+    <string name="screens_home_tool_compare_title">ऋण तुलना</string>
+    <string name="screens_home_tool_compare_subtitle">कुल लागत की साथ-साथ तुलना</string>
+    <string name="screens_home_tool_wizard_title">ऋण विज़ार्ड</string>
+    <string name="screens_home_tool_wizard_subtitle">चरण-दर-चरण योजनाकार</string>
+    <string name="screens_home_tool_currency_title">मुद्रा दरें</string>
+    <string name="screens_home_tool_currency_subtitle">लाइव विनिमय दरें</string>
+    <string name="screens_home_tool_history_title">दर इतिहास</string>
+    <string name="screens_home_tool_history_subtitle">ऐतिहासिक विदेशी मुद्रा चार्ट</string>
+    <string name="screens_home_tool_macro_title">देश मैक्रो</string>
+    <string name="screens_home_tool_macro_subtitle">जीडीपी, सीपीआई, बेरोज़गारी</string>
+    <string name="screens_home_tool_crypto_title">कॉइन मार्केट</string>
+    <string name="screens_home_tool_crypto_subtitle">लाइव क्रिप्टो मूल्य और वॉचलिस्ट</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

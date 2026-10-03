@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Налаштування</string>
+    <string name="screens_home_outstanding_label">Залишок заборгованості</string>
+    <string name="screens_home_no_loans_message">Активних кредитів немає — почніть із додавання.</string>
+    <string name="screens_home_total_outstanding_label">Усього до сплати</string>
+    <string name="screens_home_active_loans_singular">%1$d активний кредит</string>
+    <string name="screens_home_active_loans_plural">%1$d активних кредитів</string>
+    <string name="screens_home_monthly_emi_label">Щомісячний платіж</string>
+    <string name="screens_home_loans_label">Кредити</string>
+    <string name="screens_home_loans_carousel_title">Ваші кредити · %1$d</string>
+    <string name="screens_home_remaining_label">Залишилось</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Платіж $%1$s · погашено %2$d%%</string>
+    <string name="screens_home_section_this_week">Цього тижня</string>
+    <string name="screens_home_section_tools">Інструменти</string>
+    <string name="screens_home_section_tools_subtitle">Калькулятори, порівняння, макропоказники</string>
+    <string name="screens_home_bills_card_title">Найближчі рахунки</string>
+    <string name="screens_home_bills_total_label">Усього до сплати (7 днів)</string>
+    <string name="screens_home_bills_day_value">День %1$d</string>
+    <string name="screens_home_bills_empty">Найближчими 7 днями рахунків немає.</string>
+    <string name="screens_home_rates_card_title">Ставки сьогодні</string>
+    <string name="screens_home_rates_fed_funds_label">Ставка ФРС</string>
+    <string name="screens_home_rates_mortgage_30y_label">Іпотека 30 років</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">Курс USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Показати все</string>
+    <string name="screens_home_tool_emi_title">Калькулятор платежу</string>
+    <string name="screens_home_tool_emi_subtitle">Щомісячний платіж за будь-яким кредитом</string>
+    <string name="screens_home_tool_affordability_title">Кредитоспроможність</string>
+    <string name="screens_home_tool_affordability_subtitle">Скільки я можу безпечно позичити?</string>
+    <string name="screens_home_tool_amortization_title">Амортизація</string>
+    <string name="screens_home_tool_amortization_subtitle">Повний графік платежів</string>
+    <string name="screens_home_tool_compare_title">Порівняти кредити</string>
+    <string name="screens_home_tool_compare_subtitle">Загальна вартість поруч</string>
+    <string name="screens_home_tool_wizard_title">Майстер кредиту</string>
+    <string name="screens_home_tool_wizard_subtitle">Покроковий планувальник</string>
+    <string name="screens_home_tool_currency_title">Курси валют</string>
+    <string name="screens_home_tool_currency_subtitle">Курси в реальному часі</string>
+    <string name="screens_home_tool_history_title">Історія курсів</string>
+    <string name="screens_home_tool_history_subtitle">Історичні графіки валют</string>
+    <string name="screens_home_tool_macro_title">Макропоказники країни</string>
+    <string name="screens_home_tool_macro_subtitle">ВВП, ІСЦ, безробіття</string>
+    <string name="screens_home_tool_crypto_title">Ринки монет</string>
+    <string name="screens_home_tool_crypto_subtitle">Ціни криптовалют у реальному часі та список стеження</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

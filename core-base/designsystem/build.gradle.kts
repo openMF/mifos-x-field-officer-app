@@ -5,16 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 plugins {
-    alias(libs.plugins.kmp.library.convention)
+    alias(libs.plugins.kmp.core.base.library.convention)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-}
-
-android {
-    namespace = "template.core.base.designsystem"
 }
 
 kotlin {
@@ -30,13 +26,18 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(compose.materialIconsExtended)
 
+            // Backs KptToastHost. The DI binding lives in core-base/platform (platformModule),
+            // which already owns the manager singles and has Koin; this module only renders.
+            // `api` because KptToastHost's own signature takes a ToastHostState and a
+            // `@Composable (ToastData) -> Unit` slot — a caller must be able to name both.
+            api(libs.cmp.toast)
+
             api(compose.material3AdaptiveNavigationSuite)
             api(libs.jetbrains.compose.material3.adaptive)
             api(libs.jetbrains.compose.material3.adaptive.layout)
             api(libs.jetbrains.compose.material3.adaptive.navigation)
 
             implementation(libs.jb.lifecycleViewmodel)
-            implementation(libs.window.size)
             implementation(libs.ui.backhandler)
         }
     }
@@ -45,5 +46,5 @@ kotlin {
 compose.resources {
     publicResClass = true
     generateResClass = always
-    packageOfResClass = "template.core.base.designsystem.generated.resources"
+    packageOfResClass = "kpt.core.base.designsystem.generated.resources"
 }

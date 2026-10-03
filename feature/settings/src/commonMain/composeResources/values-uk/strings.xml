@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_settings_top_app_bar_action_icon_description">Налаштування</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Пошук</string>
+    <string name="feature_settings_title">Налаштування</string>
+    <string name="feature_settings_loading">Завантаження…</string>
+    <string name="feature_settings_privacy_policy">Політика конфіденційності</string>
+    <string name="feature_settings_licenses">Ліцензії</string>
+    <string name="feature_settings_brand_guidelines">Правила бренду</string>
+    <string name="feature_settings_feedback">Відгук</string>
+    <string name="feature_settings_theme">Тема</string>
+    <string name="feature_settings_brand_default">Типова</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Налаштування темного режиму</string>
+    <string name="feature_settings_dark_mode_config_system_default">Як у системі</string>
+    <string name="feature_settings_dark_mode_config_light">Світла</string>
+    <string name="feature_settings_dark_mode_config_dark">Темна</string>
+    <string name="feature_settings_dynamic_color_preference">Використовувати динамічні кольори</string>
+    <string name="feature_settings_dynamic_color_yes">Так</string>
+    <string name="feature_settings_dynamic_color_no">Ні</string>
+    <string name="feature_settings_dismiss_dialog_button_text">Гаразд</string>
+    <string name="feature_settings_change_theme_text">Змінити тему</string>
+    <string name="feature_settings_change_theme_placeholder_text">Змінити тему</string>
+    <string name="feature_settings_change_language_text">Змінити мову</string>
+    <string name="feature_settings_change_language_placeholder_text">Змінити мову</string>
+    <string name="feature_settings_language_preference">Мова</string>
+    <string name="feature_settings_dev_tools_title">Інструменти розробника</string>
+    <string name="feature_settings_dev_transition_gallery">Галерея переходів</string>
+    <string name="feature_settings_dev_state_gallery">Галерея станів</string>
+    <string name="feature_settings_dev_close">Закрити</string>
+    <string name="feature_settings_notifications_empty_title">Сповіщень поки немає</string>
+    <string name="feature_settings_notifications_empty_message">Тут зʼявлятимуться нагадування про рахунки та сповіщення про ставки.</string>
+    <string name="feature_settings_sync_drafts_row">Синхронізація та чернетки</string>
+    <string name="feature_settings_sync_drafts_row_description">Переглядайте чернетки й очікувані синхронізації та керуйте ними</string>
+    <string name="feature_settings_rate_app_row">Оцінити застосунок</string>
+    <string name="feature_settings_rate_app_row_description">Відкрити сторінку в магазині, щоб оцінити застосунок</string>
+    <string name="feature_settings_sync_drafts_title">Синхронізація та чернетки</string>
+    <string name="feature_settings_sync_drafts_empty_title">Немає що синхронізувати</string>
+    <string name="feature_settings_sync_drafts_empty_message">Тут зʼявляться чернетки, збережені офлайн, і записи, що очікують на синхронізацію.</string>
+    <string name="feature_settings_sync_drafts_section_drafts">Чернетки</string>
+    <string name="feature_settings_sync_drafts_section_syncing">Синхронізація</string>
+    <string name="feature_settings_sync_drafts_section_failed">Помилки</string>
+    <string name="feature_settings_sync_drafts_status_pending">Очікує</string>
+    <string name="feature_settings_sync_drafts_status_retrying">Повторення</string>
+    <string name="feature_settings_sync_drafts_status_failed">Помилка</string>
+    <string name="feature_settings_sync_drafts_retry">Повторити</string>
+    <string name="feature_settings_sync_drafts_discard">Відхилити</string>
+    <string name="feature_settings_sync_drafts_prune">Очистити застарілі</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_title">Відхилити чернетку?</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_message">Це остаточно видалить збережену чернетку. Скасувати дію неможливо.</string>
+    <string name="feature_settings_sync_drafts_discard_confirm_cancel">Скасувати</string>
+    <string name="feature_settings_conflicts_title">Конфлікти синхронізації</string>
+    <string name="feature_settings_conflicts_empty_title">Конфліктів немає</string>
+    <string name="feature_settings_conflicts_empty_message">Коли ваша зміна конфліктує з новішою версією на сервері, вона зʼявляється тут, щоб ви залишили серверну версію або повторили свою.</string>
+    <string name="feature_settings_conflicts_row_label">Конфлікт</string>
+    <string name="feature_settings_conflicts_accept_server">Залишити серверну</string>
+    <string name="feature_settings_conflicts_retry_local">Повторити мою</string>
+</resources>

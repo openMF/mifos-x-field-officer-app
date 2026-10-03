@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Impostazioni</string>
+    <string name="screens_home_outstanding_label">Saldo residuo</string>
+    <string name="screens_home_no_loans_message">Nessun prestito attivo — inizia aggiungendone uno.</string>
+    <string name="screens_home_total_outstanding_label">Totale residuo</string>
+    <string name="screens_home_active_loans_singular">%1$d prestito attivo</string>
+    <string name="screens_home_active_loans_plural">%1$d prestiti attivi</string>
+    <string name="screens_home_monthly_emi_label">Rata mensile</string>
+    <string name="screens_home_loans_label">Prestiti</string>
+    <string name="screens_home_loans_carousel_title">I tuoi prestiti · %1$d</string>
+    <string name="screens_home_remaining_label">Residuo</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Rata $%1$s · %2$d%% pagato</string>
+    <string name="screens_home_section_this_week">Questa settimana</string>
+    <string name="screens_home_section_tools">Strumenti</string>
+    <string name="screens_home_section_tools_subtitle">Calcolatori, confronti, indicatori macro</string>
+    <string name="screens_home_bills_card_title">Bollette in arrivo</string>
+    <string name="screens_home_bills_total_label">Totale dovuto (prossimi 7 gg)</string>
+    <string name="screens_home_bills_day_value">Giorno %1$d</string>
+    <string name="screens_home_bills_empty">Nessuna bolletta in scadenza nei prossimi 7 giorni.</string>
+    <string name="screens_home_rates_card_title">Tassi di oggi</string>
+    <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
+    <string name="screens_home_rates_mortgage_30y_label">Mutuo 30 anni</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">Cambio USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Vedi tutto</string>
+    <string name="screens_home_tool_emi_title">Calcolatore rata</string>
+    <string name="screens_home_tool_emi_subtitle">Rata mensile per qualsiasi prestito</string>
+    <string name="screens_home_tool_affordability_title">Sostenibilità</string>
+    <string name="screens_home_tool_affordability_subtitle">Quanto posso prendere in prestito in sicurezza?</string>
+    <string name="screens_home_tool_amortization_title">Ammortamento</string>
+    <string name="screens_home_tool_amortization_subtitle">Piano di ammortamento completo</string>
+    <string name="screens_home_tool_compare_title">Confronta prestiti</string>
+    <string name="screens_home_tool_compare_subtitle">Costo totale a confronto</string>
+    <string name="screens_home_tool_wizard_title">Procedura guidata prestito</string>
+    <string name="screens_home_tool_wizard_subtitle">Pianificatore passo passo</string>
+    <string name="screens_home_tool_currency_title">Tassi di cambio</string>
+    <string name="screens_home_tool_currency_subtitle">Cambi in tempo reale</string>
+    <string name="screens_home_tool_history_title">Storico dei tassi</string>
+    <string name="screens_home_tool_history_subtitle">Grafici storici dei cambi</string>
+    <string name="screens_home_tool_macro_title">Macro per paese</string>
+    <string name="screens_home_tool_macro_subtitle">PIL, IPC, disoccupazione</string>
+    <string name="screens_home_tool_crypto_title">Mercati delle monete</string>
+    <string name="screens_home_tool_crypto_subtitle">Prezzi cripto in tempo reale e watchlist</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

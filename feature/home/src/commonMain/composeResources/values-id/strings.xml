@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Pengaturan</string>
+    <string name="screens_home_outstanding_label">Sisa saldo</string>
+    <string name="screens_home_no_loans_message">Tidak ada pinjaman aktif — mulai dengan menambahkan satu.</string>
+    <string name="screens_home_total_outstanding_label">Total sisa</string>
+    <string name="screens_home_active_loans_singular">%1$d pinjaman aktif</string>
+    <string name="screens_home_active_loans_plural">%1$d pinjaman aktif</string>
+    <string name="screens_home_monthly_emi_label">Angsuran bulanan</string>
+    <string name="screens_home_loans_label">Pinjaman</string>
+    <string name="screens_home_loans_carousel_title">Pinjaman Anda · %1$d</string>
+    <string name="screens_home_remaining_label">Sisa</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Angsuran $%1$s · %2$d%% lunas</string>
+    <string name="screens_home_section_this_week">Minggu ini</string>
+    <string name="screens_home_section_tools">Alat</string>
+    <string name="screens_home_section_tools_subtitle">Kalkulator, perbandingan, indikator makro</string>
+    <string name="screens_home_bills_card_title">Tagihan mendatang</string>
+    <string name="screens_home_bills_total_label">Total jatuh tempo (7 hari ke depan)</string>
+    <string name="screens_home_bills_day_value">Tanggal %1$d</string>
+    <string name="screens_home_bills_empty">Tidak ada tagihan jatuh tempo dalam 7 hari ke depan.</string>
+    <string name="screens_home_rates_card_title">Suku bunga hari ini</string>
+    <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
+    <string name="screens_home_rates_mortgage_30y_label">KPR 30 tahun</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">Kurs USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Lihat semua</string>
+    <string name="screens_home_tool_emi_title">Kalkulator angsuran</string>
+    <string name="screens_home_tool_emi_subtitle">Angsuran bulanan untuk pinjaman apa pun</string>
+    <string name="screens_home_tool_affordability_title">Kemampuan bayar</string>
+    <string name="screens_home_tool_affordability_subtitle">Berapa banyak yang aman saya pinjam?</string>
+    <string name="screens_home_tool_amortization_title">Amortisasi</string>
+    <string name="screens_home_tool_amortization_subtitle">Jadwal pembayaran lengkap</string>
+    <string name="screens_home_tool_compare_title">Bandingkan pinjaman</string>
+    <string name="screens_home_tool_compare_subtitle">Total biaya berdampingan</string>
+    <string name="screens_home_tool_wizard_title">Wizard pinjaman</string>
+    <string name="screens_home_tool_wizard_subtitle">Perencana langkah demi langkah</string>
+    <string name="screens_home_tool_currency_title">Kurs mata uang</string>
+    <string name="screens_home_tool_currency_subtitle">Kurs langsung</string>
+    <string name="screens_home_tool_history_title">Riwayat kurs</string>
+    <string name="screens_home_tool_history_subtitle">Grafik kurs historis</string>
+    <string name="screens_home_tool_macro_title">Makro negara</string>
+    <string name="screens_home_tool_macro_subtitle">PDB, IHK, pengangguran</string>
+    <string name="screens_home_tool_crypto_title">Pasar koin</string>
+    <string name="screens_home_tool_crypto_subtitle">Harga kripto langsung dan daftar pantau</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>

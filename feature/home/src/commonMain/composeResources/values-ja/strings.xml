@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+    If a copy of the MPL was not distributed with this file,
+    You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">設定</string>
+    <string name="screens_home_outstanding_label">未返済残高</string>
+    <string name="screens_home_no_loans_message">進行中のローンはありません — まず追加してください。</string>
+    <string name="screens_home_total_outstanding_label">未返済合計</string>
+    <string name="screens_home_active_loans_singular">アクティブなローン %1$d 件</string>
+    <string name="screens_home_active_loans_plural">アクティブなローン %1$d 件</string>
+    <string name="screens_home_monthly_emi_label">月々の返済額</string>
+    <string name="screens_home_loans_label">ローン</string>
+    <string name="screens_home_loans_carousel_title">あなたのローン · %1$d</string>
+    <string name="screens_home_remaining_label">残り</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">返済額 $%1$s · %2$d%% 完済</string>
+    <string name="screens_home_section_this_week">今週</string>
+    <string name="screens_home_section_tools">ツール</string>
+    <string name="screens_home_section_tools_subtitle">計算機・比較・マクロ指標</string>
+    <string name="screens_home_bills_card_title">今後の請求</string>
+    <string name="screens_home_bills_total_label">支払合計（今後7日）</string>
+    <string name="screens_home_bills_day_value">%1$d 日</string>
+    <string name="screens_home_bills_empty">今後7日間に支払期日の請求はありません。</string>
+    <string name="screens_home_rates_card_title">本日の金利</string>
+    <string name="screens_home_rates_fed_funds_label">フェデラルファンド金利</string>
+    <string name="screens_home_rates_mortgage_30y_label">30年住宅ローン</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">米ドル為替</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">すべて表示</string>
+    <string name="screens_home_tool_emi_title">月々の返済額計算</string>
+    <string name="screens_home_tool_emi_subtitle">任意のローンの月々の返済額</string>
+    <string name="screens_home_tool_affordability_title">借入可能額</string>
+    <string name="screens_home_tool_affordability_subtitle">安全に借りられる金額は？</string>
+    <string name="screens_home_tool_amortization_title">返済計画</string>
+    <string name="screens_home_tool_amortization_subtitle">完全な返済スケジュール</string>
+    <string name="screens_home_tool_compare_title">ローン比較</string>
+    <string name="screens_home_tool_compare_subtitle">総コストを並べて比較</string>
+    <string name="screens_home_tool_wizard_title">ローンウィザード</string>
+    <string name="screens_home_tool_wizard_subtitle">ステップ式プランナー</string>
+    <string name="screens_home_tool_currency_title">為替レート</string>
+    <string name="screens_home_tool_currency_subtitle">リアルタイム為替レート</string>
+    <string name="screens_home_tool_history_title">レート履歴</string>
+    <string name="screens_home_tool_history_subtitle">為替の過去チャート</string>
+    <string name="screens_home_tool_macro_title">国別マクロ指標</string>
+    <string name="screens_home_tool_macro_subtitle">GDP・CPI・失業率</string>
+    <string name="screens_home_tool_crypto_title">コイン市場</string>
+    <string name="screens_home_tool_crypto_subtitle">暗号資産のリアルタイム価格とウォッチリスト</string>
+    <string name="screens_home_money_zero">$0.00</string>
+</resources>
