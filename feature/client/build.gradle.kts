@@ -31,6 +31,7 @@ kotlin {
             implementation(projects.feature.document)
             implementation(projects.feature.recurringDeposit)
             implementation(projects.feature.groups)
+            implementation(projects.feature.standingInstruction)
 
             implementation(compose.ui)
             implementation(compose.material3)

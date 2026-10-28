@@ -25,6 +25,7 @@ kotlin{
             implementation(compose.components.uiToolingPreview)
             implementation(compose.ui)
             implementation(libs.kotlinx.serialization.json)
+            implementation(projects.feature.standingInstruction)
         }
     }
 }

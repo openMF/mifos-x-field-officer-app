@@ -111,6 +111,8 @@ import com.mifos.feature.savings.navigation.navigateToSavingsAccountApproval
 import com.mifos.feature.savings.navigation.navigateToSavingsAccountSummaryScreen
 import com.mifos.feature.savings.navigation.savingsDestination
 import com.mifos.feature.savings.savingsAccountv2.navigateToSavingsAccountRoute
+import com.mifos.feature.standingInstructions.navigation.standingInstructionsDestination
+import com.mifos.feature.standingInstructions.viewStandingInstructions.navigateToViewStandingInstructionsScreen
 import com.mifos.room.entities.accounts.savings.SavingAccountDepositTypeEntity
 import com.mifos.room.entities.noncore.DataTableEntity
 import com.mifos.room.entities.survey.SurveyEntity
@@ -401,6 +403,11 @@ fun NavGraphBuilder.clientNavGraph(
             loadMoreSavingsAccountInfo = navController::navigateToDataTable,
             loadDocuments = navController::navigateToDocumentListScreen,
             onFinish = navController::popBackStack,
+            onViewStandingInstructions = navController::navigateToViewStandingInstructionsScreen,
+        )
+
+        standingInstructionsDestination(
+            navController = navController,
         )
 
         createShareAccountDestination(

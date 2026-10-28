@@ -31,6 +31,7 @@ import com.mifos.core.network.datamanager.DataManagerSavings
 import com.mifos.core.network.datamanager.DataManagerSearch
 import com.mifos.core.network.datamanager.DataManagerShare
 import com.mifos.core.network.datamanager.DataManagerStaff
+import com.mifos.core.network.datamanager.DataManagerStandingInstructions
 import com.mifos.core.network.datamanager.DataManagerSurveys
 import org.koin.dsl.module
 
@@ -57,4 +58,5 @@ val DataManagerModule = module {
     single { DataManagerRecurringAccount(get()) }
     single { DataManagerShare(get()) }
     single { DataManagerFixedDeposit(get()) }
+    single { DataManagerStandingInstructions(get()) }
 }

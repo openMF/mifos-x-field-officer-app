@@ -10,6 +10,7 @@
 -->
 <resources>
     <string name="feature_savings_more_savings_account_info">More savings account info</string>
+    <string name="feature_savings_view_standing_instructions">View Standing Instructions</string>
     <string name="feature_savings_savingsAccountSummary">Savings Account Summary</string>
     <string name="feature_savings_documents">Documents</string>
     <string name="feature_savings_client_name">Client Name</string>

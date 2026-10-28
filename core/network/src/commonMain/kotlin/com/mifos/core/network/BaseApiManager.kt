@@ -44,6 +44,7 @@ import com.mifos.core.network.services.SavingsAccountService
 import com.mifos.core.network.services.SearchService
 import com.mifos.core.network.services.ShareAccountService
 import com.mifos.core.network.services.StaffService
+import com.mifos.core.network.services.StandingInstructionService
 import com.mifos.core.network.services.SurveyService
 import com.mifos.core.network.services.createCenterService
 import com.mifos.core.network.services.createChargeService
@@ -64,6 +65,7 @@ import com.mifos.core.network.services.createSavingsAccountService
 import com.mifos.core.network.services.createSearchService
 import com.mifos.core.network.services.createShareAccountService
 import com.mifos.core.network.services.createStaffService
+import com.mifos.core.network.services.createStandingInstructionService
 import com.mifos.core.network.services.createSurveyService
 import de.jensklingenberg.ktorfit.Ktorfit
 
@@ -93,6 +95,7 @@ class BaseApiManager(
     val noteService: NoteService = ktorfit.createNoteService()
     val runReportsService: RunReportsService = ktorfit.createRunReportsService()
     val shareAccountService: ShareAccountService = ktorfit.createShareAccountService()
+    val standingInstructionService: StandingInstructionService = ktorfit.createStandingInstructionService()
 
     // sdk apis
     val clientIdentifiersApi: ClientIdentifierApi = ktorfit.createClientIdentifierApi()

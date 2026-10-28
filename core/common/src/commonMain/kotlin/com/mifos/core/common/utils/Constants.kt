@@ -239,4 +239,10 @@ object Constants {
     const val POSTAL_CODE = "postalCode"
     const val STATUS = "status"
     const val DOCUMENT_KEY = "documentKey"
+
+    /**
+     * Constant values for standing instructions account type
+     */
+    const val LOAN_ACCOUNT_VAL = 1
+    const val SAVINGS_ACCOUNT_VAL = 2
 }

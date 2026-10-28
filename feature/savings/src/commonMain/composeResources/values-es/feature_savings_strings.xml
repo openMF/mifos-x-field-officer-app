@@ -10,6 +10,7 @@
 -->
 <resources>
     <string name="feature_savings_more_savings_account_info">Más información de la cuenta de ahorro</string>
+    <string name="feature_savings_view_standing_instructions">Ver instrucciones permanentes</string>
     <string name="feature_savings_savingsAccountSummary">Resumen de Cuenta de Ahorro</string>
     <string name="feature_savings_documents">Documentos</string>
     <string name="feature_savings_client_name">Nombre del Cliente</string>

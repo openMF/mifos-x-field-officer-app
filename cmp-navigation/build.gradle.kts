@@ -51,6 +51,7 @@ kotlin {
             implementation(projects.feature.settings)
             implementation(projects.feature.search)
             implementation(projects.feature.searchRecord)
+            implementation(projects.feature.standingInstruction)
             implementation(projects.feature.passcode)
 
             implementation(compose.material3)
