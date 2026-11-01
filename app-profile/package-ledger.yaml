@@ -1,0 +1,69 @@
+# package-ledger.yaml — the FORK's record of what it did to the template's declared packages.
+#
+# owner: fork — never synced over, never deleted by a strict-mirror sync. The template's
+# `core/*/module-packages.yaml` + `feature/module-packages.yaml` are template-owned and full-copied:
+# they describe the TEMPLATE's tree. A fork that strips a demo package, or keeps one the customizer
+# would remove, records it HERE instead of editing those files (an edit there is lost on every sync).
+#
+# Read by scripts/product-health/checks/core-package-ownership.sh: for a package listed here, MP-7
+# checks the disk against THIS status instead of the template file's. The fork's OWN packages need no
+# row at all — they resolve `fork` through each module's catch-all, and the check accepts that.
+#
+#   status:  removed — the fork stripped it (the customizer, remove-demo.sh)
+#            kept    — the fork keeps a package the template marks demo
+#            absent  — the fork never had it
+#
+# Field officer: the template's demo domains (alerts, banking, calc, cloudtodo, crypto, currency,
+# economic, emi, profile, watchlist, exchange) and demo network points are stripped; the fork's own
+# domains (client, loan, savings, …) need no row.
+packages:
+  - { module: core/data, id: alerts, status: removed }
+  - { module: core/data, id: banking, status: removed }
+  - { module: core/data, id: calc, status: removed }
+  - { module: core/data, id: cloudtodo, status: removed }
+  - { module: core/data, id: crypto, status: removed }
+  - { module: core/data, id: currency, status: removed }
+  - { module: core/data, id: economic, status: removed }
+  - { module: core/data, id: emi, status: removed }
+  - { module: core/data, id: profile, status: removed }
+  - { module: core/data, id: watchlist, status: removed }
+  - { module: core/database, id: alerts, status: removed }
+  - { module: core/database, id: banking, status: removed }
+  - { module: core/database, id: cloudtodo, status: removed }
+  - { module: core/database, id: crypto, status: removed }
+  - { module: core/database, id: currency, status: removed }
+  - { module: core/database, id: economic, status: removed }
+  - { module: core/database, id: migrations, status: removed }
+  - { module: core/database, id: watchlist, status: removed }
+  - { module: core/domain, id: calc, status: removed }
+  - { module: core/domain, id: emi, status: removed }
+  - { module: core/firebase, id: loans, status: removed }
+  - { module: core/model, id: alerts, status: removed }
+  - { module: core/model, id: banking, status: removed }
+  - { module: core/model, id: calc, status: removed }
+  - { module: core/model, id: cloudtodo, status: removed }
+  - { module: core/model, id: crypto, status: removed }
+  - { module: core/model, id: currency, status: removed }
+  - { module: core/model, id: economic, status: removed }
+  - { module: core/model, id: emi, status: removed }
+  - { module: core/model, id: profile, status: removed }
+  - { module: core/model, id: watchlist, status: removed }
+  - { module: core/network, id: coingecko, status: removed }
+  - { module: core/network, id: fineract, status: removed }
+  - { module: core/network, id: frankfurter, status: removed }
+  - { module: core/network, id: fred, status: removed }
+  - { module: core/network, id: jsonplaceholder, status: removed }
+  - { module: core/network, id: worldbank, status: removed }
+  - { module: core/network, id: main, status: absent }
+  - { module: core/network, id: staging, status: absent }
+  - { module: core/store, id: alerts, status: removed }
+  - { module: core/store, id: banking, status: removed }
+  - { module: core/store, id: calc, status: removed }
+  - { module: core/store, id: cloudtodo, status: removed }
+  - { module: core/store, id: crypto, status: removed }
+  - { module: core/store, id: currency, status: removed }
+  - { module: core/store, id: economic, status: removed }
+  - { module: core/store, id: emi, status: removed }
+  - { module: core/store, id: exchange, status: removed }
+  - { module: core/store, id: profile, status: removed }
+  - { module: core/store, id: watchlist, status: removed }

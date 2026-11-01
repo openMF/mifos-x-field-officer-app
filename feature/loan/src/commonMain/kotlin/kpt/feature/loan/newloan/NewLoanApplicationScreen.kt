@@ -43,7 +43,7 @@ import kpt.core.base.ui.screen.ScreenContent
 import kpt.core.base.ui.screen.ScreenStateCta
 import kpt.core.base.ui.screen.ScreenStateEmpty
 import kpt.core.base.ui.submit.FormDraftBanner
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken
 import kpt.core.ui.components.AppStatusDialog

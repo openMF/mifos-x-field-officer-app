@@ -21,8 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppOutlinedButton
-import kpt.core.designsystem.component.AppTextButton
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedButton
+import kpt.core.designsystem.fieldofficer.component.AppTextButton
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.AppTypography

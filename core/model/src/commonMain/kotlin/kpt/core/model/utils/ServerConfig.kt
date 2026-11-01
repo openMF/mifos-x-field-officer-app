@@ -24,7 +24,7 @@ data class ServerConfig(
 ) {
     companion object {
         // No `DEFAULT` here, deliberately. The shipped server is DERIVED from the generated access point
-        // (`kpt.core.network.config.AppServerConfig.DEFAULT`, from `app-profile/app.yaml`) — a constant
+        // (`kpt.core.network.fieldofficer.AppServerConfig.DEFAULT`, from `app-profile/app.yaml`) — a constant
         // in this module could only ever be a second copy of it. Read it through
         // `ServerConfigRepository.defaultConfig`.
 

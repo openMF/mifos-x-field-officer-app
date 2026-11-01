@@ -39,8 +39,8 @@ import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.RefreshableScreenContent
 import kpt.core.common.utils.CurrencyFormatter
 import kpt.core.common.utils.DateHelper
-import kpt.core.designsystem.component.AppScaffold
-import kpt.core.designsystem.component.FloatingActionButtonContent
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.FloatingActionButtonContent
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.model.savings.SavingsAccount

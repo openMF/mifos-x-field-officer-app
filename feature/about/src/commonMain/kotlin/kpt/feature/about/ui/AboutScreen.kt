@@ -43,7 +43,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.util.ShareUtils
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.DesignToken
 import kpt.feature.about.generated.resources.Res

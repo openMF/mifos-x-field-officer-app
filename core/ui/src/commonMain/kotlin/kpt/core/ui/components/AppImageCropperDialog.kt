@@ -19,7 +19,7 @@ import com.attafitamim.krop.core.crop.CropState
 import com.attafitamim.krop.core.crop.RectCropShape
 import com.attafitamim.krop.core.crop.cropperStyle
 import com.attafitamim.krop.ui.ImageCropperDialog
-import kpt.core.designsystem.component.AppTopBar
+import kpt.core.designsystem.fieldofficer.component.AppTopBar
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.DesignToken
 

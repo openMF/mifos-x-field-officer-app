@@ -26,9 +26,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.ui.effects.EventsEffect
-import kpt.core.designsystem.component.AppButton
-import kpt.core.designsystem.component.AppOutlinedTextField
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedTextField
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.ui.components.AppAlertDialog
 import kpt.feature.document.generated.resources.Res
 import kpt.feature.document.generated.resources.feature_document_browse

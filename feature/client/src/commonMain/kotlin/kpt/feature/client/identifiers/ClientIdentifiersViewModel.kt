@@ -23,7 +23,7 @@ import kpt.core.base.ui.viewmodel.BaseViewModel
 import kpt.core.data.client.ClientCommandRepository
 import kpt.core.data.client.ClientRepository
 import kpt.core.model.objects.noncoreobjects.Identifier
-import kpt.core.ui.utils.getClientIdentifierStatus
+import kpt.core.ui.fieldofficer.utils.getClientIdentifierStatus
 
 /**
  * The client's identity documents — ported from

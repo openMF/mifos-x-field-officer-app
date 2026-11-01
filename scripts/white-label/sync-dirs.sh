@@ -83,6 +83,7 @@ DEFAULT_UPSTREAM_URL="https://github.com/openMF/kmp-project-template.git"
 
 # Script options
 DRY_RUN=false
+MIRROR=false   # --mirror: template-owned sync roots become a strict mirror (see mirror_template_owned)
 FORCE=false
 ONLY_ITEMS=""   # --only <a,b,c>: restrict the sync to this subset of SYNC_DIRS/SYNC_FILES
 LOG_FILE="sync-$(date +%d%m%Y-%H%M%S).log"
@@ -166,6 +167,8 @@ SYNC_FILES=(
     # --- WS4/T6: close the missed-template-update gap for owner:template root paths ---
     "customization-surface.yaml"    # ownership contract — self-syncs (closes the false "self-syncs" claim in customization-surface.yaml)
     "build.gradle.kts"              # root Gradle build (owner: template, WS4/T6)
+    "SECURITY.md"                   # community file, same class as CODE_OF_CONDUCT.md (owner: template)
+    "template-migrations.yaml"      # structural-migration record forks consult — was owner: template but never synced
     "FEATURE_AUTHORING.md"          # in-template feature-authoring guide (owner: template) — was declared "synced" but had no SYNC_FILES vector (WS4/T6)
 )
 
@@ -243,6 +246,9 @@ show_help() {
     echo "  --only <list>   Restrict the sync to a comma/space-separated subset of the declared"
     echo "                  SYNC_DIRS/SYNC_FILES (e.g. --only build-logic,gradle/wrapper,spotless)."
     echo "                  Use it when a diverged fork only wants specific infra refreshed."
+    echo "  --mirror        Template-owned sync roots become a STRICT mirror: fork-only files there are"
+    echo "                  removed unless held in .template-sync-holds (path<TAB>reason). Opt-in — run"
+    echo "                  /kmp-project-template-sync, which classifies the fork's extras first."
     echo
     echo -e "${BOLD}Examples:${NC}"
     echo "  ./sync-dirs.sh              # Run with interactive prompts"
@@ -429,6 +435,9 @@ is_excluded() {
     return 1  # Path is not excluded
 }
 
+# Remove the `temp_*` working directories a sync creates.
+# Called on completion AND on failure, so an aborted sync does not leave a half-fetched
+# tree that the next run would mistake for real content.
 cleanup_temp_dirs() {
     print_step "Cleaning up temporary directories..."
     find . -type d -name "temp_*" -exec rm -rf {} +
@@ -627,6 +636,10 @@ merge_plist_union() {
     return 1
 }
 
+# merge_libs_catalog_3way <ours> <base> <theirs> [out] — key-level 3-way merge of a TOML version
+# catalog: a key the fork never changed takes the template's value (a major bump is reported), a key
+# only the fork changed keeps the fork's, both-changed keeps the fork's and is reported as a conflict,
+# and keys new in the template are appended to their section.
 merge_libs_catalog_3way() {
     local ours="$1" base="$2" theirs="$3" out="${4:-$1}"
     [ -f "$ours" ] && [ -f "$theirs" ] || { [ -f "$theirs" ] && cp "$theirs" "$out"; return 0; }
@@ -735,7 +748,8 @@ merge_contract_root_files() {
         case "${rc:-0}" in
             0) print_step "Merged (${strat}) ${BOLD}$f${NC} — template update + fork edits reconciled" ;;
             3) print_warning "SKIPPED (${strat}) ${BOLD}$f${NC} — kept the fork's copy; template changes NOT applied" ;;
-            *) print_warning "Merged (${strat}) ${BOLD}$f${NC} WITH conflicts — resolve before committing the sync" ;;
+            *) print_warning "Merged (${strat}) ${BOLD}$f${NC} WITH conflicts — resolve before committing the sync"
+               SYNC_CONFLICTS+=("$f") ;;
         esac
         rm -f "$o" "$b" "$t"
     done
@@ -814,6 +828,39 @@ propagate_template_deletions() {
     done < <(git diff --name-only --diff-filter=D "$PREV_TEMPLATE_SHA" "$temp_branch" -- "$dir" 2>/dev/null)
 }
 
+# ── STRICT MIRROR (--mirror, 2026-10-31) ─────────────────────────────────────────────────────────
+# `git checkout $temp_branch -- $dir` OVERLAYS: it writes every file the template has and never
+# removes a file only the fork has. propagate_template_deletions covers files the template itself
+# deleted; nothing covered files the template NEVER shipped, so a fork's extras under a template-owned
+# root (a component dropped into kpt/core/designsystem/component/, fork code in core-base/) lived on
+# forever as unowned drift. With --mirror, after the copy lands, every file under $dir that the fork
+# has, the template does not, and the contract resolves EXACTLY `template` is removed — unless the
+# fork holds it in `.template-sync-holds` (one `path<TAB>reason` per line: an extra proposed upstream
+# waits there until the template adopts it). NEVER touched: is_excluded paths (fork-owned, demo, the
+# core/store seam, schemas), merge-owned paths, demo-showcase paths. Run it only after the fork's
+# extras were classified (/kmp-project-template-sync does that first); a bare --mirror on an
+# unclassified fork deletes its work, which is why it is opt-in.
+mirror_template_owned() {
+    local dir=$1 temp_branch=$2 f owner holds=".template-sync-holds"
+    [ "$MIRROR" = true ] || return 0
+    while IFS= read -r f; do
+        [ -n "$f" ] || continue
+        git cat-file -e "${temp_branch}:${f}" 2>/dev/null && continue           # template has it
+        is_excluded "$dir" "$f" "file" && continue                              # fork/demo/seam/schemas
+        owner="$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$f" 2>/dev/null | awk 'NR==1{print $2}')"
+        [ "$owner" = "template" ] || continue                                   # merge / demo-showcase kept
+        if [ -f "$holds" ] && cut -f1 "$holds" | grep -qxF -- "$f"; then
+            print_step "Mirror: HELD ${BOLD}$f${NC} ($(grep -F -- "$f" "$holds" | head -1 | cut -f2))"
+            continue
+        fi
+        git rm -f --quiet -- "$f" 2>/dev/null || rm -f -- "$f"
+        print_step "Mirror: removed fork-only ${BOLD}$f${NC} from template-owned $dir"
+    done < <(git ls-tree -r --name-only "$BASE_BRANCH" -- "$dir" 2>/dev/null)
+}
+
+# Sync one directory $1 from the upstream branch checked out at $2.
+# Ownership is decided per path by customization-surface.yaml, so a fork-owned path inside
+# a synced directory is preserved rather than overwritten.
 sync_directory() {
     local dir=$1
     local temp_branch=$2
@@ -881,6 +928,9 @@ sync_directory() {
             # ── Deletion propagation (template-side removals the fork inherited) ──
             propagate_template_deletions "$dir" "$temp_branch"
 
+            # ── Strict mirror (opt-in) — fork-only files under template-owned paths ──
+            mirror_template_owned "$dir" "$temp_branch"
+
             # ── 3-way merge for merge-owned files (customization-surface contract) ──
             # Replaces a blind upstream clobber with a real merge so fork edits (e.g.
             # AndroidManifest permissions) survive a template update. ours=fork
@@ -946,7 +996,8 @@ sync_directory() {
                         case "${_mrc:-0}" in
                             0) print_step "Merged (${_ms}) ${BOLD}$_mf${NC} — fork edits preserved" ;;
                             3) print_warning "SKIPPED (${_ms}) ${BOLD}$_mf${NC} — kept the fork's copy; template changes NOT applied" ;;
-                            *) print_warning "CONFLICT in ${BOLD}$_mf${NC} (${_ms}) — resolve markers before committing the sync" ;;
+                            *) print_warning "CONFLICT in ${BOLD}$_mf${NC} (${_ms}) — resolve markers before committing the sync"
+                               SYNC_CONFLICTS+=("$_mf") ;;
                         esac
                     fi
                     rm -f "$_o" "$_b" "$_t"
@@ -1093,6 +1144,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --dry-run)
             DRY_RUN=true
+            shift
+            ;;
+        --mirror)
+            MIRROR=true
             shift
             ;;
         -f|--force)
@@ -1360,15 +1415,24 @@ fi
 # Sync directories
 echo -e "\n${BLUE}${BOLD}Syncing directories...${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+# Every failed path is RECORDED. The loops used to ignore the return code, so a directory that failed
+# to sync was skipped and the run still stamped .template-version with the full template sha — the
+# next sync then 3-way-merged against a base this tree never had (2026-10-31 audit: two forks
+# recorded 81d0cc6f while 255 / 242 of their core-base files matched OLDER template versions).
+SYNC_FAILED=()
+# Every file a 3-way merge left with conflict markers. The engine used to warn "resolve markers before
+# committing the sync" and then commit them in the same run (2026-10-31 dry run on a real fork: 19
+# files with <<<<<<< in the sync commit). A conflicted sync now stops before stamping or committing.
+SYNC_CONFLICTS=()
 for dir in "${SYNC_DIRS[@]}"; do
-    sync_directory "$dir" "$TEMP_BRANCH"
+    sync_directory "$dir" "$TEMP_BRANCH" || SYNC_FAILED+=("$dir")
 done
 
 # Sync files
 echo -e "\n${BLUE}${BOLD}Syncing files...${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 for file in "${SYNC_FILES[@]}"; do
-    sync_file "$file" "$TEMP_BRANCH"
+    sync_file "$file" "$TEMP_BRANCH" || SYNC_FAILED+=("$file")
 done
 
 # Self-heal libs.versions.toml — pull missing build-logic aliases from upstream.
@@ -1511,6 +1575,14 @@ if [ "$DRY_RUN" = false ]; then
     # merge base on this exact point instead of git's guessed common ancestor. Written here (before
     # the commit gate) so a version-only bump still commits; the file is fork-owned
     # (customization-surface.yaml owner: fork) so a template dir-copy never clobbers it.
+    # A PARTIAL sync never advances the base. The marker states what this tree fully holds; stamping
+    # past a failed path makes the next 3-way merge treat never-received template content as the
+    # fork's own deletion. Keep the previous marker, name what failed, and stop before committing.
+    if [ "${#SYNC_FAILED[@]}" -gt 0 ]; then
+        print_error "Sync INCOMPLETE — ${#SYNC_FAILED[@]} path(s) failed: ${SYNC_FAILED[*]}"
+        print_error ".template-version NOT advanced (still the last COMPLETE sync). Fix the failures and re-run; nothing was committed."
+        exit 1
+    fi
     print_step "Recording template sync version (.template-version)..."
     _tv_sha="$(git rev-parse "$TEMPLATE_REMOTE/$BASE_BRANCH" 2>/dev/null || echo "")"
     _tv_tag="$(git describe --tags --exact-match "$_tv_sha" 2>/dev/null || echo "")"
@@ -1526,6 +1598,16 @@ if [ "$DRY_RUN" = false ]; then
     } > .template-version
     git add .template-version 2>/dev/null || true
     show_progress
+
+    # Conflicts: every path DID sync, so the stamp above is right for the tree once the markers are
+    # resolved — but a commit holding `<<<<<<<` must never be produced. Stop before committing; the
+    # caller resolves each file (both sides' intent) and commits on this branch, stamp included.
+    if [ "${#SYNC_CONFLICTS[@]}" -gt 0 ]; then
+        print_error "Sync has ${#SYNC_CONFLICTS[@]} unresolved merge conflict(s) — markers are in the working tree:"
+        printf '    %s\n' "${SYNC_CONFLICTS[@]}"
+        print_error "Resolve each (keep both sides' intent), then commit on this branch. Nothing was committed."
+        exit 3
+    fi
 
     # Check for changes
     if ! git diff --quiet --exit-code --cached; then

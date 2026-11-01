@@ -26,7 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppOutlinedButton
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedButton
 import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview

@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
-import kpt.core.network.config.parseInstances
+import kpt.core.network.fieldofficer.parseInstances
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appconfig.dto.RemoteAppConfigDto
 import kotlin.test.Test
 import kotlin.test.assertEquals

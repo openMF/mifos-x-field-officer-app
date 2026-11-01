@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kpt.core.designsystem.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppButton
 import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken

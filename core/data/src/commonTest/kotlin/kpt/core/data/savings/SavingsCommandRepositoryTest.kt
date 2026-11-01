@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import kpt.core.base.store.mutation.MutationResult
-import kpt.core.data.infra.OkHttpResponse
+import kpt.core.data.fieldofficer.infra.OkHttpResponse
 import kpt.core.data.infra.testMutationGateway
 import kpt.core.data.savings.impl.SavingsCommandRepositoryImpl
 import kpt.core.model.client.ClientAccounts

@@ -15,8 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import kpt.core.base.designsystem.KptTheme
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppBottomSheet
-import kpt.core.designsystem.component.AppBottomSheetOptionItem
+import kpt.core.designsystem.fieldofficer.component.AppBottomSheet
+import kpt.core.designsystem.fieldofficer.component.AppBottomSheetOptionItem
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.DesignToken
 import kpt.core.ui.generated.resources.Res

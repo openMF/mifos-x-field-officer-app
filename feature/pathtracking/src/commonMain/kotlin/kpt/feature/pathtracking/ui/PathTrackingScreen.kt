@@ -46,7 +46,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.screen.RefreshableScreenContent
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.model.objects.users.UserLatLng
 import kpt.feature.pathtracking.generated.resources.Res

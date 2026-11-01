@@ -24,7 +24,7 @@ import kpt.core.data.offline.impl.OfflineSyncRepositoryImpl
 import kpt.core.data.offline.impl.SharedStores
 import kpt.core.data.offline.work.WorkManagerOfflineSyncScheduler
 import kpt.core.datastore.prefs.ProjectPreferencesRepository
-import kpt.core.network.config.toServerConfig
+import kpt.core.network.fieldofficer.toServerConfig
 import kpt.core.store.config.AppStoreRegistry
 import kpt.core.store.serverconfig.ServerConfigSource
 import kpt.core.store.session.SessionSource

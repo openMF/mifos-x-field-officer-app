@@ -23,7 +23,6 @@ kotlin {
             implementation(libs.androidx.compose.ui.test)
         }
         commonMain.dependencies {
-            implementation(libs.back.handler)
             api(projects.coreBase.designsystem)
             // `api`, and deliberately from here: core:platform api-exposes core-base:platform, and
             // every feature module already receives core:designsystem from CMPFeatureConventionPlugin.

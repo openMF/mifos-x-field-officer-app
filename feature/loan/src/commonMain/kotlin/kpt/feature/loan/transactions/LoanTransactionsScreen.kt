@@ -35,8 +35,8 @@ import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.ScreenContent
-import kpt.core.designsystem.component.AppScaffold
-import kpt.core.designsystem.component.AppTableRow
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppTableRow
 import kpt.core.designsystem.theme.DesignToken
 import kpt.feature.loan.generated.resources.Res
 import kpt.feature.loan.generated.resources.feature_loan_break_down

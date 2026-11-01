@@ -17,7 +17,7 @@ import kpt.core.base.store.infra.StoreFactory
 import kpt.core.base.store.mutation.MutationResult
 import kpt.core.data.charge.impl.ChargeCommandRepositoryImpl
 import kpt.core.data.charge.impl.ChargeRepositoryImpl
-import kpt.core.data.infra.OkHttpResponse
+import kpt.core.data.fieldofficer.infra.OkHttpResponse
 import kpt.core.data.infra.testMutationGateway
 import kpt.core.model.charge.Charges
 import kpt.core.model.objects.charge.ChargeResource

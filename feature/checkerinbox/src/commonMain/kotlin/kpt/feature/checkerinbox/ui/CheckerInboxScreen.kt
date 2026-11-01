@@ -61,11 +61,11 @@ import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.store.screen.dataOrNull
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.RefreshableScreenContent
-import kpt.core.designsystem.component.AppButton
-import kpt.core.designsystem.component.AppDatePickerTextField
-import kpt.core.designsystem.component.AppOutlinedTextField
-import kpt.core.designsystem.component.AppScaffold
-import kpt.core.designsystem.component.AppTextFieldDropdown
+import kpt.core.designsystem.fieldofficer.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppDatePickerTextField
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedTextField
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppTextFieldDropdown
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.model.objects.checkerinboxtask.CheckerInboxSearchTemplate
 import kpt.core.model.objects.checkerinboxtask.CheckerTask

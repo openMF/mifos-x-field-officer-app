@@ -45,7 +45,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.common.utils.Constants
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.DesignToken
 import kpt.core.model.objects.searchrecord.GenericSearchRecord
@@ -54,7 +54,7 @@ import kpt.core.ui.components.AppActionsIdentifierListingComponent
 import kpt.core.ui.components.AppAddressCard
 import kpt.core.ui.components.AppAlertDialog
 import kpt.core.ui.components.AppProgressIndicator
-import kpt.core.ui.utils.getClientIdentifierStatus
+import kpt.core.ui.fieldofficer.utils.getClientIdentifierStatus
 import kpt.feature.searchrecord.generated.resources.Res
 import kpt.feature.searchrecord.generated.resources.search_record_address
 import kpt.feature.searchrecord.generated.resources.search_record_address_line_1

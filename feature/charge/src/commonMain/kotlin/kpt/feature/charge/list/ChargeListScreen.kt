@@ -35,7 +35,7 @@ import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.RefreshableScreenContent
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.ui.components.Actions
 import kpt.core.ui.components.AppActionsChargeListingComponent

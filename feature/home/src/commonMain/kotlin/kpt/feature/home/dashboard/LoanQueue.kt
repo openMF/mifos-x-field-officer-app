@@ -50,9 +50,9 @@ import kpt.core.base.ui.screen.RefreshableScreenContent
 import kpt.core.common.utils.CurrencyFormatter
 import kpt.core.data.dashboard.DashboardRepository
 import kpt.core.data.session.SessionRepository
-import kpt.core.designsystem.component.AppScaffold
 import kpt.core.designsystem.component.MoneyText
 import kpt.core.designsystem.component.MoneyTone
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.model.dashboard.DashboardLoan
 import kpt.core.model.dashboard.DashboardScope
 import kpt.core.model.dashboard.ownedBy

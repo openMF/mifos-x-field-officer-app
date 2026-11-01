@@ -1,0 +1,5 @@
+core/data/src/commonMain/kotlin/kpt/core/data/util/StoreOneShotRead.kt	queued upstream: Store.freshOrCached in core-base/store (5 fork repositories depend on it)
+core/data/src/commonTest/kotlin/kpt/core/data/util/StoreOneShotReadTest.kt	queued upstream: travels with Store.freshOrCached
+core/ui/src/commonMain/kotlin/kpt/core/ui/navigation/NavigationRoutes.kt	queued upstream: route helpers in core/ui so feature modules can declare @FeatureTab
+scripts/product-health/checks/offline-first-reads.sh	queued upstream: a fork-owned product-health checks seam
+scripts/product-health/checks/store-mutable-logout.sh	queued upstream: store-ksp should reject a MutableStore provider with logout = true

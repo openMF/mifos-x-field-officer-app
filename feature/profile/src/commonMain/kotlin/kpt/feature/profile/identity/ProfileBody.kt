@@ -53,7 +53,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.component.KptShimmerLoadingBox
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.ui.effects.EventsEffect
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.feature.profile.TestTags
 import kpt.feature.profile.generated.resources.Res
 import kpt.feature.profile.generated.resources.feature_profile_change_password

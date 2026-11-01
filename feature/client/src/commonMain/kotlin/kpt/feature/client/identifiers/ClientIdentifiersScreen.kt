@@ -31,8 +31,8 @@ import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.ScreenContent
-import kpt.core.designsystem.component.AppScaffold
-import kpt.core.designsystem.component.FloatingActionButtonContent
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.FloatingActionButtonContent
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.model.objects.noncoreobjects.Identifier
@@ -40,7 +40,7 @@ import kpt.core.ui.components.Actions
 import kpt.core.ui.components.AppActionsIdentifierListingComponent
 import kpt.core.ui.components.AppAlertDialog
 import kpt.core.ui.components.AppEmptyCard
-import kpt.core.ui.utils.getClientIdentifierStatus
+import kpt.core.ui.fieldofficer.utils.getClientIdentifierStatus
 import kpt.feature.client.generated.resources.Res
 import kpt.feature.client.generated.resources.feature_client_add_record
 import kpt.feature.client.generated.resources.feature_client_cancel

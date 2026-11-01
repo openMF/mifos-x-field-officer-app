@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.screen.ScreenContent
-import kpt.core.designsystem.component.AppMenuDropDownItem
+import kpt.core.designsystem.fieldofficer.component.AppMenuDropDownItem
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.model.client.Client
 import kpt.core.model.group.Group

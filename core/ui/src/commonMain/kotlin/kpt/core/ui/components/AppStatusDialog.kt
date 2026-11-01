@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppButton
 import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken

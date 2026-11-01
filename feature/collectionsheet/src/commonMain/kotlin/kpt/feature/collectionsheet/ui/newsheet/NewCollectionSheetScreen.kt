@@ -37,10 +37,10 @@ import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.ScreenContent
 import kpt.core.common.utils.DateHelper
-import kpt.core.designsystem.component.AppButton
-import kpt.core.designsystem.component.AppDatePickerTextField
-import kpt.core.designsystem.component.AppScaffold
-import kpt.core.designsystem.component.AppTextFieldDropdown
+import kpt.core.designsystem.fieldofficer.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppDatePickerTextField
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppTextFieldDropdown
 import kpt.core.model.office.Office
 import kpt.core.model.staff.Staff
 import kpt.feature.collectionsheet.generated.resources.Res

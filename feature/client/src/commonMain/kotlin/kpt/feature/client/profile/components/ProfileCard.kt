@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppCard
+import kpt.core.designsystem.fieldofficer.component.AppCard
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken

@@ -44,14 +44,6 @@ kotlin {
             implementation(libs.jb.composeNavigation)
             implementation(libs.filekit.compose)
             implementation(libs.filekit.core)
-            // Image cropper + signature canvas, for the client signature screen.
-            //
-            // krop is `api`, not `implementation`: AppImageCropperDialog's signature names its
-            // `CropState`/`AspectRatio`, so a feature calling it needs those types on its own
-            // compile classpath. compose-signature is internal to the dialog, so it stays
-            // `implementation` — same split the original used, for the same reason.
-            api(libs.crop.krop.ui)
-            implementation(libs.compose.signature)
         }
         androidInstrumentedTest.dependencies {
             implementation(libs.bundles.androidx.compose.ui.test)

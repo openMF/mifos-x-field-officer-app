@@ -32,8 +32,8 @@ import com.niyajali.compose.sign.exportSignature
 import com.niyajali.compose.sign.isNotEmpty
 import com.niyajali.compose.sign.rememberSignatureState
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppCustomDialog
-import kpt.core.designsystem.component.AppTopBar
+import kpt.core.designsystem.fieldofficer.component.AppCustomDialog
+import kpt.core.designsystem.fieldofficer.component.AppTopBar
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.DesignToken
 

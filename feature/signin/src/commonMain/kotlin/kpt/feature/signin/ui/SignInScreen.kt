@@ -54,8 +54,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppOutlinedTextField
-import kpt.core.designsystem.component.AppPasswordToggle
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedTextField
+import kpt.core.designsystem.fieldofficer.component.AppPasswordToggle
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.model.utils.DemoCredentials
 import kpt.core.ui.components.AppProgressIndicatorOverlay

@@ -20,10 +20,10 @@ import kpt.core.database.utils.getCurrentTimeInMillis
 import kpt.core.model.utils.DemoCredentials
 import kpt.core.model.utils.ServerConfig
 import kpt.core.model.utils.ServerInstance
-import kpt.core.network.config.AppServerConfig
-import kpt.core.network.config.BundledInstanceConfigLoader
-import kpt.core.network.config.instancesConfigJson
-import kpt.core.network.config.parseInstances
+import kpt.core.network.fieldofficer.AppServerConfig
+import kpt.core.network.fieldofficer.BundledInstanceConfigLoader
+import kpt.core.network.fieldofficer.instancesConfigJson
+import kpt.core.network.fieldofficer.parseInstances
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.api.ServerInstanceApi
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.SourceOfTruth

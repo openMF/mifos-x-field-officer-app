@@ -51,7 +51,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.ui.screen.ScreenContent
-import kpt.core.designsystem.component.AppOutlinedTextField
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedTextField
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.domain.validation.ValidationFailure
 import kpt.core.model.utils.DemoCredentials

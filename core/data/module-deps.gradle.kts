@@ -29,6 +29,8 @@ dependencies {
     // worker-kmp core — Settings → Offline sync runs as a durable background job
     // (kpt.core.data.offline.work.OfflineSyncWorker), registered in cmp-shared/ForkWorkerDeclarations.kt.
     "commonMainImplementation"(libs.findLibrary("worker-kmp").get())
+    // Kermit, for the command repositories' and UserLogoutManagerImpl's diagnostic logging.
+    "commonMainImplementation"(libs.findLibrary("kermit-logging").get())
 
     // In-memory `MapSettings` for core/data tests that exercise the REAL `core/datastore`
     // preferences (AuthCommandRepositoryTest: the session a sign-in persists). Resolved through the

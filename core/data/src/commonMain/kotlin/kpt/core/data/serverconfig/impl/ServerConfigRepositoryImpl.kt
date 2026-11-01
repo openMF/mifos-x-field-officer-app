@@ -21,8 +21,8 @@ import kpt.core.data.serverconfig.ServerConfigRepository
 import kpt.core.model.utils.ServerConfig
 import kpt.core.model.utils.ServerInstance
 import kpt.core.model.utils.baseUrl
-import kpt.core.network.config.AppServerConfig
-import kpt.core.network.config.networkHeaders
+import kpt.core.network.fieldofficer.AppServerConfig
+import kpt.core.network.fieldofficer.networkHeaders
 import kpt.core.store.config.AppCacheKeys
 import kpt.core.store.config.AppStoreIds
 import org.mobilenativefoundation.store.store5.Store

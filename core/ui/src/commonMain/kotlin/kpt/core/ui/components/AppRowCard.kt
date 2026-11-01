@@ -28,7 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import kpt.core.base.designsystem.theme.KptTheme
-import kpt.core.designsystem.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppButton
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppColors
 import kpt.core.designsystem.theme.AppTheme

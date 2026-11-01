@@ -40,8 +40,8 @@ import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.RefreshableScreenContent
 import kpt.core.common.utils.CurrencyFormatter
-import kpt.core.designsystem.component.AppMenuDropDownItem
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppMenuDropDownItem
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTypography
 import kpt.feature.savings.generated.resources.Res

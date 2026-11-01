@@ -117,30 +117,6 @@ subprojects {
             if (requested.group == "org.jetbrains.androidx.savedstate") {
                 useVersion("1.3.6")
             }
-
-            // Keep androidx material3 OFF the 1.5.0-alpha line.
-            //
-            // The androidx Compose BOM (androidxComposeBom) upgrades material3 from the 1.3.1/1.4.0
-            // this project actually requests to 1.5.0-alpha17. That alpha was compiled against a
-            // different `androidx.compose.foundation` than the 1.12.0 CMP 1.12.0 resolves, and the
-            // mismatch is a RUNTIME crash, not a build failure:
-            //
-            //   java.lang.AbstractMethodError: abstract method
-            //     androidx.compose.foundation.style.CustomStyle.applyStyle(CustomStyleScope)
-            //     on receiver androidx.compose.material3.OutlinedTextFieldDefaults$$ExternalSyntheticLambda0
-            //
-            // It takes down ANY screen rendering an OutlinedTextField. Found on a physical device
-            // (CPH2423 / Android 15) in S1, when the sign-in screen became the first reachable screen
-            // to use one — the app launched, crashed instantly, and the device fell back to whatever
-            // was previously foreground, which reads as "blank screen" rather than as a crash.
-            //
-            // 1.4.0 is the highest STABLE version this project requests on its own.
-            if (requested.group == "androidx.compose.material3" &&
-                requested.version?.contains("alpha") == true
-            ) {
-                useVersion("1.4.0")
-                because("material3 1.5.0-alpha is binary-incompatible with foundation 1.12.0")
-            }
         }
     }
 

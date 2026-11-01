@@ -145,12 +145,46 @@ cs_verify_zero_match() {
 
 # First matching rule → set globals CS_M_OWNER / CS_M_STRAT / CS_M_DEFAULT.
 # No subshell / no print (hot path — called once per tracked file in `verify`).
+# cs_load_roots — the paths the template SHIPS: SYNC_DIRS + SYNC_FILES from the engine itself
+# (single list, never duplicated). Empty when the engine is absent (bare checkouts / fixtures), in
+# which case the root check is skipped and the default stays template — the pre-2026-10-31 behaviour.
+CS_ROOTS_LOADED=0; CS_ROOTS=()
+cs_load_roots() {
+  [ "$CS_ROOTS_LOADED" = 1 ] && return
+  # The engine BESIDE the contract being evaluated — not CS_ROOT, which is always this reader's own
+  # repo. In a fork both are the fork's synced copies; in a fixture both are the fixture's.
+  local eng; eng="$(dirname "$CS_CONTRACT")/scripts/white-label/sync-dirs.sh"; local r
+  CS_ROOTS=()
+  if [ -f "$eng" ]; then
+    while IFS= read -r r; do [ -n "$r" ] && CS_ROOTS+=("$r"); done < <(
+      awk '/^SYNC_(DIRS|FILES)=\(/{on=1; next} on&&/^\)/{on=0} on{ if (match($0,/"[^"]+"/)) print substr($0,RSTART+1,RLENGTH-2) }' "$eng")
+  fi
+  CS_ROOTS_LOADED=1
+}
+
+# cs_under_root <path> — 0 iff <path> is a sync root or sits under one.
+cs_under_root() {
+  local p="$1" r
+  for r in ${CS_ROOTS[@]+"${CS_ROOTS[@]}"}; do   # bash-3.2-safe empty-array expansion (SP-4)
+    [ "$p" = "$r" ] || [[ "$p" == "$r/"* ]] && return 0
+  done
+  return 1
+}
+
+# cs_match_g <path> — first-match-wins ownership lookup. Sets CS_M_OWNER / CS_M_STRAT / CS_M_DEFAULT;
+# a default-rule match outside every sync root resolves `fork`.
 cs_match_g() {
   cs_load_rules
   local path="$1" i
   for i in "${!CS_RX[@]}"; do
     if [[ "$path" =~ ${CS_RX[$i]} ]]; then
       CS_M_OWNER="${CS_OWNER[$i]}"; CS_M_STRAT="${CS_STRAT[$i]}"; CS_M_DEFAULT="${CS_DEF[$i]}"
+      # The default rule claims only what the template SHIPS. Outside every sync root the path is
+      # fork territory (see the `**` rule's SYNC ROOTS note in customization-surface.yaml).
+      if [ "$CS_M_DEFAULT" = "1" ]; then
+        cs_load_roots
+        if [ "${#CS_ROOTS[@]}" -gt 0 ] && ! cs_under_root "$path"; then CS_M_OWNER="fork"; fi
+      fi
       return 0
     fi
   done
@@ -171,8 +205,12 @@ cs_match_g() {
   CS_M_OWNER="template"; CS_M_STRAT=""; CS_M_DEFAULT="1"
 }
 
+# Print the owner (template | fork | merge) for path $1.
 cs_resolve_owner()    { cs_match_g "$1"; printf '%s' "$CS_M_OWNER"; }
+# Print the merge strategy for path $1, meaningful only when the owner is `merge`.
 cs_resolve_strategy() { cs_match_g "$1"; printf '%s' "$CS_M_STRAT"; }
+# True when path $1 matched only the catch-all `**` rule — i.e. no rule claims it
+# explicitly, so it falls to the template-first default.
 cs_is_default()       { cs_match_g "$1"; [ "$CS_M_DEFAULT" = "1" ]; }
 
 # 3-way merge driver for a `merge`-owned file. This is the general merge strategy
@@ -190,7 +228,10 @@ cs_merge_3way() {
     echo "cs_merge_3way: need existing <ours> <base> <theirs>" >&2; return 2; }
   tmp="$(mktemp)"
   # -p prints the merged result (does not mutate inputs); exit = conflict count.
-  git merge-file -p "$ours" "$base" "$theirs" > "$tmp"; rc=$?
+  # Labelled markers: unlabelled, git names each side after its TEMP file (/var/folders/…/tmp.X), so
+  # whoever resolves a sync conflict cannot tell which side is the fork's and which the template's.
+  git merge-file -p -L "fork (ours)" -L "last-synced template (base)" -L "template (theirs)" \
+    "$ours" "$base" "$theirs" > "$tmp"; rc=$?
   if [ "$rc" -ge 128 ]; then rm -f "$tmp"; echo "cs_merge_3way: git merge-file error ($rc)" >&2; return 2; fi
   mv "$tmp" "$out"
   [ "$rc" -eq 0 ] && return 0 || return 1
@@ -600,7 +641,7 @@ cs_require_flip_preconditions() {
   # reclassification AND proves the generated-class row is present in the contract.
   _cs_expect "deployment/web/og-images/01_home.png"                generated
   _cs_expect "gradle.properties"                                   merge   # mixed fork-values + template-infra → key-level properties-3way (2026-08-20)
-  _cs_expect "secrets-manifest.yaml"                               fork
+  _cs_expect "secrets-manifest.yaml"                               generated
   _cs_expect "secrets/live/keystore.jks"                           fork
   _cs_expect "tests/anything.sh"                                   template
   # AppStoreRegistry.kt is GONE — stores are declared with @StoreProvider, and the generated
@@ -627,6 +668,7 @@ cs_require_flip_preconditions() {
   return "$bad"
 }
 
+# CLI entry point: dispatch --verify / resolve / merge / self-test.
 cs_main() {
   local cmd="${1:-}"; shift || true
   case "$cmd" in

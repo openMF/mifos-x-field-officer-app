@@ -40,8 +40,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.screen.ScreenContent
 import kpt.core.common.utils.DateHelper
-import kpt.core.designsystem.component.AppButton
-import kpt.core.designsystem.component.AppMenuDropDownItem
+import kpt.core.designsystem.fieldofficer.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppMenuDropDownItem
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.model.center.Center
 import kpt.core.model.center.CenterWithAssociations

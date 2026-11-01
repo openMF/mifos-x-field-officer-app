@@ -15,8 +15,8 @@ import kotlinx.coroutines.test.runTest
 import kpt.core.database.serverconfig.dao.ServerInstanceDao
 import kpt.core.database.serverconfig.entity.ServerInstanceEntity
 import kpt.core.model.utils.DemoCredentials
-import kpt.core.network.config.AppServerConfig
-import kpt.core.network.config.BundledInstanceConfigLoader
+import kpt.core.network.fieldofficer.AppServerConfig
+import kpt.core.network.fieldofficer.BundledInstanceConfigLoader
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.api.ServerInstanceApi
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.dto.RemoteDemoAccountDto
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.dto.RemoteServerInstanceDto

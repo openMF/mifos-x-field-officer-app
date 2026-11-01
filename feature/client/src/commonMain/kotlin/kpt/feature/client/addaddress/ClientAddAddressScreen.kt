@@ -36,10 +36,10 @@ import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.base.ui.screen.ScreenContent
 import kpt.core.base.ui.submit.FormDraftBanner
 import kpt.core.base.ui.submit.FormDraftFailure
-import kpt.core.designsystem.component.AppOutlinedButton
-import kpt.core.designsystem.component.AppOutlinedTextField
-import kpt.core.designsystem.component.AppScaffold
-import kpt.core.designsystem.component.AppTextFieldDropdown
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedButton
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedTextField
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppTextFieldDropdown
 import kpt.core.model.client.AddressTemplate
 import kpt.core.model.client.Options
 import kpt.feature.client.generated.resources.Res

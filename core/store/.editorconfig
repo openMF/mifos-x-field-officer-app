@@ -1,0 +1,18 @@
+# core/store — file naming follows the STORE the file is built for. No `root = true`: this layers on
+# the repository's .editorconfig.
+#
+# Each file in core/store is named for the domain its stores serve — `<Domain>KeyedReadStores.kt`,
+# `CollectionSheetStore.kt`, `DocumentStore.kt`. That is the project's convention: the name says what
+# the store is FOR, not which Kotlin class happens to sit in the file.
+#
+# ktlint's `standard:filename` rule fires only when such a file holds exactly ONE top-level class,
+# demanding it be renamed after that class's cache key — e.g. `ChargeKeyedReadStores.kt` →
+# `GetChargeTemplateKey.kt`. Applying it would make naming LESS consistent, not more: a domain file
+# would keep its domain name only while it happened to hold more than one store.
+# `SavingsKeyedReadStores.kt` (4 classes) and `CenterKeyedReadStores.kt` (0) never trip the rule,
+# so the same convention would be spelled two different ways across one module.
+#
+# Nested here (fork-owned) rather than in the root .editorconfig or build-logic's Spotless config, both
+# template-owned and overwritten by every template sync.
+[src/**/*.kt]
+ktlint_standard_filename = disabled

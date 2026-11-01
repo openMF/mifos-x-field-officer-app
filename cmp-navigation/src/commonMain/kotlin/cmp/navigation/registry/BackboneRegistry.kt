@@ -12,11 +12,6 @@ package cmp.navigation.registry
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import cmp.navigation.authenticatednavbar.navigateToCreate
-import cmp.navigation.authenticatednavbar.navigateToSearch
-import cmp.navigation.authenticatednavbar.navigateToSearchResult
-import cmp.navigation.authenticatednavbar.searchDestination
-import cmp.navigation.drafts.rememberCreateDraftExtras
 import kpt.core.base.ui.nav.popBackStackSafely
 import kpt.core.model.recent.RecentKind
 import kpt.feature.about.navigation.navigateToAbout

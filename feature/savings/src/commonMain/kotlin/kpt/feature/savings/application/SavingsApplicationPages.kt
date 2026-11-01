@@ -33,10 +33,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.common.utils.DateHelper
-import kpt.core.designsystem.component.AppDatePickerTextField
-import kpt.core.designsystem.component.AppOutlinedTextField
-import kpt.core.designsystem.component.AppSweetError
-import kpt.core.designsystem.component.AppTextFieldDropdown
+import kpt.core.designsystem.fieldofficer.component.AppDatePickerTextField
+import kpt.core.designsystem.fieldofficer.component.AppOutlinedTextField
+import kpt.core.designsystem.fieldofficer.component.AppSweetError
+import kpt.core.designsystem.fieldofficer.component.AppTextFieldDropdown
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.model.objects.commonfiles.InterestType

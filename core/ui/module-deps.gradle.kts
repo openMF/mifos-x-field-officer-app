@@ -42,4 +42,23 @@ dependencies {
         project.extensions.getByType(VersionCatalogsExtension::class.java)
             .named("libs").findLibrary("pdf-viewer").get(),
     )
+
+    // Image cropper + signature canvas, for the client signature screen. krop is `api`:
+    // AppImageCropperDialog's signature names its `CropState` / `AspectRatio`, so a feature calling it
+    // needs those types on its own compile classpath. compose-signature is internal to the dialog.
+    val libs = project.extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
+    "commonMainApi"(libs.findLibrary("crop-krop-ui").get())
+    "commonMainImplementation"(libs.findLibrary("compose-signature").get())
+
+    // Keep androidx material3 OFF the 1.5.0-alpha line. The androidx Compose BOM upgrades it to
+    // 1.5.0-alpha17, which was compiled against a different androidx.compose.foundation than the
+    // 1.12.0 CMP resolves; the mismatch is a RUNTIME AbstractMethodError in
+    // OutlinedTextFieldDefaults that takes down any screen with an OutlinedTextField. `strictly`
+    // (not a plain constraint, which loses to the higher request) pins the highest stable version.
+    constraints {
+        "androidMainImplementation"("androidx.compose.material3:material3") {
+            version { strictly("1.4.0") }
+            because("material3 1.5.0-alpha is binary-incompatible with foundation 1.12.0")
+        }
+    }
 }

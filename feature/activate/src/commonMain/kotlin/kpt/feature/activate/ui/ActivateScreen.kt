@@ -39,9 +39,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.common.utils.DateHelper
-import kpt.core.designsystem.component.AppButton
-import kpt.core.designsystem.component.AppDatePickerTextField
-import kpt.core.designsystem.component.AppScaffold
+import kpt.core.designsystem.fieldofficer.component.AppButton
+import kpt.core.designsystem.fieldofficer.component.AppDatePickerTextField
+import kpt.core.designsystem.fieldofficer.component.AppScaffold
 import kpt.core.designsystem.theme.DesignToken
 import kpt.core.model.objects.clients.ActivatePayload
 import kpt.core.model.utils.ApiDateFormatter

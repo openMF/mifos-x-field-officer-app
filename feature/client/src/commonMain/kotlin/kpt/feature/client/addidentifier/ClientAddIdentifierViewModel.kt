@@ -33,8 +33,8 @@ import kpt.core.data.document.DocumentCommandRepository
 import kpt.core.model.objects.error.serverErrorMessage
 import kpt.core.model.objects.noncoreobjects.IdentifierPayload
 import kpt.core.model.objects.noncoreobjects.IdentifierTemplate
+import kpt.core.ui.fieldofficer.utils.getClientIdentifierStatus
 import kpt.core.ui.util.documentUpload
-import kpt.core.ui.utils.getClientIdentifierStatus
 import kpt.feature.client.identifiers.identifierDocumentKey
 
 /**

@@ -235,6 +235,12 @@ org:
   support_url: https://github.com/openMF/mifos-x-field-officer-app   # this app's repo — About (source/license/contributors) + store support link
   community_url: https://mifos.slack.com/                             # About → Community: ask anything in #mobile
   product_url: https://mifos-products.pages.dev/mobile/field-officer/ # About → Product site: the app's guides + information
+  # The fork's own named links, generated into kpt.core.model.config.AppOrgLinks by syncForkConfig
+  # (`AppOrgLinks["community"]`). The About screen moves to these after the template sync; the two
+  # *_url keys above go then, since the synced plugin no longer reads them.
+  links:
+    community: https://mifos.slack.com/
+    product: https://mifos-products.pages.dev/mobile/field-officer/
 
 legal:
   company_name: Mifos Initiative
@@ -332,6 +338,12 @@ in_app_review:
   min_launches: 5                            # never on first launch — before the app has earned it
   min_days_since_install: 3
   cooldown_days: 90                          # after a prompt, do not ask again inside this window
+
+# Generated into kpt.core.model.config.AppSecurityConfig by syncForkConfig.
+security:
+  # The field officer signs in to a Fineract server, so a fresh install starts signed OUT and lands on
+  # sign-in. An absent key means `true` (the template has no login).
+  signed_in_by_default: false
 
 media:
   root: media
