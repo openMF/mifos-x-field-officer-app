@@ -227,9 +227,9 @@ rules:
   #
   # OWNERSHIP SPLIT (WS02, RULE-TEMPLATE-MODULE-FIX-UPSTREAM-001 / epic AC6): the STRUCTURED yaml config
   # (app.yaml + platforms/<p>/*.yaml + deploy-targets.yaml) is now owner: merge / strategy:
-  # yaml-schema-merge — the template supplies the key STRUCTURE, defaults and demo access-points while a
-  # fork's NON-placeholder identity/org/store scalar wins (classified via AppProfile::MAP key paths +
-  # the PLACEHOLDER regex; see scripts/customization-surface.sh#cs_merge_yaml_schema). The blind
+  # yaml-schema-merge — a 3-way merge built on the FORK's file: every fork value, comment and fork-only
+  # key stays; the template adds its new keys, demo access-points and the defaults the fork never
+  # changed (see scripts/customization-surface.sh#cs_merge_yaml_schema). The blind
   # `app-profile/** → owner: fork` glob is GONE — it blind-preserved the whole surface, so a fork never
   # received a freshly-added template key / demo access-point (schema silently skewed, RESEARCH F3).
   # Questionnaire CONTENT (**/app-content/** — read by their own consumers, EXCLUDED from AppProfile._data),
@@ -239,7 +239,10 @@ rules:
   # from the merged _data). Declared FIRST so it wins over the platforms/**/*.yaml merge rule below.
   - glob: "app-profile/**/app-content/**"
     owner: fork
-  # structured yaml config — deep-merge (template wins schema/keys/defaults/demo-access-points; fork wins identity)
+  # structured yaml config — 3-way on the fork's file (fork keeps what it wrote; template adds what is new)
+  # key-ownership schemas (`<file>.schema.yaml`) — the template's rules for merging the yaml beside them
+  - glob: "app-profile/**/*.schema.yaml"
+    owner: template
   - glob: "app-profile/app.yaml"
     owner: merge
     strategy: yaml-schema-merge

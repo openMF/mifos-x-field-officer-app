@@ -998,6 +998,13 @@ sync_directory() {
                             catalog-3way)  merge_libs_catalog_3way      "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
                             pbxproj-3way)  merge_pbxproj_3way          "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
                             plist-union)   merge_plist_union           "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
+                            yaml-schema-merge)
+                                # The TEMPLATE's key-ownership schema for this file (`<file>.schema.yaml`),
+                                # read from the commit being synced so a newly retired key is honoured.
+                                local _sch; _sch="$(mktemp)"
+                                git show "$temp_branch:${_mf%.yaml}.schema.yaml" > "$_sch" 2>/dev/null || : > "$_sch"
+                                CS_YAML_SCHEMA="$_sch" cs_merge "$_ms" "$_o" "$_b" "$_t" "$_mf"; _mrc=$?
+                                rm -f "$_sch" ;;
                             *)             cs_merge "$_ms" "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
                         esac
                         # THREE outcomes, not two. A strategy that could not run keeps the fork's
