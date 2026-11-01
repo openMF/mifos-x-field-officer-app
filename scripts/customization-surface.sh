@@ -398,7 +398,9 @@ CS_PLACEHOLDER_RE='(^|[[:space:]])#[[:space:]]*PLACEHOLDER|com\.example\.app|App
 #                   core_store.cache_keys/name|fn · database.packages/id (built in), plus any
 #                   `union:` the schema declares       → the fork's rows stay; a template row is
 #                                                           appended when its identity is new (in
-#                                                           neither the fork nor the base)
+#                                                           neither the fork nor the base); a row the
+#                                                           template marks `owner: template` replaces the
+#                                                           fork's copy of that row
 # Values compare as whole subtrees with comments and trailing whitespace removed, so a block scalar or
 # a list is one value. An empty base (never synced, or a file added on both sides) means no change can
 # be attributed to the template: the fork's values all stay, template keys the fork lacks are added,
@@ -527,7 +529,15 @@ cs_merge_yaml_schema() {
         spec=union_spec(p)
         if (spec!="" && K["o",p]=="list" && K["t",p]=="list") {     # union by identity
           rind=-1
-          for (j=S["o",p]+1;j<=E["o",p];j++) { c=L["o",j]; if (noise(c)) continue; ci=lead(c); c2=c; sub(/^[ ]+/,"",c2); if (c2 ~ /^- /) { if (rind<0) rind=ci } v=rowid(c2,spec); if (v!="") fid[p,v]=1 }
+          # index the fork rows: identity → line range, so a template-owned row can be replaced whole
+          cur=""; frs=0; lastj=0
+          for (j=S["o",p]+1;j<=E["o",p];j++) {
+            c=L["o",j]; if (noise(c)) continue; ci=lead(c); c2=c; sub(/^[ ]+/,"",c2)
+            if (c2 ~ /^- / && (rind<0 || ci==rind)) { if (cur!="") { fs[p,cur]=frs; fe[p,cur]=lastj } rind=ci; frs=j; cur="" }
+            v=rowid(c2,spec); if (v!="") { fid[p,v]=1; if (cur=="") cur=v }
+            lastj=j
+          }
+          if (cur!="") { fs[p,cur]=frs; fe[p,cur]=lastj }
           if (hasbase && has["b",p]) for (j=S["b",p]+1;j<=E["b",p];j++) { c=L["b",j]; if (noise(c)) continue; c2=c; sub(/^[ ]+/,"",c2); v=rowid(c2,spec); if (v!="") bid[p,v]=1 }
           j=S["t",p]+1
           while (j<=E["t",p]) {
@@ -537,6 +547,11 @@ cs_merge_yaml_schema() {
             rs=j; tri=lead(c); id=""; j++
             v=rowid(c2,spec); if (v!="") id=v
             while (j<=E["t",p]) { c=L["t",j]; if (!noise(c)) { c3=c; sub(/^[ ]+/,"",c3); if (lead(c)<=tri) break; v=rowid(c3,spec); if (id=="" && v!="") id=v } j++ }
+            # A row the template OWNS (`owner: template`) follows the template, like a template-owned key.
+            tow=0; for (y=rs;y<j;y++) if (L["t",y] ~ /(^|[{,][ ]*|^[ ]*-?[ ]*)owner:[ ]*template([ ,}]|$)/) tow=1
+            if (tow && id!="" && ((p,id) in fs)) {
+              rep[fs[p,id]]=fe[p,id]; repl[fs[p,id]]=emit_range("t", rs, j-1, rind-tri); continue
+            }
             if (id!="" && !((p,id) in fid) && !((p,id) in bid))
               ins[E["o",p]]=ins[E["o",p]] emit_range("t", rs, j-1, (rind<0 ? I["o",p]+2 : rind)-tri)
           }

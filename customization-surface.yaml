@@ -53,18 +53,8 @@ rules:
   # them outright. So the contract promised to sync 280 files the engine cannot fetch and the
   # customizer will delete.
   #
-  # The BACKBONE keeps `merge`: those three ARE synced, and a fork legitimately adds its own strings to
-  # home/profile/settings. Declared first so it wins over the demo rule that follows.
-  - glob: "feature/home/**/composeResources/**/strings.xml"
-    owner: merge
-    strategy: strings-union
-  - glob: "feature/profile/**/composeResources/**/strings.xml"
-    owner: merge
-    strategy: strings-union
-  - glob: "feature/settings/**/composeResources/**/strings.xml"
-    owner: merge
-    strategy: strings-union
-  # Every other feature module is the fork's / a demo's — its strings follow the module.
+  # Every feature module, the home/profile/settings starters included, is the fork's — its strings
+  # follow the module.
   - glob: "feature/**/composeResources/**/strings.xml"
     owner: fork
 
@@ -288,15 +278,9 @@ rules:
   # THE TRADE, stated plainly: these modules no longer receive upstream fixes. That is the cost of
   # owning them, and it is deliberate.
   #
-  # The ONE carve-out is `Platform.*.kt` — the expect/actual shims (commonMain expect + android /
-  # desktop / native / js / wasmJs actuals). Nobody redesigns a platform shim, and if the template
-  # adds a KMP target the fork's module would have no `actual` for it and simply stop compiling.
-  # Keeping these template-owned means new-target support keeps flowing while every screen stays the
-  # fork's. Declared FIRST — first match wins.
-  - glob: "feature/settings/**/Platform.kt"
-    owner: template
-  - glob: "feature/settings/**/Platform.*.kt"
-    owner: template
+  # No carve-out: the starters are the app's FOUNDATION, handed over once. The template ships them for a
+  # new fork to start from; it does not sync them afterwards (they are not in SYNC_DIRS), so every file
+  # in them, the Platform.*.kt shims included, is the fork's to keep or change.
   - glob: "feature/home/**"
     owner: fork
   - glob: "feature/profile/**"
@@ -566,56 +550,42 @@ rules:
 
   # ── template-owned (the broad sync surface — lowest precedence, declared LAST) ──
   #
-  # THE PLATFORM SHELLS ARE `merge`, NOT `template` (2026-09-10)
-  # `build-logic` + the four platform application shells are MOSTLY template content, and the
-  # temptation is to call them `template` and full-copy. That is wrong, and cmp-ios is the proof:
-  # a fork's platform shell is the one place where fork-specific PLATFORM WIRING has nowhere else
-  # to live. There is no `module-deps.gradle.kts`-style seam for an Xcode target or a plist key.
-  #
-  # Measured on mbs/cappy 2026-09-10, all under the old `template` blanket, all silently destroyed
-  # by a full-copy:
-  #   iosApp/Info.plist          CFBundleURLTypes for the Google Sign-In OAuth redirect — deleting
-  #                              it does not fail the build; OAuth simply never returns to the app
-  #   iosApp/iosApp.entitlements com.apple.security.application-groups for the WidgetKit shared
-  #                              container — and the template half (keychain-access-groups, required
-  #                              by core-base/datastore) is ALSO needed, so neither side may win
-  #   iosApp.xcodeproj/project.pbxproj  a whole `CappyWidgets` app-extension target (40 refs) the
-  #                              template has no concept of
-  #   iosApp/iOSApp.swift        scene-phase AppBackground/AppForeground hooks (+20 lines)
-  #
-  # A 3-way takes the template's evolution (here: the SwiftPM migration — 5
-  # XCLocalSwiftPackageReference entries and the KotlinMultiplatformLinkedPackage tree) while the
-  # fork's additions survive, and genuine overlaps surface as conflict markers a human resolves
-  # instead of losing silently.
-  #
-  # No `strategy:` — these blankets span .kts/.swift/.plist/.xml/.pbxproj/.xcconfig/.js/.html and
-  # cs_merge's default `cs_merge_3way` (git merge-file) is the only strategy that handles all of
-  # them. The structure-aware strategies stay on the specific rows above that name one filetype.
-  # Binary paths under these dirs are carved out `fork` above (res/**, Assets.xcassets/**,
-  # cmp-desktop/icons/**, cmp-web resources/**); the engine also refuses to line-merge a binary.
-  #
-  # REQUIRES a merge base. `git merge-base` is empty for a COPIED (non-forked) tree, so the engine
-  # resolves it via .template-version#template_sha — see resolve_merge_base() in sync-dirs.sh.
-  # Without that fix these rows would have degraded straight back into the full-copy they replace.
+  # THE APPLICATION SHELLS (cmp-*) ARE `template` — replaced in full — EXCEPT the files that carry a
+  # fork's PLATFORM WIRING, which have nowhere else to live (no module-deps-style seam exists for an
+  # Xcode target or a plist key). Those are named one by one, above and below, as `merge` (3-way: the
+  # template's evolution lands, the fork's additions survive, overlaps surface as conflicts) or `fork`:
+  #   merge  Info.plist + *.entitlements (plist-union) · project.pbxproj (pbxproj-3way) · iOSApp.swift ·
+  #          MainActivity.kt · every cmp-*/build.gradle.kts · the cmp-navigation seams (*Navigation*,
+  #          RootNav*, di/, *TabItem*, ui/, *NavbarNavigationViewModel)
+  #   fork   res/**, Assets.xcassets/**, icons/**, web resources, google-services.json,
+  #          kotlin-sources.xcfilelist, registry/**, ForkWorkerDeclarations.kt
+  # Measured on mbs/cappy 2026-09-10, all lost to a full-copy before they had rows: the Google Sign-In
+  # CFBundleURLTypes (Info.plist), the WidgetKit app group (entitlements), a whole `CappyWidgets` target
+  # (pbxproj) and scene-phase hooks (iOSApp.swift). A 3-way needs a merge base: the engine resolves it
+  # via .template-version#template_sha (resolve_merge_base() in sync-dirs.sh).
+  - glob: "cmp-ios/iosApp/iOSApp.swift"
+    owner: merge
+  - glob: "cmp-*/build.gradle.kts"
+    owner: merge
+  # build-logic IS template code, unlike the platform shells: every fork-specific build hook has a seam —
+  # `kotlin/local/**` (fork, declared earlier, e.g. LocalFlavors.kt) and the app-profile values
+  # syncForkConfig projects. So a sync REPLACES every build-logic file in full, like every `template`
+  # path: a fork edit here is drift with no seam, and is overwritten by design.
   - glob: "build-logic/**"
-    owner: merge
+    owner: template
   - glob: "cmp-android/**"
-    owner: merge
+    owner: template
   - glob: "cmp-desktop/**"
-    owner: merge
+    owner: template
   # The Xcode build-phase input list — one line per Kotlin source in THIS fork, regenerated by
   # cmp-ios/scripts/gen-kotlin-filelist.sh. Line-merging two different source trees produced 24 conflict
   # hunks on a real fork (2026-11-01 dry run); it is derived, so the fork's own copy stands.
   - glob: "cmp-ios/kotlin-sources.xcfilelist"
     owner: fork
   - glob: "cmp-ios/**"
-    owner: merge
+    owner: template
   - glob: "cmp-web/**"
-    owner: merge
-  # cmp-shared + cmp-navigation stay `template`: unlike the four application shells above they carry
-  # no platform project files, and their fork surface is already served by NAMED seams declared
-  # earlier — ForkWorkerDeclarations.kt, registry/**, di/*.kt, RootNav*.kt. Revisit only if a fork
-  # is found editing them outside those seams.
+    owner: template
   - glob: "cmp-shared/**"
     owner: template
   - glob: "cmp-navigation/**"

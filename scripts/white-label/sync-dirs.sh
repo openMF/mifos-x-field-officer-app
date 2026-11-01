@@ -112,9 +112,6 @@ SYNC_DIRS=(
     "docs"           # blueprint documentation — architecture patterns, claude pattern guides, deploy/ios/secrets/setup references; fork-ADDED docs survive (checkout never deletes fork-only files), template docs refresh
     ".github"
     ".run"
-    "feature/home"          # backbone (owner: template) — demo/** + generated/** excluded below (WS4/T5)
-    "feature/profile"       # backbone (owner: template) — demo/** excluded below (WS4/T5)
-    "feature/settings"      # backbone (owner: template) — demo/** excluded below (WS4/T5)
     "kotlin-js-store"       # JS lockfile tree (owner: template) — full copy (WS4/T5)
     "tools"                 # KSP processors (store/database/network/data) — the codegen engine
                             # the @StoreProvider / @DbEntity / @ApiBinding annotations depend on.
@@ -221,14 +218,6 @@ declare -A EXCLUSIONS=(
     # their own flavors / dimensions / overrides on top of the synced base.
     # See docs/architecture/cross-cutting/flavors-extension.md for the pattern.
     ["build-logic"]="convention/src/main/kotlin/local:dir"
-    # Feature backbone (WS4/T5) — home/profile/settings are owner:template and now sync,
-    # but their demo/** showcases (and feature/home's generated/**) stay fork-owned. These
-    # carve-outs preserve the fork's demo customizations when the backbone is widened into
-    # the sync surface (RESEARCH.md Area 4 sync-widening risk: widening SYNC_DIRS must
-    # preserve the demo/fork is_excluded carve-outs).
-    ["feature/home"]="demo:dir generated:dir"
-    ["feature/profile"]="demo:dir"
-    ["feature/settings"]="demo:dir"
 )
 
 # Display help information
