@@ -341,6 +341,15 @@ is_excluded() {
     # Remove ./ from the beginning of the path if it exists
     full_path="${full_path#./}"
 
+    # ── Held paths (.template-sync-holds) ───────────────────────────────────
+    # A path the fork holds — a change proposed upstream, waiting for the template to adopt it — is
+    # preserved like a fork-owned one: neither OVERWRITTEN by the overlay nor removed by --mirror.
+    # A hold that only stopped removal would let a directory sync overwrite a held template file with
+    # the very version the fork's change corrects.
+    if [ -f .template-sync-holds ] && cut -f1 .template-sync-holds | grep -qxF -- "$full_path"; then
+        return 0
+    fi
+
     # ── Convention exclusions (showcase-framework-separation) ───────────────
     # core/ is synced framework-only. Never overwrite a fork's removed demo
     # (**/demo/**) or the per-fork core/store seam files (D8). These are matched
