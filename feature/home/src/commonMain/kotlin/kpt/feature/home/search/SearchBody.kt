@@ -56,7 +56,7 @@ import org.koin.compose.viewmodel.koinViewModel
 /**
  * The Home tab's body: Fineract resource search.
  *
- * Supplied to the shell through `BackboneRegistry.homeBody`, which is the template's fork seam and
+ * Supplied to the shell through `ForkBackboneRegistry.homeBody`, which is the template's fork seam and
  * was EMPTY — which is why Home rendered as a blank screen on device before S2.
  *
  * Ported from `6b66e8a43:feature/search/`. Results render through [ScreenContent], so Loading,

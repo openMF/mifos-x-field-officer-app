@@ -189,7 +189,7 @@ codegen_contracts:
     propagates_to: [kmp-screen-gen]
     notes: >-
       Scanned by :cmp-navigation:generateFeatureDestinations, so adding a feature no longer means
-      editing FeatureRegistry. Signature MUST be NavGraphBuilder.(NavController) -> Unit. Without
+      editing ForkFeatureRegistry. Signature MUST be NavGraphBuilder.(NavController) -> Unit. Without
       it the module compiles, routes exist, and nothing can reach the feature. "Top-level" cannot
       be read off the signature, which is why it is declared rather than inferred by convention.
 
@@ -266,14 +266,14 @@ generated_aggregates:
 
 # ── Fork seams: hand-written by design, for what no annotation can produce. ───────────────────
 seams:
-  - path: core/network/**/di/ProjectNetworkModule.kt
+  - path: core/network/**/di/ForkNetworkModule.kt
     holds: network singles not derivable from an endpoint declaration (e.g. extra supabase-kt modules)
   - path: core/data/**/di/RepositoryModule.kt
     holds: >-
       includes(GeneratedRepositoryBindings) plus infrastructure singles (NetworkMonitor,
       UserDataSource, FetchedAtRepository, CoroutineScope, UserLogoutManager). A REPOSITORY never
       belongs here.
-  - path: cmp-navigation/**/registry/FeatureRegistry.kt
+  - path: cmp-navigation/**/registry/ForkFeatureRegistry.kt
     holds: fork-owned Koin module wiring; feature DESTINATIONS are generated, not registered here
   - path: settings.local.gradle.kts
     holds: >-

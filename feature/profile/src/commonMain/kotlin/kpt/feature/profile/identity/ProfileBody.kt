@@ -88,7 +88,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 /**
  * The officer's own account (screens/profile, Stitch 01–05). Supplied through
- * `BackboneRegistry.profileBody`, which only wires the navigation. Sign-out is the SAME dialog and
+ * `ForkBackboneRegistry.profileBody`, which only wires the navigation. Sign-out is the SAME dialog and
  * ViewModel as Settings' (feature/settings `signout/`), owned here: clearing the session flips
  * `UserData.isAuthenticated` and RootNavViewModel routes to sign-in, so it needs no callback.
  */

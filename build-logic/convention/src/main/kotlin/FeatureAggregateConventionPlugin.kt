@@ -20,7 +20,7 @@ import java.io.File
 /**
  * Derives the two feature aggregates the app shell used to keep by hand.
  *
- * `FeatureRegistry` carried a `listOf(...)` of every feature's Koin module and a lambda calling
+ * `ForkFeatureRegistry` carried a `listOf(...)` of every feature's Koin module and a lambda calling
  * every feature's nav graph. Adding a feature meant an import AND an entry in each — in a file the
  * feature does not own. Forgetting the Koin entry compiled cleanly and left that feature's
  * ViewModels unresolvable at runtime; forgetting the nav entry left a route that silently did not
@@ -38,7 +38,7 @@ import java.io.File
  * KSP's classpath-reading API (`getDeclarationsFromPackage`) does cross module boundaries, but a
  * probe on 2026-09-13 measured it resolving 0 declarations during the commonMain METADATA pass and
  * 1 during `kspKotlinDesktop` — i.e. cross-module aggregation works ONLY per-target. The consumers
- * here (`FeatureRegistry`, `KoinModules`, `AuthenticatedNavigation`) are all commonMain, so a KSP
+ * here (`ForkFeatureRegistry`, `KoinModules`, `AuthenticatedNavigation`) are all commonMain, so a KSP
  * aggregate would have forced an `expect`/`actual` across six targets to reach them. Gradle already
  * knows the feature list at configure time and writes straight into commonMain.
  *

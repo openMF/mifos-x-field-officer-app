@@ -26,7 +26,7 @@ import kpt.core.database.offline.dao.OfflineSyncDao
 import kpt.core.database.offline.entity.OfflineRecordEntity
 import kpt.core.database.offline.entity.SyncJobEntity
 import kpt.core.datastore.offline.OfflineSyncSettingsStore
-import kpt.core.datastore.prefs.ProjectPreferencesRepository
+import kpt.core.datastore.prefs.ForkPreferencesRepository
 import kpt.core.model.offline.DownloadFailure
 import kpt.core.model.offline.OfflineRecord
 import kpt.core.model.offline.RecordKind
@@ -37,7 +37,7 @@ import kpt.core.model.offline.SyncJobStatus
 import kpt.core.model.offline.SyncTarget
 
 /**
- * Room-backed and keyed by the signed-in user. Wired in `ProjectRepositoryModule` because the engine's
+ * Room-backed and keyed by the signed-in user. Wired in `ForkRepositoryModule` because the engine's
  * stores are grouped into holders there (a constructor of 28 stores is not a readable contract).
  */
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -46,7 +46,7 @@ internal class OfflineSyncRepositoryImpl(
     private val engine: OfflineSyncEngine,
     private val scheduler: OfflineSyncScheduler,
     private val settingsStore: OfflineSyncSettingsStore,
-    private val preferences: ProjectPreferencesRepository,
+    private val preferences: ForkPreferencesRepository,
     private val nowMs: () -> Long,
 ) : OfflineSyncRepository {
 

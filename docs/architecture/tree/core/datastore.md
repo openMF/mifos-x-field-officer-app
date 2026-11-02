@@ -6,7 +6,7 @@
 
 ## Principal types
 
-`AppReviewPromptState`, `AppReviewPromptStore`, `ProjectPreferencesRepository`, `ProjectPreferencesRepositoryImpl`, `SettingsAppReviewPromptStore`, `UserPreferencesRepository`, `UserPreferencesRepositoryImpl`
+`AppReviewPromptState`, `AppReviewPromptStore`, `ForkPreferencesRepository`, `ForkPreferencesRepositoryImpl`, `SettingsAppReviewPromptStore`, `UserPreferencesRepository`, `UserPreferencesRepositoryImpl`
 
 <!-- scaffold:end -->
 
@@ -41,10 +41,10 @@ val DataModule = module {
 
 </details>
 
-### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ProjectDatastoreModule.kt`
+### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ForkDatastoreModule.kt`
 
 ```kotlin
-val ProjectDatastoreModule = module
+val ForkDatastoreModule = module
 ```
 THE FORK'S datastore DI seam. Empty on the neutral template — this is yours to fill. `DatastoreModule` beside it is `owner: template` and FULL-COPIES on a sync, so a binding added there is replaced on the next adopt.
 
@@ -96,17 +96,17 @@ class SettingsAppReviewPromptStore(
 
 </details>
 
-### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/prefs/ProjectPreferencesRepository.kt`
+### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/prefs/ForkPreferencesRepository.kt`
 
 ```kotlin
-interface ProjectPreferencesRepository : UserPreferencesRepository
+interface ForkPreferencesRepository : UserPreferencesRepository
 ```
 THE FORK'S preferences. Extends the framework's — this is yours to fill.
 
 <details><summary>Example</summary>
 
 ```kotlin
-interface ProjectPreferencesRepository : UserPreferencesRepository {
+interface ForkPreferencesRepository : UserPreferencesRepository {
     val observeMyFlag: Flow<Boolean>
     suspend fun setMyFlag(enabled: Boolean)
 }
@@ -118,13 +118,13 @@ override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
 
 </details>
 
-<details><summary>Used in the template — <code>core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ProjectDatastoreModule.kt:31</code></summary>
+<details><summary>Used in the template — <code>core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ForkDatastoreModule.kt:31</code></summary>
 
 ```kotlin
  */
-val ProjectDatastoreModule = module {
-    single<ProjectPreferencesRepository> {
-        ProjectPreferencesRepositoryImpl(
+val ForkDatastoreModule = module {
+    single<ForkPreferencesRepository> {
+        ForkPreferencesRepositoryImpl(
             delegate = get<UserPreferencesRepository>(),
             // The SAME instances the framework's impl uses — an ownership boundary, not a second
             // store. Namespace fork keys so they cannot collide with a future framework preference.
@@ -132,12 +132,12 @@ val ProjectDatastoreModule = module {
 
 </details>
 
-### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/prefs/ProjectPreferencesRepositoryImpl.kt`
+### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/prefs/ForkPreferencesRepositoryImpl.kt`
 
 ```kotlin
-class ProjectPreferencesRepositoryImpl(
+class ForkPreferencesRepositoryImpl(
 ```
-Fork implementation of `ProjectPreferencesRepository`. `owner: fork` — never synced.
+Fork implementation of `ForkPreferencesRepository`. `owner: fork` — never synced.
 
 <details><summary>Example</summary>
 
@@ -156,12 +156,12 @@ override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
 
 </details>
 
-<details><summary>Used in the template — <code>core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ProjectDatastoreModule.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ForkDatastoreModule.kt:32</code></summary>
 
 ```kotlin
-val ProjectDatastoreModule = module {
-    single<ProjectPreferencesRepository> {
-        ProjectPreferencesRepositoryImpl(
+val ForkDatastoreModule = module {
+    single<ForkPreferencesRepository> {
+        ForkPreferencesRepositoryImpl(
             delegate = get<UserPreferencesRepository>(),
             // The SAME instances the framework's impl uses — an ownership boundary, not a second
             // store. Namespace fork keys so they cannot collide with a future framework preference.

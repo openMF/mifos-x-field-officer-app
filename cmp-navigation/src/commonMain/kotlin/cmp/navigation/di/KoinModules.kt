@@ -12,7 +12,7 @@ package cmp.navigation.di
 import cmp.navigation.AppViewModel
 import cmp.navigation.authenticatednavbar.AuthenticatedNavbarNavigationViewModel
 import cmp.navigation.privacy.PrivacyConsentApplier
-import cmp.navigation.registry.FeatureRegistry
+import cmp.navigation.registry.ForkFeatureRegistry
 import cmp.navigation.rootnav.RootNavViewModel
 import kpt.core.base.common.di.CommonModule
 import kpt.core.base.firebase.di.firebaseModule
@@ -51,8 +51,8 @@ object KoinModules {
     private val featureModule = module {
         // No feature module is listed here any more. Every one — including the backbone's
         // HomeModule and SettingsModule — is picked up by GeneratedFeatureKoinBindings and reaches
-        // Koin through FeatureRegistry.featureKoinModules.
-        includes(FeatureRegistry.featureKoinModules)
+        // Koin through ForkFeatureRegistry.featureKoinModules.
+        includes(ForkFeatureRegistry.featureKoinModules)
     }
 
     /** The full module list. Order is irrelevant to Koin but kept layer-by-layer so a missing module is visible. */

@@ -20,7 +20,7 @@ import kotlin.test.Test
 /**
  * Compose Multiplatform UI test for [ProfileScreen] — the opaque SHELL.
  *
- * `ProfileScreen` renders whatever `BackboneRegistry.profileBody` supplies (the WS01
+ * `ProfileScreen` renders whatever `ForkBackboneRegistry.profileBody` supplies (the WS01
  * shell/seam split), so the shell is tested with a trivial body: the assertion is that the
  * scaffold root exists regardless of what the fork plugs in. The default demo body is
  * store-backed and covered separately by [ProfileDemoBodyUiTest], which needs a Koin graph.

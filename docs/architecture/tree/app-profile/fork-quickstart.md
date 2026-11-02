@@ -295,7 +295,7 @@ needs:
   `feature/` and `settings.gradle.kts`. See the
   [toolkit feature showcase table](../../../../CLAUDE.md#toolkit-feature-showcase) for
   which pattern each feature demonstrates.
-- **Brand visuals (Store-driven states)** — extend `AppScreenStateDefaults`
+- **Brand visuals (Store-driven states)** — extend `KptScreenStateDefaults`
   in `core/store/` to swap loading / error / empty visuals across every
   screen at once. See [`core/store/README.md`](../../README.md).
 - **Domain model** — extend `core/model/banking/` (loans, bills) and

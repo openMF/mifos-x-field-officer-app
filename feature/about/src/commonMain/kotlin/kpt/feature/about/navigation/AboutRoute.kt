@@ -21,7 +21,7 @@ data object AboutRoute
 
 /**
  * Top-level: Settings → About opens it (moved out of the drawer 2026-10-27).
- * It is reached through `BackboneRegistry.settingsBody`, so the merge-owned shell never imports
+ * It is reached through `ForkBackboneRegistry.settingsBody`, so the merge-owned shell never imports
  * this module.
  */
 @FeatureDestination

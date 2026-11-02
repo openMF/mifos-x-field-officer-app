@@ -197,17 +197,17 @@ Project-level catalogue of named API endpoints for runtime base-URL switching (s
 - `val WORLDBANK: UrlType = UrlType("WORLDBANK")` — `worldbank` — REST access point.
 - `val all: List<UrlType> = listOf(` — Every declared endpoint type, in app-profile order.
 
-### `core/network/src/commonMain/kotlin/kpt/core/network/config/ProjectNetworkHeaders.kt`
+### `core/network/src/commonMain/kotlin/kpt/core/network/config/KptNetworkHeaders.kt`
 
 ```kotlin
-object ProjectNetworkHeaders : DefaultHeaderProvider
+object KptNetworkHeaders : DefaultHeaderProvider
 ```
 THE FORK'S default request headers. Neutral on the template — this is yours to fill.
 
 <details><summary>Example</summary>
 
 ```kotlin
-object ProjectNetworkHeaders : DefaultHeaderProvider {
+object KptNetworkHeaders : DefaultHeaderProvider {
     override fun headersFor(accessPointId: String): Map<String, String> = when (accessPointId) {
         "main" -> mapOf(
             "X-Client-Version" to BuildKonfig.VERSION_NAME,
@@ -225,7 +225,7 @@ object ProjectNetworkHeaders : DefaultHeaderProvider {
 ```kotlin
     // built by `restApi(...)` resolves this, so a fork adds an app-wide header without hand-building
     // a Ktorfit and giving up the generated @ApiBinding wiring. Neutral on the template.
-    single<DefaultHeaderProvider> { ProjectNetworkHeaders }
+    single<DefaultHeaderProvider> { KptNetworkHeaders }
 
     // Every declared endpoint's Koin binding, GENERATED from app-profile#network.access_points into
     // the sibling [GeneratedApiBindings] (same package — no import, so this file keeps its zero-demo
@@ -255,10 +255,10 @@ val DataModule = module {
 
 </details>
 
-### `core/network/src/commonMain/kotlin/kpt/core/network/di/ProjectNetworkModule.kt`
+### `core/network/src/commonMain/kotlin/kpt/core/network/di/ForkNetworkModule.kt`
 
 ```kotlin
-val ProjectNetworkModule = module
+val ForkNetworkModule = module
 ```
 THE FORK'S network DI seam. Empty on the neutral template — this is yours to fill.
 
@@ -443,7 +443,7 @@ single { FredApiConfig(apiKey = "deadbeef...") }
 
 </details>
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/di/ProjectNetworkModule.kt:114</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/di/ForkNetworkModule.kt:114</code></summary>
 
 ```kotlin
     // derived from the access-point declaration the way a base URL or a publishable key can. Fenced, so

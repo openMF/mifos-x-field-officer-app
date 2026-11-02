@@ -468,7 +468,7 @@ The settings tab's fork-owned INNER content (the default demo body).
 
 ```kotlin
             KptTheme {
-                // In production cmp-navigation's BackboneRegistry.settingsBody supplies this body.
+                // In production cmp-navigation's ForkBackboneRegistry.settingsBody supplies this body.
                 SettingsDemoBody(
                     onBackClick = {},
                     onSyncAndDraftsClick = {},

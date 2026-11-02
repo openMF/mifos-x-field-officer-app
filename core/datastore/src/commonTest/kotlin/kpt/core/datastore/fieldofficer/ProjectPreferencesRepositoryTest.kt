@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.test.runTest
 import kpt.core.base.common.manager.DispatcherManager
-import kpt.core.datastore.prefs.ProjectPreferencesRepositoryImpl
+import kpt.core.datastore.prefs.ForkPreferencesRepositoryImpl
 import kpt.core.datastore.prefs.UserPreferencesRepositoryImpl
 import kpt.core.model.objects.users.User
 import kpt.core.model.user.DarkThemeConfig
@@ -43,7 +43,7 @@ class ProjectPreferencesRepositoryTest {
         override val appScope: CoroutineScope = CoroutineScope(Dispatchers.Unconfined)
     }
 
-    private fun repo() = ProjectPreferencesRepositoryImpl(
+    private fun repo() = ForkPreferencesRepositoryImpl(
         delegate = UserPreferencesRepositoryImpl(plain, secure, dispatchers),
         plainSettings = plain,
         secureSettings = secure,

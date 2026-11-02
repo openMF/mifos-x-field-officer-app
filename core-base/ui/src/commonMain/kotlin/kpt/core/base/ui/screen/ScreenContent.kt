@@ -134,7 +134,7 @@ fun <T> ScreenContent(
  * owns the whole state machine. Mirrors [kpt.core.base.ui.paging.PagingScreenContent].
  *
  * Same slot/override precedence as the base overload: per-call slot lambda → [LocalScreenStateDefaults]
- * (the app-wide defaults branded in `core/store` `AppScreenStateDefaults`) → library default. So the
+ * (the app-wide defaults branded in `core/store` `KptScreenStateDefaults`) → library default. So the
  * state UIs can be set per-screen here AND globally in `core/store`.
  *
  * Best for PASSTHROUGH reads (the stream already decides Empty via its `isEmpty`). Features that

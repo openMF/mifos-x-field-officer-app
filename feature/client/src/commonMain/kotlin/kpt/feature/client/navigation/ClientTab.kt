@@ -26,7 +26,7 @@ import org.jetbrains.compose.resources.StringResource
  * Declared HERE rather than in `cmp-navigation`'s `AuthenticatedNavBarTabItem`: `@FeatureTab` is the
  * template's seam for exactly this, so a feature contributes its tab without the fork editing a module
  * the feature does not own. `:cmp-navigation:generateFeatureTabs` collects it into
- * `GeneratedFeatureTabs`, which `TabRegistry.extraTabs` exposes.
+ * `GeneratedFeatureTabs`, which `ForkTabRegistry.extraTabs` exposes.
  *
  * This is what makes `feature/client` REACHABLE. Before it, the module built, its Koin module was in
  * the generated aggregate and `clientListDestination` was in `GeneratedFeatureDestinations` — and no

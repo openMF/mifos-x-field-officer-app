@@ -16,7 +16,7 @@ import org.koin.core.module.Module
 /**
  * core-base/network transport DSL — the streamlined, template-owned way to wire a REST API interface.
  *
- * A consumer's `ProjectNetworkModule` declares an API in ONE line by referencing the id of an access
+ * A consumer's `ForkNetworkModule` declares an API in ONE line by referencing the id of an access
  * point in its [AccessPointRegistry] (SoT: `app-profile/app.yaml#network.access_points`). `core-base`
  * auto-builds the Ktor client + Ktorfit from the access point's base URL + loggable host, so the consumer
  * writes ONLY the API interface + its generated `createXApi()` factory — no per-API Ktorfit boilerplate.
@@ -123,7 +123,7 @@ fun restClientConfig(
  * is resolved from Koin (the fork registers `single { AccessPointRegistry(AppAccessPoints.points) }`).
  * Usage:
  * ```
- * val ProjectNetworkModule = module {
+ * val ForkNetworkModule = module {
  *     restApi("jsonplaceholder") { it.createJsonPlaceholderApi() }
  * }
  * ```
@@ -162,7 +162,7 @@ inline fun <reified T : Any> Module.restApi(
  *
  * Usage:
  * ```
- * val ProjectNetworkModule = module {
+ * val ForkNetworkModule = module {
  *     supabaseApi("project") { ServerInstanceApi(it) }
  * }
  * ```

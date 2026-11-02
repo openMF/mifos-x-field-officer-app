@@ -4,7 +4,7 @@
 # `app-profile` (app.yaml + platforms) is the fork SoT; `scripts/white-label/derive.rb` materializes
 # it into the derived build-bridge `gradle/fork.properties`; everything downstream READS that bridge.
 # This file is the bash end of that contract. Its Gradle counterpart is
-# `build-logic/convention/src/main/kotlin/org/convention/ForkProperties.kt`, and its Ruby counterpart
+# `build-logic/convention/src/main/kotlin/org/convention/KptAppProfileProperties.kt`, and its Ruby counterpart
 # is `FORK[...]` in `deployment/_shared/project_config.rb`.
 #
 # WHY one reader: independent parsers are how resolution silently diverges. The 2026-09-06 signing

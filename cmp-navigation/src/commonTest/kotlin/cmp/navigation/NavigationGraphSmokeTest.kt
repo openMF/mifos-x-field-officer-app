@@ -12,7 +12,7 @@ package cmp.navigation
 import cmp.navigation.authenticated.AuthenticatedGraphRoute
 import cmp.navigation.authenticatednavbar.AuthenticatedNavBarTabItem
 import cmp.navigation.authenticatednavbar.AuthenticatedNavbarRoute
-import cmp.navigation.registry.TabRegistry
+import cmp.navigation.registry.ForkTabRegistry
 import cmp.navigation.rootnav.RootNavNavigation
 import cmp.navigation.splash.SplashRoute
 import cmp.navigation.utils.toObjectNavigationRoute
@@ -178,7 +178,7 @@ class NavigationGraphSmokeTest {
     @Test
     fun theBottomBarIsTheFourPortedTabsInTheOriginalsOrder() {
         // ORDER is the assertion, not just membership. Clients, Centers and Groups all arrive
-        // through @FeatureTab, so without an explicit order in TabRegistry the bar would show
+        // through @FeatureTab, so without an explicit order in ForkTabRegistry the bar would show
         // whatever sequence `generateFeatureTabs` happened to scan the modules in — and tab order
         // is muscle memory for a field officer, not a code-generation detail.
         //
@@ -187,7 +187,7 @@ class NavigationGraphSmokeTest {
         // account surface is the Home avatar.
         assertEquals(
             listOf("HomeTab", "ClientTab", "CentersTab", "GroupsTab"),
-            TabRegistry.tabs.map { it.testTag },
+            ForkTabRegistry.tabs.map { it.testTag },
         )
     }
 
@@ -197,14 +197,14 @@ class NavigationGraphSmokeTest {
         // route makes two tabs highlight at once and leaves the back stack unable to tell them
         // apart. Both were live risks while Centers and Groups were placeholders pointing at one
         // pending host, and both stay asserted now that they point at real graphs.
-        TabRegistry.tabs.forEach { tab ->
+        ForkTabRegistry.tabs.forEach { tab ->
             assertTrue(tab.graphRoute.isNotBlank(), "${tab.testTag} has blank graphRoute")
             assertTrue(
                 tab.startDestinationRoute.isNotBlank(),
                 "${tab.testTag} has blank startDestinationRoute",
             )
         }
-        val starts = TabRegistry.tabs.map { it.startDestinationRoute }
+        val starts = ForkTabRegistry.tabs.map { it.startDestinationRoute }
         assertEquals(starts.size, starts.distinct().size, "two tabs share a start destination")
     }
 

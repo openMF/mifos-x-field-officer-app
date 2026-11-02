@@ -16,7 +16,7 @@ import kpt.core.base.network.di.NetworkBaseModule
 import kpt.core.base.network.di.NetworkConfigModule
 import kpt.core.network.config.AppAccessPoints
 import kpt.core.network.config.AppMultiUrlConfigProvider
-import kpt.core.network.config.ProjectNetworkHeaders
+import kpt.core.network.config.KptNetworkHeaders
 import org.koin.dsl.module
 
 // NOTE: Backend base URLs are NOT hardcoded here or in config classes anymore — every server is a
@@ -40,7 +40,7 @@ import org.koin.dsl.module
 //     toolkit's own fixed-URL APIs (FRED / World Bank / CoinGecko / Frankfurter) don't use it.
 // INFRA-ONLY, owner: template (E1 / C2). API types live in per-access-point packages
 // (`kpt.core.network.<id>.api`), their bindings are GENERATED into [GeneratedApiBindings], and any
-// non-derivable single goes in the fork-owned [ProjectNetworkModule]. So this aggregator carries no
+// non-derivable single goes in the fork-owned [ForkNetworkModule]. So this aggregator carries no
 // endpoint-specific reference at all and a template sync can blind-copy it.
 /**
  * Koin module for `core/network` — the Ktorfit API bindings over the shared client.
@@ -55,10 +55,10 @@ val NetworkModule = module {
     // Runtime header values — written at login (Basic / OAuth), read on EVERY request. A singleton,
     // because the whole point is that a value set after the clients were built still reaches them.
 
-    // Default request headers, from the fork-owned ProjectNetworkHeaders seam. Every REST client
+    // Default request headers, from the fork-owned KptNetworkHeaders seam. Every REST client
     // built by `restApi(...)` resolves this, so a fork adds an app-wide header without hand-building
     // a Ktorfit and giving up the generated @ApiBinding wiring. Neutral on the template.
-    single<DefaultHeaderProvider> { ProjectNetworkHeaders }
+    single<DefaultHeaderProvider> { KptNetworkHeaders }
 
     // Every declared endpoint's Koin binding, GENERATED from app-profile#network.access_points into
     // the sibling [GeneratedApiBindings] (same package — no import, so this file keeps its zero-demo

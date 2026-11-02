@@ -11,7 +11,7 @@ what was collected per loan, and submit it.
   exactly what `CollectionSheetCommandRepository.saveIndividualCollectionSheet` sends.
 - **Routes:** `IndividualCollectionSheetRoute`, `CollectionSheetDetailsRoute(officeId, staffId?,
   transactionDate)` — the request, never the sheet. `@FeatureDestination collectionSheetDestinations`;
-  the drawer reaches it through `BackboneRegistry.navigateToCollectionSheet`.
+  the drawer reaches it through `ForkBackboneRegistry.navigateToCollectionSheet`.
 - **DI:** `CollectionSheetModule`.
 
 The sheet is network-first with an offline copy (the last sheet generated for that request); submitting

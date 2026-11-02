@@ -29,7 +29,7 @@ import kpt.core.model.search.SearchResourcesKey
  *
  * Ported from `6b66e8a43:feature/search/.../SearchViewModel.kt`. The original app had no Home tab and
  * used Search as its de-facto dashboard; adopting the template backbone (spec §6) makes Search the
- * Home body, supplied through `BackboneRegistry.homeBody`.
+ * Home body, supplied through `ForkBackboneRegistry.homeBody`.
  *
  * The original's `DataState` fold — `onStart { Loading }` / `catch { Error }` / `onEach { … }` across
  * three branches — collapses into [ScreenState], which the substrate already produces with

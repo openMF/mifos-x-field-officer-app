@@ -36,7 +36,7 @@ import cmp.navigation.auth.authNavGraph
 import cmp.navigation.authenticated.AuthenticatedGraphRoute
 import cmp.navigation.authenticated.authenticatedGraph
 import cmp.navigation.authenticated.navigateToAuthenticatedGraph
-import cmp.navigation.registry.DeepLinkRegistry
+import cmp.navigation.registry.ForkDeepLinkRegistry
 import cmp.navigation.splash.SplashRoute
 import cmp.navigation.splash.navigateToSplash
 import cmp.navigation.splash.splashDestination
@@ -110,11 +110,11 @@ fun RootNavScreen(
         }
     }
 
-    // Deep-link routing (fork-provided via DeepLinkRegistry — the template ships no links). Inbound URIs are
+    // Deep-link routing (fork-provided via ForkDeepLinkRegistry — the template ships no links). Inbound URIs are
     // captured by cmp-deep-link (KmpToolkit): Android auto-init reads the launch / onNewIntent Intent.data
     // with NO Activity wiring, parsed onto DeepLinkHandler. We read the retained lastReceived (a StateFlow
     // that survives the Splash → graph handoff, so a cold-start widget tap isn't dropped) and dispatch it
-    // through the fork's DeepLinkRegistry ONLY once the user is authenticated AND the authenticated graph is
+    // through the fork's ForkDeepLinkRegistry ONLY once the user is authenticated AND the authenticated graph is
     // on-screen — otherwise the root-state navigation below (which pops to the graph start) would discard the
     // destination. Held (not cleared) until then, so a first-run link resolves after Splash / onboarding.
     val pendingDeepLink by DeepLinkHandler.lastReceived.collectAsStateWithLifecycle()
@@ -124,7 +124,7 @@ fun RootNavScreen(
         val atAuthenticatedRoot = deepLinkBackStackEntry?.destination?.rootLevelRoute() ==
             AuthenticatedGraphRoute.toObjectNavigationRoute()
         if (state is RootNavState.UserUnlocked && atAuthenticatedRoot &&
-            DeepLinkRegistry.route(link, navController)
+            ForkDeepLinkRegistry.route(link, navController)
         ) {
             DeepLinkHandler.clear()
         }

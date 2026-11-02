@@ -13,9 +13,9 @@
 // `cmp-navigation/build.gradle.kts` (template-owned) applies this script via `apply(from = ...)`. A fork
 // adds/removes a feature module dependency by editing ONLY this file â it never touches the template build
 // file, so a template sync full-copies `cmp-navigation/build.gradle.kts` while these deps survive. This is
-// the build-graph twin of the `cmp-navigation/registry` runtime seams (FeatureRegistry etc.); adding a
+// the build-graph twin of the `cmp-navigation/registry` runtime seams (ForkFeatureRegistry etc.); adding a
 // feature is: include it in `settings.gradle.kts`, add its dep here, and register its module + routes in
-// `FeatureRegistry`.
+// `ForkFeatureRegistry`.
 //
 // String `project(":feature:x")` notation (not the type-safe `projects.feature.x` accessors) is used
 // deliberately: type-safe project accessors are NOT generated for `apply(from = ...)` script plugins. The

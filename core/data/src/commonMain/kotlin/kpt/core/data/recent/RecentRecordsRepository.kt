@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kpt.core.database.recent.dao.RecentRecordDao
 import kpt.core.database.recent.entity.RecentRecordEntity
-import kpt.core.datastore.prefs.ProjectPreferencesRepository
+import kpt.core.datastore.prefs.ForkPreferencesRepository
 import kpt.core.model.recent.RecentKind
 import kpt.core.model.recent.RecentRecord
 import kotlin.time.Clock
@@ -31,7 +31,7 @@ interface RecentRecordsRepository {
 @OptIn(ExperimentalCoroutinesApi::class)
 class RecentRecordsRepositoryImpl(
     private val dao: RecentRecordDao,
-    private val preferences: ProjectPreferencesRepository,
+    private val preferences: ForkPreferencesRepository,
 ) : RecentRecordsRepository {
 
     override val recent: Flow<List<RecentRecord>> =

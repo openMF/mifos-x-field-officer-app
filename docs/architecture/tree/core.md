@@ -94,8 +94,8 @@ repositories a feature consumes, `core/designsystem` for brand tokens.
 DAO directly while its writes go through the store is the split-read defect product-health's Store5
 checks exist to catch — the layers are not stylistic.
 
-**What a fork touches:** all of it. `core/store/src/commonMain/kotlin/kpt/core/store/config/AppScreenStateDefaults.kt` brands every empty and
-error state in one place, `AppErrorMapper` maps domain errors to copy, and a `@StoreProvider`
+**What a fork touches:** all of it. `core/store/src/commonMain/kotlin/kpt/core/store/config/KptScreenStateDefaults.kt` brands every empty and
+error state in one place, `KptErrorMapper` maps domain errors to copy, and a `@StoreProvider`
 annotation is the whole registration — the KSP processors in `tools/` generate the registry, ids,
 cache keys, Koin binding and logout purge, so there is no registry to edit and no DI module to
 remember.

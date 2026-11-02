@@ -80,8 +80,8 @@ class DefaultHeaderProviderTest {
 
     @Test
     fun the_template_ships_a_neutral_seam() {
-        // A fork inherits nothing it did not ask for — same contract as ProjectErrorMapper.
-        assertTrue(ProjectNetworkHeaders.headersFor("main").isEmpty())
-        assertTrue(ProjectNetworkHeaders.headersFor("project").isEmpty())
+        // A fork inherits nothing it did not ask for — same contract as ForkErrorMapper.
+        assertTrue(KptNetworkHeaders.headersFor("main").isEmpty())
+        assertTrue(KptNetworkHeaders.headersFor("project").isEmpty())
     }
 }

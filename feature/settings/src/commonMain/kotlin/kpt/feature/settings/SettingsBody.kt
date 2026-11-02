@@ -30,7 +30,7 @@ import org.koin.compose.viewmodel.koinViewModel
  * [SettingsScreenContent] is `internal` and stateless by design: it is the Roborazzi `@Preview`
  * render target, so it takes plain callbacks and holds nothing. Something has to own the dialog
  * state and hand it those callbacks. In the template that owner lived in the `demo` package — and
- * the strip took it, leaving `BackboneRegistry.settingsBody` as the empty `{ }` the customizer
+ * the strip took it, leaving `ForkBackboneRegistry.settingsBody` as the empty `{ }` the customizer
  * documents the fork should fill.
  *
  * Nobody filled it. The result was a drawer entry declaring `isMigrated = true`
@@ -41,7 +41,7 @@ import org.koin.compose.viewmodel.koinViewModel
  * [SettingsScreenContent] directly and never goes through the seam.
  *
  * Being `internal`, [SettingsScreenContent] also cannot be called from `cmp-navigation` — which is
- * why the fix is a public composable HERE rather than a longer lambda in `BackboneRegistry`.
+ * why the fix is a public composable HERE rather than a longer lambda in `ForkBackboneRegistry`.
  *
  * ## What it wires
  *

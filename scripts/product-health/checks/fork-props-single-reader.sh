@@ -4,7 +4,7 @@
 # app-profile is the fork SoT → derive.rb materializes gradle/fork.properties → everything else
 # READS that bridge. The readers are:
 #
-#   Gradle  build-logic/convention/src/main/kotlin/org/convention/ForkProperties.kt
+#   Gradle  build-logic/convention/src/main/kotlin/org/convention/KptAppProfileProperties.kt
 #   bash    scripts/_shared/fork-props.sh                      (fp_file / fp_get)
 #   Ruby    deployment/_shared/project_config.rb               (FORK[...])
 #
@@ -32,7 +32,7 @@ fail=0
 is_allowed() {
   case "$1" in
     # The readers themselves, and this check (it necessarily NAMES the idioms it detects).
-    */org/convention/ForkProperties.kt|*/scripts/_shared/fork-props.sh) return 0 ;;
+    */org/convention/KptAppProfileProperties.kt|*/scripts/_shared/fork-props.sh) return 0 ;;
     */checks/fork-props-single-reader.sh) return 0 ;;
     # WRITERS + the generator. SyncForkConfigPlugin owns app-profile → ENV → catalog because it
     # produces the bridge; derive.rb writes it; fork-init.sh authors app.id; setup-project.sh seeds
@@ -87,7 +87,7 @@ report() { # <file> <language> <how>
 for f in $(candidates '*.kt' '*.kts'); do
   strip_kt_comments "$f" | grep -qE "Properties\(\)" || continue
   is_allowed "$f" && continue
-  report "$f" "Gradle" "Properties().load() — use org.convention.ForkProperties / forkProp()"
+  report "$f" "Gradle" "Properties().load() — use org.convention.KptAppProfileProperties / forkProp()"
 done
 
 # ── bash: splits the bridge itself ────────────────────────────────────────────────────────────────
@@ -107,7 +107,7 @@ for f in $(candidates '*.rb' 'Appfile'); do
 done
 
 if [ "$fail" = "0" ]; then
-  echo "one reader per language: Gradle=ForkProperties.kt · bash=_shared/fork-props.sh · Ruby=project_config.rb"
+  echo "one reader per language: Gradle=KptAppProfileProperties.kt · bash=_shared/fork-props.sh · Ruby=project_config.rb"
   exit 0
 fi
 echo "→ Fix: read through your language's reader. A genuinely new exception goes in is_allowed() WITH a reason."

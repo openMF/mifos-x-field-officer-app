@@ -34,7 +34,7 @@ import org.koin.dsl.module
  * binds heavily by QUALIFIER, so it reports real bindings like `AlertsRepository` as missing.)
  *
  * ## What a fork does instead
- * Nothing here. Fork-owned network singles go in `core/network`'s `ProjectNetworkModule`, which sync
+ * Nothing here. Fork-owned network singles go in `core/network`'s `ForkNetworkModule`, which sync
  * preserves. This file is template-owned and blind-copied.
  */
 val NetworkBaseModule = module {

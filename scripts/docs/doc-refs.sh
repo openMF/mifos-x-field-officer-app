@@ -99,7 +99,7 @@ def classify(ref):
     if r in SUFFIX:                      return "suffix"
     # An ELIDED path — `core-base/store/.../screen/ScreenDataStream.kt` — is this tree's shorthand for a
     # long package path. Held to existence like any other, by matching head and tail against a real path.
-    # A LEADING elision (`.../di/ProjectNetworkModule.kt`) claims only a tail — resolve it as a suffix.
+    # A LEADING elision (`.../di/ForkNetworkModule.kt`) claims only a tail — resolve it as a suffix.
     if r.startswith((".../", "…/")):
         tail = re.sub(r"^(?:\.\.\.|…)/", "", r)
         return "elided" if tail in SUFFIX else "DEAD"

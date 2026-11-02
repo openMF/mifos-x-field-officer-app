@@ -20,8 +20,8 @@ template-owned half a fork inherits and extends.
 | `Fork*` | fork | per-fork values the build reads |
 | generated | build | projections of `app-profile/app.yaml`; never hand-edited |
 
-Worked examples in this repo: `core/store/config` (`AppErrorMapper` + `ProjectErrorMapper`,
-`AppScreenStateDefaults` + `ProjectScreenStateDefaults`), `core/network/config`
+Worked examples in this repo: `core/store/config` (`KptErrorMapper` + `ForkErrorMapper`,
+`KptScreenStateDefaults` + `ForkScreenStateDefaults`), `core/network/config`
 (`AppAccessPoints` / `AppUrlTypes`, projected by `syncForkConfig`),
 `core/database/config` (`DatabaseConfig` generated + `ForkDatabaseConfig`), and
 `core/firebase/config` (`analytics/` + `crashlytics/` cross-cutting halves).

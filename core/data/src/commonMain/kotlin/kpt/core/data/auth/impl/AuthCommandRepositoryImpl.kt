@@ -17,7 +17,7 @@ import kpt.core.base.store.mutation.MutationPolicy
 import kpt.core.base.store.mutation.MutationResult
 import kpt.core.data.auth.AuthCommandRepository
 import kpt.core.data.auth.PasswordChangedSignInFailed
-import kpt.core.datastore.prefs.ProjectPreferencesRepository
+import kpt.core.datastore.prefs.ForkPreferencesRepository
 import kpt.core.model.auth.ChangePasswordRequest
 import kpt.core.model.auth.PostAuthenticationRequest
 import kpt.core.model.auth.PostAuthenticationResponse
@@ -35,7 +35,7 @@ import kpt.core.network.mifos.auth.api.AuthApi
 internal class AuthCommandRepositoryImpl(
     private val authApi: AuthApi,
     private val gateway: MutationGateway,
-    private val preferences: ProjectPreferencesRepository,
+    private val preferences: ForkPreferencesRepository,
     private val storeCacheManager: StoreCacheManager,
 ) : AuthCommandRepository {
 

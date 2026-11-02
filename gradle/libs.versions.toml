@@ -408,7 +408,7 @@ cmp-network-monitor = { module = "io.github.mobilebytelabs:cmp-network-monitor",
 cmp-network-monitor-compose = { module = "io.github.mobilebytelabs:cmp-network-monitor-compose", version.ref = "kmptoolkit" }
 # cmp-deep-link — commonMain deep-link handler. Android capture is auto-init (ContentProvider +
 # ActivityLifecycleCallbacks, zero Activity wiring); RootNavScreen collects DeepLinkHandler.lastReceived and
-# routes via the fork-owned DeepLinkRegistry seam. A fork with home-screen widgets / OS deep links fills the seam.
+# routes via the fork-owned ForkDeepLinkRegistry seam. A fork with home-screen widgets / OS deep links fills the seam.
 cmp-deep-link = { module = "io.github.mobilebytelabs:cmp-deep-link", version.ref = "kmptoolkit" }
 # cmp-firebase — unified Firebase (Analytics + Crashlytics) engine + Compose companion.
 cmp-firebase = { module = "io.github.mobilebytelabs:cmp-firebase", version.ref = "kmptoolkit" }

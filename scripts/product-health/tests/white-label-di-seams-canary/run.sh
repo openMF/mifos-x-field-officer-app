@@ -13,7 +13,7 @@ rc_ok=0
 # fixture that trips some OTHER WLS rule would look identical while the rule under test never ran.
 cell() {
   local t="$1" exp="$2" lbl="$3" want="${4:-}" out rc
-  out="$(HEALTH_ROOT="$HERE/$t" WLS_CORE_DIR="$HERE/$t/core" WLS_REGISTRY="$HERE/$t/reg/FeatureRegistry.kt" \
+  out="$(HEALTH_ROOT="$HERE/$t" WLS_CORE_DIR="$HERE/$t/core" WLS_REGISTRY="$HERE/$t/reg/ForkFeatureRegistry.kt" \
          WLS_SURFACE_SH="$SURFACE_SH" WLS_SURFACE_YAML="$HERE/$t/customization-surface.yaml" \
          bash "$CHECK" 2>&1)"; rc=$?
   if [ "$rc" != "$exp" ]; then

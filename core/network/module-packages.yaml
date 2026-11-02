@@ -63,7 +63,7 @@ demo:
 # Kept by a clean fork, full-copied by a sync.
 template:
   - { id: config,  status: exists }         # AppAccessPoints / AppUrlTypes (generated)
-  - { id: di,      status: exists }         # NetworkModule + the ProjectNetworkModule fork seam
+  - { id: di,      status: exists }         # NetworkModule + the ForkNetworkModule fork seam
   # Named for the Supabase project REF — the access-point id, the package, and the @ApiBinding
   # argument are the same string, and all three come from app-profile/app.yaml. Rename them
   # together or network-ksp rejects the annotation against the declared ids.

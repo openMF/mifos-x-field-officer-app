@@ -110,7 +110,7 @@ compose.resources {
 // `gradle/fork.properties#app.display.name` — the build-bridge that syncForkConfig generates from the
 // SoT `app-profile/app.yaml#identity.app_name`. AppInfo.appDisplayName exposes it as the single
 // common-code read point, so a fork rebrands in app-profile, not in per-feature strings.xml.
-// Read through the ONE Gradle-side reader (org.convention.ForkProperties).
+// Read through the ONE Gradle-side reader (org.convention.KptAppProfileProperties).
 val coreBaseUiAppDisplayName = forkProp("app.display.name", "App Toolkit")
 
 buildkonfig {

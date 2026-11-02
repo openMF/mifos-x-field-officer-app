@@ -718,7 +718,7 @@ private fun NavGraphBuilder.clientFormDestinations(navController: NavController)
  * on the OUTER authenticated graph, where another feature can push it full-screen. This graph is what
  * the Clients TAB renders: the list is the tab's start destination, so the bottom bar stays visible and
  * the tab keeps its own back stack, while the detail drill-down pushes on the OUTER controller and
- * covers the bar — the standard affordance, and the shape `TabRegistry.extraInlineTabDestinations`
+ * covers the bar — the standard affordance, and the shape `ForkTabRegistry.extraInlineTabDestinations`
  * documents.
  *
  * Not annotated: `@FeatureDestination` collects entries for the outer graph, and registering the same

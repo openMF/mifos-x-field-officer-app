@@ -31,7 +31,7 @@ object TestTags {
         const val DASHBOARD_SCROLL: String = "home_dashboard_scroll"
 
         /**
-         * The field officer dashboard — the Home body supplied through BackboneRegistry.homeBody.
+         * The field officer dashboard — the Home body supplied through ForkBackboneRegistry.homeBody.
          * Values are the `testTag`s declared in `idea-layer/screens/home/ui.yaml`, which the Maestro
          * flows assert against; change one there, change it here.
          */

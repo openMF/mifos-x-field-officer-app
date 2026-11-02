@@ -13,7 +13,7 @@ import org.koin.core.module.Module
 
 /**
  * Overrides the template's plaintext `AppDatabase` binding with an at-rest-encrypted one where the
- * platform supports it. Included from the fork-owned `ProjectDatabaseModule`, which Koin loads AFTER
+ * platform supports it. Included from the fork-owned `ForkDatabaseModule`, which Koin loads AFTER
  * the template's `DatabaseModule` (`KoinModules.allModules` order), so this definition wins.
  *
  * Done as an override rather than an edit of `di/DatabaseModule.android.kt` because that file is

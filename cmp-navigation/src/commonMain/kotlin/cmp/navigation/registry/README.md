@@ -16,18 +16,18 @@ files are classified `owner: fork`.
 
 | Registry | What a fork controls | Read by (template infra) |
 |---|---|---|
-| [`FeatureRegistry`](FeatureRegistry.kt) | Feature **routes + Koin modules** | `di/KoinModules.kt`, `authenticated/AuthenticatedNavigation.kt` |
-| [`BackboneRegistry`](BackboneRegistry.kt) | The **home-tab body** (default: the demo dashboard) | `feature/home`'s `HomeScreen` shell (via the navbar graph) |
-| [`TabRegistry`](TabRegistry.kt) | The **bottom-nav tabs** (backbone Home/Profile + extras) | `authenticatednavbar/AuthenticatedNavbarNavigationScreen.kt` |
-| [`AppInitializers`](AppInitializers.kt) | **App-startup hooks** run after Koin init | `cmp-shared/.../KoinExt.kt#initKoin` (commonMain, every platform) |
+| [`ForkFeatureRegistry`](ForkFeatureRegistry.kt) | Feature **routes + Koin modules** | `di/KoinModules.kt`, `authenticated/AuthenticatedNavigation.kt` |
+| [`ForkBackboneRegistry`](ForkBackboneRegistry.kt) | The **home-tab body** (default: the demo dashboard) | `feature/home`'s `HomeScreen` shell (via the navbar graph) |
+| [`ForkTabRegistry`](ForkTabRegistry.kt) | The **bottom-nav tabs** (backbone Home/Profile + extras) | `authenticatednavbar/AuthenticatedNavbarNavigationScreen.kt` |
+| [`ForkInitializers`](ForkInitializers.kt) | **App-startup hooks** run after Koin init | `cmp-shared/.../KoinExt.kt#initKoin` (commonMain, every platform) |
 
 ## How each seam works
 
-### `FeatureRegistry` — features (routes + DI)
+### `ForkFeatureRegistry` — features (routes + DI)
 A feature contributes two things: a Koin `Module` and a set of nav destinations.
 
 ```kotlin
-object FeatureRegistry {
+object ForkFeatureRegistry {
     val featureKoinModules: List<Module> = listOf(MyFeatureModule, /* … */)
     val featureDestinations: NavGraphBuilder.(NavController) -> Unit = { navController ->
         myFeatureGraph(navController)
@@ -39,16 +39,16 @@ object FeatureRegistry {
 `featureDestinations` into the authenticated graph. Add a feature entirely in **fork-owned** files:
 1. `include(":feature:my-feature")` in [`settings.local.gradle.kts`](../../../../../../../settings.local.gradle.kts) (the settings seam) — **not** `settings.gradle.kts`.
 2. Its Gradle dependency in [`feature-deps.gradle.kts`](../../../../../../../feature-deps.gradle.kts) (the build-dep seam) — **not** `cmp-navigation/build.gradle.kts` (which `apply(from = …)`s it).
-3. Its module + graph in `FeatureRegistry` here.
+3. Its module + graph in `ForkFeatureRegistry` here.
 
 None of the template shell/build/settings files are touched — so a template sync full-copies them.
 
-### `BackboneRegistry` — the home body
+### `ForkBackboneRegistry` — the home body
 The home tab is a framework-owned shell (top bar + settings action) with a fork-owned **body**. The shell
 carries zero demo imports; it just renders whatever `homeBody` provides.
 
 ```kotlin
-object BackboneRegistry {
+object ForkBackboneRegistry {
     val homeBody: @Composable (NavController) -> Unit = { navController ->
         MyHomeDashboard(onOpenX = { navController.navigateToX() })
     }
@@ -60,29 +60,29 @@ through five template layers (`AuthenticatedNavigation` → navbar graph → nav
 `HomeScreen`). All of that home wiring now lives in this one fork-owned place; the shell forwards an opaque
 `homeBody`.
 
-### `TabRegistry` — bottom-nav tabs
-The navbar renders `TabRegistry.tabs` generically. Home + Profile are the always-present backbone shell
+### `ForkTabRegistry` — bottom-nav tabs
+The navbar renders `ForkTabRegistry.tabs` generically. Home + Profile are the always-present backbone shell
 tabs; a fork appends its own via `extraTabs` — no edit to a sealed class + item list + click `when` +
 `NavHost`.
 
 ```kotlin
-object TabRegistry {
+object ForkTabRegistry {
     val extraTabs: List<NavigationItem> = listOf(MyTab)
     val tabs: List<NavigationItem> = buildList { add(HomeTab); add(ProfileTab); addAll(extraTabs) }
 }
 ```
 
-### `AppInitializers` — startup hooks
+### `ForkInitializers` — startup hooks
 A fork's one-time startup work (analytics, crash reporting, remote-config, feature-flag warmup) without
 editing any platform app class:
 
 ```kotlin
-object AppInitializers {
+object ForkInitializers {
     val onAppStart: List<() -> Unit> = listOf({ MyAnalytics.init() })
 }
 ```
 
-`cmp-shared`'s commonMain `initKoin` calls `AppInitializers.runAll()` once, after Koin starts — on **every**
+`cmp-shared`'s commonMain `initKoin` calls `ForkInitializers.runAll()` once, after Koin starts — on **every**
 platform. Koin is already started, so a hook may resolve dependencies.
 
 ## The `demo:begin` / `demo:end` fences and `--clean`

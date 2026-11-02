@@ -9,7 +9,7 @@
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
-    <!-- ===== Screen-state default copy (consumed by AppScreenStateDefaults) ===== -->
+    <!-- ===== Screen-state default copy (consumed by KptScreenStateDefaults) ===== -->
     <string name="screenstate_empty_title">Nothing here yet</string>
     <string name="screenstate_empty_message">When you have data, it'll show up here.</string>
     <string name="screenstate_error_title">Something went wrong</string>

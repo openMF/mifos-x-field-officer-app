@@ -21,7 +21,7 @@
 #   MP-3 no `demo/` directory remains — ONLY where the module has fully left that convention.
 #        core/data keeps `demo/di/` on purpose: DemoRepositoryModule's lifecycle is governed by the
 #        DI-seam contract (WLS-2/WLS-4) instead, which needs it under demo/ AND inside
-#        FeatureRegistry's demo fence. Deleting the package without unregistering it breaks the graph.
+#        ForkFeatureRegistry's demo fence. Deleting the package without unregistering it breaks the graph.
 #   MP-4 an UNDECLARED package resolves `fork` — the catch-all direction the design depends on
 #   MP-6 app.yaml#module_packages lists exactly the module-packages.yaml files that exist — the
 #        connection cannot drift: a module file added without the row is invisible to a reader, and

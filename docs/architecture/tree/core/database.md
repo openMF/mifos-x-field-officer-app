@@ -621,10 +621,10 @@ expect val platformModule: Module
 ```
 Platform-specific Koin module that provides the `AppDatabase` singleton.
 
-### `core/database/src/commonMain/kotlin/kpt/core/database/di/ProjectDatabaseModule.kt`
+### `core/database/src/commonMain/kotlin/kpt/core/database/di/ForkDatabaseModule.kt`
 
 ```kotlin
-val ProjectDatabaseModule = module
+val ForkDatabaseModule = module
 ```
 THE FORK'S database DI seam. Empty on the neutral template — this is yours to fill.
 

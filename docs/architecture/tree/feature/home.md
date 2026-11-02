@@ -26,7 +26,7 @@ The dashboard, and the **4-way `combineScreenStates` fan-in**: loans summary, up
 an exchange rate, each an independent card with its own loading, empty, error and content state.
 
 It is also a **fork seam**. `HomeDashboard` is public rather than internal because `cmp-navigation`'s
-`BackboneRegistry.homeBody` renders it as the default home body, and it lives in the fork-owned `demo/`
+`ForkBackboneRegistry.homeBody` renders it as the default home body, and it lives in the fork-owned `demo/`
 package so `--clean` removes it together with that default. A fork replaces the body without touching
 the shell.
 
@@ -61,19 +61,19 @@ Navigates to the home graph.
 ```kotlin
 fun NavGraphBuilder.homeGraph(
 ```
-The backbone home graph. `homeBody` is the fork-owned home content (default supplied by `cmp-navigation`'s `BackboneRegistry.homeBody`); this template graph carries zero demo imports.
+The backbone home graph. `homeBody` is the fork-owned home content (default supplied by `cmp-navigation`'s `ForkBackboneRegistry.homeBody`); this template graph carries zero demo imports.
 
 ### `feature/home/src/commonMain/kotlin/kpt/feature/home/demo/HomeDashboard.kt`
 
 ```kotlin
 fun HomeDashboard(
 ```
-The demo dashboard: loans summary, upcoming bills, rates and an exchange rate, each an independent card. Public rather than internal because `cmp-navigation`'s fork-owned `BackboneRegistry.homeBody` seam renders it as the default home body.
+The demo dashboard: loans summary, upcoming bills, rates and an exchange rate, each an independent card. Public rather than internal because `cmp-navigation`'s fork-owned `ForkBackboneRegistry.homeBody` seam renders it as the default home body.
 
 <details><summary>Used in the template — <code>feature/home/src/commonTest/kotlin/kpt/feature/home/HomeScreenUiTest.kt:55</code></summary>
 
 ```kotlin
-                    // production where cmp-navigation's BackboneRegistry.homeBody supplies it.
+                    // production where cmp-navigation's ForkBackboneRegistry.homeBody supplies it.
                     homeBody = {
                         HomeDashboard(
                             onNavigateToLoans = {},

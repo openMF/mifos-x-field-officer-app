@@ -62,7 +62,7 @@ template: []
 #
 # home / profile / settings ship as a WORKING starting point and the fork OWNS them: redesign the
 # screens in place, using the shipped code as the base. A sync never overwrites that work.
-# cmp-navigation's BackboneRegistry seams (homeBody / settingsBody / profileBody) still exist and
+# cmp-navigation's ForkBackboneRegistry seams (homeBody / settingsBody / profileBody) still exist and
 # still work — they are simply no longer the only sanctioned way in.
 #
 # THE TRADE: these modules no longer receive upstream fixes. That is the cost of owning them.

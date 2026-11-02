@@ -25,7 +25,7 @@ package kpt.core.base.network
  * scoping a global map back down — is not expressible.
  *
  * ```kotlin
- * object ProjectNetworkHeaders : DefaultHeaderProvider {
+ * object KptNetworkHeaders : DefaultHeaderProvider {
  *     override fun headersFor(accessPointId: String): Map<String, String> = when (accessPointId) {
  *         "main" -> mapOf("X-Client-Version" to BuildKonfig.VERSION_NAME)
  *         else -> emptyMap()

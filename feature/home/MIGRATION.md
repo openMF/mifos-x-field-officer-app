@@ -33,7 +33,7 @@ The absorbed original is `6b66e8a43:feature/search/` — 9 `.kt`:
 
 The shell is a placeholder screen. It is **not** annotated `@FeatureDestination` or `@FeatureTab` —
 Home is a backbone tab, declared as `AuthenticatedNavBarTabItem.HomeTab` and added by hand in
-`TabRegistry.tabs`. S2 replaces the shell's content, not its registration.
+`ForkTabRegistry.tabs`. S2 replaces the shell's content, not its registration.
 
 ## 3. Substrate mapping
 
@@ -59,11 +59,11 @@ No mutations. Search is read-only.
 
 ## 6. Nav registration
 
-- Backbone tab — no `@FeatureTab`, no `@FeatureDestination`. `TabRegistry.tabs` hand-lists
+- Backbone tab — no `@FeatureTab`, no `@FeatureDestination`. `ForkTabRegistry.tabs` hand-lists
   `HomeTab` + `ProfileTab` then appends fork tabs; S2 appends Client · Centers · Groups in that order,
   because `@FeatureTab` collects alphabetically and tab order is a layout decision (spec §4).
 - As an inline tab, Home's start destination must be registered on the navbar's **inner** NavHost via
-  `TabRegistry.extraInlineTabDestinations` — not needed for the backbone tabs, which the template
+  `ForkTabRegistry.extraInlineTabDestinations` — not needed for the backbone tabs, which the template
   already wires. Verify during S2 that replacing the content did not break that wiring.
 - Build edge: `cmp-navigation/build.gradle.kts:43` already declares
   `implementation(projects.feature.home)` — template-owned, no fork edge needed.

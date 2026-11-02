@@ -25,7 +25,7 @@ import org.jetbrains.compose.resources.StringResource
  *
  * Declared here via `@FeatureTab` rather than in `cmp-navigation`, the same way `ClientTab` and
  * `CenterTab` are. `:cmp-navigation:generateFeatureTabs` collects it into `GeneratedFeatureTabs`,
- * which `TabRegistry.extraTabs` exposes.
+ * which `ForkTabRegistry.extraTabs` exposes.
  *
  * Uses `Icons.Groups` rather than the `People` the placeholder borrowed — `People` is the Clients
  * tab's icon, and two tabs sharing a glyph is the kind of thing a monochrome bar makes genuinely

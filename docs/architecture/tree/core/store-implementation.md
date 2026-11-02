@@ -276,8 +276,8 @@ Everything consumer-forks need lives in `core/store/`:
 
 | File | Purpose |
 |---|---|
-| `AppScreenStateDefaults.kt` | Brand visuals, copy, Lottie animations, telemetry hooks |
-| `AppErrorMapper.kt` | Domain-error → user-message mapping (extends `categorize()`) |
+| `KptScreenStateDefaults.kt` | Brand visuals, copy, Lottie animations, telemetry hooks |
+| `KptErrorMapper.kt` | Domain-error → user-message mapping (extends `categorize()`) |
 | `@StoreProvider` on the provider | Store id, TTL, logout purge — qualifier is GENERATED |
 | `@CacheKey` on the provider | Stream cache keys — the `<Store>Keys` object is GENERATED |
 

@@ -16,7 +16,7 @@ import org.gradle.kotlin.dsl.configure
 /**
  * Configures the `kover` plugin with the [configure] lambda.
  *
- * Mirrors the [detektGradle] / [spotlessGradle] helpers in ProjectExtensions.kt
+ * Mirrors the [detektGradle] / [spotlessGradle] helpers in KptGradleExtensions.kt
  * so KoverConventionPlugin reads the same way as DetektConventionPlugin and
  * SpotlessConventionPlugin.
  */

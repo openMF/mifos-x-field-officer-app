@@ -29,7 +29,7 @@ import org.jetbrains.compose.resources.StringResource
  * feature contribute its own, and that is what lets the bar be complete before its features are:
  * the tab bar is part of the SHELL, not of the features it opens.
  *
- * Clients, Centers and Groups are each a `@FeatureTab` declared by their own module; `TabRegistry`
+ * Clients, Centers and Groups are each a `@FeatureTab` declared by their own module; `ForkTabRegistry`
  * places them. Every placeholder that once lived here has left as its feature landed, which is what
  * this file is for — it holds only tabs the SHELL itself owns, and [HomeTab] is now the only one.
  *

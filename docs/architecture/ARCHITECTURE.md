@@ -209,7 +209,7 @@ Each re-exports its `core-base` counterpart where one exists and carries the for
 
 | module | role |
 |---|---|
-| **core/store** | the fork's Store5 seam — `@StoreProvider` providers, `AppScreenStateDefaults` branding, `AppErrorMapper`, `ProjectStoreModule` |
+| **core/store** | the fork's Store5 seam — `@StoreProvider` providers, `KptScreenStateDefaults` branding, `KptErrorMapper`, `ForkStoreModule` |
 | **core/data** | repositories — `@RepositoryBinding` + `@FromStore`; no DAO calls, no store construction |
 | **core/database** | Room entities, DAOs and converters (`@DbEntity` / `@DbDao` / `@DbConverters`) |
 | **core/network** | Ktorfit/Supabase APIs, one package per access point (`@ApiBinding`) |

@@ -53,7 +53,7 @@ S1 T4 (server-config) needs the other five validators from the same surface, so 
 | concern | original | new |
 |---|---|---|
 | login write | `LoginRepository.login(username, password)` | `kpt.core.data.auth.AuthCommandRepository.authenticate(…)` |
-| session persistence | `com.mifos.core.datastore.UserPreferencesRepository.updateUser(User)` | `kpt.core.datastore.prefs.UserPreferencesRepository` (fork prefs also on `ProjectPreferencesRepository` — confirm which owns `passcode` during the port) |
+| session persistence | `com.mifos.core.datastore.UserPreferencesRepository.updateUser(User)` | `kpt.core.datastore.prefs.UserPreferencesRepository` (fork prefs also on `ForkPreferencesRepository` — confirm which owns `passcode` during the port) |
 | passcode read | `prefManager.settingsInfo.map { it.passcode }` | same repository; drives the `UserLocked` root state, which S1 T1 wires |
 | reads | none — login is write-only | none |
 

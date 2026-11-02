@@ -52,7 +52,7 @@ val appVersion: String = libs.versions.desktopPackageVersion.get()
 // in fork.properties must NOT ship a brand name. Last-resort default is the fork's OWN appName
 // (libs.versions.desktopAppName, always fork-set) — never the template's org (matches the fastlane
 // lanes' no-mifos-fallback). fork-identity.sh still FAILs CI if org.name is left at the template value.
-// Read through the ONE Gradle-side reader (org.convention.ForkProperties). Hoisted to top-level
+// Read through the ONE Gradle-side reader (org.convention.KptAppProfileProperties). Hoisted to top-level
 // vals because the consumers below sit inside nested DSL blocks whose receiver is not Project.
 val forkOrgName    = forkProp("org.name", appName)
 val forkDescription = forkProp("app.description", "$appName desktop")

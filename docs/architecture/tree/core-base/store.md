@@ -150,7 +150,7 @@ val StoreModule = module
 ```
 Koin module providing base Store infrastructure. Consumer apps should include this module and add their own store bindings in their `core/data` DI module using `StoreFactory` to create store instances.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/di/StoreModule.kt:63</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/di/KptStoreModule.kt:63</code></summary>
 
 ```kotlin
  * ```

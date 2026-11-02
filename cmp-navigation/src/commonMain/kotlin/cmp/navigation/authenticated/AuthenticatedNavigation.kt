@@ -17,9 +17,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import cmp.navigation.authenticatednavbar.AuthenticatedNavbarRoute
 import cmp.navigation.authenticatednavbar.authenticatedNavbarGraph
-import cmp.navigation.registry.BackboneRegistry
-import cmp.navigation.registry.FeatureRegistry
-import cmp.navigation.registry.ShowcaseRegistry
+import cmp.navigation.registry.ForkBackboneRegistry
+import cmp.navigation.registry.ForkFeatureRegistry
+import cmp.navigation.registry.ForkShowcaseRegistry
 import kotlinx.serialization.Serializable
 // NOTE: this merge-owned shell carries zero direct feature imports — all backbone, fork-feature,
 // and dev-only destinations flow through the three registry seams imported above.
@@ -36,25 +36,25 @@ internal fun NavGraphBuilder.authenticatedGraph(navController: NavController) {
         startDestination = AuthenticatedNavbarRoute,
     ) {
         authenticatedNavbarGraph(
-            navigateToSettingsScreen = { BackboneRegistry.navigateToSettings(navController) },
-            // Home body from the fork-owned BackboneRegistry seam (default: demo dashboard). The
-            // template shell carries zero demo imports — a fork edits BackboneRegistry, not this file.
-            homeBody = { BackboneRegistry.homeBody(navController) },
+            navigateToSettingsScreen = { ForkBackboneRegistry.navigateToSettings(navController) },
+            // Home body from the fork-owned ForkBackboneRegistry seam (default: demo dashboard). The
+            // template shell carries zero demo imports — a fork edits ForkBackboneRegistry, not this file.
+            homeBody = { ForkBackboneRegistry.homeBody(navController) },
             // The outer graph's controller — the navbar uses it to push full-screen fork tabs above the
             // scaffold and to hand inline fork tabs a controller for their drill-downs. This IS the same
-            // graph the fork tabs' destinations register on (FeatureRegistry.featureDestinations below).
+            // graph the fork tabs' destinations register on (ForkFeatureRegistry.featureDestinations below).
             outerNavController = navController,
         )
 
         // Backbone (framework) destinations — settings, notification, sync-and-drafts.
-        BackboneRegistry.backboneDestinations.invoke(this, navController)
+        ForkBackboneRegistry.backboneDestinations.invoke(this, navController)
 
-        // Fork feature routes — from the fork-owned FeatureRegistry seam (white-label: the template infra
-        // never edits this; a fork adds/removes routes in cmp-navigation/registry/FeatureRegistry.kt).
-        FeatureRegistry.featureDestinations.invoke(this, navController)
+        // Fork feature routes — from the fork-owned ForkFeatureRegistry seam (white-label: the template infra
+        // never edits this; a fork adds/removes routes in cmp-navigation/registry/ForkFeatureRegistry.kt).
+        ForkFeatureRegistry.featureDestinations.invoke(this, navController)
 
-        // Dev-only showcase destinations — from the template-owned ShowcaseRegistry seam. A `--clean`
+        // Dev-only showcase destinations — from the template-owned ForkShowcaseRegistry seam. A `--clean`
         // fork strips its fenced content, reducing this to a no-op.
-        ShowcaseRegistry.devDestinations.invoke(this, navController)
+        ForkShowcaseRegistry.devDestinations.invoke(this, navController)
     }
 }

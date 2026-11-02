@@ -193,7 +193,7 @@ branches collapse into one** and the `userStatus` read disappears from the scree
 becomes `@FeatureDestination` on the graph builder; nested drill-downs stay nested and are NOT
 annotated (spec §4 — only top-level entries are).
 
-Client becomes a bottom-nav tab, so `TabRegistry.tabs` gains it **by hand** in slice order
+Client becomes a bottom-nav tab, so `ForkTabRegistry.tabs` gains it **by hand** in slice order
 Home · Profile · Client · Centers · Groups — `@FeatureTab` collects alphabetically and tab order is a
 layout decision.
 
@@ -267,7 +267,7 @@ found by driving the real app against the live Fineract demo (`apis.mifos.commun
 |---|---|---|---|
 | 1 | "Login failed. Check your credentials" for a valid credential | `base_path: fineract-provider/api/v1/` — the plain-Fineract path, not the field-officer gateway's | `app-profile/app.yaml` → `1.0/field/v1/`. Probed both: the first 404s, the second 401s |
 | 2 | same message, in <1s, with NO HTTP log at all | no Content-Type, so `ContentNegotiation` refused the `@Body` and Ktor threw before opening a socket | declared `Content-Type`/`Accept: application/json` on the access point in app-profile |
-| 3 | every authenticated call 401, while sign-in itself worked | `updateFineractUser` stored `"Basic $key"`, and `AuthScheme.BASIC.format` prefixes again → `Basic Basic …` | store the RAW credential (`ProjectPreferencesRepositoryImpl`) |
+| 3 | every authenticated call 401, while sign-in itself worked | `updateFineractUser` stored `"Basic $key"`, and `AuthScheme.BASIC.format` prefixes again → `Basic Basic …` | store the RAW credential (`ForkPreferencesRepositoryImpl`) |
 | 4 | first sign-in after a sign-out bounced back to the login screen 52 ms later | sign-out sets `isUnlocked = false`; sign-in set only `isAuthenticated`, and this fork has no unlock screen | `updateFineractUser` also unlocks (provisional until the passcode flow lands in S7) |
 | 5 | Clients tab on Loading forever, zero network requests | `CACHE_FIRST_SWR` reads `cached(refresh = false)` and leaves fetching to a band gate that cannot fire on a cold cache | the three client reads declare `NETWORK_WITH_CACHE` (`ClientRepositoryImpl`) |
 | 6 | 200 from the server, then an empty list | two `Page<T>` classes; the APIs imported the one that is NOT `@Serializable` | deleted `core/common/utils/Page.kt`, repointed all six call sites at `core/model`'s |

@@ -21,7 +21,7 @@ kotlin {
             // Core Modules
             implementation(projects.core.data)
             implementation(projects.core.database)
-            implementation(projects.core.network) // E1: FeatureRegistry wires the relocated DemoNetworkModule (core/network/demo/di)
+            implementation(projects.core.network) // E1: ForkFeatureRegistry wires the relocated DemoNetworkModule (core/network/demo/di)
             implementation(projects.core.model)
             implementation(projects.core.common)
             implementation(projects.core.datastore)
@@ -52,7 +52,7 @@ kotlin {
             // put your multiplatform dependencies here
             // Deep links (home-screen widgets + external app:// URIs) — cmp-deep-link (KmpToolkit,
             // commonMain). Android capture is auto-init (ContentProvider); RootNavScreen collects
-            // DeepLinkHandler.lastReceived and dispatches through the fork-owned DeepLinkRegistry seam.
+            // DeepLinkHandler.lastReceived and dispatches through the fork-owned ForkDeepLinkRegistry seam.
             implementation(libs.cmp.deep.link)
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)

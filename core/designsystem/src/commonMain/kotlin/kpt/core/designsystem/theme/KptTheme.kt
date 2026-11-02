@@ -145,7 +145,7 @@ fun KptTheme(
         // Also wires LocalScreenStateDefaults so every ScreenContent /
         // PagingScreenContent automatically picks up the fork's branded empty /
         // error / no-network / loading visuals. Customize in
-        // core/store/AppScreenStateDefaults.kt — that's the single fork seam.
+        // core/store/KptScreenStateDefaults.kt — that's the single fork seam.
         CompositionLocalProvider(
             LocalFinanceColors provides financeColors,
             LocalMotion provides Motion(),

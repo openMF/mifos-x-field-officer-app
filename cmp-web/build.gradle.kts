@@ -87,7 +87,7 @@ val webTitleSuffix = activeFlavorConfig?.webTitleSuffix?.orNull ?: ""
 // index.html link-preview / SEO meta is white-labelled from the app-profile store SoT, materialized to
 // gradle/fork.properties by syncForkConfig (task `syncForkConfig`). Without this the template's
 // mobile-wallet og:image URLs + "Kotlin Multiplatform Template" copy ship on every fork's web build.
-// Read through the ONE Gradle-side reader (org.convention.ForkProperties). `forkPropFirst` keeps
+// Read through the ONE Gradle-side reader (org.convention.KptAppProfileProperties). `forkPropFirst` keeps
 // this file's first-non-blank-wins semantics: each value has an ordered list of source keys.
 val webDescription = forkPropFirst("store.android.short.description", "store.subtitle").ifBlank { appDisplayName }
 val webKeywords    = forkPropFirst("store.ios.keywords", "store.macos.keywords")

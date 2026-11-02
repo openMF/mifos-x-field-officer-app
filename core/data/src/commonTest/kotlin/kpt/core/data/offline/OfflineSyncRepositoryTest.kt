@@ -31,7 +31,7 @@ import kpt.core.database.offline.dao.OfflineSyncDao
 import kpt.core.database.offline.entity.OfflineRecordEntity
 import kpt.core.database.offline.entity.SyncJobEntity
 import kpt.core.datastore.offline.SettingsOfflineSyncSettingsStore
-import kpt.core.datastore.prefs.ProjectPreferencesRepositoryImpl
+import kpt.core.datastore.prefs.ForkPreferencesRepositoryImpl
 import kpt.core.datastore.prefs.UserPreferencesRepositoryImpl
 import kpt.core.model.center.Center
 import kpt.core.model.center.CenterAccounts
@@ -71,7 +71,7 @@ class OfflineSyncRepositoryTest {
     }
 
     private val plain = MapSettings()
-    private val preferences = ProjectPreferencesRepositoryImpl(
+    private val preferences = ForkPreferencesRepositoryImpl(
         delegate = UserPreferencesRepositoryImpl(plain, MapSettings(), dispatchers),
         plainSettings = plain,
         secureSettings = MapSettings(),

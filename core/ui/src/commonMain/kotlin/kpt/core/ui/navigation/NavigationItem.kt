@@ -59,7 +59,7 @@ interface NavigationItem {
      * `bottom_navigation_visible: false`). Default `true` (inline). A full-screen tab overrides to `false`.
      *
      * An inline extra tab (beyond Home/Profile) MUST also register its start destination via
-     * `TabRegistry.extraInlineTabDestinations` so the inner NavHost can host it; otherwise the tab has
+     * `ForkTabRegistry.extraInlineTabDestinations` so the inner NavHost can host it; otherwise the tab has
      * nothing to render inline.
      */
     val inlineTab: Boolean get() = true

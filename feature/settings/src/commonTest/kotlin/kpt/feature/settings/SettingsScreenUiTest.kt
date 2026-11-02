@@ -21,7 +21,7 @@ import kotlin.test.assertEquals
 
 /**
  * Compose Multiplatform UI test for the fork's [SettingsScreenContent] (was the template's `SettingsDemoBody` seam
- * rendered by `cmp-navigation`'s `BackboneRegistry.settingsBody` inside the template `SettingsScreen`
+ * rendered by `cmp-navigation`'s `ForkBackboneRegistry.settingsBody` inside the template `SettingsScreen`
  * shell).
  *
  * It is a pure-UI body — all dialog state is managed internally; no ViewModel is needed. The test
@@ -35,7 +35,7 @@ class SettingsScreenUiTest {
     fun screenIsDisplayed() = runComposeUiTest {
         setContent {
             KptTheme {
-                // In production cmp-navigation's BackboneRegistry.settingsBody supplies this body.
+                // In production cmp-navigation's ForkBackboneRegistry.settingsBody supplies this body.
                 // Repointed in S1 T4 from `SettingsDemoBody`, a kmp-project-template DEMO seam that
                 // `remove-demo.sh` stripped at fork standup and this fork never supplied — so the
                 // test referenced a declaration that exists nowhere in the tree and the module's

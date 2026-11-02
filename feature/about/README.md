@@ -8,7 +8,7 @@ organisation behind it, its open-source home, and the copyright line.
 - **ViewModel:** `AboutViewModel` — holds the identity and turns taps into `OpenUrl` / `OpenAppInfo`
   events; no data layer, no `init {}`.
 - **Route:** `AboutRoute`, `@FeatureDestination aboutDestination`; entry `navigateToAbout()`, reached
-  from the drawer through `BackboneRegistry.navigateToAbout`.
+  from the drawer through `ForkBackboneRegistry.navigateToAbout`.
 - **DI:** `AboutModule`.
 
 **Every brand value comes from `app-profile/app.yaml`** (identity.app_name + `org.*`, incl. `org.links.community` + `org.links.product`) via

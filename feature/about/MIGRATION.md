@@ -11,7 +11,7 @@
 | `AboutScreen.kt` | `ui/AboutScreen.kt` | redesigned header + sectioned rows; see §2 |
 | `AboutData.kt` (`aboutItems`) | `ui/AboutViewModel.kt` (`aboutLinks`) | derived from app-profile, not hardcoded |
 | `AboutItem.kt` | `ui/AboutViewModel.kt` (`AboutLink`, `AboutLinkKind`) | |
-| `AboutNavigation.kt` | `navigation/AboutNavigation.kt` | `@FeatureDestination`; drawer → `BackboneRegistry.navigateToAbout` |
+| `AboutNavigation.kt` | `navigation/AboutNavigation.kt` | `@FeatureDestination`; drawer → `ForkBackboneRegistry.navigateToAbout` |
 | `drawable/feature_about_ic_website.xml`, `…_ic_source_code.xml` | same | the original's glyphs, kept |
 | `drawable/feature_about_ic_launcher.png` (182 px) | `drawable/feature_about_logo.png` (512 px) | the original's own 1024 px Mifos X mark (`cmp-ios/…/mifos_logo_1024.png`), so it stays sharp |
 | `drawable/feature_about_icon_twitter.xml` | — | dropped with the Twitter row (§2) |

@@ -16,7 +16,7 @@
 | Module | Owner | Contains |
 |---|---|---|
 | `core-base/store` | **template** — do not edit in a fork | `StoreFactory`, `DecisionEngine`, `MutationGateway`, `ConflictInbox`, `DeleteSync`, `asScreenStream`, `infra/impl` Room defaults |
-| `core/store` | **fork seam** — edit freely | `provide<Name>Store(...)` + `@StoreProvider`/`@CacheKey`, `AppErrorMapper`, `AppScreenStateDefaults`, `StoreModule` DI |
+| `core/store` | **fork seam** — edit freely | `provide<Name>Store(...)` + `@StoreProvider`/`@CacheKey`, `KptErrorMapper`, `KptScreenStateDefaults`, `StoreModule` DI |
 
 A fork never calls `StoreFactory` directly from a feature. It authors a `provide<Name>Store(...)` in
 `core/store`, annotates it `@StoreProvider`, and `core/data` consumes the store. Fork

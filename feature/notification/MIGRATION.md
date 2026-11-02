@@ -10,7 +10,7 @@ title. Built 2026-10-27 on Fineract's own notifications so the top bar's bell sh
   through `MutationGateway`; the list is re-read after it lands; a refusal shows a snackbar.
 - A row opens the record it names: `loan` → loan profile, `client`, `group`, `center`/`centre`,
   `savingsAccount` → their screens. Other kinds render but are not links.
-- `BackboneRegistry.navigateToNotification` routes the bell here. The template placeholder stays
+- `ForkBackboneRegistry.navigateToNotification` routes the bell here. The template placeholder stays
   registered (template-owned) but nothing routes to it.
 
 Gateway (2026-10-27, `fieldofficer`): 136 read notifications ("Repayment made" on loans), 0 unread.

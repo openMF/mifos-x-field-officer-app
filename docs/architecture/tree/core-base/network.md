@@ -183,7 +183,7 @@ Headers this app sends on EVERY request, resolved per access point.
 <details><summary>Example</summary>
 
 ```kotlin
-object ProjectNetworkHeaders : DefaultHeaderProvider {
+object KptNetworkHeaders : DefaultHeaderProvider {
     override fun headersFor(accessPointId: String): Map<String, String> = when (accessPointId) {
         "main" -> mapOf("X-Client-Version" to BuildKonfig.VERSION_NAME)
         else -> emptyMap()
@@ -193,12 +193,12 @@ object ProjectNetworkHeaders : DefaultHeaderProvider {
 
 </details>
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/ProjectNetworkHeaders.kt:44</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/KptNetworkHeaders.kt:44</code></summary>
 
 ```kotlin
  * this map is read once per client rather than once per call.
  */
-object ProjectNetworkHeaders : DefaultHeaderProvider
+object KptNetworkHeaders : DefaultHeaderProvider
 ```
 
 </details>

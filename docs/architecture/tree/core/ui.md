@@ -167,7 +167,7 @@ fun KptBottomBar(
 - `val graphRoute: String` — Route of the tab's graph.
 - `val startDestinationRoute: String` — Route of the tab's start destination.
 - `val testTag: String` — The test tag of the tab.
-- `val inlineTab: Boolean get() = true` — Whether this tab renders INLINE inside the navbar scaffold — its content swaps within the inner NavHost so the bottom bar stays visible and the tab keeps its own back stack (exactly like the backbone Home/Profile tabs) — versus a FULL-SCREEN destination pushed on the outer authenticated graph (the bottom bar is hidden; e.g. an immersive focus-timer that declares `bottom_navigation_visible: false`). Default `true` (inline). A full-screen tab overrides to `false`. An inline extra tab (beyond Home/Profile) MUST also register its start destination via `TabRegistry.extraInlineTabDestinations` so the inner NavHost can host it; otherwise the tab has nothing to render inline.
+- `val inlineTab: Boolean get() = true` — Whether this tab renders INLINE inside the navbar scaffold — its content swaps within the inner NavHost so the bottom bar stays visible and the tab keeps its own back stack (exactly like the backbone Home/Profile tabs) — versus a FULL-SCREEN destination pushed on the outer authenticated graph (the bottom bar is hidden; e.g. an immersive focus-timer that declares `bottom_navigation_visible: false`). Default `true` (inline). A full-screen tab overrides to `false`. An inline extra tab (beyond Home/Profile) MUST also register its start destination via `ForkTabRegistry.extraInlineTabDestinations` so the inner NavHost can host it; otherwise the tab has nothing to render inline.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptPullToRefreshState.kt`
 
@@ -176,7 +176,7 @@ data class KptPullToRefreshState(
 ```
 Data class representing the pull-to-refresh state and behavior.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptScaffold.kt:57</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptForkScaffold.kt:57</code></summary>
 
 ```kotlin
     containerColor: Color = KptTheme.colorScheme.background,
@@ -236,7 +236,7 @@ KptScaffold(
 
 </details>
 
-### `core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptScaffold.kt`
+### `core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptForkScaffold.kt`
 
 ```kotlin
 fun KptScaffold(

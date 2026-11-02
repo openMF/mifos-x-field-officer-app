@@ -938,7 +938,7 @@ CompositionLocal for the active `FinanceColors`. Provided by `KptTheme`. Direct 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:156</code></summary>
 
 ```kotlin
-        // core/store/AppScreenStateDefaults.kt — that's the single fork seam.
+        // core/store/KptScreenStateDefaults.kt — that's the single fork seam.
         CompositionLocalProvider(
             LocalFinanceColors provides financeColors,
             LocalMotion provides Motion(),

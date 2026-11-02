@@ -279,7 +279,7 @@ See `.github/CLAUDE.md` for the full rung-ladder + environment-gate model.
 When forking this template, your app is **offline-first by default** — `core-base/store`
 decides every state transition (loading / no-network / captive-portal / empty / error /
 content + freshness) so screens never have to. Your fork's only job is to brand the
-visuals via `core/store/AppScreenStateDefaults.kt`.
+visuals via `core/store/KptScreenStateDefaults.kt`.
 
 `KptTheme` (`core/designsystem/.../theme/KptTheme.kt`) already wires
 `LocalScreenStateDefaults provides appScreenStateDefaults()`, so every screen wrapped by the theme
@@ -287,8 +287,8 @@ picks up your branded defaults — zero per-screen wiring.
 
 Customize in **`core/store`** (the single discoverable seam):
 
-- **`AppScreenStateDefaults`** — brand visuals, copy, Lottie animations, telemetry hooks
-- **`AppErrorMapper`** — domain-error → user-message mapping (extends `categorize()`)
+- **`KptScreenStateDefaults`** — brand visuals, copy, Lottie animations, telemetry hooks
+- **`KptErrorMapper`** — domain-error → user-message mapping (extends `categorize()`)
 - **`@StoreProvider` on your provider fn** — qualifier, TTL, cache keys, binding and logout purge,
   all generated. There is no registry to edit and no DI module to add it to.
 

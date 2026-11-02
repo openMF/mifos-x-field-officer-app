@@ -33,7 +33,7 @@ import kpt.core.data.testing.FakeAuthCommandRepository
 import kpt.core.data.testing.FakeDashboardRepository
 import kpt.core.data.testing.FakeNetworkMonitor
 import kpt.core.data.testing.FakeServerConfigRepository
-import kpt.core.datastore.prefs.ProjectPreferencesRepositoryImpl
+import kpt.core.datastore.prefs.ForkPreferencesRepositoryImpl
 import kpt.core.datastore.prefs.UserPreferencesRepositoryImpl
 import kpt.core.model.dashboard.DashboardUser
 import kpt.core.model.objects.users.User
@@ -100,7 +100,7 @@ class ProfileViewModelTest {
     private suspend fun preferences() = run {
         val plain = MapSettings()
         val secure = MapSettings()
-        ProjectPreferencesRepositoryImpl(
+        ForkPreferencesRepositoryImpl(
             delegate = UserPreferencesRepositoryImpl(plain, secure, dispatchers),
             plainSettings = plain,
             secureSettings = secure,

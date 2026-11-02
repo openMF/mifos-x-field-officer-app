@@ -9,7 +9,7 @@
  */
 import com.mobilebytelabs.kmpflavors.KmpFlavorExtension
 import com.mobilebytelabs.kmpflavors.KmpFlavorPlugin
-import org.convention.ForkProperties
+import org.convention.KptAppProfileProperties
 import org.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -47,11 +47,11 @@ class KMPFlavorsConventionPlugin : Plugin<Project> {
             //     plugin READS them from the fork-owned `gradle/fork.properties` (never synced), so a
             //     fork changes its API base URLs, demo credentials, and log tag WITHOUT editing this
             //     file — the hardcoded values below are the template defaults when a key is absent.
-            // Read through the ONE Gradle-side reader (org.convention.ForkProperties) instead of a
+            // Read through the ONE Gradle-side reader (org.convention.KptAppProfileProperties) instead of a
             // local Properties().load(). Same keys, same defaults — see that file for why six
             // independent parsers were the defect class.
             fun forkProp(key: String, default: String): String =
-                ForkProperties.get(target, key, default)
+                KptAppProfileProperties.get(target, key, default)
 
             // 2. Configure the KMP-side flavor contract.
             //    buildConfigPackage comes from gradle/libs.versions.toml ([versions].appId)

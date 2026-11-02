@@ -20,7 +20,7 @@ import kpt.core.base.store.infra.StoreCacheManager
 import kpt.core.base.store.mutation.MutationResult
 import kpt.core.data.auth.impl.AuthCommandRepositoryImpl
 import kpt.core.data.infra.testMutationGateway
-import kpt.core.datastore.prefs.ProjectPreferencesRepositoryImpl
+import kpt.core.datastore.prefs.ForkPreferencesRepositoryImpl
 import kpt.core.datastore.prefs.UserPreferencesRepositoryImpl
 import kpt.core.model.auth.ChangePasswordRequest
 import kpt.core.model.auth.PostAuthenticationRequest
@@ -52,7 +52,7 @@ class AuthCommandRepositoryTest {
     private val preferences = run {
         val plain = MapSettings()
         val secure = MapSettings()
-        ProjectPreferencesRepositoryImpl(
+        ForkPreferencesRepositoryImpl(
             delegate = UserPreferencesRepositoryImpl(plain, secure, dispatchers),
             plainSettings = plain,
             secureSettings = secure,

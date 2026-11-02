@@ -30,7 +30,7 @@ original assets with a claim on this screen.
 `di/ProfileModule.kt` · `commonTest/ProfileScreenUiTest.kt`.
 
 Not annotated `@FeatureDestination` or `@FeatureTab` — `ProfileTab` is a backbone tab hand-listed in
-`TabRegistry.tabs`. S2 fills the content; registration already exists.
+`ForkTabRegistry.tabs`. S2 fills the content; registration already exists.
 
 ## 3. Substrate mapping
 

@@ -26,7 +26,7 @@ import org.jetbrains.compose.resources.StringResource
  * Declared here via `@FeatureTab` rather than in `cmp-navigation`'s `AuthenticatedNavBarTabItem`,
  * the same way `ClientTab` is — a feature contributes its own tab without the fork editing a module
  * it does not own. `:cmp-navigation:generateFeatureTabs` collects it into `GeneratedFeatureTabs`,
- * which `TabRegistry.extraTabs` exposes.
+ * which `ForkTabRegistry.extraTabs` exposes.
  *
  * This REPLACES the placeholder `AuthenticatedNavBarTabItem.CentersTab`, which pointed at the
  * pending host. That declaration is removed in the same change — leaving both would put two Centers

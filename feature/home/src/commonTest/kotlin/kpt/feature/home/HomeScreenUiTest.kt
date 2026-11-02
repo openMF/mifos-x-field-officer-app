@@ -31,7 +31,7 @@ import kotlin.test.Test
  * `:feature:home:desktopTest`.
  *
  * It now renders the scaffold around the body the fork actually supplies through
- * `BackboneRegistry.homeBody` — Fineract search — so it exercises the real composition rather than a
+ * `ForkBackboneRegistry.homeBody` — Fineract search — so it exercises the real composition rather than a
  * deleted demo.
  */
 @OptIn(ExperimentalTestApi::class)

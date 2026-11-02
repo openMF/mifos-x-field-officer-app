@@ -30,7 +30,7 @@ import kpt.core.data.auth.PasswordChangedSignInFailed
 import kpt.core.data.dashboard.DashboardRepository
 import kpt.core.data.serverconfig.ServerConfigRepository
 import kpt.core.data.staff.StaffRepository
-import kpt.core.datastore.prefs.ProjectPreferencesRepository
+import kpt.core.datastore.prefs.ForkPreferencesRepository
 import kpt.core.model.dashboard.DashboardUser
 import kpt.core.model.objects.error.serverErrorMessage
 import kpt.core.model.utils.ServerConfig
@@ -47,7 +47,7 @@ import kpt.core.model.utils.matching
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class ProfileViewModel(
-    project: ProjectPreferencesRepository,
+    project: ForkPreferencesRepository,
     serverConfigs: ServerConfigRepository,
     dashboard: DashboardRepository,
     staff: StaffRepository,

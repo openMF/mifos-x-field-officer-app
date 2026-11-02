@@ -16,7 +16,7 @@ object TestTags {
         /** Root scaffold — always rendered regardless of content state. */
         const val SCREEN: String = "profile_screen"
 
-        /** The fork body, supplied through BackboneRegistry.profileBody. */
+        /** The fork body, supplied through ForkBackboneRegistry.profileBody. */
         const val BODY: String = "profile.body"
         const val USERNAME: String = "profile.username"
         const val SERVER: String = "profile_session"

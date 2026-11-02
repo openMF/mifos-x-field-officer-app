@@ -6,15 +6,15 @@
 # anything a FORK needs must live outside both.
 #
 # It did not. Each core layer's DI aggregator was named `Project<X>Module` — which reads as the fork's
-# seam — but sat in `<layer>/demo/di/` and contained only demo bindings. `FeatureRegistry`'s whole
+# seam — but sat in `<layer>/demo/di/` and contained only demo bindings. `ForkFeatureRegistry`'s whole
 # `featureKoinModules` list was fenced too. A cleaned fork therefore got `listOf()` and no per-layer
 # seam anywhere: nowhere to register a repository, a DAO, a store or a network single. The split is
 # `demo/di/Demo<X>Module` (stripped) vs `di/Project<X>Module` (survives, empty on the template).
 #
 #   WLS-1  a layer with a Demo<X>Module has a sibling di/Project<X>Module
 #   WLS-2  no Project*Module lives under **/demo/**            (it would be deleted)
-#   WLS-3  FeatureRegistry lists every Project*Module OUTSIDE the demo fence  (it must survive)
-#   WLS-4  FeatureRegistry lists every Demo*Module INSIDE the demo fence      (it must not)
+#   WLS-3  ForkFeatureRegistry lists every Project*Module OUTSIDE the demo fence  (it must survive)
+#   WLS-4  ForkFeatureRegistry lists every Demo*Module INSIDE the demo fence      (it must not)
 #   WLS-5  every surviving di/Project<X>Module is owner:fork in customization-surface.yaml
 #
 # WLS-1..4 prove the seam survives `--clean`. WLS-5 proves it survives the OTHER thing that
@@ -27,7 +27,7 @@
 set -uo pipefail
 : "${HEALTH_ROOT:?white-label-di-seams: HEALTH_ROOT not set (run via product-health.sh)}"
 CORE="${WLS_CORE_DIR:-$HEALTH_ROOT/core}"
-REG="${WLS_REGISTRY:-$HEALTH_ROOT/cmp-navigation/src/commonMain/kotlin/cmp/navigation/registry/FeatureRegistry.kt}"
+REG="${WLS_REGISTRY:-$HEALTH_ROOT/cmp-navigation/src/commonMain/kotlin/cmp/navigation/registry/ForkFeatureRegistry.kt}"
 SURFACE_SH="${WLS_SURFACE_SH:-$HEALTH_ROOT/scripts/customization-surface.sh}"
 SURFACE_YAML="${WLS_SURFACE_YAML:-$HEALTH_ROOT/customization-surface.yaml}"
 fail=0
@@ -65,9 +65,9 @@ if [ -f "$REG" ]; then
     n="$(basename "$f" .kt)"
     if ! printf '%s' "$outside" | grep -qE "^\s*$n,"; then
       if printf '%s' "$inside" | grep -qE "^\s*$n,"; then
-        echo "❌ WLS-3 $n is listed INSIDE FeatureRegistry's demo fence — --clean would drop the fork's seam"
+        echo "❌ WLS-3 $n is listed INSIDE ForkFeatureRegistry's demo fence — --clean would drop the fork's seam"
       else
-        echo "❌ WLS-3 $n is not registered in FeatureRegistry.featureKoinModules at all"
+        echo "❌ WLS-3 $n is not registered in ForkFeatureRegistry.featureKoinModules at all"
       fi
       fail=1
     fi

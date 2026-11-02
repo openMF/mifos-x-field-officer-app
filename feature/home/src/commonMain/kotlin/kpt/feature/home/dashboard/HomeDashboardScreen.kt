@@ -1331,7 +1331,7 @@ private fun RecentRowOffline(record: RecentRecord, onClick: () -> Unit) {
 /**
  * What went wrong, in two parts — 03's "**Synchronization Timeout:** Network synchronization timed out
  * for this section": a bold kind (with the HTTP status when there is one), then the server's own
- * sentence. Fineract's `defaultUserMessage` comes through `ProjectErrorMapper`; without a Fineract
+ * sentence. Fineract's `defaultUserMessage` comes through `ForkErrorMapper`; without a Fineract
  * body the categorised copy shows — never the raw transport message (that is the whole request URL
  * plus the JSON body).
  */

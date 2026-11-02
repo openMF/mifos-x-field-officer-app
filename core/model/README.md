@@ -71,14 +71,14 @@ overwritten-by-sync are independent.
 #### Why not a named `project/` seam
 
 An earlier revision put fork models in a dedicated `kpt.core.model.project` package, mirroring
-`ProjectErrorMapper` / `ProjectDatabaseModule` elsewhere. It was redundant: those seams exist because
+`ForkErrorMapper` / `ForkDatabaseModule` elsewhere. It was redundant: those seams exist because
 a fork must plug into template-owned WIRING at a specific point. Models have no wiring — a fork's
 type is just a type. Once the template's packages are declared, "fork" is definitionally everything
 else, so a named package added ceremony without adding safety.
 
 #### Do not edit `user/`
 
-The framework reads those types. A fork adds its own preferences through `ProjectPreferencesRepository`
+The framework reads those types. A fork adds its own preferences through `ForkPreferencesRepository`
 in `core/datastore`, which extends the framework repository by delegation and stores fork data
 separately — so `UserData` never needs a fork field.
 

@@ -60,8 +60,8 @@ Nine files carry fences today:
 |---|---|
 | `settings.gradle.kts` | the demo feature `include()`s |
 | `feature-deps.gradle.kts` | their dependency wiring |
-| `core/network/build.gradle.kts` · `.../di/ProjectNetworkModule.kt` | demo endpoint plumbing |
-| `cmp-navigation/.../ShowcaseRegistry.kt` · `BackboneRegistry.kt` | demo destinations |
+| `core/network/build.gradle.kts` · `.../di/ForkNetworkModule.kt` | demo endpoint plumbing |
+| `cmp-navigation/.../ForkShowcaseRegistry.kt` · `ForkBackboneRegistry.kt` | demo destinations |
 | `feature/home/.../di/HomeModule.kt` | the demo dashboard's bindings |
 | `sync/.../DataSyncWorker.kt` | demo sync jobs |
 | `app-profile/migration-ledger.yaml` | demo schema history |

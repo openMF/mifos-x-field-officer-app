@@ -41,13 +41,13 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
-            // ServerConfigViewModelTest builds a real ProjectPreferencesRepository over MapSettings
+            // ServerConfigViewModelTest builds a real ForkPreferencesRepository over MapSettings
             // and needs DispatcherManager — the same fakes feature/signin's SignInViewModelTest uses.
             implementation(projects.coreBase.common)
             implementation(projects.core.datastore)
             // `Settings` itself, not just MapSettings: core/datastore declares
             // multiplatform-settings as `implementation`, so the interface in
-            // ProjectPreferencesRepositoryImpl's signature is not exposed transitively.
+            // ForkPreferencesRepositoryImpl's signature is not exposed transitively.
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.test)
         }
@@ -64,7 +64,7 @@ compose {
 // `gradle/fork.properties#app.display.name` — the build-bridge that syncForkConfig generates from the
 // SoT `app-profile/app.yaml#identity.app_name`. SettingsScreen's footer renders this instead of a
 // hardcoded string resource, so a fork rebrands in app-profile, not 7 locale strings.xml files (S9/T10).
-// Read through the ONE Gradle-side reader (org.convention.ForkProperties) rather than a local
+// Read through the ONE Gradle-side reader (org.convention.KptAppProfileProperties) rather than a local
 // Properties().load() — see that file for why independent parsers are the defect class.
 val settingsAppDisplayName = forkProp("app.display.name", "App")
 

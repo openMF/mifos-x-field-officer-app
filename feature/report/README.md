@@ -10,7 +10,7 @@ asks for, run it, read the result as a table, and export it as CSV.
   (`reportParametersStream`), each SELECT's options (`parameterOptions`, narrowed by its parent's
   value), and the run (`runReport`).
 - **Routes:** `ReportListRoute`, `ReportRunRoute(reportName)`. `@FeatureDestination reportDestinations`;
-  the drawer reaches it through `BackboneRegistry.navigateToReports`.
+  the drawer reaches it through `ForkBackboneRegistry.navigateToReports`.
 - **DI:** `ReportModule`.
 
 The form is generated from the report's own `FullParameterList` metadata (`ReportParameter`: variable,

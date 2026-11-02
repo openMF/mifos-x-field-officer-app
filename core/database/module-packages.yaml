@@ -65,7 +65,7 @@ demo:
 # Kept by a clean fork, full-copied by a sync.
 template:
   - { id: config, status: exists }          # DatabaseConfig (generated) + the fork-owned ForkDatabaseConfig
-  - { id: di,     status: exists }          # DatabaseModule + the ProjectDatabaseModule fork seam
+  - { id: di,     status: exists }          # DatabaseModule + the ForkDatabaseModule fork seam
   - { id: infra,  status: exists }          # Room infra support
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.

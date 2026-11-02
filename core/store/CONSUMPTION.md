@@ -32,8 +32,8 @@
 ## Notes
 
 - `StoreCacheManager` centralises TTL / invalidation; a store's TTL is `@StoreProvider(ttl = "5m")`.
-- `AppErrorMapper` + `AppScreenStateDefaults` map Store5 errors → the `ScreenState` a screen renders.
+- `KptErrorMapper` + `KptScreenStateDefaults` map Store5 errors → the `ScreenState` a screen renders.
 
 Canonical example: feature/crypto (createStore), feature/loans (createOfflineStore), the cloud-todo showcase (createMutableStore).
 
-Symbols: StoreProvider, CacheKey, StoreModule, provideCoinMarketsStore, provideExchangeRatesStore, provideLoansStore, provideCloudTodoStore, provideMacroIndicatorStore, StoreCacheManager, AppErrorMapper, AppScreenStateDefaults
+Symbols: StoreProvider, CacheKey, StoreModule, provideCoinMarketsStore, provideExchangeRatesStore, provideLoansStore, provideCloudTodoStore, provideMacroIndicatorStore, StoreCacheManager, KptErrorMapper, KptScreenStateDefaults

@@ -54,7 +54,7 @@ module: datastore
 # Kept by a clean fork, full-copied by a sync.
 template:
   - { id: config, status: exists }          # the fork-extension seam — see config/README.md
-  - { id: di,    status: exists }           # DatastoreModule + the ProjectDatastoreModule fork seam
+  - { id: di,    status: exists }           # DatastoreModule + the ForkDatastoreModule fork seam
   - { id: prefs, status: exists }           # user + project preference repositories
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.

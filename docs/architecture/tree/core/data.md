@@ -345,10 +345,10 @@ val MyThing = named("outbox.myThing")
 
 </details>
 
-### `core/data/src/commonMain/kotlin/kpt/core/data/di/ProjectRepositoryModule.kt`
+### `core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt`
 
 ```kotlin
-val ProjectRepositoryModule = module
+val ForkRepositoryModule = module
 ```
 THE FORK'S repository DI seam. Empty on the neutral template — this is yours to fill.
 

@@ -192,7 +192,7 @@ secrets) and Path B (vault mode).
 scripts/white-label/doctor.sh
 
 # who owns a path (sync ownership)
-scripts/customization-surface.sh resolve core/store/src/commonMain/kotlin/kpt/core/store/di/StoreModule.kt
+scripts/customization-surface.sh resolve core/store/src/commonMain/kotlin/kpt/core/store/di/KptStoreModule.kt
 
 # health suite (30 checks)
 bash scripts/product-health/product-health.sh

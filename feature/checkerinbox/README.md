@@ -12,7 +12,7 @@ The drawer's **Checker Inbox & Tasks**: what is waiting for this user's approval
   list shown is derived from the stream + search + filter; a decided task leaves it because the command
   clears it through the store.
 - **Route:** `CheckerInboxRoute`. `@FeatureDestination checkerInboxDestinations`; the drawer reaches it
-  through `BackboneRegistry.navigateToCheckerInbox`.
+  through `ForkBackboneRegistry.navigateToCheckerInbox`.
 - **DI:** `CheckerInboxModule`.
 
 Both lists are cached for offline reading; deciding needs a connection (`MutationPolicy.OnlineRequired`)

@@ -10,8 +10,8 @@ This is the consumer customization seam: edit freely in a fork.
 - **Store5 factories keyed by `store_archetype`** — declare a feature's `store_archetype` and codegen
   emits the matching `StoreFactory.create*` factory + `FetchPolicy`. Full archetype → factory →
   FetchPolicy mapping: [STORE_ARCHITECTURE.md §2](../../docs/architecture/cross-cutting/store-architecture.md#2-store-type-catalogue).
-- **`AppScreenStateDefaults`** — brand your loading / empty / error / no-network visuals in one place.
-- **`AppErrorMapper`** — domain-error → user-message mapping (`categorize()`).
+- **`KptScreenStateDefaults`** — brand your loading / empty / error / no-network visuals in one place.
+- **`KptErrorMapper`** — domain-error → user-message mapping (`categorize()`).
 - **`@StoreProvider` / `@CacheKey`** on each `provide*Store` — the ONLY store declaration. Generates
   `AppStoreRegistry` (qualifiers + `Ttl`), `AppCacheKeys`, and the binding. Deps come from the signature.
 - **`AppCacheKeys`** — the single source of truth for every `asScreenStream` cacheKey; constants for

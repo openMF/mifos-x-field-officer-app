@@ -11,7 +11,7 @@ package cmp.shared.utils
 
 import cmp.navigation.di.KoinModules
 import cmp.navigation.privacy.PrivacyConsentApplier
-import cmp.navigation.registry.AppInitializers
+import cmp.navigation.registry.ForkInitializers
 import cmp.shared.generated.WorkerKmpAuto
 import kpt.sync.infra.initSyncNotifier
 import org.koin.core.context.startKoin
@@ -56,9 +56,9 @@ fun initKoin(config: KoinAppDeclaration? = null) {
     initSyncNotifier()
 
     // Fork-owned app-startup hooks (analytics, crash reporting, remote-config, …) from the
-    // white-label AppInitializers seam. commonMain, so EVERY platform (Android / iOS / Desktop /
+    // white-label ForkInitializers seam. commonMain, so EVERY platform (Android / iOS / Desktop /
     // Web) runs them once after Koin init — no per-platform app-class edit (S3/S4 heal, T7,
     // epic pure-white-label-store5-network). A fork registers hooks in cmp-navigation's
-    // AppInitializers; the template entry points stay untouched.
-    AppInitializers.runAll()
+    // ForkInitializers; the template entry points stay untouched.
+    ForkInitializers.runAll()
 }

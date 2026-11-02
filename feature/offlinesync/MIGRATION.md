@@ -22,7 +22,7 @@ not a 1:1 port. Design SoT: `idea-layer/screens/offlineSync/` (approved 2026-10-
 | preferences | `core/datastore/.../offline/OfflineSyncSettingsStore.kt` |
 | data | `core/data/.../offline/` — `OfflineSyncRepository`, `OfflineSyncEngine` (the walk), `work/OfflineSyncWorker` |
 | worker registration | `cmp-shared/.../ForkWorkerDeclarations.kt` |
-| screen | this module; the Settings row lives in `feature/settings` (wired in `BackboneRegistry.settingsBody`) |
+| screen | this module; the Settings row lives in `feature/settings` (wired in `ForkBackboneRegistry.settingsBody`) |
 
 The centre / group lists' long-press **Download** now hands the selection to the same background job
 (`OfflineDownloadRepository`, which downloaded inside the list's ViewModel and died with it, is removed).

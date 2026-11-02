@@ -14,12 +14,12 @@ package kpt.core.base.ui.nav
  * registers directly on the authenticated graph.
  *
  * `:cmp-navigation:generateFeatureDestinations` scans for this and emits
- * `GeneratedFeatureDestinations`, so adding a feature no longer means editing `FeatureRegistry`.
+ * `GeneratedFeatureDestinations`, so adding a feature no longer means editing `ForkFeatureRegistry`.
  *
  * WHY AN ANNOTATION RATHER THAN A NAMING CONVENTION
  * "Top-level" cannot be read off the signature. `amortizationScheduleDestination` has the exact
  * shape of a top-level entry but is nested INSIDE `loansGraph`; `cloudTodoGraph` is a top-level
- * shape too, but belongs to `ShowcaseRegistry`, not the feature graph. A convention keyed on
+ * shape too, but belongs to `ForkShowcaseRegistry`, not the feature graph. A convention keyed on
  * `*Graph` vs `*Destination` gets both wrong. Registration is a decision, so it is declared.
  *
  * The annotated function MUST have the signature `NavGraphBuilder.(NavController) -> Unit` — that is
