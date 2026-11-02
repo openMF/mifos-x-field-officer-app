@@ -153,36 +153,99 @@ import androidx.compose.material.icons.rounded.Translate
 import androidx.compose.material.icons.rounded.Wallet
 import androidx.compose.ui.graphics.vector.ImageVector
 
+/**
+ * The app's icon set, referenced by name: Material icons plus the fork's own vectors in this package.
+ * Screens read icons from here, never from `Icons.*` directly, so a rebrand swaps one entry.
+ */
 object AppIcons {
+    /** `Add` icon (Icons.Rounded.Add). */
     val Add = Icons.Rounded.Add
+
+    /** `Menu` icon (Icons.Default.Menu). */
     val Menu = Icons.Default.Menu
+
+    /** `DateRange` icon (Icons.Outlined.DateRange). */
     val DateRange = Icons.Outlined.DateRange
+
+    /** `Person` icon (Icons.Rounded.PersonOutline). */
     val Person = Icons.Rounded.PersonOutline
+
+    /** `Group` icon (Icons.Outlined.Group). */
     val Group = Icons.Outlined.Group
+
+    /** `EventRepeat` icon (Icons.Outlined.EventRepeat). */
     val EventRepeat = Icons.Outlined.EventRepeat
+
+    /** `Date` icon (Icons.Outlined.DateRange). */
     val Date = Icons.Outlined.DateRange
+
+    /** `ArrowBack1` icon (Icons.Rounded.ArrowBackIosNew). */
     val ArrowBack1 = Icons.Rounded.ArrowBackIosNew
+
+    /** `DoneAll` icon (Icons.Default.DoneAll). */
     val DoneAll = Icons.Default.DoneAll
+
+    /** `KeyboardArrowDown` icon (Icons.Rounded.KeyboardArrowDown). */
     val KeyboardArrowDown = Icons.Rounded.KeyboardArrowDown
+
+    /** `Link` icon (Icons.Default.Link). */
     val Link = Icons.Default.Link
+
+    /** `Server` icon (Icons.Default). */
     val Server = Icons.Default
+
+    /** `AddLink` icon (Icons.Default.AddLink). */
     val AddLink = Icons.Default.AddLink
+
+    /** `Search` icon (Icons.Rounded.Search). */
     val Search = Icons.Rounded.Search
+
+    /** `Filter` icon (Icons.Rounded.FilterList). */
     val Filter = Icons.Rounded.FilterList
+
+    /** `Sync` icon (Icons.Rounded.Sync). */
     val Sync = Icons.Rounded.Sync
+
+    /** `Check` icon (Icons.Rounded.Check). */
     val Check = Icons.Rounded.Check
+
+    /** `Close` icon (Icons.Rounded.Close). */
     val Close = Icons.Rounded.Close
+
+    /** `Cancel` icon (Icons.Rounded.Cancel). */
     val Cancel = Icons.Rounded.Cancel
+
+    /** `Error` icon (Icons.Rounded.Error). */
     val Error = Icons.Rounded.Error
+
+    /** `Delete` icon (Icons.Rounded.Delete). */
     val Delete = Icons.Rounded.Delete
+
+    /** `ArrowUp` icon (Icons.Rounded.KeyboardArrowUp). */
     val ArrowUp = Icons.Rounded.KeyboardArrowUp
+
+    /** `ArrowDown` icon (Icons.Rounded.KeyboardArrowDown). */
     val ArrowDown = Icons.Rounded.KeyboardArrowDown
+
+    /** `MoreVert` icon (Icons.Rounded.MoreVert). */
     val MoreVert = Icons.Rounded.MoreVert
+
+    /** `MoreHoriz` icon (Icons.Rounded.MoreHoriz). */
     val MoreHoriz = Icons.Rounded.MoreHoriz
+
+    /** `ArrowForward` icon (Icons.Filled.ChevronRight). */
     val ArrowForward = Icons.Filled.ChevronRight
+
+    /** `FileTask` icon (Icons.Default.AssignmentTurnedIn). */
     val FileTask = Icons.Default.AssignmentTurnedIn
+
+    /** `AddLocation` icon (Icons.Rounded.AddLocation). */
     val AddLocation = Icons.Rounded.AddLocation
+
+    /** `CloudDownload` icon (Icons.Default.CloudDownload). */
     val CloudDownload = Icons.Default.CloudDownload
+
+    /** `Password` icon (Icons.Rounded.Lock). */
     val Password = Icons.Rounded.Lock
 
     /** Biometric unlock. From material-icons-extended, which this module already carries. */
@@ -190,103 +253,267 @@ object AppIcons {
 
     /** Offline sync — the drawer's last entry, below the divider. */
     val CloudOff = Icons.Rounded.CloudOff
+
+    /** `Theme` icon (Icons.Rounded.Bedtime). */
     val Theme = Icons.Rounded.Bedtime
+
+    /** `Language` icon (Icons.Rounded.Translate). */
     val Language = Icons.Rounded.Translate
+
+    /** `Save` icon (Icons.Rounded.Download). */
     val Save = Icons.Rounded.Download
+
+    /** `WifiOff` icon (Icons.Default.WifiOff). */
     val WifiOff = Icons.Default.WifiOff
+
+    /** `Upload` icon (Icons.Rounded.FileUpload). */
     val Upload = Icons.Rounded.FileUpload
+
+    /** `Gallery` icon (GalleryIcon). */
     val Gallery = GalleryIcon
+
+    /** `ArrowDropDown` icon (Icons.Default.ArrowDropDown). */
     val ArrowDropDown = Icons.Default.ArrowDropDown
+
+    /** `AssignmentTurnedIn` icon (Icons.Default.AssignmentTurnedIn). */
     val AssignmentTurnedIn = Icons.Default.AssignmentTurnedIn
+
+    /** `Dashboard` icon (Icons.Rounded.Dashboard). */
     val Dashboard = Icons.Rounded.Dashboard
+
+    /** `Business` icon (Icons.Rounded.Business). */
     val Business = Icons.Rounded.Business
+
+    /** `Checkbox` icon (Icons.Rounded.CheckBox). */
     val Checkbox = Icons.Rounded.CheckBox
+
+    /** `Assignment` icon (Icons.AutoMirrored.Rounded.Assignment). */
     val Assignment = Icons.AutoMirrored.Rounded.Assignment
+
+    /** `OfflineSync` icon (Icons.Rounded.SignalWifiOff). */
     val OfflineSync = Icons.Rounded.SignalWifiOff
+
+    /** `PersonPinCircle` icon (Icons.Rounded.PersonPinCircle). */
     val PersonPinCircle = Icons.Rounded.PersonPinCircle
+
+    /** `Task` icon (Icons.Rounded.Task). */
     val Task = Icons.Rounded.Task
 
     // Recently added
+    /** `Back` icon (Icons.AutoMirrored.Outlined.ArrowBack). */
     val Back = Icons.AutoMirrored.Outlined.ArrowBack
+
+    /** `Home` icon (Icons.Outlined.Home). */
     val Home = Icons.Outlined.Home
+
+    /** `HomeBoarder` icon (Icons.Rounded.Home). */
     val HomeBoarder = Icons.Rounded.Home
+
+    /** `Payment` icon (Icons.Rounded.SwapHoriz). */
     val Payment = Icons.Rounded.SwapHoriz
+
+    /** `Finance` icon (Icons.Outlined.Wallet). */
     val Finance = Icons.Outlined.Wallet
+
+    /** `Update` icon (Icons.Default.Update). */
     val Update = Icons.Default.Update
+
+    /** `Profile` icon (Icons.Outlined.AccountCircle). */
     val Profile = Icons.Outlined.AccountCircle
+
+    /** `ProfileBoarder` icon (Icons.Rounded.AccountCircle). */
     val ProfileBoarder = Icons.Rounded.AccountCircle
+
+    /** `buildingIcon` icon (Icons.Filled.Apartment). */
     val buildingIcon = Icons.Filled.Apartment
+
+    /** `Lock` icon (Icons.Filled.Lock). */
     val Lock: ImageVector = Icons.Filled.Lock
 
+    /** `Paid` icon (Icons.Default.Paid). */
     val Paid: ImageVector = Icons.Default.Paid
+
+    /** `Logout` icon (Icons.AutoMirrored.Filled.Logout). */
     val Logout: ImageVector = Icons.AutoMirrored.Filled.Logout
+
+    /** `Help` icon (Icons.AutoMirrored.Filled.Help). */
     val Help: ImageVector = Icons.AutoMirrored.Filled.Help
+
+    /** `Settings` icon (Icons.Default.Settings). */
     val Settings: ImageVector = Icons.Default.Settings
+
+    /** `Label` icon (Icons.AutoMirrored.Filled.Label). */
     val Label: ImageVector = Icons.AutoMirrored.Filled.Label
+
+    /** `People` icon (Icons.Filled.People). */
     val People: ImageVector = Icons.Filled.People
+
+    /** `RealEstateAgent` icon (Icons.Filled.RealEstateAgent). */
     val RealEstateAgent: ImageVector = Icons.Filled.RealEstateAgent
+
+    /** `AccountBalanceWallet` icon (Icons.Filled.AccountBalanceWallet). */
     val AccountBalanceWallet: ImageVector = Icons.Filled.AccountBalanceWallet
+
+    /** `CompareArrows` icon (Icons.AutoMirrored.Filled.CompareArrows). */
     val CompareArrows: ImageVector = Icons.AutoMirrored.Filled.CompareArrows
+
+    /** `AccountBalance` icon (Icons.Filled.AccountBalance). */
     val AccountBalance: ImageVector = Icons.Filled.AccountBalance
+
+    /** `Share` icon (Icons.Default.Share). */
     val Share: ImageVector = Icons.Default.Share
+
+    /** `Mail` icon (Icons.Outlined.Mail). */
     val Mail: ImageVector = Icons.Outlined.Mail
+
+    /** `LocationOn` icon (Icons.Filled.LocationOn). */
     val LocationOn: ImageVector = Icons.Filled.LocationOn
+
+    /** `Phone` icon (Icons.Default.Phone). */
     val Phone: ImageVector = Icons.Default.Phone
+
+    /** `VisibilityOff` icon (Icons.Filled.VisibilityOff). */
     val VisibilityOff: ImageVector = Icons.Filled.VisibilityOff
+
+    /** `Visibility` icon (Icons.Filled.Visibility). */
     val Visibility: ImageVector = Icons.Filled.Visibility
+
+    /** `Info` icon (Icons.Default.Info). */
     val Info: ImageVector = Icons.Default.Info
+
+    /** `ArrowDropUp` icon (Icons.Default.ArrowDropUp). */
     val ArrowDropUp: ImageVector = Icons.Default.ArrowDropUp
+
+    /** `OutlinedVisibilityOff` icon (Icons.Outlined.VisibilityOff). */
     val OutlinedVisibilityOff: ImageVector = Icons.Outlined.VisibilityOff
+
+    /** `OutlinedVisibility` icon (Icons.Outlined.Visibility). */
     val OutlinedVisibility: ImageVector = Icons.Outlined.Visibility
+
+    /** `ArrowBack` icon (Icons.Filled.ChevronLeft). */
     val ArrowBack = Icons.Filled.ChevronLeft
+
+    /** `FilterList` icon (Icons.Filled.FilterList). */
     val FilterList = Icons.Filled.FilterList
+
+    /** `FlashOn` icon (Icons.Default.FlashOn). */
     val FlashOn = Icons.Default.FlashOn
+
+    /** `FlashOff` icon (Icons.Default.FlashOff). */
     val FlashOff = Icons.Default.FlashOff
+
+    /** `Error2` icon (Icons.Filled.Error). */
     val Error2 = Icons.Filled.Error
+
+    /** `Notifications` icon (Icons.Outlined.Notifications). */
     val Notifications = Icons.Outlined.Notifications
+
+    /** `Numbers` icon (Icons.Outlined.Numbers). */
     val Numbers = Icons.Outlined.Numbers
+
+    /** `Homework` icon (Icons.Outlined.HomeWork). */
     val Homework = Icons.Outlined.HomeWork
+
+    /** `PersonOutline` icon (Icons.Outlined.PersonOutline). */
     val PersonOutline = Icons.Outlined.PersonOutline
+
+    /** `NavigationDrawer` icon (Icons.Default.Menu). */
     val NavigationDrawer = Icons.Default.Menu
+
+    /** `Stop` icon (Icons.Rounded.Stop). */
     val Stop = Icons.Rounded.Stop
 
+    /** `MyLocation` icon (Icons.Rounded.MyLocation). */
     val MyLocation = Icons.Rounded.MyLocation
+
+    /** `MobileFriendly` icon (Icons.Outlined.MobileFriendly). */
     val MobileFriendly = Icons.Outlined.MobileFriendly
+
+    /** `Groups` icon (Icons.Outlined.Groups). */
     val Groups = Icons.Outlined.Groups
+
+    /** `HomeWork` icon (Icons.Outlined.HomeWork). */
     val HomeWork = Icons.Outlined.HomeWork
+
+    /** `AddFilled` icon (Icons.Filled.Add). */
     val AddFilled = Icons.Filled.Add
 
+    /** `Payments` icon (Icons.Filled.Payments). */
     val Payments = Icons.Filled.Payments
 
+    /** `ChevronLeft` icon (Icons.Filled.ChevronLeft). */
     val ChevronLeft = Icons.Filled.ChevronLeft
+
+    /** `ChevronRight` icon (Icons.Filled.ChevronRight). */
     val ChevronRight = Icons.Filled.ChevronRight
+
+    /** `ChevronUp` icon (Icons.Filled.KeyboardArrowUp). */
     val ChevronUp = Icons.Filled.KeyboardArrowUp
+
+    /** `ChevronDown` icon (Icons.Filled.KeyboardArrowDown). */
     val ChevronDown = Icons.Filled.KeyboardArrowDown
 
+    /** `PiggyBank` icon (Icons.Outlined.Savings). */
     val PiggyBank = Icons.Outlined.Savings
 
+    /** `Wallet` icon (Wallet). */
     val Wallet = kpt.core.designsystem.icon.Wallet
+
+    /** `Calendar` icon (Calender). */
     val Calendar = kpt.core.designsystem.icon.Calender
+
+    /** `Folder` icon (Folder). */
     val Folder = kpt.core.designsystem.icon.Folder
+
+    /** `GrowthChart` icon (GrownChart). */
     val GrowthChart = GrownChart
 
+    /** `PickDocument` icon (ClipDocument). */
     val PickDocument = ClipDocument
+
+    /** `ShielOutlined` icon (ShieldOutlined). */
     val ShielOutlined = ShieldOutlined
+
+    /** `Edit` icon (Edit). */
     val Edit = kpt.core.designsystem.icon.Edit
 
+    /** `DocumentScanner` icon (Icons.Outlined.DocumentScanner). */
     val DocumentScanner = Icons.Outlined.DocumentScanner
+
+    /** `ApproveAccount` icon (Icons.Outlined.CheckCircle). */
     val ApproveAccount = Icons.Outlined.CheckCircle
+
+    /** `FileUpload` icon (Icons.Outlined.FileUpload). */
     val FileUpload = Icons.Outlined.FileUpload
+
+    /** `DeleteDocument` icon (Icons.Outlined.DeleteOutline). */
     val DeleteDocument = Icons.Outlined.DeleteOutline
+
+    /** `MakeRepayment` icon (Icons.Outlined.Payments). */
     val MakeRepayment = Icons.Outlined.Payments
 
+    /** `RightTick` icon (RightTick). */
     val RightTick = kpt.core.designsystem.icon.RightTick
+
+    /** `Draw` icon (Icons.Outlined.Draw). */
     val Draw = Icons.Outlined.Draw
+
+    /** `Refresh` icon (Icons.Outlined.Refresh). */
     val Refresh = Icons.Outlined.Refresh
+
+    /** `Undo` icon (Icons.AutoMirrored.Outlined.Undo). */
     val Undo = Icons.AutoMirrored.Outlined.Undo
+
+    /** `Redo` icon (Icons.AutoMirrored.Outlined.Redo). */
     val Redo = Icons.AutoMirrored.Outlined.Redo
+
+    /** `Copy` icon (Icons.Outlined.ContentCopy). */
     val Copy = Icons.Outlined.ContentCopy
+
+    /** `Currency` icon (Icons.Outlined.CurrencyExchange). */
     val Currency = Icons.Outlined.CurrencyExchange
+
+    /** `Camera` icon (Icons.Outlined.Camera). */
     val Camera = Icons.Outlined.Camera
 
     /** `check circle` role — Material filled `CheckCircle`. */
