@@ -281,8 +281,8 @@ print_items() {
 
 # apply_template_migrations — follow the template's renames BEFORE anything is merged.
 # The ledger (template-migrations.yaml) and its applier come from the commit being synced (a fork's
-# copies may predate a rename). The result is COMMITTED onto the sync branch and FORK_STATE moves to
-# that commit: every merge reads "ours" from FORK_STATE, so it must already carry the new names —
+# copies may predate a rename). FORK_STATE moves to a commit object holding the result (no hooks, branch
+# unmoved): every merge reads "ours" from FORK_STATE, so it must already carry the new names —
 # otherwise a renamed merge-owned file looks fork-deleted and a renamed fork seam keeps the old name
 # the template no longer calls. Keeps the ledger + applier in MIGRATE_DIR for migrated_from() and
 # migrate_base(), which serve every merge of the run.
@@ -299,10 +299,16 @@ apply_template_migrations() {
     done < <(grep '^C ' "$_mig/out")
     awk -F'\t' '/^[RE] /{sub(/^[RE] /,"",$1); print $1; if ($2!="") print $2}' "$_mig/out" | sort -u > "$_mig/paths"
     if [ -s "$_mig/paths" ]; then
-        git add -A --pathspec-from-file="$_mig/paths" >/dev/null 2>&1
-        git commit -q -m "chore(sync): apply template migrations (renames)" --pathspec-from-file="$_mig/paths" \
-            || handle_error "could not commit the template migrations"
-        FORK_STATE="$(git rev-parse HEAD)"
+        # A commit OBJECT for FORK_STATE, made with plumbing: no hooks (a fork's pre-commit runs
+        # Spotless + Detekt — minutes, for a mechanical rename) and the branch does not move; the
+        # renames land in the sync's own commit with everything else.
+        # Only paths that still exist: an old name git-mv already removed would fail the whole `add`,
+        # leaving the rewritten contents out of the tree.
+        while IFS= read -r _p; do [ -e "$_p" ] && printf '%s\n' "$_p"; done < "$_mig/paths" > "$_mig/present"
+        git add -A --pathspec-from-file="$_mig/present" || handle_error "could not stage the template migrations"
+        FORK_STATE="$(git commit-tree "$(git write-tree)" -p "$(git rev-parse "$FORK_STATE^{commit}")" \
+            -m "template migrations (renames) applied to $FORK_STATE")" \
+            || handle_error "could not record the template migrations"
         print_step "Applied template migrations: $(grep -c '^R ' "$_mig/out") rename(s), $(grep -c '^E ' "$_mig/out") file(s) rewritten"
     fi
 }
@@ -332,17 +338,30 @@ migrate_base() {
 # The engine has no ownership knowledge of its own. It used to: an EXCLUSIONS map and nine hard-coded
 # name patterns, which disagreed with the contract — KptErrorMapper.kt, KptScreenStateDefaults.kt and
 # StoreModule.kt were preserved as fork files while the contract said template, so template updates to
-# them never reached a fork. Invoked as a SUBPROCESS so the reader's bash-4 syntax runs under its own
-# `bash` regardless of this script's interpreter.
+# them never reached a fork. The subprocess path below is only the fallback for an engine run without
+# the reader sourced.
 is_excluded() {
     local full_path="${2#./}" _cs_owner
-    if [ -f .template-sync-holds ] && cut -f1 .template-sync-holds | grep -qxF -- "$full_path"; then
-        return 0
+    # Holds are read ONCE per run (fork-owned; the sync never edits them).
+    if [ -z "${_HOLDS_LOADED:-}" ]; then
+        declare -gA _HELD=(); _HOLDS_LOADED=1
+        [ -f .template-sync-holds ] && while IFS=$'\t' read -r _h _; do [ -n "$_h" ] && _HELD["$_h"]=1; done < .template-sync-holds
     fi
-    if [ -f "$SCRIPT_DIR/../customization-surface.sh" ]; then
+    [ -n "${_HELD[$full_path]:-}" ] && return 0
+    # In-process and memoized: the reader is sourced at the top of this script. A subprocess per path
+    # re-parsed the whole contract every call (~0.8 s), and a sync asks ~3,500 paths several times —
+    # most of an hour spent re-reading one file. Re-sourcing the reader (STEP 0 bootstrap lands the
+    # template's contract) resets CS_LOADED, which drops this cache too.
+    if declare -F cs_match_g >/dev/null 2>&1; then
+        [ "${CS_LOADED:-0}" = 1 ] && [ -n "${_OWNER_CACHE_ON:-}" ] || { declare -gA _OWNER_CACHE=(); _OWNER_CACHE_ON=1; }
+        _cs_owner="${_OWNER_CACHE[$full_path]:-}"
+        if [ -z "$_cs_owner" ]; then
+            cs_match_g "$full_path"; _cs_owner="${CS_M_OWNER:-template}"; _OWNER_CACHE["$full_path"]="$_cs_owner"
+        fi
+    elif [ -f "$SCRIPT_DIR/../customization-surface.sh" ]; then
         _cs_owner="$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$full_path" 2>/dev/null | awk 'NR==1{print $2}')"
-        case "$_cs_owner" in fork|demo-showcase) return 0 ;; esac
     fi
+    case "${_cs_owner:-}" in fork|demo-showcase) return 0 ;; esac
     return 1
 }
 
