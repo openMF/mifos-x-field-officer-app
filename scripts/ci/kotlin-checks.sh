@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# kotlin-checks.sh pre-commit|pre-push — the git hooks' Spotless / Detekt / dependency-guard checks,
+# kotlin-checks.sh pre-commit|pre-push|files <paths…> — the git hooks' Spotless / Detekt / dependency-guard checks,
 # scoped to what the commit or push CHANGES. The hooks (pre-commit.sh / pre-push.sh) only call this, so
 # a template sync updates the checks without reinstalling hooks.
 #
@@ -14,7 +14,7 @@
 # A tree that passed is remembered (`.git/kpt-checked-trees`), so a push of commits the pre-commit hook
 # already checked costs nothing. Fixtures under */tests/** are deliberately malformed and are skipped.
 set -uo pipefail
-stage="${1:?usage: kotlin-checks.sh pre-commit|pre-push}"
+stage="${1:?usage: kotlin-checks.sh pre-commit|pre-push|files <paths…>}"
 cd "$(git rev-parse --show-toplevel)" || exit 1
 CACHE="$(git rev-parse --git-path kpt-checked-trees)"
 ZERO=0000000000000000000000000000000000000000
@@ -58,10 +58,21 @@ spotless() {
 
 # detekt <files…> — the whole-repo Detekt pass, narrowed to those .kt files (build-logic Detekt.kt).
 detekt() {
-  local kt; kt="$(printf '%s\n' "$@" | grep '\.kt$' | paste -sd, -)"
+  # build-logic/ is outside Detekt by config (Detekt.kt excludes it); an explicit file list would bypass that.
+  local kt; kt="$(printf '%s\n' "$@" | grep '\.kt$' | grep -v '^build-logic/' | paste -sd, -)"
   [ -n "$kt" ] || return 0
   ./gradlew :cmp-android:detekt -Pkpt.detekt.files="$kt" --daemon -q
 }
+
+# files <paths…>: format then lint exactly these (the sync engine runs it on its 3-way merge results).
+if [ "$stage" = files ]; then
+  shift
+  files=(); while IFS= read -r f; do files+=("$f"); done < <(printf '%s\n' "$@" | kotlin_files)
+  [ "${#files[@]}" -gt 0 ] || exit 0
+  spotless Apply "${files[@]}" || exit 1
+  detekt "${files[@]}"
+  exit $?
+fi
 
 if [ "$stage" = pre-commit ]; then
   tree="$(git write-tree)"

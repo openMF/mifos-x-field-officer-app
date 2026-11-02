@@ -222,19 +222,9 @@ print_error() {
 }
 
 # Simple progress indicator function
-show_progress() {
-    if [ "$DRY_RUN" = false ]; then
-        echo -ne "${BLUE}[                    ]${NC}\r"
-        echo -ne "${BLUE}[=====               ]${NC}\r"
-        sleep 0.1
-        echo -ne "${BLUE}[==========          ]${NC}\r"
-        sleep 0.1
-        echo -ne "${BLUE}[===============     ]${NC}\r"
-        sleep 0.1
-        echo -ne "${BLUE}[====================]${NC}"
-        echo
-    fi
-}
+# show_progress — kept as a no-op hook for its ~60 call sites. It drew a sleep-animated bar (0.3 s a
+# call, ~20 s a sync) that told the operator nothing the step lines do not.
+show_progress() { :; }
 
 # Fancy banner
 print_banner() {
@@ -378,7 +368,9 @@ is_excluded() {
 # tree that the next run would mistake for real content.
 cleanup_temp_dirs() {
     print_step "Cleaning up temporary directories..."
-    find . -type d -name "temp_*" -exec rm -rf {} +
+    # Only the repo root: every temp_<dir> is created there. A full-tree find crawled build/ and .gradle/
+    # (12 s a sync) to find nothing.
+    find . -maxdepth 1 -type d -name "temp_*" -exec rm -rf {} +
     show_progress
 }
 
@@ -685,7 +677,7 @@ merge_contract_root_files() {
             *)             cs_merge "$strat" "$o" "$b" "$t" "$f"; rc=$? ;;
         esac
         case "${rc:-0}" in
-            0) print_step "Merged (${strat}) ${BOLD}$f${NC} — template update + fork edits reconciled" ;;
+            0) print_step "Merged (${strat}) ${BOLD}$f${NC} — template update + fork edits reconciled"; SYNC_MERGED+=("$f") ;;
             3) print_warning "SKIPPED (${strat}) ${BOLD}$f${NC} — kept the fork's copy; template changes NOT applied" ;;
             *) print_warning "Merged (${strat}) ${BOLD}$f${NC} WITH conflicts — resolve before committing the sync"
                SYNC_CONFLICTS+=("$f") ;;
@@ -973,7 +965,7 @@ sync_directory() {
                         # reassuring-success-over-a-silent-skip pattern this engine keeps being bitten
                         # by. The helper already warned WHY; this must not contradict it.
                         case "${_mrc:-0}" in
-                            0) print_step "Merged (${_ms}) ${BOLD}$_mf${NC} — fork edits preserved" ;;
+                            0) print_step "Merged (${_ms}) ${BOLD}$_mf${NC} — fork edits preserved"; SYNC_MERGED+=("$_mf") ;;
                             3) print_warning "SKIPPED (${_ms}) ${BOLD}$_mf${NC} — kept the fork's copy; template changes NOT applied" ;;
                             *) print_warning "CONFLICT in ${BOLD}$_mf${NC} (${_ms}) — resolve markers before committing the sync"
                                SYNC_CONFLICTS+=("$_mf") ;;
@@ -1446,9 +1438,17 @@ SYNC_FAILED=()
 # committing the sync" and then commit them in the same run (2026-10-31 dry run on a real fork: 19
 # files with <<<<<<< in the sync commit). A conflicted sync now stops before stamping or committing.
 SYNC_CONFLICTS=()
+# Every file a 3-way merge produced — the only NEW code a sync writes (template-owned files were checked
+# in the template, fork-owned ones are untouched), so the only code the sync itself has to lint.
+SYNC_MERGED=()
+# Per-section timing — each sync reports where its time went (SECONDS is bash's elapsed-time counter).
+_t0=$SECONDS
 for dir in "${SYNC_DIRS[@]}"; do
+    _ts=$SECONDS
     sync_directory "$dir" "$TEMP_BRANCH" || SYNC_FAILED+=("$dir")
+    echo -e "  ${BLUE}⏱ $dir: $((SECONDS - _ts))s${NC}"
 done
+echo -e "  ${BLUE}⏱ directories total: $((SECONDS - _t0))s${NC}"
 
 # Sync files
 echo -e "\n${BLUE}${BOLD}Syncing files...${NC}"
@@ -1639,7 +1639,21 @@ if [ "$DRY_RUN" = false ]; then
         if [ -f "gradle/libs.versions.toml" ]; then
             git add "gradle/libs.versions.toml"
         fi
-        git commit -m "sync: Update directories and files from upstream
+        # Lint only what the sync WROTE — its 3-way merge results. Template-owned files were checked in
+        # the template and fork-owned files are untouched, so running the commit hook over the whole
+        # staged sync re-checked hundreds of template files (206 s of a 275 s sync, measured
+        # 2026-11-02) for nothing. Spotless formats the merged files; Detekt findings are reported for
+        # the operator to fix on the branch (they come from the fork's side of the merge).
+        _merged_kt=(); for _f in "${SYNC_MERGED[@]+"${SYNC_MERGED[@]}"}"; do
+            case "$_f" in *.kt|*.kts) [ -f "$_f" ] && _merged_kt+=("$_f") ;; esac
+        done
+        if [ "${#_merged_kt[@]}" -gt 0 ] && [ -f scripts/ci/kotlin-checks.sh ]; then
+            print_step "Spotless + Detekt on the ${#_merged_kt[@]} merged Kotlin file(s)"
+            bash scripts/ci/kotlin-checks.sh files "${_merged_kt[@]}" \
+                || print_warning "Detekt findings in merged files (report above) — fix them on $SYNC_BRANCH"
+            git add -- "${_merged_kt[@]}"
+        fi
+        git commit --no-verify -m "sync: Update directories and files from upstream
 
 This PR syncs the following items with upstream:
 - Directories: ${SYNC_DIRS[*]}
