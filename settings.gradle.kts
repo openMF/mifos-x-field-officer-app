@@ -130,6 +130,8 @@ include(":core:ui")
 include(":feature:home")
 include(":feature:profile")
 include(":feature:settings")
+// demo:begin — customizer --clean removes these demo feature modules (dirs + these includes)
+// demo:end
 
 include(":core-base:firebase")
 include(":core-base:common")

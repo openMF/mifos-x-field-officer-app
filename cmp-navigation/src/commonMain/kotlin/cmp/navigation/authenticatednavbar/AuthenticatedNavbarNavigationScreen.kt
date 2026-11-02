@@ -28,8 +28,8 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
-import cmp.navigation.registry.ForkBackboneRegistry
 import cmp.navigation.registry.DashboardTopBar
+import cmp.navigation.registry.ForkBackboneRegistry
 import cmp.navigation.registry.ForkTabRegistry
 import cmp.navigation.registry.navigateToCreate
 import cmp.navigation.registry.navigateToSearch
