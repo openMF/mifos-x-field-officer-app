@@ -56,7 +56,7 @@ module: firebase
 # top-level package, a SIBLING of `config/` rather than anything inside it, so the strip is a single
 # plain row and the template surface below stays free of demo code.
 demo:
-  - { id: loans, status: exists }           # the worked example: Loans{Analytics,Crash}* for feature/loans
+  - { id: loans, status: removed }           # the worked example: Loans{Analytics,Crash}* for feature/loans
 
 # Kept by a clean fork, full-copied by a sync.
 # `config/` is the template-owned surface a fork EXTENDS rather than edits — the same meaning the

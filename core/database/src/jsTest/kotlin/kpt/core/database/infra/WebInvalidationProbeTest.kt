@@ -16,10 +16,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
 import kpt.core.base.database.infra.entity.DraftEntity
 import kpt.core.database.AppDatabase
-import kpt.core.database.banking.entity.BillReminderEntity
 import kpt.core.database.di.testPlatformModule
-import kpt.core.model.banking.BillCategory
-import kpt.core.model.banking.Recurrence
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.mp.KoinPlatform

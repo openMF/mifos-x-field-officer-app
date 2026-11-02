@@ -35,17 +35,17 @@ object AppAccessPoints {
     /** This project's declared access points, in app-profile order. */
     val points: List<AccessPoint> = listOf(
         AccessPoint(
-            id = "main",
+            id = "mifos",
             kind = AccessPointKind.REST,
-            baseUrl = "https://api.example.com/",
-            loggableHost = "api.example.com",
+            baseUrl = "https://apis.mifos.community/",
+            basePath = "1.0/field/v1/",
+            loggableHost = "apis.mifos.community",
+            auth = AuthScheme.BASIC,
             isMain = true,
-        ),
-        AccessPoint(
-            id = "staging",
-            kind = AccessPointKind.REST,
-            baseUrl = "https://staging.example.com/",
-            loggableHost = "staging.example.com",
+            headers = listOf(
+                HeaderSpec(name = "Fineract-Platform-TenantId", value = "mifos-bank-1"),
+                HeaderSpec(name = "Authorization", runtimeKey = "mifos.auth"),
+            ),
         ),
         AccessPoint(
             id = "lwmswhoxvvoagzkqxiyd",
@@ -56,56 +56,12 @@ object AppAccessPoints {
                 publishableKey = kpt.core.network.BuildKonfig.SUPABASE_PUBLISHABLE_KEY,
             ),
         ),
-        AccessPoint(
-            id = "jsonplaceholder",
-            kind = AccessPointKind.REST,
-            baseUrl = "https://jsonplaceholder.typicode.com/",
-            loggableHost = "jsonplaceholder.typicode.com",
-        ),
-        AccessPoint(
-            id = "frankfurter",
-            kind = AccessPointKind.REST,
-            baseUrl = "https://api.frankfurter.dev/",
-            loggableHost = "api.frankfurter.dev",
-        ),
-        AccessPoint(
-            id = "coingecko",
-            kind = AccessPointKind.REST,
-            baseUrl = "https://api.coingecko.com/",
-            loggableHost = "api.coingecko.com",
-        ),
-        AccessPoint(
-            id = "fred",
-            kind = AccessPointKind.REST,
-            baseUrl = "https://api.stlouisfed.org/",
-            loggableHost = "api.stlouisfed.org",
-            proxiedHost = "api.stlouisfed.org",
-        ),
-        AccessPoint(
-            id = "fineract",
-            kind = AccessPointKind.REST,
-            baseUrl = "https://sandbox.mifos.community/",
-            basePath = "fineract-provider/api/v1/",
-            loggableHost = "sandbox.mifos.community",
-            auth = AuthScheme.BASIC,
-            headers = listOf(
-                HeaderSpec(name = "Fineract-Platform-TenantId", value = "default"),
-                HeaderSpec(name = "Authorization", runtimeKey = "fineract.auth"),
-            ),
-        ),
-        AccessPoint(
-            id = "worldbank",
-            kind = AccessPointKind.REST,
-            baseUrl = "https://api.worldbank.org/",
-            loggableHost = "api.worldbank.org",
-        ),
     )
 
     /** Network privacy policy — app-profile `network.logging` / `network.web_cors_proxy`. */
     val policy: NetworkPolicy = NetworkPolicy(
         releaseLogging = HttpLogDetail.NONE,
         debugLogging = HttpLogDetail.BODY,
-        webCorsProxy = "https://corsproxy.io",
     )
     // syncForkConfig:access-points:end
 }

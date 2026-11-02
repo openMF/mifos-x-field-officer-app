@@ -53,8 +53,8 @@ module: domain
 
 # Deleted by `remove-demo.sh`; the row survives with `status: removed` as the record.
 demo:
-  - { id: calc, status: exists }            # EMI + affordability calculators
-  - { id: emi,  status: exists }            # CalculateEmiUseCase
+  - { id: calc, status: removed }            # EMI + affordability calculators
+  - { id: emi,  status: removed }            # CalculateEmiUseCase
 
 # Kept by a clean fork, full-copied by a sync.
 template:

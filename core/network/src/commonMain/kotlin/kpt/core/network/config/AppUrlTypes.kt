@@ -32,44 +32,16 @@ object AppUrlTypes {
     // One constant per declared access point (UrlType(id.uppercase()), matching
     // AccessPoint.type's default). Edit the access points THERE; do not hand-edit this block.
 
-    /** `main` — REST access point. */
-    val MAIN: UrlType = UrlType.MAIN
-
-    /** `staging` — REST access point. */
-    val STAGING: UrlType = UrlType("STAGING")
+    /** `mifos` — REST access point. */
+    val MIFOS: UrlType = UrlType("MIFOS")
 
     /** `lwmswhoxvvoagzkqxiyd` — Supabase access point. */
     val LWMSWHOXVVOAGZKQXIYD: UrlType = UrlType("LWMSWHOXVVOAGZKQXIYD")
 
-    /** `jsonplaceholder` — REST access point. */
-    val JSONPLACEHOLDER: UrlType = UrlType("JSONPLACEHOLDER")
-
-    /** `frankfurter` — REST access point. */
-    val FRANKFURTER: UrlType = UrlType("FRANKFURTER")
-
-    /** `coingecko` — REST access point. */
-    val COINGECKO: UrlType = UrlType("COINGECKO")
-
-    /** `fred` — REST access point. */
-    val FRED: UrlType = UrlType("FRED")
-
-    /** `fineract` — REST access point. */
-    val FINERACT: UrlType = UrlType("FINERACT")
-
-    /** `worldbank` — REST access point. */
-    val WORLDBANK: UrlType = UrlType("WORLDBANK")
-
     /** Every declared endpoint type, in app-profile order. */
     val all: List<UrlType> = listOf(
-        MAIN,
-        STAGING,
+        MIFOS,
         LWMSWHOXVVOAGZKQXIYD,
-        JSONPLACEHOLDER,
-        FRANKFURTER,
-        COINGECKO,
-        FRED,
-        FINERACT,
-        WORLDBANK,
     )
     // syncForkConfig:url-types:end
 }

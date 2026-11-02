@@ -53,16 +53,16 @@ module: data
 
 # Deleted by `remove-demo.sh`; the row survives with `status: removed` as the record.
 demo:
-  - { id: alerts,    status: exists }       # price-alert repository + outbox + syncer
-  - { id: banking,   status: exists }       # loan + bill-reminder repositories, outboxes, syncers
-  - { id: calc,      status: exists }       # amortization calculator repository
-  - { id: cloudtodo, status: exists }       # MUTABLE repository, bookkeeper, orchestrator
-  - { id: crypto,    status: exists }       # coin market / detail repository
-  - { id: currency,  status: exists }       # exchange-rate repository
-  - { id: economic,  status: exists }       # FRED + World Bank repositories
-  - { id: emi,       status: exists }       # EMI calculator repository
-  - { id: profile,   status: exists }       # profile repository
-  - { id: watchlist, status: exists }       # watchlist repository
+  - { id: alerts,    status: removed }       # price-alert repository + outbox + syncer
+  - { id: banking,   status: removed }       # loan + bill-reminder repositories, outboxes, syncers
+  - { id: calc,      status: removed }       # amortization calculator repository
+  - { id: cloudtodo, status: removed }       # MUTABLE repository, bookkeeper, orchestrator
+  - { id: crypto,    status: removed }       # coin market / detail repository
+  - { id: currency,  status: removed }       # exchange-rate repository
+  - { id: economic,  status: removed }       # FRED + World Bank repositories
+  - { id: emi,       status: removed }       # EMI calculator repository
+  - { id: profile,   status: removed }       # profile repository
+  - { id: watchlist, status: removed }       # watchlist repository
 
 # Kept by a clean fork, full-copied by a sync.
 template:

@@ -53,14 +53,14 @@ module: database
 
 # Deleted by `remove-demo.sh`; the row survives with `status: removed` as the record.
 demo:
-  - { id: alerts,     status: exists }      # alerts table
-  - { id: banking,    status: exists }      # loans + bill reminders
-  - { id: cloudtodo,  status: exists }      # cloud-todo table
-  - { id: crypto,     status: exists }      # coin market / detail
-  - { id: currency,   status: exists }      # exchange rates + rate history
-  - { id: economic,   status: exists }      # interest-rate series
-  - { id: migrations, status: exists }      # the template's own schema-history specs
-  - { id: watchlist,  status: exists }      # watchlist table
+  - { id: alerts,     status: removed }      # alerts table
+  - { id: banking,    status: removed }      # loans + bill reminders
+  - { id: cloudtodo,  status: removed }      # cloud-todo table
+  - { id: crypto,     status: removed }      # coin market / detail
+  - { id: currency,   status: removed }      # exchange rates + rate history
+  - { id: economic,   status: removed }      # interest-rate series
+  - { id: migrations, status: removed }      # the template's own schema-history specs
+  - { id: watchlist,  status: removed }      # watchlist table
 
 # Kept by a clean fork, full-copied by a sync.
 template:

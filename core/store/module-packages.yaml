@@ -53,17 +53,17 @@ module: store
 
 # Deleted by `remove-demo.sh`; the row survives with `status: removed` as the record.
 demo:
-  - { id: alerts,    status: exists }       # OFFLINE_LOCAL_ONLY showcase
-  - { id: banking,   status: exists }       # OFFLINE_LOCAL_ONLY (loans + bill reminders)
-  - { id: calc,      status: exists }       # MEMORY_ONLY (amortization)
-  - { id: cloudtodo, status: exists }       # MUTABLE (write store + conflict resolver)
-  - { id: crypto,    status: exists }       # NETWORK_WITH_CACHE
-  - { id: currency,  status: exists }       # NETWORK_WITH_CACHE
-  - { id: economic,  status: exists }       # NETWORK_WITH_CACHE (FRED + World Bank)
-  - { id: emi,       status: exists }       # MEMORY_ONLY
-  - { id: exchange,  status: exists }       # NETWORK_ONLY
-  - { id: profile,   status: exists }       # MEMORY_ONLY
-  - { id: watchlist, status: exists }       # OFFLINE_LOCAL_ONLY
+  - { id: alerts,    status: removed }       # OFFLINE_LOCAL_ONLY showcase
+  - { id: banking,   status: removed }       # OFFLINE_LOCAL_ONLY (loans + bill reminders)
+  - { id: calc,      status: removed }       # MEMORY_ONLY (amortization)
+  - { id: cloudtodo, status: removed }       # MUTABLE (write store + conflict resolver)
+  - { id: crypto,    status: removed }       # NETWORK_WITH_CACHE
+  - { id: currency,  status: removed }       # NETWORK_WITH_CACHE
+  - { id: economic,  status: removed }       # NETWORK_WITH_CACHE (FRED + World Bank)
+  - { id: emi,       status: removed }       # MEMORY_ONLY
+  - { id: exchange,  status: removed }       # NETWORK_ONLY
+  - { id: profile,   status: removed }       # MEMORY_ONLY
+  - { id: watchlist, status: removed }       # OFFLINE_LOCAL_ONLY
 
 # Kept by a clean fork, full-copied by a sync.
 template:

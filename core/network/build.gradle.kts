@@ -29,21 +29,6 @@ buildkonfig {
     // `kpt.core.network.BuildKonfig` is imported without ceremony.
     packageName = "kpt.core.network"
     defaultConfigs {
-        // demo:begin — FRED is a DEMO access point; `scripts/remove-demo.sh` deletes FredApi/FredApiConfig
-        // and DemoNetworkModule, so this field must go with them. Unfenced, a cleaned fork kept a
-        // BuildKonfig field for an API it no longer has.
-        // FRED_API_KEY is a VAULT-managed client secret, NOT a hardcoded key. It is declared as the
-        // `mifos-x-fred-api-key` alias (category env_var_client) in secrets-manifest.yaml, and the "fred"
-        // access point in app-profile/app.yaml references it. `/secrets pull` materializes it to
-        // local.properties (the sanctioned KMP env_var_client target, RULE-SECRETS-LAYOUT-001); CI reads
-        // the FRED_API_KEY env var (from `/secrets sync-to-ci`). A compiled-in client key must be read at
-        // build time — this IS that sanctioned read, so no secret value ever lives in a tracked file.
-        buildConfigField(
-            STRING,
-            "FRED_API_KEY",
-            System.getenv("FRED_API_KEY") ?: localProps.getProperty("FRED_API_KEY", ""),
-        )
-        // demo:end
         // syncForkConfig:buildkonfig:begin — GENERATED from `app-profile/app.yaml`: one field per
         // access point declaring `publishable_key_env:`/`api_key_env:`, plus every `network.build_config_fields`
         // entry. DO NOT HAND-EDIT — declare the key in app-profile and re-run `./gradlew syncForkConfig`.
