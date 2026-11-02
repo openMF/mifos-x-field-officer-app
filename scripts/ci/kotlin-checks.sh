@@ -1,22 +1,24 @@
 #!/usr/bin/env bash
-# kotlin-checks.sh pre-commit|pre-push|files <paths…> — the git hooks' Spotless / Detekt / dependency-guard checks,
-# scoped to what the commit or push CHANGES. The hooks (pre-commit.sh / pre-push.sh) only call this, so
-# a template sync updates the checks without reinstalling hooks.
+# kotlin-checks.sh pre-commit|pre-push|files <paths…> — the git hooks' checks, scoped to what the commit
+# or push CHANGES. The hooks (pre-commit.sh / pre-push.sh) only call this, so a template sync updates
+# the checks without reinstalling hooks. The style rules themselves live in kotlin-conform.sh.
 #
-# Why scoped: the old hooks ran `./gradlew spotlessCheck detekt dependencyGuard` over the whole repo on
-# every commit AND again on every push — 25+ min on a fork with ~40 feature modules, and a fork's
-# pre-existing Detekt findings blocked every push no matter what it touched. Now:
-#   pre-commit  Spotless APPLIES to the staged .kt/.kts files and re-stages them; Detekt checks the
-#               staged .kt files.
-#   pre-push    Spotless checks and Detekt checks the .kt/.kts files the pushed commits change;
-#               dependencyGuard runs only when a build file changed (warn-only: a local `.local=true`
-#               lib-integrate makes it differ from the committed baselines; CI enforces it).
+# Why scoped and Gradle-free: the old hooks ran `./gradlew spotlessCheck detekt dependencyGuard` over
+# the whole repo on every commit AND again on every push — 25+ min on a fork with ~40 feature modules,
+# and a fork's pre-existing Detekt findings blocked every push no matter what it touched.
+#   pre-commit  formats the staged .kt/.kts files (licence header + ktlint), re-stages them, and fails on
+#               anything left — ktlint findings it cannot fix, Detekt findings
+#   pre-push    checks (does not change) the .kt/.kts files the pushed commits change; dependencyGuard
+#               runs only when a build file changed (warn-only: a local `.local=true` lib-integrate makes
+#               it differ from the committed baselines; CI enforces it)
+#   files       formats + checks exactly the given paths (the sync engine's 3-way merge results)
 # A tree that passed is remembered (`.git/kpt-checked-trees`), so a push of commits the pre-commit hook
-# already checked costs nothing. Fixtures under */tests/** are deliberately malformed and are skipped.
+# already checked costs nothing.
 set -uo pipefail
-stage="${1:?usage: kotlin-checks.sh pre-commit|pre-push|files <paths…>}"
+stage="${1:?usage: kotlin-checks.sh pre-commit|pre-push|files <paths…>}"; shift
 cd "$(git rev-parse --show-toplevel)" || exit 1
 CACHE="$(git rev-parse --git-path kpt-checked-trees)"
+CONFORM="scripts/ci/kotlin-conform.sh"
 ZERO=0000000000000000000000000000000000000000
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -35,42 +37,10 @@ kotlin_files() {
   grep -E '\.kts?$' | grep -vE '(^|/)(build|tests)/' | while IFS= read -r f; do [ -f "$f" ] && echo "$f"; done
 }
 
-# module_of <file> — the Gradle path of the project owning <file>: the nearest directory with a
-# build.gradle.kts. build-logic/ (an included build) and root scripts belong to the root project,
-# whose Spotless formats them.
-module_of() {
-  local d; d="$(dirname "$1")"
-  case "$1" in build-logic/*) echo ":"; return ;; esac
-  while [ "$d" != . ] && [ ! -f "$d/build.gradle.kts" ]; do d="$(dirname "$d")"; done
-  if [ "$d" = . ]; then echo ":"; else echo ":${d//\//:}"; fi
-}
-
-# spotless <Apply|Check> <files…> — only those files, and only their modules' Spotless tasks. The bare
-# `spotlessCheck` runs every module's task even when `-PspotlessFiles` matches one file: 8 min for one
-# file on the template, against ~15 s scoped.
-spotless() {
-  local task="$1" re f; shift
-  re="$(printf '%s\n' "$@" | sed "s|^|$PWD/|; s|[.]|\\\\.|g" | paste -sd, -)"
-  local tasks=(); while IFS= read -r m; do tasks+=("${m%:}:spotless$task"); done \
-    < <(for f in "$@"; do module_of "$f"; done | sort -u)
-  ./gradlew "${tasks[@]}" -PspotlessFiles="$re" --daemon -q
-}
-
-# detekt <files…> — the whole-repo Detekt pass, narrowed to those .kt files (build-logic Detekt.kt).
-detekt() {
-  # build-logic/ is outside Detekt by config (Detekt.kt excludes it); an explicit file list would bypass that.
-  local kt; kt="$(printf '%s\n' "$@" | grep '\.kt$' | grep -v '^build-logic/' | paste -sd, -)"
-  [ -n "$kt" ] || return 0
-  ./gradlew :cmp-android:detekt -Pkpt.detekt.files="$kt" --daemon -q
-}
-
-# files <paths…>: format then lint exactly these (the sync engine runs it on its 3-way merge results).
 if [ "$stage" = files ]; then
-  shift
   files=(); while IFS= read -r f; do files+=("$f"); done < <(printf '%s\n' "$@" | kotlin_files)
   [ "${#files[@]}" -gt 0 ] || exit 0
-  spotless Apply "${files[@]}" || exit 1
-  detekt "${files[@]}"
+  bash "$CONFORM" "${files[@]}"
   exit $?
 fi
 
@@ -80,9 +50,9 @@ if [ "$stage" = pre-commit ]; then
   files=(); while IFS= read -r f; do files+=("$f"); done < <(git diff --cached --name-only --diff-filter=ACMR | kotlin_files)
   if [ "${#files[@]}" -gt 0 ]; then
     echo "▶ Spotless + Detekt on ${#files[@]} staged Kotlin file(s)"
-    spotless Apply "${files[@]}" || { echo "💥 Spotless could not format the staged files." >&2; exit 1; }
+    bash "$CONFORM" "${files[@]}"; rc=$?
     git add -- "${files[@]}"
-    detekt "${files[@]}" || { echo "💥 Detekt found issues in the staged files (report: cmp-android/build/reports/detekt)." >&2; exit 1; }
+    [ "$rc" = 0 ] || { echo "💥 Fix the findings above, then commit again." >&2; exit 1; }
   fi
   remember "$(git write-tree)"
   exit 0
@@ -100,8 +70,7 @@ while read -r _lref lsha _rref rsha; do
   files=(); while IFS= read -r f; do files+=("$f"); done < <(printf '%s\n' "$changed" | kotlin_files)
   if [ "${#files[@]}" -gt 0 ]; then
     echo "▶ Spotless + Detekt on ${#files[@]} pushed Kotlin file(s)"
-    spotless Check "${files[@]}" || { echo "💥 Spotless: run ./gradlew spotlessApply and amend." >&2; rc=1; continue; }
-    detekt "${files[@]}" || { echo "💥 Detekt found issues in the pushed files (report: cmp-android/build/reports/detekt)." >&2; rc=1; continue; }
+    bash "$CONFORM" --check "${files[@]}" || { echo "💥 Fix the findings above (scripts/ci/kotlin-conform.sh <files> formats), then push again." >&2; rc=1; continue; }
   fi
   if printf '%s\n' "$changed" | grep -qE '\.kts$|^gradle/libs\.versions\.toml$|/dependencies/'; then
     ./gradlew dependencyGuard --daemon -q \

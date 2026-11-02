@@ -1650,7 +1650,7 @@ if [ "$DRY_RUN" = false ]; then
         if [ "${#_merged_kt[@]}" -gt 0 ] && [ -f scripts/ci/kotlin-checks.sh ]; then
             print_step "Spotless + Detekt on the ${#_merged_kt[@]} merged Kotlin file(s)"
             bash scripts/ci/kotlin-checks.sh files "${_merged_kt[@]}" \
-                || print_warning "Detekt findings in merged files (report above) — fix them on $SYNC_BRANCH"
+                || print_warning "Spotless/Detekt flagged merged files (output above) — fix them on $SYNC_BRANCH"
             git add -- "${_merged_kt[@]}"
         fi
         git commit --no-verify -m "sync: Update directories and files from upstream
