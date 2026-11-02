@@ -2,9 +2,9 @@
 <!--
     Copyright 2026 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
@@ -29,6 +29,6 @@
     <string name="error_category_ratelimit">요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="error_category_server">서버에 일시적인 문제가 있습니다. 잠시 후 다시 시도해 주세요.</string>
     <string name="error_category_generic">문제가 발생했습니다</string>
-    <string name="shell_status_online">온라인</string>
     <string name="shell_status_offline">오프라인</string>
+    <string name="shell_status_online">온라인</string>
 </resources>

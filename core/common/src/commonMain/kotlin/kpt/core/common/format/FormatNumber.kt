@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.common.format
 
@@ -17,6 +17,12 @@ import kotlin.math.roundToLong
 // Kotlin/JS and Kotlin/Native; these helpers cover the use cases we hit
 // in the UI: fixed decimal places + thousand separators.
 
+/**
+ * Formats to exactly [places] decimals, zero-padded so a column of figures stays aligned.
+ *
+ * Hand-rolled because `String.format` is JVM-only — it fails to link on Kotlin/JS and Native, so a
+ * shared UI cannot use it. Rounds half-up via [roundToLong] rather than truncating.
+ */
 fun Double.formatDecimal(places: Int): String {
     val factor = 10.0.pow(places)
     val rounded = (this * factor).roundToLong() / factor
@@ -30,6 +36,12 @@ fun Double.formatDecimal(places: Int): String {
     return if (places == 0) "$sign$intPart" else "$sign$intPart.$padded"
 }
 
+/**
+ * Formats with `,` thousands separators and exactly [places] decimals — the money/quantity form.
+ *
+ * The separator is fixed, not locale-derived: KMP has no common locale-aware number formatter, and a
+ * per-platform one would render the same figure differently on Android and web.
+ */
 fun Double.formatGrouped(places: Int): String {
     val raw = formatDecimal(places)
     val negative = raw.startsWith('-')
@@ -41,6 +53,9 @@ fun Double.formatGrouped(places: Int): String {
     return (if (negative) "-" else "") + grouped + fracPart
 }
 
+/**
+ * Formats a whole number with `,` thousands separators — counts and sizes, no fractional part.
+ */
 fun Long.formatGrouped(): String {
     val negative = this < 0
     val s = abs(this).toString()

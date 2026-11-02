@@ -1,28 +1,11 @@
-/**
- * Kotlin Multiplatform project hierarchy template configuration.
+/*
+ * Copyright 2026 Mifos Initiative
  *
- * This file defines a structured hierarchy for organizing source sets in Kotlin Multiplatform
- * projects. It establishes a logical grouping of platform targets that enables efficient code
- * sharing across platforms with similar characteristics.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * The hierarchy template creates the following logical groupings:
- * - `common`: Base shared code for all platforms
- * - `nonAndroid`: Code shared between JVM, JS, and native platforms, excluding Android
- * - `jsCommon`: Code shared between JavaScript and WebAssembly JavaScript targets
- * - `nonJsCommon`: Code shared between JVM and native platforms, excluding JS platforms
- * - `jvmCommon`: Code shared between Android and JVM targets
- * - `nonJvmCommon`: Code shared between JS and native platforms, excluding JVM platforms
- * - `native`: Code shared across all native platforms
- *   - `apple`: Code shared across Apple platforms (iOS, macOS)
- *     - `ios`: iOS-specific code
- *     - `macos`: macOS-specific code
- * - `nonNative`: Code shared between JS and JVM platforms
- *
- * This template applies to both main and test source sets, establishing a consistent
- * structure throughout the project.
- *
- * Note: This implementation uses experimental Kotlin Gradle plugin APIs and may be subject
- * to change in future Kotlin releases.
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
 

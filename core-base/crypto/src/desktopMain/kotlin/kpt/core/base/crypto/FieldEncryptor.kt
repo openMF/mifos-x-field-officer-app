@@ -20,6 +20,7 @@ private const val AES_GCM = "AES/GCM/NoPadding"
 private const val GCM_TAG_LENGTH = 128
 private const val GCM_IV_LENGTH = 12
 
+/** Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as provider. */
 actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
 
     init {
@@ -28,16 +29,25 @@ actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
         }
     }
 
+    /**
+     * `encrypt` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as provider.
+     */
     actual fun encrypt(plaintext: String): String {
         val encrypted = encrypt(plaintext.encodeToByteArray())
         return Base64.getEncoder().encodeToString(encrypted)
     }
 
+    /**
+     * `decrypt` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as provider.
+     */
     actual fun decrypt(ciphertext: String): String {
         val decoded = Base64.getDecoder().decode(ciphertext)
         return decrypt(decoded).decodeToString()
     }
 
+    /**
+     * `encrypt` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as provider.
+     */
     actual fun encrypt(data: ByteArray): ByteArray {
         val key = keyProvider.getKey() ?: keyProvider.generateKey()
         val cipher = Cipher.getInstance(AES_GCM, BouncyCastleProvider.PROVIDER_NAME)
@@ -47,6 +57,9 @@ actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
         return iv + encrypted
     }
 
+    /**
+     * `decrypt` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as provider.
+     */
     actual fun decrypt(data: ByteArray): ByteArray {
         val key = keyProvider.getKey()
             ?: throw SecurityException("Encryption key not found — data unrecoverable")

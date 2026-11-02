@@ -1,4 +1,13 @@
-import java.io.File
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+import org.convention.LicenseHeader
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -8,6 +17,25 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.register
 import org.gradle.work.DisableCachingByDefault
 import org.yaml.snakeyaml.Yaml
+import java.io.File
+
+/**
+ * `app.yaml#security.screen_capture_allowed_by_default` → `AppSecurityConfig.SCREEN_CAPTURE_ALLOWED_BY_DEFAULT`.
+ * Absent or unparseable keeps the secure default, `false`: only an explicit `true` allows capture.
+ */
+internal fun screenCaptureAllowedByDefault(security: Map<*, *>?): Boolean =
+    security?.get("screen_capture_allowed_by_default")?.toString()?.trim()?.lowercase() == "true"
+
+/**
+ * `app.yaml#security.signed_in_by_default` → `AppSecurityConfig.SIGNED_IN_BY_DEFAULT`.
+ *
+ * The OPPOSITE missing-key rule from [screenCaptureAllowedByDefault], on purpose: absent means signed
+ * in. The template has no login, so `true` is its behaviour, and a fork whose `app.yaml` predates the
+ * key must keep it — reading absent as `false` would land a no-login app on a login screen. Only an
+ * explicit `false` opts a fork with real auth into a signed-out first launch.
+ */
+internal fun signedInByDefault(security: Map<*, *>?): Boolean =
+    security?.get("signed_in_by_default")?.toString()?.trim()?.lowercase() != "false"
 
 /**
  * Registers the `syncForkConfig` task on whichever project applies this plugin.
@@ -34,7 +62,7 @@ import org.yaml.snakeyaml.Yaml
 class SyncForkConfigPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         target.tasks.register<SyncForkConfigTask>("syncForkConfig") {
-            group       = "fork"
+            group = "fork"
             description = "Sync fork identity from fork.properties + libs.versions.toml to all platform config files."
             // Always re-run — reads gitignored fork.properties, not tracked by Gradle.
             outputs.upToDateWhen { false }
@@ -49,17 +77,44 @@ class SyncForkConfigPlugin : Plugin<Project> {
     }
 }
 
+/**
+ * Projects `app-profile/` onto every generated surface: `gradle/fork.properties`, the version catalog,
+ * `Config.xcconfig`, per-module BuildKonfig, icons and store metadata.
+ *
+ * Caching is disabled on purpose — it reads a gitignored `fork.properties` and writes outside the build directory, so
+ * a cached result would be wrong on a machine whose fork config differs.
+ */
 @DisableCachingByDefault(because = "Reads gitignored fork.properties; writes local.properties and metadata files")
 abstract class SyncForkConfigTask : DefaultTask() {
 
-    @get:Internal abstract val projectRootDir:     DirectoryProperty
-    @get:Internal abstract val iconSourceDir:    DirectoryProperty
-    @get:Internal abstract val iosAppIconDir:      DirectoryProperty
-    @get:Internal abstract val jsResourcesDir:     DirectoryProperty
-    @get:Internal abstract val wasmJsResourcesDir: DirectoryProperty
-    @get:Internal abstract val desktopIconsDir:    DirectoryProperty
-    @get:Internal abstract val androidResDir:      DirectoryProperty
+    /**
+     * The repository root. Every other path is resolved from it, so the task has no dependency on the invoking
+     * project's location.
+     */
+    @get:Internal abstract val projectRootDir: DirectoryProperty
 
+    /** `app-profile/icons/` — the fork-owned icon source. Missing or empty means the template's own icons are kept. */
+    @get:Internal abstract val iconSourceDir: DirectoryProperty
+
+    /** Destination for the iOS `AppIcon.appiconset`. */
+    @get:Internal abstract val iosAppIconDir: DirectoryProperty
+
+    /** Destination for the Kotlin/JS favicon. */
+    @get:Internal abstract val jsResourcesDir: DirectoryProperty
+
+    /** Destination for the Kotlin/Wasm favicon. */
+    @get:Internal abstract val wasmJsResourcesDir: DirectoryProperty
+
+    /** Destination for the desktop `.icns` / `.ico` / `.png` icons. */
+    @get:Internal abstract val desktopIconsDir: DirectoryProperty
+
+    /** Destination for a pre-built Android res tree, for the adaptive icons Image Asset Studio must generate. */
+    @get:Internal abstract val androidResDir: DirectoryProperty
+
+    /**
+     * Runs the whole projection. Idempotent: re-running with an unchanged `app-profile/` rewrites identical content,
+     * which is what lets a template sync be followed by an unconditional `syncForkConfig`.
+     */
     @TaskAction
     fun sync() {
         val root = projectRootDir.get().asFile
@@ -72,8 +127,8 @@ abstract class SyncForkConfigTask : DefaultTask() {
         } else {
             logger.warn(
                 "syncForkConfig: gradle/fork.properties not found.\n" +
-                "  Copy: cp gradle/fork.properties.template gradle/fork.properties\n" +
-                "  Fill in your values, then re-run ./gradlew syncForkConfig"
+                    "  Copy: cp gradle/fork.properties.template gradle/fork.properties\n" +
+                    "  Fill in your values, then re-run ./gradlew syncForkConfig",
             )
         }
 
@@ -99,17 +154,26 @@ abstract class SyncForkConfigTask : DefaultTask() {
 
         // Build-time fields. app.id is AUTHORED in fork.properties (its single source of truth);
         // appDisplayName/projectName still read fork.properties-first then fall back to TOML.
-        val appId          = get("app.id",           "APP_BUNDLE_ID",   "appId")
-        val appDisplayName = get("app.display.name", "APP_DISPLAY_NAME","appDisplayName")
-        val projectName    = get("project.name",     "PROJECT_NAME",    "projectName")
+        val appId = get("app.id", "APP_BUNDLE_ID", "appId")
+        val appDisplayName = get("app.display.name", "APP_DISPLAY_NAME", "appDisplayName")
+        // projectName's SoT is the TRACKED catalog (libs.versions.toml#projectName — see
+        // fork-props-manifest-parity.sh NOT_APP_PROFILE), so it must be read BEFORE the gitignored
+        // fork.properties bridge. The generic get() order put the bridge first, and this task then
+        // WROTE the value back into the catalog (patchTomlVersion below) — so a stale local bridge
+        // silently overwrote the tracked SoT with `kmp-project-template` (field-officer, 2026-10-30).
+        // ENV still wins for CI; the bridge is only the last-resort fallback.
+        val projectName = System.getenv("PROJECT_NAME")?.takeIf(String::isNotBlank)
+            ?: toml["projectName"]?.takeIf(String::isNotBlank)
+            ?: fork.getProperty("project.name")?.takeIf(String::isNotBlank)
+            ?: ""
 
         // Network build-bridge (B4) — SoT is app-profile/app.yaml#network.*; emitted to fork.properties
         // for KMPFlavorsConventionPlugin. Blank → the plugin's baked-in template default.
         val networkDemoUrl = get("network.base.url.demo")
         val networkProdUrl = get("network.base.url.prod")
-        val demoUsername   = get("demo.username")
-        val demoPassword   = get("demo.password")
-        val logTag         = get("log.tag")
+        val demoUsername = get("demo.username")
+        val demoPassword = get("demo.password")
+        val logTag = get("log.tag")
 
         // ── 2b. Write app.id + app display name BACK into gradle/libs.versions.toml ─────────
         // The whole build reads the bundle id via libs.versions.appId AND the app name via
@@ -140,25 +204,25 @@ abstract class SyncForkConfigTask : DefaultTask() {
         }
 
         // Apple
-        val appleTeamId   = get("apple.team.id",     "APPLE_TEAM_ID",   "iosTeamId")
+        val appleTeamId = get("apple.team.id", "APPLE_TEAM_ID", "iosTeamId")
         if (appleTeamId.isNotBlank() && appleTeamId != "YOUR_TEAM_ID") {
             patchTomlVersion(File(root, "gradle/libs.versions.toml"), "iosTeamId", appleTeamId)
         }
-        val matchGitUrl   = get("apple.match.git.url","MATCH_GIT_URL")
-        val tfGroups      = get("apple.tf.groups",    "TESTFLIGHT_GROUPS")
+        val matchGitUrl = get("apple.match.git.url", "MATCH_GIT_URL")
+        val tfGroups = get("apple.tf.groups", "TESTFLIGHT_GROUPS")
 
         // Firebase
-        val fbAndroidProd = get("firebase.android.prod.app.id","FIREBASE_ANDROID_PROD_APP_ID")
-        val fbAndroidDemo = get("firebase.android.demo.app.id","FIREBASE_ANDROID_DEMO_APP_ID")
-        val fbIos         = get("firebase.ios.app.id",         "FIREBASE_IOS_APP_ID")
-        val fbGroups      = get("firebase.groups",             "FIREBASE_GROUPS")
+        val fbAndroidProd = get("firebase.android.prod.app.id", "FIREBASE_ANDROID_PROD_APP_ID")
+        val fbAndroidDemo = get("firebase.android.demo.app.id", "FIREBASE_ANDROID_DEMO_APP_ID")
+        val fbIos = get("firebase.ios.app.id", "FIREBASE_IOS_APP_ID")
+        val fbGroups = get("firebase.groups", "FIREBASE_GROUPS")
 
         // Org
-        val orgName      = get("org.name",         "ORGANIZATION_NAME")
-        val orgEmail     = get("org.email",        "APPSTORE_REVIEW_EMAIL")
-        val orgFirstName = get("org.first.name",   "APPSTORE_REVIEW_FIRST_NAME")
-        val orgLastName  = get("org.last.name",    "APPSTORE_REVIEW_LAST_NAME")
-        val orgPhone     = get("org.phone",        "APPSTORE_REVIEW_PHONE")
+        val orgName = get("org.name", "ORGANIZATION_NAME")
+        val orgEmail = get("org.email", "APPSTORE_REVIEW_EMAIL")
+        val orgFirstName = get("org.first.name", "APPSTORE_REVIEW_FIRST_NAME")
+        val orgLastName = get("org.last.name", "APPSTORE_REVIEW_LAST_NAME")
+        val orgPhone = get("org.phone", "APPSTORE_REVIEW_PHONE")
         // Vault-alias namespaces (RULE-SECRETS-NAMING-CONVENTION-001): `<org>-<suffix>` for org-shared
         // secrets, `<project>-<suffix>` for per-app ones. The SOURCE pair is what the template's committed
         // secret files carry (declared once in the template-owned secrets/LAYOUT.yaml#alias_namespaces);
@@ -166,69 +230,66 @@ abstract class SyncForkConfigTask : DefaultTask() {
         val templateAliasNs = readTemplateAliasNamespaces(root)
         val orgSecretsNamespace = get("org.secrets.namespace", "ORG_SECRETS_NAMESPACE")
             .ifBlank { templateAliasNs?.org.orEmpty() }
-        val marketingUrl = get("org.marketing.url","APP_MARKETING_URL")
-        val privacyUrl   = get("org.privacy.url",  "APP_PRIVACY_URL")
-        val supportUrl   = get("org.support.url")
-        // Where users get help (a community chat) and the product's own site — read by About.
-        val communityUrl = get("org.community.url")
-        val productUrl   = get("org.product.url")
+        val marketingUrl = get("org.marketing.url", "APP_MARKETING_URL")
+        val privacyUrl = get("org.privacy.url", "APP_PRIVACY_URL")
+        val supportUrl = get("org.support.url")
 
         // Web
-        val cloudflareProject = get("web.cloudflare.project","CLOUDFLARE_PAGES_PROJECT_NAME")
+        val cloudflareProject = get("web.cloudflare.project", "CLOUDFLARE_PAGES_PROJECT_NAME")
 
         // Store — shared
         // Primary listing locale (metadata subdir). app-profile store.primary_locale is the SoT;
         // default en-US. Replaces the hardcoded en-GB (iOS/mac) / en-US (android) subdirs.
-        val primaryLocale      = get("store.primary.locale").ifBlank { "en-US" }
-        val storeTitle         = get("store.title")
-        val storeSubtitle      = get("store.subtitle")
-        val storeDescription   = get("store.description")
-        val storePromoText     = get("store.promotional.text")
-        val storeReleaseNotes  = get("store.release.notes")
-        val storeCopyright     = get("store.copyright")
-        val storeReviewNotes   = get("store.review.notes")
-        val reviewDemoUser     = get("store.review.demo.user")
+        val primaryLocale = get("store.primary.locale").ifBlank { "en-US" }
+        val storeTitle = get("store.title")
+        val storeSubtitle = get("store.subtitle")
+        val storeDescription = get("store.description")
+        val storePromoText = get("store.promotional.text")
+        val storeReleaseNotes = get("store.release.notes")
+        val storeCopyright = get("store.copyright")
+        val storeReviewNotes = get("store.review.notes")
+        val reviewDemoUser = get("store.review.demo.user")
         val reviewDemoPassword = get("store.review.demo.password")
-        val iosAgeRating       = get("store.ios.age.rating").ifBlank { "4+" }
+        val iosAgeRating = get("store.ios.age.rating").ifBlank { "4+" }
 
         // Store — Apple trade representative contact information (App Store Connect requirement)
-        val tradeFirstName  = get("store.apple.trade.first.name")
-        val tradeLastName   = get("store.apple.trade.last.name")
-        val tradeAddr1      = get("store.apple.trade.address.line1")
-        val tradeAddr2      = get("store.apple.trade.address.line2")
-        val tradeAddr3      = get("store.apple.trade.address.line3")
-        val tradeCity       = get("store.apple.trade.city")
-        val tradeState      = get("store.apple.trade.state")
-        val tradeCountry    = get("store.apple.trade.country")
-        val tradePostal     = get("store.apple.trade.postal.code")
-        val tradePhone      = get("store.apple.trade.phone")
-        val tradeEmail      = get("store.apple.trade.email")
-        val tradeDisplayed  = get("store.apple.trade.displayed")
+        val tradeFirstName = get("store.apple.trade.first.name")
+        val tradeLastName = get("store.apple.trade.last.name")
+        val tradeAddr1 = get("store.apple.trade.address.line1")
+        val tradeAddr2 = get("store.apple.trade.address.line2")
+        val tradeAddr3 = get("store.apple.trade.address.line3")
+        val tradeCity = get("store.apple.trade.city")
+        val tradeState = get("store.apple.trade.state")
+        val tradeCountry = get("store.apple.trade.country")
+        val tradePostal = get("store.apple.trade.postal.code")
+        val tradePhone = get("store.apple.trade.phone")
+        val tradeEmail = get("store.apple.trade.email")
+        val tradeDisplayed = get("store.apple.trade.displayed")
 
         // Store — Android
-        val androidChangelog  = get("store.android.changelog")
-        val androidShortDesc  = get("store.android.short.description")
-        val androidCategory   = get("store.android.category")
-        val androidVideoUrl   = get("store.android.video.url")
+        val androidChangelog = get("store.android.changelog")
+        val androidShortDesc = get("store.android.short.description")
+        val androidCategory = get("store.android.category")
+        val androidVideoUrl = get("store.android.video.url")
 
         // Store — iOS
-        val iosKeywords           = get("store.ios.keywords")
-        val iosCategory           = get("store.ios.category")
-        val iosSecondaryCategory  = get("store.ios.secondary.category")
-        val iosAppleTvPrivacyUrl  = get("store.ios.apple.tv.privacy.url")
+        val iosKeywords = get("store.ios.keywords")
+        val iosCategory = get("store.ios.category")
+        val iosSecondaryCategory = get("store.ios.secondary.category")
+        val iosAppleTvPrivacyUrl = get("store.ios.apple.tv.privacy.url")
 
         // Store — macOS
-        val macosKeywords          = get("store.macos.keywords")
-        val macosCategory          = get("store.macos.category")
+        val macosKeywords = get("store.macos.keywords")
+        val macosCategory = get("store.macos.category")
         val macosSecondaryCategory = get("store.macos.secondary.category")
 
         // Store — Windows / Microsoft Store
-        val msAppId      = get("store.windows.ms.app.id", "MS_APP_ID")
+        val msAppId = get("store.windows.ms.app.id", "MS_APP_ID")
         val msPublishMode = get("store.windows.ms.publish.mode").ifBlank { "Manual" }
-        val msVisibility  = get("store.windows.ms.visibility").ifBlank { "Public" }
+        val msVisibility = get("store.windows.ms.visibility").ifBlank { "Public" }
         // MSIX packaging identity (Package.appxmanifest) — app-profile windows.msix_*.
-        val msixIdentityName    = get("windows.msix.identity.name")
-        val msixIdentityPub     = get("windows.msix.identity.publisher")
+        val msixIdentityName = get("windows.msix.identity.name")
+        val msixIdentityPub = get("windows.msix.identity.publisher")
         val msixPublisherDisplay = get("windows.msix.publisher.display.name")
 
         // ── 3. iOS xcconfig ───────────────────────────────────────────────────
@@ -236,17 +297,17 @@ abstract class SyncForkConfigTask : DefaultTask() {
         if (xcconfigFile.parentFile.exists()) {
             xcconfigFile.writeText(
                 "// Fork identity — generated by ./gradlew syncForkConfig\n" +
-                "// To change: edit gradle/fork.properties (or libs.versions.toml for app.id),\n" +
-                "// then re-run ./gradlew syncForkConfig\n" +
-                "APP_BUNDLE_ID = $appId\n" +
-                "APP_NAME = $appDisplayName\n" +
-                "TEAM_ID = $appleTeamId\n" +
-                "\n" +
-                "// Keychain Sharing entitlement — REQUIRED by core-base/datastore's KeychainSettings\n" +
-                "// (service \"kpt.secure\"). Without it iOS keychain access fails -34018 at launch and\n" +
-                "// crashes the Koin graph (UserPreferencesRepositoryImpl -> AppViewModel). Applies to\n" +
-                "// every flavor (project-level base config). Path relative to cmp-ios/ (SRCROOT).\n" +
-                "CODE_SIGN_ENTITLEMENTS = iosApp/iosApp.entitlements\n"
+                    "// To change: edit gradle/fork.properties (or libs.versions.toml for app.id),\n" +
+                    "// then re-run ./gradlew syncForkConfig\n" +
+                    "APP_BUNDLE_ID = $appId\n" +
+                    "APP_NAME = $appDisplayName\n" +
+                    "TEAM_ID = $appleTeamId\n" +
+                    "\n" +
+                    "// Keychain Sharing entitlement — REQUIRED by core-base/datastore's KeychainSettings\n" +
+                    "// (service \"kpt.secure\"). Without it iOS keychain access fails -34018 at launch and\n" +
+                    "// crashes the Koin graph (UserPreferencesRepositoryImpl -> AppViewModel). Applies to\n" +
+                    "// every flavor (project-level base config). Path relative to cmp-ios/ (SRCROOT).\n" +
+                    "CODE_SIGN_ENTITLEMENTS = iosApp/iosApp.entitlements\n",
             )
             logger.lifecycle("syncForkConfig: wrote cmp-ios/Configuration/Config.xcconfig")
         }
@@ -257,27 +318,28 @@ abstract class SyncForkConfigTask : DefaultTask() {
 
         // ── 4. local.properties (Fastlane bridge — gitignored) ───────────────
         // project_config.rb reads these as a fallback when fork.properties is absent.
-        val lp    = File(root, "local.properties")
+        val lp = File(root, "local.properties")
         val props = java.util.Properties()
         if (lp.exists()) lp.inputStream().use(props::load)
         // Write every fork.properties key with fork.* prefix
         fork.forEach { k, v -> props["fork.$k"] = v }
         // Ensure the 4 TOML-sourced keys are always present
-        if (appId.isNotBlank())          props["fork.app.id"]           = appId
+        if (appId.isNotBlank()) props["fork.app.id"] = appId
         if (appDisplayName.isNotBlank()) props["fork.app.display.name"] = appDisplayName
-        if (projectName.isNotBlank())    props["fork.project.name"]     = projectName
-        if (appleTeamId.isNotBlank())    props["fork.apple.team.id"]    = appleTeamId
+        if (projectName.isNotBlank()) props["fork.project.name"] = projectName
+        if (appleTeamId.isNotBlank()) props["fork.apple.team.id"] = appleTeamId
         lp.outputStream().use { props.store(it, "Generated by syncForkConfig — do not edit manually") }
         logger.lifecycle("syncForkConfig: updated local.properties (${props.size} entries)")
 
         // ── 5. gradle.properties (settings.gradle.kts bridge) ────────────────
-        val gp     = File(root, "gradle.properties")
+        val gp = File(root, "gradle.properties")
         val gpText = if (gp.exists()) gp.readText() else ""
         gp.writeText(
-            if (gpText.contains("fork.project.name="))
+            if (gpText.contains("fork.project.name=")) {
                 gpText.replace(Regex("fork\\.project\\.name=.*"), "fork.project.name=$projectName")
-            else
+            } else {
                 gpText.trimEnd() + "\nfork.project.name=$projectName\n"
+            },
         )
         logger.lifecycle("syncForkConfig: updated gradle.properties fork.project.name=$projectName")
 
@@ -305,7 +367,6 @@ abstract class SyncForkConfigTask : DefaultTask() {
                 "org.secrets.namespace" to orgSecretsNamespace,
                 "org.marketing.url" to marketingUrl, "org.privacy.url" to privacyUrl,
                 "org.support.url" to supportUrl, "web.cloudflare.project" to cloudflareProject,
-                "org.community.url" to communityUrl, "org.product.url" to productUrl,
                 "store.primary.locale" to primaryLocale, "store.title" to storeTitle,
                 "store.subtitle" to storeSubtitle, "store.description" to storeDescription,
                 "store.promotional.text" to storePromoText, "store.release.notes" to storeReleaseNotes,
@@ -349,12 +410,14 @@ abstract class SyncForkConfigTask : DefaultTask() {
 
             // B3 — regenerate core/network AccessPointRegistry.points from app-profile#network.access_points.
             // The four passes share one SoT (network.access_points), so a declared endpoint reaches the
-            // registry, the UrlType vocabulary, the anon-key map AND its Koin binding in one run — the
-            // reason a fork only writes the API type.
+            // registry (incl. each Supabase point's publishable key) and the UrlType vocabulary in one
+            // run — the reason a fork only writes the API type.
             regenerateAccessPoints(root, appProfile)
             regenerateUrlTypes(root, appProfile)
-            regenerateSupabaseAnonKeys(root, appProfile)
             regenerateAppReviewConfig(root, appProfile)
+            regenerateAppSecurityConfig(root, appProfile)
+            regenerateAppPrivacyConfig(root, appProfile)
+            regenerateAppOrgLinks(root, appProfile)
             reconcileMigrationLedger(root, appProfile)
             regenerateBuildKonfigFields(root, appProfile)
             scaffoldAccessPointPackages(root, appProfile)
@@ -408,7 +471,8 @@ abstract class SyncForkConfigTask : DefaultTask() {
         fun writeRatingConfig(rel: String) {
             val f = File(root, rel)
             if (!f.parentFile.exists()) return
-            f.writeText("""{
+            f.writeText(
+                """{
   "v1_0": {
     "ratings": {
       "violenceCartoonOrFantasy": "NONE",
@@ -430,35 +494,36 @@ abstract class SyncForkConfigTask : DefaultTask() {
       "kidsAgeBand": false
     }
   }
-}""")
+}""",
+            )
             logger.lifecycle("syncForkConfig: wrote $rel (age rating: $iosAgeRating)")
             written++
         }
 
         // ── iOS App Store ─────────────────────────────────────────────────────
         // Locale-scoped files → primaryLocale dir (was hardcoded en-GB) via writeLocalized (G5).
-        writeLocalized("deployment/ios/appstore/metadata", "name.txt",             storeTitle)
-        writeLocalized("deployment/ios/appstore/metadata", "subtitle.txt",         storeSubtitle)
-        writeLocalized("deployment/ios/appstore/metadata", "description.txt",      storeDescription)
-        writeLocalized("deployment/ios/appstore/metadata", "keywords.txt",         iosKeywords)
+        writeLocalized("deployment/ios/appstore/metadata", "name.txt", storeTitle)
+        writeLocalized("deployment/ios/appstore/metadata", "subtitle.txt", storeSubtitle)
+        writeLocalized("deployment/ios/appstore/metadata", "description.txt", storeDescription)
+        writeLocalized("deployment/ios/appstore/metadata", "keywords.txt", iosKeywords)
         writeLocalized("deployment/ios/appstore/metadata", "promotional_text.txt", storePromoText)
-        writeLocalized("deployment/ios/appstore/metadata", "release_notes.txt",    storeReleaseNotes)
-        writeLocalized("deployment/ios/appstore/metadata", "marketing_url.txt",    marketingUrl)
-        writeLocalized("deployment/ios/appstore/metadata", "privacy_url.txt",      privacyUrl)
-        writeLocalized("deployment/ios/appstore/metadata", "support_url.txt",      supportUrl)
-        writeIfPresent("deployment/ios/appstore/metadata/copyright.txt",              storeCopyright)
-        writeIfPresent("deployment/ios/appstore/metadata/primary_category.txt",       iosCategory)
-        writeAlways("deployment/ios/appstore/metadata/primary_first_sub_category.txt",  "")
+        writeLocalized("deployment/ios/appstore/metadata", "release_notes.txt", storeReleaseNotes)
+        writeLocalized("deployment/ios/appstore/metadata", "marketing_url.txt", marketingUrl)
+        writeLocalized("deployment/ios/appstore/metadata", "privacy_url.txt", privacyUrl)
+        writeLocalized("deployment/ios/appstore/metadata", "support_url.txt", supportUrl)
+        writeIfPresent("deployment/ios/appstore/metadata/copyright.txt", storeCopyright)
+        writeIfPresent("deployment/ios/appstore/metadata/primary_category.txt", iosCategory)
+        writeAlways("deployment/ios/appstore/metadata/primary_first_sub_category.txt", "")
         writeAlways("deployment/ios/appstore/metadata/primary_second_sub_category.txt", "")
-        writeAlways("deployment/ios/appstore/metadata/secondary_category.txt",          iosSecondaryCategory)
-        writeAlways("deployment/ios/appstore/metadata/secondary_first_sub_category.txt",  "")
+        writeAlways("deployment/ios/appstore/metadata/secondary_category.txt", iosSecondaryCategory)
+        writeAlways("deployment/ios/appstore/metadata/secondary_first_sub_category.txt", "")
         writeAlways("deployment/ios/appstore/metadata/secondary_second_sub_category.txt", "")
         writeIfPresent("deployment/ios/appstore/metadata/review_information/email_address.txt", orgEmail)
-        writeIfPresent("deployment/ios/appstore/metadata/review_information/first_name.txt",    orgFirstName)
-        writeIfPresent("deployment/ios/appstore/metadata/review_information/last_name.txt",     orgLastName)
-        writeIfPresent("deployment/ios/appstore/metadata/review_information/phone_number.txt",  orgPhone)
-        writeIfPresent("deployment/ios/appstore/metadata/review_information/notes.txt",         storeReviewNotes)
-        writeAlways("deployment/ios/appstore/metadata/review_information/demo_user.txt",     reviewDemoUser)
+        writeIfPresent("deployment/ios/appstore/metadata/review_information/first_name.txt", orgFirstName)
+        writeIfPresent("deployment/ios/appstore/metadata/review_information/last_name.txt", orgLastName)
+        writeIfPresent("deployment/ios/appstore/metadata/review_information/phone_number.txt", orgPhone)
+        writeIfPresent("deployment/ios/appstore/metadata/review_information/notes.txt", storeReviewNotes)
+        writeAlways("deployment/ios/appstore/metadata/review_information/demo_user.txt", reviewDemoUser)
         writeAlways("deployment/ios/appstore/metadata/review_information/demo_password.txt", reviewDemoPassword)
         writeAlways("deployment/ios/appstore/metadata/$primaryLocale/apple_tv_privacy_policy.txt", iosAppleTvPrivacyUrl)
         writeRatingConfig("deployment/ios/appstore/metadata/app_store_rating_config.json")
@@ -466,58 +531,58 @@ abstract class SyncForkConfigTask : DefaultTask() {
         // ── iOS trade representative contact information (App Store Connect) ──
         val tradeIos = "deployment/ios/appstore/metadata/trade_representative_contact_information"
         File(root, tradeIos).mkdirs()
-        writeIfPresent("$tradeIos/first_name.txt",   tradeFirstName)
-        writeIfPresent("$tradeIos/last_name.txt",    tradeLastName)
+        writeIfPresent("$tradeIos/first_name.txt", tradeFirstName)
+        writeIfPresent("$tradeIos/last_name.txt", tradeLastName)
         writeIfPresent("$tradeIos/address_line1.txt", tradeAddr1)
-        writeAlways("$tradeIos/address_line2.txt",    tradeAddr2)
-        writeAlways("$tradeIos/address_line3.txt",    tradeAddr3)
-        writeIfPresent("$tradeIos/city_name.txt",    tradeCity)
-        writeIfPresent("$tradeIos/state.txt",        tradeState)
-        writeIfPresent("$tradeIos/country.txt",      tradeCountry)
-        writeIfPresent("$tradeIos/postal_code.txt",  tradePostal)
+        writeAlways("$tradeIos/address_line2.txt", tradeAddr2)
+        writeAlways("$tradeIos/address_line3.txt", tradeAddr3)
+        writeIfPresent("$tradeIos/city_name.txt", tradeCity)
+        writeIfPresent("$tradeIos/state.txt", tradeState)
+        writeIfPresent("$tradeIos/country.txt", tradeCountry)
+        writeIfPresent("$tradeIos/postal_code.txt", tradePostal)
         writeIfPresent("$tradeIos/phone_number.txt", tradePhone)
         writeIfPresent("$tradeIos/email_address.txt", tradeEmail)
         writeAlways("$tradeIos/is_displayed_on_app_store.txt", tradeDisplayed)
 
         // ── macOS App Store ───────────────────────────────────────────────────
         // Locale-scoped files → primaryLocale dir (was hardcoded en-GB) via writeLocalized (G5).
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "name.txt",             storeTitle)
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "subtitle.txt",         storeSubtitle)
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "description.txt",      storeDescription)
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "keywords.txt",         macosKeywords)
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "name.txt", storeTitle)
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "subtitle.txt", storeSubtitle)
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "description.txt", storeDescription)
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "keywords.txt", macosKeywords)
         writeLocalized("deployment/desktop/mac-app-store/metadata", "promotional_text.txt", storePromoText)
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "release_notes.txt",    storeReleaseNotes)
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "marketing_url.txt",    marketingUrl)
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "privacy_url.txt",      privacyUrl)
-        writeLocalized("deployment/desktop/mac-app-store/metadata", "support_url.txt",      supportUrl)
-        writeIfPresent("deployment/desktop/mac-app-store/metadata/copyright.txt",              storeCopyright)
-        writeIfPresent("deployment/desktop/mac-app-store/metadata/primary_category.txt",       macosCategory)
-        writeAlways("deployment/desktop/mac-app-store/metadata/primary_first_sub_category.txt",  "")
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "release_notes.txt", storeReleaseNotes)
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "marketing_url.txt", marketingUrl)
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "privacy_url.txt", privacyUrl)
+        writeLocalized("deployment/desktop/mac-app-store/metadata", "support_url.txt", supportUrl)
+        writeIfPresent("deployment/desktop/mac-app-store/metadata/copyright.txt", storeCopyright)
+        writeIfPresent("deployment/desktop/mac-app-store/metadata/primary_category.txt", macosCategory)
+        writeAlways("deployment/desktop/mac-app-store/metadata/primary_first_sub_category.txt", "")
         writeAlways("deployment/desktop/mac-app-store/metadata/primary_second_sub_category.txt", "")
-        writeAlways("deployment/desktop/mac-app-store/metadata/secondary_category.txt",          macosSecondaryCategory)
-        writeAlways("deployment/desktop/mac-app-store/metadata/secondary_first_sub_category.txt",  "")
+        writeAlways("deployment/desktop/mac-app-store/metadata/secondary_category.txt", macosSecondaryCategory)
+        writeAlways("deployment/desktop/mac-app-store/metadata/secondary_first_sub_category.txt", "")
         writeAlways("deployment/desktop/mac-app-store/metadata/secondary_second_sub_category.txt", "")
         writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/email_address.txt", orgEmail)
-        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/first_name.txt",    orgFirstName)
-        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/last_name.txt",     orgLastName)
-        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/phone_number.txt",  orgPhone)
-        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/notes.txt",         storeReviewNotes)
-        writeAlways("deployment/desktop/mac-app-store/metadata/review_information/demo_user.txt",     reviewDemoUser)
+        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/first_name.txt", orgFirstName)
+        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/last_name.txt", orgLastName)
+        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/phone_number.txt", orgPhone)
+        writeIfPresent("deployment/desktop/mac-app-store/metadata/review_information/notes.txt", storeReviewNotes)
+        writeAlways("deployment/desktop/mac-app-store/metadata/review_information/demo_user.txt", reviewDemoUser)
         writeAlways("deployment/desktop/mac-app-store/metadata/review_information/demo_password.txt", reviewDemoPassword)
         writeRatingConfig("deployment/desktop/mac-app-store/metadata/app_store_rating_config.json")
 
         // ── macOS trade representative contact information (App Store Connect) ─
         val tradeMac = "deployment/desktop/mac-app-store/metadata/trade_representative_contact_information"
         File(root, tradeMac).mkdirs()
-        writeIfPresent("$tradeMac/first_name.txt",   tradeFirstName)
-        writeIfPresent("$tradeMac/last_name.txt",    tradeLastName)
+        writeIfPresent("$tradeMac/first_name.txt", tradeFirstName)
+        writeIfPresent("$tradeMac/last_name.txt", tradeLastName)
         writeIfPresent("$tradeMac/address_line1.txt", tradeAddr1)
-        writeAlways("$tradeMac/address_line2.txt",    tradeAddr2)
-        writeAlways("$tradeMac/address_line3.txt",    tradeAddr3)
-        writeIfPresent("$tradeMac/city_name.txt",    tradeCity)
-        writeIfPresent("$tradeMac/state.txt",        tradeState)
-        writeIfPresent("$tradeMac/country.txt",      tradeCountry)
-        writeIfPresent("$tradeMac/postal_code.txt",  tradePostal)
+        writeAlways("$tradeMac/address_line2.txt", tradeAddr2)
+        writeAlways("$tradeMac/address_line3.txt", tradeAddr3)
+        writeIfPresent("$tradeMac/city_name.txt", tradeCity)
+        writeIfPresent("$tradeMac/state.txt", tradeState)
+        writeIfPresent("$tradeMac/country.txt", tradeCountry)
+        writeIfPresent("$tradeMac/postal_code.txt", tradePostal)
         writeIfPresent("$tradeMac/phone_number.txt", tradePhone)
         writeIfPresent("$tradeMac/email_address.txt", tradeEmail)
         writeAlways("$tradeMac/is_displayed_on_app_store.txt", tradeDisplayed)
@@ -525,38 +590,16 @@ abstract class SyncForkConfigTask : DefaultTask() {
         // ── Android Play Store ────────────────────────────────────────────────
         // Locale-scoped files → primaryLocale dir (default en-US) — G5. Android uses en-US today,
         // so the default is a no-op; a fork that sets store.primary_locale moves the listing subdir.
-        writeIfPresent("deployment/android/metadata/$primaryLocale/title.txt",              storeTitle)
-        writeIfPresent("deployment/android/metadata/$primaryLocale/short_description.txt",  androidShortDesc)
-        writeIfPresent("deployment/android/metadata/$primaryLocale/full_description.txt",   storeDescription)
+        writeIfPresent("deployment/android/metadata/$primaryLocale/title.txt", storeTitle)
+        writeIfPresent("deployment/android/metadata/$primaryLocale/short_description.txt", androidShortDesc)
+        writeIfPresent("deployment/android/metadata/$primaryLocale/full_description.txt", storeDescription)
         writeIfPresent("deployment/android/metadata/$primaryLocale/changelogs/default.txt", androidChangelog)
         writeAlways("deployment/android/metadata/$primaryLocale/video.txt", androidVideoUrl)
 
-        // ── Windows / Microsoft Store ─────────────────────────────────────────
-        val storeBrokerFile = File(root, "deployment/desktop/microsoft-store/StoreBroker.config.json")
-        if (storeBrokerFile.parentFile.exists()) {
-            val resolvedAppId = msAppId.ifBlank { "\${ENV:MS_APP_ID}" }
-            val msixName = if (projectName.isNotBlank()) "$projectName.msix" else "app.msix"
-            storeBrokerFile.writeText("""{
-  "_comment": "StoreBroker submission config — generated by ./gradlew syncForkConfig. Edit gradle/fork.properties to change.",
-  "appId": "$resolvedAppId",
-  "flightId": null,
-  "packagePath": "cmp-desktop/build/compose/binaries/main-release/msix/$msixName",
-  "targetPublishMode": "$msPublishMode",
-  "visibility": "$msVisibility"
-}""")
-            logger.lifecycle("syncForkConfig: wrote deployment/desktop/microsoft-store/StoreBroker.config.json")
-            written++
-        }
-
-        // ── 6c. Tokenize template-owned deployment files (B2 / G6) ────────────
-        // These files carry identity LITERALS (the Cloudflare Pages project name / MSIX identity / the
-        // project keystore-alias prefix / …) in the committed template. Derive them from
-        // app-profile (+ projectName) via targeted substitution — NOT full-file rewrite — so the file
-        // structure is preserved and no store-bound literal survives for a fork.
-        written += tokenizeDeploymentFiles(
-            root, cloudflareProject, msixIdentityName, msixIdentityPub, msixPublisherDisplay, appDisplayName,
-            projectName, templateAliasNs, orgSecretsNamespace,
-        )
+        // Microsoft Store (StoreBroker.config.json, Package.appxmanifest) and the Cloudflare Pages project
+        // name are NOT written here any more: deployment/ is template-owned and byte-identical in every
+        // fork. deployment/_shared/scripts/fork-identity.sh renders those values from
+        // gradle/fork.properties at deploy time, into build/ (removed 2026-10-29: section 6c + StoreBroker).
 
         logger.lifecycle("syncForkConfig: wrote $written store metadata files")
 
@@ -575,7 +618,8 @@ abstract class SyncForkConfigTask : DefaultTask() {
                 if (!src.isDirectory) continue
                 // Skip a media dir with no real assets (only .gitkeep) — don't seed empty deployment metadata dirs.
                 if (src.walkTopDown().none { it.isFile && it.name != ".gitkeep" }) continue
-                val dst = File(root, metaRel); dst.mkdirs()
+                val dst = File(root, metaRel)
+                dst.mkdirs()
                 // MIRROR, not merge: remove the previously-derived media subtrees (images/ for Play,
                 // screenshots/ for iOS/mac/Windows/Linux) before copying, so a prior generation's files
                 // (renamed/removed screenshots, an _over8/ overflow) do NOT linger and get uploaded.
@@ -593,8 +637,15 @@ abstract class SyncForkConfigTask : DefaultTask() {
             // → get_edit_listing 400 "Invalid request" (2026-08-08). Screenshot dirs belong ONLY under
             // <locale>/images/<type>/. These are stale from an old layout (the mirror above cleans
             // images/screenshots subtrees, not these root-level type dirs). Real locale dirs (en-US) stay.
-            listOf("phoneScreenshots", "sevenInchScreenshots", "tenInchScreenshots", "tvScreenshots",
-                   "wearScreenshots", "images", "screenshots")
+            listOf(
+                "phoneScreenshots",
+                "sevenInchScreenshots",
+                "tenInchScreenshots",
+                "tvScreenshots",
+                "wearScreenshots",
+                "images",
+                "screenshots",
+            )
                 .forEach { File(root, "deployment/android/metadata/$it").deleteRecursively() }
             // Play caps screenshots at 8 per form-factor per locale — trim deployment/android/metadata; extras → _over8/.
             val androidMeta = File(root, "deployment/android/metadata")
@@ -603,7 +654,11 @@ abstract class SyncForkConfigTask : DefaultTask() {
                     val dir = File(locale, "images/$form")
                     if (dir.isDirectory) {
                         val imgs = dir.listFiles { f -> f.isFile && f.name.matches(Regex(".*\\.(png|jpe?g)$", RegexOption.IGNORE_CASE)) }?.sortedBy { it.name } ?: emptyList()
-                        if (imgs.size > 8) { val over = File(locale, "images/_over8/$form"); over.mkdirs(); imgs.drop(8).forEach { it.renameTo(File(over, it.name)) } }
+                        if (imgs.size > 8) {
+                            val over = File(locale, "images/_over8/$form")
+                            over.mkdirs()
+                            imgs.drop(8).forEach { it.renameTo(File(over, it.name)) }
+                        }
                     }
                 }
             }
@@ -669,8 +724,11 @@ abstract class SyncForkConfigTask : DefaultTask() {
 
         // ── 6e. Copy managed structured docs to deployment ─────────────────────
         fun copyIfExists(srcRel: String, dstRel: String) {
-            val s = File(root, srcRel); if (!s.isFile) return
-            val d = File(root, dstRel); d.parentFile?.mkdirs(); s.copyTo(d, overwrite = true)
+            val s = File(root, srcRel)
+            if (!s.isFile) return
+            val d = File(root, dstRel)
+            d.parentFile?.mkdirs()
+            s.copyTo(d, overwrite = true)
         }
         copyIfExists("app-profile/platforms/apple/ios/app-content/app_privacy_details.json", "deployment/ios/appstore/metadata/app_privacy_details.json")
         copyIfExists("app-profile/platforms/apple/macos/app-content/app_privacy_details.json", "deployment/desktop/mac-app-store/metadata/app_privacy_details.json")
@@ -688,16 +746,11 @@ abstract class SyncForkConfigTask : DefaultTask() {
                 .ifBlank { appId.split(".").joinToString("") { seg -> seg.replaceFirstChar { it.uppercase() } } }
             val dbConfig = File(root, "core/database/src/commonMain/kotlin/kpt/core/database/config/DatabaseConfig.kt")
             if (dbConfig.parentFile.exists()) {
+                // Header from the one fork-owned source (spotless/license-header.txt + org.name);
+                // keep the file's stamped year so a re-run never churns it.
+                val header = LicenseHeader.kotlin(root, LicenseHeader.existingYear(dbConfig) ?: "2026")
                 dbConfig.writeText(
-                    "/*\n" +
-                        " * Copyright 2026 Mifos Initiative\n" +
-                        " *\n" +
-                        " * This Source Code Form is subject to the terms of the Mozilla Public\n" +
-                        " * License, v. 2.0. If a copy of the MPL was not distributed with this\n" +
-                        " * file, You can obtain one at https://mozilla.org/MPL/2.0/.\n" +
-                        " *\n" +
-                        " * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE\n" +
-                        " */\n" +
+                    (if (header.isEmpty()) "" else "$header\n") +
                         "package kpt.core.database.config\n\n" +
                         "/** Fork-unique database naming — generated by syncForkConfig from app-profile/app.yaml. */\n" +
                         "object DatabaseConfig {\n" +
@@ -718,7 +771,7 @@ abstract class SyncForkConfigTask : DefaultTask() {
         // the shipped entitlements never carries a hardcoded team/bundle literal. Mirrors the
         // Config.xcconfig / DatabaseConfig writers above (same shape, no new machinery).
         val entitlementsTemplate = File(root, "cmp-desktop/mac-app-store.entitlements.template")
-        val entitlementsOut      = File(root, "cmp-desktop/mac-app-store.entitlements")
+        val entitlementsOut = File(root, "cmp-desktop/mac-app-store.entitlements")
         if (entitlementsTemplate.exists()) {
             val teamId = appleTeamId.ifBlank { "YOUR_TEAM_ID" }
             val bundleId = appId.ifBlank { "com.example.app" }
@@ -742,7 +795,9 @@ abstract class SyncForkConfigTask : DefaultTask() {
         //   (b) alias prefixes — see rewriteAliasPrefixes(): source namespaces from
         //       secrets/LAYOUT.yaml#alias_namespaces, target = org.secrets_namespace + projectName.
         run {
-            val secretFiles = listOf("secrets-manifest.yaml", "secrets/LAYOUT.yaml")
+            // secrets/LAYOUT.yaml only: deployment/**/secrets-needs.yaml AND secrets-manifest.yaml are
+            // regenerated from LAYOUT at 6h, so they pick these rewrites up without being listed here.
+            val secretFiles = listOf("secrets/LAYOUT.yaml")
             val aliasNamespace = projectName
             for (rel in secretFiles) {
                 val f = File(root, rel)
@@ -759,14 +814,51 @@ abstract class SyncForkConfigTask : DefaultTask() {
                 // (b) vault-alias prefixes — no-op on the template itself (source == target).
                 next = rewriteAliasPrefixes(next, templateAliasNs, orgSecretsNamespace, aliasNamespace)
                 if (next != orig) {
-                    f.writeText(next); written++
+                    f.writeText(next)
+                    written++
                     logger.lifecycle("syncForkConfig: tokenized $rel (alias prefix=$aliasNamespace, match-url derived)")
                 }
             }
         }
 
+        // ── 6h. secrets-manifest.yaml — generated from deployment/**/secrets-needs.yaml + LAYOUT ──
+        // Each target authors only `needs: [{secret, required_for}]` (LAYOUT keys — nothing fork-specific,
+        // so deployment/ is never written here); every per-secret fact (vault alias, path, CI secret,
+        // how to obtain it) is LAYOUT's. The ONE generated output is the root secrets-manifest.yaml.
+        // Runs AFTER 6g so it sees this fork's rewritten alias prefixes. The logic lives ONCE, in the
+        // LAYOUT resolver (build_secrets.rb `needs-generate`); the product-health gate re-runs it with
+        // --check rather than a second implementation that could disagree.
+        generateSecretsNeeds(root)
+
         // ── 7. Fork icons ─────────────────────────────────────────────────────
         copyForkIcons(root)
+    }
+
+    /**
+     * Run `build_secrets.rb needs-generate` (stdlib Ruby — the same interpreter the deployment lanes
+     * use). A missing Ruby is a warning, not a failure: syncForkConfig must still work for a fork that
+     * only builds, and `scripts/product-health/checks/secrets-needs-generated.sh` fails CI if the
+     * files were left stale. A generator ERROR (a target needing a secret LAYOUT does not declare)
+     * fails the sync — that is the drift this exists to stop.
+     */
+    private fun generateSecretsNeeds(root: File) {
+        val resolver = File(root, "deployment/_shared/lib/build_secrets.rb")
+        if (!resolver.isFile) return
+        val proc = try {
+            ProcessBuilder("ruby", resolver.path, "needs-generate")
+                .directory(root)
+                .redirectErrorStream(true)
+                .start()
+        } catch (e: java.io.IOException) {
+            logger.warn("syncForkConfig: ruby not found — deployment/**/secrets-needs.yaml NOT regenerated (${e.message})")
+            return
+        }
+        val out = proc.inputStream.bufferedReader().readText().trim()
+        val rc = proc.waitFor()
+        out.lines().filter { it.isNotBlank() }.forEach { logger.lifecycle("syncForkConfig: $it") }
+        if (rc != 0) {
+            throw org.gradle.api.GradleException("syncForkConfig: secrets-needs generation failed (exit $rc) — see above")
+        }
     }
 
     /**
@@ -858,6 +950,7 @@ abstract class SyncForkConfigTask : DefaultTask() {
         sb.append(begin).append(" — GENERATED from app-profile/app.yaml#network.access_points.\n")
         sb.append("    // Edit access points THERE (the SoT) and run `./gradlew syncForkConfig`; do not hand-edit this block.\n")
         sb.append("    // `type` defaults to UrlType(id.uppercase()) — value-class-equal to the AppUrlTypes.* constants.\n")
+        sb.append("    /** This project's declared access points, in app-profile order. */\n")
         sb.append("    val points: List<AccessPoint> = listOf(\n")
         var count = 0
         // `main: true` marks the access point whose clients follow the RUNTIME main network config
@@ -923,6 +1016,15 @@ abstract class SyncForkConfigTask : DefaultTask() {
             }
             if (authScheme != "NONE") sb.append("            auth = AuthScheme.$authScheme,\n")
             if (m["main"] == true) sb.append("            isMain = true,\n")
+            if (kind == "SUPABASE") {
+                // The key is a BuildKonfig REFERENCE (build-time env / secrets read, by FQN so the file needs
+                // no import), never a value — nothing secret is written here. No env -> "" -> client inert.
+                val keyEnv = supabasePublishableKeyEnv(m)
+                val keyExpr = keyEnv?.let { "kpt.core.network.BuildKonfig.$it" } ?: "\"\""
+                sb.append("            supabase = kpt.core.base.network.SupabaseSpec(\n")
+                sb.append("                publishableKey = $keyExpr,\n")
+                sb.append("            ),\n")
+            }
             if (allHdrs.isNotEmpty()) {
                 sb.append("            headers = listOf(\n")
                 allHdrs.forEach { sb.append("                ").append(it).append(",\n") }
@@ -932,10 +1034,57 @@ abstract class SyncForkConfigTask : DefaultTask() {
             count++
         }
         sb.append("    )\n")
+        appendNetworkPolicy(sb, network)
         sb.append("    ").append(end)
         val endLineEnd = text.indexOf('\n', endIdx).let { if (it < 0) text.length else it }
         file.writeText(text.substring(0, beginIdx) + sb.toString() + text.substring(endLineEnd))
         logger.lifecycle("syncForkConfig: regenerated AppAccessPoints.points from app-profile ($count access points)")
+    }
+
+    /**
+     * Emit `AppAccessPoints.policy` — the app-wide network privacy policy — from `network.logging` and
+     * `network.web_cors_proxy`. Every key is optional and absent means the SECURE default (release logs
+     * nothing, no CORS relay), so a fork whose app.yaml predates these keys becomes safer on sync, never
+     * louder. A value that would ship personal data fails the sync instead: release `body` logging, or a
+     * relay that is not https.
+     */
+    private fun appendNetworkPolicy(sb: StringBuilder, network: Map<*, *>) {
+        val logging = (network["logging"] as? Map<*, *>).orEmpty()
+        fun detail(key: String, allowed: List<String>, default: String): String {
+            val raw = logging[key]?.toString()?.trim()?.lowercase()?.takeIf { it.isNotEmpty() } ?: return default
+            if (raw !in allowed) {
+                throw org.gradle.api.GradleException(
+                    "syncForkConfig: network.logging.$key '$raw' must be one of $allowed" +
+                        if (key == "release" && raw == "body") {
+                            " — request/response bodies carry personal data and must never be logged by a release build."
+                        } else {
+                            "."
+                        },
+                )
+            }
+            return raw
+        }
+        val release = detail("release", listOf("none", "info", "headers"), "none")
+        val debug = detail("debug", listOf("none", "info", "headers", "body"), "body")
+        val identifier = Regex("^[A-Za-z0-9_.-]+$")
+        val redact = (logging["redact_query_params"] as? List<*>).orEmpty().map { it.toString().trim() }
+        redact.firstOrNull { !identifier.matches(it) }?.let {
+            throw org.gradle.api.GradleException("syncForkConfig: network.logging.redact_query_params entry '$it' is not a query-parameter name.")
+        }
+        val proxy = network["web_cors_proxy"]?.toString()?.trim()?.takeIf { it.isNotEmpty() && it != "none" }
+        if (proxy != null && !proxy.startsWith("https://")) {
+            throw org.gradle.api.GradleException("syncForkConfig: network.web_cors_proxy '$proxy' must be an https:// URL (or omitted for no relay).")
+        }
+        fun esc(v: String) = v.replace("\\", "\\\\").replace("\"", "\\\"")
+        sb.append("\n    /** Network privacy policy — app-profile `network.logging` / `network.web_cors_proxy`. */\n")
+        sb.append("    val policy: NetworkPolicy = NetworkPolicy(\n")
+        sb.append("        releaseLogging = HttpLogDetail.${release.uppercase()},\n")
+        sb.append("        debugLogging = HttpLogDetail.${debug.uppercase()},\n")
+        if (redact.isNotEmpty()) {
+            sb.append("        redactQueryParams = listOf(").append(redact.joinToString(", ") { "\"${esc(it)}\"" }).append("),\n")
+        }
+        proxy?.let { sb.append("        webCorsProxy = \"${esc(it)}\",\n") }
+        sb.append("    )\n")
     }
 
     /** The `network.access_points` list, normalized to maps with a non-blank `id`. Empty when absent. */
@@ -1016,51 +1165,20 @@ abstract class SyncForkConfigTask : DefaultTask() {
     }
 
     /**
-     * Regenerate `AppSupabaseAnonKeys` — one row per declared SUPABASE access point.
+     * A Supabase point's `publishable_key_env:`, or null when undeclared (the client then stays inert).
      *
-     * A point declaring `anon_key_env: X` emits `BuildKonfig.X` (build-time read of env /
-     * local.properties, the same sanctioned path as FRED_API_KEY), so no key is ever written to a
-     * tracked file. A point WITHOUT it emits `""`, which leaves the client inert
-     * (`isConfigured == false`) rather than half-configured with a fake key.
+     * Fails on the retired `anon_key_env:` instead of ignoring it: ignored, a fork's key would silently
+     * vanish on the next sync and its client would go inert with no error anywhere.
      */
-    private fun regenerateSupabaseAnonKeys(root: File, appProfile: Map<String, Any?>) {
-        val points = accessPoints(appProfile).filter { isSupabase(it) }
-        val file = File(
-            root,
-            "core/network/src/commonMain/kotlin/kpt/core/network/config/AppSupabaseAnonKeys.kt",
-        )
-        val sb = StringBuilder()
-        sb.append("// syncForkConfig:supabase-anon-keys:begin — GENERATED from app-profile/app.yaml.\n")
-        sb.append("    // One row per SUPABASE access point. `anon_key_env: X` on the point emits BuildKonfig.X\n")
-        sb.append("    // (build-time env / local.properties read, referenced by FQN so no import is needed\n")
-        sb.append("    // outside this block); no key is committed. Absent -> \"\" so the client stays inert.\n")
-        sb.append("    private val byId: Map<String, String> = mapOf(\n")
-        var withKey = 0
-        for (m in points) {
-            val id = m["id"].toString()
-            val env = m["anon_key_env"]?.toString()?.trim()?.takeIf { it.isNotEmpty() }
-            if (env != null) {
-                sb.append("        \"$id\" to kpt.core.network.BuildKonfig.$env,\n")
-                withKey++
-            } else {
-                sb.append("        \"$id\" to \"\",\n")
-            }
-        }
-        sb.append("    )\n")
-        sb.append("    // syncForkConfig:supabase-anon-keys:end")
-        if (patchSentinel(
-                file,
-                "// syncForkConfig:supabase-anon-keys:begin",
-                "// syncForkConfig:supabase-anon-keys:end",
-                sb.toString(),
-            )
-        ) {
-            logger.lifecycle(
-                "syncForkConfig: regenerated AppSupabaseAnonKeys (${points.size} points, $withKey keyed)",
+    private fun supabasePublishableKeyEnv(m: Map<*, *>): String? {
+        if (m.containsKey("anon_key_env")) {
+            throw org.gradle.api.GradleException(
+                "syncForkConfig: access point '${m["id"]}' declares `anon_key_env:` — renamed to `publishable_key_env:` " +
+                    "(Supabase's client key is the publishable key; the legacy anon JWT still works as its value).",
             )
         }
+        return m["publishable_key_env"]?.toString()?.trim()?.takeIf { it.isNotEmpty() }
     }
-
 
     /**
      * Regenerate `AppReviewConfig` — store identity + prompt policy for the in-app review flow.
@@ -1136,31 +1254,97 @@ abstract class SyncForkConfigTask : DefaultTask() {
     }
 
     /**
-     * Refill `AppDatabase.kt`'s four `fork-*` regions from `app-profile/app.yaml#database`.
-     *
-     * This is what lets `core/database/**/AppDatabase.kt` be `owner: template` (FULL-COPY on a
-     * template sync) instead of a permanent 3-way merge: Room needs one compile-time
-     * `entities = [...]` array literal, so a fork's tables cannot live in a separate file — but they
-     * CAN be re-derived into the copied file afterwards. A sync full-copies the template's
-     * AppDatabase (fork regions empty), then the mandatory post-sync `syncForkConfig` projects the
-     * fork's declared schema back in. Same shape as the deployment metadata/screenshot regeneration.
-     *
-     * Hand-editing a `fork-*` region is pointless — this overwrites it. Declare in app-profile.
+     * Regenerate `AppSecurityConfig` — the security defaults a fresh install starts with, from
+     * `app.yaml#security`. Today: whether screen capture is allowed before the user chooses
+     * (`UserData.DEFAULT.enableScreenCapture` reads it). An absent or unparseable value keeps the
+     * secure default (`false`) rather than silently opening capture. And whether a fresh install starts
+     * signed in (`UserData.DEFAULT.isAuthenticated`), where absent means `true` — see the inline note.
      */
+    private fun regenerateAppSecurityConfig(root: File, appProfile: Map<String, Any?>) {
+        if (appProfile.isEmpty()) return
+        val file = File(root, "core/model/src/commonMain/kotlin/kpt/core/model/config/AppSecurityConfig.kt")
+        val security = appProfile["security"] as? Map<*, *>
+        val allowCapture = screenCaptureAllowedByDefault(security)
+        val signedIn = signedInByDefault(security)
+
+        val sb = StringBuilder()
+        sb.append("// syncForkConfig:app-security:begin — GENERATED from app-profile/app.yaml#security. Do not hand-edit.\n")
+        sb.append("    /** `security.screen_capture_allowed_by_default` — whether a fresh install allows screenshots + recording. */\n")
+        sb.append("    const val SCREEN_CAPTURE_ALLOWED_BY_DEFAULT: Boolean = ").append(allowCapture).append("\n\n")
+        sb.append("    /** `security.signed_in_by_default` — whether a fresh install starts signed in (false = the app has a login). */\n")
+        sb.append("    const val SIGNED_IN_BY_DEFAULT: Boolean = ").append(signedIn).append("\n")
+        sb.append("    // syncForkConfig:app-security:end")
+
+        if (patchSentinel(file, "// syncForkConfig:app-security:begin", "// syncForkConfig:app-security:end", sb.toString())) {
+            logger.lifecycle("syncForkConfig: regenerated AppSecurityConfig (screenCaptureAllowedByDefault=$allowCapture, signedInByDefault=$signedIn)")
+        }
+    }
+
     /**
-     * Give every declared access point its OWN package under `core/network`:
-     * `kpt/core/network/<id>/{api,dto}`.
-     *
-     * Endpoint code used to live in DOMAIN packages under `demo/` (`demo/economic` held BOTH the fred
-     * and worldbank APIs), which tied it to the demo lifecycle: `remove-demo.sh` deletes every
-     * a `demo` package, so a fork's endpoint code could not live beside the template's, and a
-     * cleaned fork had nowhere structural to put an API at all. Naming the package for the ACCESS
-     * POINT makes the layout a pure projection of app-profile — declare an endpoint, get a package,
-     * write the interface in it — and lets the strip delete exactly the endpoints it removed.
-     *
-     * Scaffolds only; never overwrites. Each new package gets a README so git tracks the directory
-     * and the next person knows what belongs there.
+     * Regenerate `AppPrivacyConfig` from `app-profile/app.yaml#privacy` — the consent STARTING values for a
+     * fresh install. Absent (or anything but `true`) means off: consent-based processing must be opt-in, so
+     * a fork whose app.yaml predates the block syncs to the GDPR-safe default, never to collection.
      */
+    private fun regenerateAppOrgLinks(root: File, appProfile: Map<String, Any?>) {
+        if (appProfile.isEmpty()) return
+        val file = File(root, "core/model/src/commonMain/kotlin/kpt/core/model/config/AppOrgLinks.kt")
+        val links = ((appProfile["org"] as? Map<*, *>)?.get("links") as? Map<*, *>).orEmpty()
+            .mapNotNull { (k, v) ->
+                val name = k?.toString()?.trim().orEmpty()
+                val url = v?.toString()?.trim().orEmpty()
+                // A blank or non-http(s) value is a typo, not a link: skip it rather than ship a dead row.
+                if (name.isEmpty() || !(url.startsWith("https://") || url.startsWith("http://"))) {
+                    if (name.isNotEmpty()) logger.warn("syncForkConfig: org.links.$name is not an http(s) URL — skipped")
+                    null
+                } else {
+                    name to url
+                }
+            }
+        fun lit(s: String) = "\"" + s.replace("\\", "\\\\").replace("\"", "\\\"").replace("$", "\\$") + "\""
+
+        val sb = StringBuilder()
+        sb.append("// syncForkConfig:org-links:begin — GENERATED from app-profile/app.yaml#org.links. Do not hand-edit.\n")
+        if (links.isEmpty()) {
+            sb.append("    private val links: Map<String, String> = emptyMap()\n")
+        } else {
+            sb.append("    private val links: Map<String, String> = linkedMapOf(\n")
+            links.forEach { (name, url) -> sb.append("        ").append(lit(name)).append(" to ").append(lit(url)).append(",\n") }
+            sb.append("    )\n")
+        }
+        sb.append("    // syncForkConfig:org-links:end")
+
+        if (patchSentinel(file, "// syncForkConfig:org-links:begin", "// syncForkConfig:org-links:end", sb.toString())) {
+            logger.lifecycle("syncForkConfig: regenerated AppOrgLinks (${links.size} link(s))")
+        }
+    }
+
+    private fun regenerateAppPrivacyConfig(root: File, appProfile: Map<String, Any?>) {
+        if (appProfile.isEmpty()) return
+        val file = File(root, "core/model/src/commonMain/kotlin/kpt/core/model/config/AppPrivacyConfig.kt")
+        val privacy = appProfile["privacy"] as? Map<*, *>
+        fun flag(key: String) = privacy?.get(key)?.toString()?.trim()?.lowercase() == "true"
+        val analytics = flag("analytics_enabled_by_default")
+        val crash = flag("crash_reporting_enabled_by_default")
+        // The privacy POLICY lives on the fork's website (org.privacy_url, the same URL the store listings use);
+        // Settings → Privacy opens it in the in-app browser. Absent → "" and the link is not shown.
+        val policyUrl = ((appProfile["org"] as? Map<*, *>)?.get("privacy_url")?.toString()?.trim().orEmpty())
+            .takeIf { it.startsWith("https://") }.orEmpty()
+
+        val sb = StringBuilder()
+        sb.append("// syncForkConfig:app-privacy:begin — GENERATED from app-profile/app.yaml#privacy. Do not hand-edit.\n")
+        sb.append("    /** `privacy.analytics_enabled_by_default` — whether a fresh install shares usage analytics. */\n")
+        sb.append("    const val ANALYTICS_ENABLED_BY_DEFAULT: Boolean = ").append(analytics).append("\n\n")
+        sb.append("    /** `privacy.crash_reporting_enabled_by_default` — whether a fresh install sends crash reports. */\n")
+        sb.append("    const val CRASH_REPORTING_ENABLED_BY_DEFAULT: Boolean = ").append(crash).append("\n\n")
+        sb.append("    /** `org.privacy_url` — the privacy policy page, opened in the in-app browser; empty when not set. */\n")
+        sb.append("    const val PRIVACY_POLICY_URL: String =\n        \"").append(policyUrl.replace("\\", "\\\\").replace("\"", "\\\"")).append("\"\n")
+        sb.append("    // syncForkConfig:app-privacy:end")
+
+        if (patchSentinel(file, "// syncForkConfig:app-privacy:begin", "// syncForkConfig:app-privacy:end", sb.toString())) {
+            logger.lifecycle("syncForkConfig: regenerated AppPrivacyConfig (analytics=$analytics, crashReporting=$crash)")
+        }
+    }
+
     private fun declaredStores(appProfile: Map<String, Any?>): List<Map<*, *>> {
         val block = (appProfile["core_store"] as? Map<*, *>).orEmpty()
         return ((block["stores"] as? List<*>) ?: emptyList<Any?>()).mapNotNull { it as? Map<*, *> }
@@ -1185,18 +1369,20 @@ abstract class SyncForkConfigTask : DefaultTask() {
         }
     }
 
-    private fun licenseHeader(sb: StringBuilder) {
-        sb.append("/*\n")
-        sb.append(" * Copyright 2026 Mifos Initiative\n")
-        sb.append(" *\n")
-        sb.append(" * This Source Code Form is subject to the terms of the Mozilla Public\n")
-        sb.append(" * License, v. 2.0. If a copy of the MPL was not distributed with this\n")
-        sb.append(" * file, You can obtain one at https://mozilla.org/MPL/2.0/.\n")
-        sb.append(" *\n")
-        sb.append(" * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE\n")
-        sb.append(" */\n")
-    }
-
+    /**
+     * Give every declared access point its OWN package under `core/network`:
+     * `kpt/core/network/<id>/{api,dto}`.
+     *
+     * Endpoint code used to live in DOMAIN packages under `demo/` (`demo/economic` held BOTH the fred
+     * and worldbank APIs), which tied it to the demo lifecycle: `remove-demo.sh` deletes every
+     * a `demo` package, so a fork's endpoint code could not live beside the template's, and a
+     * cleaned fork had nowhere structural to put an API at all. Naming the package for the ACCESS
+     * POINT makes the layout a pure projection of app-profile — declare an endpoint, get a package,
+     * write the interface in it — and lets the strip delete exactly the endpoints it removed.
+     *
+     * Scaffolds only; never overwrites. Each new package gets a README so git tracks the directory
+     * and the next person knows what belongs there.
+     */
     private fun scaffoldAccessPointPackages(root: File, appProfile: Map<String, Any?>) {
         val base = File(root, "core/network/src/commonMain/kotlin/kpt/core/network")
         if (!base.isDirectory) return
@@ -1242,12 +1428,12 @@ abstract class SyncForkConfigTask : DefaultTask() {
      * `buildConfigField` per key a fork declares in app-profile.
      *
      * Closes the half of the endpoint contract that was missing: `syncForkConfig` generated the
-     * REFERENCE (`AppSupabaseAnonKeys` emits `BuildKonfig.<anon_key_env>`) while the DECLARATION had
-     * to be hand-added to this template-owned build file. A fork that declared `anon_key_env: X` got
+     * REFERENCE (`AppAccessPoints` emits `BuildKonfig.<publishable_key_env>`) while the DECLARATION had
+     * to be hand-added to this template-owned build file. A fork that declared a key env `X` got
      * `Unresolved reference: X` and no seam to fix it in. Now the declaration is derived from the same
      * SoT as the reference, so the two cannot drift.
      *
-     * Sources: every access point's `anon_key_env:` / `api_key_env:`, plus `network.build_config_fields`
+     * Sources: every access point's `publishable_key_env:` / `api_key_env:`, plus `network.build_config_fields`
      * for keys not tied to an endpoint. Names already declared OUTSIDE the region (the demo
      * `FRED_API_KEY`) are skipped — a duplicate `buildConfigField` fails the buildkonfig plugin.
      */
@@ -1267,7 +1453,7 @@ abstract class SyncForkConfigTask : DefaultTask() {
         // (name -> env). LinkedHashMap keeps declaration order stable so the region does not churn.
         val fields = LinkedHashMap<String, String>()
         for (m in accessPoints(appProfile)) {
-            for (key in listOf("anon_key_env", "api_key_env")) {
+            for (key in listOf("publishable_key_env", "api_key_env")) {
                 val env = m[key]?.toString()?.trim()?.takeIf { it.isNotEmpty() } ?: continue
                 if (valid.matches(env)) fields.putIfAbsent(env, env)
             }
@@ -1281,6 +1467,28 @@ abstract class SyncForkConfigTask : DefaultTask() {
             if (valid.matches(env)) fields.putIfAbsent(name, env)
         }
 
+        // A BuildKonfig field is compiled INTO the app binary, where anyone can extract it. Only
+        // client-safe values belong there (a Supabase publishable key, a public API key). A
+        // privileged credential — Supabase service_role / secret key, a DB password or URL, a
+        // management access token, a JWT secret, a private key — bypasses RLS or grants account
+        // access, so a name that says it is one fails the sync instead of shipping. Such keys stay in
+        // the vault for CI / Edge Functions (scripts/product-health/checks/supabase-client-security.sh
+        // checks the values themselves).
+        val privileged = Regex("SERVICE_ROLE|SERVICE_KEY|SECRET|PASSWORD|DB_URL|DATABASE_URL|ACCESS_TOKEN|JWT|PRIVATE_KEY")
+        fields.entries.firstOrNull { (name, env) -> privileged.containsMatchIn(name) || privileged.containsMatchIn(env) }
+            ?.let { (name, env) ->
+                throw org.gradle.api.GradleException(
+                    "syncForkConfig: app-profile asks to compile '$name' (env $env) into the app via BuildKonfig, " +
+                        "but that name marks a privileged credential. Client apps may carry only client-safe keys " +
+                        "(e.g. the Supabase publishable key); keep service-role/secret/DB/admin keys in the vault " +
+                        "for CI or a Supabase Edge Function.",
+                )
+            }
+
+        // env -> secrets/LAYOUT.yaml key, for every single-value `kind: value` row with a `rel:` (what the
+        // resolver's export-paths map can resolve). The generated field then reads that file at build time.
+        val secretKeys = layoutValueKeysByEnv(root)
+
         // Anything already declared outside the region wins — re-emitting it would be a duplicate.
         val outside = text.substringBefore(begin) + text.substringAfter(end)
         val existing = Regex("""buildConfigField\(\s*STRING,\s*"([A-Z0-9_]+)"""")
@@ -1288,24 +1496,44 @@ abstract class SyncForkConfigTask : DefaultTask() {
 
         val body = buildString {
             append(begin).append(" — GENERATED from `app-profile/app.yaml`: one field per\n")
-            append("        // access point declaring `anon_key_env:`/`api_key_env:`, plus every `network.build_config_fields`\n")
+            append("        // access point declaring `publishable_key_env:`/`api_key_env:`, plus every `network.build_config_fields`\n")
             append("        // entry. DO NOT HAND-EDIT — declare the key in app-profile and re-run `./gradlew syncForkConfig`.\n")
-            append("        // Values are read at BUILD time from the env var or local.properties, so no secret is committed.\n")
+            append("        // Values are read at BUILD time — the env var (CI), then the secrets/LAYOUT.yaml `kind: value` row whose\n")
+            append("        // source_env matches (secrets/live/ else the secrets/sample/ fake), then local.properties (legacy).\n")
+            append("        // No secret is committed.\n")
             for ((name, env) in fields) {
                 if (name in existing) continue
                 append("        buildConfigField(\n")
-                append("            STRING, \"").append(name).append("\",\n")
-                append("            System.getenv(\"").append(env).append("\") ?: localProps.getProperty(\"")
-                    .append(env).append("\", \"\"),\n")
+                // One argument per line: ktlint (spotlessKotlinGradle) rejects a multi-line call that puts two on one.
+                append("            STRING,\n")
+                append("            \"").append(name).append("\",\n")
+                append("            System.getenv(\"").append(env).append("\")")
+                secretKeys[env]?.let { append(" ?: project.readSecretValue(\"").append(it).append("\")") }
+                append(" ?: localProps.getProperty(\"").append(env).append("\", \"\"),\n")
                 append("        )\n")
             }
             append(end)
         }
+
+        /** The file's content before patching, so the task can report only a real change. */
         val before = file.readText()
         patchSentinel(file, begin, end, body)
         if (file.readText() != before) {
+            /**
+             * How many fields were newly added, for the log line — distinct from the total, which would report work on
+             * every run.
+             */
             val emitted = fields.keys.count { it !in existing }
             logger.lifecycle("syncForkConfig: regenerated core/network buildkonfig fields ($emitted field(s))")
+        }
+    }
+
+    /** Parse `app-profile/migration-ledger.yaml` -> ordered (from, to, specFqn?) rows. */
+    private fun readLedgerVersion(root: File): Int? {
+        val ledger = File(root, "app-profile/migration-ledger.yaml")
+        if (!ledger.isFile) return null
+        return ledger.readLines().firstNotNullOfOrNull { raw ->
+            Regex("""^version:\s*(\d+)""").find(raw.substringBefore('#'))?.groupValues?.get(1)?.toInt()
         }
     }
 
@@ -1323,15 +1551,6 @@ abstract class SyncForkConfigTask : DefaultTask() {
      * Renumbering is the one forbidden move: a shipped from/to edge is a contract with every
      * installed device, and rewriting it strands them.
      */
-    /** Parse `app-profile/migration-ledger.yaml` -> ordered (from, to, specFqn?) rows. */
-    private fun readLedgerVersion(root: File): Int? {
-        val ledger = File(root, "app-profile/migration-ledger.yaml")
-        if (!ledger.isFile) return null
-        return ledger.readLines().firstNotNullOfOrNull { raw ->
-            Regex("""^version:\s*(\d+)""").find(raw.substringBefore('#'))?.groupValues?.get(1)?.toInt()
-        }
-    }
-
     private fun reconcileMigrationLedger(root: File, appProfile: Map<String, Any?>) {
         val ledger = File(root, "app-profile/migration-ledger.yaml")
         if (!ledger.isFile) return
@@ -1418,11 +1637,13 @@ abstract class SyncForkConfigTask : DefaultTask() {
         return node?.toString()
     }
 
-    // Targeted substitution of identity literals in template-owned deployment files (B2 / G6).
-    // Regex-replaces only the specific attribute/line values, preserving each file's structure.
-    // Returns the count of files rewritten. Skips a file when it is absent or its source value blank.
     /** The two vault-alias namespaces committed secret files carry: org-shared + per-app. */
-    data class AliasNamespaces(val org: String, val project: String)
+    data class AliasNamespaces(
+        /** Prefix of org-shared aliases, e.g. `mifos-x` in `mifos-x-match-password`. */
+        val org: String,
+        /** Prefix of per-app aliases, e.g. `kmp-project-template` in `kmp-project-template-upload-keystore`. */
+        val project: String,
+    )
 
     /**
      * The TEMPLATE's alias namespaces, declared once in the template-owned `secrets/LAYOUT.yaml`:
@@ -1436,6 +1657,26 @@ abstract class SyncForkConfigTask : DefaultTask() {
      * Every fork receives that file unchanged on sync, so it always names what the committed aliases
      * carry — the code never hardcodes either value. Null (no block / no file) disables the rewrite.
      */
+    /**
+     * `source_env -> key` for every `kind: value` secret in `secrets/LAYOUT.yaml` that has a `rel:` and no
+     * `by_flavor` — the rows the resolver's `export-paths` map resolves to a single file. Empty when the
+     * file is missing or unparsable, so the generated fields fall back to env + local.properties.
+     */
+    private fun layoutValueKeysByEnv(root: File): Map<String, String> {
+        val f = File(root, "secrets/LAYOUT.yaml")
+        if (!f.isFile) return emptyMap()
+        val doc = runCatching { f.inputStream().use { Yaml().load<Any?>(it) } }.getOrNull() as? Map<*, *>
+            ?: return emptyMap()
+        val out = LinkedHashMap<String, String>()
+        for ((key, spec) in (doc["secrets"] as? Map<*, *>).orEmpty()) {
+            val s = spec as? Map<*, *> ?: continue
+            if (s["kind"] != "value" || s["rel"] == null || s["by_flavor"] != null) continue
+            val env = s["source_env"]?.toString()?.trim()?.takeIf { it.isNotEmpty() } ?: continue
+            out.putIfAbsent(env, key.toString())
+        }
+        return out
+    }
+
     private fun readTemplateAliasNamespaces(root: File): AliasNamespaces? {
         val f = File(root, "secrets/LAYOUT.yaml")
         if (!f.isFile) return null
@@ -1443,7 +1684,10 @@ abstract class SyncForkConfigTask : DefaultTask() {
         var org = ""
         var project = ""
         for (line in f.readLines()) {
-            if (line.trimEnd() == "alias_namespaces:") { inBlock = true; continue }
+            if (line.trimEnd() == "alias_namespaces:") {
+                inBlock = true
+                continue
+            }
             if (!inBlock) continue
             if (line.isNotBlank() && !line.startsWith(" ")) break
             val m = Regex("""^\s+(org|project):\s*([A-Za-z0-9._-]+)""").find(line) ?: continue
@@ -1466,93 +1710,6 @@ abstract class SyncForkConfigTask : DefaultTask() {
         if (dstOrg.isNotBlank() && dstOrg != src.org) out = out.replace("${src.org}-", "$dstOrg-")
         if (dstProject.isNotBlank() && dstProject != src.project) out = out.replace("${src.project}-", "$dstProject-")
         return out
-    }
-
-    private fun tokenizeDeploymentFiles(
-        root: File,
-        cloudflareProject: String,
-        msixIdentityName: String,
-        msixIdentityPub: String,
-        msixPublisherDisplay: String,
-        appName: String,
-        aliasNamespace: String,
-        templateAliasNs: AliasNamespaces?,
-        orgSecretsNamespace: String,
-    ): Int {
-        var count = 0
-
-        // wrangler.toml — `name = "…"` (the Cloudflare Pages project name).
-        if (cloudflareProject.isNotBlank()) {
-            val wrangler = File(root, "deployment/web/cloudflare-pages/wrangler.toml")
-            if (wrangler.isFile) {
-                val re = Regex("(?m)^(\\s*name\\s*=\\s*)\"[^\"]*\"")
-                val orig = wrangler.readText()
-                val next = orig.replace(re) { "${it.groupValues[1]}\"$cloudflareProject\"" }
-                if (next != orig) { wrangler.writeText(next); count++ }
-                logger.lifecycle("syncForkConfig: tokenized wrangler.toml name=$cloudflareProject")
-            }
-            // config.yaml + workflow-snippet.yml — `--project-name=…` in the runner/CI command string.
-            // (workflow-snippet.yml was missed initially — surfaced by a downstream fork proof.)
-            for (rel in listOf(
-                "deployment/web/cloudflare-pages/config.yaml",
-                "deployment/web/cloudflare-pages/workflow-snippet.yml",
-            )) {
-                val f = File(root, rel)
-                if (f.isFile) {
-                    val re = Regex("(--project-name=)[^\"\\s]+")
-                    val orig = f.readText()
-                    val next = orig.replace(re) { "${it.groupValues[1]}$cloudflareProject" }
-                    if (next != orig) { f.writeText(next); count++ }
-                }
-            }
-        }
-
-        // Package.appxmanifest — Identity Name/Publisher + PublisherDisplayName + Description.
-        val appx = File(root, "deployment/desktop/microsoft-store/Package.appxmanifest")
-        if (appx.isFile) {
-            var text = appx.readText()
-            val before = text
-            if (msixIdentityName.isNotBlank()) {
-                text = text.replace(Regex("(<Identity\\b[\\s\\S]*?\\bName=\")[^\"]*(\")")) {
-                    "${it.groupValues[1]}$msixIdentityName${it.groupValues[2]}"
-                }
-            }
-            if (msixIdentityPub.isNotBlank()) {
-                text = text.replace(Regex("(<Identity\\b[\\s\\S]*?\\bPublisher=\")[^\"]*(\")")) {
-                    "${it.groupValues[1]}$msixIdentityPub${it.groupValues[2]}"
-                }
-            }
-            if (msixPublisherDisplay.isNotBlank()) {
-                text = text.replace(Regex("(<PublisherDisplayName>)[^<]*(</PublisherDisplayName>)")) {
-                    "${it.groupValues[1]}$msixPublisherDisplay${it.groupValues[2]}"
-                }
-            }
-            if (appName.isNotBlank()) {
-                text = text.replace(Regex("(\\bDescription=\")[^\"]*(\")")) {
-                    "${it.groupValues[1]}$appName${it.groupValues[2]}"
-                }
-            }
-            if (text != before) { appx.writeText(text); count++ }
-            logger.lifecycle("syncForkConfig: tokenized Package.appxmanifest")
-        }
-
-        // deployment/<platform>/<target>/secrets-needs.yaml — vault aliases (G2). The committed template
-        // carries ITS OWN alias namespaces; rewrite them to this checkout's (see rewriteAliasPrefixes) so
-        // every alias a target declares is this fork's. Covers every platform, not only the Android
-        // keystore. No-op on the template itself. Fail-soft when absent.
-        File(root, "deployment").walkTopDown()
-            .filter { it.isFile && it.name == "secrets-needs.yaml" }
-            .sortedBy { it.path }
-            .forEach { f ->
-                val orig = f.readText()
-                val next = rewriteAliasPrefixes(orig, templateAliasNs, orgSecretsNamespace, aliasNamespace)
-                if (next != orig) {
-                    f.writeText(next); count++
-                    logger.lifecycle("syncForkConfig: tokenized ${f.relativeTo(root)} (alias prefixes)")
-                }
-            }
-
-        return count
     }
 
     private fun parseTomlVersions(toml: File): Map<String, String> {
@@ -1578,12 +1735,12 @@ abstract class SyncForkConfigTask : DefaultTask() {
         }
 
         val mappings = listOf(
-            Triple("ios.png",             iosAppIconDir.get().asFile,      "AppIcon.png"),
-            Triple("web-favicon.ico",     jsResourcesDir.get().asFile,     "favicon.ico"),
-            Triple("web-favicon.ico",     wasmJsResourcesDir.get().asFile, "favicon.ico"),
-            Triple("desktop-macos.icns",  desktopIconsDir.get().asFile,    "ic_launcher.icns"),
-            Triple("desktop-windows.ico", desktopIconsDir.get().asFile,    "ic_launcher.ico"),
-            Triple("desktop-linux.png",   desktopIconsDir.get().asFile,    "ic_launcher.png"),
+            Triple("ios.png", iosAppIconDir.get().asFile, "AppIcon.png"),
+            Triple("web-favicon.ico", jsResourcesDir.get().asFile, "favicon.ico"),
+            Triple("web-favicon.ico", wasmJsResourcesDir.get().asFile, "favicon.ico"),
+            Triple("desktop-macos.icns", desktopIconsDir.get().asFile, "ic_launcher.icns"),
+            Triple("desktop-windows.ico", desktopIconsDir.get().asFile, "ic_launcher.ico"),
+            Triple("desktop-linux.png", desktopIconsDir.get().asFile, "ic_launcher.png"),
         )
         var copied = 0
         for ((srcName, dstDir, dstName) in mappings) {
@@ -1604,7 +1761,8 @@ abstract class SyncForkConfigTask : DefaultTask() {
         val ogSrc = File(root, "app-profile/platforms/web/media/og-images/og-image.png")
         if (ogSrc.isFile && ogSrc.length() > 1024L) {
             listOf(jsResourcesDir.get().asFile, wasmJsResourcesDir.get().asFile).forEach { dir ->
-                dir.mkdirs(); ogSrc.copyTo(File(dir, "og-image.png"), overwrite = true)
+                dir.mkdirs()
+                ogSrc.copyTo(File(dir, "og-image.png"), overwrite = true)
             }
             logger.lifecycle("syncForkConfig: copied app-profile web og-image → cmp-web/{js,wasmJs}Main/resources/og-image.png")
             copied++
@@ -1637,6 +1795,9 @@ abstract class SyncForkConfigTask : DefaultTask() {
         }
     }
 
+    /**
+     * The flat-key → app-profile-path map, mirrored key-for-key with the Ruby side.
+     */
     companion object {
         // Flat gradle/fork.properties key → dotted path in the merged app-profile map.
         // MIRRORS deployment/_shared/config.rb `AppProfile::MAP` KEY-FOR-KEY so the Ruby (fastlane)
@@ -1664,8 +1825,6 @@ abstract class SyncForkConfigTask : DefaultTask() {
             "org.marketing.url" to "org.marketing_url",
             "org.privacy.url" to "org.privacy_url",
             "org.support.url" to "org.support_url",
-            "org.community.url" to "org.community_url",
-            "org.product.url" to "org.product_url",
             // ── legal ──
             "legal.company.name" to "legal.company_name",
             "legal.jurisdiction" to "legal.jurisdiction",

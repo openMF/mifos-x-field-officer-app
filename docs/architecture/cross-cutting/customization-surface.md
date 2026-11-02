@@ -31,15 +31,19 @@ that whole class of silent loss becomes impossible.
 > The most-edited `owner: fork` files are the **white-label extension seams** — the registries a fork
 > uses to add features, tabs, the home body, and startup hooks without touching template infra. They are
 > documented in
-> [`cmp-navigation/.../registry/README.md`](../../cmp-navigation/src/commonMain/kotlin/cmp/navigation/registry/README.md).
+> [`cmp-navigation/.../registry/README.md`](../README.md).
 
 ## Precedence
 
 Rules are ordered **most-specific → most-general**, and the **first matching rule
 wins**. So the narrow `merge`/`fork` carve-outs are declared *before* the broad
-`template` module globs and correctly win over them. A trailing catch-all `**`
-rule (`owner: fork`, `default: true`) means the runtime never clobbers an unknown
-path — while `--verify` flags anything that reaches it so a human classifies it.
+`template` module globs and correctly win over them. The trailing catch-all `**`
+rule (`owner: template`, `default: true`) is **template-first** — a directory the template adds
+syncs without anyone remembering a rule — but it claims only what the template **ships**: a path
+under no sync root (`scripts/white-label/sync-dirs.sh` `SYNC_DIRS` / `SYNC_FILES`, read by the
+reader, never duplicated in the contract) resolves `fork`. A fork's own `libs/`, `branding/` or
+`maestro/` is therefore fork territory without the template naming it. `--verify` still flags every
+template path that reaches the default, so a human classifies it.
 
 Glob syntax: `*` matches within one path segment; `**` matches across segments;
 `**/x` matches `x` at any depth (including the repo root).
@@ -120,16 +124,17 @@ cs_resolve_strategy "gradle/libs.versions.toml"   # → catalog-3way
    **only on a true overlap** — surfaced with a `CONFLICT` warning for review, never
    silently shipped.
 
-### The platform shells are `merge`, not `template`
+### The shells are `template`, except the files that carry fork wiring
 
-`build-logic/**` and the four platform **application shells** — `cmp-android/**`, `cmp-ios/**`,
-`cmp-desktop/**`, `cmp-web/**` — are mostly template content, which makes `template` + full-copy the
-tempting classification. It is the wrong one: a platform shell is the one place where fork-specific
-**platform wiring** has nowhere else to live. `core/<mod>/module-deps.gradle.kts` gives a fork a seam
+`build-logic/**` and the application shells — `cmp-android`, `cmp-ios`, `cmp-desktop`, `cmp-web`,
+`cmp-shared`, `cmp-navigation` — are template code and resolve `template`: a sync replaces each file in
+full. A fork edit to one of them is overwritten; fork build hooks go in `build-logic/**/kotlin/local/**`
+(fork). The exception is the handful of shell files that carry fork-specific **platform wiring**, which
+has nowhere else to live. `core/<mod>/module-deps.gradle.kts` gives a fork a seam
 for dependencies; there is no equivalent seam for an Xcode target, an entitlement, or a plist key.
 
-Measured on a real consumer (2026-09-10), every one of these sat under the old `template` blanket and
-would have been destroyed silently by a full-copy:
+Measured on a real consumer (2026-09-10), before these files had rows of their own, a full-copy would
+have destroyed every one of them silently:
 
 | Path | Fork content a full-copy deletes |
 |---|---|
@@ -138,20 +143,19 @@ would have been destroyed silently by a full-copy:
 | `cmp-ios/iosApp.xcodeproj/project.pbxproj` | an entire app-extension target the template has no concept of |
 | `cmp-ios/iosApp/iOSApp.swift` | scene-phase `AppBackground` / `AppForeground` hooks |
 
-A 3-way takes the template's evolution — the SwiftPM migration landed 5 `XCLocalSwiftPackageReference`
+Those files — and every `cmp-*/build.gradle.kts`, `MainActivity.kt`, `AndroidManifest.xml`, the
+cmp-navigation seams (`*Navigation*`, `RootNav*`, `di/`, `*TabItem*`, `ui/`) and its `strings.xml` —
+resolve `merge`, by name. A 3-way takes the template's evolution — the SwiftPM migration landed 5 `XCLocalSwiftPackageReference`
 entries plus the `KotlinMultiplatformLinkedPackage` tree this way — while the fork's additions survive,
 and a genuine overlap surfaces as a conflict marker rather than a silent loss.
 
-These blankets carry **no `strategy:`**: they span `.kts` / `.swift` / `.plist` / `.xml` / `.pbxproj` /
-`.xcconfig` / `.js` / `.html`, and `cs_merge`'s default `git merge-file` is the only strategy that
-handles all of them. Structure-aware strategies stay on the specific rows that name one filetype
-(`AndroidManifest.xml` still resolves `merge (strategy: manifest-union)`). Binaries under these
+Rows without a `strategy:` use `cs_merge`'s default `git merge-file`; structure-aware strategies sit on
+the rows that name one filetype (`plist-union`, `pbxproj-3way`, `manifest-union`, `kotlin-3way`). Binaries under these
 directories are carved out `fork` (`res/**`, `Assets.xcassets/**`, `cmp-desktop/icons/**`, the
 `cmp-web` resources), and the engine additionally refuses to line-merge a binary.
 
-`cmp-shared/**` and `cmp-navigation/**` stay `template` — they carry no platform project files, and
-their fork surface is already served by named seams (`ForkWorkerDeclarations.kt`, `registry/**`,
-`di/*.kt`, `RootNav*.kt`).
+The fork-owned seams inside the shells are `ForkWorkerDeclarations.kt` (cmp-shared) and `registry/**`
+(cmp-navigation).
 
 The `template`/`fork` mechanical behaviour (`SYNC_DIRS` + `EXCLUSIONS`) is unchanged;
 the contract adds the `merge` path handling that previously didn't exist. Guarded so
@@ -161,6 +165,40 @@ Proof: `tests/customization-surface/merge-3way-test.sh` — a fork's `RECORD_AUD
 `FOREGROUND_SERVICE_MICROPHONE` survive a template update that adds
 `POST_NOTIFICATIONS`, clean, no markers; a true same-line conflict returns rc=1 with
 markers.
+
+### Overlay vs strict mirror (`--mirror`)
+
+`git checkout <template> -- <dir>` is an **overlay**: it writes every file the template has and never
+removes a file only the fork has. `propagate_template_deletions` removes files the template itself
+deleted since the last sync (when the fork never touched them); nothing removed files the template
+NEVER shipped. A 2026-10-31 audit of 10 forks found fork code living permanently inside
+template-owned roots — components dropped into `kpt/core/designsystem/component/`, whole packages in
+`core-base/` — that a sync never reported and never reconciled.
+
+`sync-dirs.sh --mirror` makes template-owned roots a strict mirror: after the copy lands, every file
+the fork has under the root, the template does not, and the contract resolves **exactly** `template`
+is removed. Never touched: `is_excluded` paths (fork-owned, `**/demo/**`, the `core/store` seam,
+`schemas/`), `merge`-owned and `demo-showcase` paths, and anything listed in the fork-owned
+**`.template-sync-holds`** (`path<TAB>reason` — an extra proposed upstream waits there until the
+template adopts it). `--mirror` is opt-in: `/kmp-project-template-sync` first classifies each extra —
+adopt upstream, move to a fork package, or delete — so nothing is removed unreviewed. Proof:
+`tests/customization-surface/mirror-test.sh`.
+
+### `.template-version` advances only on a COMPLETE sync
+
+The marker is the 3-way base for the next sync, so it must state what the tree fully holds. A failed
+`sync_directory` / `sync_file` used to be ignored and the marker stamped anyway; two audited forks
+recorded the latest base while hundreds of their `core-base` files matched OLDER template versions.
+Every failure is now recorded, and if any occurred the engine names them, leaves the previous marker,
+and exits before committing.
+
+### A conflicted merge never reaches a commit
+
+A `merge`-owned file whose 3-way merge left markers used to be reported ("resolve markers before
+committing the sync") and then committed by the same run. A dry run on a real fork produced a sync
+commit with `<<<<<<<` in 19 files — build-logic plugins, the navigation shell, an Xcode file list.
+Conflicts are now recorded; every path still synced, so `.template-version` is written, but the engine
+exits **3** before committing and lists the files. Resolve them on the sync branch, then commit.
 
 ## Recommended CI wiring
 

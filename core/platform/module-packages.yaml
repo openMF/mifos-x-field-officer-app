@@ -61,5 +61,4 @@ template:
 # as features need them. Those stay UNDECLARED — the module catch-all resolves them `fork`, so a
 # sync never overwrites a fork's own bridges. That catch-all was missing until 2026-09-10, when
 # platform fell to the `core/**` blanket and resolved `template` instead.
-fork:
-  - { id: permission, status: exists }
+fork: []

@@ -43,6 +43,9 @@ def _listing_sync_hash(metadata_path)
   h.hexdigest
 end
 
+# Last-synced store-listing state, or an empty hash when absent or unreadable.
+# A corrupt state file degrades to "nothing synced yet", which re-uploads rather than
+# skipping — the safe direction for a listing.
 def _listing_sync_state
   p = _listing_sync_state_path
   return {} unless File.exist?(p)

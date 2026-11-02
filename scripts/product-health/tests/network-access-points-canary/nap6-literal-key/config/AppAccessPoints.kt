@@ -19,6 +19,9 @@ object AppAccessPoints {
             kind = AccessPointKind.SUPABASE,
             baseUrl = "https://sb.supabase.co",
             loggableHost = "sb.supabase.co",
+            supabase = kpt.core.base.network.SupabaseSpec(
+                publishableKey = "sb_publishable_PLACEHOLDER",
+            ),
         ),
         AccessPoint(
             id = "pay-gw",

@@ -17,14 +17,26 @@ package kpt.core.base.crypto
 actual class SecureKeyProvider {
     private var storedKey: ByteArray? = null
 
+    /**
+     * `getKey` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only and
+     * cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun getKey(): ByteArray? = storedKey?.copyOf()
 
+    /**
+     * `generateKey` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only
+     * and cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun generateKey(): ByteArray {
         val key = SecureRandom().nextBytes(32)
         storedKey = key.copyOf()
         return key
     }
 
+    /**
+     * `deleteKey` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only and
+     * cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun deleteKey() {
         storedKey?.fill(0)
         storedKey = null

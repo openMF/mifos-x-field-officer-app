@@ -35,7 +35,8 @@ import org.koin.core.module.Module
  *
  * [onUnauthorized], when given, is told of every 401 on a request that carried credentials — see
  * [UnauthorizedHandler]. [networkConfigs], when given, resolves this point's URL and header values per
- * request — runtime network configs, see [NetworkConfigRepository].
+ * request — runtime network configs, see [NetworkConfigRepository]. [debugBuild] selects which half of
+ * [AccessPointRegistry.policy] applies; false (release) is the safe default for a caller that cannot tell.
  */
 fun AccessPointRegistry.ktorfitFor(
     accessPointId: String,
@@ -43,6 +44,7 @@ fun AccessPointRegistry.ktorfitFor(
     runtimeHeaders: RuntimeHeaderStore = RuntimeHeaderStore(),
     onUnauthorized: UnauthorizedHandler? = null,
     networkConfigs: NetworkConfigRepository? = null,
+    debugBuild: Boolean = false,
 ): Ktorfit {
     val ap = byId(accessPointId)
         ?: error(
@@ -54,7 +56,17 @@ fun AccessPointRegistry.ktorfitFor(
     return Ktorfit.Builder()
         .httpClient(
             client = sharedRestClient(accessPointId) {
-                httpClient(restClientConfig(ap, headerProvider, runtimeHeaders, onUnauthorized, networkConfigs))
+                httpClient(
+                    restClientConfig(
+                        ap = ap,
+                        headerProvider = headerProvider,
+                        runtimeHeaders = runtimeHeaders,
+                        onUnauthorized = onUnauthorized,
+                        networkConfigs = networkConfigs,
+                        policy = policy,
+                        debugBuild = debugBuild,
+                    ),
+                )
             },
         )
         .build()
@@ -62,7 +74,8 @@ fun AccessPointRegistry.ktorfitFor(
 
 /**
  * The client configuration [ktorfitFor] builds an access point's shared client with — public so it can
- * be exercised on a test engine exactly as the app runs it.
+ * be exercised on a test engine exactly as the app runs it. [policy] + [debugBuild] decide what is logged
+ * and whether web routes [AccessPoint.proxiedHost] through a CORS relay.
  */
 fun restClientConfig(
     ap: AccessPoint,
@@ -70,9 +83,17 @@ fun restClientConfig(
     runtimeHeaders: RuntimeHeaderStore = RuntimeHeaderStore(),
     onUnauthorized: UnauthorizedHandler? = null,
     networkConfigs: NetworkConfigRepository? = null,
+    policy: NetworkPolicy = NetworkPolicy(),
+    debugBuild: Boolean = false,
 ): HttpClientConfig<*>.() -> Unit = {
     setupDefaultHttpClient(
         baseUrl = ap.effectiveUrl,
+        // Release builds log nothing unless app-profile says otherwise, and never bodies — a request
+        // body is where a name, an account or a token lives.
+        isReleaseBuild = !debugBuild,
+        httpLogLevel = policy.logDetail(debugBuild).level,
+        redactQueryParams = policy.allRedactedQueryParams,
+        corsProxyBaseUrl = policy.webCorsProxy,
         loggableHosts = listOf(ap.loggableHost),
         proxiedHosts = ap.proxiedHost?.let { listOf(it) } ?: emptyList(),
         // Per access point: a key belongs to ONE endpoint, and sending it to the others leaks a
@@ -121,6 +142,7 @@ inline fun <reified T : Any> Module.restApi(
                 // Optional: bound by a fork that wants a rejected session to end it (UnauthorizedHandler).
                 onUnauthorized = getOrNull<UnauthorizedHandler>(),
                 networkConfigs = getOrNull<NetworkConfigRepository>(),
+                debugBuild = isDebugBuild(),
             ),
         )
     }
@@ -141,7 +163,7 @@ inline fun <reified T : Any> Module.restApi(
  * Usage:
  * ```
  * val ProjectNetworkModule = module {
- *     supabaseApi("project") { AppConfigApi(it) }
+ *     supabaseApi("project") { ServerInstanceApi(it) }
  * }
  * ```
  */

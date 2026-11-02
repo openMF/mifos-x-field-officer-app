@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
@@ -91,10 +91,15 @@ private external interface KptSecureHelpers : JsAny {
 )
 private external fun installHelpers(): KptSecureHelpers
 
+/**
+ * Browser crypto for the WasmJS target. Same WebCrypto surface as the JS actual, kept separate only because the two
+ * targets do not share an interop layer.
+ */
 actual class WebSecureCrypto {
 
     private var key: JsAny? = null
 
+    /** `warmUp` on this target. Web (WasmJS). */
     actual suspend fun warmUp() {
         if (key == null) key = installHelpers().loadOrCreateKey().await()
     }
@@ -102,9 +107,11 @@ actual class WebSecureCrypto {
     private fun requireKey(): JsAny =
         requireNotNull(key) { "WebSecureCrypto.warmUp() must complete before use" }
 
+    /** `encrypt` on this target. Web (WasmJS). */
     actual suspend fun encrypt(plaintext: String): String =
         installHelpers().encrypt(requireKey(), plaintext).await().toString()
 
+    /** `decrypt` on this target. Web (WasmJS). */
     actual suspend fun decrypt(ciphertext: String): String =
         installHelpers().decrypt(requireKey(), ciphertext).await().toString()
 }

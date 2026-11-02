@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 @file:OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
 
@@ -140,6 +140,12 @@ class UserPreferencesRepositoryImpl(
     override val observeScreenCapturePreference: Flow<Boolean>
         get() = _userData.map { it.enableScreenCapture }
 
+    override val observeAnalyticsConsent: Flow<Boolean>
+        get() = _userData.map { it.analyticsConsent }
+
+    override val observeCrashReportingConsent: Flow<Boolean>
+        get() = _userData.map { it.crashReportingConsent }
+
     private suspend fun updatePreference(transform: (UserData) -> UserData) {
         withContext(dispatcher.io) {
             val current = loadCombinedUserData()
@@ -182,13 +188,19 @@ class UserPreferencesRepositoryImpl(
     override suspend fun setScreenCapturePreference(isScreenCaptureEnabled: Boolean) =
         updatePreference { it.copy(enableScreenCapture = isScreenCaptureEnabled) }
 
+    override suspend fun setAnalyticsConsent(granted: Boolean) =
+        updatePreference { it.copy(analyticsConsent = granted) }
+
+    override suspend fun setCrashReportingConsent(granted: Boolean) =
+        updatePreference { it.copy(crashReportingConsent = granted) }
+
     /**
      * Discards everything belonging to the signed-in PERSON, and nothing belonging to the DEVICE.
      *
      * The boundary is not invented here — it is the one [loadCombinedUserData] already uses when it
      * prefers the secure store: `activeUserId`, `passcode`, `isAuthenticated`, `isUnlocked` are
-     * user/session state; theme, language, onboarding, screen-capture and biometric toggles are
-     * device preferences a person expects to survive signing out.
+     * user/session state; theme, language, onboarding, screen-capture, biometric and privacy-consent
+     * toggles are device preferences a person expects to survive signing out.
      *
      * This previously flipped `isAuthenticated` alone, which left `activeUserId` and `passcode`
      * readable on disk — in BOTH stores, because [putUserPreference] writes the whole blob to the

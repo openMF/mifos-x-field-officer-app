@@ -9,9 +9,14 @@
  */
 package kpt.core.base.crypto
 
+/** Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as provider. */
 actual class SecureRandom {
     private val random = java.security.SecureRandom()
 
+    /**
+     * `nextBytes` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as
+     * provider.
+     */
     actual fun nextBytes(size: Int): ByteArray {
         val bytes = ByteArray(size)
         random.nextBytes(bytes)

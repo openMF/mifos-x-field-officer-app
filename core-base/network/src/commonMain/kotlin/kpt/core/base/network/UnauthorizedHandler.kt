@@ -27,6 +27,7 @@ import io.ktor.http.HttpStatusCode
  * Called once per such response, possibly concurrently; make it idempotent. It must not throw.
  */
 fun interface UnauthorizedHandler {
+    /** The server rejected a credentialed request to [accessPointId] with 401. */
     fun onUnauthorized(accessPointId: String)
 }
 

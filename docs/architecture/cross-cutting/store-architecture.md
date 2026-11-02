@@ -6,7 +6,7 @@
 >
 > Read-path internals (`StoreData<T>`, `DataOrigin`, mappers, paging, the submit outbox) are documented
 > in [`STORE_DATA_API.md`](store-data-api.md). Screen-state rendering is in
-> [`../../claude/store-implementation.md`](../../claude/store-implementation.md). This document covers the
+> [`../../claude/store-implementation.md`](../tree/core/store-implementation.md). This document covers the
 > parts those two do not: the **store type catalogue** and the **write path**.
 
 ---
@@ -42,7 +42,7 @@ Three vocabularies describe the same choice. **This is the only place they are m
 
 `kmp-store-gen` reads `feature_profile.store_archetype` and emits the matching factory + `FetchPolicy`.
 The decision matrix for *choosing* an archetype lives in
-[`FEATURE_AUTHORING.md`](../../FEATURE_AUTHORING.md).
+[`FEATURE_AUTHORING.md`](../../../FEATURE_AUTHORING.md).
 
 **Two gaps worth knowing:**
 
@@ -342,6 +342,6 @@ Every dependency is a lambda or interface, so it is testable without a fake Stor
 ## See also
 
 - [`STORE_DATA_API.md`](store-data-api.md) — `StoreData<T>`, `DataOrigin`, mappers, paging, submit outbox
-- [`../../claude/store-implementation.md`](../../claude/store-implementation.md) — screen states, Room invalidation bridge
-- [`FEATURE_AUTHORING.md`](../../FEATURE_AUTHORING.md) — archetype decision matrix
+- [`../../claude/store-implementation.md`](../tree/core/store-implementation.md) — screen states, Room invalidation bridge
+- [`FEATURE_AUTHORING.md`](../../../FEATURE_AUTHORING.md) — archetype decision matrix
 - `core/store/CONSUMPTION.md` · `core-base/store/CONSUMPTION.md` — per-module call sequences

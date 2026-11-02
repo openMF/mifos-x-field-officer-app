@@ -20,6 +20,10 @@ package kpt.core.base.crypto
  */
 @Suppress("MagicNumber")
 actual class SecureRandom {
+    /**
+     * `nextBytes` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only and
+     * cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun nextBytes(size: Int): ByteArray {
         return kotlin.random.Random.nextBytes(size)
     }

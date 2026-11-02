@@ -16,7 +16,7 @@ graph LR
     :core:domain["domain"]
   end
   subgraph :feature
-    :feature:signin["signin"]
+    :feature:auth["auth"]
     :feature:home["home"]
     :feature:settings["settings"]
     :feature:faq["faq"]
@@ -47,7 +47,7 @@ graph LR
   :cmp-shared --> :core:ui
   :cmp-shared --> :core:designsystem
   :cmp-shared --> :core:domain
-  :cmp-shared --> :feature:signin
+  :cmp-shared --> :feature:auth
   :cmp-shared --> :libs:mifos-passcode
   :cmp-shared --> :feature:home
   :cmp-shared --> :feature:settings

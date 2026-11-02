@@ -26,10 +26,15 @@ import kotlinx.serialization.json.Json
  */
 @Serializable
 data class NetworkConfig(
+    /** The access point id it configures, or a new id for one added at runtime. */
     val id: String,
+    /** REST or Supabase — main only switches between configs of the same kind. */
     val kind: AccessPointKind,
+    /** The full URL requests resolve against: origin + API path. */
     val baseUrl: String,
+    /** Header values that replace the declared ones by name, or add ones the declaration lacks. */
     val headers: Map<String, String> = emptyMap(),
+    /** False = requests through it fail loudly instead of going to a server the app switched off. */
     val enabled: Boolean = true,
     /** Created at runtime, not declared in app-profile — the only kind [NetworkConfigRepository.remove] removes. */
     val runtimeAdded: Boolean = false,
@@ -46,7 +51,10 @@ data class NetworkConfigOverrides(
 
 /** Where [NetworkConfigRepository] keeps its overrides. */
 interface NetworkConfigStore {
+    /** The saved overrides, or empty ones when nothing was saved. Called once, at construction. */
     fun load(): NetworkConfigOverrides
+
+    /** Replace the saved overrides with [overrides]. */
     fun save(overrides: NetworkConfigOverrides)
 }
 
@@ -114,6 +122,7 @@ class NetworkConfigRepository(
     /** The config main-bound clients follow now. */
     val mainId: String? get() = overrides.value.mainId ?: declaredMain?.id
 
+    /** Every config — declared ones with changes applied, then runtime-added ones. */
     fun all(): List<NetworkConfig> = (declared.keys + overrides.value.configs.keys).distinct().mapNotNull(::configFor)
 
     /** The config main-bound clients use now, or null when app-profile marks no main. */
@@ -160,11 +169,13 @@ class NetworkConfigRepository(
         save(overrides.value.copy(mainId = id.takeUnless { it == main.id }))
     }
 
+    /** Switches [id] off so its requests fail. The main config cannot be disabled. */
     fun disable(id: String) {
         require(id != mainId) { "The main config cannot be disabled — switch main first" }
         put(requireNotNull(configFor(id)) { "No network config '$id'" }.copy(enabled = false))
     }
 
+    /** Switches [id] back on. */
     fun enable(id: String) = put(requireNotNull(configFor(id)) { "No network config '$id'" }.copy(enabled = true))
 
     /** Deletes a runtime-added config. Declared ones are not removed — [disable] or [reset] them. */
@@ -181,6 +192,7 @@ class NetworkConfigRepository(
         save(overrides.value.copy(configs = next).validated())
     }
 
+    /** Back to app-profile for everything: drops every change, runtime-added config and main switch. */
     fun resetAll() = save(NetworkConfigOverrides())
 
     private fun put(config: NetworkConfig) {

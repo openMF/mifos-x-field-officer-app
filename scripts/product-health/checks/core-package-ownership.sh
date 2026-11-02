@@ -41,6 +41,8 @@ set -uo pipefail
 CS="$HEALTH_ROOT/scripts/customization-surface.sh"
 APP_YAML="${MP_YAML:-$HEALTH_ROOT/app-profile/app.yaml}"   # kept for compatibility; rows now live per-module
 fails=0
+# Print an informational line that does NOT fail the check.
+# Separate from the failure path so a skipped module reads as a skip, not a pass.
 note() { echo "  $1"; fails=$((fails + 1)); }
 
 # <yaml key>:<module dir>:<demo-dir-must-be-gone>
@@ -50,6 +52,28 @@ CORE_MODULES="${MP_MODULES:-model:model:yes data:data:no domain:domain:yes commo
 summary=""
 
 [ -f "$APP_YAML" ] || { echo "no app-profile/app.yaml — nothing to audit (ok)"; exit 0; }
+
+# The FORK's package ledger (app-profile/package-ledger.yaml, owner: fork): what the fork did to the
+# template's declared packages. The module-packages.yaml files are template-owned and full-copied, so
+# their `status:` describes the TEMPLATE's tree; a fork that stripped a demo package records it here
+# instead of editing a file the next sync overwrites. "module<TAB>id<TAB>status" per row.
+LEDGER="${MP_LEDGER:-$HEALTH_ROOT/app-profile/package-ledger.yaml}"
+LEDGER_ROWS=""
+if [ -f "$LEDGER" ]; then
+  LEDGER_ROWS="$(awk '/^[[:space:]]*-[[:space:]]*\{/ {
+      m=$0; sub(/.*module:[[:space:]]*/,"",m); sub(/[,}[:space:]].*$/,"",m)
+      i=$0; sub(/.*id:[[:space:]]*/,"",i);     sub(/[,}[:space:]].*$/,"",i)
+      s=$0; sub(/.*status:[[:space:]]*/,"",s); sub(/[,}[:space:]].*$/,"",s)
+      print m "\t" i "\t" s }' "$LEDGER")"
+fi
+
+# ledger_status <module label> <id> → the ledger row mapped to this check vocabulary
+# (exists|removed|missing), or "" when the ledger has no row for it.
+ledger_status() {
+  local s
+  s="$(printf '%s\n' "$LEDGER_ROWS" | awk -F'\t' -v m="$1" -v i="$2" '$1==m && $2==i {print $3; exit}')"
+  case "$s" in removed) echo removed ;; kept) echo exists ;; absent) echo missing ;; *) echo "" ;; esac
+}
 # shellcheck disable=SC1090
 . "$CS" 2>/dev/null || { echo "❌ cannot source customization-surface.sh"; exit 2; }
 
@@ -95,6 +119,9 @@ for spec in $CORE_MODULES; do
     # A demo row the strip removed is KEPT on purpose (the header's `demo:` contract) — its absence is
     # the expected state, and MP-7 below still proves `removed` is true. Only a live row must exist.
     [ "$owner" = "demo" ] && [ "$status" = "removed" ] && continue
+    # Likewise a package the FORK's ledger records as removed / absent: its absence is the fork's
+    # declared intent, and MP-7 still holds the disk to that record.
+    case "$(ledger_status "$MOD_LABEL" "$id")" in removed|missing) continue ;; esac
     # MP-2 — a declared package that does not exist is a row nobody maintains.
     if ! compgen -G "$SRC/*/$PKG_REL/$id" >/dev/null 2>&1; then
       note "❌ MP-2 declared $MOD_LABEL package '$id' has no directory under $PKG_REL/"
@@ -141,11 +168,17 @@ for spec in $CORE_MODULES; do
   # MP-5 — every package ON DISK is declared. This is what makes the file a usable input for
   # `/kmp-project-template-sync`: an undeclared directory is one the sync cannot reason about, and
   # (for a template package) one the strip will never reach, so it survives --clean by accident.
+  # A package the contract resolves `fork` needs no row — that is the header's asymmetry ("a fork's
+  # own package is deliberately NOT required to be declared"), and MP-4 already proves the catch-all
+  # points that way. MP-5 used to fail every fork package, which pushed forks into editing this
+  # template-owned file and losing the edit on the next sync.
   for d in "$SRC"/*/"$PKG_REL"/*/; do
     [ -d "$d" ] || continue
     pkg="$(basename "$d")"
-    printf '%s\n' "$declared" | cut -f1 | grep -qx "$pkg" \
-      || note "❌ MP-5 $MOD_LABEL package '$pkg' exists on disk but is NOT declared in $MOD_LABEL/module-packages.yaml"
+    printf '%s\n' "$declared" | cut -f1 | grep -qx "$pkg" && continue
+    src_set="$(basename "$(dirname "$(dirname "${d%/}")")")"
+    [ "$(cs_resolve_owner "$MOD_LABEL/src/$src_set/$PKG_REL/$pkg/X.kt" 2>/dev/null)" = "fork" ] && continue
+    note "❌ MP-5 $MOD_LABEL package '$pkg' exists on disk but is NOT declared in $MOD_LABEL/module-packages.yaml"
   done
 
   # MP-7 — `status:` is DERIVED, so a stale value is a lie the sync would act on. Recompute and
@@ -154,11 +187,14 @@ for spec in $CORE_MODULES; do
     [ -z "${id:-}" ] && continue
     on_disk=0
     for d in "$SRC"/*/"$PKG_REL"/"$id"; do [ -d "$d" ] && on_disk=1 && break; done
+    # The fork's ledger, when it records this package, is the status to hold the disk to — and a
+    # package it records `removed` is a deliberate strip, not a missing one, whatever its owner.
+    led="$(ledger_status "$MOD_LABEL" "$id")"; [ -n "$led" ] && status="$led"
     if [ "$on_disk" -eq 1 ]; then want="exists"
-    elif [ "$owner" = "demo" ]; then want="removed"
+    elif [ "$owner" = "demo" ] || [ "$led" = "removed" ]; then want="removed"
     else want="missing"; fi
     [ "$status" = "$want" ] \
-      || note "❌ MP-7 $MOD_LABEL package '$id' says status:$status but disk says $want — run remove-demo.sh --apply, or investigate if it is 'missing'"
+      || note "❌ MP-7 $MOD_LABEL package '$id' says status:$status but disk says $want — run remove-demo.sh --apply, or record it in app-profile/package-ledger.yaml"
   done <<< "$declared"
 
   # MP-3 — only for modules that fully left the path convention.
@@ -196,16 +232,19 @@ else
   [ -n "$feat_declared" ] || note "❌ MP-8 feature/module-packages.yaml declares nothing — vacuous"
   while IFS=$'\t' read -r id sec st; do
     [ -z "${id:-}" ] && continue
+    led="$(ledger_status "feature" "$id")"; [ -n "$led" ] && st="$led"
     if [ -d "$HEALTH_ROOT/feature/$id" ]; then want="exists"
-    elif [ "$sec" = "demo" ]; then want="removed"
+    elif [ "$sec" = "demo" ] || [ "$led" = "removed" ]; then want="removed"
     else want="missing"; fi
     [ "$st" = "$want" ] \
-      || note "❌ MP-8 feature/$id says status:$st but disk says $want"
+      || note "❌ MP-8 feature/$id says status:$st but disk says $want — or record it in app-profile/package-ledger.yaml"
   done <<< "$feat_declared"
   for d in "$HEALTH_ROOT"/feature/*/; do
     fm="$(basename "$d")"
-    printf '%s\n' "$feat_declared" | cut -f1 | grep -qx "$fm" \
-      || note "❌ MP-8 feature/$fm exists on disk but is NOT declared in feature/module-packages.yaml"
+    printf '%s\n' "$feat_declared" | cut -f1 | grep -qx "$fm" && continue
+    # A fork's own feature module needs no row in the template's registry (feature/** is fork-owned).
+    [ "$(cs_resolve_owner "feature/$fm/build.gradle.kts" 2>/dev/null)" = "fork" ] && continue
+    note "❌ MP-8 feature/$fm exists on disk but is NOT declared in feature/module-packages.yaml"
   done
 fi
 

@@ -15,20 +15,19 @@ import io.github.jan.supabase.logging.LogLevel
 /**
  * Per-point Supabase client factory.
  *
- * Builds one [SupabaseConfigClient] per declared Supabase [AccessPoint]. URL always comes from
- * [AccessPoint.baseUrl] (the registry is the single URL SoT — reconciles the legacy path where
- * the URL was read from the secrets creds file). Anon key is resolved via [anonKeyFor], keyed by
- * access-point id, so a fork threads its per-project secrets through one narrow seam.
+ * Builds one [SupabaseConfigClient] per declared Supabase [AccessPoint], entirely from that point's
+ * generated [AccessPoint.supabase]: URL from [AccessPoint.baseUrl], key from [SupabaseSpec.publishableKey].
+ * Sign-in is not installed here: an app that needs it adds kmp-supabase-auth via [installExtrasFor].
  *
  * Cached per id so consumers can inject the factory + resolve on demand without re-building.
  */
 class SupabaseClientFactory(
     private val registry: AccessPointRegistry,
-    private val anonKeyFor: (id: String) -> String,
     private val logLevel: LogLevel = LogLevel.INFO,
     /**
      * Per-access-point fork seam: extra supabase-kt modules to install on that point's client
-     * (Auth, ComposeAuth, Realtime, Storage). Defaults to none, which is the neutral template.
+     * (Auth via kmp-supabase-auth, Realtime, Storage). Defaults to none — the neutral template, which
+     * talks to Supabase under the publishable key alone.
      *
      * Keyed by id because a fork may run several projects and want Auth on only one of them.
      */
@@ -52,12 +51,13 @@ class SupabaseClientFactory(
 
     /** A fresh client for [id] at [url], cached until the effective URL changes. */
     private fun build(id: String, config: NetworkConfig?, url: String): SupabaseConfigClient {
-        // A declared config's key comes from the fork's secrets; one added at runtime carries its own.
-        val anonKey = config?.headers?.get(ANON_KEY_HEADER)?.takeIf { it.isNotBlank() } ?: anonKeyFor(config?.id ?: id)
+        // A declared config's key comes from the fork's generated spec; one added at runtime carries its own.
+        val key = config?.headers?.get(API_KEY_HEADER)?.takeIf { it.isNotBlank() }
+            ?: registry.byId(id)?.supabase?.publishableKey.orEmpty()
         val client = SupabaseConfigClient(
             credentials = object : SupabaseCredentials {
                 override val url: String = url
-                override val anonKey: String = anonKey
+                override val publishableKey: String = key
             },
             logLevel = logLevel,
             installExtras = installExtrasFor(id),
@@ -87,7 +87,7 @@ class SupabaseClientFactory(
         registry.supabasePoints().mapNotNull { p -> clientFor(p.id)?.let { p.id to it } }.toMap()
 
     private companion object {
-        /** The header a Supabase project's anon key travels in — how a runtime-added config supplies it. */
-        const val ANON_KEY_HEADER = "apikey"
+        /** The header a Supabase key travels in — how a runtime-added config supplies its own. */
+        const val API_KEY_HEADER = "apikey"
     }
 }

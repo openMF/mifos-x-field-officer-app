@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 @file:OptIn(io.github.mobilebytelabs.worker.ExperimentalWorkerApi::class)
 
@@ -19,13 +19,13 @@ import kpt.core.base.datastore.infra.ChangeListVersions
 import kpt.core.base.datastore.infra.SyncStatePersister
 
 /**
- * Single data-sync worker. Implements [Synchronizer] so its [Syncable]
- * collaborators can read + write [ChangeListVersions] through `this` without an
- * extra abstraction.
+ * Single data-sync worker. Implements [Synchronizer] so its two [Syncable]
+ * collaborators ([CurrencyRepository], [MacroIndicatorsRepository]) can read +
+ * write [ChangeListVersions] through `this` without an extra abstraction.
  *
- * **No `getAll<Syncable>()`** — Syncable repos are constructor-injected as named
- * interfaces. Adding one requires editing this class signature + the [SyncModule]
- * binding — not a runtime discovery.
+ * **No `getAll<Syncable>()`** — the two repos are constructor-injected as named interfaces. Adding a third
+ * Syncable (e.g. FRED interest rates) requires editing this class signature +
+ * the [SyncModule] binding — not a runtime discovery.
  *
  * The `awaitAll` shape means partial failure is full failure — if one repo
  * throws, the entire sync is `Result.retry()`. This matches NiA's surface

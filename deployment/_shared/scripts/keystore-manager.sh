@@ -25,14 +25,17 @@ print_success() {
     echo -e "${GREEN}✓ $1${NC}"
 }
 
+# Print a red failure line.
 print_error() {
     echo -e "${RED}✗ $1${NC}"
 }
 
+# Print a yellow warning line — the run continues.
 print_warning() {
     echo -e "${YELLOW}⚠ $1${NC}"
 }
 
+# Print a cyan informational line.
 print_info() {
     echo -e "${CYAN}ℹ $1${NC}"
 }

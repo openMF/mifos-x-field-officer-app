@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.network
 
@@ -108,7 +108,8 @@ data class HttpTimeouts(
  * ```
  *
  * @param baseUrl The base URL to be applied to all requests unless explicitly overridden.
- * @param isReleaseBuild When true, restricts logging to headers-only and disables pretty-printed JSON.
+ * @param isReleaseBuild When true (the default — a caller must opt INTO verbose logging), nothing is logged
+ *   and JSON is not pretty-printed. [restClientConfig] sets it from the build type via [NetworkPolicy].
  * @param authRequiredUrl A list of hostnames that require authentication.
  * @param defaultHeaders STATIC headers applied to every request — captured once, at client build.
  * @param dynamicHeaders Headers resolved on EVERY request. This is the hook a runtime credential
@@ -120,7 +121,8 @@ data class HttpTimeouts(
  * @param httpLogger A logger used for HTTP logging (defaults to `Logger.DEFAULT`).
  * @param httpLogLevel Level of HTTP logging (e.g. `LogLevel.ALL`).
  * @param loggableHosts A list of hostnames for which HTTP logging is enabled.
- * @param sensitiveHeaders List of headers to be hidden in logs (defaults to Authorization).
+ * @param sensitiveHeaders Headers masked in logs — credentials and session cookies by default.
+ * @param redactQueryParams Query parameters whose values are masked in logged URLs (see [maskQueryParams]).
  * @param jsonConfig Custom [Json] configuration used by `ContentNegotiation`.
  * @param authProviders The Basic/Digest/Bearer credential providers (see [AuthProviders]). Default
  *   installs no auth plugin.
@@ -129,10 +131,9 @@ data class HttpTimeouts(
  * @param proxiedHosts Hostnames whose requests should be transparently routed through
  *   [corsProxyBaseUrl] on browser targets (web only). Ignored on Android/Desktop/iOS.
  *   Example: `listOf("api.stlouisfed.org")` routes FRED API calls via the CORS proxy.
- * @param corsProxyBaseUrl Base URL of the CORS proxy. Must accept the target URL appended raw
- *   after `?` — corsproxy.io format: `https://proxy/?<original-url>`. corsproxy.io is the
- *   default (free, sets CORS headers on all responses). Replace with a self-hosted proxy in
- *   production.
+ * @param corsProxyBaseUrl Base URL of the CORS relay (format: `https://proxy/?<original-url>`), or null
+ *   for none — the default. A relay sees every request it forwards, so it is a third-party processor
+ *   and must be DECLARED (`app-profile/app.yaml#network.web_cors_proxy`), never implied.
  * @param multiUrlProvider Optional [MultiUrlConfigProvider] for apps that expose more than one
  *   named endpoint. When supplied, [DynamicBaseUrlPlugin] resolves the base URL per [urlType] at
  *   call time. Takes precedence over [dynamicUrlProvider]. Default null preserves the plain
@@ -145,15 +146,16 @@ data class HttpTimeouts(
 @Suppress("UnusedParameter")
 fun setupDefaultHttpClient(
     baseUrl: String,
-    isReleaseBuild: Boolean = false,
+    isReleaseBuild: Boolean = true,
     authRequiredUrl: List<String> = emptyList(),
     defaultHeaders: Map<String, String> = emptyMap(),
     dynamicHeaders: () -> Map<String, String> = { emptyMap() },
     timeouts: HttpTimeouts = HttpTimeouts(),
     httpLogger: Logger = Logger.DEFAULT,
-    httpLogLevel: LogLevel = if (isReleaseBuild) LogLevel.HEADERS else LogLevel.ALL,
+    httpLogLevel: LogLevel = if (isReleaseBuild) LogLevel.NONE else LogLevel.ALL,
     loggableHosts: List<String> = emptyList(),
-    sensitiveHeaders: List<String> = listOf(HttpHeaders.Authorization),
+    sensitiveHeaders: List<String> = DEFAULT_SENSITIVE_HEADERS,
+    redactQueryParams: List<String> = NetworkPolicy.DEFAULT_REDACTED_QUERY_PARAMS,
     jsonConfig: Json = Json {
         prettyPrint = !isReleaseBuild
         isLenient = true
@@ -168,7 +170,7 @@ fun setupDefaultHttpClient(
     authProviders: AuthProviders = AuthProviders(),
     certificatePinConfig: CertificatePinConfig = CertificatePinConfig.default(),
     proxiedHosts: List<String> = emptyList(),
-    corsProxyBaseUrl: String = "https://corsproxy.io",
+    corsProxyBaseUrl: String? = null,
     multiUrlProvider: MultiUrlConfigProvider? = null,
     urlType: UrlType = UrlType.MAIN,
     dynamicUrlProvider: DynamicUrlConfigProvider? = null,
@@ -295,11 +297,12 @@ fun setupDefaultHttpClient(
             }
         }
         sanitizeHeader { header ->
-            header in sensitiveHeaders
+            sensitiveHeaders.any { it.equals(header, ignoreCase = true) }
         }
         logger = object : Logger {
             override fun log(message: String) {
-                KermitLogger.d(tag = "KtorClient", messageString = message)
+                // URLs carry credentials too (an api_key query param): mask them before the line exists.
+                KermitLogger.d(tag = "KtorClient", messageString = maskQueryParams(message, redactQueryParams))
             }
         }
     }
@@ -329,5 +332,16 @@ fun setupDefaultHttpClient(
         }
     }
 
-    installProxyPlugin(proxiedHosts, corsProxyBaseUrl)
+    // No relay unless one is declared: routing traffic through a third party is never a default.
+    corsProxyBaseUrl?.let { installProxyPlugin(proxiedHosts, it) }
 }
+
+/** Headers masked in HTTP logs by default — every credential or session carrier the template sends. */
+val DEFAULT_SENSITIVE_HEADERS: List<String> = listOf(
+    HttpHeaders.Authorization,
+    HttpHeaders.ProxyAuthorization,
+    HttpHeaders.Cookie,
+    HttpHeaders.SetCookie,
+    "apikey",
+    "X-Api-Key",
+)

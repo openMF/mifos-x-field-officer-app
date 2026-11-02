@@ -40,10 +40,12 @@ private const val ACCOUNT_NAME = "field_encryptor_key"
 // NSDictionary and CFDictionary are toll-free bridged on Apple platforms.
 // The Kotlin compiler warns about these casts at compile time, but they
 // succeed at runtime because the underlying memory layout is identical.
+/** Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
 @Suppress("CAST_NEVER_SUCCEEDS")
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 actual class SecureKeyProvider {
 
+    /** `getKey` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun getKey(): ByteArray? {
         val query = buildKeychainQuery(kSecReturnData to true)
         val cfQuery = query as CFDictionaryRef
@@ -67,6 +69,7 @@ actual class SecureKeyProvider {
         }
     }
 
+    /** `generateKey` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun generateKey(): ByteArray {
         deleteKey()
         val key = SecureRandom().nextBytes(32)
@@ -82,6 +85,7 @@ actual class SecureKeyProvider {
         return key
     }
 
+    /** `deleteKey` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun deleteKey() {
         val query = buildKeychainQuery()
         val cfQuery = query as CFDictionaryRef

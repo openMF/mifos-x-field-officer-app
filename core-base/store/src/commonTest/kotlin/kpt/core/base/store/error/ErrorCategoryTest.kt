@@ -11,8 +11,8 @@ package kpt.core.base.store.error
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
 import kotlin.test.assertIs
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 
 class ErrorCategoryTest {

@@ -160,6 +160,8 @@ def split_plist(src)
   [header, blocks, footer]
 end
 
+# Read one side of the merge, returning header, blocks and footer.
+# `-` or a missing path yields an empty side, which is how an added-on-one-side file merges.
 def load_side(path)
   return [nil, [], nil] if path == '-' || path.nil? || !File.file?(path)
   src = File.read(path)
@@ -175,11 +177,13 @@ t_head, t_blocks, t_foot = load_side(opts[:theirs])
 die("--ours is not a readable plist: #{opts[:ours]}") if o_head.nil?
 die("--theirs is not a readable plist: #{opts[:theirs]}") if t_head.nil?
 
+# Index plist blocks by key for comparison across the three sides.
 def to_map(blocks)
   blocks.each_with_object({}) { |(k, txt), h| h[k] = txt if k }
 end
 o_map, b_map, t_map = to_map(o_blocks), to_map(b_blocks), to_map(t_blocks)
 
+# Normalise a block's text before comparing, so whitespace-only differences are not conflicts.
 def norm(t) = t.to_s.gsub(%r{<!--.*?-->}m, '').gsub(/\s+/, ' ').strip
 
 conflicts = []

@@ -42,6 +42,7 @@ done
 cd "$(dirname "$0")/.."
 
 MODE=$([ "$APPLY" -eq 1 ] && echo apply || echo dry-run)
+# Print a progress line for one strip step.
 say() { if [ "$APPLY" -eq 1 ]; then echo "  $*"; else echo "  [dry-run] would $*"; fi; }
 
 # ── 1. Demo feature names (parsed from the settings demo-block BEFORE it is stripped) ──
@@ -151,6 +152,13 @@ done <<< "$MARKED_FILES"
 echo "remove dangling demo imports:"
 DEMO_PKGS=$(echo "$DEMO_FEATURES" | sed 's/-//g' | paste -sd'|' -)
 [ -z "$DEMO_PKGS" ] && DEMO_PKGS="__none__"
+# The per-module demo packages step 4b2 deletes (core/<module>/<id>, e.g. kpt.core.data.currency).
+# They are not under `demo/`, so the two `.demo.` patterns never matched them: a fenced template file
+# (sync's DataSyncWorker) kept `import kpt.core.data.currency.CurrencyRepository` after the strip and a
+# cleaned fork stopped compiling (2026-11-02). Imports cannot be fenced instead — ktlint refuses
+# comments inside an import list.
+DEMO_MOD_PKGS=$(printf '%s\n' "$TEMPLATE_MODULE_PKGS" | awk -F'\t' 'NF==2 && $2!=""{printf "%s%s\\.%s", sep, $1, $2; sep="|"}')
+[ -z "$DEMO_MOD_PKGS" ] && DEMO_MOD_PKGS="__none__"
 say "strip 'import kpt.core.*.demo.*' + demo-feature imports from surviving .kt files"
 if [ "$APPLY" -eq 1 ]; then
   find . -name '*.kt' -not -path '*/build/*' -not -path '*/product-health/tests/*' -print0 | while IFS= read -r -d '' f; do
@@ -159,6 +167,7 @@ if [ "$APPLY" -eq 1 ]; then
       -e '/^import kpt\.core\.[a-z]+\.demo\./d' \
       -e '/^import kpt\.feature\.[a-z]+\.demo\./d' \
       -e "/^import kpt\\.feature\\.(${DEMO_PKGS})[.]/d" \
+      -e "/^import kpt\\.core\\.(${DEMO_MOD_PKGS})[.]/d" \
       "$f"
     rm -f "$f.bak"
   done
@@ -283,13 +292,33 @@ done <<< "$DEMO_FEATURES"
 #     migration for them — it records every declared unit in `baseline_units` instead. Without that,
 #     the next syncForkConfig would append all of them as migrations the fork's v1 already contains.
 LEDGER="app-profile/migration-ledger.yaml"
+# …but ONLY when the lineage is still the template's. A ledger that records a migration unit which is
+# neither a declared framework unit (core/database/migration-units.yaml) nor a `demo-*` unit belongs
+# to a fork that has shipped its own schema changes — it has installed users on that version, and
+# resetting it to v1 (plus dropping its exported schemas below) would destroy the upgrade path for
+# every one of them. That fork keeps its version, migrations and schema JSONs; only the demo code goes.
+FORK_UNITS=""
 if [ -f "$LEDGER" ]; then
+  FORK_UNITS=$(grep -oE 'unit:[[:space:]]*[A-Za-z0-9_-]+' "$LEDGER" | sed 's/.*unit:[[:space:]]*//' \
+    | while read -r u; do
+        case "$u" in demo-*) continue ;; esac
+        grep -qE "id:[[:space:]]*${u}([[:space:],}]|\$)" core/database/migration-units.yaml 2>/dev/null || echo "$u"
+      done | paste -sd' ' - || true)
+fi
+if [ -n "$FORK_UNITS" ]; then
+  say "keep $LEDGER + core/database/schemas/ — the fork's own lineage (units: $FORK_UNITS)"
+elif [ -f "$LEDGER" ]; then
   say "reset $LEDGER → version 1, empty migrations, baseline = every declared unit"
   if [ "$APPLY" -eq 1 ]; then
     # `|| true`: grep exits 2 when the file is absent, and under `set -e` that killed the whole strip
     # silently — a fork that stripped the white-label machinery legitimately has no units file.
+    # Join with ',' THEN add the space. `paste -d', '` is a delimiter LIST that paste cycles through
+    # — comma, space, comma, space — so it produced `a,b c,d e`: every second pair of ids fused into
+    # one unknown id, syncForkConfig treated those units as unapplied, and the first real migration
+    # row made it append migrations for tables the fork already had (found in
+    # mifos-x-field-officer-app's ledger, 2026-10-23).
     units=$(grep -hoE 'id:[[:space:]]*[A-Za-z0-9_-]+' core/database/migration-units.yaml 2>/dev/null \
-              | sed 's/.*id:[[:space:]]*//' | paste -sd', ' - || true)
+              | sed 's/.*id:[[:space:]]*//' | paste -sd, - | sed 's/,/, /g' || true)
     sed -i.bak -e "s/^version:[[:space:]]*[0-9][0-9]*/version: 1/" \
                -e "s/^baseline_units:.*/baseline_units: [${units}]/" "$LEDGER"
     rm -f "$LEDGER.bak"
@@ -376,7 +405,7 @@ else
 fi
 
 SCHEMAS="core/database/schemas"
-if [ -d "$SCHEMAS" ]; then
+if [ -d "$SCHEMAS" ] && [ -z "$FORK_UNITS" ]; then
   n_schema=$(find "$SCHEMAS" -name '*.json' 2>/dev/null | wc -l | tr -d ' ')
   say "drop $n_schema exported schema JSON(s) under $SCHEMAS/ (template lineage — regenerated on first build)"
   if [ "$APPLY" -eq 1 ]; then
@@ -391,7 +420,7 @@ fi
 #     Stripping the demo fence removes the DECLARATION; the generated OUTPUT is committed source and
 #     must be rebuilt from what survives. `fork-init.sh` runs syncForkConfig BEFORE this script, which
 #     is the wrong side of the strip — so a cleaned fork kept AppAccessPoints / AppUrlTypes /
-#     AppSupabaseAnonKeys listing the 5 demo endpoints that app.yaml no longer declares (NAP-1 + NAP-3
+#     AppAccessPoints Supabase specs listing the 5 demo endpoints that app.yaml no longer declares (NAP-1 + NAP-3
 #     both fail on it).
 #
 #     The GENERATOR is the only thing that knows each file's correct empty form — notably these three

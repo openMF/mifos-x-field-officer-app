@@ -1,11 +1,11 @@
 /*
- * Copyright 2024 Mifos Initiative
+ * Copyright 2026 Mifos Initiative
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.model.utils
 
@@ -24,7 +24,7 @@ data class ServerConfig(
 ) {
     companion object {
         // No `DEFAULT` here, deliberately. The shipped server is DERIVED from the generated access point
-        // (`kpt.core.network.fieldofficer.AppServerConfig.DEFAULT`, from `app-profile/app.yaml`) — a constant
+        // (`kpt.core.network.mifos.server.AppServerConfig.DEFAULT`, from `app-profile/app.yaml`) — a constant
         // in this module could only ever be a second copy of it. Read it through
         // `ServerConfigRepository.defaultConfig`.
 

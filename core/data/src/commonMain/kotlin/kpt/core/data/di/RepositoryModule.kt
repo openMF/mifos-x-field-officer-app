@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.data.di
 
@@ -15,11 +15,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kpt.core.base.common.di.CommonModule
 import kpt.core.base.data.infra.NetworkMonitor
-import kpt.core.base.store.infra.FetchedAtRepository
-import kpt.core.base.store.infra.impl.RoomFetchedAtRepository
 import kpt.core.data.user.UserLogoutManager
 import kpt.core.data.user.impl.UserLogoutManagerImpl
-import kpt.core.database.AppDatabase
 import kpt.core.database.di.DatabaseModule
 import kpt.core.datastore.di.DatastoreModule
 import kpt.core.datastore.prefs.UserPreferencesRepository
@@ -53,12 +50,9 @@ val DataModule = module {
     single<UserDataSource> { UserDataSource { get<UserPreferencesRepository>().userData } }
     // Framework FetchedAtRepository — durable lastFetchedAt persistence backing
     // DataFreshnessIndicator timestamps. Room-only by design (no in-memory fallback).
-    single<FetchedAtRepository> { RoomFetchedAtRepository(get<AppDatabase>().fetchedAtDao) }
 
     // Framework DraftDao — backing store for SubmitOutbox / DraftSubmitHandler
-    single { get<AppDatabase>().draftDao }
     // Framework BookkeeperDao — backing store for the MutableStore retry ledger.
-    single { get<AppDatabase>().bookkeeperDao }
 
     // App-scoped CoroutineScope for cross-VM long-running coroutines (framework infra).
     single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
@@ -66,4 +60,8 @@ val DataModule = module {
     single<UserLogoutManager> { UserLogoutManagerImpl(get(), get(), get()) }
 }
 
+/**
+ * Per-target repository bindings supplied by each `actual` — the pieces that cannot be expressed in
+ * common code.
+ */
 expect val platformModule: Module

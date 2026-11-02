@@ -2,9 +2,9 @@
 <!--
     Copyright 2024 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
@@ -31,33 +31,27 @@
     <string name="error_category_ratelimit">Too many requests. Please wait and try again.</string>
     <string name="error_category_server">Our servers are having a moment. Try again in a bit.</string>
     <string name="error_category_generic">Something went wrong</string>
-    <!-- ──────── DASHBOARD SHELL (ported from 6b66e8a43) ──────── -->
-    <!-- Bottom-nav tabs. The original declares all four centrally in AuthenticatedNavBarTabItem
-         rather than per feature, which is why the bar can exist before its features do. -->
-    <string name="tab_search">Search</string>
+    <string name="shell_status_offline">Offline</string>
+    <string name="draft_form_center">New centre</string>
+    <string name="draft_form_fixed_deposit">Fixed deposit application</string>
+    <string name="draft_form_group">New group</string>
+    <string name="tab_groups">Groups</string>
+    <string name="draft_form_client">New client</string>
+    <string name="draft_form_address">Client address</string>
+    <string name="draft_form_loan">Loan application</string>
+    <string name="draft_form_collateral">Client collateral</string>
+    <string name="draft_form_savings">Savings application</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_search">Search</string>
+    <string name="shell_status_online">Online</string>
     <string name="tab_clients">Clients</string>
     <string name="tab_centers">Centers</string>
-    <string name="tab_groups">Groups</string>
-
-    <string name="cd_search">Search</string>
-    <string name="cd_notifications">Notifications</string>
-
-    <!-- Pending-migration host. Names the feature rather than pretending to be it. -->
-    <string name="search_title">Search</string>
-    <string name="cd_navigate_back">Navigate back</string>
-    <string name="home_dashboard_feature">Home Dashboard</string>
-    <string name="draft_form_client">New client</string>
-    <string name="draft_form_group">New group</string>
-    <string name="draft_form_center">New centre</string>
-    <string name="draft_form_loan">Loan application</string>
+    <string name="tab_search">Search</string>
     <string name="draft_form_group_loan">Group loan application</string>
-    <string name="draft_form_savings">Savings application</string>
-    <string name="draft_form_address">Client address</string>
-    <string name="draft_form_fixed_deposit">Fixed deposit application</string>
-    <string name="draft_form_recurring_deposit">Recurring deposit application</string>
+    <string name="home_dashboard_feature">Home Dashboard</string>
     <string name="draft_form_share">Share application</string>
-    <string name="draft_form_collateral">Client collateral</string>
+    <string name="draft_form_recurring_deposit">Recurring deposit application</string>
+    <string name="cd_navigate_back">Navigate back</string>
+    <string name="search_title">Search</string>
     <string name="draft_form_default_account">Default savings account</string>
-    <string name="shell_status_online">Online</string>
-    <string name="shell_status_offline">Offline</string>
 </resources>

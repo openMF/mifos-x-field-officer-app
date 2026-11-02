@@ -2,9 +2,9 @@
 <!--
     Copyright 2026 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
@@ -29,6 +29,6 @@
     <string name="error_category_ratelimit">طلبات كثيرة جدًا. يُرجى الانتظار ثم المحاولة.</string>
     <string name="error_category_server">خوادمنا تواجه مشكلة مؤقتة. حاول بعد قليل.</string>
     <string name="error_category_generic">حدث خطأ ما</string>
-    <string name="shell_status_online">متصل</string>
     <string name="shell_status_offline">غير متصل</string>
+    <string name="shell_status_online">متصل</string>
 </resources>

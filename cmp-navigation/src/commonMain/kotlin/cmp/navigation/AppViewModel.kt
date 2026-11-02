@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package cmp.navigation
 
@@ -29,6 +29,12 @@ import kpt.core.model.user.DarkThemeConfig
 import kpt.core.model.user.LanguageConfig
 import kpt.core.platform.config.AppReviewConfig
 
+/**
+ * App-root ViewModel: the theme, locale and screen-capture policy every screen inherits.
+ *
+ * It sits above the nav graph because these are process-wide — a theme change has to reach the root `MaterialTheme`,
+ * and a locale change has to reach the root `LayoutDirection`, neither of which any single screen owns.
+ */
 class AppViewModel(
     private val settingsRepository: UserDataRepository,
     private val garbageCollectionManager: GarbageCollectionManager,
@@ -182,10 +188,15 @@ class AppViewModel(
     }
 }
 
+/** What the app root renders with. */
 data class AppState(
+    /** Whether to build the dark colour scheme. */
     val darkTheme: Boolean,
+    /** Whether the Android-green brand palette is selected. */
     val isAndroidTheme: Boolean,
+    /** Whether to derive the palette from platform dynamic colour. */
     val isDynamicColorsEnabled: Boolean,
+    /** Whether screenshots and screen recording are permitted. */
     val isScreenCaptureAllowed: Boolean,
     /** Active app locale as a BCP-47 tag (null = follow the system). Drives Compose's
      *  LayoutDirection at the app root so RTL languages mirror on desktop / iOS / web,
@@ -193,38 +204,70 @@ data class AppState(
     val localeName: String? = null,
 )
 
+/** One-shot effects the root acts on — each needs a platform call, not a state change. */
 sealed interface AppEvent {
+    /** Recreate the activity/window. The only way some platforms apply a locale change. */
     data object Recreate : AppEvent
 
+    /**
+     * Show a transient message.
+     *
+     * @property message the text to show.
+     */
     data class ShowToast(val message: String) : AppEvent
 
+    /** Apply a new locale at the platform level. */
     data class UpdateAppLocale(
+        /** BCP-47 tag, or null to follow the system. */
         val localeName: String?,
     ) : AppEvent
 
+    /** Hand the OS its own night-mode constant, so the system UI matches the app. */
     data class UpdateAppTheme(
+        /** The platform night-mode constant — see `DarkThemeConfig.osValue`. */
         val osValue: Int,
     ) : AppEvent
 }
 
+/** What the root can be asked to do. */
 sealed interface AppAction {
+    /**
+     * The user picked a language.
+     *
+     * @property appLanguage the language the user picked.
+     */
     data class AppSpecificLanguageUpdate(val appLanguage: LanguageConfig) : AppAction
 
+    /** Actions the ViewModel raises for itself from its own collectors — never dispatched by the UI. */
     sealed class Internal : AppAction {
 
+        /** The signed-in user changed. */
         data object CurrentUserStateChange : Internal()
 
+        /**
+         * The screen-capture preference changed, so the window flag has to be re-applied.
+         *
+         * Raised by the preference collector rather than by the settings screen: the flag lives on the app's window,
+         * which the settings screen does not own, and it must be re-applied on every process start as well as on every
+         * change.
+         */
         data class ScreenCaptureUpdate(
+            /** The new value. */
             val isScreenCaptureEnabled: Boolean,
         ) : Internal()
 
+        /** The dark-mode preference changed. */
         data class ThemeUpdate(
+            /** The new preference. */
             val theme: DarkThemeConfig,
         ) : Internal()
 
+        /** The app-lock was satisfied or re-armed. */
         data object UserUnlockStateChange : Internal()
 
+        /** The dynamic-colour preference changed. */
         data class DynamicColorsUpdate(
+            /** The new value. */
             val isDynamicColorsEnabled: Boolean,
         ) : Internal()
     }

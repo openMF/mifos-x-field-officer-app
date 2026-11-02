@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.data.user.impl
 
@@ -27,6 +27,13 @@ import kpt.core.store.config.AppCacheKeys
 import kpt.core.store.config.AppStoreIds
 import org.mobilenativefoundation.store.store5.Store
 
+/**
+ * Default `UserDataRepository`.
+ *
+ * Reads flow through the Store; WRITES go through typed setters here rather than `store.write`,
+ * because routing each individual preference through one whole-blob write would serialise every
+ * setting change behind every other for no benefit.
+ */
 @RepositoryBinding(binds = UserDataRepository::class)
 class UserDataRepositoryImpl(
     private val preferencesRepository: UserPreferencesRepository,
@@ -60,6 +67,17 @@ class UserDataRepositoryImpl(
 
     override val observeScreenCapturePreference: Flow<Boolean>
         get() = preferencesRepository.observeScreenCapturePreference
+
+    override val observeAnalyticsConsent: Flow<Boolean>
+        get() = preferencesRepository.observeAnalyticsConsent
+
+    override val observeCrashReportingConsent: Flow<Boolean>
+        get() = preferencesRepository.observeCrashReportingConsent
+
+    override suspend fun setAnalyticsConsent(granted: Boolean) = preferencesRepository.setAnalyticsConsent(granted)
+
+    override suspend fun setCrashReportingConsent(granted: Boolean) =
+        preferencesRepository.setCrashReportingConsent(granted)
 
     override suspend fun setLanguage(language: LanguageConfig) = preferencesRepository.setLanguage(language)
 

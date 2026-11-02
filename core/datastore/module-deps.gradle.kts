@@ -12,8 +12,6 @@
 // FULL-COPIES on sync; fork deps live HERE so they survive it.
 // Ported from the old tree's build.gradle.kts at dev@44d92532f (epic template-port-fresh).
 
-import org.gradle.accessors.dm.LibrariesForLibs
-
 dependencies {
     "commonMainApi"(project(":core:common"))
     "commonMainApi"(project(":core:model"))

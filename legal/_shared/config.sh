@@ -24,6 +24,9 @@ _toml() {
 # shellcheck source=../../scripts/_shared/fork-props.sh
 . "$REPO_ROOT/scripts/_shared/fork-props.sh"
 
+# Read one key from gradle/fork.properties via the shared fp_get reader.
+# Never parse fork.properties directly — scripts/_shared/fork-props.sh is the
+# single reader, enforced by product-health's fork-props-single-reader check.
 _prop() {
   FORK_PROPERTIES="$REPO_ROOT/gradle/fork.properties" fp_get "$1"
 }

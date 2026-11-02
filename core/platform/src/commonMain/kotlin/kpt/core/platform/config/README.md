@@ -48,7 +48,7 @@ If a candidate has a different right answer on Android than on iOS, it is not co
 
 Worked examples in this repo: `core/store/config` (`AppErrorMapper` + `ProjectErrorMapper`,
 `AppScreenStateDefaults` + `ProjectScreenStateDefaults`), `core/network/config`
-(`AppAccessPoints` / `AppUrlTypes` / `AppSupabaseAnonKeys`, projected by `syncForkConfig`),
+(`AppAccessPoints` / `AppUrlTypes`, projected by `syncForkConfig`),
 `core/database/config` (`DatabaseConfig` generated + `ForkDatabaseConfig`), and
 `core/firebase/config` (`analytics/` + `crashlytics/` cross-cutting halves).
 

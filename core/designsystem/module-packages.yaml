@@ -62,4 +62,3 @@ template:
 # The fork's own. Listed for documentation only — undeclared packages are fork too.
 fork:
   - { id: theme, status: exists }           # brand theme + tokens
-  - { id: utility, status: exists }

@@ -134,7 +134,7 @@ class OfflineSubmitSyncerTest {
     fun `entries already in RETRYING status are not picked up by syncer`() = runTest(UnconfinedTestDispatcher()) {
         val outbox = FakeSubmitOutbox<String>()
         val id = outbox.save(formKey, "payload")
-        outbox.markRetrying(id)  // simulate UI already claiming this entry
+        outbox.markRetrying(id) // simulate UI already claiming this entry
 
         val networkStatus = MutableStateFlow<NetworkStatus>(NetworkStatus.Unavailable)
         var submitCount = 0
@@ -296,7 +296,10 @@ class OfflineSubmitSyncerTest {
         val syncer = backgroundScope.offlineSubmitSyncer<String, Unit>(
             outbox = outbox,
             networkStatusFlow = networkStatus,
-            submitBlock = { calls++; throw RuntimeException("rejected") },
+            submitBlock = {
+                calls++
+                throw RuntimeException("rejected")
+            },
             retryPolicy = RetryPolicy(maxAttempts = 3),
         )
         syncer.start()

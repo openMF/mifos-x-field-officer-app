@@ -40,6 +40,8 @@ sealed interface ErrorCategory {
      * [Timeout.Connect] (408), or [QuotaExceeded] (402). The [httpCode] is the exact
      * status (e.g. `400`, `404`, `409`, `422`). Suggest surfacing the response body to
      * the user — these are usually input/validation errors, not infrastructure.
+     *
+     * @property httpCode the 4xx status. Non-null — a client error always arrives with a response.
      */
     data class ClientError(val httpCode: Int) : ErrorCategory
 
@@ -47,6 +49,9 @@ sealed interface ErrorCategory {
      * HTTP 5xx (other than [Timeout.Read] / 504) or upstream service error. The [httpCode]
      * is the exact status when available (e.g. `500`, `502`, `503`); null when categorized
      * heuristically without a parseable code. Suggest retry-with-backoff + status UX.
+     *
+     * @property httpCode the 5xx status, or null when the server failed without one (a dropped connection mid-
+     *   response).
      */
     data class Server(val httpCode: Int? = null) : ErrorCategory
 

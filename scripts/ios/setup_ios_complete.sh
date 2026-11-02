@@ -513,15 +513,25 @@ print_warning "IMPORTANT: Keep these files secure and NEVER commit them to git!"
 print_info "They are already in .gitignore"
 echo
 
-print_info "Next Steps:"
+# Deployment is Fastlane lanes invoked from deployment/ — the scripts/deploy/ wrappers this used to
+# point at were removed. Printing a path that does not exist sends the reader nowhere.
+#
+# Printed in the ruby_bundle form rather than as a bare `bundle exec`: a hand-typed lane is the one
+# path that still breaks in a shell without rbenv shims, dying inside rubygems' activate_bin_path
+# with an error naming gems when the fault is the interpreter. RT-9 in
+# product-health/checks/ruby-toolchain-coherence.sh holds every tracked script to the same form.
+print_info "Next Steps (lanes resolve the pinned interpreter via scripts/ruby-exec.sh):"
+echo "  0. Load the resolver once per shell:"
+echo "     . scripts/ruby-exec.sh"
+echo
 echo "  1. Test deployment to Firebase:"
-echo "     bash scripts/deploy/deploy_firebase.sh"
+echo "     ruby_bundle deployment -- exec fastlane ios deploy_on_firebase"
 echo
 echo "  2. Test deployment to TestFlight:"
-echo "     bash scripts/deploy/deploy_testflight.sh"
+echo "     ruby_bundle deployment -- exec fastlane ios beta"
 echo
 echo "  3. Deploy to App Store (when ready):"
-echo "     bash scripts/deploy/deploy_appstore.sh"
+echo "     ruby_bundle deployment -- exec fastlane ios release"
 echo
 
 print_info "Optional: Setup APN for push notifications"

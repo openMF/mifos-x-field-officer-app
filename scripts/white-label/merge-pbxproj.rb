@@ -94,6 +94,7 @@ LIST_ATTRS = %w[
   projectReferences knownRegions
 ].freeze
 
+# Print a message and exit with the given code.
 def die(msg, code = 2)
   warn "❌ merge-pbxproj: #{msg}"
   exit code
@@ -117,6 +118,9 @@ end
 %i[ours base theirs out].each { |k| opts[k] || die("missing --#{k}") }
 %i[ours base theirs].each { |k| File.file?(opts[k]) || die("no such file: #{opts[k]}") }
 
+# Read a pbxproj and return its plist plus the `objects` dict.
+# Fails loudly when `objects` is absent — that means the file is not a pbxproj, and merging
+# it blind would produce a project Xcode cannot open.
 def read_objects(path)
   plist = Xcodeproj::Plist.read_from_path(path)
   die("#{path} has no `objects` dict — is it really a pbxproj?") unless plist.is_a?(Hash) && plist['objects']
@@ -210,6 +214,8 @@ def merge_settings(o, b, t, ctx, conflicts)
   out
 end
 
+# 3-way merge one pbxproj object. A key present in theirs and absent from base is an upstream
+# addition and is taken; a key both sides changed is reported as a conflict rather than guessed.
 def merge_object(uuid, o, b, t, conflicts)
   b ||= {}
   isa = t['isa'] || o['isa']

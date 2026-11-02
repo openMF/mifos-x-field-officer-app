@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.store.infra.impl
 
@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
+import kpt.core.base.database.infra.dao.DraftDao
+import kpt.core.base.database.infra.entity.DraftEntity
 import kpt.core.base.store.submit.SubmitOutbox
 import kpt.core.base.store.submit.SubmitOutboxEntry
 import kpt.core.base.store.submit.SubmitOutboxStatus
-import kpt.core.base.database.infra.dao.DraftDao
-import kpt.core.base.database.infra.entity.DraftEntity
 
 /**
  * Room-backed [SubmitOutbox] that persists form payloads across process death.

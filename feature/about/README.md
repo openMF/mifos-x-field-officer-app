@@ -11,7 +11,7 @@ organisation behind it, its open-source home, and the copyright line.
   from the drawer through `BackboneRegistry.navigateToAbout`.
 - **DI:** `AboutModule`.
 
-**Every brand value comes from `app-profile/app.yaml`** (identity.app_name + `org.*`, incl. `org.community_url` + `org.product_url`) via
+**Every brand value comes from `app-profile/app.yaml`** (identity.app_name + `org.*`, incl. `org.links.community` + `org.links.product`) via
 `gradle/fork.properties` → this module's BuildKonfig; the version is the one the Android build stamps
 (`version.txt` / `dynamicVersion`). Rebrand in app-profile, never in this module. A link whose value is
 not configured draws no row. Previews render in `desktopTest` (`AboutPreviewScreenshotTest`).

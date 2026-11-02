@@ -82,7 +82,8 @@ class RoomFormDraftRepositoryTest {
     fun aNetworkFailureCountsAsOfflineSoTheDraftIsKeptAutomatically() {
         // The monitor had not seen the drop yet: the gateway SENT, and the request failed on the network.
         val networkFailure = kpt.core.base.store.mutation.MutationResult.Failed(
-            ConnectFailure("Unable to resolve host apis.mifos.community"), rolledBack = false,
+            ConnectFailure("Unable to resolve host apis.mifos.community"),
+            rolledBack = false,
         )
         assertEquals(true, networkFailure.isOffline)
         assertEquals(

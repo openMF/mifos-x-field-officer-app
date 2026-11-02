@@ -21,7 +21,7 @@ they close over belong here so a fork retunes policy without editing the calcula
 
 Worked examples in this repo: `core/store/config` (`AppErrorMapper` + `ProjectErrorMapper`,
 `AppScreenStateDefaults` + `ProjectScreenStateDefaults`), `core/network/config`
-(`AppAccessPoints` / `AppUrlTypes` / `AppSupabaseAnonKeys`, projected by `syncForkConfig`),
+(`AppAccessPoints` / `AppUrlTypes`, projected by `syncForkConfig`),
 `core/database/config` (`DatabaseConfig` generated + `ForkDatabaseConfig`), and
 `core/firebase/config` (`analytics/` + `crashlytics/` cross-cutting halves).
 

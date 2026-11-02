@@ -61,5 +61,4 @@ template:
   - { id: config, status: exists }          # the fork-extension seam — see config/README.md
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.
-fork:
-  - { id: validation, status: exists }
+fork: []

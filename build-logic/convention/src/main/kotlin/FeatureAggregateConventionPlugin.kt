@@ -7,7 +7,6 @@
  *
  * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
-
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -101,17 +100,42 @@ class FeatureAggregateConventionPlugin : Plugin<Project> {
     }
 
     private companion object {
+        /** Gradle task group the three generators appear under. */
         const val GROUP = "feature aggregation"
+
+        /**
+         * Source set the generators scan. commonMain only — a feature's registrations are declared once, not per
+         * platform.
+         */
         const val SRC = "src/commonMain/kotlin"
+
+        /** Package the aggregates are generated into. */
         const val PKG = "cmp.navigation.registry"
+
+        /** [PKG] as a directory path, for writing the files. */
         const val PKG_PATH = "cmp/navigation/registry"
+
+        /** Task name for the Koin-module aggregate. */
         const val TASK_KOIN = "generateFeatureKoinBindings"
+
+        /** Task name for the nav-destination aggregate. */
         const val TASK_NAV = "generateFeatureDestinations"
+
+        /** Task name for the bottom-tab aggregate. */
         const val TASK_TAB = "generateFeatureTabs"
+
+        /** Generated object holding every feature's Koin module. */
         const val GENERATED_KOIN = "GeneratedFeatureKoinBindings"
+
+        /** Generated object holding every `@FeatureDestination`. */
         const val GENERATED_NAV = "GeneratedFeatureDestinations"
+
+        /** Generated object holding every `@FeatureTab`. */
         const val GENERATED_TAB = "GeneratedFeatureTabs"
 
+        /**
+         * Extracts a file's `package` line, so a generated reference can be fully qualified without resolving imports.
+         */
         val PACKAGE_RX = Regex("""^package\s+([A-Za-z0-9_.]+)""", RegexOption.MULTILINE)
 
         /** `val FooModule = module {` — the optional `: Module` is declared on some, omitted on others. */
@@ -147,12 +171,19 @@ class FeatureAggregateConventionPlugin : Plugin<Project> {
                     .toList()
             }
 
+        /** Writes [content] to [fileName] under the generated package, creating the directory tree. */
         fun write(outDir: Provider<Directory>, fileName: String, content: String) {
             val dir = outDir.get().asFile.resolve(PKG_PATH)
             dir.mkdirs()
             dir.resolve(fileName).writeText(content)
         }
 
+        /**
+         * Scans every feature's `di` package and emits [GENERATED_KOIN].
+         *
+         * A feature with no `di/` contributes nothing — the directory filter covers it, so a nav-only feature needs no
+         * special case.
+         */
         fun writeKoinAggregate(roots: List<File>, outDir: Provider<Directory>, log: (String) -> Unit) {
             // A feature with no `di/` package (e.g. `:feature:showcase`, nav-only) simply contributes
             // nothing — the directory filter handles it, no special case required.
@@ -184,6 +215,7 @@ class FeatureAggregateConventionPlugin : Plugin<Project> {
             log("$TASK_KOIN: ${fqns.size} feature module(s)")
         }
 
+        /** Scans for `@FeatureTab` declarations and emits [GENERATED_TAB]. */
         fun writeTabAggregate(roots: List<File>, outDir: Provider<Directory>, log: (String) -> Unit) {
             // Unlike Koin modules (`di`) and destinations (`navigation`), a tab object has no
             // conventional directory — scan every file and let the annotation be the filter.
@@ -231,6 +263,10 @@ class FeatureAggregateConventionPlugin : Plugin<Project> {
             log("$TASK_TAB: ${fqns.size} tab(s)")
         }
 
+        /**
+         * Scans for `@FeatureDestination` declarations and emits [GENERATED_NAV], so adding a screen to the app graph
+         * means annotating it rather than editing a registry.
+         */
         fun writeNavAggregate(roots: List<File>, outDir: Provider<Directory>, log: (String) -> Unit) {
             val fqns = mutableListOf<String>()
             val nonConforming = mutableListOf<String>()

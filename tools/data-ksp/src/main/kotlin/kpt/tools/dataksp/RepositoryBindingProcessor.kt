@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.tools.dataksp
 
@@ -40,8 +40,13 @@ import com.google.devtools.ksp.symbol.KSValueParameter
 class RepositoryBindingProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
+    private val options: Map<String, String> = emptyMap(),
 ) : SymbolProcessor {
     private var emitted = false
+
+    /** Header from the build's one source (`kpt.licenseHeader`, set by the Koin convention); none if unset. */
+    private val licenseHeader: String =
+        options["kpt.licenseHeader"]?.replace("\\n", "\n")?.takeIf(String::isNotBlank)?.let { "$it\n" }.orEmpty()
 
     /** `@StoreProvider` id → the Koin qualifier symbol store-ksp generates for it. */
     private var storeQualifiers: Map<String, String> = emptyMap()
@@ -225,7 +230,7 @@ class RepositoryBindingProcessor(
         val named = providers.filter { it.qualifier.isNotBlank() }.sortedBy { it.qualifier }
         if (named.isEmpty()) return
         val text = buildString {
-            append(LICENSE)
+            append(licenseHeader)
             append("package $CONFIG_PKG\n\n")
             append("import org.koin.core.qualifier.named\n\n")
             append("/**\n")
@@ -334,7 +339,7 @@ class RepositoryBindingProcessor(
         rows.forEach { imports += it.iface; imports += it.impl }
 
         return buildString {
-            append(LICENSE)
+            append(licenseHeader)
             append("package $PKG\n\n")
             imports.forEach { append("import ").append(it).append('\n') }
             append("\n/**\n")
@@ -398,23 +403,14 @@ class RepositoryBindingProcessor(
         const val CONFIG_PKG = "kpt.core.data.config"
         const val ANN_PROVIDER = "kpt.core.base.data.annotation.DataProvider"
         const val ANN_STORE_PROVIDER = "kpt.core.base.store.annotation.StoreProvider"
-
-        val LICENSE = """
-            |/*
-            | * Copyright 2026 Mifos Initiative
-            | *
-            | * This Source Code Form is subject to the terms of the Mozilla Public
-            | * License, v. 2.0. If a copy of the MPL was not distributed with this
-            | * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-            | *
-            | * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
-            | */
-            |
-        """.trimMargin()
     }
 }
 
+/**
+ * KSP entry point — what the `META-INF/services` registration names, so Gradle can instantiate
+ * [RepositoryBindingProcessor].
+ */
 class RepositoryBindingProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor =
-        RepositoryBindingProcessor(environment.codeGenerator, environment.logger)
+        RepositoryBindingProcessor(environment.codeGenerator, environment.logger, environment.options)
 }

@@ -62,7 +62,7 @@ demo:
 
 # Kept by a clean fork, full-copied by a sync.
 template:
-  - { id: config,  status: exists }         # AppAccessPoints / AppUrlTypes / AppSupabaseAnonKeys (generated)
+  - { id: config,  status: exists }         # AppAccessPoints / AppUrlTypes (generated)
   - { id: di,      status: exists }         # NetworkModule + the ProjectNetworkModule fork seam
   # Named for the Supabase project REF — the access-point id, the package, and the @ApiBinding
   # argument are the same string, and all three come from app-profile/app.yaml. Rename them
@@ -71,4 +71,5 @@ template:
 
 # The fork's own. Listed for documentation only — undeclared packages are fork too.
 fork:
-  - { id: mifos, status: exists }
+  - { id: main,    status: missing }         # the fork's primary endpoint package
+  - { id: staging, status: missing }         # the fork's staging endpoint package

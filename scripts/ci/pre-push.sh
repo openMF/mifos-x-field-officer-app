@@ -57,7 +57,7 @@ run_detekt_checks() {
     fi
 }
 
-# Function to run ktlint checks
+# Function to run the dependency guard check
 run_dependency_guard() {
     printf "\n🚀 Brace yourself! We're about to generate dependency guard baseline!"
     ./gradlew dependencyGuard > /tmp/dependency-result

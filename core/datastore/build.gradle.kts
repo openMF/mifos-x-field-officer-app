@@ -11,14 +11,15 @@ plugins {
     alias(libs.plugins.kmp.library.convention)
 }
 
-
 kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core.model)
             implementation(projects.core.common)
             implementation(projects.coreBase.common)
-            implementation(projects.coreBase.datastore)
+            // api, not implementation: core/ is the re-export boundary, so an app shell
+            // reaches core-base types THROUGH here (G-CORE-BASE-ENCAP).
+            api(projects.coreBase.datastore)
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)

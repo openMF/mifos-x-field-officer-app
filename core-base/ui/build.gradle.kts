@@ -8,7 +8,6 @@
  * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.convention.forkProp
 
 /*

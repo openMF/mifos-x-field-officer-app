@@ -1,20 +1,20 @@
-# Terms of Service — Money Toolkit
+# Terms of Service — MifosXDroid
 
 **Effective date:** June 6, 2026
 **Last updated:** June 6, 2026
 
 Please read these Terms of Service ("Terms") carefully before using the
-**Money Toolkit** application (`org.mifos.kmp.template`) operated by Mifos Initiative
+**MifosXDroid** application (`com.mifos.mifosxdroid`) operated by Mifos Initiative
 ("we", "us", or "our").
 
-By downloading or using Money Toolkit, you agree to be bound by these Terms.
+By downloading or using MifosXDroid, you agree to be bound by these Terms.
 If you disagree with any part, do not use the application.
 
 ---
 
 ## 1. Use of the Application
 
-Money Toolkit is a free, offline-first financial utility application. You may use it
+MifosXDroid is a free, offline-first financial utility application. You may use it
 for personal, non-commercial purposes subject to these Terms.
 
 You agree NOT to:
@@ -27,8 +27,8 @@ You agree NOT to:
 
 ## 2. No Financial Advice
 
-Money Toolkit provides calculation tools and informational displays only. Nothing in
-Money Toolkit constitutes financial, investment, legal, or tax advice. Always consult
+MifosXDroid provides calculation tools and informational displays only. Nothing in
+MifosXDroid constitutes financial, investment, legal, or tax advice. Always consult
 a qualified professional before making financial decisions.
 
 Economic data displayed (interest rates, exchange rates, macro indicators) is sourced
@@ -38,8 +38,8 @@ from publicly available APIs and may not be accurate, current, or complete.
 
 ## 3. Intellectual Property
 
-Money Toolkit and its source code are released under the Apache 2.0 open-source
-licence. The name "Money Toolkit", logo, and associated branding are the property
+MifosXDroid and its source code are released under the Apache 2.0 open-source
+licence. The name "MifosXDroid", logo, and associated branding are the property
 of Mifos Initiative. Forks must comply with the Apache 2.0 licence terms and may
 not use the original branding without permission.
 
@@ -47,7 +47,7 @@ not use the original branding without permission.
 
 ## 4. Third-Party Data Sources
 
-Money Toolkit displays data from third-party providers (World Bank, FRED) subject to
+MifosXDroid displays data from third-party providers (World Bank, FRED) subject to
 their respective terms of use. We make no warranty as to the accuracy, timeliness,
 or completeness of this data.
 
@@ -55,7 +55,7 @@ or completeness of this data.
 
 ## 5. Disclaimer of Warranties
 
-Money Toolkit is provided "as is" and "as available" without warranties of any kind,
+MifosXDroid is provided "as is" and "as available" without warranties of any kind,
 express or implied, including but not limited to merchantability, fitness for a
 particular purpose, and non-infringement.
 
@@ -68,19 +68,19 @@ of viruses or other harmful components.
 
 To the fullest extent permitted by applicable law, Mifos Initiative shall not be
 liable for any indirect, incidental, special, consequential, or punitive damages
-arising from your use of Money Toolkit, even if advised of the possibility of such
+arising from your use of MifosXDroid, even if advised of the possibility of such
 damages.
 
 Our total liability to you for any claims arising from these Terms or your use of
-Money Toolkit shall not exceed the amount you paid for the application (which is zero,
-as Money Toolkit is free).
+MifosXDroid shall not exceed the amount you paid for the application (which is zero,
+as MifosXDroid is free).
 
 ---
 
 ## 7. Changes to Terms
 
 We reserve the right to modify these Terms at any time. The "Last updated" date at
-the top of this page reflects the most recent revision. Continued use of Money Toolkit
+the top of this page reflects the most recent revision. Continued use of MifosXDroid
 after changes are posted constitutes acceptance of the updated Terms.
 
 ---
@@ -99,4 +99,4 @@ Questions about these Terms? Contact us:
 **Mifos Initiative**
 Email: team@mifos.org
 Website: https://mifos.org
-Support: https://github.com/openMF/kmp-project-template
+Support: https://github.com/openMF/mifos-x-field-officer-app

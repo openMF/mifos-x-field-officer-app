@@ -33,7 +33,10 @@ set -uo pipefail
 ROOT="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
 STORE_DIR="$ROOT/core/store"
 
+# Print a passing assertion.
 pass() { printf '  ✓ %s\n' "$1"; }
+# Print a failing assertion and set FAILED, so the check reports every problem in one run
+# rather than stopping at the first.
 fail() { printf '  ✗ %s\n' "$1"; FAILED=1; }
 FAILED=0
 

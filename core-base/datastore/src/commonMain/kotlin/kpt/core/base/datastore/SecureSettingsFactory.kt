@@ -23,5 +23,6 @@ import com.russhwolf.settings.Settings
  *   WebCrypto is async-only while this factory is not.
  */
 expect class SecureSettingsFactory {
+    /** Creates the encrypted settings store backed by this platform's secure storage. */
     fun create(): Settings
 }

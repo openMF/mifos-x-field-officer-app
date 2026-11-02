@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.datastore
 
@@ -31,8 +31,13 @@ import com.russhwolf.settings.Settings
  */
 actual class SecureSettingsFactory {
 
+    /**
+     * Web secure settings, backed by `WebSecureStore`'s AES-GCM store. Requires `warmUp()` to have completed — the
+     * decryption key loads asynchronously, and building this before it lands throws.
+     */
     actual fun create(): Settings = WebSecureStore.settings()
 
+    /** Factory entry points. */
     companion object {
 
         /**

@@ -1,3 +1,12 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 // ── Workspace Library Linker (managed by /lib-integrate) ──────────────────
 // Edit lib-integrate.properties to add/remove libraries. Never edit this block.
 // Path-existence guard: if library not cloned locally → silently uses Maven Central.
@@ -10,9 +19,9 @@ val pathToEntries = mutableMapOf<String, MutableList<LibEntry>>()
 libProps.stringPropertyNames()
     .filter { it.endsWith(".local") && libProps[it] == "true" }
     .forEach { key ->
-        val lib      = key.removeSuffix(".local")
-        val path     = libProps["$lib.path"]     as? String ?: return@forEach
-        val module   = libProps["$lib.module"]   as? String ?: return@forEach
+        val lib = key.removeSuffix(".local")
+        val path = libProps["$lib.path"] as? String ?: return@forEach
+        val module = libProps["$lib.module"] as? String ?: return@forEach
         val artifact = libProps["$lib.artifact"] as? String ?: return@forEach
         // Normalize ".." segments before existence check -- Java's File.exists()
         // doesn't collapse ".." past filesystem root on Windows, so the bare

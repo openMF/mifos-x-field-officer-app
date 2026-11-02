@@ -33,7 +33,9 @@ data class FormDraft(
     val title: String,
     val ownerId: Long? = null,
     val ownerKind: String? = null,
+    /** Exactly what the submit sends, as JSON; a replay decodes it with the form's payload serializer. */
     val payload: String,
+    /** The form's own snapshot as JSON (labels, picker selections, wizard step), for Resume. */
     val state: String,
 )
 
@@ -42,10 +44,16 @@ fun formDraftSlot(ownerId: Long?, kind: String? = null): String = ownerId?.let {
 
 /** The one JSON configuration drafts are written and read with. */
 object FormDraftJson {
-    val json: Json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
+    /** Ignores unknown keys, so a draft saved by an older build still decodes. */
+    val json: Json = Json {
+        ignoreUnknownKeys = true
+        encodeDefaults = true
+    }
 
+    /** [value] as a draft JSON string. */
     fun <T> encode(serializer: KSerializer<T>, value: T): String = json.encodeToString(serializer, value)
 
+    /** A draft JSON string back to [T]. Throws when it no longer matches [serializer]. */
     fun <T> decode(serializer: KSerializer<T>, value: String): T = json.decodeFromString(serializer, value)
 
     /** A replay decodes the payload with the form's own serializer. */

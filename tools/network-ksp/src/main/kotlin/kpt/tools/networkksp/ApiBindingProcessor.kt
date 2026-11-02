@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.tools.networkksp
 
@@ -39,6 +39,10 @@ class ApiBindingProcessor(
     private val options: Map<String, String>,
 ) : SymbolProcessor {
     private var emitted = false
+
+    /** Header from the build's one source (`kpt.licenseHeader`, set by the Koin convention); none if unset. */
+    private val licenseHeader: String =
+        options["kpt.licenseHeader"]?.replace("\\n", "\n")?.takeIf(String::isNotBlank)?.let { "$it\n" }.orEmpty()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         if (emitted) return emptyList()
@@ -78,7 +82,7 @@ class ApiBindingProcessor(
             // SUPABASE: bind the INTERFACE, not the concrete class.
             //
             // `supabaseApi<T>` is `single<T> { … }` with T inferred from the factory lambda, so
-            // `{ AppConfigApiImpl(it) }` would register the IMPL type and `get<AppConfigApi>()` would
+            // `{ ServerInstanceApiImpl(it) }` would register the IMPL type and `get<ServerInstanceApi>()` would
             // fail at runtime — after compiling cleanly, which is the worst place to find it. The
             // annotation stays on the impl (that is what gets constructed); the processor resolves
             // its single directly-implemented interface and binds that instead.
@@ -110,29 +114,8 @@ class ApiBindingProcessor(
             Triple(id, "$fqn|$bound", kind)
         }
 
-        // The hazard is the SAME TYPE bound twice to one point — that emits two `single<T>` for one
-        // T, and the second silently wins everywhere T is injected.
-        //
-        // It is NOT "two classes on one point". Both emitters key by TYPE, never by qualifier:
-        // `restApi<T>(id)` -> `single<T>`, `supabaseApi<Bound>(id)` -> `single<Bound>`. N DISTINCT
-        // types on one access point are therefore N distinct singles which cannot shadow each other.
-        //
-        // The stricter rule assumed one API per endpoint, which fits a showcase endpoint
-        // (coingecko, frankfurter, fred) and breaks on a MONOLITH: Fineract is one server, one
-        // base_url, one credential — and 21 resource-oriented APIs over it. Splitting it into 21
-        // app-profile access points to satisfy the check would make the deployment SoT claim 21
-        // endpoints where there is one, which is worse than the thing the check was protecting.
-        // (Fork fix 2026-09-19; enqueued upstream per RULE-TEMPLATE-MODULE-FIX-UPSTREAM-001.)
-        bindings.groupBy { it.first to it.second.substringAfter('|') }
-            .filterValues { it.size > 1 }
-            .forEach { (key, rows) ->
-                val (id, type) = key
-                logger.error(
-                    "network-ksp: access point '$id' binds '$type' ${rows.size} times — " +
-                        "each would emit a `single<$type>` and the last one silently wins. " +
-                        "Annotate exactly one type per (access point, bound type).",
-                )
-            }
+        duplicateBindingErrors(bindings.map { (id, packed, _) -> id to packed.substringAfter('|') })
+            .forEach(logger::error)
 
         // app-profile order, so the generated file reads like the declaration it mirrors — and is
         // stable, which KSP's own symbol order is not.
@@ -175,7 +158,7 @@ class ApiBindingProcessor(
             }
         }
         return buildString {
-            append(LICENSE)
+            append(licenseHeader)
             append("package $PKG\n\n")
             imports.forEach { append("import ").append(it).append('\n') }
             append("\n/**\n")
@@ -207,22 +190,34 @@ class ApiBindingProcessor(
         const val PKG = "kpt.core.network.di"
         const val ANN = "kpt.core.base.network.annotation.ApiBinding"
         const val OPT_KINDS = "kpt.network.accessPointKinds"
-
-        val LICENSE = """
-            |/*
-            | * Copyright 2026 Mifos Initiative
-            | *
-            | * This Source Code Form is subject to the terms of the Mozilla Public
-            | * License, v. 2.0. If a copy of the MPL was not distributed with this
-            | * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-            | *
-            | * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
-            | */
-            |
-        """.trimMargin()
     }
 }
 
+/**
+ * The one binding conflict that is real: the same bound TYPE registered twice.
+ *
+ * Every binding expands to an UNQUALIFIED `single<T>` (`restApi` / `supabaseApi` in
+ * `core-base/network/NetworkDsl.kt`), so Koin keys it by type alone. Two different types on one access
+ * point are two independent definitions — one point serves any number of APIs (a monolith backend binds
+ * ~22 to a single point). The same type bound twice, on one point or on two, is one key defined twice:
+ * the later definition silently wins for every injection site. This used to group by access point,
+ * which rejected the valid case and missed the cross-point one.
+ *
+ * @param bindings (access point id, bound type FQN) per `@ApiBinding`.
+ * @return one error message per type bound more than once; empty when the graph is sound.
+ */
+internal fun duplicateBindingErrors(bindings: List<Pair<String, String>>): List<String> =
+    bindings.groupBy({ it.second }, { it.first })
+        .filterValues { it.size > 1 }
+        .map { (type, points) ->
+            "network-ksp: $type is bound ${points.size} times (access points: ${points.joinToString()}) — " +
+                "each binding is an unqualified single<$type>, so all but the last are silently lost. " +
+                "Bind a type once; one access point may serve any number of different types."
+        }
+
+/**
+ * KSP entry point — what the `META-INF/services` registration names, so Gradle can instantiate [ApiBindingProcessor].
+ */
 class ApiBindingProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor =
         ApiBindingProcessor(environment.codeGenerator, environment.logger, environment.options)

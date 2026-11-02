@@ -21,7 +21,7 @@ changes the value without forking the store.
 
 Worked examples in this repo: `core/store/config` (`AppErrorMapper` + `ProjectErrorMapper`,
 `AppScreenStateDefaults` + `ProjectScreenStateDefaults`), `core/network/config`
-(`AppAccessPoints` / `AppUrlTypes` / `AppSupabaseAnonKeys`, projected by `syncForkConfig`),
+(`AppAccessPoints` / `AppUrlTypes`, projected by `syncForkConfig`),
 `core/database/config` (`DatabaseConfig` generated + `ForkDatabaseConfig`), and
 `core/firebase/config` (`analytics/` + `crashlytics/` cross-cutting halves).
 

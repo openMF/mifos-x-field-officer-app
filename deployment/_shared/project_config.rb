@@ -63,6 +63,7 @@ module FastlaneConfig
       result
     end
 
+    # Parse a `key=value` properties file into a hash, skipping comments and blank lines.
     def self.parse_props(path)
       props = {}
       File.readlines(path).each do |line|
@@ -73,6 +74,9 @@ module FastlaneConfig
       props
     end
 
+    # Parse the `[versions]` table of a TOML catalog into a hash.
+    # A deliberately minimal reader — the deployment layer must work with no TOML gem on a
+    # bare CI runner.
     def self.parse_toml_versions(path)
       result = {}
       File.readlines(path).each do |line|
@@ -285,8 +289,11 @@ module FastlaneConfig
 
     # ── Helpers ────────────────────────────────────────────────────────────────
     def self.android_package_name = ANDROID[:package_name]
+    # The iOS bundle id — the same value as the Android applicationId, from app-profile.
     def self.ios_bundle_identifier = IOS[:app_identifier]
+    # Path to the Firebase service-account JSON, or nil when this fork has no Firebase target.
     def self.firebase_credentials_file = SHARED[:firebase_service_credentials]
+    # The resolved iOS build configuration: bundle id, team, Match settings and ASC key paths.
     def self.ios_config = IOS.merge(IOS_SHARED)
   end
 
@@ -309,6 +316,7 @@ module FastlaneConfig
       }.freeze,
     }.freeze
 
+    # Signing configuration for the given platform, merged from the shared and platform YAMLs.
     def self.get_signing_config(options = {})
       {
         storeFile:     options[:store_file]     || ENV["ANDROID_STORE_FILE"]     || ProjectConfig::ANDROID[:keystore][:file],
@@ -360,6 +368,7 @@ module FastlaneConfig
     AndroidConfig.get_signing_config(options)
   end
 
+  # Firebase configuration for the given platform, or nil when it is not configured.
   def self.get_firebase_config(platform, type = :prod)
     case platform
     when :android

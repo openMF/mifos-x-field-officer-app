@@ -27,7 +27,7 @@ dependencies {
     // FileKit key remap: the template catalog is on a newer FileKit where the old
     // `filekit-compose` artifact is gone. dev's filekit-dialogs        -> filekit-dialog-compose
     //                                    dev's filekit-dialog-compose -> filekit-compose
-    "commonMainImplementation"(libs.filekit.compose)        // io.github.vinceglb:filekit-dialogs-compose
+    "commonMainImplementation"(libs.filekit.compose) // io.github.vinceglb:filekit-dialogs-compose
     "commonMainImplementation"(libs.filekit.dialog.compose) // io.github.vinceglb:filekit-dialogs
     "commonMainImplementation"(libs.ktor.client.core)
     "androidMainImplementation"(libs.kotlinx.coroutines.android)

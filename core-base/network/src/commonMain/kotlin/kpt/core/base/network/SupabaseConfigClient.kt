@@ -5,14 +5,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.network
 
 import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.SupabaseClientBuilder
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.logging.LogLevel
-import io.github.jan.supabase.SupabaseClientBuilder
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
 
@@ -34,13 +34,13 @@ import io.github.jan.supabase.postgrest.postgrest
  * // Use the client for queries
  * if (configClient.isConfigured) {
  *     val result = configClient.postgrest
- *         .from("app_config")
+ *         .from("app_server_config")
  *         .select()
- *         .decodeSingle<MyConfig>()
+ *         .decodeList<MyServer>()
  * }
  * ```
  *
- * @param credentials The Supabase credentials (URL and anon key).
+ * @param credentials The Supabase credentials (URL and publishable key).
  * @param logLevel The logging level for Supabase client. Defaults to INFO.
  */
 class SupabaseConfigClient(
@@ -66,7 +66,7 @@ class SupabaseConfigClient(
     val client: SupabaseClient by lazy {
         createSupabaseClient(
             supabaseUrl = credentials.url,
-            supabaseKey = credentials.anonKey,
+            supabaseKey = credentials.publishableKey,
         ) {
             defaultLogLevel = logLevel
             install(Postgrest)
@@ -99,54 +99,42 @@ class SupabaseConfigClient(
 }
 
 /**
- * Interface for Supabase credentials.
+ * A Supabase access point's client config — GENERATED onto [AccessPoint.supabase] by `syncForkConfig`
+ * from `app-profile/app.yaml#network.access_points[]`, so a fork configures Supabase in app-profile only.
  *
- * Implement this interface to provide Supabase URL and anon key
- * from your project's build configuration or secrets.
+ * @property publishableKey the project's client key (`sb_publishable_…`, or the legacy anon JWT), read at
+ *   BUILD time from `publishable_key_env:` — never committed. It is public by design: Row Level Security is
+ *   the boundary. Empty leaves the client inert (`isConfigured == false`).
  *
- * ## Where credentials come from
+ * There is no sign-in config here on purpose. A point's client talks to Supabase under this key alone;
+ * an app that signs users in (Google, Apple, guest) adds `io.github.mobilebytelabs:cmp-supabase-auth`
+ * through [SupabaseExtrasProvider], which installs Auth on this same client.
+ */
+data class SupabaseSpec(
+    val publishableKey: String,
+)
+
+/**
+ * Supabase URL + client key for one [SupabaseConfigClient].
  *
- * `SupabaseClientFactory` supplies them per access point: the URL from
- * [AccessPoint.baseUrl] (the registry is the single URL SoT) and the anon key from the consumer's
- * id-keyed resolver, whose rows `syncForkConfig` generates from
- * `app-profile/app.yaml#network.access_points` and whose values come from `BuildKonfig` via
- * `anon_key_env:` — so no key is committed.
- *
- * A fork therefore configures Supabase by editing app-profile and running `syncForkConfig`, never by
- * writing a credentials object. (An earlier convention plugin generated one from a secrets file for a
- * single hardcoded project; it was removed on 2026-09-06 once the registry made it both redundant and
- * unable to express more than one project.)
- *
- * ## Manual Implementation
- *
- * ```kotlin
- * object MySupabaseCredentials : SupabaseCredentials {
- *     override val url: String = BuildConfig.SUPABASE_URL
- *     override val anonKey: String = BuildConfig.SUPABASE_ANON_KEY
- * }
- * ```
+ * [SupabaseClientFactory] supplies them per access point — URL from [AccessPoint.baseUrl], key from
+ * [SupabaseSpec.publishableKey] — so a fork never implements this; it is the seam a test fakes.
  */
 interface SupabaseCredentials {
-    /**
-     * The Supabase project URL.
-     * Example: "https://your-project.supabase.co"
-     */
+    /** The Supabase project URL, e.g. `https://<ref>.supabase.co`. */
     val url: String
 
     /**
-     * The Supabase anon (public) key.
-     * This key is safe to use in client-side code.
+     * The project's publishable (client) key. Safe in client code; never a `service_role` / `sb_secret_`
+     * key, which bypasses RLS (enforced by `scripts/product-health/checks/supabase-client-security.sh`).
      */
-    val anonKey: String
+    val publishableKey: String
 
-    /**
-     * Checks if the credentials are properly configured.
-     * Returns false if URL or key contain placeholder values.
-     */
+    /** False while the URL or key is blank, a `YOUR_` placeholder, or the URL is not https. */
     val isConfigured: Boolean
         get() = url.isNotBlank() &&
-            anonKey.isNotBlank() &&
+            publishableKey.isNotBlank() &&
             !url.contains("YOUR_") &&
-            !anonKey.contains("YOUR_") &&
+            !publishableKey.contains("YOUR_") &&
             url.startsWith("https://")
 }

@@ -16,7 +16,7 @@ on:
 
 jobs:
   version:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LINUX || 'ubuntu-26.04' }}
     outputs:
       tag: ${{ steps.c.outputs.tag }}
     steps:
@@ -30,7 +30,7 @@ jobs:
 
   release-android:
     needs: version
-    uses: therajanmaurya/mifos-x-actionhub-publish-android-kmp/.github/workflows/release.yaml@v2.0.28
+    uses: therajanmaurya/mifos-x-actionhub-publish-android-kmp/.github/workflows/release.yaml@v2.0.30
     with:
       android_package_name: cmp-android
       version_tag: ${{ needs.version.outputs.tag }}

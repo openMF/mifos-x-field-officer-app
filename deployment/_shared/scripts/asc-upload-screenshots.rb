@@ -42,6 +42,7 @@ app = Spaceship::ConnectAPI::App.find(opts[:bundle_id]) or abort "❌ app not fo
 V = app.get_edit_app_store_version(platform: Spaceship::ConnectAPI::Platform::IOS) or abort "❌ no editable iOS version"
 BASE = 'https://api.appstoreconnect.apple.com'
 
+# Issue one App Store Connect API request with the bearer token attached.
 def api(m, path, body = nil)
   uri = URI("#{BASE}#{path}"); h = Net::HTTP.new(uri.host, 443); h.use_ssl = true
   r = { get: Net::HTTP::Get, post: Net::HTTP::Post, patch: Net::HTTP::Patch, delete: Net::HTTP::Delete }[m].new(uri)
@@ -49,6 +50,9 @@ def api(m, path, body = nil)
   res = h.request(r); [res.code.to_i, (res.body.to_s.empty? ? {} : (JSON.parse(res.body) rescue res.body))]
 end
 
+# PUT the image bytes to the pre-signed upload URL Apple returned.
+# The headers come from Apple's own `uploadOperations` response and must be sent verbatim —
+# substituting a Content-Type here makes the asset fail validation after upload.
 def raw_upload(op, bytes)
   uri = URI(op['url']); h = Net::HTTP.new(uri.host, uri.port); h.use_ssl = (uri.scheme == 'https')
   klass = { 'PUT' => Net::HTTP::Put, 'POST' => Net::HTTP::Post, 'PATCH' => Net::HTTP::Patch }[op['method']] || Net::HTTP::Put

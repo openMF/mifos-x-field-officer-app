@@ -10,9 +10,6 @@
 package kpt.core.base.store.infra
 
 import io.github.mobilebytelabs.kmptoolkit.networkmonitor.NetworkStatus
-import kotlin.time.Clock
-import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 import kpt.core.base.store.error.ErrorCategory
 import kpt.core.base.store.error.categorize
 import kpt.core.base.store.freshness.FreshnessBands
@@ -21,6 +18,9 @@ import kpt.core.base.store.screen.DataOrigin
 import kpt.core.base.store.screen.FetchPolicy
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.store.screen.StoreData
+import kotlin.time.Clock
+import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
 
 /**
  * Pure function combining StoreData metadata + NetworkStatus into ScreenState.
@@ -77,6 +77,7 @@ object DecisionEngine {
         // Here we just record request state: UPDATING during in-flight network refresh
         // (legitimate request signal — NOT network state), FRESH otherwise.
         val fetchedAt = storeData.fetchedAtInstant
+
         @Suppress("UNUSED_VARIABLE")
         val networkStateNoLongerConsumedHere = isOnline || isCaptivePortal || (error != null)
         // freshnessSignal default (Initial band) is overwritten by ScreenDataStream's

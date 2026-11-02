@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 @file:Suppress("MatchingDeclarationName")
 
@@ -28,6 +28,10 @@ import org.mobilenativefoundation.store.store5.Store
  * `UserDataRepositoryImpl` and its `UserPreferencesRepository`, supplies it.
  */
 fun interface UserDataSource {
+    /**
+     * Streams the preference aggregate. A pass-through to the preferences repository, kept as a store-shaped surface
+     * so a screen depends on `core/store` alone.
+     */
     fun observe(): Flow<UserData>
 }
 

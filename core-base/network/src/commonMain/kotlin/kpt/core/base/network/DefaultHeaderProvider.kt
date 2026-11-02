@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.network
 
@@ -54,6 +54,7 @@ interface DefaultHeaderProvider {
      */
     fun headersFor(accessPointId: String): Map<String, String> = emptyMap()
 
+    /** Provider presets. */
     companion object {
         /** The no-op default. Bound by `NetworkModule` unless a fork binds its own. */
         val None: DefaultHeaderProvider = object : DefaultHeaderProvider {}

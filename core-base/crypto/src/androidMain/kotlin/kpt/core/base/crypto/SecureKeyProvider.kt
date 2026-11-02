@@ -18,8 +18,10 @@ import javax.crypto.SecretKey
 private const val KEYSTORE_ALIAS = "mifos_field_encryptor"
 private const val ANDROID_KEYSTORE = "AndroidKeyStore"
 
+/** Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
 actual class SecureKeyProvider {
 
+    /** `getKey` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun getKey(): ByteArray? {
         val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
         val entry = keyStore.getEntry(KEYSTORE_ALIAS, null) as? KeyStore.SecretKeyEntry
@@ -27,6 +29,7 @@ actual class SecureKeyProvider {
         return entry.secretKey.encoded
     }
 
+    /** `generateKey` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun generateKey(): ByteArray {
         val keyGenerator = KeyGenerator.getInstance(
             KeyProperties.KEY_ALGORITHM_AES,
@@ -47,6 +50,7 @@ actual class SecureKeyProvider {
             ?: throw SecurityException("Failed to generate encryption key")
     }
 
+    /** `deleteKey` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun deleteKey() {
         val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
         if (keyStore.containsAlias(KEYSTORE_ALIAS)) {

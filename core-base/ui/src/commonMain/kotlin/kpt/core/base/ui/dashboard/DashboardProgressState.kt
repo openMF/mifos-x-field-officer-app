@@ -40,10 +40,20 @@ import kotlin.time.Instant
 @OptIn(ExperimentalTime::class)
 @Immutable
 data class DashboardProgressState(
+    /** How many cards have reached content. */
     val loaded: Int,
+    /** How many cards the dashboard has. [loaded] over [total] is the progress bar's fraction. */
     val total: Int,
+    /** True while at least one card is still loading — what keeps the bar visible. */
     val isAnyLoading: Boolean,
+    /**
+     * True when at least one card failed. The bar stays, so a single failure among many successes is not silently
+     * hidden.
+     */
     val hasAnyError: Boolean,
+    /**
+     * True when at least one card resolved to empty. Distinct from an error: empty is a successful load with no data.
+     */
     val hasAnyEmpty: Boolean,
     /**
      * Oldest `fetchedAt` across the `Content` cards — the dashboard is only as fresh as its stalest

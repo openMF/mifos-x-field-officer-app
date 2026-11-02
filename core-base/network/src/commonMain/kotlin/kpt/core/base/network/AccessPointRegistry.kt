@@ -76,6 +76,11 @@ data class AccessPoint(
      * their own config.
      */
     val isMain: Boolean = false,
+    /**
+     * Supabase client config for a `type: supabase` point — its publishable key. `null` on REST points.
+     * [SupabaseClientFactory] reads it directly, so a fork never wires a key by hand.
+     */
+    val supabase: SupabaseSpec? = null,
 ) {
     /**
      * The URL requests are actually made against — [baseUrl] + [basePath], normalised.
@@ -99,31 +104,45 @@ data class AccessPoint(
  * owns the resolution logic + the [restApi]/[ktorfitFor] DSL — so a fork writes only API interfaces plus
  * one `restApi("<id>")` line each, and there is exactly one source of truth for "which servers this app
  * talks to" (`app-profile/app.yaml#network.access_points`).
+ *
+ * @property points every access point this fork declares, from `app-profile#network.access_points`. Order is
+ *   irrelevant — lookup is by id.
+ * @property policy app-wide network privacy (logging detail per build type, query redaction, web CORS
+ *   relay), from `app-profile/app.yaml#network` via `AppAccessPoints.policy`. Defaults are the secure ones.
  */
-class AccessPointRegistry(val points: List<AccessPoint>) {
+class AccessPointRegistry(
+    val points: List<AccessPoint>,
+    val policy: NetworkPolicy = NetworkPolicy(),
+) {
 
     /**
      * One [HttpClient] per ACCESS POINT, not per API.
      *
-     * `ktorfitFor` used to build a fresh client on every call, and `restApi(...)` registers one
-     * Koin `single` per API TYPE — so a monolith backend got one client per resource API. Measured
-     * on mifos-x-field-officer-app: 22 `@ApiBinding("mifos")` interfaces, 23 `restApi` lines, 23
-     * HttpClients against ONE host. Each carries its own connection pool and TLS session cache, so
-     * nothing is reused: every API pays a fresh TCP + TLS handshake on first use, and a slow link
-     * multiplies that by 23.
+     * [ktorfitFor] used to build a fresh client on every call, and `restApi(...)` registers one Koin
+     * `single` per API TYPE. For a server exposing many resource APIs that multiplies: each API gets
+     * its own connection pool and TLS session cache, nothing is reused, and every API pays a full
+     * TCP + TLS handshake on first use.
      *
-     * `mobile-wallet` (the older fork, hand-wired before `@ApiBinding` existed) already had this
-     * right: THREE `single<KtorfitClient>` instances keyed by ROLE, each exposing ~24 services from
-     * one Ktorfit. This brings the generated path to the same shape.
+     * The network KSP processor already assumed the monolith case — its own comment reads "Fineract
+     * is one server, one base_url, one credential — and 21 resource-oriented APIs over it." The
+     * generator was taught that shape; this factory was not.
      *
-     * Keyed on the access-point id alone, which is sufficient because the per-request inputs are
-     * not baked into the client: `dynamicHeaders` is a lambda resolved on EVERY request, so a
-     * credential written at login reaches requests made by a client built before it. The static
-     * `defaultHeaders` are per access point by construction.
+     * Two forks hit it independently:
+     *  - `mifos-x-field-officer-app` MIGRATED onto `@ApiBinding`: 22 interfaces on one host, 23
+     *    `restApi` lines, 23 HttpClients. On device (2026-10-20, live Fineract) an authenticated
+     *    read never settled — minutes of "Refreshing…" with no error and no retry.
+     *  - `mifos-pay` never migrated, and sidestepped it by hand in its legacy stack: three
+     *    `single<KtorfitClient>` keyed by ROLE, ~24 services from one Ktorfit each. Its template path
+     *    carries 0 `@ApiBinding` APIs, so the defect is latent there rather than absent.
      *
-     * Not separately locked. Koin serializes `single` creation, so the 23 registrations cannot race
-     * here; and if they ever did, the loser's client is simply discarded unused rather than
-     * observed — a wasteful outcome, not an incorrect one.
+     * Keying on the access-point id alone is correct, not merely cheaper: `dynamicHeaders` is a
+     * lambda resolved on EVERY request, so a credential written at login reaches a client built
+     * before it, and `defaultHeaders` are per access point by construction. Distinct access points
+     * keep distinct clients, so a per-endpoint credential never reaches a host that did not need it.
+     *
+     * Not separately locked. Koin serializes `single` creation, so the per-API registrations cannot
+     * race here; and if they ever did, the loser's client is discarded unused rather than observed —
+     * a wasteful outcome, not an incorrect one.
      */
     private val restClients: MutableMap<String, HttpClient> = mutableMapOf()
 

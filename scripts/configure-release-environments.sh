@@ -173,6 +173,8 @@ fi
 # gating it makes EVERY rung require an approval click. `--production-only` strips it (and
 # the other test channels) below.
 declare -a ENVS=()
+# True when platform $1 was requested on the command line, so only the
+# environments for the selected platforms are created.
 has () { [[ ",$ONLY," == *",$1,"* ]]; }
 
 if has android; then

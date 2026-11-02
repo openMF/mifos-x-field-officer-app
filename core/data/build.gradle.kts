@@ -12,7 +12,6 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-
 kotlin {
     sourceSets {
         commonMain.dependencies {

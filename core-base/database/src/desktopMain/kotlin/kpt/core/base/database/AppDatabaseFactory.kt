@@ -22,7 +22,7 @@ import java.io.File
  * - **Linux**: `~/.local/share/{databaseDirName}/`
  *
  * The default [databaseDirName] is `"KptDatabase"` (template-neutral). Forks
- * should override this with their own brand identifier (e.g. `"AppDatabase"`,
+ * should override this with their own brand identifier (e.g. `"MifosDatabase"`,
  * `"<YourApp>Database"`) when constructing this factory in their Koin module
  * — using a fork-specific directory keeps each consumer's data isolated and
  * prevents collisions when multiple template-derived apps are installed side
@@ -72,6 +72,7 @@ class AppDatabaseFactory(
         return File(appDataDir, databaseName)
     }
 
+    /** Factory entry points. */
     companion object {
         /** Template-neutral default; forks override via constructor. */
         const val DEFAULT_DATABASE_DIR_NAME: String = "KptDatabase"

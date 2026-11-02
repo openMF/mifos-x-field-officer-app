@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.ui.bottombar
 
@@ -29,6 +29,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import kpt.core.ui.navigation.NavigationItem
 
+/**
+ * The side rail used instead of a bottom bar on wide windows — same tab source, different surface.
+ */
 @Composable
 fun KptNavigationRail(
     navigationItems: List<NavigationItem>,
@@ -36,9 +39,9 @@ fun KptNavigationRail(
     onClick: (NavigationItem) -> Unit,
     modifier: Modifier = Modifier,
     /**
-     * Show each item's name beside its icon. Threaded from the same `ScaffoldNavigationData` flag
-     * the bottom bar reads, so labels do not disappear when the window widens and the bar becomes
-     * a rail — the rail IS the bar on a large screen.
+     * Show each item's name beside its icon. Threaded from the same flag the bottom bar reads, so
+     * labels do not disappear when the window widens and the bar becomes a rail — the rail IS the
+     * bar on a large screen.
      */
     showLabels: Boolean = false,
     windowInsets: WindowInsets = NavigationRailDefaults.windowInsets,

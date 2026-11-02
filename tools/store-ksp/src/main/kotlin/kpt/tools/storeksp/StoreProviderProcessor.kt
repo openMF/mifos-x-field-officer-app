@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.tools.storeksp
 
@@ -264,14 +264,6 @@ class StoreProviderProcessor(
     }
 
     /**
-     * `config/AppCacheKeys.kt` — every stream cache key, NESTED per store.
-     *
-     * Nested rather than flat because the keys are named by ROLE (`LIST`, `item`, `of`), which is
-     * unique within a store but not across them — three stores each declaring `LIST` would collide in
-     * a flat object. Nesting keeps the annotations as written and makes the collision impossible
-     * rather than something the author has to avoid by hand.
-     */
-    /**
      * `config/AppStoreIds.kt` — the declared `@StoreProvider(id = …)` string as a `const val`.
      *
      * The cache-key side was already generated (`AppCacheKeys.Loans.LIST`), but the STORE ID stayed a
@@ -308,6 +300,14 @@ class StoreProviderProcessor(
         write(sb.toString(), CONFIG_PKG, "AppStoreIds", fns)
     }
 
+    /**
+     * `config/AppCacheKeys.kt` — every stream cache key, NESTED per store.
+     *
+     * Nested rather than flat because the keys are named by ROLE (`LIST`, `item`, `of`), which is
+     * unique within a store but not across them — three stores each declaring `LIST` would collide in
+     * a flat object. Nesting keeps the annotations as written and makes the collision impossible
+     * rather than something the author has to avoid by hand.
+     */
     private fun emitCacheKeys(specs: List<StoreSpec>, fns: List<KSFunctionDeclaration>) {
         val withKeys = specs.filter { it.keys.isNotEmpty() }
         val sb = StringBuilder()
@@ -389,6 +389,10 @@ class StoreProviderProcessor(
     }
 }
 
+/**
+ * KSP entry point — what the `META-INF/services` registration names, so Gradle can instantiate
+ * [StoreProviderProcessor].
+ */
 class StoreProviderProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor =
         StoreProviderProcessor(environment.codeGenerator, environment.logger)

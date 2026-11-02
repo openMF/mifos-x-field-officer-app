@@ -9,9 +9,11 @@
  */
 package kpt.core.base.crypto
 
+/** Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
 actual class SecureRandom {
     private val random = java.security.SecureRandom()
 
+    /** `nextBytes` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun nextBytes(size: Int): ByteArray {
         val bytes = ByteArray(size)
         random.nextBytes(bytes)

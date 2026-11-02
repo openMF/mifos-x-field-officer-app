@@ -22,6 +22,9 @@ DEPLOY_MUTATED_SOURCES = [
   "cmp-ios/iosApp/Info.plist",
 ].freeze
 
+# Walk up from the working directory to the repo root, recognised by app-profile/app.yaml.
+# Bounded at 20 levels so a lane run from an unexpected directory fails fast instead of
+# walking to /.
 def _deploy_repo_root
   root = Dir.pwd
   20.times do
@@ -33,6 +36,9 @@ def _deploy_repo_root
   root
 end
 
+# Restore every source file a lane rewrote in place (version strings, Info.plist entries).
+# Run unconditionally after a lane so a local build does not leave the tree dirty — the
+# same files on CI are throwaway, but on a developer machine they are the working copy.
 def restore_deploy_mutated_sources
   root = _deploy_repo_root
   DEPLOY_MUTATED_SOURCES.each do |rel|

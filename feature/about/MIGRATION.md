@@ -27,8 +27,8 @@
   source header cites) — a repo-file link 404'd on device because the default branch names it `LICENCE`.
 - **Source points at THIS app.** `app-profile` `org.support_url` was the template's repository;
   it is now `openMF/mifos-x-field-officer-app` (it also feeds the store support link).
-- **Help & community (new).** A Product site row (`org.product_url`, the app's guides site) and a
-  Community row (`org.community_url`, the Mifos Slack — ask in `#mobile`), first on the page: help is
+- **Help & community (new).** A Product site row (`org.links.product`, the app's guides site) and a
+  Community row (`org.links.community`, the Mifos Slack — ask in `#mobile`), first on the page: help is
   what an officer opens About for. Both keys are new in app-profile and in BOTH fork.properties writers
   (`SyncForkConfigPlugin` + `deployment/_shared/config.rb`; parity check green).
 - **Taps are events** routed through the ViewModel (the original called `ShareUtils` inside the

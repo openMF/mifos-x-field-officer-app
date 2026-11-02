@@ -1,6 +1,6 @@
 # .github/workflows/release-multi-platform.yml
 #
-# Thin wrapper → openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.69
+# Thin wrapper → openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.71
 #
 # All orchestration logic lives in the centralized reusable workflow.
 # This file just declares the dispatch inputs + passes secrets through.
@@ -162,7 +162,7 @@ jobs:
   # gates must never be matrix-duplicated).
   validate-flavor:
     name: Validate product flavor
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LINUX || 'ubuntu-26.04' }}
     permissions:
       contents: read
     steps:
@@ -225,7 +225,7 @@ jobs:
     # @v2.0.15, publish-desktop @v2.0.8, publish-web @v2.0.10 — all carry the flavor
     # dimension). The `with:` block below threads the single dispatched
     # `inputs.flavor` / `inputs.build_type` straight through.
-    uses: openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.69
+    uses: openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.71
     with:
       version_tag:          ${{ inputs.version_tag }}
       android_package_name: cmp-android
@@ -258,10 +258,10 @@ jobs:
       # PROD pins kept in lockstep with actionhub @v1.0.32 (which hardcodes
       # @v2.0.12 internally — GHA forbids expressions in workflow_call uses:).
       # Local dispatches override these via release-multi-platform-local.yml.
-      runner_pool_linux:    '["ubuntu-latest"]'
-      runner_pool_mac:      '["macos-15"]'   # macos-14 ships Xcode 16.1 (no CMP/UIViewLayoutRegion symbols);
-                                              # macos-15 has Xcode 26.x — the image the last green iOS build
-                                              # used (pr-check.yml). Compose MP 1.11 needs it. (2026-06-22)
+      # Runner pools are NOT pinned here: actionhub resolves them as
+      # input → vars.CI_RUNNER_LINUX / vars.CI_RUNNER_MAC (org variables) → ubuntu-26.04 / macos-15.
+      # Change the image once at the org level; pin here only to diverge from it on purpose.
+      # macos-15 or newer is required (macos-14 ships Xcode 16.1; Compose MP 1.11 needs Xcode 26.x).
       # === FIX 2: opt into RULE-DEPLOYMENT-MANIFEST-001 deployment/<platform>/<target>/lane.rb layout ===
       # Our lanes live at deployment/Fastfile + deployment/<platform>/<target>/lane.rb,
       # not at root fastlane/Fastfile. The publish-* @v2.0.11 wrappers support this

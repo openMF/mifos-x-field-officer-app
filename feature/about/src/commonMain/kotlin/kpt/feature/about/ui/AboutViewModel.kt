@@ -5,13 +5,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.feature.about.ui
 
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 import kpt.core.base.ui.viewmodel.BaseViewModel
+import kpt.core.model.config.AppOrgLinks
 import kpt.feature.about.BuildKonfig
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -66,8 +67,8 @@ internal data class AboutConfig(
             orgEmail = BuildKonfig.ORG_EMAIL,
             websiteUrl = BuildKonfig.WEBSITE_URL,
             sourceUrl = BuildKonfig.SOURCE_URL,
-            communityUrl = BuildKonfig.COMMUNITY_URL,
-            productUrl = BuildKonfig.PRODUCT_URL,
+            communityUrl = AppOrgLinks["community"].orEmpty(),
+            productUrl = AppOrgLinks["product"].orEmpty(),
             licenseUrl = BuildKonfig.LICENSE_URL,
         )
     }

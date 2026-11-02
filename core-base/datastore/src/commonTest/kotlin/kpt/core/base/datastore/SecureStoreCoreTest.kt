@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.datastore
 
@@ -24,8 +24,12 @@ private const val SECURE = "secure_data_key"
 private class FakeStorage(initial: Map<String, String> = emptyMap()) : SecureBlobStorage {
     val data = linkedMapOf<String, String>().apply { putAll(initial) }
     override fun get(key: String): String? = data[key]
-    override fun set(key: String, value: String) { data[key] = value }
-    override fun remove(key: String) { data.remove(key) }
+    override fun set(key: String, value: String) {
+        data[key] = value
+    }
+    override fun remove(key: String) {
+        data.remove(key)
+    }
     override fun keys(): List<String> = data.keys.toList()
 }
 

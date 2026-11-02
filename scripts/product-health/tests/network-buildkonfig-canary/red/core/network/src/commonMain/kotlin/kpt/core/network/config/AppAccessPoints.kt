@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.network.config
 
@@ -46,6 +46,9 @@ object AppAccessPoints {
             kind = AccessPointKind.SUPABASE,
             baseUrl = "https://project.supabase.co",
             loggableHost = "project.supabase.co",
+            supabase = kpt.core.base.network.SupabaseSpec(
+                publishableKey = kpt.core.network.BuildKonfig.MY_SUPABASE_KEY,
+            ),
         ),
         AccessPoint(
             id = "jsonplaceholder",

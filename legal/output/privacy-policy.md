@@ -1,10 +1,10 @@
-# Privacy Policy — Money Toolkit
+# Privacy Policy — MifosXDroid
 
 **Effective date:** June 6, 2026
 **Last updated:** June 6, 2026
 
 This Privacy Policy describes how Mifos Initiative ("we", "us", or "our") handles
-information in the **Money Toolkit** application (`org.mifos.kmp.template`).
+information in the **MifosXDroid** application (`com.mifos.mifosxdroid`).
 
 ---
 
@@ -12,13 +12,13 @@ information in the **Money Toolkit** application (`org.mifos.kmp.template`).
 
 ### Information You Provide
 
-Money Toolkit stores data you enter directly — such as loan details, bill reminders,
+MifosXDroid stores data you enter directly — such as loan details, bill reminders,
 and financial calculations — **locally on your device only**. This data is never
 transmitted to our servers or any third party.
 
 ### Information Collected Automatically
 
-Money Toolkit does not collect any analytics, crash reports, device identifiers, or
+MifosXDroid does not collect any analytics, crash reports, device identifiers, or
 usage data. There is no account creation, no login, and no backend server.
 
 ### Information We Do NOT Collect
@@ -33,7 +33,7 @@ usage data. There is no account creation, no login, and no backend server.
 
 ## 2. How We Use Information
 
-All data entered into Money Toolkit is used solely to provide the features of the
+All data entered into MifosXDroid is used solely to provide the features of the
 application on your device. We have no access to this data.
 
 ---
@@ -49,31 +49,31 @@ are applied.
 
 ## 4. Third-Party Services
 
-Money Toolkit uses the following third-party data sources:
+MifosXDroid uses the following third-party data sources:
 
 - **World Bank Open Data** (worldbank.org) — publicly available economic indicators.
   No personal data is sent to World Bank.
 - **FRED API** (Federal Reserve Bank of St. Louis) — publicly available interest
   rate data. No personal data is sent to FRED.
 
-These services are read-only. Money Toolkit fetches publicly available data from them;
+These services are read-only. MifosXDroid fetches publicly available data from them;
 no data about you is transmitted.
 
 ---
 
 ## 5. Children's Privacy
 
-Money Toolkit is not directed at children under 13 (or the equivalent minimum age in
+MifosXDroid is not directed at children under 13 (or the equivalent minimum age in
 your jurisdiction). We do not knowingly collect personal information from children.
 
 ---
 
 ## 6. Your Rights
 
-Because Money Toolkit does not collect or store personal data on any server, there is
+Because MifosXDroid does not collect or store personal data on any server, there is
 no personal data for us to access, export, or delete on your behalf.
 
-If you wish to remove all data associated with Money Toolkit, uninstall the application
+If you wish to remove all data associated with MifosXDroid, uninstall the application
 from your device. This permanently deletes all locally stored data.
 
 ---
@@ -82,7 +82,7 @@ from your device. This permanently deletes all locally stored data.
 
 We may update this Privacy Policy from time to time. The "Last updated" date at the
 top of this page indicates when the most recent changes were made. Continued use of
-Money Toolkit after changes are posted constitutes acceptance of the updated policy.
+MifosXDroid after changes are posted constitutes acceptance of the updated policy.
 
 ---
 
@@ -99,4 +99,4 @@ If you have questions about this Privacy Policy, please contact us:
 **Mifos Initiative**
 Email: team@mifos.org
 Website: https://mifos.org
-Support: https://github.com/openMF/kmp-project-template
+Support: https://github.com/openMF/mifos-x-field-officer-app

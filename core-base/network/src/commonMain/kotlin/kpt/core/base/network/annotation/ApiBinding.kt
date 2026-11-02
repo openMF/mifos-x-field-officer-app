@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.network.annotation
 
@@ -23,7 +23,7 @@ package kpt.core.base.network.annotation
  * ```
  *
  * ## Why only the binding, and not the endpoint
- * The access point itself — `base_url`, `type`, `owner`, `secret_alias`, `anon_key_env` — stays in
+ * The access point itself — `base_url`, `type`, `owner`, `secret_alias`, `publishable_key_env` — stays in
  * `app-profile/app.yaml#network.access_points`. That is per-fork DEPLOYMENT config: a fork's URL and
  * key names differ from the template's, and these API classes are template-owned showcase code. Put
  * a URL in an annotation here and a fork has to edit a template-owned class to change it, which is

@@ -112,10 +112,20 @@ fun FormDraftFailure(
     }
 }
 
+/** Test tags for [FormDraftBanner] and [FormDraftFailure]. */
 object FormDraftTestTags {
+    /** The "Save draft" button under a failed create. */
     const val SAVE = "form-draft:save"
+
+    /** The "Draft saved" confirmation that replaces it. */
     const val SAVED = "form-draft:saved"
+
+    /** The Resume / Discard banner. */
     const val BANNER = "form-draft:banner"
+
+    /** The banner's Resume button. */
     const val RESUME = "form-draft:resume"
+
+    /** The banner's Discard button. */
     const val DISCARD = "form-draft:discard"
 }

@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.api
 
@@ -16,7 +16,7 @@ import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.dto.RemoteServerIns
  * a consumer is tested with a plain fake; [impl.ServerInstanceApiImpl] is the only Supabase-aware part.
  */
 interface ServerInstanceApi {
-    /** True when a real project URL + anon key are configured. */
+    /** True when a real project URL + publishable key are configured. */
     val isConfigured: Boolean
 
     /**

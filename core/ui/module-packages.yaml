@@ -61,6 +61,4 @@ template:
   - { id: utils,      status: exists }      # UI helpers
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.
-fork:
-  - { id: components, status: exists }
-  - { id: util, status: exists }
+fork: []

@@ -22,7 +22,7 @@ network:
       base_url: https://sb.supabase.co
       loggable_host: sb.supabase.co
       api: com.acme.api.ConfigApi
-      anon_key_env: SB_ANON_KEY
+      publishable_key_env: SB_PUBLISHABLE_KEY
     - id: pay-gw
       auth: none
       auth: none

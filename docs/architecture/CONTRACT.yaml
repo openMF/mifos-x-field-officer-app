@@ -107,6 +107,9 @@ codegen_contracts:
       REST annotates the Ktorfit interface; Supabase annotates the IMPL (single
       SupabaseConfigClient arg). Never build a second createSupabaseClient — the generated binding
       hands annotated types a different instance carrying no session, so RLS calls resolve nothing.
+      One access point serves ANY number of different API types (a monolith backend binds ~22 to one
+      point). A bound TYPE may be bound only once, on any point: every binding is an unqualified
+      single<T>, so a second binding of the same type is a build error — it would silently replace the first.
 
   - annotation: DbEntity
     defined_in: core-base/database

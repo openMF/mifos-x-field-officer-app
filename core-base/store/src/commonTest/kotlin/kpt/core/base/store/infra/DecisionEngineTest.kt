@@ -10,18 +10,17 @@
 package kpt.core.base.store.infra
 
 import io.github.mobilebytelabs.kmptoolkit.networkmonitor.NetworkInfo
-import kpt.core.base.store.freshness.FreshnessBand
-import kpt.core.base.store.freshness.FreshnessSignal
-import kpt.core.base.store.screen.ScreenState
-import kpt.core.base.store.screen.DataOrigin
-import kpt.core.base.store.screen.FetchPolicy
-import kpt.core.base.store.screen.StoreData
 import io.github.mobilebytelabs.kmptoolkit.networkmonitor.NetworkStatus
 import io.github.mobilebytelabs.kmptoolkit.networkmonitor.NetworkType
+import kpt.core.base.store.freshness.FreshnessBand
+import kpt.core.base.store.screen.DataOrigin
+import kpt.core.base.store.screen.FetchPolicy
+import kpt.core.base.store.screen.ScreenState
+import kpt.core.base.store.screen.StoreData
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertIs
 import kotlin.test.assertFalse
+import kotlin.test.assertIs
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.time.Clock
@@ -108,7 +107,8 @@ class DecisionEngineTest {
             data = "<empty>",
             origin = DataOrigin.NETWORK,
             isEmpty = true,
-            isRefreshing = true, // The new flag combination this test guards.
+            // The new flag combination this test guards.
+            isRefreshing = true,
             error = null,
         )
         val result = DecisionEngine.decide(starvationFixEmission, unavailable)
@@ -226,7 +226,6 @@ class DecisionEngineTest {
         val result = DecisionEngine.decide(data, available)
         assertIs<ScreenState.Error>(result)
     }
-
 
     @Test
     fun `auth error - 401 message = Unauthenticated`() {
@@ -359,7 +358,8 @@ class DecisionEngineTest {
         StoreData(data = value, origin = origin, error = error)
 
     private fun emptyStoreData(error: Throwable? = null): StoreData<String> = StoreData(
-        data = "", // Sentinel — isEmpty=true means data is never used by DecisionEngine
+        // Sentinel — isEmpty=true means data is never used by DecisionEngine
+        data = "",
         origin = DataOrigin.NETWORK,
         isEmpty = true,
         error = error,

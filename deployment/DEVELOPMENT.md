@@ -3,7 +3,7 @@
 Internal-contributor guide to the release/deployment machinery — 18 targets across 5 platforms
 (Android/iOS/macOS/Desktop/Web). For **using** an existing lane to ship a fork's build, see
 [`BOOTSTRAP.md`](BOOTSTRAP.md) (Path A manual-mode / Path B vault-mode fork onboarding) and
-[`docs/deployment/FASTLANE_CONFIGURATION.md`](../docs/deployment/FASTLANE_CONFIGURATION.md) —
+[`docs/deployment/FASTLANE_CONFIGURATION.md`](../docs/architecture/tree/deployment/fastlane-configuration.md) —
 this doc covers adding/modifying the machinery itself, not consuming it.
 
 ## Purpose
@@ -118,7 +118,7 @@ vault access (`gha_secret_var` names the matching plain GitHub Actions secret).
 
 ## Related
 
-- [`docs/deployment/FASTLANE_CONFIGURATION.md`](../docs/deployment/FASTLANE_CONFIGURATION.md) — Fastlane config reference.
-- [`docs/release/ONBOARDING_CHECKLIST.md`](../docs/release/ONBOARDING_CHECKLIST.md) — release-manager onboarding.
-- [`docs/ios/IOS_DEPLOYMENT.md`](../docs/ios/IOS_DEPLOYMENT.md), [`IOS_SETUP.md`](../docs/ios/IOS_SETUP.md), [`IOS_DEPLOYMENT_CHECKLIST.md`](../docs/ios/IOS_DEPLOYMENT_CHECKLIST.md) — iOS-specific signing/deploy detail.
+- [`docs/deployment/FASTLANE_CONFIGURATION.md`](../docs/architecture/tree/deployment/fastlane-configuration.md) — Fastlane config reference.
+- [`docs/release/ONBOARDING_CHECKLIST.md`](../docs/architecture/tree/deployment/release-onboarding.md) — release-manager onboarding.
+- [`docs/ios/IOS_DEPLOYMENT.md`](../docs/architecture/tree/deployment/ios/deployment.md), [`IOS_SETUP.md`](../docs/architecture/tree/deployment/ios/setup.md), [`IOS_DEPLOYMENT_CHECKLIST.md`](../docs/architecture/tree/deployment/ios/checklist.md) — iOS-specific signing/deploy detail.
 - [`BOOTSTRAP.md`](BOOTSTRAP.md) §"iOS Certificate Lifecycle — `renewCerts`" — Fastlane Match cert rotation.

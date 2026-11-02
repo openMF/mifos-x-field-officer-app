@@ -8,7 +8,7 @@
 #   AppAccessPoints.kt        the registry list          (NAP-1 ids · NAP-2 fields)
 #   AppUrlTypes.kt            the UrlType vocabulary     (NAP-3)
 #   di/GeneratedApiBindings.kt the Koin bindings         (NAP-4)
-#   AppSupabaseAnonKeys.kt    the per-point anon keys    (NAP-5 rows · NAP-6 no committed key)
+#   AppAccessPoints.kt `supabase =`  each Supabase point's publishable key (NAP-5 spec · NAP-6 no committed key)
 #   core/network/build.gradle.kts  the BuildKonfig fields (NAP-8 every referenced field is declared)
 #   core/network/<id>/             the per-endpoint package  (NAP-9 exists · NAP-10 supabase id=ref)
 #
@@ -61,7 +61,6 @@ end
 
 ap_src    = read(File.join(net_dir, "config/AppAccessPoints.kt"))
 ut_src    = read(File.join(net_dir, "config/AppUrlTypes.kt"))
-keys_src  = read(File.join(net_dir, "config/AppSupabaseAnonKeys.kt"))
 # GENERATED into build/ from `@ApiBinding` — no longer committed source. Derived from the module
 # root rather than by counting `..` levels off net_dir, which is easy to get wrong by one.
 module_root = net_dir.sub(%r{/src/commonMain/kotlin/kpt/core/network\z}, "")
@@ -180,7 +179,7 @@ if bind_src.nil?
   puts "   ℹ️  NAP-4 GeneratedApiBindings not built — annotation/declaration agreement checked, binding shapes deferred to the compiler"
 else
   # `<Iface>` is OPTIONAL: a supabase point whose API is split into interface + impl generates
-  # `supabaseApi<AppConfigApi>("project") { AppConfigApiImpl(it) }` so Koin binds the INTERFACE
+  # `supabaseApi<ServerInstanceApi>("project") { ServerInstanceApiImpl(it) }` so Koin binds the INTERFACE
   # (`single<T>` infers T from the factory lambda, so without the explicit type argument every
   # `get<Interface>()` would miss). Matching only the bare form reported that correct binding as
   # MISSING and then as "does not use supabaseApi(...)" — two failures for working code.
@@ -194,7 +193,7 @@ else
     simple = annotated_simple[p["id"].to_s]
     dsl    = p["type"].to_s.strip.downcase == "supabase" ? "supabaseApi" : "restApi"
     # Regex, not include? — the DSL call may carry an explicit type argument
-    # (`supabaseApi<AppConfigApi>("project")`) when the API is split interface + impl.
+    # (`supabaseApi<ServerInstanceApi>("project")`) when the API is split interface + impl.
     unless bind_src =~ /#{Regexp.escape(dsl)}(?:<[^>]+>)?\(#{Regexp.escape(%Q{"#{id}"})}\)/
       fail = bad("❌ NAP-4 '#{id}' is #{p['type']} but its binding does not use #{dsl}(...)")
       next
@@ -204,33 +203,41 @@ else
   end
 end
 
-# ── NAP-5 / NAP-6 — Supabase anon keys ───────────────────────────────────────
-supa = points.select { |p| p["type"].to_s.strip.downcase == "supabase" }
-if keys_src.nil?
-  fail = bad("❌ NAP-5 AppSupabaseAnonKeys.kt missing but #{supa.size} Supabase point(s) declared") if supa.any?
-else
-  rows = keys_src.scan(/"([^"]+)"\s*to\s+(.+?),\s*$/).to_h
-  missing = supa.map { |p| p["id"].to_s } - rows.keys
-  extra   = rows.keys - supa.map { |p| p["id"].to_s }
-  fail = bad("❌ NAP-5 Supabase point with no anon-key row: #{missing.join(', ')}\n     → run `./gradlew syncForkConfig` (the point would be decorative)") if missing.any?
-  fail = bad("❌ NAP-5 anon-key row for a non-Supabase / undeclared id: #{extra.join(', ')}") if extra.any?
-
-  # NAP-6 — a row's VALUE may only be "" or a BuildKonfig read. Anything else is a key living in a
-  # tracked file. Anon keys are publishable, but committing one still pins every fork to one project
-  # and makes rotation a source edit; the BuildKonfig path (env / local.properties) is the sanctioned
-  # one, identical to FRED_API_KEY.
-  rows.each do |id, val|
-    v = val.strip
-    next if v == '""'
-    next if v.match?(/\ABuildKonfig\.[A-Z0-9_]+\z/) || v.match?(/\A[\w.]*\.BuildKonfig\.[A-Z0-9_]+\z/)
-    fail = bad("❌ NAP-6 anon key for '#{id}' is a literal in tracked source: #{v[0, 24]}…\n     → declare `anon_key_env: <ENV_KEY>` on the point and re-run syncForkConfig")
+# ── NAP-5 / NAP-6 — each Supabase point's generated spec ─────────────────────
+# core-base builds a Supabase client from `AccessPoint.supabase` alone (its publishable key), so a point
+# whose spec is missing is a client with no key. NAP-5: spec present exactly on Supabase points.
+# NAP-6: the key is "" or a BuildKonfig read — never a literal in tracked source.
+if ap_src
+  blocks = ap_src.split(/^\s*AccessPoint\(\s*$/).drop(1)
+  specs = blocks.each_with_object({}) do |blk, h|
+    id = blk[/id = "([^"]+)"/, 1] or next
+    h[id] = blk
+  end
+  points.each do |p|
+    id = p["id"].to_s
+    blk = specs[id] or next # NAP-1 already reports an absent point
+    is_supa = p["type"].to_s.strip.downcase == "supabase"
+    has_spec = blk.include?("SupabaseSpec(")
+    if is_supa && !has_spec
+      fail = bad("❌ NAP-5 Supabase point '#{id}' has no generated `supabase = SupabaseSpec(…)`\n     → run `./gradlew syncForkConfig` (the client would have no key)")
+      next
+    end
+    if !is_supa && has_spec
+      fail = bad("❌ NAP-5 non-Supabase point '#{id}' carries a SupabaseSpec — run `./gradlew syncForkConfig`")
+      next
+    end
+    next unless is_supa
+    key = blk[/publishableKey = (.+?),\s*$/, 1].to_s.strip
+    unless key == '""' || key.match?(/\A(?:[\w.]*\.)?BuildKonfig\.[A-Z0-9_]+\z/)
+      fail = bad("❌ NAP-6 publishable key for '#{id}' is a literal in tracked source: #{key[0, 12]}…\n     → declare `publishable_key_env: <ENV_KEY>` on the point and re-run syncForkConfig")
+    end
   end
 end
 
 # ── NAP-8 — every referenced BuildKonfig field is DECLARED ───────────────────
-# The codegen emits `BuildKonfig.<anon_key_env>` into AppSupabaseAnonKeys, but the FIELD is declared
+# The codegen emits `BuildKonfig.<publishable_key_env>` into AppAccessPoints, but the FIELD is declared
 # in core/network/build.gradle.kts. Those were two unlinked places: a fork declaring
-# `anon_key_env: MY_KEY` got a generated reference to a field nobody created — `Unresolved reference`
+# `publishable_key_env: MY_KEY` got a generated reference to a field nobody created — `Unresolved reference`
 # on :core:network, with no fork seam to fix it in (the build file is owner:merge, template-derived).
 # Both halves now derive from app-profile; this gate is what keeps them derived.
 bk_path = ENV["NAP_BUILD_FILE"].to_s.empty? ?
@@ -242,14 +249,14 @@ if bk_src.nil?
 else
   declared = bk_src.scan(/buildConfigField\(\s*STRING,\s*"([A-Z0-9_]+)"/).flatten.uniq
   referenced = []
-  [keys_src, bind_src, ap_src, ut_src].compact.each do |src|
+  [bind_src, ap_src, ut_src].compact.each do |src|
     clean = src.gsub(%r{/\*.*?\*/}m, "").gsub(%r{//[^\n]*}, "")
     referenced.concat(clean.scan(/BuildKonfig\.([A-Z0-9_]+)/).flatten)
   end
   missing = referenced.uniq - declared
   if missing.any?
     fail = bad("❌ NAP-8 generated code references BuildKonfig field(s) that are not declared: #{missing.join(', ')}\n" \
-               "     → declare the key in app-profile (`anon_key_env:`/`api_key_env:` on the point, or " \
+               "     → declare the key in app-profile (`publishable_key_env:`/`api_key_env:` on the point, or " \
                "network.build_config_fields) and re-run `./gradlew syncForkConfig`")
   end
 end
@@ -382,5 +389,5 @@ if fail
   exit 1
 end
 rest = points.count { |p| p["type"].to_s.strip.downcase != "supabase" }
-puts "access points: #{points.size} declared (#{rest} REST, #{supa.size} Supabase), #{want_bind.size} bound — registry, url-types, bindings and anon-keys all match app-profile"
+puts "access points: #{points.size} declared (#{rest} REST, #{points.size - rest} Supabase), #{want_bind.size} bound — registry, url-types, bindings and Supabase specs all match app-profile"
 RUBY

@@ -67,8 +67,12 @@ helper, or `RUBY_EXEC_AUTO_INSTALL=1`) and otherwise **fails loudly with the exa
 than silently running the wrong ruby.
 
 **Enforced:** `RT-9` in `product-health/checks/ruby-toolchain-coherence.sh` fails the build if any
-tracked `*.sh` invokes `bundle` directly. Echoed instructions for a human are fine — the match is
-anchored to command position.
+tracked `*.sh` invokes `bundle` directly. The match is anchored to command position — start of line,
+or after `;` `&` `|` `(` `&&` `||` — and a shell comment is exempt. **A quoted string is not**: the
+matcher sees text, so `echo "(cd deployment && bundle exec …)"` trips it just as a real invocation
+would. That is the right outcome rather than a false positive, because an instruction telling a human
+to type a bare `bundle exec` teaches the very failure this file opens with. Print the `ruby_bundle`
+form instead, as `scripts/ios/setup_ios_complete.sh` does.
 
 **`RT-8`** in the same file asks whether *this repo* can reach the pinned interpreter — it runs the
 resolver and checks the answer. It does **not** ask whether the `ruby` on your PATH happens to be the
@@ -129,7 +133,6 @@ no CocoaPods toolchain.
 |---|---|
 | `setup-secrets.sh` | interactive, platform-wise secret setup |
 | `secrets-status.sh` | what is set up vs missing, per platform |
-| `generate-manifest.sh` | regenerate the root `secrets-manifest.yaml` |
 | `sync-secrets-to-github.sh` | push secrets to GitHub repository secrets |
 | `_lib.sh` | shared helpers |
 
@@ -216,11 +219,17 @@ will still pass in this state, by design — see `RT-8` above.
 `./gradlew syncForkConfig`; never hand-edit the bridge.
 
 **`customization-surface.sh resolve` disagrees with what a sync did** — the contract's default is
-**template-first** (`**` → `template`); fork territory is declared explicitly. A path resolving
-`template` unexpectedly means no rule claims it.
+**template-first** (`**` → `template`) but only for paths under a sync root (`sync-dirs.sh`
+`SYNC_DIRS` / `SYNC_FILES`); a path under no root resolves `fork`, because the template can only own
+what it ships. A path resolving `template` unexpectedly means no rule claims it inside a synced root.
 
-Deeper guides: [Troubleshooting](../docs/claude/troubleshooting.md) ·
-[Deployment Playbook](../docs/claude/deployment-playbook.md) ·
-[Secrets Management](../docs/claude/secrets-management.md)
+**`sync-dirs.sh --mirror`** turns template-owned roots into a strict mirror — fork-only files there
+are removed unless listed in `.template-sync-holds`. Never run it bare on an unclassified fork;
+`/kmp-project-template-sync` classifies the fork's extras (adopt upstream · move to a fork package ·
+delete) first.
+
+Deeper guides: [Troubleshooting](../docs/troubleshooting.md) ·
+[Deployment Playbook](../docs/architecture/tree/deployment/playbook.md) ·
+[Secrets Management](../docs/architecture/tree/secrets/management.md)
 
 [← Back to Main](../CLAUDE.md)

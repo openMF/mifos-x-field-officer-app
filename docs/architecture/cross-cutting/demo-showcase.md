@@ -114,5 +114,5 @@ as a failure fallback. This is not hypothetical — it happened, the two guardin
 
 - [`store-architecture.md`](store-architecture.md) — the archetypes end to end
 - [`customization-surface.md`](customization-surface.md) — ownership rules and their ordering
-- [`../modules/core/store.md`](../modules/core/store.md) — `@StoreProvider` / `@CacheKey`, and why
+- [`../modules/core/store.md`](../tree/core/store.md) — `@StoreProvider` / `@CacheKey`, and why
   deleting a demo package takes its bindings with it

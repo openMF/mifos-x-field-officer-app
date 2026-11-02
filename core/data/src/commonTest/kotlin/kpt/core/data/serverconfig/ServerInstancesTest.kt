@@ -1,11 +1,11 @@
 /*
- * Copyright 2025 Mifos Initiative
+ * Copyright 2026 Mifos Initiative
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.data.serverconfig
 
@@ -15,11 +15,11 @@ import kotlinx.coroutines.test.runTest
 import kpt.core.database.serverconfig.dao.ServerInstanceDao
 import kpt.core.database.serverconfig.entity.ServerInstanceEntity
 import kpt.core.model.utils.DemoCredentials
-import kpt.core.network.fieldofficer.AppServerConfig
-import kpt.core.network.fieldofficer.BundledInstanceConfigLoader
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.api.ServerInstanceApi
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.dto.RemoteDemoAccountDto
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.dto.RemoteServerInstanceDto
+import kpt.core.network.mifos.server.AppServerConfig
+import kpt.core.network.mifos.server.BundledInstanceConfigLoader
 import kpt.core.store.serverconfig.provideServerInstancesStore
 import org.mobilenativefoundation.store.store5.impl.extensions.fresh
 import org.mobilenativefoundation.store.store5.impl.extensions.get

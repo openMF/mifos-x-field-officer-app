@@ -58,5 +58,4 @@ template:
   - { id: prefs, status: exists }           # user + project preference repositories
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.
-fork:
-  - { id: offline, status: exists }
+fork: []

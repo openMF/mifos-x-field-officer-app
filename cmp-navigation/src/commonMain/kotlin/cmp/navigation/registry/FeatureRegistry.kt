@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package cmp.navigation.registry
 
@@ -15,6 +15,7 @@ import kpt.core.data.di.ProjectRepositoryModule
 import kpt.core.database.di.ProjectDatabaseModule
 import kpt.core.datastore.di.ProjectDatastoreModule
 import kpt.core.network.di.ProjectNetworkModule
+import kpt.core.store.di.ProjectStoreModule
 import org.koin.core.module.Module
 
 /**
@@ -52,6 +53,7 @@ object FeatureRegistry {
         ProjectNetworkModule,
         ProjectDatabaseModule,
         ProjectDatastoreModule,
+        ProjectStoreModule,
         GeneratedFeatureKoinBindings,
     )
 

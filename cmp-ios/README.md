@@ -28,6 +28,6 @@ Every Xcode build assembles + embeds the `ComposeApp` framework fresh via the Ru
 day-to-day builds don't rely on SwiftPM artifact resolution. `Package.swift` exists for forks that
 prefer a pure-SwiftPM consumption path.
 
-See [`docs/ios/IOS_SETUP.md`](../docs/ios/IOS_SETUP.md) and
-[`docs/ios/IOS_DEPLOYMENT.md`](../docs/ios/IOS_DEPLOYMENT.md) for setup + signing/deployment;
+See [`docs/ios/IOS_SETUP.md`](../docs/architecture/tree/deployment/ios/setup.md) and
+[`docs/ios/IOS_DEPLOYMENT.md`](../docs/architecture/tree/deployment/ios/deployment.md) for setup + signing/deployment;
 [`CONSUMPTION.md`](CONSUMPTION.md) for what a fork edits here.

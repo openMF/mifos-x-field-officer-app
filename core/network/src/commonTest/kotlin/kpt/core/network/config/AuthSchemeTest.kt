@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.network.config
 
@@ -55,10 +55,10 @@ class AuthSchemeTest {
     fun sign_in_and_sign_out_move_the_header_automatically() = runTest {
         val token = MutableStateFlow<String?>(null)
         val headers = RuntimeHeaderStore()
-        val key = AuthScheme.runtimeKeyFor("mifos")
+        val key = AuthScheme.runtimeKeyFor("fineract")
 
         AuthHeaderBridge(
-            points = listOf(point("mifos", AuthScheme.BASIC)),
+            points = listOf(point("fineract", AuthScheme.BASIC)),
             tokenSource = AuthTokenSource { token },
             headers = headers,
         ).start(TestScope(testScheduler))
@@ -90,14 +90,15 @@ class AuthSchemeTest {
     }
 
     @Test
-    fun the_declared_scheme_drives_the_generated_header() {
-        val mifos = AppAccessPoints.points.first { it.id == "mifos" }
-
-        assertEquals(AuthScheme.BASIC, mifos.auth, "declared as auth: basic in app-profile")
-        // The Authorization spec is DERIVED from `auth:` — nobody wrote that row by hand.
-        val auth = mifos.headers.first { it.name == "Authorization" }
-        assertEquals(AuthScheme.runtimeKeyFor("mifos"), auth.runtimeKey)
-        assertNull(auth.value, "no credential may be baked into the binary")
+    fun every_auth_bearing_point_gets_a_derived_runtime_authorization_header() {
+        // Over EVERY generated point, so it holds in a fork whatever its point ids are. The demo
+        // point's declared values are pinned in kpt.core.network.fineract.FineractPointTest.
+        AppAccessPoints.points.filter { it.auth != AuthScheme.NONE }.forEach { point ->
+            // The Authorization spec is DERIVED from `auth:` — nobody wrote that row by hand.
+            val auth = point.headers.first { it.name == "Authorization" }
+            assertEquals(AuthScheme.runtimeKeyFor(point.id), auth.runtimeKey, point.id)
+            assertNull(auth.value, "${point.id}: no credential may be baked into the binary")
+        }
     }
 
     @Test

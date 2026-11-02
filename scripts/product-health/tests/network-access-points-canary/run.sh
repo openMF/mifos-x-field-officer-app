@@ -7,7 +7,7 @@
 #
 # The failure modes are not equally loud, which is the point of gating all of them:
 #   NAP-3 and NAP-6 produce NO compile error at all — a missing UrlType constant silently resolves to
-#   MAIN's base URL, and a committed anon key works fine until someone needs to rotate it.
+#   MAIN's base URL, and a committed publishable key works fine until someone needs to rotate it.
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CHECK="$(cd "$HERE/../../checks" && pwd)/network-access-points.sh"
@@ -38,8 +38,8 @@ cell nap1-missing-point   1 "NAP-1 point absent from registry  → FAIL"
 cell nap2-stale-url       1 "NAP-2 registry base_url stale     → FAIL"
 cell nap3-missing-urltype 1 "NAP-3 no UrlType const (silent!)  → FAIL"
 cell nap4-missing-binding 1 "NAP-4 @ApiBinding, not bound      → FAIL"
-cell nap5-missing-anonkey 1 "NAP-5 Supabase point, no key row  → FAIL"
-cell nap6-literal-key     1 "NAP-6 anon key committed          → FAIL"
+cell nap5-missing-spec    1 "NAP-5 Supabase point, no spec     → FAIL"
+cell nap6-literal-key     1 "NAP-6 publishable key committed   → FAIL"
 cell nap7-handwired       1 "NAP-7 hand-wired binding          → FAIL"
 # The subtlest cell: `pay-gw` HAS a UrlType constant, so an existence-only NAP-3 passes. Its KEY was
 # sanitized to PAY_GW while AccessPoint.type carries UrlType("PAY-GW"), so restBaseUrl never matches

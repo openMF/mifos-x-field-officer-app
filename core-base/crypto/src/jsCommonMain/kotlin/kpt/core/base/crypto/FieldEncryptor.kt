@@ -37,22 +37,38 @@ actual class FieldEncryptor {
         }
     }
 
+    /**
+     * `encrypt` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only and
+     * cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun encrypt(plaintext: String): String {
         val data = plaintext.encodeToByteArray()
         val encrypted = encrypt(data)
         return Base64.encode(encrypted)
     }
 
+    /**
+     * `decrypt` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only and
+     * cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun decrypt(ciphertext: String): String {
         val decoded = Base64.decode(ciphertext)
         return decrypt(decoded).decodeToString()
     }
 
+    /**
+     * `encrypt` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only and
+     * cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun encrypt(data: ByteArray): ByteArray {
         // NO-OP: returns unmodified copy. SubtleCrypto is async-only on web.
         return data.copyOf()
     }
 
+    /**
+     * `decrypt` on this target. Web (JS/WasmJS) — **NO-OP stub: data is NOT encrypted.** WebCrypto is async-only and
+     * cannot satisfy this synchronous contract; use `WebSecureCrypto` for real confidentiality.
+     */
     actual fun decrypt(data: ByteArray): ByteArray {
         // NO-OP: returns unmodified copy.
         return data.copyOf()

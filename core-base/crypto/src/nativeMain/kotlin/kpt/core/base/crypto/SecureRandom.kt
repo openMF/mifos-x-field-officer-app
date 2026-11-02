@@ -16,8 +16,10 @@ import platform.Security.SecRandomCopyBytes
 import platform.Security.errSecSuccess
 import platform.Security.kSecRandomDefault
 
+/** Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
 @OptIn(ExperimentalForeignApi::class)
 actual class SecureRandom {
+    /** `nextBytes` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun nextBytes(size: Int): ByteArray {
         val bytes = ByteArray(size)
         bytes.usePinned { pinned ->

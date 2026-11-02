@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.database.di
 
@@ -37,17 +37,5 @@ class DatabaseModuleTest : KoinTest {
     fun databaseModuleProvidesAppDatabase() {
         val database: AppDatabase = get()
         assertNotNull(database)
-    }
-
-    @Test
-    fun databaseModuleProvidesAlertDao() {
-        val database: AppDatabase = get()
-        assertNotNull(database.clientDao)
-    }
-
-    @Test
-    fun clientDaoComesFromDatabase() {
-        val database: AppDatabase = get()
-        assertNotNull(database.clientDao)
     }
 }

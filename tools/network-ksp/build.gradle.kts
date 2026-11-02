@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 
 // SPIKE — KSP processor deriving Koin API bindings from @ApiBinding.
@@ -16,4 +16,9 @@ plugins {
 
 dependencies {
     implementation("com.google.devtools.ksp:symbol-processing-api:${libs.versions.ksp.get()}")
+    testImplementation(libs.kotlin.test)
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

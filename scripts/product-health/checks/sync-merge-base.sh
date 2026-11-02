@@ -28,9 +28,10 @@
 #   MB-2  every merge loop resolves its base through it — no bare `git merge-base` assignment
 #   MB-3  a missing base is WARNED about, never reported as a successful merge
 #   MB-4  the engine refuses to line-merge a binary
-#   MB-5  the four platform application shells resolve `merge` (they carry fork platform wiring
-#         that has no other seam — an Xcode target and a plist key have nowhere else to live)
+#   MB-5  the cmp-* files carrying fork platform wiring resolve `merge` (no other seam exists for an
+#         Xcode target or a plist key)
 #   MB-6  .template-version carries a parseable template_sha (the anchor MB-1 depends on)
+#   MB-7  build-logic + the rest of the cmp-* shells resolve `template` (replaced in full); kotlin/local/** stays `fork`
 #
 # exit 0 PASS / 1 FAIL. Pure bash + grep.
 set -uo pipefail
@@ -40,7 +41,9 @@ CS="${MB_CS:-$HEALTH_ROOT/scripts/customization-surface.sh}"
 TV="${MB_TV:-$HEALTH_ROOT/.template-version}"
 
 fail=0
+# Print one check result, prefixed with its id ($1) so a failure names the rung it broke.
 say() { printf '  %-7s %s\n' "$1" "$2"; }
+# Print a failure via `say` and set the fail flag.
 bad() { say "❌ $1" "$2"; fail=1; }
 
 [ -f "$ENGINE" ] || { bad MB-0 "engine not found: $ENGINE"; exit 1; }
@@ -103,11 +106,24 @@ if [ -x "$CS" ] || [ -f "$CS" ]; then
       "cmp-android/src/main/kotlin/cmp/android/app/MainActivity.kt" \
       "cmp-desktop/mac-app-store.entitlements" \
       "cmp-web/build.gradle.kts" \
-      "build-logic/convention/build.gradle.kts" ; do
+      "cmp-ios/iosApp/iOSApp.swift" ; do
     got="$( (cd "$HEALTH_ROOT" && bash "$CS" resolve "$probe" 2>/dev/null) | awk '{print $2}' )"
     [ "$got" = "merge" ] || { bad MB-5 "$probe resolves '$got', expected merge"; mb5=1; }
   done
-  [ "$mb5" -eq 0 ] && say "✅ MB-5" "platform shells + build-logic resolve merge (fork wiring survives)"
+  [ "$mb5" -eq 0 ] && say "✅ MB-5" "the shell files carrying fork platform wiring resolve merge (fork wiring survives)"
+  # MB-7: build-logic and the rest of the cmp-* shells are template code, replaced in full on sync; the
+  # fork's build hook is the `kotlin/local/**` seam, which must stay the fork's.
+  mb7=0
+  for pair in "build-logic/convention/src/main/kotlin/SyncForkConfigPlugin.kt:template" \
+              "build-logic/convention/build.gradle.kts:template" \
+              "cmp-navigation/src/commonMain/kotlin/cmp/navigation/ComposeApp.kt:template" \
+              "build-logic/convention/src/main/kotlin/org/convention/Detekt.kt:template" \
+              "build-logic/convention/src/main/kotlin/local/LocalFlavors.kt:fork"; do
+    probe="${pair%:*}"; want="${pair##*:}"
+    got="$( (cd "$HEALTH_ROOT" && bash "$CS" resolve "$probe" 2>/dev/null) | awk '{print $2}' )"
+    [ "$got" = "$want" ] || { bad MB-7 "$probe resolves '$got', expected $want"; mb7=1; }
+  done
+  [ "$mb7" -eq 0 ] && say "✅ MB-7" "build-logic + cmp-* shell code resolve template (replaced in full); the local/ seam stays fork"
 else
   bad MB-5 "customization-surface.sh not found at $CS"
 fi

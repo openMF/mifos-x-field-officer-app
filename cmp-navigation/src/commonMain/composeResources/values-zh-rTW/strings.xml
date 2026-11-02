@@ -2,9 +2,9 @@
 <!--
     Copyright 2026 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
@@ -29,6 +29,6 @@
     <string name="error_category_ratelimit">請求過於頻繁，請稍候再試。</string>
     <string name="error_category_server">我們的伺服器暫時異常，請稍後再試。</string>
     <string name="error_category_generic">發生錯誤</string>
-    <string name="shell_status_online">線上</string>
     <string name="shell_status_offline">離線</string>
+    <string name="shell_status_online">線上</string>
 </resources>

@@ -70,29 +70,4 @@ template:
   - { id: user, status: exists }            # UserData, ThemeBrand, LanguageConfig — the framework reads these
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.
-fork:
-  - { id: auth, status: exists }
-  - { id: center, status: exists }
-  - { id: charge, status: exists }
-  - { id: client, status: exists }
-  - { id: collectionsheet, status: exists }
-  - { id: dashboard, status: exists }
-  - { id: datatable, status: exists }
-  - { id: draft, status: exists }
-  - { id: group, status: exists }
-  - { id: loan, status: exists }
-  - { id: note, status: exists }
-  - { id: notification, status: exists }
-  - { id: objects, status: exists }
-  - { id: office, status: exists }
-  - { id: offline, status: exists }
-  - { id: payment, status: exists }
-  - { id: recent, status: exists }
-  - { id: recurringdeposit, status: exists }
-  - { id: report, status: exists }
-  - { id: savings, status: exists }
-  - { id: search, status: exists }
-  - { id: shared, status: exists }
-  - { id: staff, status: exists }
-  - { id: survey, status: exists }
-  - { id: utils, status: exists }
+fork: []

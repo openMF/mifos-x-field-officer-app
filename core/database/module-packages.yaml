@@ -69,29 +69,4 @@ template:
   - { id: infra,  status: exists }          # Room infra support
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.
-fork:
-  - { id: cache, status: exists }
-  - { id: center, status: exists }
-  - { id: charge, status: exists }
-  - { id: checkerinbox, status: exists }
-  - { id: client, status: exists }
-  - { id: collectionsheet, status: exists }
-  - { id: converter, status: exists }
-  - { id: datatable, status: exists }
-  - { id: document, status: exists }
-  - { id: encryption, status: exists }
-  - { id: group, status: exists }
-  - { id: loan, status: exists }
-  - { id: note, status: exists }
-  - { id: office, status: exists }
-  - { id: offline, status: exists }
-  - { id: payment, status: exists }
-  - { id: recent, status: exists }
-  - { id: recurringdeposit, status: exists }
-  - { id: report, status: exists }
-  - { id: savings, status: exists }
-  - { id: serverconfig, status: exists }
-  - { id: shared, status: exists }
-  - { id: staff, status: exists }
-  - { id: survey, status: exists }
-  - { id: utils, status: exists }
+fork: []

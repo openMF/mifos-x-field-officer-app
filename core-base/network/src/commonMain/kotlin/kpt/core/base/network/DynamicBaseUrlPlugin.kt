@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.network
 
@@ -62,6 +62,10 @@ class DynamicBaseUrlPlugin private constructor(
     private val urlType: UrlType,
     private val staticBasePath: String,
 ) {
+    /**
+     * Ktor plugin installer — rewrites each request's base URL from the resolved access point, so an endpoint change
+     * needs no per-call wiring.
+     */
     companion object Plugin : HttpClientPlugin<DynamicBaseUrlConfig, DynamicBaseUrlPlugin> {
         override val key: AttributeKey<DynamicBaseUrlPlugin> =
             AttributeKey("DynamicBaseUrlPlugin")

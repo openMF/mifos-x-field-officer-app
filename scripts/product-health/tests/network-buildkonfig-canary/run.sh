@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Canary for NAP-8 (network-access-points.sh) — RED must FAIL, GREEN must PASS.
 #
-# RED reproduces the shipped bug: an access point declares `anon_key_env: MY_SUPABASE_KEY`, the
-# codegen emits `BuildKonfig.MY_SUPABASE_KEY` into AppSupabaseAnonKeys, and NOTHING declares the
+# RED reproduces the shipped bug: an access point declares `publishable_key_env: MY_SUPABASE_KEY`,
+# the codegen emits `BuildKonfig.MY_SUPABASE_KEY` into AppAccessPoints, and NOTHING declares the
 # field — `Unresolved reference` on :core:network. GREEN is the same tree with the field present in
 # the generated `syncForkConfig:buildkonfig` region.
 set -uo pipefail

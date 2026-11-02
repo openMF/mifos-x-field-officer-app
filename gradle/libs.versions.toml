@@ -67,7 +67,6 @@ appUpdate = "2.1.0"
 integrity = "1.6.0"
 
 # Static Analysis & Code Formatting
-ktlint = "14.2.0"
 detekt = "1.23.8"
 spotlessVersion = "8.10.2"
 turbine = "1.2.1"
@@ -94,7 +93,7 @@ ktorVersion = "3.5.1"
 ktorfit = "2.7.5"
 
 # Supabase
-supabase = "3.6.0"
+supabase = "3.8.0"
 
 # Koin CMP Dependencies
 koin = "4.2.2"
@@ -113,7 +112,7 @@ koinAnnotationsVersion = "4.2.2"
 #         (the same `web` entry as js) and needs applicationId/apiKey/projectId/authDomain populated.
 #         Also: cmp-share direct-to-app share (ShareOptions.targetPackage) + file:// → FileProvider
 #         content:// resolution; cmp-remote-config min/max app-version gate.
-kmptoolkit = "3.5.28"
+kmptoolkit = "3.5.34"
 
 # CMP Libraries
 compose-plugin = "1.12.0"
@@ -181,6 +180,7 @@ worker-version = "4.0.7"
 # KMPNotifier — Kotlin Multiplatform local + push notifications (Android/iOS/Desktop/Web).
 kmpnotifier = "2.0.0"
 
+cmpSupabaseAuth = "0.3.3"
 [libraries]
 kmp-product-flavors-plugin = { group = "io.github.mobilebytelabs.kmpflavors", name = "flavor-plugin", version.ref = "kmpProductFlavors" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -247,7 +247,6 @@ jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiterApi" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiterApi" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiterApi" }
-ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle", name = "ktlint-gradle", version.ref = "ktlint" }
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 platform-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatformLauncherVersion" }
@@ -483,6 +482,8 @@ worker-sync        = { module = "io.github.mobilebytelabs:worker-sync",        v
 worker-app-annotations = { module = "io.github.mobilebytelabs:worker-app-annotations", version.ref = "worker-version" }
 kmpnotifier-local  = { module = "io.github.mirzemehdi:kmpnotifier-local",       version.ref = "kmpnotifier" }
 
+cmp-supabase-auth = { group = "io.github.mobilebytelabs", name = "cmp-supabase-auth", version.ref = "cmpSupabaseAuth" }
+cmp-supabase-auth-compose = { group = "io.github.mobilebytelabs", name = "cmp-supabase-auth-compose", version.ref = "cmpSupabaseAuth" }
 [bundles]
 androidx-compose-ui-test = [
     "androidx-compose-ui-test",
@@ -541,14 +542,12 @@ android-lint = { id = "org.convention.android.application.lint" }
 # Utility Plugins
 detekt-convention = { id = "org.convention.detekt.plugin" }
 git-hooks-convention = { id = "org.convention.git.hooks" }
-ktlint-convention = { id = "org.convention.ktlint.plugin" }
 spotless-convention = { id = "org.convention.spotless.plugin" }
 keystore-management = { id = "org.convention.keystore.management" }
 
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 moduleGraph = { id = "com.jraska.module.graph.assertion", version.ref = "moduleGraph" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotlessVersion" }
 
 #Room 3 Plugin

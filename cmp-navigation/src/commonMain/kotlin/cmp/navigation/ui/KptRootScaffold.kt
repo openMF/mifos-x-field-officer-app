@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package cmp.navigation.ui
 
@@ -53,6 +53,7 @@ import kpt.core.ui.scaffold.KptPullToRefreshState
 import kpt.core.ui.scaffold.rememberKptPullToRefreshState
 import org.koin.compose.koinInject
 
+/** The signed-in shell: bottom bar (or rail/drawer by window size) around the nav host. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("LongMethod")
 @Composable

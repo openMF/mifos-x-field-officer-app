@@ -46,7 +46,10 @@ has_marker() {  # $1 file · $2 line · $3 marker
     sed -n "${from},$((ln - 1))p" "$f" 2>/dev/null | grep -q "$m"
 }
 
+# Print a passing assertion.
 pass() { printf '  ✓ %s\n' "$1"; }
+# Print a failing assertion and set FAILED, so the check reports every problem in one run
+# rather than stopping at the first.
 fail() { printf '  ✗ %s\n' "$1"; FAILED=1; }
 FAILED=0
 

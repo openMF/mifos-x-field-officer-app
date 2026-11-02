@@ -34,9 +34,11 @@ import platform.posix.size_tVar
  */
 private const val CBC_IV_LENGTH = 16
 
+/** Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
 
+    /** `encrypt` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun encrypt(plaintext: String): String {
         val encrypted = encrypt(plaintext.encodeToByteArray())
         val nsData = encrypted.usePinned { pinned ->
@@ -48,6 +50,7 @@ actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
         return nsData.base64EncodedStringWithOptions(0u)
     }
 
+    /** `decrypt` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun decrypt(ciphertext: String): String {
         val nsData = NSData.create(
             base64EncodedString = ciphertext,
@@ -60,6 +63,7 @@ actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
         return decrypt(bytes).decodeToString()
     }
 
+    /** `encrypt` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun encrypt(data: ByteArray): ByteArray {
         val key = keyProvider.getKey() ?: keyProvider.generateKey()
         val iv = SecureRandom().nextBytes(CBC_IV_LENGTH)
@@ -67,6 +71,7 @@ actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
         return iv + encrypted
     }
 
+    /** `decrypt` on this target. Apple/native — AES/GCM via CommonCrypto, keyed from the Keychain. */
     actual fun decrypt(data: ByteArray): ByteArray {
         val key = keyProvider.getKey()
             ?: error("Encryption key not found — data unrecoverable")

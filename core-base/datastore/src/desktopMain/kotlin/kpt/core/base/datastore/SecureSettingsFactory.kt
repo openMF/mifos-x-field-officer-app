@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.datastore
 
@@ -61,6 +61,7 @@ actual class SecureSettingsFactory {
     private val secureFile: File by lazy { File(secureDir, "secure_settings.properties") }
     private val encryptor: FieldEncryptor by lazy { FieldEncryptor(SecureKeyProvider()) }
 
+    /** `create` on Desktop (JVM). */
     actual fun create(): Settings {
         val onDisk = Properties()
         if (secureFile.exists()) {

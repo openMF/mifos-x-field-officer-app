@@ -43,7 +43,7 @@ buildkonfig {
         )
         // demo:end
         // syncForkConfig:buildkonfig:begin — GENERATED from `app-profile/app.yaml`: one field per
-        // access point declaring `anon_key_env:`/`api_key_env:`, plus every `network.build_config_fields`
+        // access point declaring `publishable_key_env:`/`api_key_env:`, plus every `network.build_config_fields`
         // entry. DO NOT HAND-EDIT — declare the key in app-profile and re-run `./gradlew syncForkConfig`.
         // Values are read at BUILD time from the env var or local.properties, so no secret is committed.
         // syncForkConfig:buildkonfig:end

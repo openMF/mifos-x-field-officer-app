@@ -57,8 +57,4 @@ template:
   - { id: format, status: exists }          # formatDate / formatDecimal / formatGrouped / formatTimeAgo
 
 # THIS FORK's own packages. `/implement` registers here. Empty is normal on the template.
-fork:
-  - { id: enums, status: exists }
-  - { id: model, status: exists }
-  - { id: network, status: exists }
-  - { id: utils, status: exists }
+fork: []

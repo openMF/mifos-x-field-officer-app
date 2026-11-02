@@ -72,6 +72,9 @@ candidates() {
 # Comments are stripped before matching: a file that only DESCRIBES the banned idiom (every migrated
 # call site carries a "use the reader instead of Properties().load()" note) must not trip the gate.
 strip_kt_comments() { sed -e 's://.*::' "$1" | tr '\n' '\001' | sed -e 's:/\*[^\001]*\*/::g' | tr '\001' '\n'; }
+# Remove `#` comments from shell source before scanning it.
+# Without this, a comment that MENTIONS fork.properties counted as a hand-rolled
+# read and the check failed on its own documentation.
 strip_sh_comments() { sed -e 's/^[[:space:]]*#.*//' -e 's/[[:space:]]#[^"'"'"']*$//' "$1"; }
 
 report() { # <file> <language> <how>

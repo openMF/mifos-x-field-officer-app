@@ -72,6 +72,7 @@ internal actual fun HttpClientConfig<*>.installProxyPlugin(
     }
 }
 
+/** `httpClient` on Web (JS). */
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit) = HttpClient(Js) {
     config(this)
 }

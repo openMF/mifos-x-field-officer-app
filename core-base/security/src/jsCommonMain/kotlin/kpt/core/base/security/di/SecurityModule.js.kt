@@ -9,13 +9,14 @@
  */
 package kpt.core.base.security.di
 
-import org.koin.core.module.Module
-import org.koin.dsl.module
-import kpt.core.base.security.CertificatePinConfig
 import kpt.core.base.crypto.FieldEncryptor
 import kpt.core.base.crypto.SecureKeyProvider
 import kpt.core.base.crypto.SecureRandom
+import kpt.core.base.security.CertificatePinConfig
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
+/** `platformSecurityModule` on Web (JS/WasmJS). */
 actual val platformSecurityModule: Module = module {
     single { SecureKeyProvider() }
     single { FieldEncryptor() }

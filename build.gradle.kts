@@ -1,3 +1,12 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
@@ -33,11 +42,14 @@ plugins {
     alias(libs.plugins.android.test) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.dependencyGuard) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.spotless) apply false
+    // Formats build-logic/ + the root *.kts — what no module's Spotless can see (see configureSpotless).
+    alias(libs.plugins.spotless.convention)
     alias(libs.plugins.moduleGraph) apply true
     alias(libs.plugins.firebase.crashlytics) apply false
     alias(libs.plugins.firebase.perf) apply false
@@ -74,7 +86,6 @@ plugins {
     alias(libs.plugins.kover.convention)
     id("org.convention.fork.sync-config")
 }
-
 
 object DynamicVersion {
     fun setDynamicVersion(file: File, version: String) {
@@ -158,4 +169,3 @@ moduleGraphAssert {
     configurations += setOf("nativeMainImplementation", "nativeMainApi")
     configurations += setOf("wasmJsMainImplementation", "wasmJsMainApi")
 }
-

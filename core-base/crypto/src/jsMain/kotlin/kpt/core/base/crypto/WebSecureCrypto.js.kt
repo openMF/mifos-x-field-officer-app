@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.crypto
 
@@ -84,10 +84,16 @@ private fun helpers(): dynamic = js(
     """,
 )
 
+/**
+ * Browser crypto for the JS target, over WebCrypto's SubtleCrypto. Every operation is asynchronous because the
+ * underlying key is NON-EXTRACTABLE, which is also why the store must be warmed up before Koin builds anything that
+ * reads it.
+ */
 actual class WebSecureCrypto {
 
     private var key: dynamic = null
 
+    /** `warmUp` on this target. Web (JS). */
     actual suspend fun warmUp() {
         if (key == null) {
             @Suppress("UNCHECKED_CAST")
@@ -98,10 +104,12 @@ actual class WebSecureCrypto {
     private fun requireKey(): dynamic =
         requireNotNull(key) { "WebSecureCrypto.warmUp() must complete before use" }
 
+    /** `encrypt` on this target. Web (JS). */
     @Suppress("UNCHECKED_CAST")
     actual suspend fun encrypt(plaintext: String): String =
         (helpers().encrypt(requireKey(), plaintext) as Promise<String>).await()
 
+    /** `decrypt` on this target. Web (JS). */
     @Suppress("UNCHECKED_CAST")
     actual suspend fun decrypt(ciphertext: String): String =
         (helpers().decrypt(requireKey(), ciphertext) as Promise<String>).await()

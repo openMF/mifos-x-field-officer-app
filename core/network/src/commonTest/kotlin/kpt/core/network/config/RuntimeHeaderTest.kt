@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.network.config
 
@@ -19,7 +19,6 @@ import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
 import kpt.core.base.network.AccessPoint
 import kpt.core.base.network.AccessPointKind
-import kpt.core.base.network.AuthScheme
 import kpt.core.base.network.HeaderSpec
 import kpt.core.base.network.RuntimeHeaderStore
 import kpt.core.base.network.setupDefaultHttpClient
@@ -42,7 +41,7 @@ class RuntimeHeaderTest {
 
     private val specs = listOf(
         HeaderSpec(name = "Fineract-Platform-TenantId", value = "default"),
-        HeaderSpec(name = HttpHeaders.Authorization, runtimeKey = "mifos.auth"),
+        HeaderSpec(name = HttpHeaders.Authorization, runtimeKey = "fineract.auth"),
     )
 
     private fun clientFor(store: RuntimeHeaderStore, seen: MutableList<Map<String, String?>>) =
@@ -68,7 +67,7 @@ class RuntimeHeaderTest {
         val client = clientFor(store, seen) // built BEFORE login, as in production
 
         client.get("offices") // anonymous
-        store["mifos.auth"] = "Basic abc123" // login lands here
+        store["fineract.auth"] = "Basic abc123" // login lands here
         client.get("offices") // same client instance
 
         assertNull(seen[0]["auth"], "before login the header must be ABSENT, not empty")
@@ -83,9 +82,9 @@ class RuntimeHeaderTest {
         val seen = mutableListOf<Map<String, String?>>()
         val client = clientFor(store, seen)
 
-        store["mifos.auth"] = "Basic abc123"
+        store["fineract.auth"] = "Basic abc123"
         client.get("offices")
-        store.clear("mifos.auth")
+        store.clear("fineract.auth")
         client.get("offices")
 
         // Not "empty string" — the previous user's credential must be gone, and an empty
@@ -103,55 +102,15 @@ class RuntimeHeaderTest {
     }
 
     @Test
-    fun the_real_declared_point_sends_its_static_header_with_no_manual_step() = runTest {
-        // The REAL generated point, not a synthetic spec list: this is what production builds from.
-        val mifos = AppAccessPoints.points.first { it.id == "mifos" }
-        val store = RuntimeHeaderStore()
-        val seen = mutableListOf<Map<String, String?>>()
-
-        val client = HttpClient(
-            MockEngine { request ->
-                seen += mapOf(
-                    "tenant" to request.headers["Fineract-Platform-TenantId"],
-                    "auth" to request.headers[HttpHeaders.Authorization],
-                )
-                respond("[]", HttpStatusCode.OK, headersOf(HttpHeaders.ContentType, "application/json"))
-            },
-        ) {
-            setupDefaultHttpClient(
-                baseUrl = mifos.effectiveUrl,
-                // Exactly what ktorfitFor passes — nothing added by hand.
-                dynamicHeaders = { store.resolve(mifos.headers) },
-            )()
+    fun every_generated_rest_point_joins_to_a_slash_terminated_url() {
+        // Over EVERY generated REST point, so it holds in a fork whatever its point ids are. The
+        // trailing slash is load-bearing: Ktor resolves a relative request path against the effective
+        // URL, so without it `offices` would REPLACE the last segment. Supabase points are excluded —
+        // supabase-kt takes the project origin and builds its own paths. The demo point's declared
+        // origin and path are pinned in kpt.core.network.fineract.FineractPointTest.
+        AppAccessPoints.points.filter { it.kind == AccessPointKind.REST }.forEach { point ->
+            assertTrue(point.effectiveUrl.endsWith("/"), "${point.id}: ${point.effectiveUrl}")
         }
-
-        client.get("offices")
-        // Declared `value:` in app.yaml -> on the wire, with no code touching it anywhere.
-        assertEquals("mifos-bank-1", seen[0]["tenant"])
-        // …while the credential half stays absent until a token exists.
-        assertNull(seen[0]["auth"])
-
-        store[AuthScheme.runtimeKeyFor("mifos")] = "Basic dG9rZW4="
-        client.get("offices")
-        assertEquals("mifos-bank-1", seen[1]["tenant"], "the static header is unaffected by sign-in")
-        assertEquals("Basic dG9rZW4=", seen[1]["auth"])
-    }
-
-    @Test
-    fun origin_and_path_join_into_one_effective_url() {
-        val mifos = AppAccessPoints.points.first { it.id == "mifos" }
-
-        assertEquals("https://apis.mifos.community/", mifos.baseUrl, "base_url is the ORIGIN only")
-        // The field-officer gateway's path, which it rewrites onto Fineract's
-        // `/fineract-provider/api/v1/` (measured 2026-10-24: every `1.0/field/v1/*` 401 echoes the
-        // rewritten path). Plain Fineract's own path is a 404 here.
-        assertEquals("1.0/field/v1/", mifos.basePath)
-        // The trailing slash is load-bearing: Ktor resolves a relative request path against this, so
-        // without it `offices` would REPLACE the last segment and hit /api/offices.
-        assertEquals(
-            "https://apis.mifos.community/1.0/field/v1/",
-            mifos.effectiveUrl,
-        )
     }
 
     @Test
@@ -165,15 +124,5 @@ class RuntimeHeaderTest {
         assertEquals("https://h/a/b/", ap("https://h/", "/a/b/").effectiveUrl)
         // No path: the origin is used as-is rather than gaining a stray slash.
         assertEquals("https://h/", ap("https://h/", "").effectiveUrl)
-    }
-
-    @Test
-    fun the_mifos_point_declares_both_header_kinds() {
-        val mifos = AppAccessPoints.points.first { it.id == "mifos" }
-        val byName = mifos.headers.associateBy { it.name }
-
-        assertEquals("mifos-bank-1", byName["Fineract-Platform-TenantId"]?.value, "tenant is a build-time constant")
-        assertEquals("mifos.auth", byName[HttpHeaders.Authorization]?.runtimeKey, "auth is runtime-valued")
-        assertNull(byName[HttpHeaders.Authorization]?.value, "no credential may be baked into the binary")
     }
 }

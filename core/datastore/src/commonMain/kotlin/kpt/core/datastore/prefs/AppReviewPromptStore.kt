@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.datastore.prefs
 
@@ -42,6 +42,13 @@ data class AppReviewPromptState(
 // cooldown that must survive sign-out; a user who declined yesterday must not be asked again
 // today merely because they logged out in between. clearUserData() deliberately does NOT
 // reach these, which is why they are not fields on UserData.
+/**
+ * Persisted state behind the in-app review prompt — when it was last shown and whether the user
+ * already responded.
+ *
+ * Durable by necessity: the platform review APIs are quota-limited and silently no-op once the
+ * quota is spent, so re-prompting after every restart burns the allowance without showing anything.
+ */
 interface AppReviewPromptStore {
 
     /**

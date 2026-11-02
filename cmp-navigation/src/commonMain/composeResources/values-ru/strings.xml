@@ -2,9 +2,9 @@
 <!--
     Copyright 2026 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
@@ -29,6 +29,6 @@
     <string name="error_category_ratelimit">Слишком много запросов. Подождите и повторите.</string>
     <string name="error_category_server">На наших серверах сбой. Повторите чуть позже.</string>
     <string name="error_category_generic">Что-то пошло не так</string>
-    <string name="shell_status_online">В сети</string>
     <string name="shell_status_offline">Не в сети</string>
+    <string name="shell_status_online">В сети</string>
 </resources>

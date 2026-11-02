@@ -1,11 +1,11 @@
 /*
- * Copyright 2025 Mifos Initiative
+ * Copyright 2026 Mifos Initiative
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.data.serverconfig.impl
 
@@ -21,8 +21,8 @@ import kpt.core.data.serverconfig.ServerConfigRepository
 import kpt.core.model.utils.ServerConfig
 import kpt.core.model.utils.ServerInstance
 import kpt.core.model.utils.baseUrl
-import kpt.core.network.fieldofficer.AppServerConfig
-import kpt.core.network.fieldofficer.networkHeaders
+import kpt.core.network.mifos.server.AppServerConfig
+import kpt.core.network.mifos.server.networkHeaders
 import kpt.core.store.config.AppCacheKeys
 import kpt.core.store.config.AppStoreIds
 import org.mobilenativefoundation.store.store5.Store

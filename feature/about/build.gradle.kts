@@ -22,6 +22,8 @@ kotlin {
         commonMain.dependencies {
             // kotlinx-datetime (the copyright year), via core/common's api.
             implementation(projects.core.common)
+            // AppOrgLinks — the org links declared in app-profile/app.yaml#org.links (community, product).
+            implementation(projects.core.model)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)
@@ -57,8 +59,6 @@ buildkonfig {
         buildConfigField(STRING, "ORG_EMAIL", forkProp("org.email", ""))
         buildConfigField(STRING, "WEBSITE_URL", forkProp("org.marketing.url", ""))
         buildConfigField(STRING, "SOURCE_URL", forkProp("org.support.url", ""))
-        buildConfigField(STRING, "COMMUNITY_URL", forkProp("org.community.url", ""))
-        buildConfigField(STRING, "PRODUCT_URL", forkProp("org.product.url", ""))
         // The license TEXT. MPL-2.0 unless a fork declares otherwise (`org.license.url`).
         buildConfigField(STRING, "LICENSE_URL", forkProp("org.license.url", "https://mozilla.org/MPL/2.0/"))
     }

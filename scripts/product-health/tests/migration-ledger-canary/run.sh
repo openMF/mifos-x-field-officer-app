@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Canary for migration-ledger.sh (LG-1..LG-6). One GREEN leg, six REDs — one per invariant.
+# Canary for migration-ledger.sh (LG-1..LG-7). One GREEN leg, seven REDs — one per invariant.
 #
 # The ledger's invariants are the kind that erode silently: the tree still compiles and the schema
 # JSON still matches while a renumbered row strands every installed device. Each RED reproduces one
@@ -41,6 +41,8 @@ expect_fail_on red-version     LG-5
 # LG-6 had NO leg, which is how it went vacuous: AppDatabase stopped being committed source, its
 # File.exist? guard turned false, and the check silently stopped running while the suite stayed green.
 expect_fail_on red-lg6         LG-6
+# LG-7: the fused-id ledger remove-demo.sh used to write (`paste -d', '` cycles its delimiters).
+expect_fail_on red-baseline    LG-7
 # LG-2 needs a committed ledger to diff against; feed it explicitly.
 LG_HEAD="$(cat "$HERE/red-renumber/head-ledger.yaml")"
 expect_fail_on red-renumber LG-2

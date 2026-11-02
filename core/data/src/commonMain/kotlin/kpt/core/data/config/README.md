@@ -21,7 +21,7 @@ numbers they read belong here so a fork retunes without touching repository code
 
 Worked examples in this repo: `core/store/config` (`AppErrorMapper` + `ProjectErrorMapper`,
 `AppScreenStateDefaults` + `ProjectScreenStateDefaults`), `core/network/config`
-(`AppAccessPoints` / `AppUrlTypes` / `AppSupabaseAnonKeys`, projected by `syncForkConfig`),
+(`AppAccessPoints` / `AppUrlTypes`, projected by `syncForkConfig`),
 `core/database/config` (`DatabaseConfig` generated + `ForkDatabaseConfig`), and
 `core/firebase/config` (`analytics/` + `crashlytics/` cross-cutting halves).
 

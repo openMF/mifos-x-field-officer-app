@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.api.impl
 
@@ -16,8 +16,8 @@ import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.api.ServerInstanceA
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.dto.RemoteServerInstanceDto
 
 /**
- * Supabase implementation of [ServerInstanceApi]. Row-level security limits the anon key to enabled
- * rows (read-only); the `supported_apps` containment filter runs in Postgres (GIN-indexed).
+ * Supabase implementation of [ServerInstanceApi]. Row-level security limits the publishable key (the
+ * `anon` role) to enabled rows, read-only; the `supported_apps` containment filter runs in Postgres (GIN-indexed).
  * Inert without a key: returns empty, never builds a client on an empty URL.
  */
 @ApiBinding("lwmswhoxvvoagzkqxiyd")

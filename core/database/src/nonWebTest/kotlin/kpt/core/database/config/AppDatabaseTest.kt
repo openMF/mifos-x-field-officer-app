@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.database.config
 
@@ -41,35 +41,11 @@ class AppDatabaseTest {
     }
 
     @Test
-    fun databaseExposesClientDao() {
-        startKoin { modules(testPlatformModule) }
-        database = KoinPlatform.getKoin().get()
-
-        assertNotNull(database!!.clientDao)
-    }
-
-    @Test
-    fun databaseExposesLoanDao() {
-        startKoin { modules(testPlatformModule) }
-        database = KoinPlatform.getKoin().get()
-
-        assertNotNull(database!!.loanDao)
-    }
-
-    @Test
-    fun databaseVersionIsCurrent() {
-        // 14: the 13→14 change dropped six inverted FOREIGN KEY constraints that made every insert
-        // fail with SQLite 787, so the offline cache could never be written (see
-        // `app-profile/migration-ledger.yaml`). Update this constant when bumping
-        // `AppDatabase.VERSION` so the guardrail stays meaningful.
-        // 15: added `document_contents` (document file bytes) — an additive AutoMigration.
-        // 16: `Charges` re-keyed to (resourceType, resourceId, id) so client / loan / savings
-        // charges sharing an id coexist (a plain AutoMigration recreate).
-        // 17: added `server_instances` (the server picker's instance list) — an additive AutoMigration.
-        // 18: `Note.resourceType` (default 'clients') — notes for any owner. Additive AutoMigration.
-        // 19: added `recent_records` (Home's recently opened). Additive AutoMigration.
-        // 20: added `offline_records` + `sync_jobs` (Offline sync). Additive AutoMigration.
-        assertEquals(20, AppDatabase.VERSION)
+    fun databaseVersionIsTheForksDeclaredVersion() {
+        // Pins the database-ksp wiring: the generated AppDatabase.VERSION derives from the fork-owned
+        // ForkDatabaseConfig.VERSION, the one constant a fork bumps. The template's own v13 schema is
+        // pinned in alerts/DemoDatabaseTest.
+        assertEquals(ForkDatabaseConfig.VERSION, AppDatabase.VERSION)
     }
 
     @Test

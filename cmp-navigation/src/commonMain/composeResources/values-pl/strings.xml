@@ -2,9 +2,9 @@
 <!--
     Copyright 2026 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
@@ -29,6 +29,6 @@
     <string name="error_category_ratelimit">Zbyt wiele żądań. Poczekaj i spróbuj ponownie.</string>
     <string name="error_category_server">Nasze serwery mają chwilowy problem. Spróbuj za chwilę.</string>
     <string name="error_category_generic">Coś poszło nie tak</string>
-    <string name="shell_status_online">Online</string>
     <string name="shell_status_offline">Offline</string>
+    <string name="shell_status_online">Online</string>
 </resources>

@@ -2,9 +2,9 @@
 <!--
     Copyright 2024 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
@@ -31,6 +31,6 @@
     <string name="error_category_ratelimit">Zu viele Anfragen. Bitte warten und erneut versuchen.</string>
     <string name="error_category_server">Unsere Server haben gerade Probleme. Bitte später erneut versuchen.</string>
     <string name="error_category_generic">Etwas ist schiefgelaufen</string>
-    <string name="shell_status_online">Online</string>
     <string name="shell_status_offline">Offline</string>
+    <string name="shell_status_online">Online</string>
 </resources>

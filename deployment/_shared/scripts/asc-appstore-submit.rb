@@ -8,6 +8,8 @@
 #   1. resolve the editable App Store version (explicit --version or the newest non-live one) + its build
 #   2. REUSE an existing READY_FOR_REVIEW draft (never create a duplicate) or create one
 #   3. add the version as a reviewSubmissionItem
+#   3b. ATTACH every subscription (asc-attach-subscriptions.rb) so the app and its in-app purchases
+#       go to review in ONE submission — a version submitted alone is reviewed without them
 #   4. flip the reviewSubmission to submitted:true  →  WAITING_FOR_REVIEW
 #
 # The ONE thing it CANNOT do is the Part XX Income Tax Act (ITA) / "regulated personal services"
@@ -19,11 +21,13 @@
 #
 # Usage:
 #   asc-appstore-submit.rb --bundle-id <id> --key-id <k> --issuer <i> --p8 <path.p8> [--version <v>]
-# Exit: 0 = submitted (WAITING_FOR_REVIEW)  ·  3 = ITA human gate  ·  1 = other error.
+# Exit: 0 = submitted (WAITING_FOR_REVIEW)  ·  3 = ITA human gate  ·  4 = subscriptions unattached
+#       (human gate; submitting would exclude them)  ·  1 = other error.
 
 require 'net/http'
 require 'json'
 require 'optparse'
+require 'rbconfig'
 require 'openssl'
 require 'base64'
 
@@ -33,6 +37,7 @@ OptionParser.new do |o|
   o.on('--key-id V')    { |v| opts[:key_id] = v }
   o.on('--issuer V')    { |v| opts[:issuer] = v }
   o.on('--p8 V')        { |v| opts[:p8] = v }
+  o.on('--require-subscriptions') { opts[:require_subs] = true }
   o.on('--version V')   { |v| opts[:version] = v }
   # PROACTIVE "reply": App Review notes given to the reviewer UP FRONT (demo/guest access, how to test)
   # so they never have to ask — the API can set this even though replying to a review MESSAGE cannot
@@ -58,6 +63,7 @@ end
 
 TOKEN = jwt(opts[:key_id], opts[:issuer], opts[:p8])
 
+# Issue one App Store Connect API request and parse the JSON response.
 def api(method, path, body = nil)
   uri = URI("https://api.appstoreconnect.apple.com/v1/#{path}")
   klass = { get: Net::HTTP::Get, post: Net::HTTP::Post, patch: Net::HTTP::Patch, delete: Net::HTTP::Delete }[method]
@@ -70,11 +76,15 @@ def api(method, path, body = nil)
   [res.code.to_i, (JSON.parse(res.body) rescue res.body)]
 end
 
+# True when the app needs an ITAR/encryption declaration before it can be submitted.
+# Apple blocks the submission rather than warning, so this is checked up front instead of
+# letting the upload fail at the end of a long build.
 def ita_gate?(errors)
   Array(errors).any? { |e| e.to_json.include?('REGULATED_PERSONAL_SERVICE') || e.to_json.include?('ITA_CANNOT_SUBMIT') } ||
     Array(errors).any? { |e| e.dig('meta', 'associatedErrors')&.to_json.to_s.include?('REGULATED_PERSONAL_SERVICE') }
 end
 
+# Print what the encryption declaration requires and how to satisfy it.
 def print_ita_gate
   warn <<~GATE
     ⛔ HUMAN GATE — Part XX Income Tax Act (ITA) declaration (Apple exposes NO API for this).
@@ -151,6 +161,33 @@ unless ic.between?(200, 299)
   puts "→ version already an item"
 else
   puts "→ version added as review item"
+end
+
+# ── attach subscriptions BEFORE submitting ────────────────────────────────────────────────────────
+# A subscription reaching READY_TO_SUBMIT is not in the review. Until it is attached its version sits
+# at PREPARE_FOR_SUBMISSION, and flipping `submitted` here would send the app to review WITHOUT its
+# in-app purchases — which is exactly what happened on 2026-09-18: the version went alone and the
+# subscriptions were left in a separate, unsubmitted draft. Attaching first puts both in ONE
+# submission. Delegated to the dedicated script so there is one implementation of the mechanism.
+attach_script = File.join(__dir__, 'asc-attach-subscriptions.rb')
+if File.exist?(attach_script)
+  attach_args = ['--bundle-id', opts[:bundle_id], '--key-id', opts[:key_id],
+                 '--issuer', opts[:issuer], '--p8', opts[:p8]]
+  # Forwarded, not re-derived: the caller knows whether this app sells anything.
+  attach_args << '--require-subscriptions' if opts[:require_subs]
+  ok = system(RbConfig.ruby, attach_script, *attach_args)
+  unless ok
+    # Exit 4 = at least one subscription could not be attached. Submitting anyway would ship a review
+    # that silently excludes them, so this HALTs instead — the operator resolves it in App Store
+    # Connect (Apple exposes no API for the underlying reason) and re-runs.
+    warn ''
+    warn '❌ HALT: subscriptions are not attached to the review submission.'
+    warn '   Submitting now would send the app to review WITHOUT its in-app purchases.'
+    warn '   Resolve the flagged subscriptions in App Store Connect, then re-run this script.'
+    exit 4
+  end
+else
+  warn "⚠ #{attach_script} missing — subscriptions NOT verified; the review may exclude them"
 end
 
 # ── submit ────────────────────────────────────────────────────────────────────────────────────────

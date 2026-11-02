@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package cmp.navigation
 
@@ -22,6 +22,10 @@ import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.designsystem.theme.KptTheme
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ * The application root: installs the theme, the locale's layout direction and the nav graph. Every platform entry
+ * point calls this and nothing else.
+ */
 @Composable
 fun ComposeApp(
     updateScreenCapture: (isScreenCaptureAllowed: Boolean) -> Unit,

@@ -1,11 +1,11 @@
 /*
- * Copyright 2025 Mifos Initiative
+ * Copyright 2026 Mifos Initiative
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.store.serverconfig
 
@@ -20,11 +20,11 @@ import kpt.core.database.utils.getCurrentTimeInMillis
 import kpt.core.model.utils.DemoCredentials
 import kpt.core.model.utils.ServerConfig
 import kpt.core.model.utils.ServerInstance
-import kpt.core.network.fieldofficer.AppServerConfig
-import kpt.core.network.fieldofficer.BundledInstanceConfigLoader
-import kpt.core.network.fieldofficer.instancesConfigJson
-import kpt.core.network.fieldofficer.parseInstances
 import kpt.core.network.lwmswhoxvvoagzkqxiyd.appserverconfig.api.ServerInstanceApi
+import kpt.core.network.mifos.server.AppServerConfig
+import kpt.core.network.mifos.server.BundledInstanceConfigLoader
+import kpt.core.network.mifos.server.instancesConfigJson
+import kpt.core.network.mifos.server.parseInstances
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.SourceOfTruth
 import org.mobilenativefoundation.store.store5.Store

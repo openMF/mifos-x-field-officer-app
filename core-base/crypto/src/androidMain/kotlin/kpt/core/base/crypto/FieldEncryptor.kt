@@ -18,18 +18,22 @@ private const val AES_GCM = "AES/GCM/NoPadding"
 private const val GCM_TAG_LENGTH = 128
 private const val GCM_IV_LENGTH = 12
 
+/** Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
 actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
 
+    /** `encrypt` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun encrypt(plaintext: String): String {
         val encrypted = encrypt(plaintext.encodeToByteArray())
         return Base64.encodeToString(encrypted, Base64.NO_WRAP)
     }
 
+    /** `decrypt` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun decrypt(ciphertext: String): String {
         val decoded = Base64.decode(ciphertext, Base64.NO_WRAP)
         return decrypt(decoded).decodeToString()
     }
 
+    /** `encrypt` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun encrypt(data: ByteArray): ByteArray {
         val key = keyProvider.getKey() ?: keyProvider.generateKey()
         val cipher = Cipher.getInstance(AES_GCM)
@@ -39,6 +43,7 @@ actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
         return iv + encrypted
     }
 
+    /** `decrypt` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
     actual fun decrypt(data: ByteArray): ByteArray {
         val key = keyProvider.getKey()
             ?: throw SecurityException("Encryption key not found — data unrecoverable")

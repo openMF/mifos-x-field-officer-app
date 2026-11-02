@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.network
 
@@ -48,6 +48,7 @@ enum class AuthScheme {
         else -> "Bearer $token"
     }
 
+    /** Built-in schemes. */
     companion object {
         /** Parse the `auth:` value; unknown or absent means [NONE]. */
         fun from(raw: String?): AuthScheme =

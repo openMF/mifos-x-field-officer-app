@@ -13,7 +13,6 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
-
 kotlin {
     sourceSets {
         commonMain.dependencies {
@@ -76,6 +75,10 @@ kotlin {
             // other target, replacing the non-Android no-op. With review no longer needing an
             // Activity, no manager is Activity-bound and LocalManagerProvider's android/nonAndroid
             // split is now a single commonMain implementation.
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }

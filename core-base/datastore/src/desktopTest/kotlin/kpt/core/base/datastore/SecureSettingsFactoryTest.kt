@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.datastore
 
@@ -34,7 +34,11 @@ class SecureSettingsFactoryTest {
     @BeforeTest
     fun setUp() {
         realHome = System.getProperty("user.home")
-        home = File.createTempFile("kpt-secure-", "").let { it.delete(); it.mkdirs(); it }
+        home = File.createTempFile("kpt-secure-", "").let {
+            it.delete()
+            it.mkdirs()
+            it
+        }
         System.setProperty("user.home", home.absolutePath)
     }
 

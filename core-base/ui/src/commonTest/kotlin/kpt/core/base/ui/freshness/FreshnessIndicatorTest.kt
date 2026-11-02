@@ -9,11 +9,11 @@
  */
 package kpt.core.base.ui.freshness
 
+import kpt.core.base.store.error.ErrorCategory
+import kpt.core.base.store.freshness.FreshnessBand
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
-import kpt.core.base.store.error.ErrorCategory
-import kpt.core.base.store.freshness.FreshnessBand
 
 /**
  * Locks the pure-helper contracts inside `FreshnessIndicator.kt`:

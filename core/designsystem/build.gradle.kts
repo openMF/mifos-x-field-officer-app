@@ -13,7 +13,6 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
-
 kotlin {
     sourceSets {
         androidInstrumentedTest.dependencies {

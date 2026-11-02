@@ -1,4 +1,12 @@
-
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 import com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension
 import org.convention.BASE_MODULE_NAMESPACE
 import org.convention.configureKotlinMultiplatform
@@ -15,7 +23,7 @@ import org.gradle.kotlin.dsl.dependencies
  * only handles the Android target; KGP registers KotlinMultiplatformExtension.
  * Android DSL configuration is done via KotlinMultiplatformAndroidComponentsExtension.finalizeDsl.
  */
-class KMPCoreBaseLibraryConventionPlugin: Plugin<Project> {
+class KMPCoreBaseLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
@@ -29,6 +37,7 @@ class KMPCoreBaseLibraryConventionPlugin: Plugin<Project> {
                 apply("org.jetbrains.kotlin.multiplatform")
                 apply("org.convention.kmp.flavors")
                 apply("org.convention.detekt.plugin")
+                apply("org.convention.spotless.plugin")
                 apply("org.convention.kover.plugin")
                 apply("org.jetbrains.kotlin.plugin.serialization")
                 apply("org.jetbrains.kotlin.plugin.parcelize")
@@ -106,7 +115,6 @@ class KMPCoreBaseLibraryConventionPlugin: Plugin<Project> {
                     }
                 }
             }
-
 
             // Compose UI tests cannot run as ANDROID HOST tests. `runComposeUiTest` routes through
             // androidx.compose.ui.test.RobolectricIdlingStrategy, which reads

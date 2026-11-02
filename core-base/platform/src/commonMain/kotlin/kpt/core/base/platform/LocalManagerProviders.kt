@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.platform
 
@@ -13,12 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
-import com.mobilebytelabs.kmptoolkit.appintents.AppIntentsManager
 import com.mobilebytelabs.kmptoolkit.appintents.compose.LocalAppIntentsManager
-import com.mobilebytelabs.kmptoolkit.intentlauncher.IntentManager as ToolkitIntentManager
-import com.mobilebytelabs.kmptoolkit.intentlauncher.compose.LocalIntentManager as ToolkitLocalIntentManager
-import com.mobilebytelabs.kmptoolkit.share.compose.LocalShareManager as ToolkitLocalShareManager
-import com.mobilebytelabs.kmptoolkit.share.ShareManager as ToolkitShareManager
 import com.mobilebytelabs.kmptoolkit.bubble.Bubble
 import com.mobilebytelabs.kmptoolkit.clipboard.ClipboardManager
 import com.mobilebytelabs.kmptoolkit.pdfgenerator.PdfManager
@@ -29,6 +24,10 @@ import kpt.core.base.platform.share.ShareManager
 import kpt.core.base.platform.update.AppUpdateManager
 import kpt.core.base.platform.url.UrlLauncher
 import org.koin.compose.koinInject
+import com.mobilebytelabs.kmptoolkit.intentlauncher.IntentManager as ToolkitIntentManager
+import com.mobilebytelabs.kmptoolkit.intentlauncher.compose.LocalIntentManager as ToolkitLocalIntentManager
+import com.mobilebytelabs.kmptoolkit.share.ShareManager as ToolkitShareManager
+import com.mobilebytelabs.kmptoolkit.share.compose.LocalShareManager as ToolkitLocalShareManager
 
 /**
  * Provides every platform manager to composition.
@@ -110,7 +109,8 @@ fun LocalManagerProvider(
  * // inside setContent { } of a ComponentActivity
  * ProvideIntentManager(rememberIntentManagerFromLauncher()) { App() }
  * ```
- *//**
+ */
+/**
  * Builds a manager [ProvidableCompositionLocal] that throws, rather than defaulting, when read
  * without a provider above it.
  *

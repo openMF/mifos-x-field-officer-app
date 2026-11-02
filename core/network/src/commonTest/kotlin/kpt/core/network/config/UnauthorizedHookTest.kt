@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.network.config
 
@@ -40,7 +40,7 @@ class UnauthorizedHookTest {
         },
     ) {
         setupDefaultHttpClient(baseUrl = "https://example.test/")()
-        notifyUnauthorized("mifos", UnauthorizedHandler { seen += it })
+        notifyUnauthorized("main", UnauthorizedHandler { seen += it })
     }
 
     private suspend fun HttpClient.call(withCredentials: Boolean) = runCatching {
@@ -51,7 +51,7 @@ class UnauthorizedHookTest {
     fun aRejectedSessionIsReportedAndTheErrorStillPropagates() = runTest {
         val seen = mutableListOf<String>()
         val result = client(HttpStatusCode.Unauthorized, seen).call(withCredentials = true)
-        assertEquals(listOf("mifos"), seen)
+        assertEquals(listOf("main"), seen)
         assertEquals(true, result.isFailure, "the hook observes; the caller still gets its 401")
     }
 
@@ -65,7 +65,7 @@ class UnauthorizedHookTest {
 
     @Test
     fun aForbiddenCallIsNotARejectedSession() = runTest {
-        // 403: signed in, not permitted. Signing out would not help and would lose the officer's place.
+        // 403: signed in, not permitted. Signing out would not help.
         val seen = mutableListOf<String>()
         client(HttpStatusCode.Forbidden, seen).call(withCredentials = true)
         assertEquals(emptyList(), seen)

@@ -1,3 +1,12 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 package org.convention
 
 import io.gitlab.arturbosch.detekt.Detekt
@@ -30,9 +39,10 @@ internal fun Project.configureDetekt(extension: DetektExtension) = extension.app
         // sample code — a RED fixture exists precisely to be wrong, and a GREEN one is a fragment with
         // no package/consumer — so linting them reports defects that are the fixture's whole purpose.
         exclude("scripts/product-health/tests/**")
-        // TODO:: Remove this exclusion
-        exclude("core-base/designsystem/**")
-        exclude("feature/home/**")
+        // Same reason for the doc-scanner's fixtures: scripts/docs/tests/** holds deliberately
+        // UNDOCUMENTED declarations so scripts/docs/scanners/kotlin.awk can be proven to find them.
+        // Documenting a red fixture deletes the evidence that the scanner works.
+        exclude("scripts/docs/tests/**")
         reports {
             xml.required.set(true)
             html.required.set(true)

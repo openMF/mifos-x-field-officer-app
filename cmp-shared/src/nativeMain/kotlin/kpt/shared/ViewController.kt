@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.shared
 
@@ -20,6 +20,7 @@ import platform.UIKit.UIUserInterfaceStyle
 
 private var secureTextField: UITextField? = null
 
+/** The `UIViewController` the iOS app embeds — the whole Compose app behind one UIKit handle. */
 fun viewController() = ComposeUIViewController(
     configure = {
         initKoin()

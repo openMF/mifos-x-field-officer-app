@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.feature.settings
 
@@ -113,6 +113,10 @@ class SettingsViewModelTest {
         override val observeDarkThemeConfig: Flow<DarkThemeConfig> get() = unused()
         override val observeDynamicColorPreference: Flow<Boolean> get() = unused()
         override val observeScreenCapturePreference: Flow<Boolean> get() = unused()
+        override val observeAnalyticsConsent: Flow<Boolean> get() = unused()
+        override val observeCrashReportingConsent: Flow<Boolean> get() = unused()
+        override suspend fun setAnalyticsConsent(granted: Boolean) = unused()
+        override suspend fun setCrashReportingConsent(granted: Boolean) = unused()
         override suspend fun setIsAuthenticated(isAuthenticated: Boolean) = unused()
         override suspend fun setIsUnlocked(isUnlocked: Boolean) = unused()
         override suspend fun setIsPasscodeEnabled(isPasscodeEnabled: Boolean) = unused()

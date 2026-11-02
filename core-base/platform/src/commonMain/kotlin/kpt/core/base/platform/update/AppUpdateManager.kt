@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.base.platform.update
 
@@ -52,9 +52,17 @@ sealed interface UpdateOutcome {
     /** The user dismissed the update flow. */
     data object Cancelled : UpdateOutcome
 
-    /** This target has no in-app update mechanism; [reason] says why. */
+    /**
+     * This target has no in-app update mechanism; [reason] says why.
+     *
+     * @property reason why this target has no in-app update mechanism. A diagnostic, not user-facing copy.
+     */
     data class NotSupported(val reason: String) : UpdateOutcome
 
-    /** The check or the flow failed. */
+    /**
+     * The check or the flow failed.
+     *
+     * @property message what failed, for logging — not user-facing copy.
+     */
     data class Failed(val message: String) : UpdateOutcome
 }

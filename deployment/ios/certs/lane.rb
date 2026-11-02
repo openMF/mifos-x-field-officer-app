@@ -83,6 +83,7 @@ platform :ios do
     See openMF/ios-provisioning-profile/cert-renewal.sh for a standalone bash runner
     that also works outside of this Fastlane context (e.g. from ios-provisioning-profile).
   DESC
+  # Renew every certificate and provisioning profile through Match, for all platforms.
   lane :renewAllCerts do |options|
     options = sanitize_options(options)
 

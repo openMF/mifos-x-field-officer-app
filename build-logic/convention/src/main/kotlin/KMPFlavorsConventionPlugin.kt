@@ -7,19 +7,6 @@
  *
  * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
-
-/* =================================================================================
- *  DO NOT EDIT to add consumer-specific flavors. This file is SYNCED from
- *  kmp-project-template into every downstream consumer app via sync-dirs.sh.
- *  Edits here will be overwritten on the next sync.
- *
- *  To add consumer-specific flavors / dimensions / overrides, create:
- *      build-logic/convention/src/main/kotlin/local/LocalFlavors.kt
- *
- *  That local/ directory is excluded from sync-dirs.sh and survives every sync.
- *  See docs/FLAVORS_EXTENSION.md.
- * ================================================================================= */
-
 import com.mobilebytelabs.kmpflavors.KmpFlavorExtension
 import com.mobilebytelabs.kmpflavors.KmpFlavorPlugin
 import org.convention.ForkProperties
@@ -27,7 +14,6 @@ import org.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 
 /**
@@ -187,5 +173,4 @@ class KMPFlavorsConventionPlugin : Plugin<Project> {
             // registerExportKmpFlavorsManifestTask(), removed in the 2.8.3 adoption.)
         }
     }
-
 }

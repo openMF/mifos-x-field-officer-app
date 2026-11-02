@@ -95,6 +95,12 @@ secrets/android/playStorePublishServiceCredentialsFile.json
 # dir un-excluded so children can be re-included (git rule); live/ stays ignored via `*`.
 secrets/*
 !secrets/.gitkeep
+# Backstop for RULE-SECRETS-LIVE-CONTAINMENT-001 (2026-09-19). `env:NAME` in a manifest is
+# an export SENTINEL, not a path; a consumer that mis-resolves it writes the decrypted value
+# to the repo ROOT, where `secrets/*` above cannot reach it. Eleven credentials reached a
+# commit that way. The real guard is secrets-live-containment-check.sh (which refuses the
+# write outright) — this line only ensures a stray file can never be staged.
+env:*
 # The secrets LAYOUT contract is the SoT for PATHS — holds NO secret values.
 !secrets/LAYOUT.yaml
 # Committed fake/sample secrets (structurally valid, obviously not real).

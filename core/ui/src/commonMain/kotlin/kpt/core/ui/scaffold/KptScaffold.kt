@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.ui.scaffold
 
@@ -39,6 +39,13 @@ import kpt.core.base.designsystem.component.KptTopAppBar
 import kpt.core.base.designsystem.core.TopAppBarAction
 import kpt.core.base.designsystem.theme.KptTheme
 
+/**
+ * App screen scaffold for a screen with a BACK affordance — the nav icon is always shown and
+ * [onNavigationIconClick] is required.
+ *
+ * Wraps the top bar, pull-to-refresh, snackbar host and FAB so a feature screen declares content
+ * and nothing else. Use this overload for a detail/child screen.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KptScaffold(
@@ -112,6 +119,10 @@ fun KptScaffold(
     )
 }
 
+/**
+ * App screen scaffold whose back affordance is CONDITIONAL — pass [showNavigationIcon] when the same
+ * screen is reachable both as a tab root and as a pushed destination.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KptScaffold(
@@ -187,6 +198,12 @@ fun KptScaffold(
     )
 }
 
+/**
+ * Fully slot-based scaffold: the caller supplies [topBar], [bottomBar] and the FAB composables.
+ *
+ * The escape hatch for a screen whose chrome does not fit the two title-driven overloads above;
+ * prefer those, since they keep top-bar behaviour consistent across screens.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KptScaffold(
@@ -251,8 +268,15 @@ fun KptScaffold(
     )
 }
 
+/**
+ * Declarative FAB spec — icon, description and click — so a caller configures the FAB without
+ * passing a composable slot.
+ */
 data class FloatingActionButtonContent(
+    /** What the FAB does. */
     val onClick: (() -> Unit),
+    /** Colour for the icon and any text inside. */
     val contentColor: Color,
+    /** The FAB's content — usually an icon. */
     val content: (@Composable () -> Unit),
 )

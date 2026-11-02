@@ -37,7 +37,9 @@ kotlin {
             implementation(projects.coreBase.security)
             // KptRootScaffold's snackbarHost slot defaults to KptToastHost, so the app-wide
             // transient-message surface exists without every screen wiring one.
-            implementation(projects.coreBase.designsystem)
+            // Routed through core/designsystem, which re-exports core-base/designsystem with
+            // api(...). An app shell must not reach core-base directly (G-CORE-BASE-ENCAP).
+            implementation(projects.core.designsystem)
 
             // Backbone shell features (template-owned) — always present in every fork.
             implementation(projects.feature.home)

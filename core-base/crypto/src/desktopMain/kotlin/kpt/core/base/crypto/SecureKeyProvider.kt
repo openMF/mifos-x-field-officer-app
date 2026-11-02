@@ -11,9 +11,6 @@ package kpt.core.base.crypto
 
 import java.io.File
 import java.security.SecureRandom as JSecureRandom
-import javax.crypto.Cipher
-import javax.crypto.spec.GCMParameterSpec
-import javax.crypto.spec.SecretKeySpec
 
 /**
  * Desktop key provider using a local encrypted key file.
@@ -29,11 +26,18 @@ actual class SecureKeyProvider {
         File(dir, "field_key.bin")
     }
 
+    /**
+     * `getKey` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as provider.
+     */
     actual fun getKey(): ByteArray? {
         if (!keyFile.exists()) return null
         return keyFile.readBytes()
     }
 
+    /**
+     * `generateKey` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as
+     * provider.
+     */
     actual fun generateKey(): ByteArray {
         val key = ByteArray(32)
         JSecureRandom().nextBytes(key)
@@ -42,6 +46,10 @@ actual class SecureKeyProvider {
         return key
     }
 
+    /**
+     * `deleteKey` on this target. Desktop (JVM) — AES/GCM via `javax.crypto`, with BouncyCastle registered as
+     * provider.
+     */
     actual fun deleteKey() {
         if (keyFile.exists()) {
             keyFile.delete()

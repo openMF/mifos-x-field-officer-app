@@ -24,6 +24,8 @@ cd "$(dirname "$0")/../../.." || exit 2
 B="core/store/src/commonMain/kotlin/kpt/core/store"
 fails=0
 
+# Assert file $1 contains regex $2. $3 is the check id, $4 the message on failure.
+# A missing file is a failure, not a skip — the seam is required, so its absence is the defect.
 need() { # need <file> <regex> <id> <why>
   if [ ! -f "$1" ]; then echo "  ❌ $3 missing file: $1"; fails=$((fails + 1)); return; fi
   if ! grep -qE "$2" "$1"; then
@@ -33,6 +35,8 @@ need() { # need <file> <regex> <id> <why>
   fi
 }
 
+# Assert file $1 does NOT contain regex $2 — the inverse of `need`, for a pattern that must
+# have been removed.
 deny() { # deny <file> <regex> <id> <why>
   if [ ! -f "$1" ]; then echo "  ❌ $3 missing file: $1"; fails=$((fails + 1)); return; fi
   if grep -qE "$2" "$1"; then

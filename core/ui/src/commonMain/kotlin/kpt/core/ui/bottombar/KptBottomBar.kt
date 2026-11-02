@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.ui.bottombar
 
@@ -19,6 +19,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import kpt.core.ui.navigation.NavigationItem
 
+/**
+ * App-level bottom navigation bar, driven by the generated tab registry.
+ *
+ * Tabs register by `@FeatureTab` annotation — never by editing a list here, which would make adding
+ * a feature a two-place change and silently drop it if one were missed.
+ */
 @Composable
 fun KptBottomBar(
     navigationItems: List<NavigationItem>,

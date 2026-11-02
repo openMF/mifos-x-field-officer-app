@@ -18,7 +18,7 @@ identity:
 # DEMO_PASSWORD / LOG_TAG). Blank falls back to the template default baked into the plugin. (B4)
 network:
   # Extra BuildKonfig fields for `core/network` that are NOT tied to an access point (analytics keys,
-  # feature flags). An access point's `anon_key_env:`/`api_key_env:` already generates its own field —
+  # feature flags). An access point's `publishable_key_env:`/`api_key_env:` already generates its own field —
   # declare those on the point, not here. Both feed the `syncForkConfig:buildkonfig` region of
   # `core/network/build.gradle.kts`, so a declared key ALWAYS has a matching BuildKonfig field
   # (NAP-8); the value is read at build time from the env var or local.properties, never committed.
@@ -49,11 +49,11 @@ network:
   #                    supabase  → `supabaseApi("<id>") { <Simple>(it) }`     (single-arg ctor taking
   #                                SupabaseConfigClient)
   #                  Omit `api` for an endpoint that is declared but not yet wired.
-  #   anon_key_env   supabase only — env / local.properties key holding the anon key. Generated into
-  #                  AppSupabaseAnonKeys as a BuildKonfig read, so no key is ever committed. Omit and
+  #   publishable_key_env  supabase only — env / local.properties key holding the publishable key. Generated into
+  #                  the AccessPoint supabase spec as a BuildKonfig read, so no key is ever committed. Omit and
   #                  the point resolves to an empty key (client stays inert, isConfigured == false).
   #
-  # syncForkConfig regenerates AppAccessPoints.points, AppUrlTypes, AppSupabaseAnonKeys and
+  # syncForkConfig regenerates AppAccessPoints.points, AppUrlTypes, the AccessPoint supabase spec and
   # GeneratedApiBindings from this list. (B3, epic pure-white-label-store5-network)
   # Every access point declares `owner:` — the ONE field that decides its lifecycle:
   #
@@ -88,8 +88,8 @@ network:
       type: supabase
       base_url: https://project.supabase.co
       loggable_host: project.supabase.co
-      anon_key_env: MY_SUPABASE_KEY
-      # anon_key_env: SUPABASE_ANON_KEY_DATA   # a fork uncomments this on ITS OWN point and supplies
+      publishable_key_env: MY_SUPABASE_KEY
+      # publishable_key_env: SUPABASE_PUBLISHABLE_KEY_DATA   # a fork uncomments this on ITS OWN point and supplies
       # the env var / local.properties entry; without it the row generates "" and the client is inert.
     - id: jsonplaceholder            # WRITABLE, for the Store5 MUTABLE archetype
       auth: none
@@ -116,7 +116,7 @@ network:
       base_url: https://api.stlouisfed.org/
       loggable_host: api.stlouisfed.org
       proxied_host: api.stlouisfed.org   # blocks direct CORS calls → route via platform proxy
-      secret_alias: template-fred-api-key # request-time API key — from the vault (secrets-manifest.yaml),
+      secret_alias: mifos-x-fred-api-key # request-time API key — from the vault (secrets-manifest.yaml),
                                          # materialized to local.properties → BuildKonfig.FRED_API_KEY
     - id: worldbank                  # World Bank macro indicators
       auth: none

@@ -542,7 +542,7 @@ The read/write shape is selected by **`feature_profile.store_archetype`** — th
 `NETWORK_WITH_CACHE | MUTABLE | OFFLINE_LOCAL_ONLY | NETWORK_ONLY | CACHE_ONLY | PERIODIC |
 MEMORY_ONLY | LOAD_ONCE`. `kmp-store-gen` reads `store_archetype` and emits the matching
 `StoreFactory.create*` factory + `FetchPolicy`. Full decision matrix + module chain:
-[`FEATURE_AUTHORING.md`](../../FEATURE_AUTHORING.md).
+[`FEATURE_AUTHORING.md`](../../../FEATURE_AUTHORING.md).
 
 ## Store 5 API Notes
 

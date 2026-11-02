@@ -1,4 +1,12 @@
-
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -29,8 +37,11 @@ class GitHooksConventionPlugin : Plugin<Project> {
                 val gitDir = gitEntry.readText().lineSequence()
                     .firstOrNull { it.startsWith("gitdir:") }
                     ?.substringAfter("gitdir:")?.trim()
-                if (gitDir != null) project.rootDir.resolve(gitDir).normalize().resolve("hooks")
-                else gitEntry.resolve("hooks")
+                if (gitDir != null) {
+                    project.rootDir.resolve(gitDir).normalize().resolve("hooks")
+                } else {
+                    gitEntry.resolve("hooks")
+                }
             }
             else -> gitEntry.resolve("hooks")
         }

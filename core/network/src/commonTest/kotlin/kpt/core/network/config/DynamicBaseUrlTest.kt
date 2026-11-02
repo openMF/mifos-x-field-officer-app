@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.network.config
 
@@ -39,7 +39,7 @@ class DynamicBaseUrlTest {
         },
     ) {
         setupDefaultHttpClient(
-            baseUrl = "https://apis.mifos.community/1.0/field/v1/",
+            baseUrl = "https://api.example.org/1.0/field/v1/",
             dynamicUrlProvider = dynamicBase?.let { base ->
                 object : DynamicUrlConfigProvider {
                     override fun getBaseUrl() = base
@@ -67,6 +67,6 @@ class DynamicBaseUrlTest {
     fun withoutAProviderTheStaticBaseIsUnchanged() = runTest {
         val seen = mutableListOf<String>()
         client(null, seen).get("clients")
-        assertEquals("https://apis.mifos.community/1.0/field/v1/clients", seen.single())
+        assertEquals("https://api.example.org/1.0/field/v1/clients", seen.single())
     }
 }

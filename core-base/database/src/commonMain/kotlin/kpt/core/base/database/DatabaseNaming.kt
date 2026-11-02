@@ -21,7 +21,7 @@ package kpt.core.base.database
  *
  * @property fileName On-disk SQLite file name, e.g. `"org_mifos_kmp_template.db"`.
  * @property desktopDirName Desktop (JVM) parent directory under the OS app-data root,
- *   e.g. `"AppMoneyToolkit"`. Ignored on non-desktop targets.
+ *   e.g. `"MifosMoneyToolkit"`. Ignored on non-desktop targets.
  */
 class DatabaseNaming(
     val fileName: String,

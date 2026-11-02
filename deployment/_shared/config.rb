@@ -49,6 +49,8 @@ module AppProfile
     @_root
   end
 
+  # Recursively merge hash b over a. A non-hash on either side means b wins outright, which
+  # is what lets a platform YAML override a scalar the shared one set.
   def _deep_merge(a, b)
     return b unless a.is_a?(Hash) && b.is_a?(Hash)
     out = a.dup
@@ -120,8 +122,6 @@ module AppProfile
     "org.marketing.url"                  => "org.marketing_url",
     "org.privacy.url"                    => "org.privacy_url",
     "org.support.url"                    => "org.support_url",
-    "org.community.url"                  => "org.community_url",
-    "org.product.url"                    => "org.product_url",
     # ── legal ──
     "legal.company.name"                 => "legal.company_name",
     "legal.jurisdiction"                 => "legal.jurisdiction",
@@ -258,6 +258,9 @@ end
 
 DEPLOYMENT_REPO_ROOT = File.expand_path("../..", __dir__).freeze
 
+# Read key's double-quoted value from gradle/libs.versions.toml.
+# The catalog is the build's own source for appId and version, so reading it keeps Fastlane
+# and Gradle from disagreeing about what is being shipped.
 def _toml_value(key)
   toml = File.join(DEPLOYMENT_REPO_ROOT, "gradle", "libs.versions.toml")
   File.readlines(toml).each do |line|
@@ -270,6 +273,8 @@ rescue Errno::ENOENT
   nil
 end
 
+# Read and strip a secret from repo-relative rel_path, or nil when it is absent.
+# nil rather than an exception: a missing secret is normal for a lane that does not need it.
 def _secret_file(rel_path)
   full = File.join(DEPLOYMENT_REPO_ROOT, rel_path)
   File.exist?(full) ? File.read(full).strip : nil
@@ -303,6 +308,7 @@ end
 module ForkIdentity
   module_function
 
+  # Read key from the version catalog. The memoised inner form of _toml_value.
   def _read_toml(key)
     toml = File.join(DEPLOYMENT_REPO_ROOT, "gradle", "libs.versions.toml")
     File.readlines(toml).each do |line|
@@ -336,15 +342,22 @@ module FastlaneConfig
   # parse time. These module_function copies fix that gap.
   module_function
 
+  # Resolve a secret from ENV first, then from file_path.
+  # ENV wins so CI can inject without writing anything to disk.
   def _secret(env_var, file_path = nil)
     ENV[env_var] || (file_path ? _secret_file(file_path) : nil)
   end
 
+  # Read and strip a secret from repo-relative rel_path, or nil when it is absent.
+  # nil rather than an exception: a missing secret is normal for a lane that does not need it.
   def _secret_file(rel_path)
     full = File.join(DEPLOYMENT_REPO_ROOT, rel_path)
     File.exist?(full) ? File.read(full).strip : nil
   end
 
+  # Read a fork property, app-profile first and gradle/fork.properties as the fallback.
+  # That order matters: app-profile is the source of truth and fork.properties is its
+  # generated bridge, so a stale bridge can never win.
   def _fork_prop(key)
     ap = AppProfile.get(key)
     return ap if ap && !ap.to_s.strip.empty?
@@ -380,6 +393,7 @@ module FastlaneConfig
       team_id:        ForkIdentity::IOS_TEAM_ID,
     }.freeze
 
+    # The Android applicationId, from the version catalog via app-profile.
     def self.android_package_name
       ANDROID[:package_name]
     end
@@ -583,6 +597,8 @@ module FastlaneConfig
       "demo" => "internal",
     }.freeze
 
+    # Map of flavor to Play track, parsed from a CSV secret or fork property.
+    # Falls back to the shipped default when unset, so a fork with one flavor needs no config.
     def self.play_tracks_by_flavor
       csv = FastlaneConfig._secret("PLAY_TRACKS_BY_FLAVOR") ||
             FastlaneConfig._fork_prop("android.play.tracks.by_flavor")
@@ -875,6 +891,9 @@ def ios_signing_identifiers(app_identifier, configuration = "Release")
   [app_identifier] + exts.map { |e| e[:bundle_id] }
 end
 
+# Fetch signing certificates and profiles via Fastlane Match over the provisioning repo.
+# Match is the only sanctioned path — a hand-imported certificate is what breaks a
+# keychain, per the no-ad-hoc-keychain rule.
 def fetch_certificates_with_match(options = {})
   cfg = FastlaneConfig::IosConfig::BUILD_CONFIG
   ssh_key = File.join(DEPLOYMENT_REPO_ROOT, cfg[:match_ssh_key_path])

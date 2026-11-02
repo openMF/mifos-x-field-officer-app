@@ -23,6 +23,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 violations=0
+# Record a convention violation and keep scanning, so one run lists every offending file.
 viol() { echo "VIOLATION [$1]: $2" >&2; violations=$((violations + 1)); }
 
 # ── C1: demo package only under a demo/ directory ────────────────────────────────────

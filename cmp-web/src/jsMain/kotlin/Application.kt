@@ -29,6 +29,7 @@ import org.jetbrains.skiko.wasm.onWasmReady
  * warm-up must COMPLETE before initKoin() — otherwise the first read races the key load and the
  * factory throws. See kpt.core.base.datastore.WebSecureStore.
  */
+/** Browser entry point: warms the WebCrypto secure store, then starts Koin and mounts the Compose app. */
 fun main() {
     MainScope().launch {
         SecureSettingsFactory.warmUp()

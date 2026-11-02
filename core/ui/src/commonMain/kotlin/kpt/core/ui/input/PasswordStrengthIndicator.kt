@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.ui.input
 
@@ -35,10 +35,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import kpt.core.designsystem.icon.KptIcons
+import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.KptTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/**
+ * Live strength meter for a password field, from [PasswordChecker]'s verdict.
+ *
+ * Advisory only: it reflects the rules, it does not enforce them — validation belongs at submit.
+ */
 @Suppress("LongMethod", "CyclomaticComplexMethod", "MagicNumber")
 @Composable
 fun PasswordStrengthIndicator(
@@ -144,9 +149,9 @@ private fun MinimumCharacterCount(
     ) {
         AnimatedContent(
             targetState = if (minimumRequirementMet) {
-                KptIcons.CheckCircle
+                AppIcons.CheckCircle
             } else {
-                KptIcons.Close
+                AppIcons.Close
             },
             label = "iconForMinimumCharacterCount",
         ) {
@@ -166,13 +171,29 @@ private fun MinimumCharacterCount(
     }
 }
 
+/**
+ * Rendered strength bands, from weakest to strongest.
+ */
 enum class PasswordStrengthState {
+    /** No password entered — the bar renders empty rather than weak. */
     NONE,
+
+    /** Weakest band. */
     WEAK_1,
+
+    /** Weak — two of five segments filled. */
     WEAK_2,
+
+    /** Weak but improving. */
     WEAK_3,
+
+    /** Acceptable. */
     GOOD,
+
+    /** Strong — the lowest band the UI stops warning at. */
     STRONG,
+
+    /** Strongest band. */
     VERY_STRONG,
 }
 

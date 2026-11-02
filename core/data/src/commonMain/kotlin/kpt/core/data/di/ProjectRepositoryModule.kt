@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package kpt.core.data.di
 
@@ -24,7 +24,7 @@ import kpt.core.data.offline.impl.OfflineSyncRepositoryImpl
 import kpt.core.data.offline.impl.SharedStores
 import kpt.core.data.offline.work.WorkManagerOfflineSyncScheduler
 import kpt.core.datastore.prefs.ProjectPreferencesRepository
-import kpt.core.network.fieldofficer.toServerConfig
+import kpt.core.network.mifos.server.toServerConfig
 import kpt.core.store.config.AppStoreRegistry
 import kpt.core.store.serverconfig.ServerConfigSource
 import kpt.core.store.session.SessionSource
