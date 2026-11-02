@@ -24,7 +24,7 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `core/` | 453 | [`core/`](tree/core.md) |
+| `core/` | 454 | [`core/`](tree/core.md) |
 | `core-base/` | 499 | [`core-base/`](tree/core-base.md) |
 
 ## Codegen
@@ -56,9 +56,9 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `scripts/` | 469 | [`scripts/`](tree/scripts.md) |
+| `scripts/` | 472 | [`scripts/`](tree/scripts.md) |
 | `sync/` | 16 | [`sync/`](tree/sync.md) |
-| `tests/` | 17 | [`tests/`](tree/tests.md) |
+| `tests/` | 19 | [`tests/`](tree/tests.md) |
 
 ## Other
 

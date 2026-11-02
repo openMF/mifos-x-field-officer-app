@@ -2,7 +2,7 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_DESIGNSYSTEM.md`
-> **Measured:** 37 Kotlin files, 4 test files
+> **Measured:** 38 Kotlin files, 4 test files
 
 ## Principal types
 
@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/designsystem sha=891491b55cffe4503b1e0b33f79fcaf6b3d593ee -->
+<!-- api-docs:begin module=core/designsystem sha=fb1b3ccecf6c061951e769371e0df2f8de760f47 -->
 ## API reference
 
-_Generated from `core/designsystem` at tree `891491b55cff` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/designsystem` at tree `fb1b3ccecf6c` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/chart/ChartTokens.kt`
@@ -870,7 +870,7 @@ val LocalElevation = staticCompositionLocalOf { Elevation() }
 ```
 CompositionLocal carrying the app's elevation scale. `static` because it changes only with the theme, so a read does not subscribe.
 
-<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:159</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:77</code></summary>
 
 ```kotlin
             LocalMotion provides Motion(),
@@ -906,7 +906,7 @@ CompositionLocalProvider(LocalFinanceColors provides myForkFinanceColors()) {
 
 </details>
 
-<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:142</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:60</code></summary>
 
 ```kotlin
 
@@ -935,7 +935,7 @@ val LocalFinanceColors = staticCompositionLocalOf<FinanceColors>
 ```
 CompositionLocal for the active `FinanceColors`. Provided by `KptTheme`. Direct access discouraged — use `MaterialTheme.finance` extension instead.
 
-<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:156</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:74</code></summary>
 
 ```kotlin
         // core/store/KptScreenStateDefaults.kt — that's the single fork seam.
@@ -954,7 +954,7 @@ val MaterialTheme.finance: FinanceColors
 ```
 Resolve the active `FinanceColors` from composition.
 
-### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt`
+### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/ForkTheme.kt`
 
 ```kotlin
 val lightScheme = lightColorScheme(
@@ -965,6 +965,8 @@ The assembled Material 3 light scheme, wired from the palette tokens in `Color.k
 val darkScheme = darkColorScheme(
 ```
 The assembled Material 3 dark scheme, wired from the palette tokens in `Color.kt`.
+
+### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt`
 
 ```kotlin
 fun KptTheme(
@@ -1016,7 +1018,7 @@ val LocalSpacing = staticCompositionLocalOf { Spacing() }
 ```
 CompositionLocal carrying the app's spacing scale. Read this instead of writing literal `.dp`: the whole app's rhythm is retuned here, and a hardcoded value silently opts a screen out of that.
 
-<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:158</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:76</code></summary>
 
 ```kotlin
             LocalFinanceColors provides financeColors,

@@ -38,5 +38,5 @@ screens re-deriving that order is how an app ends up showing onboarding to a sig
 
 **The registries are fork seams.** `ForkBackboneRegistry`, `ForkFeatureRegistry` and `ForkTabRegistry` are where a
 fork contributes its own body, modules, destinations and tabs. The feature halves are DERIVED by
-`build-logic`'s generators; the `Project*Module` seams stay listed by hand because they are core-layer
+`build-logic`'s generators; the `Fork*Module` seams stay listed by hand because they are core-layer
 seams, not features, and nothing under `feature/` declares them.

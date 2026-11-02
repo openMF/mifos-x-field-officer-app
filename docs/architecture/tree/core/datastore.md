@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/datastore sha=f5d457e22548edb0f42d00d0b5d27631538c81a5 -->
+<!-- api-docs:begin module=core/datastore sha=3294924c84475b0114d48b6dd8ca35d0fa5aad63 -->
 ## API reference
 
-_Generated from `core/datastore` at tree `f5d457e22548` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/datastore` at tree `3294924c8447` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/DatastoreModule.kt`

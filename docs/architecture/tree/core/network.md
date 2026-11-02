@@ -22,10 +22,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/network sha=5c8a219c9287a029b7aa39f405505ec47127c556 -->
+<!-- api-docs:begin module=core/network sha=437a799eaf9b1ee0073f367fac8ab5c0ead51bb3 -->
 ## API reference
 
-_Generated from `core/network` at tree `5c8a219c9287` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/network` at tree `437a799eaf9b` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/coingecko/api/CoinGeckoApi.kt`
@@ -234,27 +234,6 @@ object KptNetworkHeaders : DefaultHeaderProvider {
 
 </details>
 
-### `core/network/src/commonMain/kotlin/kpt/core/network/di/NetworkModule.kt`
-
-```kotlin
-val NetworkModule = module
-```
-Koin module for `core/network` — the Ktorfit API bindings over the shared client.
-
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/RepositoryModule.kt:39</code></summary>
-
-```kotlin
- */
-val DataModule = module {
-    includes(platformModule, CommonModule, DatabaseModule, DatastoreModule, NetworkModule)
-
-    // Every repository's Koin binding, GENERATED from `@RepositoryBinding` on the implementation.
-    // Emitted into this same package, so this file needs no import and keeps its zero-demo-reference
-    // property — which is what lets a template sync blind-copy it. A stripped fork simply generates
-```
-
-</details>
-
 ### `core/network/src/commonMain/kotlin/kpt/core/network/di/ForkNetworkModule.kt`
 
 ```kotlin
@@ -285,6 +264,27 @@ single<SupabaseExtrasProvider> {
     }
 }
 includes(kmpSupabaseAuthNetwork(authConfig) { get<SupabaseClientFactory>().requireClientFor("<ref>").client })
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/di/NetworkModule.kt`
+
+```kotlin
+val NetworkModule = module
+```
+Koin module for `core/network` — the Ktorfit API bindings over the shared client.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/RepositoryModule.kt:39</code></summary>
+
+```kotlin
+ */
+val DataModule = module {
+    includes(platformModule, CommonModule, DatabaseModule, DatastoreModule, NetworkModule)
+
+    // Every repository's Koin binding, GENERATED from `@RepositoryBinding` on the implementation.
+    // Emitted into this same package, so this file needs no import and keeps its zero-demo-reference
+    // property — which is what lets a template sync blind-copy it. A stripped fork simply generates
 ```
 
 </details>

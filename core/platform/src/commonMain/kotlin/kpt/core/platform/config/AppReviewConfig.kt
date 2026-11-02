@@ -39,7 +39,7 @@ import com.mobilebytelabs.kmptoolkit.appreview.StoreListing
 object AppReviewConfig {
     // syncForkConfig:app-review:begin — GENERATED from app-profile. Do not hand-edit.
     /** Play Store package — `identity.app_id`. */
-    const val PLAY_STORE_PACKAGE: String = "com.mifos.mifosxdroid"
+    const val PLAY_STORE_PACKAGE: String = "org.mifos.kmp.template"
 
     /** App Store numeric id — `platforms/apple/apple.yaml#apple.app_store_id`. */
     const val APP_STORE_ID: String = ""

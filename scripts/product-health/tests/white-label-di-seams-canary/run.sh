@@ -28,7 +28,7 @@ cell() {
 echo "── white-label DI seams (white-label-di-seams.sh) ──"
 cell green            0 "seam survives, demo fenced      → PASS"
 cell wls1-no-seam     1 "WLS-1 demo module, no seam      → FAIL" WLS-1
-cell wls2-stranded    1 "WLS-2 Project*Module under demo → FAIL" WLS-2
+cell wls2-stranded    1 "WLS-2 Fork*Module under demo → FAIL" WLS-2
 cell wls3-seam-fenced 1 "WLS-3 seam inside demo fence    → FAIL" WLS-3
 cell wls4-demo-loose  1 "WLS-4 demo module outside fence → FAIL" WLS-4
 cell wls5-template-owned 1 "WLS-5 seam owner:template       → FAIL" WLS-5

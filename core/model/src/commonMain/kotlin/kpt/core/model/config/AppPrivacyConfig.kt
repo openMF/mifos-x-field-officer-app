@@ -29,6 +29,6 @@ object AppPrivacyConfig {
 
     /** `org.privacy_url` — the privacy policy page, opened in the in-app browser; empty when not set. */
     const val PRIVACY_POLICY_URL: String =
-        "https://raw.githubusercontent.com/openMF/kmp-project-template/main/legal/output/privacy-policy.md"
+        "https://mifos-products.pages.dev/mobile/kmp-project-template/privacy/"
     // syncForkConfig:app-privacy:end
 }

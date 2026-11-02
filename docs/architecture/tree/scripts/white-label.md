@@ -1,7 +1,7 @@
 # `scripts/white-label/`
 
 > Part of [`scripts/`](../scripts.md)  
-> **Measured:** 10 tracked files — 6× `.sh`, 3× `.rb`, 1× `.md`
+> **Measured:** 11 tracked files — 7× `.sh`, 3× `.rb`, 1× `.md`
 
 ### Scripts
 
@@ -12,7 +12,8 @@
 | `firebase.sh` | Firebase Project Setup Script |
 | `fork-init.sh` | turn a template clone into a branded, demo-free consumer fork. |
 | `keystore.sh` | DEPRECATED thin shim (AC87 of fastlane-modernization epic) |
-| `sync-dirs.sh` | bash4-required: EXCLUSIONS is an associative array load-bearing across 23 sites; see the guard below. |
+| `sync-dirs.sh` | bash4-required: associative arrays (EXCLUSIONS, kept empty) and the contract reader; see the guard below. |
+| `template-migrations.sh` | make a repo follow the renames the template made. |
 
 ### Docs in the tree
 

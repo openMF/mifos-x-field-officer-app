@@ -17,6 +17,8 @@ T="$WORK/template"; mkdir -p "$T/scripts/white-label"
 cp "$REPO/scripts/white-label/sync-dirs.sh" "$T/scripts/white-label/"
 cp "$REPO/scripts/customization-surface.sh" "$REPO/customization-surface.yaml" "$T/scripts/" 2>/dev/null
 mv "$T/scripts/customization-surface.yaml" "$T/" 2>/dev/null
+# The per-module package manifests the contract expands demo ownership from.
+for m in "$REPO"/core/*/module-packages.yaml; do d="$T/${m#$REPO/}"; mkdir -p "$(dirname "$d")"; cp "$m" "$d"; done
 g -C "$T" init -q -b dev; g -C "$T" add -A; g -C "$T" commit -q -m base
 g -C "$T" config uploadpack.allowAnySHA1InWant true
 # The fix lives on an unmerged branch, which is then deleted: only its hash can reach it.

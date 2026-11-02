@@ -2,7 +2,7 @@
 
 **Template-owned.** `/kmp-project-template-sync` full-copies this package, so a fork keeps
 receiving upstream fixes here. Do not edit these files in a fork — extend them through the
-`Project*` seam each one declares.
+`Fork*` seam each one declares.
 
 ## What belongs here
 
@@ -15,7 +15,7 @@ packages; their tunable defaults belong here.
 | Prefix | Who owns it | What it is |
 |---|---|---|
 | `App*` | template | the shipped default a fork inherits |
-| `Project*` | fork | the override seam — empty on the template, filled by the fork |
+| `Fork*` | fork | the override seam — empty on the template, filled by the fork |
 | `Fork*` | fork | per-fork values the build reads |
 | generated | build | projections of `app-profile/app.yaml`; never hand-edited |
 

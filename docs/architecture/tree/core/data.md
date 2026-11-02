@@ -25,10 +25,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/data sha=cd1e78a997f16d129b0a8fc1901d67e33ca7a5aa -->
+<!-- api-docs:begin module=core/data sha=63e5cf79bd293b10dbdccf5d98284ac2fe013d4a -->
 ## API reference
 
-_Generated from `core/data` at tree `cd1e78a997f1` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/data` at tree `63e5cf79bd29` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/alerts/AlertsDataProviders.kt`
@@ -316,6 +316,21 @@ Default `CurrencyRepository` over the Frankfurter-backed exchange-rate and histo
 
 </details>
 
+### `core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt`
+
+```kotlin
+val ForkRepositoryModule = module
+```
+THE FORK'S repository DI seam. Empty on the neutral template — this is yours to fill.
+
+<details><summary>Example</summary>
+
+```kotlin
+single<MyRepository> { MyRepositoryImpl(get(), get()) }
+```
+
+</details>
+
 ### `core/data/src/commonMain/kotlin/kpt/core/data/di/OutboxQualifiers.kt`
 
 ```kotlin
@@ -341,21 +356,6 @@ val MyThing = named("outbox.myThing")
         // Sanity — the qualifier value matches what callers use (e.g. `get(qualifier = X)`).
         assertTrue(
             match.beanDefinition.qualifier == expected,
-```
-
-</details>
-
-### `core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt`
-
-```kotlin
-val ForkRepositoryModule = module
-```
-THE FORK'S repository DI seam. Empty on the neutral template — this is yours to fill.
-
-<details><summary>Example</summary>
-
-```kotlin
-single<MyRepository> { MyRepositoryImpl(get(), get()) }
 ```
 
 </details>

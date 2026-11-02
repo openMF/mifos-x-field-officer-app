@@ -9,10 +9,6 @@
  */
 package kpt.core.store.di
 
-import kpt.core.base.store.infra.DraftInventory
-import kpt.core.base.store.infra.StoreCacheManager
-import kpt.core.base.store.infra.impl.DraftInventoryImpl
-import kpt.core.base.store.infra.impl.StoreCacheManagerImpl
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import kpt.core.base.store.di.StoreModule as CoreBaseStoreModule
@@ -42,10 +38,22 @@ import kpt.core.base.store.di.StoreModule as CoreBaseStoreModule
  * `store-ksp` derives the Koin qualifier, the TTL, the cache keys, the binding and the logout purge.
  * Dependencies come from the SIGNATURE — they are never restated.
  *
- * There is deliberately no `ForkStoreModule` seam. It existed when stores were hand-wired; with
- * codegen it became a second way to do what the annotation already does, and an unnecessary one —
- * `cmp-navigation`'s ForkFeatureRegistry is fork-owned, so a fork that genuinely needs a bespoke Koin
- * module can add its own there without a pre-wired hook in template code.
+ * ## The fork seam is [ForkStoreModule], not this file
+ * This file resolves `owner: template`, so a sync BLIND-COPIES it and anything a fork adds here is
+ * silently reverted on the next one. Fork-owned store singles go in the sibling `ForkStoreModule`.
+ *
+ * That seam was removed when stores moved to `@StoreProvider` codegen, on the reasoning that the
+ * annotation already covered them. True of STORES — but not of store-layer COLLABORATORS, which no
+ * annotation derives. `StoreCacheManager` and `DraftInventory` were the standing counterexample
+ * until they moved down to `CoreBaseStoreModule`, where framework wiring belongs. A fork swapping
+ * either still needs somewhere sync-safe, and `white-label-di-seams.sh` names "a store" among the
+ * things a fork must be able to register.
+ *
+ * ## Why this file is now two lines
+ * Everything it used to bind was one of two things: framework wiring, which moved DOWN to
+ * `core-base/store` where a fork never looks, or a store, which `@StoreProvider` derives. What is
+ * left is pure composition — and both lines are themselves derivable, so this file is a candidate to
+ * be GENERATED and deleted outright.
  *
  * Wire into Koin start-up:
  * ```kotlin
@@ -58,18 +66,6 @@ val appStoreModule: Module = module {
     // so a fork wiring `appStoreModule` gets the gateway for free (needs ConflictDao from
     // DatabaseModule + NetworkMonitor on the graph — both present in KoinModules.allModules).
     includes(CoreBaseStoreModule)
-
-    // Store cache manager — clears all registered caches on logout (registration-based).
-    single<StoreCacheManager> {
-        StoreCacheManagerImpl(
-            bookkeeperDao = get(),
-            draftDao = get(),
-        )
-    }
-
-    // Cross-form drafts inventory — the live feed + actions behind the template-level
-    // Settings → "Sync & Drafts" screen. Framework infra (not a demo store); survives sync.
-    single<DraftInventory> { DraftInventoryImpl(draftDao = get()) }
 
     // Every declared store: its qualifier binding AND its logout registration.
     includes(GeneratedStoreBindings)

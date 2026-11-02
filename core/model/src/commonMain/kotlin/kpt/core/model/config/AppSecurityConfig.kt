@@ -25,6 +25,6 @@ object AppSecurityConfig {
     const val SCREEN_CAPTURE_ALLOWED_BY_DEFAULT: Boolean = false
 
     /** `security.signed_in_by_default` — whether a fresh install starts signed in (false = the app has a login). */
-    const val SIGNED_IN_BY_DEFAULT: Boolean = false
+    const val SIGNED_IN_BY_DEFAULT: Boolean = true
     // syncForkConfig:app-security:end
 }

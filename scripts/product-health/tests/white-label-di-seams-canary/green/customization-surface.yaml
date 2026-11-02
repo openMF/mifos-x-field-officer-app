@@ -1,7 +1,7 @@
 # canary contract — the seam is fork-owned, so a sync preserves it (WLS-5 GREEN)
 version: 1
 rules:
-  - glob: "core/*/src/**/di/Project*Module.kt"
+  - glob: "core/*/src/**/di/Fork*Module.kt"
     owner: fork
   - glob: "**/demo/**"
     owner: demo-showcase

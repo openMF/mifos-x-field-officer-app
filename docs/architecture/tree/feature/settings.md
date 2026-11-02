@@ -31,10 +31,10 @@ The **sync-and-drafts** screen makes the offline write queue visible, which is t
 `UserEditableSettings` is deliberately narrower than `UserData`, so a settings screen cannot write a
 session or lock field it has no business touching.
 
-<!-- api-docs:begin module=feature/settings sha=09309edba9e35f5e5289ef2721f67b3fd3f88c4f -->
+<!-- api-docs:begin module=feature/settings sha=eb64d6ee14bb9a2d9b6b8c834e91113d75c77507 -->
 ## API reference
 
-_Generated from `feature/settings` at tree `09309edba9e3` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/settings` at tree `eb64d6ee14bb` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published

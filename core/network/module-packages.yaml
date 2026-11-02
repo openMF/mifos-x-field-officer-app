@@ -24,7 +24,7 @@ schema_version: "1.0"
 #              one of those cases.
 #   template:  template-authored FRAMEWORK code. A clean fork KEEPS it and a sync full-copies it, so
 #              the fork keeps receiving fixes. Do not edit these packages in a fork; extend them
-#              through the module's `Project*` seam instead.
+#              through the module's `Fork*` seam instead.
 #   fork:      the fork's OWN packages. Never deleted, never synced over. A fork's package needs NO
 #              row at all — undeclared IS fork — so a row here is self-documenting only.
 #
@@ -53,12 +53,12 @@ module: network
 
 # Deleted by `remove-demo.sh`; the row survives with `status: removed` as the record.
 demo:
-  - { id: coingecko,       status: removed } # crypto market data endpoint
-  - { id: fineract,        status: removed } # Mifos Fineract sandbox — declared+runtime header showcase
-  - { id: frankfurter,     status: removed } # FX rates endpoint
-  - { id: fred,            status: removed } # US Federal Reserve endpoint
-  - { id: jsonplaceholder, status: removed } # writable REST showcase
-  - { id: worldbank,       status: removed } # macro indicators endpoint
+  - { id: coingecko,       status: exists } # crypto market data endpoint
+  - { id: fineract,        status: exists } # Mifos Fineract sandbox — declared+runtime header showcase
+  - { id: frankfurter,     status: exists } # FX rates endpoint
+  - { id: fred,            status: exists } # US Federal Reserve endpoint
+  - { id: jsonplaceholder, status: exists } # writable REST showcase
+  - { id: worldbank,       status: exists } # macro indicators endpoint
 
 # Kept by a clean fork, full-copied by a sync.
 template:
@@ -71,5 +71,5 @@ template:
 
 # The fork's own. Listed for documentation only — undeclared packages are fork too.
 fork:
-  - { id: main,    status: missing }         # the fork's primary endpoint package
-  - { id: staging, status: missing }         # the fork's staging endpoint package
+  - { id: main,    status: exists }         # the fork's primary endpoint package
+  - { id: staging, status: exists }         # the fork's staging endpoint package

@@ -41,7 +41,7 @@ any, and it is fenced rather than packaged (convention 2). A fork stripping the 
 **Demo showcase exposure**.
 
 The inverse matters just as much — the **fork seams stay outside `demo/`** so the strip leaves them
-standing. `core/{data,database,network}/**/di/Project*Module.kt` are empty on the template and are
+standing. `core/{data,database,network}/**/di/Fork*Module.kt` are empty on the template and are
 where a fork registers its own bindings; their demo counterparts (`**/demo/di/Demo*Module.kt`) go.
 
 ### 2. Demo entries in shared files are fenced

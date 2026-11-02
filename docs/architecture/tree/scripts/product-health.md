@@ -1,7 +1,7 @@
 # `scripts/product-health/`
 
 > Part of [`scripts/`](../scripts.md)  
-> **Measured:** 410 tracked files — 134× `.kt`, 86× `.sh`, 52× `.md`, 50× `.yaml`, 12× `.gitkeep`
+> **Measured:** 412 tracked files — 134× `.kt`, 88× `.sh`, 52× `.md`, 50× `.yaml`, 12× `.gitkeep`
 
 ### Scripts
 
@@ -27,6 +27,7 @@
 | `migration-ledger.sh` | the Room migration ledger is append-only and internally coherent. |
 | `network-access-points.sh` | app-profile is the ONLY place a network endpoint is declared, |
 | `no-vacuous-assert.sh` | a test that cannot fail is worse than no test. |
+| `ownership-naming.sh` | a source file's name prefix says who owns it, and the contract agrees. |
 | `pbxproj-merge.sh` | the Xcode project survives a template sync intact. |
 | `ruby-toolchain-coherence.sh` | ONE Ruby version, declared once, reachable everywhere. |
 | `secrets-alias-namespace.sh` | DIRECTIONAL guard on the vault-facing secrets files |
@@ -36,9 +37,8 @@
 | `shell-portability.sh` | tracked shell scripts must run on the RUNNERS, not just on a Mac. |
 | `store-archetype-coverage.sh` | the 8 Store5 archetypes each keep a real showcase. |
 | `store-fork-seam-wiring.sh` | the template actually CONSULTS its fork seams. |
-| `store-listing.sh` | DIRECTIONAL, placeholder-aware store-copy guard. |
 
-_…and 56 more._
+_…and 58 more._
 
 <!-- tree-scaffold:end -->
 ## Significance

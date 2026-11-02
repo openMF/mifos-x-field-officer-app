@@ -5,21 +5,21 @@
 # that by deleting every `**/demo/**` package plus every `// demo:begin … // demo:end` block. So
 # anything a FORK needs must live outside both.
 #
-# It did not. Each core layer's DI aggregator was named `Project<X>Module` — which reads as the fork's
+# It did not. Each core layer's DI aggregator was named `Fork<X>Module` — which reads as the fork's
 # seam — but sat in `<layer>/demo/di/` and contained only demo bindings. `ForkFeatureRegistry`'s whole
 # `featureKoinModules` list was fenced too. A cleaned fork therefore got `listOf()` and no per-layer
 # seam anywhere: nowhere to register a repository, a DAO, a store or a network single. The split is
-# `demo/di/Demo<X>Module` (stripped) vs `di/Project<X>Module` (survives, empty on the template).
+# `demo/di/Demo<X>Module` (stripped) vs `di/Fork<X>Module` (survives, empty on the template).
 #
-#   WLS-1  a layer with a Demo<X>Module has a sibling di/Project<X>Module
-#   WLS-2  no Project*Module lives under **/demo/**            (it would be deleted)
-#   WLS-3  ForkFeatureRegistry lists every Project*Module OUTSIDE the demo fence  (it must survive)
+#   WLS-1  a layer with a Demo<X>Module has a sibling di/Fork<X>Module
+#   WLS-2  no Fork*Module lives under **/demo/**            (it would be deleted)
+#   WLS-3  ForkFeatureRegistry lists every Fork*Module OUTSIDE the demo fence  (it must survive)
 #   WLS-4  ForkFeatureRegistry lists every Demo*Module INSIDE the demo fence      (it must not)
-#   WLS-5  every surviving di/Project<X>Module is owner:fork in customization-surface.yaml
+#   WLS-5  every surviving di/Fork<X>Module is owner:fork in customization-surface.yaml
 #
 # WLS-1..4 prove the seam survives `--clean`. WLS-5 proves it survives the OTHER thing that
 # rewrites a fork's tree: `/kmp-project-template-sync`. Ownership is what decides that — a seam
-# resolving `owner: template` is BLIND-COPIED, so the template's EMPTY Project<X>Module silently
+# resolving `owner: template` is BLIND-COPIED, so the template's EMPTY Fork<X>Module silently
 # replaces the fork's filled-in one on every sync. Surviving the demo strip and then being wiped
 # by the next sync is the same loss the seam exists to prevent, just on a different trigger.
 #
@@ -39,7 +39,7 @@ demo_mods=$(find "$CORE" -path '*/demo/di/Demo*Module.kt' -not -path '*/build/*'
 while IFS= read -r f; do
   [ -z "$f" ] && continue
   layer="${f#$CORE/}"; layer="${layer%%/*}"
-  base="$(basename "$f")"; seam="${base/Demo/Project}"
+  base="$(basename "$f")"; seam="${base/Demo/Fork}"
   if ! find "$CORE/$layer" -path "*/di/$seam" -not -path '*/demo/*' -not -path '*/build/*' 2>/dev/null | grep -q .; then
     echo "❌ WLS-1 core/$layer has $base but no surviving seam di/$seam"
     echo "     → a cleaned fork would have nowhere to register $layer DI"
@@ -48,9 +48,9 @@ while IFS= read -r f; do
 done <<< "$demo_mods"
 
 
-stranded=$(find "$CORE" -path '*/demo/*' -name 'Project*Module.kt' -not -path '*/build/*' 2>/dev/null)
+stranded=$(find "$CORE" -path '*/demo/*' -name 'Fork*Module.kt' -not -path '*/build/*' 2>/dev/null)
 if [ -n "$stranded" ]; then
-  echo "❌ WLS-2 Project*Module under demo/ — remove-demo.sh deletes it:"
+  echo "❌ WLS-2 Fork*Module under demo/ — remove-demo.sh deletes it:"
   printf '%s\n' "$stranded" | sed "s|^$HEALTH_ROOT/|     |"
   echo "     → rename it Demo*Module, or move it to the layer's di/ package"
   fail=1
@@ -61,7 +61,7 @@ if [ -f "$REG" ]; then
   # Split the registry at the demo fence: outside = survives --clean, inside = stripped.
   outside=$(awk '/demo:begin/{s=1} /demo:end/{s=0; next} !s' "$REG")
   inside=$(awk  '/demo:begin/{s=1; next} /demo:end/{s=0} s' "$REG")
-  for f in $(find "$CORE" -path '*/di/Project*Module.kt' -not -path '*/demo/*' -not -path '*/build/*' 2>/dev/null | sort); do
+  for f in $(find "$CORE" -path '*/di/Fork*Module.kt' -not -path '*/demo/*' -not -path '*/build/*' 2>/dev/null | sort); do
     n="$(basename "$f" .kt)"
     if ! printf '%s' "$outside" | grep -qE "^\s*$n,"; then
       if printf '%s' "$inside" | grep -qE "^\s*$n,"; then
@@ -84,7 +84,7 @@ fi
 
 # ── WLS-5 — the seam must survive a TEMPLATE SYNC, not just --clean ──────────
 if [ -x "$SURFACE_SH" ] && [ -f "$SURFACE_YAML" ]; then
-  for f in $(find "$CORE" -path '*/di/Project*Module.kt' -not -path '*/demo/*' -not -path '*/build/*' 2>/dev/null | sort); do
+  for f in $(find "$CORE" -path '*/di/Fork*Module.kt' -not -path '*/demo/*' -not -path '*/build/*' 2>/dev/null | sort); do
     rel="${f#$HEALTH_ROOT/}"
     owner="$(CS_CONTRACT="$SURFACE_YAML" bash "$SURFACE_SH" resolve-owner "$rel" 2>/dev/null)"
     if [ "$owner" != "fork" ]; then
@@ -97,6 +97,6 @@ else
   echo "⚠️  WLS-5 skipped — customization-surface contract not found ($SURFACE_YAML)"
 fi
 
-[ "$fail" = "0" ] || { echo "     → seams: demo/di/Demo*Module is stripped; di/Project*Module survives --clean AND sync."; exit 1; }
-n_seam=$(find "$CORE" -path '*/di/Project*Module.kt' -not -path '*/demo/*' -not -path '*/build/*' 2>/dev/null | wc -l | tr -d ' ')
+[ "$fail" = "0" ] || { echo "     → seams: demo/di/Demo*Module is stripped; di/Fork*Module survives --clean AND sync."; exit 1; }
+n_seam=$(find "$CORE" -path '*/di/Fork*Module.kt' -not -path '*/demo/*' -not -path '*/build/*' 2>/dev/null | wc -l | tr -d ' ')
 echo "white-label DI seams: $n_seam fork seam(s) survive --clean, demo aggregators correctly fenced"

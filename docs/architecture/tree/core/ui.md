@@ -16,10 +16,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/ui sha=85afc92e30cf0bb9555ada7da748b0557ca78e7e -->
+<!-- api-docs:begin module=core/ui sha=ee58cb194e7b09cfb99f066c4dcd1b36fff87749 -->
 ## API reference
 
-_Generated from `core/ui` at tree `85afc92e30cf` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/ui` at tree `ee58cb194e7b` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/bottombar/KptBottomBar.kt`
@@ -169,6 +169,70 @@ fun KptBottomBar(
 - `val testTag: String` — The test tag of the tab.
 - `val inlineTab: Boolean get() = true` — Whether this tab renders INLINE inside the navbar scaffold — its content swaps within the inner NavHost so the bottom bar stays visible and the tab keeps its own back stack (exactly like the backbone Home/Profile tabs) — versus a FULL-SCREEN destination pushed on the outer authenticated graph (the bottom bar is hidden; e.g. an immersive focus-timer that declares `bottom_navigation_visible: false`). Default `true` (inline). A full-screen tab overrides to `false`. An inline extra tab (beyond Home/Profile) MUST also register its start destination via `ForkTabRegistry.extraInlineTabDestinations` so the inner NavHost can host it; otherwise the tab has nothing to render inline.
 
+### `core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptForkScaffold.kt`
+
+```kotlin
+fun KptScaffold(
+```
+App screen scaffold for a screen with a BACK affordance — the nav icon is always shown and `onNavigationIconClick` is required.
+
+<details><summary>Used in the template — <code>feature/cloudtodo/src/commonMain/kotlin/kpt/feature/cloudtodo/ui/CloudTodoScreen.kt:89</code></summary>
+
+```kotlin
+    val outcome by viewModel.lastOutcome.collectAsStateWithLifecycle()
+
+    KptScaffold(
+        onNavigationIconClick = onBackClick,
+        title = stringResource(Res.string.screens_cloudtodo_detail_title),
+        modifier = modifier.testTag(TestTags.CloudTodo.SCREEN),
+    ) {
+```
+
+</details>
+
+```kotlin
+fun KptScaffold(
+```
+App screen scaffold whose back affordance is CONDITIONAL — pass `showNavigationIcon` when the same screen is reachable both as a tab root and as a pushed destination.
+
+<details><summary>Used in the template — <code>feature/cloudtodo/src/commonMain/kotlin/kpt/feature/cloudtodo/ui/CloudTodoScreen.kt:89</code></summary>
+
+```kotlin
+    val outcome by viewModel.lastOutcome.collectAsStateWithLifecycle()
+
+    KptScaffold(
+        onNavigationIconClick = onBackClick,
+        title = stringResource(Res.string.screens_cloudtodo_detail_title),
+        modifier = modifier.testTag(TestTags.CloudTodo.SCREEN),
+    ) {
+```
+
+</details>
+
+```kotlin
+fun KptScaffold(
+```
+Fully slot-based scaffold: the caller supplies `topBar`, `bottomBar` and the FAB composables.
+
+<details><summary>Used in the template — <code>feature/cloudtodo/src/commonMain/kotlin/kpt/feature/cloudtodo/ui/CloudTodoScreen.kt:89</code></summary>
+
+```kotlin
+    val outcome by viewModel.lastOutcome.collectAsStateWithLifecycle()
+
+    KptScaffold(
+        onNavigationIconClick = onBackClick,
+        title = stringResource(Res.string.screens_cloudtodo_detail_title),
+        modifier = modifier.testTag(TestTags.CloudTodo.SCREEN),
+    ) {
+```
+
+</details>
+
+```kotlin
+data class FloatingActionButtonContent(
+```
+Declarative FAB spec — icon, description and click — so a caller configures the FAB without passing a composable slot.
+
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptPullToRefreshState.kt`
 
 ```kotlin
@@ -235,70 +299,6 @@ KptScaffold(
 ```
 
 </details>
-
-### `core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptForkScaffold.kt`
-
-```kotlin
-fun KptScaffold(
-```
-App screen scaffold for a screen with a BACK affordance — the nav icon is always shown and `onNavigationIconClick` is required.
-
-<details><summary>Used in the template — <code>feature/cloudtodo/src/commonMain/kotlin/kpt/feature/cloudtodo/ui/CloudTodoScreen.kt:89</code></summary>
-
-```kotlin
-    val outcome by viewModel.lastOutcome.collectAsStateWithLifecycle()
-
-    KptScaffold(
-        onNavigationIconClick = onBackClick,
-        title = stringResource(Res.string.screens_cloudtodo_detail_title),
-        modifier = modifier.testTag(TestTags.CloudTodo.SCREEN),
-    ) {
-```
-
-</details>
-
-```kotlin
-fun KptScaffold(
-```
-App screen scaffold whose back affordance is CONDITIONAL — pass `showNavigationIcon` when the same screen is reachable both as a tab root and as a pushed destination.
-
-<details><summary>Used in the template — <code>feature/cloudtodo/src/commonMain/kotlin/kpt/feature/cloudtodo/ui/CloudTodoScreen.kt:89</code></summary>
-
-```kotlin
-    val outcome by viewModel.lastOutcome.collectAsStateWithLifecycle()
-
-    KptScaffold(
-        onNavigationIconClick = onBackClick,
-        title = stringResource(Res.string.screens_cloudtodo_detail_title),
-        modifier = modifier.testTag(TestTags.CloudTodo.SCREEN),
-    ) {
-```
-
-</details>
-
-```kotlin
-fun KptScaffold(
-```
-Fully slot-based scaffold: the caller supplies `topBar`, `bottomBar` and the FAB composables.
-
-<details><summary>Used in the template — <code>feature/cloudtodo/src/commonMain/kotlin/kpt/feature/cloudtodo/ui/CloudTodoScreen.kt:89</code></summary>
-
-```kotlin
-    val outcome by viewModel.lastOutcome.collectAsStateWithLifecycle()
-
-    KptScaffold(
-        onNavigationIconClick = onBackClick,
-        title = stringResource(Res.string.screens_cloudtodo_detail_title),
-        modifier = modifier.testTag(TestTags.CloudTodo.SCREEN),
-    ) {
-```
-
-</details>
-
-```kotlin
-data class FloatingActionButtonContent(
-```
-Declarative FAB spec — icon, description and click — so a caller configures the FAB without passing a composable slot.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/utils/PasswordChecker.kt`
 

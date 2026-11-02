@@ -23,6 +23,8 @@ version: 1
 rules:
   - glob: "core-base/**/fork-owned/**"
     owner: fork
+  - glob: "**/demo/**"
+    owner: demo-showcase
   - glob: "core-base/**"
     owner: template
   - glob: "**"

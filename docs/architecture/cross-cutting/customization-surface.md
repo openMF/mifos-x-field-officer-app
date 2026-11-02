@@ -33,6 +33,31 @@ that whole class of silent loss becomes impossible.
 > documented in
 > [`cmp-navigation/.../registry/README.md`](../README.md).
 
+## Ownership you can read from a file name
+
+| prefix | owner | for a fork developer |
+|---|---|---|
+| `Kpt*` | `template` | template code — a sync replaces it; never edit it in a fork |
+| `KptFork*` | `merge` | template code with fork pieces (`KptForkScaffold.kt`, `KptForkRootScaffold.kt`) — 3-way merged |
+| `Fork*` | `fork` | yours — the seams (`ForkStoreModule`, `ForkErrorMapper`, `ForkScreenStateDefaults`, `ForkTheme.kt`, the `Fork*Registry` objects); a sync never touches them |
+
+The rule runs one way: a prefixed file must resolve to the owner its prefix names
+(`scripts/product-health/checks/ownership-naming.sh`, `ON-1`), while fork code at large needs no prefix.
+Generated `App*` projections of `app-profile/` (`AppAccessPoints`, `AppOrgLinks`, …) keep their names.
+
+**Demo packages are owned beside the module, not in this file.** A `- packages: module-packages` entry
+marks where, in first-match order, each `core/<module>/module-packages.yaml` `demo:` id becomes a
+`core/<module>/**/kpt/core/<module>/<id>/**` → `demo-showcase` rule. The sync engine holds no ownership
+knowledge of its own: `is_excluded` keeps a path in the fork's state exactly when it is held
+(`.template-sync-holds`) or resolves `fork` / `demo-showcase`.
+
+**Renames reach forks through `template-migrations.yaml`.** When the template renames a file or an
+identifier, the row goes there (`words: "Old -> New"` rewrites the identifier and renames `Old.kt`;
+`files: "a -> b"` moves a path). The sync engine applies the ledger from the commit being synced
+(`scripts/white-label/template-migrations.sh`), commits the result before any merge, and merges a
+renamed `merge`-owned file against its base under the old path — so a fork's seams follow the names
+the template calls and keep their content. Pinned by `tests/customization-surface/template-migrations-test.sh`.
+
 ## Precedence
 
 Rules are ordered **most-specific → most-general**, and the **first matching rule

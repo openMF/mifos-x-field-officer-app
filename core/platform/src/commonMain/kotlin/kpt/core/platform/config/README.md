@@ -2,7 +2,7 @@
 
 **Template-owned.** `/kmp-project-template-sync` full-copies this package, so a fork keeps
 receiving upstream fixes here. Do not edit these files in a fork — extend them through the
-`Project*` seam each one declares.
+`Fork*` seam each one declares.
 
 ## Read this first — how `core/platform` differs from its siblings
 
@@ -31,7 +31,7 @@ Only what is genuinely common AND genuinely template-owned across every target:
 
 - policy the boundary itself enforces — DI wiring defaults for the re-exported `platformModule`,
   a shared capability-availability contract, cross-target fallback behaviour
-- an `App*` default + `Project*` override pair, where a fork should retune the boundary's
+- an `App*` default + `Fork*` override pair, where a fork should retune the boundary's
   behaviour rather than fork a bridge
 
 If a candidate has a different right answer on Android than on iOS, it is not config — it is an
@@ -42,7 +42,7 @@ If a candidate has a different right answer on Android than on iOS, it is not co
 | Prefix | Who owns it | What it is |
 |---|---|---|
 | `App*` | template | the shipped default a fork inherits |
-| `Project*` | fork | the override seam — empty on the template, filled by the fork |
+| `Fork*` | fork | the override seam — empty on the template, filled by the fork |
 | `Fork*` | fork | per-fork values the build reads |
 | generated | build | projections of `app-profile/app.yaml`; never hand-edited |
 

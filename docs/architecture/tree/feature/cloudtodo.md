@@ -23,10 +23,10 @@ a write that fails offline is recorded by the RoomBookkeeper and retried on reco
 prove that path works, which is why it is deliberately trivial in every other respect — one boolean on
 one entity. A richer demo would hide the mechanism it is meant to demonstrate.
 
-<!-- api-docs:begin module=feature/cloudtodo sha=d5b15e1a44bae4bd4e44a691695c72a9f4def2ec -->
+<!-- api-docs:begin module=feature/cloudtodo sha=7a6f1adbf1125fbd7e467d9de774958cd490fea8 -->
 ## API reference
 
-_Generated from `feature/cloudtodo` at tree `d5b15e1a44ba` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/cloudtodo` at tree `7a6f1adbf112` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published

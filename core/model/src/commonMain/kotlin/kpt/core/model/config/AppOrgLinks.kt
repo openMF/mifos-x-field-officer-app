@@ -25,10 +25,7 @@ package kpt.core.model.config
  */
 object AppOrgLinks {
     // syncForkConfig:org-links:begin — GENERATED from app-profile/app.yaml#org.links. Do not hand-edit.
-    private val links: Map<String, String> = linkedMapOf(
-        "community" to "https://mifos.slack.com/",
-        "product" to "https://mifos-products.pages.dev/mobile/field-officer/",
-    )
+    private val links: Map<String, String> = emptyMap()
     // syncForkConfig:org-links:end
 
     /** The URL declared under `org.links.<name>`, or null when the fork declares none by that name. */

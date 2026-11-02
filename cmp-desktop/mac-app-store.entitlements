@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!--
-  Mac App Store entitlements TEMPLATE. syncForkConfig substitutes L432S2FZP5 and
-  L432S2FZP5.com.mifos.mifosxdroid from app-profile (apple.team_id + identity.app_id) into the shipped
+  Mac App Store entitlements TEMPLATE. syncForkConfig substitutes YOUR_TEAM_ID and
+  YOUR_TEAM_ID.org.mifos.kmp.template from app-profile (apple.team_id + identity.app_id) into the shipped
   cmp-desktop/mac-app-store.entitlements — do NOT hand-edit the generated .entitlements file.
 -->
 <plist version="1.0">
