@@ -8,9 +8,9 @@
  * See https://github.com/openMF/mobile-wallet/blob/master/LICENSE.md
  */
 import com.mobilebytelabs.kmpflavors.KmpFlavorExtension
+import org.convention.forkProp
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.convention.forkProp
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -54,9 +54,9 @@ val appVersion: String = libs.versions.desktopPackageVersion.get()
 // lanes' no-mifos-fallback). fork-identity.sh still FAILs CI if org.name is left at the template value.
 // Read through the ONE Gradle-side reader (org.convention.KptAppProfileProperties). Hoisted to top-level
 // vals because the consumers below sit inside nested DSL blocks whose receiver is not Project.
-val forkOrgName    = forkProp("org.name", appName)
+val forkOrgName = forkProp("org.name", appName)
 val forkDescription = forkProp("app.description", "$appName desktop")
-val forkCopyright  = forkProp("org.copyright", "© 2026 $forkOrgName. All rights reserved.")
+val forkCopyright = forkProp("org.copyright", "© 2026 $forkOrgName. All rights reserved.")
 val forkMacCategory = forkProp("mac.app.category", "public.app-category.finance")
 
 // macOS CFBundleVersion (the *build* number, distinct from the marketing version).
@@ -148,7 +148,7 @@ compose.desktop {
                 val projectDirectory = layout.projectDirectory
                 provisioningProfile.set(
                     providers.environmentVariable("MAC_PROVISIONING_PROFILE_PATH")
-                        .map { projectDirectory.file(it) }
+                        .map { projectDirectory.file(it) },
                 )
                 notarization {
                     val providers = project.providers
@@ -178,6 +178,3 @@ compose.desktop {
         }
     }
 }
-
-
-

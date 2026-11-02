@@ -20,6 +20,8 @@
 #     stdout: one line per change — `R <old>\t<new>` (rename) · `E <file>` (rewritten) ·
 #             `C <old>\t<new>` (both exist — left alone, needs a human)
 #     Only tracked text files are touched (pathspec narrows them). The ledger itself is never rewritten.
+#     A file containing the marker `template-migrations: keep` is never rewritten either (a fixture that
+#     needs the OLD names, e.g. the test of this script).
 #     Idempotent: an applied migration finds nothing left to change.
 #   template-migrations.sh --ledger <file> --file <path>
 #     rewrite ONE file's content (words + path strings; no renames, no git) — the sync runs a 3-way
@@ -74,10 +76,13 @@ fi
 
 # mv_path <old> <new> — git-mv a tracked file; a target that already exists is reported (C), never overwritten.
 mv_path() {
-  if [ -e "$2" ]; then printf 'C %s\t%s\n' "$1" "$2"; return; fi
+  # A case-only rename (main.kt → Main.kt) on a case-insensitive filesystem: the target "exists" because
+  # it IS the source — rename through a temporary name.
+  if [ -e "$2" ] && ! [ "$1" -ef "$2" ]; then printf 'C %s\t%s\n' "$1" "$2"; return; fi
   printf 'R %s\t%s\n' "$1" "$2"
   [ "$DRY" = 1 ] && return
-  mkdir -p "$(dirname "$2")"; git mv -- "$1" "$2"
+  mkdir -p "$(dirname "$2")"
+  if [ -e "$2" ]; then git mv -- "$1" "$1.tm-case" && git mv -- "$1.tm-case" "$2"; else git mv -- "$1" "$2"; fi
 }
 # rewrite word|path <from> <to> — replace a whole-word identifier, or a literal path string, in every
 # tracked text file (within the pathspec) that contains it.
@@ -88,7 +93,7 @@ rewrite() {
     [ -n "$f" ] || continue
     echo "E $f"
     [ "$DRY" = 1 ] || A="$a" B="$b" perl -pi -e "$prog" -- "$f"
-  done < <(git grep -lI ${w[@]+"${w[@]}"} -F -e "$a" -- "${SPEC[@]}" "$EXCL" 2>/dev/null)
+  done < <(git grep -lI ${w[@]+"${w[@]}"} -F -e "$a" -- "${SPEC[@]}" "$EXCL" 2>/dev/null | grep -vxF -f <(git grep -lF "template-migrations: keep" -- "${SPEC[@]}" 2>/dev/null; echo /dev/null))
 }
 
 while IFS=$'\t' read -r kind a b; do

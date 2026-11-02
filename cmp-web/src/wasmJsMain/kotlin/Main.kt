@@ -1,3 +1,12 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -75,9 +84,9 @@ private fun startApp() {
             // Use key() to force complete recomposition when locale changes
             key(localeVersion) {
                 /*
-             * Invokes the root composable of the application.
-             * This function is responsible for setting up the entire UI structure of the app.
-             */
+                 * Invokes the root composable of the application.
+                 * This function is responsible for setting up the entire UI structure of the app.
+                 */
                 SharedApp(
                     updateScreenCapture = {},
                     handleRecreate = {

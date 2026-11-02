@@ -1,7 +1,16 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 import com.mobilebytelabs.kmpflavors.KmpFlavorExtension
 import org.apache.tools.ant.filters.ReplaceTokens
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.convention.forkPropFirst
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -90,24 +99,26 @@ val webTitleSuffix = activeFlavorConfig?.webTitleSuffix?.orNull ?: ""
 // Read through the ONE Gradle-side reader (org.convention.KptAppProfileProperties). `forkPropFirst` keeps
 // this file's first-non-blank-wins semantics: each value has an ordered list of source keys.
 val webDescription = forkPropFirst("store.android.short.description", "store.subtitle").ifBlank { appDisplayName }
-val webKeywords    = forkPropFirst("store.ios.keywords", "store.macos.keywords")
-val webCopyright   = forkPropFirst("store.copyright", "org.copyright").ifBlank { appDisplayName }
-val webAuthor      = forkPropFirst("org.name", "store.copyright").ifBlank { appDisplayName }
-val webUrl         = forkPropFirst("web.custom.domain", "org.marketing.url", "org.support.url")
-val webOgImage     = "./og-image.png"   // materialized by syncForkConfig from app-profile/platforms/web/media
+val webKeywords = forkPropFirst("store.ios.keywords", "store.macos.keywords")
+val webCopyright = forkPropFirst("store.copyright", "org.copyright").ifBlank { appDisplayName }
+val webAuthor = forkPropFirst("org.name", "store.copyright").ifBlank { appDisplayName }
+val webUrl = forkPropFirst("web.custom.domain", "org.marketing.url", "org.support.url")
+val webOgImage = "./og-image.png" // materialized by syncForkConfig from app-profile/platforms/web/media
 
 tasks.matching { it.name == "jsProcessResources" || it.name == "wasmJsProcessResources" }
     .configureEach {
         (this as Copy).filter(
-            mapOf("tokens" to mapOf(
-                "APP_DISPLAY_NAME" to "$appDisplayName$webTitleSuffix",
-                "APP_DESCRIPTION"  to webDescription,
-                "APP_KEYWORDS"     to webKeywords,
-                "APP_COPYRIGHT"    to webCopyright,
-                "APP_AUTHOR"       to webAuthor,
-                "APP_URL"          to webUrl,
-                "OG_IMAGE"         to webOgImage,
-            )),
+            mapOf(
+                "tokens" to mapOf(
+                    "APP_DISPLAY_NAME" to "$appDisplayName$webTitleSuffix",
+                    "APP_DESCRIPTION" to webDescription,
+                    "APP_KEYWORDS" to webKeywords,
+                    "APP_COPYRIGHT" to webCopyright,
+                    "APP_AUTHOR" to webAuthor,
+                    "APP_URL" to webUrl,
+                    "OG_IMAGE" to webOgImage,
+                ),
+            ),
             ReplaceTokens::class.java,
         )
     }

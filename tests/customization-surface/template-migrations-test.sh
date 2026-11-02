@@ -14,6 +14,7 @@
 #   M-6 the applier is idempotent
 #   M-7 a merge-owned file the template did NOT rename, whose identifier rename sits next to a fork
 #       edit, merges cleanly — the base went through the same renames, so a rename is not a template edit
+# template-migrations: keep — the fixture below uses the OLD names on purpose; the applier must not rewrite it.
 set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"

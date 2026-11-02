@@ -43,3 +43,5 @@ migrations:
       # merge-owned — forks edit them (cappy, healld-health, status-saver, reels-downloader, field officer)
       - "core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptScaffold.kt -> core/ui/src/commonMain/kotlin/kpt/core/ui/scaffold/KptForkScaffold.kt"
       - "cmp-navigation/src/commonMain/kotlin/cmp/navigation/ui/KptRootScaffold.kt -> cmp-navigation/src/commonMain/kotlin/cmp/navigation/ui/KptForkRootScaffold.kt"
+      # ktlint file-name rule (PascalCase); the facade class stays MainKt, so mainClass is unchanged
+      - "cmp-desktop/src/jvmMain/kotlin/main.kt -> cmp-desktop/src/jvmMain/kotlin/Main.kt"

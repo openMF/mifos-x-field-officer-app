@@ -1,3 +1,12 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -39,7 +48,6 @@ fun main() {
 
 @OptIn(ExperimentalComposeUiApi::class)
 private fun startApp() {
-
     initKoin() // Set up Koin for dependency injection.
 
     // Apply stored language preference on startup
@@ -79,7 +87,7 @@ private fun startApp() {
                         // Note: This will reload the page, and locale selection depends on browser settings
                         // window.location.reload()
                     },
-                    onSplashScreenRemoved = {}
+                    onSplashScreenRemoved = {},
                 )
             }
         }
