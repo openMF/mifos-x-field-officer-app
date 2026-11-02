@@ -284,17 +284,16 @@ print_items() {
 # copies may predate a rename). The result is COMMITTED onto the sync branch and FORK_STATE moves to
 # that commit: every merge reads "ours" from FORK_STATE, so it must already carry the new names —
 # otherwise a renamed merge-owned file looks fork-deleted and a renamed fork seam keeps the old name
-# the template no longer calls. Writes MIGRATED_FROM (new<TAB>old) for migrated_from().
-MIGRATED_FROM=""
+# the template no longer calls. Keeps the ledger + applier in MIGRATE_DIR for migrated_from() and
+# migrate_base(), which serve every merge of the run.
+MIGRATE_DIR=""
 apply_template_migrations() {
-    MIGRATED_FROM="$(mktemp)"
     git cat-file -e "$TEMPLATE_REF:template-migrations.yaml" 2>/dev/null \
         && git cat-file -e "$TEMPLATE_REF:scripts/white-label/template-migrations.sh" 2>/dev/null || return 0
-    local _mig _c _n; _mig="$(mktemp -d)"
+    local _mig _c _n; _mig="$(mktemp -d)"; MIGRATE_DIR="$_mig"
     git show "$TEMPLATE_REF:template-migrations.yaml" > "$_mig/ledger.yaml"
     git show "$TEMPLATE_REF:scripts/white-label/template-migrations.sh" > "$_mig/apply.sh"
     bash "$_mig/apply.sh" --ledger "$_mig/ledger.yaml" > "$_mig/out" || handle_error "template migrations failed"
-    awk -F'\t' '/^R /{sub(/^R /,"",$1); print $2"\t"$1}' "$_mig/out" > "$MIGRATED_FROM"
     while IFS=$'\t' read -r _c _n; do
         print_warning "migration rename ${BOLD}${_c#C }${NC} → $_n skipped: the new path already exists — reconcile by hand"
     done < <(grep '^C ' "$_mig/out")
@@ -306,11 +305,22 @@ apply_template_migrations() {
         FORK_STATE="$(git rev-parse HEAD)"
         print_step "Applied template migrations: $(grep -c '^R ' "$_mig/out") rename(s), $(grep -c '^E ' "$_mig/out") file(s) rewritten"
     fi
-    rm -rf "$_mig"
 }
 
-# migrated_from <path> — the old path a template migration renamed <path> from, if any.
-migrated_from() { [ -n "$MIGRATED_FROM" ] && awk -F'\t' -v p="$1" '$1==p{print $2; exit}' "$MIGRATED_FROM" 2>/dev/null; }
+# migrated_from <path> — the path <path> had before a ledger row renamed it, if any (from the ledger,
+# not this run's renames: a fork that received the rename in an earlier sync needs it just the same).
+migrated_from() {
+    [ -n "$MIGRATE_DIR" ] || return 0
+    bash "$MIGRATE_DIR/apply.sh" --ledger "$MIGRATE_DIR/ledger.yaml" --old-path "$1" 2>/dev/null
+}
+
+# migrate_base <file> — run a 3-way merge's BASE (an older template copy) through the same renames, so
+# a rename the template made — and the fork already received from apply_template_migrations — is not
+# mistaken for a template edit colliding with the fork's own changes nearby.
+migrate_base() {
+    [ -n "$MIGRATE_DIR" ] && [ -s "$1" ] || return 0
+    bash "$MIGRATE_DIR/apply.sh" --ledger "$MIGRATE_DIR/ledger.yaml" --file "$1" >/dev/null 2>&1 || true
+}
 
 # is_excluded <dir> <path> <type> — 0 when the sync must leave <path> in the FORK's state.
 # ONE source decides: the ownership contract, read through scripts/customization-surface.sh (its rules,
@@ -638,6 +648,7 @@ merge_contract_root_files() {
         git show "$FORK_STATE:$f" > "$o" 2>/dev/null || cp "$f" "$o" 2>/dev/null || : > "$o"
         git show "$TEMP_BRANCH:$f" > "$t" 2>/dev/null
         git show "${mbase}:$f"     > "$b" 2>/dev/null || cp "$o" "$b"
+        migrate_base "$b"
         mkdir -p "$(dirname "$f")"
         case "$strat" in
             include-union) merge_settings_include_union "$o" "$b" "$t" "$f"; rc=$? ;;
@@ -908,6 +919,7 @@ sync_directory() {
                             : > "$_b"
                             print_warning "No common ancestor for ${BOLD}$_mf${NC} (added on both sides) — merging as add/add"
                         fi
+                        migrate_base "$_b"
                         mkdir -p "$(dirname "$_mf")"
                         # Route the contract-declared strategy: the two structure-aware unions
                         # (include-union / catalog-3way) use their dedicated engines; everything
