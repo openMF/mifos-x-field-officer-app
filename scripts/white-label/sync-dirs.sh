@@ -941,12 +941,16 @@ sync_directory() {
                             && print_step "Preserved fork's ${BOLD}$conv_f${NC} (convention)"
                     elif [ -n "${PREV_TEMPLATE_SHA:-}" ] \
                          && ! git cat-file -e "${PREV_TEMPLATE_SHA}:${conv_f}" 2>/dev/null \
+                         && case "$conv_f" in */schemas/*|*/demo/*|*/demo) false ;; *) true ;; esac \
+                         && [ -n "$(git ls-tree --name-only "$FORK_STATE" -- "$(dirname "$conv_f")/" 2>/dev/null | head -1)" ] \
                          && [ "$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$conv_f" 2>/dev/null | awk 'NR==1{print $2}')" = "fork" ]; then
                         # A fork-owned file the template ships for the FIRST time (absent at the last
-                        # sync) is a new seam the fork has never had, not one it removed: keep the
-                        # template's copy as the seed. Dropping it cost a fork its
-                        # spotless/license-header.txt (2026-11-02), after which spotlessApply
-                        # stripped the license header from ~2,500 files.
+                        # sync), beside code the fork already has, is a new SEAM the fork has never had —
+                        # not one it removed: keep the template's copy as the seed. Dropping it cost a
+                        # fork its spotless/license-header.txt (2026-11-02), after which spotlessApply
+                        # stripped the license header from ~2,500 files. Not seeded: a file in a
+                        # directory the fork lacks (a sample package's scaffold, e.g. network/main/), a
+                        # Room schema (the fork's own lineage) or demo code.
                         print_step "Seeded new fork-owned ${BOLD}$conv_f${NC} from the template"
                     else
                         git rm -f --quiet "$conv_f" 2>/dev/null || rm -f "$conv_f"
