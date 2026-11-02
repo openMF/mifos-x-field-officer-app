@@ -338,30 +338,38 @@ migrate_base() {
 # The engine has no ownership knowledge of its own. It used to: an EXCLUSIONS map and nine hard-coded
 # name patterns, which disagreed with the contract — KptErrorMapper.kt, KptScreenStateDefaults.kt and
 # StoreModule.kt were preserved as fork files while the contract said template, so template updates to
-# them never reached a fork. The subprocess path below is only the fallback for an engine run without
-# the reader sourced.
-is_excluded() {
-    local full_path="${2#./}" _cs_owner
-    # Holds are read ONCE per run (fork-owned; the sync never edits them).
+# them never reached a fork.
+# owner_of <path> — sets OWNER to the path's contract owner. In-process and memoized: the reader is
+# sourced at the top of this script. A subprocess per path re-parsed the whole contract every call
+# (~0.8 s), and a sync asks ~3,500 paths several times — most of an hour spent re-reading one file.
+# Re-sourcing the reader (STEP 0 bootstrap lands the template's contract) resets CS_LOADED, which drops
+# this cache too. The subprocess is only the fallback for a run without the reader sourced.
+owner_of() {
+    if declare -F cs_match_g >/dev/null 2>&1; then
+        [ "${CS_LOADED:-0}" = 1 ] && [ -n "${_OWNER_CACHE_ON:-}" ] || { declare -gA _OWNER_CACHE=(); _OWNER_CACHE_ON=1; }
+        OWNER="${_OWNER_CACHE[$1]:-}"
+        if [ -z "$OWNER" ]; then cs_match_g "$1"; OWNER="${CS_M_OWNER:-template}"; _OWNER_CACHE["$1"]="$OWNER"; fi
+    elif [ -f "$SCRIPT_DIR/../customization-surface.sh" ]; then
+        OWNER="$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$1" 2>/dev/null | awk 'NR==1{print $2}')"
+    else
+        OWNER=""
+    fi
+}
+
+# is_held <path> — listed in the fork's .template-sync-holds (read once per run; the sync never edits it).
+is_held() {
     if [ -z "${_HOLDS_LOADED:-}" ]; then
         declare -gA _HELD=(); _HOLDS_LOADED=1
         [ -f .template-sync-holds ] && while IFS=$'\t' read -r _h _; do [ -n "$_h" ] && _HELD["$_h"]=1; done < .template-sync-holds
     fi
-    [ -n "${_HELD[$full_path]:-}" ] && return 0
-    # In-process and memoized: the reader is sourced at the top of this script. A subprocess per path
-    # re-parsed the whole contract every call (~0.8 s), and a sync asks ~3,500 paths several times —
-    # most of an hour spent re-reading one file. Re-sourcing the reader (STEP 0 bootstrap lands the
-    # template's contract) resets CS_LOADED, which drops this cache too.
-    if declare -F cs_match_g >/dev/null 2>&1; then
-        [ "${CS_LOADED:-0}" = 1 ] && [ -n "${_OWNER_CACHE_ON:-}" ] || { declare -gA _OWNER_CACHE=(); _OWNER_CACHE_ON=1; }
-        _cs_owner="${_OWNER_CACHE[$full_path]:-}"
-        if [ -z "$_cs_owner" ]; then
-            cs_match_g "$full_path"; _cs_owner="${CS_M_OWNER:-template}"; _OWNER_CACHE["$full_path"]="$_cs_owner"
-        fi
-    elif [ -f "$SCRIPT_DIR/../customization-surface.sh" ]; then
-        _cs_owner="$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$full_path" 2>/dev/null | awk 'NR==1{print $2}')"
-    fi
-    case "${_cs_owner:-}" in fork|demo-showcase) return 0 ;; esac
+    [ -n "${_HELD[$1]:-}" ]
+}
+
+is_excluded() {
+    local full_path="${2#./}"
+    is_held "$full_path" && return 0
+    owner_of "$full_path"
+    case "$OWNER" in fork|demo-showcase) return 0 ;; esac
     return 1
 }
 
@@ -789,18 +797,18 @@ propagate_template_deletions() {
 # extras were classified (/kmp-project-template-sync does that first); a bare --mirror on an
 # unclassified fork deletes its work, which is why it is opt-in.
 mirror_template_owned() {
-    local dir=$1 temp_branch=$2 f owner holds=".template-sync-holds"
+    local dir=$1 temp_branch=$2 f holds=".template-sync-holds"
     [ "$MIRROR" = true ] || return 0
+    # The template's files under $dir, listed once (one `git cat-file` per fork file was a process each).
+    local -A _tpl=(); while IFS= read -r f; do _tpl["$f"]=1; done < <(git ls-tree -r --name-only "$temp_branch" -- "$dir" 2>/dev/null)
     while IFS= read -r f; do
         [ -n "$f" ] || continue
-        git cat-file -e "${temp_branch}:${f}" 2>/dev/null && continue           # template has it
-        is_excluded "$dir" "$f" "file" && continue                              # fork/demo/seam/schemas
-        owner="$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$f" 2>/dev/null | awk 'NR==1{print $2}')"
-        [ "$owner" = "template" ] || continue                                   # merge / demo-showcase kept
-        if [ -f "$holds" ] && cut -f1 "$holds" | grep -qxF -- "$f"; then
+        [ -n "${_tpl[$f]:-}" ] && continue                                       # template has it
+        if is_held "$f"; then
             print_step "Mirror: HELD ${BOLD}$f${NC} ($(grep -F -- "$f" "$holds" | head -1 | cut -f2))"
             continue
         fi
+        owner_of "$f"; [ "$OWNER" = template ] || continue                       # fork / merge / demo kept
         remove_stale_path "$f" "$temp_branch"
         print_step "Mirror: removed fork-only ${BOLD}$f${NC} from template-owned $dir"
     done < <(git ls-tree -r --name-only "$FORK_STATE" -- "$dir" 2>/dev/null)
@@ -870,7 +878,7 @@ sync_directory() {
                          && ! git cat-file -e "${PREV_TEMPLATE_SHA}:${conv_f}" 2>/dev/null \
                          && case "$conv_f" in */schemas/*|*/demo/*|*/demo) false ;; *) true ;; esac \
                          && [ -n "$(git ls-tree --name-only "$FORK_STATE" -- "$(dirname "$conv_f")/" 2>/dev/null | head -1)" ] \
-                         && [ "$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$conv_f" 2>/dev/null | awk 'NR==1{print $2}')" = "fork" ]; then
+                         && { owner_of "$conv_f"; [ "$OWNER" = fork ]; }; then
                         # A fork-owned file the template ships for the FIRST time (absent at the last
                         # sync), beside code the fork already has, is a new SEAM the fork has never had —
                         # not one it removed: keep the template's copy as the seed. Dropping it cost a
@@ -1639,27 +1647,11 @@ This PR syncs the following items with upstream:
 - Auto-heal: gradle/libs.versions.toml (pulls missing build-logic aliases from upstream)" || handle_error "Failed to commit changes"
         show_progress
 
-        if [ "$FORCE" = false ]; then
-            echo -e "\n${YELLOW}${BOLD}Would you like to push the sync branch? (y/n)${NC}"
-            read -r response
-            if [[ "$response" =~ ^[Yy]$ ]]; then
-                print_step "Pushing sync branch..."
-                git push -u origin "$SYNC_BRANCH" || handle_error "Failed to push sync branch"
-                show_progress
-                echo -e "\n${GREEN}${BOLD}✨ Sync branch pushed successfully! ✨${NC}"
-                echo -e "${YELLOW}Please create a pull request from branch ${BOLD}$SYNC_BRANCH${NC}${YELLOW} to ${BOLD}$BASE_BRANCH${NC}${YELLOW} in your repository.${NC}\n"
-            else
-                echo -e "\n${YELLOW}Changes committed but not pushed. You can push later with:${NC}"
-                echo -e "${BOLD}git push -u origin $SYNC_BRANCH${NC}"
-                echo -e "${YELLOW}Then create a pull request from ${BOLD}$SYNC_BRANCH${NC}${YELLOW} to ${BOLD}$BASE_BRANCH${NC}\n"
-            fi
-        else
-            print_step "Pushing sync branch..."
-            git push -u origin "$SYNC_BRANCH" || handle_error "Failed to push sync branch"
-            show_progress
-            echo -e "\n${GREEN}${BOLD}✨ Sync branch pushed successfully! ✨${NC}"
-            echo -e "${YELLOW}Please create a pull request from branch ${BOLD}$SYNC_BRANCH${NC}${YELLOW} to ${BOLD}$BASE_BRANCH${NC}${YELLOW} in your repository.${NC}\n"
-        fi
+        # The engine never pushes. Pushing ran the fork's pre-push hook over the whole repo (40 min on
+        # mifos-x-field-officer-app, then failed on pre-existing Detekt debt) and duplicated the push the
+        # caller makes anyway — /kmp-project-template-sync commits and pushes through git-session.
+        echo -e "\n${GREEN}${BOLD}✨ Sync committed on ${SYNC_BRANCH} (not pushed). ✨${NC}"
+        echo -e "${YELLOW}Push it with your normal flow, e.g. ${BOLD}git push -u origin $SYNC_BRANCH${NC}${YELLOW}, then open a PR to ${BOLD}$BASE_BRANCH${NC}\n"
     else
         print_warning "No changes to commit"
         if [ "$SYNC_BRANCH_OWNED" = true ]; then
