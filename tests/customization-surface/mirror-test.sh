@@ -50,7 +50,7 @@ mk core-base/a/Shared.kt template-v2; g add -A; g commit -q -m template; g check
 fnsrc="$WORK/fns.sh"
 {
   echo 'print_step(){ :; }; print_warning(){ :; }; declare -A EXCLUSIONS=()'
-  awk '/^is_excluded\(\) \{/{p=1} p{print} p&&/^}/{p=0}' "$ENGINE"
+  awk '/^(owner_of|is_held|is_excluded)\(\) \{/{p=1} p{print} p&&/^}/{p=0}' "$ENGINE"
   awk '/^(mirror_template_owned|remove_stale_path)\(\) \{/{p=1} p{print} p&&/^}/{p=0}' "$ENGINE"
 } > "$fnsrc"
 grep -q 'mirror_template_owned()' "$fnsrc" || { echo "  ❌ mirror_template_owned not found in engine"; exit 1; }

@@ -51,8 +51,11 @@ class GitHooksConventionPlugin : Plugin<Project> {
             description = "Copies the git hooks from /scripts to the git hooks folder."
             // No usable git hooks dir (e.g. a source export with no .git at all) → skip cleanly.
             onlyIf { gitHooksDir.parentFile?.exists() == true }
-            from("${project.rootDir}/scripts/") {
-                include("**/*.sh")
+            // Exactly the two hooks, at the hooks ROOT — git runs nothing else. Copying `scripts/**/*.sh`
+            // kept the subdirectories, so after the hooks moved to scripts/ci/ they landed in hooks/ci/
+            // where git never looks, and every repo kept running a stale whole-repo hook from before.
+            from("${project.rootDir}/scripts/ci/") {
+                include("pre-commit.sh", "pre-push.sh")
                 rename { it.removeSuffix(".sh") }
             }
             into(gitHooksDir)

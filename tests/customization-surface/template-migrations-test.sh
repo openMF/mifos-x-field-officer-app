@@ -81,7 +81,7 @@ fnsrc="$WORK/fns.sh"
 {
   echo 'print_step(){ :; }; print_warning(){ :; }; print_error(){ :; }; show_progress(){ :; }; handle_error(){ echo "HALT $*" >&2; exit 1; }'
   echo 'declare -A EXCLUSIONS=(); SYNC_CONFLICTS=(); SYNC_FAILED=()'
-  for fn in is_excluded apply_template_migrations migrated_from migrate_base resolve_merge_base remove_stale_path \
+  for fn in owner_of is_held is_excluded apply_template_migrations migrated_from migrate_base resolve_merge_base remove_stale_path \
             propagate_template_deletions mirror_template_owned sync_directory; do
     awk -v f="$fn" '$0 ~ "^"f"\\(\\) \\{" {p=1} p{print} p&&/^}/{p=0}' "$ENGINE"
   done

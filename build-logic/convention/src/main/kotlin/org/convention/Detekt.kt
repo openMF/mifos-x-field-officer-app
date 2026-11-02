@@ -26,7 +26,18 @@ internal fun Project.configureDetekt(extension: DetektExtension) = extension.app
     tasks.named<Detekt>("detekt") {
         mustRunAfter(":cmp-android:dependencyGuard")
         jvmTarget = "17"
-        source(files(rootDir))
+        // ONE whole-repo pass, on :cmp-android (CI's `./gradlew detekt` reaches it); every other module
+        // lints only its own tree. When every module scanned rootDir, `./gradlew detekt` repeated the
+        // whole-repo analysis once per feature module — 25 min on a fork with ~40 of them, each failing
+        // on the same fork-wide findings. `-Pkpt.detekt.files=a.kt,b.kt` (paths relative to the root)
+        // narrows the whole-repo pass to exactly those files: what the git hooks check, so a commit is
+        // judged on the code it touches.
+        val onlyFiles = providers.gradleProperty("kpt.detekt.files").orNull
+        when {
+            this@configureDetekt.path != ":cmp-android" -> setSource(files(projectDir))
+            onlyFiles != null -> setSource(files(onlyFiles.split(',').filter(String::isNotBlank).map(rootDir::resolve)))
+            else -> setSource(files(rootDir))
+        }
         include("**/*.kt")
         exclude("**/*.kts")
         exclude("**/resources/**")

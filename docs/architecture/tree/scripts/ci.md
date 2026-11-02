@@ -1,7 +1,7 @@
 # `scripts/ci/`
 
 > Part of [`scripts/`](../scripts.md)  
-> **Measured:** 7 tracked files — 6× `.sh`, 1× `.py`
+> **Measured:** 8 tracked files — 7× `.sh`, 1× `.py`
 
 ### Scripts
 
@@ -9,8 +9,9 @@
 |---|---|
 | `check-secrets-resolver.sh` | Phase-7 secrets-resolver guard. Enforces that the build-secrets resolver stays the |
 | `ci-equivalent-check.sh` | Local CI parity for the kmp-project-template consumer. |
-| `pre-commit.sh` | Function to check the current branch |
-| `pre-push.sh` | Function to check the current branch |
+| `kotlin-checks.sh` | the git hooks' Spotless / Detekt / dependency-guard checks, |
+| `pre-commit.sh` | Installed as .git/hooks/pre-commit by `./gradlew installGitHooks`. The checks live in |
+| `pre-push.sh` | Installed as .git/hooks/pre-push by `./gradlew installGitHooks`. The checks live in |
 | `verify-dynamic-flavor-propagation.sh` | scripts/ci/verify-dynamic-flavor-propagation.sh |
 | `verify-workflow-token-scope.sh` | scripts/ci/verify-workflow-token-scope.sh |
 
