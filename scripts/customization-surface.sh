@@ -43,6 +43,8 @@ cs_parse_rules() {
       if (line ~ /default:[[:space:]]*true/) def="1"
       emit(); next
     }
+    # package-manifest directive — expanded by cs_expand_packages at this position
+    /^[[:space:]]*-[[:space:]]*packages:/ { emit(); print "@packages|"; next }
     # block form start — extract the QUOTED value (drops any trailing # comment)
     /^[[:space:]]*-[[:space:]]*glob:/ {
       emit()
@@ -84,8 +86,34 @@ cs_load_rules() {
     [ -z "$glob" ] && continue
     CS_RX+=("$(cs_glob_to_regex "$glob")")
     CS_OWNER+=("$owner"); CS_STRAT+=("$strat"); CS_DEF+=("$def"); CS_GLOB+=("$glob")
-  done < <(cs_parse_rules)
+  done < <(cs_parse_rules | cs_expand_packages)
   CS_LOADED=1
+}
+
+# Package-level ownership lives BESIDE each module, in its module-packages.yaml — the contract does
+# not restate it. A `- packages: module-packages` entry in the contract marks WHERE (in first-match
+# order) those rows apply; it expands into one `demo-showcase` rule per `demo:` id of each
+# core/<module>/module-packages.yaml → core/<module>/**/kpt/core/<module>/<id>/**.
+# (feature/module-packages.yaml lists whole demo MODULES, which are fork territory and never synced;
+# `feature/**` already owns them.) Manifests are found next to the contract being evaluated, so a
+# fork, a fixture and a scratch copy (ownership audit, surface report) each read their own.
+cs_expand_packages() {
+  local base line f mod id
+  base="$(dirname "$CS_CONTRACT")"
+  while IFS= read -r line; do
+    case "$line" in
+      "@packages|"*)
+        for f in "$base"/core/*/module-packages.yaml; do
+          [ -f "$f" ] || continue
+          mod="$(basename "$(dirname "$f")")"
+          while IFS= read -r id; do
+            [ -n "$id" ] && printf 'core/%s/**/kpt/core/%s/%s/**|demo-showcase||0\n' "$mod" "$mod" "$id"
+          done < <(awk '/^demo:[[:space:]]*$/{s=1; next} /^[a-z_]+:/{s=0}
+                        s && /id:/ {v=$0; sub(/.*id:[[:space:]]*/,"",v); sub(/[,}[:space:]].*/,"",v); print v}' "$f")
+        done ;;
+      *) printf '%s\n' "$line" ;;
+    esac
+  done
 }
 
 # ── --verify zero-match-rule guard (pure-white-label-store5-network E0/T2) ────────
@@ -686,8 +714,8 @@ cs_require_flip_preconditions() {
   _cs_expect "core/model/src/commonMain/kotlin/kpt/core/model/invoice/Invoice.kt" fork
   _cs_expect "core/model/src/commonMain/kotlin/kpt/core/model/user/UserData.kt" template
   _cs_expect "core/model/src/commonMain/kotlin/kpt/core/model/banking/Loan.kt" demo-showcase
-  _cs_expect "core/store/src/commonMain/kotlin/kpt/core/store/config/ProjectErrorMapper.kt" fork
-  _cs_expect "core/store/src/commonMain/kotlin/kpt/core/store/config/ProjectScreenStateDefaults.kt" fork
+  _cs_expect "core/store/src/commonMain/kotlin/kpt/core/store/config/ForkErrorMapper.kt" fork
+  _cs_expect "core/store/src/commonMain/kotlin/kpt/core/store/config/ForkScreenStateDefaults.kt" fork
   # REAL paths, not short synthetic ones. These two asserted `template` only because the short form
   # missed every `**/kpt/core/store/**` rule and fell through to the `core/**` blanket — the fixture
   # was testing a path that does not exist. The real files are showcase stores, so demo-showcase.
@@ -696,7 +724,7 @@ cs_require_flip_preconditions() {
   # The module catch-all: a fork's own store package must not be claimed by the core/** blanket.
   _cs_expect "core/store/src/commonMain/kotlin/kpt/core/store/invoice/impl/InvoiceStore.kt" fork
   _cs_expect "core/store/src/commonMain/kotlin/kpt/core/store/prefs/impl/UserDataStore.kt" template
-  [ "$bad" -eq 0 ] && echo "✅ T1 flip preconditions hold (og-images generated · secrets-manifest/keystore + core/store Project* seams fork · core/model undeclared=fork · gradle.properties merge/properties-3way · tests/core-store-impl template)"
+  [ "$bad" -eq 0 ] && echo "✅ T1 flip preconditions hold (og-images generated · secrets-manifest/keystore + core/store Fork* seams fork · core/model undeclared=fork · gradle.properties merge/properties-3way · tests/core-store-impl template)"
   return "$bad"
 }
 

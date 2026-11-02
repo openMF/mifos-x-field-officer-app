@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# bash4-required: EXCLUSIONS is an associative array load-bearing across 23 sites; see the guard below.
+# bash4-required: associative arrays (EXCLUSIONS, kept empty) and the contract reader; see the guard below.
 
 # scripts/white-label/sync-dirs.sh
 # Script to sync directories and files from upstream repository
 
 # ── bash 4+ REQUIRED — fail loudly rather than silently overwrite a fork's branding ──────────────
 #
-# This script's EXCLUSIONS map is what PRESERVES fork-owned files across a sync (branded Android
-# res/, google-services.json, the iOS asset catalog, deployment config, secrets, …). It is an
-# associative array, and bash 3.2 — still /bin/bash on macOS — does not have those.
+# This script uses associative arrays, and bash 3.2 — still /bin/bash on macOS — does not have them.
+# What it preserves for the fork is now decided by the ownership contract alone (is_excluded); the
+# EXCLUSIONS map below is kept EMPTY, but the failure mode recorded next is why the guard stays.
 #
 # The old `#!/bin/bash` shebang pinned this script to 3.2 there, and the failure was SILENT and
 # DESTRUCTIVE rather than loud: `declare -A` is rejected, but the `=( [k]=v … )` initializer still
@@ -170,55 +170,10 @@ SYNC_FILES=(
     "FEATURE_AUTHORING.md"          # in-template feature-authoring guide (owner: template) — was declared "synced" but had no SYNC_FILES vector (WS4/T6)
 )
 
-# Define exclusions for directories and files
-# Format: "path/to/exclude:type"
-# type can be 'dir' or 'file'
-# Use "root" key for files in the root directory
-declare -A EXCLUSIONS=(
-    # Android — consumer-branded resources (drawables, strings, mipmaps), Firebase config,
-    # launcher icon, and the dependency-guard baseline directory are preserved across syncs.
-    ["cmp-android"]="src/main/res:dir dependencies:dir src/main/ic_launcher-playstore.png:file google-services.json:file"
-    # iOS — consumer-branded asset catalog (app icon, color palette) preserved across syncs.
-    ["cmp-ios"]="iosApp/Assets.xcassets:dir Configuration/Config.xcconfig:file"
-    ["cmp-web"]="src/jsMain/resources:dir src/wasmJsMain/resources:dir"
-    # icons:dir stays fork-preserved; build.gradle.kts is REMOVED from the hardcoded exclusion so the
-    # customization-surface.yaml declaration (owner: merge / kotlin-3way) governs — template desktop
-    # build improvements reach forks via the 3-way merge loop while fork packaging identity survives.
-    # (Was clobbering the merge: the restore-excluded block below copied the fork's original back.)
-    ["cmp-desktop"]="icons:dir"
-    ["fastlane-config"]="project_config.rb:file extract_config.rb:file"
-    # Deployment — FULL-COPY, ZERO exclusions (E1 / D-3, epic pure-white-label-store5-network).
-    # deployment/** is a pure TEMPLATE-OWNED module now: all fork DATA was relocated OUT —
-    #   • per-target enabled/tier state  → app-profile/deploy-targets.yaml   (owner: fork)
-    #   • append-only promotion history  → framework deployment-layer/deploy-state/ (E1/D-4; /idea-deploy-owned)
-    #   • store listings + screenshots   → DERIVED from app-profile/ by `./gradlew syncForkConfig`
-    #                                       (template ships placeholders; regenerated post-sync).
-    # DEPLOYMENT_MANIFEST.yaml is a pure catalog of available targets (owner: template). With no
-    # fork data left under deployment/, it full-copies exactly like core-base/**. See
-    # customization-surface.yaml (deployment/** → template) + the mandatory post-sync
-    # syncForkConfig regenerate step declared in /kmp-project-template-sync.
-    ["deployment"]=""
-    [".github"]="workflows/sync-dirs.yaml:file"
-    # Secrets — sync the STRUCTURE (secrets/sample/** placeholder scaffold + LAYOUT.yaml)
-    # so forks inherit the canonical layout, but NEVER the real values: secrets/live/ is
-    # gitignored + fork-local (preserved-then-restored here as defense-in-depth even though
-    # git checkout never touches gitignored paths), and .sync-meta.json is per-fork vault
-    # sync state (SV33) — both excluded.
-    ["secrets"]="live:dir .sync-meta.json:file"
-    # ["root"]="secrets.env:file"  — REMOVED: secrets.env is retired (2026-06-23).
-    # Keystore DN now lives in gradle/fork.properties — that file is GITIGNORED and
-    # fork-local (each fork's filled-in identity), so it is NEVER synced. Only the
-    # committed schema gradle/fork.properties.template syncs (see SYNC_FILES above).
-    # Keystore passwords live in
-    # secrets/live/android/keystores/ per-value files (gitignored, not synced).
-    # DO NOT REMOVE — preserves consumer-specific flavor extensions across syncs.
-    # Each downstream consumer app (mifos-mobile, mifos-pay, mifos-x-field-officer-app,
-    # mifos-x-group-banking, mifos-x-open-banking, reels-downloader-new, ...) may
-    # create build-logic/convention/src/main/kotlin/local/LocalFlavors.kt to add
-    # their own flavors / dimensions / overrides on top of the synced base.
-    # See docs/architecture/cross-cutting/flavors-extension.md for the pattern.
-    ["build-logic"]="convention/src/main/kotlin/local:dir"
-)
+# EXCLUSIONS — intentionally EMPTY. What a sync keeps in the fork's state is decided by the ownership
+# contract alone (customization-surface.yaml + core/*/module-packages.yaml, via is_excluded). The map
+# used to restate nine of those rows by hand and drifted from them; the loops that read it are no-ops.
+declare -A EXCLUSIONS=()
 
 # Display help information
 show_help() {
@@ -324,119 +279,61 @@ print_items() {
     echo
 }
 
-# Function to check if a path is excluded
+# apply_template_migrations — follow the template's renames BEFORE anything is merged.
+# The ledger (template-migrations.yaml) and its applier come from the commit being synced (a fork's
+# copies may predate a rename). The result is COMMITTED onto the sync branch and FORK_STATE moves to
+# that commit: every merge reads "ours" from FORK_STATE, so it must already carry the new names —
+# otherwise a renamed merge-owned file looks fork-deleted and a renamed fork seam keeps the old name
+# the template no longer calls. Writes MIGRATED_FROM (new<TAB>old) for migrated_from().
+MIGRATED_FROM=""
+apply_template_migrations() {
+    MIGRATED_FROM="$(mktemp)"
+    git cat-file -e "$TEMPLATE_REF:template-migrations.yaml" 2>/dev/null \
+        && git cat-file -e "$TEMPLATE_REF:scripts/white-label/template-migrations.sh" 2>/dev/null || return 0
+    local _mig _c _n; _mig="$(mktemp -d)"
+    git show "$TEMPLATE_REF:template-migrations.yaml" > "$_mig/ledger.yaml"
+    git show "$TEMPLATE_REF:scripts/white-label/template-migrations.sh" > "$_mig/apply.sh"
+    bash "$_mig/apply.sh" --ledger "$_mig/ledger.yaml" > "$_mig/out" || handle_error "template migrations failed"
+    awk -F'\t' '/^R /{sub(/^R /,"",$1); print $2"\t"$1}' "$_mig/out" > "$MIGRATED_FROM"
+    while IFS=$'\t' read -r _c _n; do
+        print_warning "migration rename ${BOLD}${_c#C }${NC} → $_n skipped: the new path already exists — reconcile by hand"
+    done < <(grep '^C ' "$_mig/out")
+    awk -F'\t' '/^[RE] /{sub(/^[RE] /,"",$1); print $1; if ($2!="") print $2}' "$_mig/out" | sort -u > "$_mig/paths"
+    if [ -s "$_mig/paths" ]; then
+        git add -A --pathspec-from-file="$_mig/paths" >/dev/null 2>&1
+        git commit -q -m "chore(sync): apply template migrations (renames)" --pathspec-from-file="$_mig/paths" \
+            || handle_error "could not commit the template migrations"
+        FORK_STATE="$(git rev-parse HEAD)"
+        print_step "Applied template migrations: $(grep -c '^R ' "$_mig/out") rename(s), $(grep -c '^E ' "$_mig/out") file(s) rewritten"
+    fi
+    rm -rf "$_mig"
+}
+
+# migrated_from <path> — the old path a template migration renamed <path> from, if any.
+migrated_from() { [ -n "$MIGRATED_FROM" ] && awk -F'\t' -v p="$1" '$1==p{print $2; exit}' "$MIGRATED_FROM" 2>/dev/null; }
+
+# is_excluded <dir> <path> <type> — 0 when the sync must leave <path> in the FORK's state.
+# ONE source decides: the ownership contract, read through scripts/customization-surface.sh (its rules,
+# the per-module module-packages.yaml manifests it loads, the sync roots). A path is kept when it is
+#   · held in .template-sync-holds (a fork change waiting for the template to adopt it), or
+#   · owned `fork` (the fork's own code, config, branding, schemas), or
+#   · owned `demo-showcase` (a demo package — a fork that stripped the demo stays stripped; one that
+#     kept it keeps its copy).
+# The engine has no ownership knowledge of its own. It used to: an EXCLUSIONS map and nine hard-coded
+# name patterns, which disagreed with the contract — KptErrorMapper.kt, KptScreenStateDefaults.kt and
+# StoreModule.kt were preserved as fork files while the contract said template, so template updates to
+# them never reached a fork. Invoked as a SUBPROCESS so the reader's bash-4 syntax runs under its own
+# `bash` regardless of this script's interpreter.
 is_excluded() {
-    local check_dir=$1
-    local full_path=$2
-    local check_type=$3  # 'file' or 'dir'
-
-    # Remove ./ from the beginning of the path if it exists
-    full_path="${full_path#./}"
-
-    # ── Held paths (.template-sync-holds) ───────────────────────────────────
-    # A path the fork holds — a change proposed upstream, waiting for the template to adopt it — is
-    # preserved like a fork-owned one: neither OVERWRITTEN by the overlay nor removed by --mirror.
-    # A hold that only stopped removal would let a directory sync overwrite a held template file with
-    # the very version the fork's change corrects.
+    local full_path="${2#./}" _cs_owner
     if [ -f .template-sync-holds ] && cut -f1 .template-sync-holds | grep -qxF -- "$full_path"; then
         return 0
     fi
-
-    # ── Convention exclusions (showcase-framework-separation) ───────────────
-    # core/ is synced framework-only. Never overwrite a fork's removed demo
-    # (**/demo/**) or the per-fork core/store seam files (D8). These are matched
-    # by convention (pattern), not the exact-path EXCLUSIONS map above.
-    case "$full_path" in
-        # Test fixtures mimic real trees (a fixture's `feature/demo/` is not a demo package), so the
-        # path conventions below must never reach them — customization-surface.yaml declares them template.
-        scripts/product-health/tests/*) return 1 ;;
-        */demo/*)                       return 0 ;;  # demo showcase packages
-        */demo)                         return 0 ;;  # a demo/ dir itself
-        core/store/*AppScreenStateDefaults.kt) return 0 ;;  # fork seam (D8)
-        core/store/*AppErrorMapper.kt)         return 0 ;;
-        core/store/*ProjectErrorMapper.kt)      return 0 ;;
-        core/store/*ProjectScreenStateDefaults.kt) return 0 ;;
-        core/store/*StoreModule.kt)            return 0 ;;
-        */schemas/*)                    return 0 ;;  # Room schema-export snapshots (per-fork
-            # migration/version history — every fork's AppDatabase.VERSION + entity set diverges
-            # from the template's own demo schema from v1, so these can never be template-owned or
-            # merged; blind-preserved same as media/icons/store-content. Without this, a whole-dir
-            # sync of `core` overwrites the fork's REAL schemas/N.json with the template's demo
-            # schema (extra template-only versions incl. a phantom `samples` table), corrupting
-            # Room's AutoMigration diff and breaking the next `kspAndroidMain` with an
-            # "AutoMigration Failure: declare @RenameTable/@DeleteTable" error.
-    esac
-
-    # ── Contract-driven preservation (white-label-template-completion E0/T3, LD-2 operative flip) ──
-    # customization-surface.yaml is now the OPERATIVE SoT: if the contract says this path is fork-owned,
-    # preserve it — even without a hardcoded EXCLUSIONS entry. Closes the og-images/gradle.properties/
-    # secrets-manifest clobber class. ADDITIVE — the hardcoded exclusions below still apply as a superset.
-    # Invoked as a SUBPROCESS (not sourced) so customization-surface.sh's bash-4 syntax runs under its own
-    # `bash` regardless of scripts/white-label/sync-dirs.sh's /bin/bash version (macOS 3.2 portability). Result memoized.
-    if [ -x "$SCRIPT_DIR/../customization-surface.sh" ] || [ -f "$SCRIPT_DIR/../customization-surface.sh" ]; then
-        local _cs_owner
+    if [ -f "$SCRIPT_DIR/../customization-surface.sh" ]; then
         _cs_owner="$(bash "$SCRIPT_DIR/../customization-surface.sh" resolve "$full_path" 2>/dev/null | awk 'NR==1{print $2}')"
-        [ "$_cs_owner" = "fork" ] && return 0   # contract says fork-owned → preserve
+        case "$_cs_owner" in fork|demo-showcase) return 0 ;; esac
     fi
-
-    # Check for root-level exclusions
-    if [ -n "${EXCLUSIONS["root"]}" ] && [[ "$check_type" == "file" ]]; then
-        local IFS=' '
-        read -ra ROOT_EXCLUDE_ITEMS <<< "${EXCLUSIONS["root"]}"
-
-        for item in "${ROOT_EXCLUDE_ITEMS[@]}"; do
-            local IFS=':'
-            read -ra PARTS <<< "$item"
-            local exclude_path="${PARTS[0]}"
-            local exclude_type="${PARTS[1]}"
-
-            if [ "$exclude_type" = "$check_type" ] && [ "$full_path" = "$exclude_path" ]; then
-                return 0  # Path is excluded
-            fi
-        done
-    fi
-
-    # Check directory-specific exclusions
-    # `_ex_dir`, NOT `dir` — bash has DYNAMIC scope, so an undeclared loop variable here assigns to
-    # the CALLER's `local dir`. sync_directory() calls is_excluded() from its convention-exclusion
-    # loop, so this `for dir in …` silently rewrote sync_directory's own `dir` to the LAST key of
-    # EXCLUSIONS, and every step after that point ran against the wrong directory:
-    #   propagate_template_deletions "$dir"   → wrong dir
-    #   the 3-way merge loop's `-- "$dir"`     → wrong dir
-    #   the "Restore excluded files" block     → wrong EXCLUSIONS entry
-    # Proven 2026-09-10: a real `--only cmp-ios` run printed "Syncing cmp-ios", then the merge loop
-    # reported `dir=[feature/settings]` and merged 63 feature/settings strings files while cmp-ios
-    # got ZERO merge passes — its project.pbxproj was full-copied (-404/+35), deleting the fork's
-    # CappyWidgets target. The loop variable is now function-private and can never reach a caller.
-    local _ex_dir
-    for _ex_dir in "${!EXCLUSIONS[@]}"; do
-        # Skip the root key as we've already checked it
-        if [ "$_ex_dir" = "root" ]; then
-            continue
-        fi
-
-        # Check if the path starts with the directory we're looking at
-        if [[ "$full_path" == "$_ex_dir"* ]]; then
-            local IFS=' '
-            read -ra EXCLUDE_ITEMS <<< "${EXCLUSIONS[$_ex_dir]}"
-
-            for item in "${EXCLUDE_ITEMS[@]}"; do
-                local IFS=':'
-                read -ra PARTS <<< "$item"
-                local exclude_path="$_ex_dir/${PARTS[0]}"
-                local exclude_type="${PARTS[1]}"
-
-                # Remove any duplicate slashes
-                exclude_path=$(echo "$exclude_path" | sed 's#/\+#/#g')
-                full_path=$(echo "$full_path" | sed 's#/\+#/#g')
-
-                if [ "$exclude_type" = "$check_type" ] && [ "$full_path" = "$exclude_path" ]; then
-                    return 0  # Path is excluded
-                fi
-            done
-        fi
-    done
-    return 1  # Path is not excluded
+    return 1
 }
 
 # Remove the `temp_*` working directories a sync creates.
@@ -1003,8 +900,10 @@ sync_directory() {
                         # An EMPTY base states the truth: no common ancestor. A union strategy then
                         # unions (correct), and a line 3-way conflicts (honest, and visible) instead
                         # of quietly handing the file to the template.
-                        if [ -n "$_mbase" ] && git show "${_mbase}:$_mf" > "$_b" 2>/dev/null; then
-                            :
+                        local _mold=""; declare -F migrated_from >/dev/null 2>&1 && _mold="$(migrated_from "$_mf")"
+                        if [ -n "$_mbase" ] && { git show "${_mbase}:$_mf" > "$_b" 2>/dev/null \
+                             || { [ -n "$_mold" ] && git show "${_mbase}:$_mold" > "$_b" 2>/dev/null; }; }; then
+                            :   # the base — under the file's old path when a template migration renamed it
                         else
                             : > "$_b"
                             print_warning "No common ancestor for ${BOLD}$_mf${NC} (added on both sides) — merging as add/add"
@@ -1413,6 +1312,8 @@ if [ "$DRY_RUN" = false ]; then
     fi
     show_progress
 
+    apply_template_migrations
+
     # Preserve root-level excluded files
     preserve_root_files
 
@@ -1472,7 +1373,7 @@ fi
 
 # ── customization-surface advisory (fork-ownership contract) ──────────────────
 # Non-breaking: reports which about-to-be-synced paths are `merge`-owned per
-# customization-surface.yaml, so a maintainer can confirm the EXCLUSIONS map
+# customization-surface.yaml, so a maintainer can see which fork edits
 # preserves fork edits (e.g. AndroidManifest permissions). The mechanical sync
 # below is UNCHANGED — the contract is the declared source of truth the merge
 # engine adopts next. Fully guarded so it can never abort a sync.
@@ -1490,7 +1391,7 @@ if [ -f "$CS_READER" ] && [ -f "$SCRIPT_DIR/../../customization-surface.yaml" ];
                 cs_merge_hits=$((cs_merge_hits + 1))
             fi
         done < <(git ls-files -- "${SYNC_DIRS[@]}" 2>/dev/null)
-        [ "$cs_merge_hits" -gt 0 ] && echo -e "  ${YELLOW}⚠ $cs_merge_hits merge-owned path(s) — verify EXCLUSIONS preserves fork edits (permissions, catalog, nav).${NC}"
+        [ "$cs_merge_hits" -gt 0 ] && echo -e "  ${YELLOW}⚠ $cs_merge_hits merge-owned path(s) — each is 3-way merged so fork edits survive (permissions, catalog, nav).${NC}"
     fi
 fi
 
