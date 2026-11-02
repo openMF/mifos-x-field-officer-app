@@ -347,6 +347,9 @@ is_excluded() {
     # (**/demo/**) or the per-fork core/store seam files (D8). These are matched
     # by convention (pattern), not the exact-path EXCLUSIONS map above.
     case "$full_path" in
+        # Test fixtures mimic real trees (a fixture's `feature/demo/` is not a demo package), so the
+        # path conventions below must never reach them — customization-surface.yaml declares them template.
+        scripts/product-health/tests/*) return 1 ;;
         */demo/*)                       return 0 ;;  # demo showcase packages
         */demo)                         return 0 ;;  # a demo/ dir itself
         core/store/*AppScreenStateDefaults.kt) return 0 ;;  # fork seam (D8)
@@ -789,6 +792,23 @@ resolve_merge_base() {
     return 1
 }
 
+# Remove $1, a path the template at $2 no longer ships under that exact name.
+# A CASE-ONLY rename (encodeImageAsPng.kt → EncodeImageAsPng.kt) is one file on a case-insensitive
+# filesystem — macOS by default. The overlay has already written the new name into that file, so
+# deleting the old name deletes the new one with it: a sync on 2026-11-02 lost both
+# EncodeImageAsPng actuals this way and the fork stopped compiling. When the template ships the path
+# under another case, only the old index entry goes; the file on disk is the template's new one.
+remove_stale_path() {
+    local f=$1 tb=$2 lc
+    lc="$(printf '%s' "$f" | tr '[:upper:]' '[:lower:]')"
+    if git ls-tree -r --name-only "$tb" -- "$(dirname "$f")/" 2>/dev/null \
+         | tr '[:upper:]' '[:lower:]' | grep -qxF -- "$lc"; then
+        git rm --cached -r --quiet -- "$f" 2>/dev/null || true
+        return 0
+    fi
+    git rm -rf --quiet -- "$f" 2>/dev/null || rm -f -- "$f"
+}
+
 # Function to sync directory with exclusions
 # Propagate the template's OWN deletions into a fork that inherited the now-removed file from
 # a previous sync (the `core/platform/notification/bill/**` class: the template consolidated its
@@ -808,23 +828,6 @@ resolve_merge_base() {
 #      auto-deleted; it's surfaced as a warning for a human to review.
 #   4. Only auto-delete when the fork's copy is BYTE-IDENTICAL to the old template content — proof
 #      the fork never touched it, so dropping it just mirrors the template's own completed migration.
-# Remove $1, a path the template at $2 no longer ships under that exact name.
-# A CASE-ONLY rename (encodeImageAsPng.kt → EncodeImageAsPng.kt) is one file on a case-insensitive
-# filesystem — macOS by default. The overlay has already written the new name into that file, so
-# deleting the old name deletes the new one with it: a sync on 2026-11-02 lost both
-# EncodeImageAsPng actuals this way and the fork stopped compiling. When the template ships the path
-# under another case, only the old index entry goes; the file on disk is the template's new one.
-remove_stale_path() {
-    local f=$1 tb=$2 lc
-    lc="$(printf '%s' "$f" | tr '[:upper:]' '[:lower:]')"
-    if git ls-tree -r --name-only "$tb" -- "$(dirname "$f")/" 2>/dev/null \
-         | tr '[:upper:]' '[:lower:]' | grep -qxF -- "$lc"; then
-        git rm --cached -r --quiet -- "$f" 2>/dev/null || true
-        return 0
-    fi
-    git rm -rf --quiet -- "$f" 2>/dev/null || rm -f -- "$f"
-}
-
 propagate_template_deletions() {
     local dir=$1
     local temp_branch=$2

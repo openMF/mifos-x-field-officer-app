@@ -44,6 +44,15 @@ version: 1
 # names resolves to template, which is why a new fork-owned directory needs a rule here before
 # the next sync overwrites it.
 rules:
+  # ── Test fixtures — FIRST, so no content-shaped rule below can claim them ──
+  # A fixture mimics a real tree, so its paths match rules written for real code: `**/demo/**`
+  # resolved canary fixtures `demo-showcase` and `**/composeResources/**/strings.xml` resolved them
+  # `merge`, and the sync never delivers either class to a fork that lacks them. Measured 2026-11-02 on
+  # mifos-x-field-officer-app: 8 fixture files dropped, so compose-strings-apostrophe-canary and
+  # secrets-needs-generated-canary failed in the fork while passing in the template. A fixture is the
+  # template's test code, whatever its path looks like.
+  - glob: "scripts/product-health/tests/**"
+    owner: template
   # ── DEMO feature modules — declared before the merge-required globs below ──
   # Same first-match accident as core-base. The repo-wide `**/composeResources/**/strings.xml → merge`
   # rule below claims 280 strings.xml across the 14 DEMO feature modules (loans, bills, rates, …),
