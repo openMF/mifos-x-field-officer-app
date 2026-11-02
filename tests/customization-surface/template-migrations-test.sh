@@ -9,7 +9,8 @@
 #   M-3 the template-owned caller arrives as the template's new version
 #   M-4 the renamed merge-owned file carries the template's change AND the fork's edit — its 3-way
 #       base was found under the old path
-#   M-5 the renames are committed before the merge (the sync branch's HEAD) and FORK_STATE is that commit
+#   M-5 FORK_STATE carries the renames before the merge, as a commit object: the branch does not move
+#       and no commit hook runs (a fork's pre-commit is Spotless + Detekt — minutes)
 #   M-6 the applier is idempotent
 #   M-7 a merge-owned file the template did NOT rename, whose identifier rename sits next to a fork
 #       edit, merges cleanly — the base went through the same renames, so a rename is not a template edit
@@ -73,6 +74,8 @@ migrations:
 YAML
 g add -A; g commit -q -m "template renames"
 g checkout -q fork
+FORK_TIP="$(g rev-parse fork)"
+printf '#!/bin/sh\ntouch "%s"\n' "$WORK/hook-ran" > "$F/.git/hooks/pre-commit"; chmod +x "$F/.git/hooks/pre-commit"
 
 fnsrc="$WORK/fns.sh"
 {
@@ -104,9 +107,11 @@ sc="$(cat "$F/$U/KptForkScaffold.kt" 2>/dev/null)"
 if echo "$sc" | grep -qx 'L1-tpl' && echo "$sc" | grep -qx 'L5-fork' && ! echo "$sc" | grep -q '^<<<<<<<'; then
   pass "M-4 renamed merge-owned file: template change + fork edit, no conflict"
 else bad "M-4 KptForkScaffold.kt: $(echo "$sc" | tr '\n' '|')"; fi
-head_msg="$(g log -1 --format=%s)"
-[ "$head_msg" = "chore(sync): apply template migrations (renames)" ] && [ "$(cat "$WORK/fork-state")" = "$(g rev-parse HEAD)" ] \
-  && pass "M-5 renames committed before the merge; FORK_STATE is that commit" || bad "M-5 HEAD '$head_msg', FORK_STATE $(cat "$WORK/fork-state" 2>&1)"
+fs="$(cat "$WORK/fork-state")"
+if [ "$(g rev-parse fork)" = "$FORK_TIP" ] && [ ! -e "$WORK/hook-ran" ] \
+   && g cat-file -e "$fs:$S/ForkStoreModule.kt" 2>/dev/null && ! g cat-file -e "$fs:$S/ProjectStoreModule.kt" 2>/dev/null; then
+  pass "M-5 FORK_STATE carries the renames; branch unmoved, no commit hook ran"
+else bad "M-5 fork tip $(g rev-parse fork) vs $FORK_TIP, hook-ran=$([ -e "$WORK/hook-ran" ] && echo yes || echo no), FORK_STATE=$fs"; fi
 nav="$(cat "$F/$U/Nav.kt" 2>/dev/null)"
 [ "$nav" = "$(printf 'import ForkStoreModule\nimport ForkExtra\nL2\nL3')" ] \
   && pass "M-7 a rename next to a fork edit is not a conflict (base migrated)" || bad "M-7 Nav.kt: $(echo "$nav" | tr '\n' '|')"
