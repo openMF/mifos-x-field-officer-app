@@ -4,3 +4,5 @@ core/ui/src/commonMain/kotlin/kpt/core/ui/navigation/NavigationRoutes.kt	queued 
 scripts/product-health/checks/offline-first-reads.sh	queued upstream: a fork-owned product-health checks seam
 scripts/product-health/checks/store-mutable-logout.sh	queued upstream: store-ksp should reject a MutableStore provider with logout = true
 .github/workflows/cla-check.yml	never-touch: org-managed CLA workflow (the org automation owns it); never synced, never proposed
+cmp-navigation/src/commonMain/kotlin/cmp/navigation/utils/RootUtils.kt	queued upstream: delegates to core/ui NavigationRoutes (travels with the route-helpers item)
+cmp-shared/README.md	queued upstream: module-graph READMEs are per-fork derived (generateModuleGraphs.sh), not template content
