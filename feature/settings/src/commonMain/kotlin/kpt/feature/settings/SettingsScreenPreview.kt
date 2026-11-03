@@ -12,7 +12,7 @@ package kpt.feature.settings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import kpt.core.designsystem.icon.KptIcons
+import kpt.core.designsystem.icon.ForkIcons
 import kpt.core.designsystem.theme.KptTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -104,7 +104,7 @@ internal fun SettingsRowCardLongTitlePreview() {
     // rows (both short) never exercise, and where icon/title/chevron alignment breaks first.
     KptTheme {
         SettingsRowCard(
-            icon = KptIcons.Language,
+            icon = ForkIcons.Language,
             title = "Change the application display language and region format",
             contentDescription = "Opens the language picker",
             accentColor = MaterialTheme.colorScheme.tertiary,

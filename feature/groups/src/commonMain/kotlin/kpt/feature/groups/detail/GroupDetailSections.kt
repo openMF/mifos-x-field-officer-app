@@ -36,7 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import kpt.core.designsystem.icon.AppIcons
-import kpt.core.designsystem.icon.KptIcons
+import kpt.core.designsystem.icon.ForkIcons
 import kpt.core.designsystem.theme.AppColors
 import kpt.core.model.client.Client
 import kpt.core.model.loan.LoanAccount
@@ -146,7 +146,7 @@ private fun AccountRow(title: String, subtitle: String, dot: Color, onClick: (()
         }
         if (onClick != null) {
             Icon(
-                KptIcons.ArrowRight,
+                ForkIcons.ArrowRight,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )

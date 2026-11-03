@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import cmp.navigation.generated.resources.Res
 import cmp.navigation.generated.resources.home
 import cmp.navigation.utils.toObjectNavigationRoute
-import kpt.core.designsystem.icon.KptIcons
+import kpt.core.designsystem.icon.ForkIcons
 import kpt.core.ui.navigation.NavigationItem
 import kpt.feature.home.HomeDestination
 import kpt.feature.home.HomeRoute
@@ -52,8 +52,8 @@ sealed class AuthenticatedNavBarTabItem : NavigationItem {
      * because the next person comparing the two bars will otherwise read it as a porting miss.
      */
     data object HomeTab : AuthenticatedNavBarTabItem() {
-        override val selectedIcon: ImageVector get() = KptIcons.HomeBoarder
-        override val icon: ImageVector get() = KptIcons.Home
+        override val selectedIcon: ImageVector get() = ForkIcons.HomeBoarder
+        override val icon: ImageVector get() = ForkIcons.Home
         override val labelRes: StringResource get() = Res.string.home
         override val contentDescriptionRes: StringResource get() = Res.string.home
         override val graphRoute: String get() = HomeDestination.toObjectNavigationRoute()

@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import kpt.core.base.designsystem.component.HeroCard
-import kpt.core.designsystem.icon.KptIcons
+import kpt.core.designsystem.icon.ForkIcons
 import kpt.core.designsystem.theme.spacing
 import kpt.core.ui.scaffold.KptScaffold
 import kpt.feature.settings.generated.resources.Res
@@ -60,7 +60,7 @@ internal fun NotificationScreenContent(modifier: Modifier = Modifier, onBackClic
                     verticalArrangement = Arrangement.spacedBy(sp.sm),
                 ) {
                     Icon(
-                        imageVector = KptIcons.OutlinedNotifications,
+                        imageVector = ForkIcons.OutlinedNotifications,
                         contentDescription = null,
                         modifier = Modifier.padding(sp.sm),
                     )

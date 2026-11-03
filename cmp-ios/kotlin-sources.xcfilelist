@@ -859,8 +859,8 @@ $(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fiel
 $(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppTextFieldDropdown.kt
 $(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppTopBar.kt
 $(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/icon/AppIcons.kt
-$(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/icon/DesignIcons.kt
-$(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/icon/KptIcons.kt
+$(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/icon/ForkDesignIcons.kt
+$(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/icon/ForkIcons.kt
 $(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AccentColors.kt
 $(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppBackground.kt
 $(SRCROOT)/../core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppColor.kt

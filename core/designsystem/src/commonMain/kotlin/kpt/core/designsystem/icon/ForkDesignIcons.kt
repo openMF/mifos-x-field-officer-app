@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
+/** Hand-drawn `Calender` vector glyph. */
 val Calender: ImageVector
     get() {
         if (calander != null) {
@@ -102,6 +103,7 @@ val Calender: ImageVector
 
 private var calander: ImageVector? = null
 
+/** Hand-drawn `Edit` vector glyph. */
 val Edit: ImageVector
     get() {
         if (edit != null) {
@@ -150,6 +152,7 @@ val Edit: ImageVector
 
 private var edit: ImageVector? = null
 
+/** Hand-drawn `Folder` vector glyph. */
 val Folder: ImageVector
     get() {
         if (folder != null) {
@@ -205,6 +208,7 @@ val Folder: ImageVector
 
 private var folder: ImageVector? = null
 
+/** Hand-drawn `ShieldOutlined` vector glyph. */
 val ShieldOutlined: ImageVector
     get() {
         if (shieldOutlined != null) {
@@ -242,6 +246,7 @@ val ShieldOutlined: ImageVector
 
 private var shieldOutlined: ImageVector? = null
 
+/** Hand-drawn `GrownChart` vector glyph. */
 val GrownChart: ImageVector
     get() {
         if (grownChart != null) {
@@ -309,6 +314,7 @@ val GrownChart: ImageVector
 
 private var grownChart: ImageVector? = null
 
+/** Hand-drawn `Wallet` vector glyph. */
 val Wallet: ImageVector
     get() {
         if (wallet != null) {
@@ -370,6 +376,7 @@ val Wallet: ImageVector
 
 private var wallet: ImageVector? = null
 
+/** Hand-drawn `GalleryIcon` vector glyph. */
 val GalleryIcon: ImageVector
     get() {
         if (galleryIcon != null) {
@@ -414,6 +421,7 @@ val GalleryIcon: ImageVector
 
 private var galleryIcon: ImageVector? = null
 
+/** Hand-drawn `ClipDocument` vector glyph. */
 val ClipDocument: ImageVector
     get() {
         if (clipDocument != null) {
@@ -471,6 +479,7 @@ val ClipDocument: ImageVector
 
 private var clipDocument: ImageVector? = null
 
+/** Hand-drawn `RightTick` vector glyph. */
 val RightTick: ImageVector
     get() {
         if (rightTick != null) {

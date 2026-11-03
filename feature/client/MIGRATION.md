@@ -707,7 +707,7 @@ than a prefix swap:
   overlap on 31 names and **13 of those have different values** — `ArrowBack` is a real back-arrow
   in one and `ChevronLeft` in the other, `Language` is `ArrowOutward` vs `Translate`. Merging would
   silently restyle 13 icons app-wide. Resolved by ownership instead: the template's catalog became
-  **`KptIcons`** (template namespace, 6 consumers updated) and the fork's became **`AppIcons`**.
+  **`ForkIcons`** (template namespace, 6 consumers updated) and the fork's became **`AppIcons`**.
 - **`MifosCard` vs `AppCard`.** Different modules (`core/designsystem` vs `core-base/designsystem`),
   different base component (`Card` vs `ElevatedCard`) and different defaults. Not interchangeable,
   so the fork's became `AppCard` in its own package. No file imports both, so no aliasing.
