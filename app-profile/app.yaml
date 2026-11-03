@@ -375,6 +375,18 @@ in_app_review:
   min_days_since_install: 3
   cooldown_days: 90                          # after a prompt, do not ask again inside this window
 
+# The repository's community files. The Mifos devops and security teams set them up per repository —
+# not the template and not this repo's tooling — so a template sync never writes them. Who may edit
+# them is the org's call: workspaces/mifos-x/_org/company.yaml#repo_files (mifos-x: access: read).
+repo_files:
+  managed_by: org
+  files:
+    CODE_OF_CONDUCT.md: { access: read }
+    CONTRIBUTING.md:    { access: read }
+    LICENSE:            { access: read }
+    SECURITY.md:        { access: read }
+    .github/workflows/cla-check.yml: { access: read }   # the org CLA bot pushes it
+
 # Generated into kpt.core.model.config.AppSecurityConfig by syncForkConfig.
 security:
   # Whether a FRESH install allows screenshots + screen recording (false = FLAG_SECURE on Android, the
