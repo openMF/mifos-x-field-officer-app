@@ -87,7 +87,7 @@ kdoc_summary() {  # $1 = file  $2 = declaration line number
   # template is written, and the miss printed "_No KDoc at source._" in the PUBLISHED reference for
   # symbols that were documented all along (measured on SubmitStateExtensions.kt, where all six
   # extension properties carry one-line KDoc).
-  _kl="$(printf '%s' "$(sed -n "${i}p" "$f")" | sed -E 's/^[[:space:]]+//')"
+  kdoc_line "$f" "$i"; kdoc_ltrim "$KL"; _kl="$KT"
   case "$_kl" in
     "/**"*"*/")
       # Single-line: the summary is the text between the delimiters — no upward walk needed.
@@ -101,9 +101,10 @@ kdoc_summary() {  # $1 = file  $2 = declaration line number
   esac
   i=$((i-1))
   while [ "$i" -gt 0 ]; do
-    line="$(sed -n "${i}p" "$f")"
-    txt="$(printf '%s' "$line" | sed -E 's/^[[:space:]]*\*?[[:space:]]?//')"
-    case "$(printf '%s' "$line" | sed -E 's/^[[:space:]]+//')" in
+    kdoc_line "$f" "$i"; line="$KL"
+    # = sed -E 's/^[[:space:]]*\*?[[:space:]]?//' : leading blanks, one optional `*`, one optional blank
+    kdoc_ltrim "$line"; txt="${KT#\*}"; txt="${txt#[[:space:]]}"
+    case "$KT" in
       "/**"*) break ;;
     esac
     case "$txt" in
@@ -129,13 +130,15 @@ kdoc_example() {  # $1 = file  $2 = declaration line number
   # walk up to the `/**` that opens this symbol's KDoc — same shared walk as kdoc_summary
   i="$(kdoc_close_line "$f" "$ln")"
   [ "$i" -gt 0 ] || return 1
-  case "$(sed -n "${i}p" "$f" | sed -E 's/^[[:space:]]+//')" in
+  kdoc_line "$f" "$i"; kdoc_ltrim "$KL"
+  case "$KT" in
     "*/"|"*/ "*) ;;
     *) return 1 ;;     # single-line KDoc cannot hold a fence
   esac
   local close="$i"
   while [ "$i" -gt 0 ]; do
-    case "$(sed -n "${i}p" "$f" | sed -E 's/^[[:space:]]+//')" in "/**"*) start="$i"; break ;; esac
+    kdoc_line "$f" "$i"; kdoc_ltrim "$KL"
+    case "$KT" in "/**"*) start="$i"; break ;; esac
     i=$((i-1))
   done
   [ "$start" -gt 0 ] || return 1
@@ -190,9 +193,9 @@ build_callsite_index() {
   # scanned at all: nothing in feature/ or core/ calls `core-base/security`, so its 21 symbols had
   # ZERO examples while its own 7 test files exercised them (77 such files across core-base).
   {
-    find "$TMPL/feature"   -name '*.kt' -type f -not -path '*/build/*' 2>/dev/null | LC_ALL=C sort
-    find "$TMPL/core"      -name '*.kt' -type f -not -path '*/build/*' 2>/dev/null | LC_ALL=C sort
-    find "$TMPL/core-base" -name '*.kt' -type f -not -path '*/build/*' 2>/dev/null | LC_ALL=C sort
+    find "$TMPL/feature"   -name build -prune -o -name '*.kt' -type f -print 2>/dev/null | LC_ALL=C sort
+    find "$TMPL/core"      -name build -prune -o -name '*.kt' -type f -print 2>/dev/null | LC_ALL=C sort
+    find "$TMPL/core-base" -name build -prune -o -name '*.kt' -type f -print 2>/dev/null | LC_ALL=C sort
   } \
     | xargs awk '
         /^[[:space:]]*(import|package)[[:space:]]/ { next }
@@ -209,7 +212,11 @@ build_callsite_index() {
             print substr(line, RSTART, RLENGTH) "|" FILENAME "|" FNR
             line = substr(line, RSTART + RLENGTH)
           }
-        }' > "$CALLSITE_INDEX" 2>/dev/null || true
+        }' 2>/dev/null \
+    | awk -F'|' '++n[$1] <= 40' > "$CALLSITE_INDEX" 2>/dev/null || true
+  # Capped at 40 rows per symbol: call_site reads at most the first 40 (`grep -m 40`), so the cap
+  # changes no result and turns each per-symbol grep from a scan of every token in the tree into a
+  # scan of a few thousand rows.
 }
 
 call_site() {  # $1 = symbol name  $2 = declaring file → "relpath|line"
@@ -257,6 +264,7 @@ emit_module() {  # $1 = layer/module
   while IFS= read -r f; do
     [ -z "$f" ] && continue
     rel="${f#"$TMPL"/}"
+    kdoc_load "$f"   # one read per file; the $(kdoc_…) calls below inherit it
     local file_emitted=0 ln sig kind name doc indent
 
     # Top-level declarations only (indent 0) — a nested member is emitted under its container below.

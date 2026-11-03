@@ -34,6 +34,7 @@ kv="$(sed -n 's/^const val KTLINT_VERSION = "\(.*\)"/\1/p' build-logic/conventio
 dv="$(sed -n 's/^detekt = "\(.*\)"/\1/p' gradle/libs.versions.toml)"
 cv="$(sed -n 's/^twitter-detekt-compose = "\(.*\)"/\1/p' gradle/libs.versions.toml)"
 KTLINT="$TOOLS/ktlint-$kv"; DETEKT="$TOOLS/detekt-cli-$dv-all.jar"; COMPOSE="$TOOLS/compose-rules-$cv"
+# fetch <url> <dest> — download once into the tool cache (a partial download never counts as cached).
 fetch() { [ -s "$2" ] || { curl -fsSL -o "$2.part" "$1" && mv "$2.part" "$2"; } || { rm -f "$2.part"; echo "kotlin-conform: could not download $1" >&2; return 1; }; }
 fetch "https://github.com/pinterest/ktlint/releases/download/$kv/ktlint" "$KTLINT" && chmod +x "$KTLINT" || exit 1
 fetch "https://github.com/detekt/detekt/releases/download/v$dv/detekt-cli-$dv-all.jar" "$DETEKT" || exit 1

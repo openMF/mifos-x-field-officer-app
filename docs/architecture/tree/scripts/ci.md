@@ -1,7 +1,7 @@
 # `scripts/ci/`
 
 > Part of [`scripts/`](../scripts.md)  
-> **Measured:** 8 tracked files — 7× `.sh`, 1× `.py`
+> **Measured:** 9 tracked files — 8× `.sh`, 1× `.py`
 
 ### Scripts
 
@@ -9,7 +9,8 @@
 |---|---|
 | `check-secrets-resolver.sh` | Phase-7 secrets-resolver guard. Enforces that the build-secrets resolver stays the |
 | `ci-equivalent-check.sh` | Local CI parity for the kmp-project-template consumer. |
-| `kotlin-checks.sh` | the git hooks' Spotless / Detekt / dependency-guard checks, |
+| `kotlin-checks.sh` | the git hooks' checks, scoped to what the commit |
+| `kotlin-conform.sh` | make Kotlin files Spotless-formatted and Detekt-clean, in |
 | `pre-commit.sh` | Installed as .git/hooks/pre-commit by `./gradlew installGitHooks`. The checks live in |
 | `pre-push.sh` | Installed as .git/hooks/pre-push by `./gradlew installGitHooks`. The checks live in |
 | `verify-dynamic-flavor-propagation.sh` | scripts/ci/verify-dynamic-flavor-propagation.sh |

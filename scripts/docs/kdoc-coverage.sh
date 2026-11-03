@@ -47,7 +47,7 @@ has_kdoc() {
   local f="$1" ln="$2" i t
   i="$(kdoc_close_line "$f" "$ln")"
   [ "$i" -gt 0 ] || return 1
-  t="$(printf '%s' "$(sed -n "${i}p" "$f")" | sed -E 's/^[[:space:]]+//')"
+  kdoc_line "$f" "$i"; kdoc_ltrim "$KL"; t="$KT"
   # Both KDoc shapes count. A single-line `/** Summary. */` opens and closes on one line, so testing
   # only for a leading `*/` under-reports every one-line doc — the same miss that made the published
   # reference claim "_No KDoc at source._" for symbols that had it.
@@ -64,6 +64,7 @@ scan() {  # $1 = layer/module, $2 = "list" to print undocumented symbols
   [ -d "$src" ] || { echo "0 0"; return; }
   while IFS= read -r f; do
     [ -z "$f" ] && continue
+    kdoc_load "$f"
     while IFS= read -r hit; do
       [ -z "$hit" ] && continue
       ln="${hit%%:*}"; sig="${hit#*:}"

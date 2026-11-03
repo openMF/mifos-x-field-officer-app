@@ -120,5 +120,17 @@ g show tpl:template-migrations.yaml > "$WORK/ledger.yaml"
 [ -z "$(cd "$F" && bash "$REPO/scripts/white-label/template-migrations.sh" --ledger "$WORK/ledger.yaml" 2>&1)" ] \
   && pass "M-6 a second run changes nothing" || bad "M-6 the applier is not idempotent"
 
+# M-8 — the REAL ledger is one file with two readers: /kmp-project-template-sync STEP 0.ANALYZE (the
+# structural rows: order/detect/migrate/blocking) and this applier (words:/files:). Overwriting it with
+# rename rows alone silently dropped the five structural migrations (2026-11-02), so every row must keep
+# the structural schema.
+miss="$(awk '/^  - id:/{if (id!="") print id": "keys; id=$3; keys=""; next}
+             id!="" && /^    (order|detect|migrate|blocking):/{k=$1; sub(/:$/,"",k); keys=keys" "k}
+             END{if (id!="") print id": "keys}' "$REPO/template-migrations.yaml" \
+        | awk '{n=0; for(i=2;i<=NF;i++) if ($i~/^(order|detect|migrate|blocking)$/) n++; if (n<4) print $1}')"
+rows="$(grep -c '^  - id:' "$REPO/template-migrations.yaml")"
+[ -z "$miss" ] && [ "$rows" -ge 6 ] && grep -q '^schema: 1' "$REPO/template-migrations.yaml" \
+  && pass "M-8 every ledger row keeps the structural schema ($rows rows)" || bad "M-8 rows missing structural keys: ${miss:-none} (rows=$rows)"
+
 [ "$fail" = 0 ] && echo "template-migrations-test: PASS" || { echo "template-migrations-test: FAIL"; sed 's/^/    /' "$WORK/log" | tail -20; }
 exit "$fail"

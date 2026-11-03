@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import cmp.navigation.rootnav.RootNavScreen
+import cmp.navigation.registry.ForkAppShell
 import kpt.core.base.ui.effects.EventsEffect
 import kpt.core.designsystem.theme.KptTheme
 import org.koin.compose.viewmodel.koinViewModel
@@ -73,15 +73,16 @@ fun ComposeApp(
     }
 
     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
-        KptTheme(
-            darkTheme = uiState.darkTheme,
-            androidTheme = uiState.isAndroidTheme,
-            useDynamicColor = uiState.isDynamicColorsEnabled,
-        ) {
-            RootNavScreen(
-                modifier = modifier,
-                onSplashScreenRemoved = onSplashScreenRemoved,
-            )
+        // Theme mode and root content come from the fork-owned ForkAppShell seam — a fork changes them
+        // there, never here (this file is template-owned and replaced by every sync).
+        ForkAppShell.wrap {
+            KptTheme(
+                darkTheme = ForkAppShell.darkThemeOverride ?: uiState.darkTheme,
+                androidTheme = uiState.isAndroidTheme,
+                useDynamicColor = ForkAppShell.dynamicColorOverride ?: uiState.isDynamicColorsEnabled,
+            ) {
+                ForkAppShell.root(modifier, onSplashScreenRemoved)
+            }
         }
     }
 }

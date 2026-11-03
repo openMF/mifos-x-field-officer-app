@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Functional test: every sync re-derives the fork's own state before committing
+# (sync-dirs.sh#post_sync_fork_steps). Runs the REAL function with stub remove-demo.sh / gradlew that
+# record their calls.
+#
+#   S-1 a fork whose app-profile/package-ledger.yaml records `status: removed` gets the demo strip
+#   S-2 a fork that keeps its demo does NOT (no ledger rows removed)
+#   S-3 syncForkConfig runs on every sync
+#   S-4 a failing step stops the sync (handle_error), so a tree that is not the fork's is never committed
+set -uo pipefail
+HERE="$(cd "$(dirname "$0")" && pwd)"
+REPO="$(cd "$HERE/../.." && pwd)"
+WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
+fail=0; pass() { echo "  ✅ $1"; }; bad() { echo "  ❌ $1"; fail=1; }
+
+fn="$(awk '/^post_sync_fork_steps\(\) \{/{p=1} p{print} p&&/^}/{p=0}' "$REPO/scripts/white-label/sync-dirs.sh")"
+[ -n "$fn" ] || { echo "  ❌ post_sync_fork_steps not found in engine"; exit 1; }
+
+# fork <dir> <ledger-status> <gradle-rc> — a fork tree with stub tools that append to calls.log.
+fork() {
+  mkdir -p "$1/app-profile" "$1/scripts"
+  printf 'packages:\n  - { module: core/data, id: alerts, status: %s }\n' "$2" > "$1/app-profile/package-ledger.yaml"
+  printf '#!/usr/bin/env bash\necho "remove-demo $*" >> calls.log\n' > "$1/scripts/remove-demo.sh"
+  printf '#!/usr/bin/env bash\necho "gradlew $*" >> calls.log\nexit %s\n' "$3" > "$1/gradlew"; chmod +x "$1/gradlew"
+}
+# run_in <dir> — the real function, with the engine's helpers stubbed.
+run_in() {
+  ( cd "$1" && bash -c "print_step(){ :; }; handle_error(){ echo \"HALT \$*\" >> calls.log; exit 1; }
+    $fn
+    post_sync_fork_steps" ) >/dev/null 2>&1
+}
+
+fork "$WORK/stripped" removed 0; run_in "$WORK/stripped"
+grep -q '^remove-demo --apply' "$WORK/stripped/calls.log" && pass "S-1 a stripped fork gets the demo strip" || bad "S-1 strip not run"
+fork "$WORK/kept" kept 0; run_in "$WORK/kept"
+grep -q '^remove-demo' "$WORK/kept/calls.log" && bad "S-2 a fork that keeps its demo was stripped" || pass "S-2 a fork keeping its demo is left alone"
+grep -q '^gradlew syncForkConfig' "$WORK/stripped/calls.log" && grep -q '^gradlew syncForkConfig' "$WORK/kept/calls.log" \
+  && pass "S-3 syncForkConfig runs on every sync" || bad "S-3 syncForkConfig missing"
+fork "$WORK/broken" removed 1; run_in "$WORK/broken"; rc=$?
+[ "$rc" != 0 ] && grep -q '^HALT .*syncForkConfig' "$WORK/broken/calls.log" && pass "S-4 a failing step stops the sync" || bad "S-4 rc=$rc"
+
+[ "$fail" = 0 ] && echo "post-sync-test: PASS" || echo "post-sync-test: FAIL"
+exit "$fail"

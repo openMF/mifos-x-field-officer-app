@@ -12,7 +12,7 @@
 | `cmp-desktop/` | 12 | [`cmp-desktop/`](tree/cmp-desktop.md) |
 | `cmp-web/` | 17 | [`cmp-web/`](tree/cmp-web.md) |
 | `cmp-shared/` | 8 | [`cmp-shared/`](tree/cmp-shared.md) |
-| `cmp-navigation/` | 55 | [`cmp-navigation/`](tree/cmp-navigation.md) |
+| `cmp-navigation/` | 56 | [`cmp-navigation/`](tree/cmp-navigation.md) |
 
 ## Features
 
@@ -56,9 +56,9 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `scripts/` | 474 | [`scripts/`](tree/scripts.md) |
+| `scripts/` | 475 | [`scripts/`](tree/scripts.md) |
 | `sync/` | 16 | [`sync/`](tree/sync.md) |
-| `tests/` | 19 | [`tests/`](tree/tests.md) |
+| `tests/` | 20 | [`tests/`](tree/tests.md) |
 
 ## Other
 
