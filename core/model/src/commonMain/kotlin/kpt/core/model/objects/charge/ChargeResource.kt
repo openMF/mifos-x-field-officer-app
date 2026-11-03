@@ -26,6 +26,8 @@ package kpt.core.model.objects.charge
  * `savings` is `savingsaccounts`, not the `"savings"` of `Constants.ENTITY_TYPE_SAVINGS` — that
  * constant is the DOCUMENTS/notes entity type and would request `/savings/{id}/charges`, which does
  * not exist.
+ *
+ * @property path the Fineract path segment of the resource
  */
 enum class ChargeResource(val path: String) {
     /** A client. */

@@ -45,6 +45,7 @@ data class ChargesEntity(
     @ColumnInfo(defaultValue = "''")
     val resourceType: String = "",
 
+    /** The id of the resource the charge belongs to. */
     @ColumnInfo(defaultValue = "0")
     val resourceId: Int = 0,
 

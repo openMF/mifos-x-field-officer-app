@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/model sha=5f49c2dc81f9ed6e836312d01ecd5d2c7e2bb96a -->
+<!-- api-docs:begin module=core/model sha=16acf5fff3c83a22dc67ae3ce714b7d9c4e1d94e -->
 ## API reference
 
-_Generated from `core/model` at tree `5f49c2dc81f9` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/model` at tree `16acf5fff3c8` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/auth/ChangePasswordRequest.kt`

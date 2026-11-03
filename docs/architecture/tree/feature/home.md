@@ -1,15 +1,15 @@
 # `feature/home/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 51 tracked files — 21× `.xml`, 18× `.kt`, 7× `.png`, 2× `.md`, 1× `.gitignore`
+> **Measured:** 59 tracked files — 26× `.kt`, 21× `.xml`, 7× `.png`, 2× `.md`, 1× `.gitignore`
 
-**18 Kotlin files** — 2 screen(s), 2 ViewModel(s).
+**26 Kotlin files** — 2 screen(s), 2 ViewModel(s).
 
 Screens: `HomeDashboardScreen`, `HomeScreen`
 
 ViewModels: `HomeViewModel`, `SearchViewModel`
 
-**Consumes:** `core/store/center`, `core/store/checkerinbox`, `core/store/collectionsheet`, `core/store/dashboard`, `core/store/group`, `core/store/recent`, `core/store/search`, `core/store/serverconfig`, `core/store/session`, `core/store/testing`
+**Consumes:** `core/store/center`, `core/store/checkerinbox`, `core/store/collectionsheet`, `core/store/config`, `core/store/dashboard`, `core/store/group`, `core/store/recent`, `core/store/search`, `core/store/serverconfig`, `core/store/session`, `core/store/testing`
 
 ### Docs in the tree
 

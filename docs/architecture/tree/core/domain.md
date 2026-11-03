@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/domain sha=5388d394922e9e283dd9699eb966456e34a87118 -->
+<!-- api-docs:begin module=core/domain sha=d49d02e942f0cfb8a5ecd48db81c86dd0d071735 -->
 ## API reference
 
-_Generated from `core/domain` at tree `5388d394922e` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/domain` at tree `d49d02e942f0` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/domain/src/commonMain/kotlin/kpt/core/domain/validation/ValidationResult.kt`

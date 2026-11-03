@@ -25,7 +25,9 @@ data class NotificationPageDto(val totalFilteredRecords: Int = 0, val pageItems:
 data class NotificationDto(
     /** The server id of this record. */
     val id: Long = 0,
+    /** The kind of record the notification is about. */
     val objectType: String? = null,
+    /** The id of that record, when there is one. */
     val objectId: Long? = null,
     /** The action. */
     val action: String? = null,

@@ -36,10 +36,13 @@ import kotlinx.serialization.Serializable
 data class RecurringDepositApplicationInput(
     /** The server id of the client. */
     val clientId: Int,
+    /** The recurring-deposit product. */
     val productId: Int,
     /** The date the record was submitted. */
     val submittedOnDate: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
 
     /** How much is deposited each period. */

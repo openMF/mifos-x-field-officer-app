@@ -20,7 +20,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ReportParameter(
+    /** The parameter's own report, which lists its options. */
     val name: String,
+    /** The name the report SQL substitutes, sent as `R_{variable}`. */
     val variable: String,
     /** The label shown for the parameter. */
     val label: String,
@@ -30,6 +32,7 @@ data class ReportParameter(
     val defaultValue: String? = null,
     /** Fineract's `selectAll`: the options include "All", sent as -1. */
     val allowAll: Boolean = false,
+    /** The parameter whose value narrows this one's options. */
     val parentName: String? = null,
 ) {
     /** The query key the report run takes this parameter's value under. */

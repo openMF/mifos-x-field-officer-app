@@ -72,10 +72,13 @@ data class OfflineRecord(
     val id: Int,
     /** The display name. */
     val name: String,
+    /** The kind of the parent this record came in through, when it was not chosen directly. */
     val parentKind: RecordKind? = null,
+    /** The id of that parent. */
     val parentId: Int? = null,
     /** The name of the parent record. */
     val parentName: String? = null,
+    /** True when the officer chose this record directly. */
     val chosen: Boolean = false,
     /** The number of groups downloaded with the record. */
     val groups: Int = 0,
@@ -135,8 +138,11 @@ data class SyncJob(
     val status: SyncJobStatus,
     /** The records the job syncs, with their state. */
     val targets: List<SyncTarget>,
+    /** The chosen records synced so far. */
     val done: Int = 0,
+    /** The number of chosen records. */
     val total: Int = targets.size,
+    /** The server reads made so far. */
     val reads: Int = 0,
     /** What the sync job is working on now, for the progress line. */
     val currentLabel: String? = null,

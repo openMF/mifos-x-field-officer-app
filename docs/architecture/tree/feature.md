@@ -1,7 +1,7 @@
 # `feature/`
 
 > **Kind:** Kotlin Multiplatform module group  
-> **Measured:** 872 tracked files — 466× `.kt`, 172× `.xml`, 164× `.png`, 41× `.md`, 22× `.kts`
+> **Measured:** 880 tracked files — 474× `.kt`, 172× `.xml`, 164× `.png`, 41× `.md`, 22× `.kts`
 
 ## Shape
 
@@ -10,7 +10,7 @@
 | `feature/client/` | 155 |
 | `feature/loan/` | 93 |
 | `feature/settings/` | 83 |
-| `feature/home/` | 51 |
+| `feature/home/` | 59 |
 | `feature/profile/` | 49 |
 | `feature/savings/` | 43 |
 | `feature/offlinesync/` | 39 |
@@ -45,7 +45,7 @@
 | `feature:datatable` | 10 Kotlin files — [guide](feature/datatable.md) |
 | `feature:document` | 11 Kotlin files — [guide](feature/document.md) |
 | `feature:groups` | 22 Kotlin files — [guide](feature/groups.md) |
-| `feature:home` | 18 Kotlin files — [guide](feature/home.md) |
+| `feature:home` | 26 Kotlin files — [guide](feature/home.md) |
 | `feature:loan` | 66 Kotlin files — [guide](feature/loan.md) |
 | `feature:note` | 16 Kotlin files — [guide](feature/note.md) |
 | `feature:notification` | 7 Kotlin files — [guide](feature/notification.md) |
@@ -72,7 +72,7 @@
 | `feature/datatable/` | 18 | [datatable](feature/datatable.md) |
 | `feature/document/` | 19 | [document](feature/document.md) |
 | `feature/groups/` | 32 | [groups](feature/groups.md) |
-| `feature/home/` | 51 | [home](feature/home.md) |
+| `feature/home/` | 59 | [home](feature/home.md) |
 | `feature/loan/` | 93 | [loan](feature/loan.md) |
 | `feature/note/` | 29 | [note](feature/note.md) |
 | `feature/notification/` | 33 | [notification](feature/notification.md) |

@@ -33,10 +33,15 @@ import androidx.compose.ui.unit.dp
  */
 @Immutable
 data class Elevation(
+    /** Surface-level, filled and tonal cards: 0 dp. */
     val resting: Dp = 0.dp,
+    /** Standard elevated cards: 1 dp. */
     val low: Dp = 1.dp,
+    /** Hovered, pressed or highlighted cards: 3 dp. */
     val medium: Dp = 3.dp,
+    /** Floating action buttons and snackbars: 6 dp. */
     val high: Dp = 6.dp,
+    /** An item being dragged: 12 dp. */
     val dragging: Dp = 12.dp,
 )
 

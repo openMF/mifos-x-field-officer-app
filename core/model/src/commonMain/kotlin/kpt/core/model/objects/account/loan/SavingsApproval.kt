@@ -23,10 +23,13 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsApproval(
+    /** The date the application is approved on. */
     val approvedOnDate: String,
 
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
 
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
 
     /** A free-text note. */

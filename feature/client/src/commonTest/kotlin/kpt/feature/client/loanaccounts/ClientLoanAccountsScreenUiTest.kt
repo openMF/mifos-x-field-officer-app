@@ -19,6 +19,7 @@ import kpt.core.base.store.screen.ScreenState
 import kpt.core.designsystem.theme.KptTheme
 import kpt.core.model.loan.LoanAccount
 import kpt.core.model.loan.LoanStatus
+import kpt.feature.client.awaitResourceText
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -56,6 +57,7 @@ class ClientLoanAccountsScreenUiTest {
             }
         }
         onNodeWithTag(ClientLoanAccountsTestTags.LIST).assertIsDisplayed()
+        awaitResourceText("Loan Accounts")
         onNodeWithText("Loan Accounts").assertIsDisplayed()
         // A placeholder, where the original concatenated the count with the SAVINGS screen's
         // "item" string.
@@ -138,6 +140,7 @@ class ClientLoanAccountsScreenUiTest {
                 )
             }
         }
+        awaitResourceText("No Loan Account Found")
         onNodeWithText("No Loan Account Found").assertIsDisplayed()
     }
 
@@ -211,6 +214,7 @@ class ClientLoanAccountsScreenUiTest {
         }
         // The original built this as `symbol + (if (pending) "N/A" else amount)` — producing
         // "₹Not Available", a currency symbol glued to the words. The symbol belongs to an amount.
+        awaitResourceText("Not Available")
         onNodeWithText("Not Available").assertIsDisplayed()
     }
 }

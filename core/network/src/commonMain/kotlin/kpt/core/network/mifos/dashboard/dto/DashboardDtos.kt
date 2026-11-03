@@ -208,6 +208,7 @@ data class SchedulePeriodDto(
  *
  * @property method the HTTP method of the batch request
  * @property requestId the id that ties this part of a batch to its request
+ * @property relativeUrl the API path of the batched request
  */
 @Serializable
 data class BatchRequestDto(val requestId: Long, val relativeUrl: String, val method: String = "GET")
@@ -217,6 +218,7 @@ data class BatchRequestDto(val requestId: Long, val relativeUrl: String, val met
  *
  * @property requestId the id that ties this part of a batch to its request
  * @property statusCode the HTTP status of this part of the batch
+ * @property body the response body of this part of the batch
  */
 @Serializable
 data class BatchResponseDto(val requestId: Long = 0, val statusCode: Int = 0, val body: String? = null)

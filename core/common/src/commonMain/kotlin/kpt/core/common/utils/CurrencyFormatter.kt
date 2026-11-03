@@ -30,9 +30,8 @@ package kpt.core.common.utils
  * shapes. Both now fall back: a null amount formats as zero, an unusable code keeps the locale's
  * own currency.
  *
- * `js` and `wasmJs` are still `TODO()` and throw `NotImplementedError` on any money value — the web
- * target has no working currency formatting at all. Pre-existing and out of this slice's scope;
- * logged in CAPABILITY_GAPS as `currency-formatter-unimplemented-on-web`.
+ * `js` and `wasmJs` format through the browser's `Intl.NumberFormat`; with no locale currency to fall
+ * back to, an unusable code formats a plain number there.
  */
 expect object CurrencyFormatter {
     /**

@@ -28,6 +28,7 @@ import org.mobilenativefoundation.store.store5.Store
  * (`clients` / `loans` / `savingsaccounts`) — the same pair the endpoint and the table key on.
  *
  * @property resourceId the id of the resource the records belong to
+ * @property resourceType the Fineract path segment of the resource
  */
 data class ChargeKey(val resourceType: String, val resourceId: Int)
 

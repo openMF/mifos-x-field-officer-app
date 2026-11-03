@@ -27,13 +27,21 @@ sealed interface ValidationFailure {
     /** The value was blank or empty. */
     data object Required : ValidationFailure
 
-    /** Shorter than [minLength] characters. */
+    /**
+     * Shorter than [minLength] characters.
+     *
+     * @property minLength the fewest characters allowed
+     */
     data class TooShort(val minLength: Int) : ValidationFailure
 
     /** Not a syntactically valid hostname. */
     data object MalformedHostname : ValidationFailure
 
-    /** Not an integer, or outside [range]. */
+    /**
+     * Not an integer, or outside [range].
+     *
+     * @property range the ports allowed
+     */
     data class PortOutOfRange(val range: IntRange) : ValidationFailure
 
     /** Not exactly `http://` or `https://`. */

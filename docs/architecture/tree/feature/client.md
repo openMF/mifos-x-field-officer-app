@@ -23,10 +23,10 @@ ViewModels: `ClientAddAddressViewModel`, `ClientAddDocumentViewModel`, `ClientAd
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/client sha=cb28df6cf8bf98eb3cf87a0ab2c6721f4047fff0 -->
+<!-- api-docs:begin module=feature/client sha=5e306da5aad66e3c7559c84b56696dd8803e28ba -->
 ## API reference
 
-_Generated from `feature/client` at tree `cb28df6cf8bf` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/client` at tree `5e306da5aad6` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published

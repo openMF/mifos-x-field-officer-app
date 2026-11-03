@@ -24,10 +24,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/database sha=4af6683775c456faf4137e304912bfb499a300f0 -->
+<!-- api-docs:begin module=core/database sha=193fdcc9a60abfb2ad0e67e2c5e0f9f73b17c2c5 -->
 ## API reference
 
-_Generated from `core/database` at tree `4af6683775c4` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/database` at tree `193fdcc9a60a` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/cache/dao/ApiResponseCacheDao.kt`
@@ -249,7 +249,7 @@ interface ChargeDao
 ```
 Created by Pronay Sarker on 14/02/2025 (3:32 PM) Every query is scoped by the OWNER (`resourceType` + `resourceId`), which is also the leading half of the table's primary key — see `ChargesEntity`.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/charge/ChargeStore.kt:63</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/charge/ChargeStore.kt:64</code></summary>
 
 ```kotlin
 fun provideChargeStore(
@@ -709,7 +709,7 @@ data class ClientDateEntity(
 ```
 Room row for a client date.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/entity/ChargesEntity.kt:70</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/entity/ChargesEntity.kt:71</code></summary>
 
 ```kotlin
 

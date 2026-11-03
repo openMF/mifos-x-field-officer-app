@@ -69,8 +69,8 @@ data class LoanEntity(...)
 @DbEntity
 @Entity(tableName = "api_response_cache")
 data class ApiResponseCacheEntity(
+    /** The cache key the response is stored under. */
     @PrimaryKey
-    val cacheKey: String,
 ```
 
 </details>

@@ -18,6 +18,7 @@ import kpt.core.base.store.screen.ScreenState
 import kpt.core.designsystem.theme.KptTheme
 import kpt.core.model.client.Client
 import kpt.core.model.group.Group
+import kpt.feature.client.awaitResourceText
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -51,6 +52,7 @@ class ClientProfileGroupChipUiTest {
                 )
             }
         }
+        awaitResourceText("Group: N/A")
         onNodeWithText("Group: N/A").performClick()
         assertEquals(emptyList(), actions)
     }

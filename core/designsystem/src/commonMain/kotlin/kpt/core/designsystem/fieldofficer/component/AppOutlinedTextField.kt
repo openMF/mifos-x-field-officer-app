@@ -510,6 +510,7 @@ data class AppPasswordToggle(
     val isVisible: Boolean = false,
     /** Called with the new visibility when the toggle is tapped. */
     val onClick: (Boolean) -> Unit = {},
+    /** Whether to show the toggle; null shows it for password fields only. */
     val isDisplayed: Boolean? = null,
 )
 

@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/common sha=518b503b3267e080718051af1fafe1a9f397ae58 -->
+<!-- api-docs:begin module=core/common sha=86c207d5d3602bb4f50cf759a8b69a2fbaeb3fc2 -->
 ## API reference
 
-_Generated from `core/common` at tree `518b503b3267` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/common` at tree `86c207d5d360` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/common/src/commonMain/kotlin/kpt/core/common/enums/AppLanguage.kt`

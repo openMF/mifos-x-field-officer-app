@@ -92,6 +92,7 @@ data class ServerInstance(
     val name: String,
     /** The server's connection settings. */
     val config: ServerConfig,
+    /** The published demo sign-ins; empty for a real server. */
     val demoAccounts: List<DemoCredentials> = emptyList(),
 ) {
     /** True for a published demo server. */
@@ -103,6 +104,7 @@ data class ServerInstance(
  *
  * @property password the password
  * @property username the username
+ * @property role what the account can do
  */
 @Serializable
 data class DemoCredentials(val role: String, val username: String, val password: String)

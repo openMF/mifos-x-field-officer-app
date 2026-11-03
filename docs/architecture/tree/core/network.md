@@ -22,10 +22,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/network sha=0de24a8b08d378adc737b2f3b61ef4fd16acc006 -->
+<!-- api-docs:begin module=core/network sha=f60e15d9f6c0442966242fb05812035df8b78ca1 -->
 ## API reference
 
-_Generated from `core/network` at tree `0de24a8b08d3` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/network` at tree `f60e15d9f6c0` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt`

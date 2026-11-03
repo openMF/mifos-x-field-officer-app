@@ -42,7 +42,9 @@ import kotlinx.serialization.Serializable
 data class SavingsApprovalInput(
     /** The date the record was approved. */
     val approvedOnDate: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
     /** A free-text note. */
     val note: String? = null,
@@ -68,6 +70,7 @@ data class SavingsActivationInput(
 data class SavingsTransactionInput(
     /** The date of the transaction. */
     val transactionDate: String,
+    /** The amount, as the officer typed it. */
     val transactionAmount: String,
     /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
@@ -103,7 +106,9 @@ data class SavingsTransactionInput(
  */
 @Serializable
 data class SavingsApplicationInput(
+    /** The client or group the account is opened for. */
     val ownerId: Int,
+    /** True when [ownerId] is a group. */
     val isGroup: Boolean,
     /** The server id of the product. */
     val productId: Int,

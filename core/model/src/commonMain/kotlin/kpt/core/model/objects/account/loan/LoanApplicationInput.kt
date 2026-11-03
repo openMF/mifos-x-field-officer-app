@@ -42,7 +42,9 @@ data class LoanApplicationInput(
     val submittedOnDate: String,
     /** The date the loan is expected to be disbursed. */
     val expectedDisbursementDate: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
 
     /** The loan principal. */

@@ -18,11 +18,15 @@ package kpt.core.model.offline
  * and the walk moves on, as the original's sync did.
  */
 data class DownloadProgress(
+    /** The selected items downloaded so far. */
     val completed: Int = 0,
+    /** The number of selected items. */
     val total: Int = 0,
     /** The selected item currently being downloaded; null before the first and after the last. */
     val current: String? = null,
+    /** Everything fetched under the selected items so far. */
     val records: Int = 0,
+    /** The items that failed, with why. */
     val failures: List<DownloadFailure> = emptyList(),
     /** True once the download has finished. */
     val finished: Boolean = false,

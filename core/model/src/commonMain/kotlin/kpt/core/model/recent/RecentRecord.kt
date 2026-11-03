@@ -52,6 +52,7 @@ data class RecentRecord(
     val title: String,
     /** The account number Fineract assigned. */
     val accountNo: String? = null,
+    /** The secondary line the record carries, such as a loan's client name. */
     val detail: String? = null,
     /** When the record was last opened, in epoch milliseconds. */
     val openedAtMs: Long = 0,
