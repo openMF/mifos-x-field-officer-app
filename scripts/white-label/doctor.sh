@@ -90,8 +90,10 @@ check_fork_props_current() {
   local fp="$REPO_ROOT/gradle/fork.properties"
   [ -f "$fp" ] || { warn "gradle/fork.properties absent — run --apply to derive it"; return 2; }
   local tmp; tmp="$(mktemp)"; run_ruby "$DERIVE" --out "$tmp" >/dev/null 2>&1
-  # compare only key=value lines (ignore the derived header + ordering)
-  if diff <(grep -E '^[a-z].*=' "$fp" | sort) <(grep -E '^[a-z].*=' "$tmp" | sort) >/dev/null 2>&1; then
+  # Every key derive emits must be on disk with the same value (header + ordering ignored). syncForkConfig
+  # also writes keys derive does not own (project.name, windows.msix.*), so a two-way diff called every
+  # freshly fixed fork STALE.
+  if [ -s "$tmp" ] && [ -z "$(comm -13 <(grep -E '^[a-z].*=' "$fp" | sort) <(grep -E '^[a-z].*=' "$tmp" | sort))" ]; then
     ok "fork.properties matches app-profile"; rm -f "$tmp"; return 0
   fi
   warn "fork.properties is STALE vs app-profile — run --fix (or --apply) to re-derive"; rm -f "$tmp"; return 2
