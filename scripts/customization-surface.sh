@@ -338,6 +338,7 @@ cs_merge_strings() {
           buf = line
           # self-closed or closed on the same line → done
           if (line ~ /\/>/ || line ~ /<\/(string|string-array|plurals|bool|integer|color|dimen)>/) {
+            if (!(name in arr)) order[++n_order] = name
             arr[name] = buf; continue
           }
           depth = 1
@@ -347,6 +348,7 @@ cs_merge_strings() {
             else if (line ~ /<(string-array|plurals)[ >]/) depth++
             else if (line ~ /<\/string>/) depth--
           }
+          if (!(name in arr)) order[++n_order] = name
           arr[name] = buf
         }
       }
@@ -372,9 +374,11 @@ cs_merge_strings() {
         else              { print buf }
         next
       }
-      # Before the closing </resources>, append every fork-only entry.
+      # Before the closing </resources>, append every fork-only entry in the order the fork wrote them.
+      # Iterating the array itself is hash order: each sync re-shuffled the fork strings, so a file
+      # nobody edited changed on every run.
       if ($0 ~ /<\/resources>/) {
-        for (k in ourset) if (!(k in seen)) print ourset[k]
+        for (i = 1; i <= n_order; i++) if (!(order[i] in seen)) print ourset[order[i]]
       }
       print
     }
