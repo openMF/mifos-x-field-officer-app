@@ -12,8 +12,10 @@ package kpt.core.model.shared
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 
+/** Server response to a generic request. */
 @Serializable
 data class GenericResponse(
+    /** The fields of the response, by name. */
     val responseFields: Map<String, JsonElement> = emptyMap(),
 ) {
     override fun toString(): String {

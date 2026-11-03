@@ -32,16 +32,29 @@ class FakeDashboardRepository(
     dueToday: List<DueTodayLoan> = emptyList(),
 ) : DashboardRepository {
 
+    /** The signed-in user the stream emits. */
     val user = MutableStateFlow<ScreenState<DashboardUser>>(ScreenState.Content(user))
+
+    /** The business date the stream emits. */
     val businessDate = MutableStateFlow<ScreenState<String>>(ScreenState.Content(businessDate))
+
+    /** The loans per status the streams emit. */
     val loans = loansByStatus
         .mapValues { MutableStateFlow<ScreenState<List<DashboardLoan>>>(ScreenState.Content(it.value)) }
         .toMutableMap()
+
+    /** The client counts per status the streams emit. */
     val clientCounts = clientCounts
         .mapValues { MutableStateFlow<ScreenState<Int>>(ScreenState.Content(it.value)) }
         .toMutableMap()
+
+    /** The savings accounts the stream emits. */
     val savings = MutableStateFlow<ScreenState<List<DashboardSavings>>>(ScreenState.Content(savings))
+
+    /** The due-today loans the stream emits. */
     val dueToday = MutableStateFlow<ScreenState<List<DueTodayLoan>>>(ScreenState.Content(dueToday))
+
+    /** The streams opened, in order (`user`, `loans:<status>`, …). */
     val requested = mutableListOf<String>()
 
     override fun userStream(

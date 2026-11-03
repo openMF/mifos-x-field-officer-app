@@ -17,9 +17,14 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class PaymentTypeOption(
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The display name. */
     val name: String = "",
+    /** A free-text description. */
     val description: String? = null,
+    /** True when the payment type is cash. */
     val isCashPayment: Boolean? = null,
+    /** The sort position of this option. */
     val position: Int? = null,
 )

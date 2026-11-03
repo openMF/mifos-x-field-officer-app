@@ -15,10 +15,15 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
+/** Image resizing with `javax.imageio`. */
 actual object ImageUtil {
+    /** Widest an image is scaled to, in pixels. */
     actual val DEFAULT_MAX_WIDTH: Float = 816f
+
+    /** Tallest an image is scaled to, in pixels. */
     actual val DEFAULT_MAX_HEIGHT: Float = 612f
 
+    /** Scales the image down to fit `maxWidth` × `maxHeight`; empty bytes when it cannot be read. */
     actual fun compressImage(
         decodedBytes: ByteArray,
         maxWidth: Float,

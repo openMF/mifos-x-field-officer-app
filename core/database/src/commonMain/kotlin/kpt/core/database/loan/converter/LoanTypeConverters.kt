@@ -26,66 +26,79 @@ import kpt.core.model.objects.account.loan.TermPeriodFrequencyType
 // TODO remove unused converters
 @DbConverters
 class LoanTypeConverters {
+    /** Stores a `LoanStatusEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromStatus(status: LoanStatusEntity?): String? {
         return status?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `LoanStatusEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toStatus(json: String?): LoanStatusEntity? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `LoanTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromLoanType(type: LoanTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `LoanTypeEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toLoanType(json: String?): LoanTypeEntity? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `SavingAccountCurrencyEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromCurrency(currency: SavingAccountCurrencyEntity?): String? {
         return currency?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `SavingAccountCurrencyEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toCurrency(json: String?): SavingAccountCurrencyEntity? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `TermPeriodFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromTermPeriodFrequencyType(type: TermPeriodFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `TermPeriodFrequencyType?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toTermPeriodFrequencyType(json: String?): TermPeriodFrequencyType? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `RepaymentFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromRepaymentFrequencyType(type: RepaymentFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `RepaymentFrequencyType?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toRepaymentFrequencyType(json: String?): RepaymentFrequencyType? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `InterestRateFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestRateFrequencyType(type: InterestRateFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `InterestRateFrequencyType?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toInterestRateFrequencyType(json: String?): InterestRateFrequencyType? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `LoanAccountSummaryEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromSummary(summary: LoanAccountSummaryEntity?): String? {
         return summary?.let { Json.encodeToString(it) }

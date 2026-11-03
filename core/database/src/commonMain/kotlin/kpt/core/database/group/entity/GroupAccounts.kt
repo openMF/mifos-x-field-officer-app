@@ -12,10 +12,13 @@ package kpt.core.database.group.entity
 import kotlinx.serialization.Serializable
 import kpt.core.database.loan.entity.LoanAccountEntity
 import kpt.core.database.savings.entity.SavingsAccountEntity
+/** The loan and savings accounts of a group. */
 @Serializable
 data class GroupAccounts(
+    /** The loan accounts. */
     var loanAccounts: List<LoanAccountEntity> = emptyList(),
 
+    /** The savings accounts. */
     var savingsAccounts: List<SavingsAccountEntity> = emptyList(),
 ) {
 
@@ -29,10 +32,12 @@ data class GroupAccounts(
         return result
     }
 
+    /** The recurring-deposit savings accounts. */
     fun getRecurringSavingsAccounts(): List<SavingsAccountEntity> {
         return getSavingsAccounts(true)
     }
 
+    /** The savings accounts that are not recurring deposits. */
     fun getNonRecurringSavingsAccounts(): List<SavingsAccountEntity> {
         return getSavingsAccounts(false)
     }

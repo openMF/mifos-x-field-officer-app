@@ -29,13 +29,21 @@ import kpt.core.base.database.annotation.DbEntity
     indices = [Index(value = ["parentEntityType", "parentEntityId"])],
 )
 data class DocumentEntity(
+    /** The server id of this record. */
     @PrimaryKey
     val id: Int,
+    /** The kind of entity the document is attached to. */
     val parentEntityType: String? = null,
+    /** The server id of the entity the document is attached to. */
     val parentEntityId: Int = 0,
+    /** The display name. */
     val name: String? = null,
+    /** The file's name. */
     val fileName: String? = null,
+    /** The file's size, in bytes. */
     val size: Long = 0,
+    /** The record's type. */
     val type: String? = null,
+    /** A free-text description. */
     val description: String? = null,
 )

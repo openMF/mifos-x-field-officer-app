@@ -17,13 +17,18 @@ import kpt.core.model.objects.Changes
  */
 @Serializable
 data class SavingsAccountTransactionResponse(
+    /** The server id of the office. */
     var officeId: Int? = null,
 
+    /** The server id of the client. */
     var clientId: Int? = null,
 
+    /** The server id of the savings account. */
     var savingsId: Int? = null,
 
+    /** The server id of the resource the request created or changed. */
     var resourceId: Int? = null,
 
+    /** The fields the request changed, as Fineract reports them. */
     var changes: Changes? = null,
 )

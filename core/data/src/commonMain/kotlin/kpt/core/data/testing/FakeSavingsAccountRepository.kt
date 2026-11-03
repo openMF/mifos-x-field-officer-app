@@ -42,6 +42,7 @@ class FakeSavingsAccountRepository(
     private val fixedDepositTemplate: MutableStateFlow<ScreenState<FixedDepositTemplate>>? = null,
 ) : SavingsAccountRepository {
 
+    /** Every stream's refresh signal. */
     val refreshes: MutableSharedFlow<Unit> = MutableSharedFlow(extraBufferCapacity = 8)
 
     /** Every `(savingsAccountType, savingsAccountId)` the stream was constructed for. */

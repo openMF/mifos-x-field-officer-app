@@ -17,11 +17,15 @@ import kpt.core.model.utils.DateConstants
  */
 @Serializable
 data class CollectionSheetRequestPayload(
+    /** The server id of the meeting calendar. */
     var calendarId: Int? = null,
 
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat: String = DateConstants.DATE_FORMAT,
 
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     var locale: String = DateConstants.LOCALE,
 
+    /** The date of the transaction. */
     var transactionDate: String? = null,
 )

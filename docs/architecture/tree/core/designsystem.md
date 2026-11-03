@@ -2,13 +2,11 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_DESIGNSYSTEM.md`
-> **Measured:** 70 Kotlin files, 4 test files
-
-**Defines annotations:** `@ThemePreview`
+> **Measured:** 67 Kotlin files, 4 test files
 
 ## Principal types
 
-`AccentColors`, `AppButtonDefaults`, `AppColors`, `AppElevation`, `AppIcons`, `AppPadding`, `AppPasswordToggle`, `AppPullToRefreshState`, `AppShapes`, `AppSizes`, `AppSpacing`, `AppStrokes`, `AppTextFieldConfig`, `AppTypography`  …and 22 more
+`AccentColors`, `AppButtonDefaults`, `AppColors`, `AppElevation`, `AppIcons`, `AppPadding`, `AppPasswordToggle`, `AppPullToRefreshState`, `AppShapes`, `AppSizes`, `AppSpacing`, `AppStrokes`, `AppTextFieldConfig`, `AppTypography`  …and 19 more
 
 <!-- scaffold:end -->
 
@@ -16,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/designsystem sha=1b7f654666f7f26515b291289f8e1e2aa8662747 -->
+<!-- api-docs:begin module=core/designsystem sha=fecb2f24c8410bf87376d8d16a5b07ac7262c95a -->
 ## API reference
 
-_Generated from `core/designsystem` at tree `1b7f654666f7` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/designsystem` at tree `fecb2f24c841` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/chart/ChartTokens.kt`
@@ -129,14 +127,16 @@ fun MoneyText(
 ```
 Currency text that picks its color from `MaterialTheme.finance` based on the amount's sign (or a forced `MoneyTone`). Use everywhere a monetary value is rendered so the app has a single visual grammar for money.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/LoanQueue.kt:177</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/LoanQueue.kt:188</code></summary>
 
 ```kotlin
             )
         }
-        MoneyText(CurrencyFormatter.format(loan.principal, loan.currencyCode, 2), tone = MoneyTone.Neutral, style = KptTheme.typography.titleSmall)
-    }
-}
+        MoneyText(
+            CurrencyFormatter.format(loan.principal, loan.currencyCode, 2),
+            tone = MoneyTone.Neutral,
+            style = KptTheme.typography.titleSmall,
+        )
 ```
 
 </details>
@@ -148,12 +148,14 @@ enum class MoneyTone
 ```
 Money tone — how a monetary amount should be colored regardless of the raw value's sign.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/LoanQueue.kt:177</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/LoanQueue.kt:190</code></summary>
 
 ```kotlin
-            )
-        }
-        MoneyText(CurrencyFormatter.format(loan.principal, loan.currencyCode, 2), tone = MoneyTone.Neutral, style = KptTheme.typography.titleSmall)
+        MoneyText(
+            CurrencyFormatter.format(loan.principal, loan.currencyCode, 2),
+            tone = MoneyTone.Neutral,
+            style = KptTheme.typography.titleSmall,
+        )
     }
 }
 ```
@@ -347,7 +349,7 @@ Single-row shimmer placeholder. Use inside LazyColumn `items()` while paged data
 ```kotlin
 fun AppDialogBox(
 ```
-_No KDoc at source._
+Confirm/dismiss dialog with an optional text message, shown while `showDialogState` is true.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppDesignSystemAllPreviews.kt:34</code></summary>
 
@@ -366,7 +368,7 @@ private fun AppDialogBoxWithMessage() {
 ```kotlin
 fun AppDialogBox(
 ```
-_No KDoc at source._
+Confirm/dismiss dialog whose message is composable content, shown while `showDialogState` is true.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppDesignSystemAllPreviews.kt:34</code></summary>
 
@@ -385,7 +387,7 @@ private fun AppDialogBoxWithMessage() {
 ```kotlin
 fun AppRadioButtonDialog(
 ```
-_No KDoc at source._
+Dialog listing `items` as radio buttons, with `selectedItem` checked.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppDesignSystemAllPreviews.kt:70</code></summary>
 
@@ -404,7 +406,7 @@ private fun AppRadioButtonDialog() {
 ```kotlin
 fun AppCustomDialog(
 ```
-_No KDoc at source._
+Bare dialog around caller-supplied content.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppDesignSystemAllPreviews.kt:84</code></summary>
 
@@ -425,7 +427,7 @@ private fun AppCustomDialog() {
 ```kotlin
 fun AppBasicDialog(
 ```
-_No KDoc at source._
+Message dialog with a single dismiss button; nothing is shown while `visibilityState` is hidden.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsScreen.kt:425</code></summary>
 
@@ -444,7 +446,7 @@ _No KDoc at source._
 ```kotlin
 fun AppBasicDialog(
 ```
-_No KDoc at source._
+Message dialog with confirm and dismiss buttons; nothing is shown while `visibilityState` is hidden.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsScreen.kt:425</code></summary>
 
@@ -463,7 +465,7 @@ _No KDoc at source._
 ```kotlin
 fun AppBasicDialog(
 ```
-_No KDoc at source._
+Titled dialog around caller-supplied content, with confirm and dismiss buttons.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsScreen.kt:425</code></summary>
 
@@ -501,7 +503,7 @@ Models display of a `AppBasicDialog`.
 ```kotlin
 class BasicDialogStatePreviewProvider : PreviewParameterProvider<BasicDialogState>
 ```
-_No KDoc at source._
+Sample dialog states for previews.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppDesignSystemAllPreviews.kt:106</code></summary>
 
@@ -522,7 +524,7 @@ private fun AppBasicDialog(
 ```kotlin
 fun AppBottomSheet(
 ```
-_No KDoc at source._
+Modal bottom sheet around caller-supplied content.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:811</code></summary>
 
@@ -541,7 +543,7 @@ private fun PhotoOptions(hasPhoto: Boolean, onAction: (CreateNewClientAction) ->
 ```kotlin
 fun AppBottomSheetOptionItem(
 ```
-_No KDoc at source._
+Bottom-sheet option: an icon on a tinted tile above its label.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:820</code></summary>
 
@@ -560,7 +562,7 @@ _No KDoc at source._
 ```kotlin
 fun AppBottomSheetOptionItem(
 ```
-_No KDoc at source._
+Bottom-sheet option: an icon on an elevated tile above its label.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:820</code></summary>
 
@@ -579,7 +581,7 @@ _No KDoc at source._
 ```kotlin
 fun AppBottomSheetOptionItem(
 ```
-_No KDoc at source._
+Bottom-sheet option: an icon beside its label, in one row.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:820</code></summary>
 
@@ -716,15 +718,14 @@ object AppButtonDefaults
 ```
 App button default values.
 
-- `const val DISABLED_OUTLINED_BUTTON_BORDER_ALPHA = 0.12f`
-- `val OutlinedButtonBorderWidth = 1.dp`
+- `val OutlinedButtonBorderWidth = 1.dp` — Border width of an outlined button.
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppCard.kt`
 
 ```kotlin
 fun AppCard(
 ```
-_No KDoc at source._
+Card with the app's default shape, elevation and colours; clickable when `onClick` is set.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/profile/components/ProfileCard.kt:61</code></summary>
 
@@ -745,7 +746,7 @@ _No KDoc at source._
 ```kotlin
 fun AppMenuDropDownItem(
 ```
-_No KDoc at source._
+One text option of a dropdown menu.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/detail/CenterDetailScreen.kt:162</code></summary>
 
@@ -766,7 +767,7 @@ _No KDoc at source._
 ```kotlin
 fun AppOutlinedTextField(
 ```
-_No KDoc at source._
+Outlined text field over a `TextFieldValue`, with an optional leading icon and error text.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:133</code></summary>
 
@@ -785,7 +786,7 @@ _No KDoc at source._
 ```kotlin
 fun AppOutlinedTextField(
 ```
-_No KDoc at source._
+Outlined text field with placeholder, error text and an optional password visibility toggle.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:133</code></summary>
 
@@ -804,7 +805,7 @@ _No KDoc at source._
 ```kotlin
 fun AppOutlinedTextField(
 ```
-_No KDoc at source._
+Outlined text field that shows `error` beneath it when non-null.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:133</code></summary>
 
@@ -823,7 +824,7 @@ _No KDoc at source._
 ```kotlin
 fun AppDatePickerTextField(
 ```
-_No KDoc at source._
+Read-only field showing a date; tapping it calls `openDatePicker`.
 
 <details><summary>Used in the template — <code>feature/activate/src/commonMain/kotlin/kpt/feature/activate/ui/ActivateScreen.kt:157</code></summary>
 
@@ -842,7 +843,7 @@ _No KDoc at source._
 ```kotlin
 fun AppOutlinedTextField(
 ```
-_No KDoc at source._
+Outlined text field configured by an `AppTextFieldConfig`.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:133</code></summary>
 
@@ -880,9 +881,9 @@ Password visibility toggle state. `isDisplayed` left null shows the toggle for p
 ```kotlin
 data class AppTextFieldConfig(
 ```
-_No KDoc at source._
+Behaviour and decoration of an `AppOutlinedTextField`.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AddChargeDialog.kt:127</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AddChargeDialog.kt:128</code></summary>
 
 ```kotlin
                     onValueChange = onAmountChange,
@@ -901,7 +902,7 @@ _No KDoc at source._
 ```kotlin
 fun AppScaffold(
 ```
-_No KDoc at source._
+Screen scaffold with a titled top bar and back button, optional FAB, snackbar host and pull-to-refresh.
 
 <details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:115</code></summary>
 
@@ -920,7 +921,7 @@ _No KDoc at source._
 ```kotlin
 fun AppScaffold(
 ```
-_No KDoc at source._
+Screen scaffold over caller-supplied bars, with snackbar host and pull-to-refresh.
 
 <details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:115</code></summary>
 
@@ -939,7 +940,7 @@ _No KDoc at source._
 ```kotlin
 data class FloatingActionButtonContent(
 ```
-_No KDoc at source._
+The floating action button of an `AppScaffold`.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/address/ClientAddressScreen.kt:104</code></summary>
 
@@ -958,19 +959,19 @@ _No KDoc at source._
 ```kotlin
 data class AppPullToRefreshState(
 ```
-_No KDoc at source._
+Pull-to-refresh state of an `AppScaffold`.
 
 ```kotlin
 fun rememberAppPullToRefreshState(
 ```
-_No KDoc at source._
+Remembers an `AppPullToRefreshState` for these values.
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppSweetError.kt`
 
 ```kotlin
 fun AppSweetError(
 ```
-_No KDoc at source._
+Full-screen error message with an optional retry button.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormScreen.kt:128</code></summary>
 
@@ -989,7 +990,7 @@ _No KDoc at source._
 ```kotlin
 fun AppPaginationSweetError(
 ```
-_No KDoc at source._
+Inline error shown when loading the next page failed, with a retry action.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppDesignSystemAllPreviewsPart3.kt:47</code></summary>
 
@@ -1010,7 +1011,7 @@ private fun AppPaginationSweetErrorPreview() {
 ```kotlin
 fun AppTableRow(
 ```
-_No KDoc at source._
+One table row: `cells` laid out at `widths`, with optional borders.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/schedule/LoanScheduleScreen.kt:184</code></summary>
 
@@ -1031,7 +1032,7 @@ _No KDoc at source._
 ```kotlin
 fun AppTextFieldDropdown(
 ```
-_No KDoc at source._
+Text field that opens a dropdown of `options`; read-only unless `readOnly` is false.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:141</code></summary>
 
@@ -1052,7 +1053,7 @@ _No KDoc at source._
 ```kotlin
 fun AppTopBar(
 ```
-_No KDoc at source._
+Top app bar with a title, back button and optional actions.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppDesignSystemAllPreviewsPart3.kt:74</code></summary>
 
@@ -1316,7 +1317,7 @@ object AccentColors
 ```
 Icon-tile accents the Stitch home markup uses beyond the MD3 scheme (`mockups/home/stitch/0*`): Tailwind `blue-50/700` and `purple-50/700` — the "Clients pending activation" / "New centre" and "Pending reschedule" / "Run reports" tiles.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:690</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardCards.kt:251</code></summary>
 
 ```kotlin
     val pct = percent(fraction.toDouble())
@@ -1330,18 +1331,18 @@ Icon-tile accents the Stitch home markup uses beyond the MD3 scheme (`mockups/ho
 
 </details>
 
-- `val blueContainer = Color(0xFFEFF6FF)`
-- `val blue = Color(0xFF1D4ED8)`
-- `val purpleContainer = Color(0xFFFAF5FF)`
-- `val purple = Color(0xFF7E22CE)`
-- `val heroStart = Color(0xFF1E3A8A)`
-- `val heroMid = Color(0xFF2563EB)`
-- `val heroEnd = Color(0xFF3B82F6)`
-- `val heroText = Color(0xFFDBEAFE)`
-- `val heroFaint = Color(0xFFBFDBFE)`
-- `val heroRemains = Color(0xFFFDE68A)`
-- `val heroFillStart = Color(0xFF6EE7B7)`
-- `val heroFillEnd = Color(0xFF34D399)`
+- `val blueContainer = Color(0xFFEFF6FF)` — Tint behind a blue icon tile.
+- `val blue = Color(0xFF1D4ED8)` — Blue icon-tile foreground.
+- `val purpleContainer = Color(0xFFFAF5FF)` — Tint behind a purple icon tile.
+- `val purple = Color(0xFF7E22CE)` — Purple icon-tile foreground.
+- `val heroStart = Color(0xFF1E3A8A)` — "Collected today" hero gradient: start.
+- `val heroMid = Color(0xFF2563EB)` — "Collected today" hero gradient: middle.
+- `val heroEnd = Color(0xFF3B82F6)` — "Collected today" hero gradient: end.
+- `val heroText = Color(0xFFDBEAFE)` — Hero body text.
+- `val heroFaint = Color(0xFFBFDBFE)` — Hero secondary text.
+- `val heroRemains = Color(0xFFFDE68A)` — Hero "Remains" amount.
+- `val heroFillStart = Color(0xFF6EE7B7)` — Hero progress fill: start.
+- `val heroFillEnd = Color(0xFF34D399)` — Hero progress fill: end.
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppBackground.kt`
 
@@ -1350,732 +1351,12 @@ fun AppBackground(
 ```
 The main background for the app. Uses `LocalBackgroundTheme` to set the color and tonal elevation of a `Surface`.
 
-```kotlin
-annotation class ThemePreview
-```
-Multipreview annotation that represents light and dark themes. Add this annotation to a composable to render the both themes.
-
-```kotlin
-fun BackgroundDefault()
-```
-_No KDoc at source._
-
-```kotlin
-fun BackgroundDynamic()
-```
-_No KDoc at source._
-
-```kotlin
-fun BackgroundAndroid()
-```
-_No KDoc at source._
-
-### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppColor.kt`
-
-```kotlin
-val primaryLightMediumContrast = Color(0xFF183566)
-```
-Brand colours the template's `Color` does not define.
-
-```kotlin
-val onPrimaryLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val primaryContainerLightMediumContrast = Color(0xFF536DA1)
-```
-_No KDoc at source._
-
-```kotlin
-val onPrimaryContainerLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryLightMediumContrast = Color(0xFF2E3647)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryContainerLightMediumContrast = Color(0xFF656D80)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryContainerLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryLightMediumContrast = Color(0xFF462D49)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryContainerLightMediumContrast = Color(0xFF806383)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryContainerLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val errorLightMediumContrast = Color(0xFF740006)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val errorContainerLightMediumContrast = Color(0xFFCF2C27)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorContainerLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val backgroundLightMediumContrast = Color(0xFFF9F9FF)
-```
-_No KDoc at source._
-
-```kotlin
-val onBackgroundLightMediumContrast = Color(0xFF1A1B20)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceLightMediumContrast = Color(0xFFF9F9FF)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceLightMediumContrast = Color(0xFF0F1116)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceVariantLightMediumContrast = Color(0xFFE1E2EC)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceVariantLightMediumContrast = Color(0xFF33363E)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineLightMediumContrast = Color(0xFF50525A)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineVariantLightMediumContrast = Color(0xFF6A6D75)
-```
-_No KDoc at source._
-
-```kotlin
-val scrimLightMediumContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseSurfaceLightMediumContrast = Color(0xFF2F3036)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseOnSurfaceLightMediumContrast = Color(0xFFF0F0F7)
-```
-_No KDoc at source._
-
-```kotlin
-val inversePrimaryLightMediumContrast = Color(0xFFADC6FF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceDimLightMediumContrast = Color(0xFFC6C6CD)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceBrightLightMediumContrast = Color(0xFFF9F9FF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowestLightMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowLightMediumContrast = Color(0xFFF3F3FA)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLightMediumContrast = Color(0xFFE8E7EE)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighLightMediumContrast = Color(0xFFDCDCE3)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighestLightMediumContrast = Color(0xFFD1D1D8)
-```
-_No KDoc at source._
-
-```kotlin
-val primaryLightHighContrast = Color(0xFF0A2B5B)
-```
-_No KDoc at source._
-
-```kotlin
-val onPrimaryLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val primaryContainerLightHighContrast = Color(0xFF2E487A)
-```
-_No KDoc at source._
-
-```kotlin
-val onPrimaryContainerLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryLightHighContrast = Color(0xFF242C3D)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryContainerLightHighContrast = Color(0xFF41495B)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryContainerLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryLightHighContrast = Color(0xFF3B233F)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryContainerLightHighContrast = Color(0xFF5A405D)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryContainerLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val errorLightHighContrast = Color(0xFF600004)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val errorContainerLightHighContrast = Color(0xFF98000A)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorContainerLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val backgroundLightHighContrast = Color(0xFFF9F9FF)
-```
-_No KDoc at source._
-
-```kotlin
-val onBackgroundLightHighContrast = Color(0xFF1A1B20)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceLightHighContrast = Color(0xFFF9F9FF)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceLightHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceVariantLightHighContrast = Color(0xFFE1E2EC)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceVariantLightHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineLightHighContrast = Color(0xFF292C33)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineVariantLightHighContrast = Color(0xFF464951)
-```
-_No KDoc at source._
-
-```kotlin
-val scrimLightHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseSurfaceLightHighContrast = Color(0xFF2F3036)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseOnSurfaceLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val inversePrimaryLightHighContrast = Color(0xFFADC6FF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceDimLightHighContrast = Color(0xFFB8B8BF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceBrightLightHighContrast = Color(0xFFF9F9FF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowestLightHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowLightHighContrast = Color(0xFFF0F0F7)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLightHighContrast = Color(0xFFE2E2E9)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighLightHighContrast = Color(0xFFD4D4DB)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighestLightHighContrast = Color(0xFFC6C6CD)
-```
-_No KDoc at source._
-
-```kotlin
-val primaryDarkMediumContrast = Color(0xFFCFDCFF)
-```
-_No KDoc at source._
-
-```kotlin
-val onPrimaryDarkMediumContrast = Color(0xFF002454)
-```
-_No KDoc at source._
-
-```kotlin
-val primaryContainerDarkMediumContrast = Color(0xFF7790C7)
-```
-_No KDoc at source._
-
-```kotlin
-val onPrimaryContainerDarkMediumContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryDarkMediumContrast = Color(0xFFD5DCF3)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryDarkMediumContrast = Color(0xFF1E2636)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryContainerDarkMediumContrast = Color(0xFF8991A5)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryContainerDarkMediumContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryDarkMediumContrast = Color(0xFFF5D1F5)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryDarkMediumContrast = Color(0xFF341D38)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryContainerDarkMediumContrast = Color(0xFFA687A8)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryContainerDarkMediumContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val errorDarkMediumContrast = Color(0xFFFFD2CC)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorDarkMediumContrast = Color(0xFF540003)
-```
-_No KDoc at source._
-
-```kotlin
-val errorContainerDarkMediumContrast = Color(0xFFFF5449)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorContainerDarkMediumContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val backgroundDarkMediumContrast = Color(0xFF111318)
-```
-_No KDoc at source._
-
-```kotlin
-val onBackgroundDarkMediumContrast = Color(0xFFE2E2E9)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceDarkMediumContrast = Color(0xFF111318)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceDarkMediumContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceVariantDarkMediumContrast = Color(0xFF44474F)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceVariantDarkMediumContrast = Color(0xFFDADCE6)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineDarkMediumContrast = Color(0xFFB0B1BB)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineVariantDarkMediumContrast = Color(0xFF8E9099)
-```
-_No KDoc at source._
-
-```kotlin
-val scrimDarkMediumContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseSurfaceDarkMediumContrast = Color(0xFFE2E2E9)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseOnSurfaceDarkMediumContrast = Color(0xFF282A2F)
-```
-_No KDoc at source._
-
-```kotlin
-val inversePrimaryDarkMediumContrast = Color(0xFF2C4779)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceDimDarkMediumContrast = Color(0xFF111318)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceBrightDarkMediumContrast = Color(0xFF43444A)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowestDarkMediumContrast = Color(0xFF06070C)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowDarkMediumContrast = Color(0xFF1C1D22)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerDarkMediumContrast = Color(0xFF26282D)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighDarkMediumContrast = Color(0xFF313238)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighestDarkMediumContrast = Color(0xFF3C3D43)
-```
-_No KDoc at source._
-
-```kotlin
-val primaryDarkHighContrast = Color(0xFFECEFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val onPrimaryDarkHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val primaryContainerDarkHighContrast = Color(0xFFA8C2FC)
-```
-_No KDoc at source._
-
-```kotlin
-val onPrimaryContainerDarkHighContrast = Color(0xFF000A22)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryDarkHighContrast = Color(0xFFECEFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryDarkHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val secondaryContainerDarkHighContrast = Color(0xFFBBC2D8)
-```
-_No KDoc at source._
-
-```kotlin
-val onSecondaryContainerDarkHighContrast = Color(0xFF040B1B)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryDarkHighContrast = Color(0xFFFFEAFC)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryDarkHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val tertiaryContainerDarkHighContrast = Color(0xFFDAB8DB)
-```
-_No KDoc at source._
-
-```kotlin
-val onTertiaryContainerDarkHighContrast = Color(0xFF17031C)
-```
-_No KDoc at source._
-
-```kotlin
-val errorDarkHighContrast = Color(0xFFFFECE9)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorDarkHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val errorContainerDarkHighContrast = Color(0xFFFFAEA4)
-```
-_No KDoc at source._
-
-```kotlin
-val onErrorContainerDarkHighContrast = Color(0xFF220001)
-```
-_No KDoc at source._
-
-```kotlin
-val backgroundDarkHighContrast = Color(0xFF111318)
-```
-_No KDoc at source._
-
-```kotlin
-val onBackgroundDarkHighContrast = Color(0xFFE2E2E9)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceDarkHighContrast = Color(0xFF111318)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceDarkHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceVariantDarkHighContrast = Color(0xFF44474F)
-```
-_No KDoc at source._
-
-```kotlin
-val onSurfaceVariantDarkHighContrast = Color(0xFFFFFFFF)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineDarkHighContrast = Color(0xFFEEEFF9)
-```
-_No KDoc at source._
-
-```kotlin
-val outlineVariantDarkHighContrast = Color(0xFFC1C2CC)
-```
-_No KDoc at source._
-
-```kotlin
-val scrimDarkHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseSurfaceDarkHighContrast = Color(0xFFE2E2E9)
-```
-_No KDoc at source._
-
-```kotlin
-val inverseOnSurfaceDarkHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val inversePrimaryDarkHighContrast = Color(0xFF2C4779)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceDimDarkHighContrast = Color(0xFF111318)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceBrightDarkHighContrast = Color(0xFF4E5056)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowestDarkHighContrast = Color(0xFF000000)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerLowDarkHighContrast = Color(0xFF1E1F25)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerDarkHighContrast = Color(0xFF2F3036)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighDarkHighContrast = Color(0xFF3A3B41)
-```
-_No KDoc at source._
-
-```kotlin
-val surfaceContainerHighestDarkHighContrast = Color(0xFF45474C)
-```
-_No KDoc at source._
+### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppColors.kt`
 
 ```kotlin
 object AppColors
 ```
-_No KDoc at source._
+Brand colours outside the Material colour scheme.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/address/ClientAddressScreen.kt:239</code></summary>
 
@@ -2091,50 +1372,26 @@ _No KDoc at source._
 
 </details>
 
-- `val primaryBlue = Color(0xFF33618D)`
-- `val borderColor = Color(0xFF42474E)`
-- `val borderColorOne = Color(0xFFD6E4F7)`
-- `val cardBorders = Color(0xFFD6E4F7)`
-- `val customBlack = Color(0xFF3A3A3A)`
-- `val customWhite = Color(0xFFFFFFFF)`
-- `val customEnable = Color(0xFF009325)`
-- `val customYellow = Color(0xFFAE9703)`
-- `val lightBlueBackground = Color(0xFFD8F0FF)`
-- `val lightRed = Color(0xFFFF6E6E)`
-- `val peach = Color(0xFFFF926E)`
-- `val lightPurple = Color(0xFF706EFF)`
-- `val stepperColor = Color(0xFF9ECAFC)`
-- `val titleColorTopAbbBar = Color(0xFF0773BB)`
-  _…more members; read the file._
-
-### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppTextStyle.kt`
-
-```kotlin
-val aboutItemTextStyle = TextStyle(
-```
-_No KDoc at source._
-
-```kotlin
-val aboutItemTextStyleBold = TextStyle(
-```
-_No KDoc at source._
-
-```kotlin
-val identifierTextStyleDark = TextStyle(
-```
-_No KDoc at source._
-
-```kotlin
-val identifierTextStyleLight = TextStyle(
-```
-_No KDoc at source._
+- `val cardBorders = Color(0xFFD6E4F7)` — Outline of address cards.
+- `val customWhite = Color(0xFFFFFFFF)` — White, for content on a filled button or search bar.
+- `val customEnable = Color(0xFF009325)` — Green of an active or enabled record.
+- `val customYellow = Color(0xFFAE9703)` — Yellow of a pending record.
+- `val lightRed = Color(0xFFFF6E6E)` — Red of a closed or rejected record.
+- `val loanIndicatorActive = Color.Green` — Loan-summary status dot: active.
+- `val loanIndicatorPending = Color.Yellow` — Loan-summary status dot: pending approval.
+- `val loanIndicatorWaitingForDisbursal = Color.Blue` — Loan-summary status dot: approved, waiting for disbursal.
+- `val loanIndicatorOther = Color.Black` — Loan-summary status dot: overpaid or closed.
+- `val loanActiveStatus = Color(0xFF5CB85C)` — Status colour: active.
+- `val loanPendingStatus = Color(0xFFFFA500)` — Status colour: pending.
+- `val loanOverpaidStatus = Color(0xFF800080)` — Status colour: overpaid, or a rejected reschedule.
+- `val loanUnknownStatus = Color(0xFF9E9E9E)` — Status colour: unknown.
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppType.kt`
 
 ```kotlin
 object AppTypography
 ```
-_No KDoc at source._
+The app's text styles, in the app font.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormScreen.kt:138</code></summary>
 
@@ -2149,20 +1406,20 @@ _No KDoc at source._
 
 </details>
 
-- `val displayLarge: TextStyle`
-- `val displayMedium: TextStyle`
-- `val displaySmall: TextStyle`
-- `val headlineLarge: TextStyle`
-- `val headlineMedium: TextStyle`
-- `val headlineSmall: TextStyle`
-- `val headlineSmallEmphasized: TextStyle`
-- `val titleLarge: TextStyle`
-- `val titleLargeEmphasized: TextStyle`
-- `val titleMedium: TextStyle`
-- `val titleMediumEmphasized: TextStyle`
-- `val titleSmall: TextStyle`
-- `val titleSmallEmphasized: TextStyle`
-- `val labelLarge: TextStyle`
+- `val displayLarge: TextStyle` — Material display large text style.
+- `val displayMedium: TextStyle` — Material display medium text style.
+- `val displaySmall: TextStyle` — Material display small text style.
+- `val headlineLarge: TextStyle` — Material headline large text style.
+- `val headlineMedium: TextStyle` — Material headline medium text style.
+- `val headlineSmall: TextStyle` — Material headline small text style.
+- `val headlineSmallEmphasized: TextStyle` — Material headline small text style, emphasized (heavier weight).
+- `val titleLarge: TextStyle` — Material title large text style.
+- `val titleLargeEmphasized: TextStyle` — Material title large text style, emphasized (heavier weight).
+- `val titleMedium: TextStyle` — Material title medium text style.
+- `val titleMediumEmphasized: TextStyle` — Material title medium text style, emphasized (heavier weight).
+- `val titleSmall: TextStyle` — Material title small text style.
+- `val titleSmallEmphasized: TextStyle` — Material title small text style, emphasized (heavier weight).
+- `val labelLarge: TextStyle` — Material label large text style.
   _…more members; read the file._
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/BackgroundTheme.kt`
@@ -2177,7 +1434,7 @@ val LocalBackgroundTheme = staticCompositionLocalOf { BackgroundTheme() }
 ```
 A composition local for `BackgroundTheme`.
 
-<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppBackground.kt:36</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/AppBackground.kt:34</code></summary>
 
 ```kotlin
     content: @Composable () -> Unit,
@@ -2201,354 +1458,354 @@ _No KDoc at source._
 ```kotlin
 val onPrimaryLight = Color(0xFFFFFFFF)
 ```
-_No KDoc at source._
+Material `onPrimary` colour role, light scheme.
 
 ```kotlin
 val primaryContainerLight = Color(0xFFE0E7FF)
 ```
-_No KDoc at source._
+Material `primaryContainer` colour role, light scheme.
 
 ```kotlin
 val onPrimaryContainerLight = Color(0xFF1F1D75)
 ```
-_No KDoc at source._
+Material `onPrimaryContainer` colour role, light scheme.
 
 ```kotlin
 val secondaryLight = Color(0xFF059669)
 ```
-_No KDoc at source._
+Material `secondary` colour role, light scheme.
 
 ```kotlin
 val onSecondaryLight = Color(0xFFFFFFFF)
 ```
-_No KDoc at source._
+Material `onSecondary` colour role, light scheme.
 
 ```kotlin
 val secondaryContainerLight = Color(0xFFD1FAE5)
 ```
-_No KDoc at source._
+Material `secondaryContainer` colour role, light scheme.
 
 ```kotlin
 val onSecondaryContainerLight = Color(0xFF064E3B)
 ```
-_No KDoc at source._
+Material `onSecondaryContainer` colour role, light scheme.
 
 ```kotlin
 val tertiaryLight = Color(0xFFD97706)
 ```
-_No KDoc at source._
+Material `tertiary` colour role, light scheme.
 
 ```kotlin
 val onTertiaryLight = Color(0xFFFFFFFF)
 ```
-_No KDoc at source._
+Material `onTertiary` colour role, light scheme.
 
 ```kotlin
 val tertiaryContainerLight = Color(0xFFFEF3C7)
 ```
-_No KDoc at source._
+Material `tertiaryContainer` colour role, light scheme.
 
 ```kotlin
 val onTertiaryContainerLight = Color(0xFF78350F)
 ```
-_No KDoc at source._
+Material `onTertiaryContainer` colour role, light scheme.
 
 ```kotlin
 val errorLight = Color(0xFFF87171)
 ```
-_No KDoc at source._
+Material `error` colour role, light scheme.
 
 ```kotlin
 val onErrorLight = Color(0xFFFFFFFF)
 ```
-_No KDoc at source._
+Material `onError` colour role, light scheme.
 
 ```kotlin
 val errorContainerLight = Color(0xFFFFE4E1)
 ```
-_No KDoc at source._
+Material `errorContainer` colour role, light scheme.
 
 ```kotlin
 val onErrorContainerLight = Color(0xFF9F1239)
 ```
-_No KDoc at source._
+Material `onErrorContainer` colour role, light scheme.
 
 ```kotlin
 val backgroundLight = Color(0xFFFAFAFB)
 ```
-_No KDoc at source._
+Material `background` colour role, light scheme.
 
 ```kotlin
 val onBackgroundLight = Color(0xFF0F172A)
 ```
-_No KDoc at source._
+Material `onBackground` colour role, light scheme.
 
 ```kotlin
 val surfaceLight = Color(0xFFFAFAFB)
 ```
-_No KDoc at source._
+Material `surface` colour role, light scheme.
 
 ```kotlin
 val onSurfaceLight = Color(0xFF0F172A)
 ```
-_No KDoc at source._
+Material `onSurface` colour role, light scheme.
 
 ```kotlin
 val surfaceVariantLight = Color(0xFFE2E8F0)
 ```
-_No KDoc at source._
+Material `surfaceVariant` colour role, light scheme.
 
 ```kotlin
 val onSurfaceVariantLight = Color(0xFF475569)
 ```
-_No KDoc at source._
+Material `onSurfaceVariant` colour role, light scheme.
 
 ```kotlin
 val outlineLight = Color(0xFF94A3B8)
 ```
-_No KDoc at source._
+Material `outline` colour role, light scheme.
 
 ```kotlin
 val outlineVariantLight = Color(0xFFCBD5E1)
 ```
-_No KDoc at source._
+Material `outlineVariant` colour role, light scheme.
 
 ```kotlin
 val scrimLight = Color(0xFF000000)
 ```
-_No KDoc at source._
+Material `scrim` colour role, light scheme.
 
 ```kotlin
 val inverseSurfaceLight = Color(0xFF1E293B)
 ```
-_No KDoc at source._
+Material `inverseSurface` colour role, light scheme.
 
 ```kotlin
 val inverseOnSurfaceLight = Color(0xFFF1F5F9)
 ```
-_No KDoc at source._
+Material `inverseOnSurface` colour role, light scheme.
 
 ```kotlin
 val inversePrimaryLight = Color(0xFFA5B4FC)
 ```
-_No KDoc at source._
+Material `inversePrimary` colour role, light scheme.
 
 ```kotlin
 val surfaceDimLight = Color(0xFFE2E8F0)
 ```
-_No KDoc at source._
+Material `surfaceDim` colour role, light scheme.
 
 ```kotlin
 val surfaceBrightLight = Color(0xFFFAFAFB)
 ```
-_No KDoc at source._
+Material `surfaceBright` colour role, light scheme.
 
 ```kotlin
 val surfaceContainerLowestLight = Color(0xFFFFFFFF)
 ```
-_No KDoc at source._
+Material `surfaceContainerLowest` colour role, light scheme.
 
 ```kotlin
 val surfaceContainerLowLight = Color(0xFFF8FAFC)
 ```
-_No KDoc at source._
+Material `surfaceContainerLow` colour role, light scheme.
 
 ```kotlin
 val surfaceContainerLight = Color(0xFFF1F5F9)
 ```
-_No KDoc at source._
+Material `surfaceContainer` colour role, light scheme.
 
 ```kotlin
 val surfaceContainerHighLight = Color(0xFFE2E8F0)
 ```
-_No KDoc at source._
+Material `surfaceContainerHigh` colour role, light scheme.
 
 ```kotlin
 val surfaceContainerHighestLight = Color(0xFFCBD5E1)
 ```
-_No KDoc at source._
+Material `surfaceContainerHighest` colour role, light scheme.
 
 ```kotlin
 val primaryDark = Color(0xFFA5B4FC)
 ```
-_No KDoc at source._
+Material `primary` colour role, dark scheme.
 
 ```kotlin
 val onPrimaryDark = Color(0xFF1F1D75)
 ```
-_No KDoc at source._
+Material `onPrimary` colour role, dark scheme.
 
 ```kotlin
 val primaryContainerDark = Color(0xFF3730A3)
 ```
-_No KDoc at source._
+Material `primaryContainer` colour role, dark scheme.
 
 ```kotlin
 val onPrimaryContainerDark = Color(0xFFE0E7FF)
 ```
-_No KDoc at source._
+Material `onPrimaryContainer` colour role, dark scheme.
 
 ```kotlin
 val secondaryDark = Color(0xFF6EE7B7)
 ```
-_No KDoc at source._
+Material `secondary` colour role, dark scheme.
 
 ```kotlin
 val onSecondaryDark = Color(0xFF064E3B)
 ```
-_No KDoc at source._
+Material `onSecondary` colour role, dark scheme.
 
 ```kotlin
 val secondaryContainerDark = Color(0xFF065F46)
 ```
-_No KDoc at source._
+Material `secondaryContainer` colour role, dark scheme.
 
 ```kotlin
 val onSecondaryContainerDark = Color(0xFFD1FAE5)
 ```
-_No KDoc at source._
+Material `onSecondaryContainer` colour role, dark scheme.
 
 ```kotlin
 val tertiaryDark = Color(0xFFFCD34D)
 ```
-_No KDoc at source._
+Material `tertiary` colour role, dark scheme.
 
 ```kotlin
 val onTertiaryDark = Color(0xFF78350F)
 ```
-_No KDoc at source._
+Material `onTertiary` colour role, dark scheme.
 
 ```kotlin
 val tertiaryContainerDark = Color(0xFF92400E)
 ```
-_No KDoc at source._
+Material `tertiaryContainer` colour role, dark scheme.
 
 ```kotlin
 val onTertiaryContainerDark = Color(0xFFFEF3C7)
 ```
-_No KDoc at source._
+Material `onTertiaryContainer` colour role, dark scheme.
 
 ```kotlin
 val errorDark = Color(0xFFFDBA74)
 ```
-_No KDoc at source._
+Material `error` colour role, dark scheme.
 
 ```kotlin
 val onErrorDark = Color(0xFF7C2D12)
 ```
-_No KDoc at source._
+Material `onError` colour role, dark scheme.
 
 ```kotlin
 val errorContainerDark = Color(0xFFC2410C)
 ```
-_No KDoc at source._
+Material `errorContainer` colour role, dark scheme.
 
 ```kotlin
 val onErrorContainerDark = Color(0xFFFFEDD5)
 ```
-_No KDoc at source._
+Material `onErrorContainer` colour role, dark scheme.
 
 ```kotlin
 val backgroundDark = Color(0xFF0F172A)
 ```
-_No KDoc at source._
+Material `background` colour role, dark scheme.
 
 ```kotlin
 val onBackgroundDark = Color(0xFFF1F5F9)
 ```
-_No KDoc at source._
+Material `onBackground` colour role, dark scheme.
 
 ```kotlin
 val surfaceDark = Color(0xFF0F172A)
 ```
-_No KDoc at source._
+Material `surface` colour role, dark scheme.
 
 ```kotlin
 val onSurfaceDark = Color(0xFFF1F5F9)
 ```
-_No KDoc at source._
+Material `onSurface` colour role, dark scheme.
 
 ```kotlin
 val surfaceVariantDark = Color(0xFF1E293B)
 ```
-_No KDoc at source._
+Material `surfaceVariant` colour role, dark scheme.
 
 ```kotlin
 val onSurfaceVariantDark = Color(0xFFCBD5E1)
 ```
-_No KDoc at source._
+Material `onSurfaceVariant` colour role, dark scheme.
 
 ```kotlin
 val outlineDark = Color(0xFF64748B)
 ```
-_No KDoc at source._
+Material `outline` colour role, dark scheme.
 
 ```kotlin
 val outlineVariantDark = Color(0xFF334155)
 ```
-_No KDoc at source._
+Material `outlineVariant` colour role, dark scheme.
 
 ```kotlin
 val scrimDark = Color(0xFF000000)
 ```
-_No KDoc at source._
+Material `scrim` colour role, dark scheme.
 
 ```kotlin
 val inverseSurfaceDark = Color(0xFFF1F5F9)
 ```
-_No KDoc at source._
+Material `inverseSurface` colour role, dark scheme.
 
 ```kotlin
 val inverseOnSurfaceDark = Color(0xFF1E293B)
 ```
-_No KDoc at source._
+Material `inverseOnSurface` colour role, dark scheme.
 
 ```kotlin
 val inversePrimaryDark = Color(0xFF4338CA)
 ```
-_No KDoc at source._
+Material `inversePrimary` colour role, dark scheme.
 
 ```kotlin
 val surfaceDimDark = Color(0xFF0F172A)
 ```
-_No KDoc at source._
+Material `surfaceDim` colour role, dark scheme.
 
 ```kotlin
 val surfaceBrightDark = Color(0xFF374558)
 ```
-_No KDoc at source._
+Material `surfaceBright` colour role, dark scheme.
 
 ```kotlin
 val surfaceContainerLowestDark = Color(0xFF020617)
 ```
-_No KDoc at source._
+Material `surfaceContainerLowest` colour role, dark scheme.
 
 ```kotlin
 val surfaceContainerLowDark = Color(0xFF1E293B)
 ```
-_No KDoc at source._
+Material `surfaceContainerLow` colour role, dark scheme.
 
 ```kotlin
 val surfaceContainerDark = Color(0xFF243044)
 ```
-_No KDoc at source._
+Material `surfaceContainer` colour role, dark scheme.
 
 ```kotlin
 val surfaceContainerHighDark = Color(0xFF2D3B52)
 ```
-_No KDoc at source._
+Material `surfaceContainerHigh` colour role, dark scheme.
 
 ```kotlin
 val surfaceContainerHighestDark = Color(0xFF374558)
 ```
-_No KDoc at source._
+Material `surfaceContainerHighest` colour role, dark scheme.
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/DesignToken.kt`
 
 ```kotlin
 object DesignToken
 ```
-_No KDoc at source._
+The current design tokens, read from the composition.
 
 <details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:156</code></summary>
 
@@ -2564,12 +1821,12 @@ _No KDoc at source._
 
 </details>
 
-- `val spacing: AppSpacing`
-- `val padding: AppPadding`
-- `val shapes: AppShapes`
-- `val elevation: AppElevation`
-- `val sizes: AppSizes`
-- `val strokes: AppStrokes`
+- `val spacing: AppSpacing` — The current spacing tokens.
+- `val padding: AppPadding` — The current padding tokens.
+- `val shapes: AppShapes` — The current shape tokens.
+- `val elevation: AppElevation` — The current elevation tokens.
+- `val sizes: AppSizes` — The current size tokens.
+- `val strokes: AppStrokes` — The current stroke-width tokens.
 
 ```kotlin
 data class AppSpacing(
@@ -2694,7 +1951,7 @@ AsyncImage(
 ```kotlin
 data class AppStrokes(
 ```
-_No KDoc at source._
+Stroke-width tokens.
 
 ```kotlin
 val LocalAppSpacing = staticCompositionLocalOf { AppSpacing() }
@@ -2724,12 +1981,7 @@ CompositionLocal provider for accessing `AppSizes` values throughout the composi
 ```kotlin
 val LocalStrokes = staticCompositionLocalOf { AppStrokes() }
 ```
-_No KDoc at source._
-
-```kotlin
-fun ExampleUsage(
-```
-_No KDoc at source._
+Provides the current `AppStrokes`.
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/Elevation.kt`
 
@@ -2755,7 +2007,7 @@ Shared elevation tier scale — five named tiers matching Material 3 elevation g
 ```kotlin
 val LocalElevation = staticCompositionLocalOf { Elevation() }
 ```
-_No KDoc at source._
+Provides the current `Elevation`.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:77</code></summary>
 
@@ -2886,16 +2138,16 @@ data class Spacing(
 ```
 Shared spacing scale — replaces raw `.dp` literals scattered across features with a disciplined 4 / 8 / 12 / 16 / 24 / 32 / 48 progression. Access from any Composable via `MaterialTheme.spacing`.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:383</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardCards.kt:283</code></summary>
 
 ```kotlin
-                fontWeight = if (style == HeaderStyle.Offline) FontWeight.ExtraBold else FontWeight.Bold,
-                color = c.onSurface,
-                letterSpacing = TIGHT,
-            )
-            when (style) {
-                // 01: one line, text-[11px] medium
-                HeaderStyle.Loading -> Text(
+                        style = KptTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        letterSpacing = WIDER,
+                        color = muted,
+                    )
+                }
+                Chip(
 ```
 
 </details>
@@ -2903,7 +2155,7 @@ Shared spacing scale — replaces raw `.dp` literals scattered across features w
 ```kotlin
 val LocalSpacing = staticCompositionLocalOf { Spacing() }
 ```
-_No KDoc at source._
+Provides the current `Spacing`.
 
 <details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:76</code></summary>
 
@@ -2927,29 +2179,9 @@ Resolve the active `Spacing` scale from composition.
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/Theme.kt`
 
 ```kotlin
-val mediumContrastLightColorScheme = lightColorScheme(
-```
-_No KDoc at source._
-
-```kotlin
-val highContrastLightColorScheme = lightColorScheme(
-```
-_No KDoc at source._
-
-```kotlin
-val mediumContrastDarkColorScheme = darkColorScheme(
-```
-_No KDoc at source._
-
-```kotlin
-val highContrastDarkColorScheme = darkColorScheme(
-```
-_No KDoc at source._
-
-```kotlin
 fun AppTheme(
 ```
-_No KDoc at source._
+Applies the app's colours and typography: the platform scheme when dynamic theming is on, else the brand scheme.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/ClientDataTableSectionsPreview.kt:45</code></summary>
 
@@ -2968,7 +2200,7 @@ internal fun ClientDataTableSectionsPreview() {
 ```kotlin
 expect fun colorScheme(useDarkTheme: Boolean, dynamicColor: Boolean): ColorScheme
 ```
-_No KDoc at source._
+The platform's colour scheme: dynamic colour where the platform has it, else the brand scheme.
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/Type.kt`
 
@@ -2976,20 +2208,6 @@ _No KDoc at source._
 val fontFamily: FontFamily
 ```
 Outfit — `design-tokens.yaml#typography.font_family`, the face every Stitch mockup is set in (`kmp-designsystem-gen --project-theme`).
-
-### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/utility/PathState.kt`
-
-```kotlin
-data class PathState(
-```
-_No KDoc at source._
-
-### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/utility/TabContent.kt`
-
-```kotlin
-data class TabContent(
-```
-_No KDoc at source._
 
 ### `core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/utils/ModifierExt.kt`
 
@@ -3017,5 +2235,5 @@ Tints digits and symbols differently from letters in a text field — used for p
 
 ---
 
-_34 type(s), 389 function(s)/property(ies); 112 carry KDoc at source; 6 authored example(s); 71 live call site(s)._
+_31 type(s), 235 function(s)/property(ies); 264 carry KDoc at source; 6 authored example(s); 71 live call site(s)._
 <!-- api-docs:end -->

@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.document.entity.DocumentEntity
 
+/** Room queries for document rows. */
 @DbDao
 @Dao
 interface DocumentDao {
@@ -27,21 +28,27 @@ interface DocumentDao {
     )
     fun observeForEntity(entityType: String, entityId: Int): Flow<List<DocumentEntity>>
 
+    /** Observes the `documents` row whose `id` is `id`. */
     @Query("SELECT * FROM documents WHERE id = :id LIMIT 1")
     fun observeById(id: Int): Flow<DocumentEntity?>
 
+    /** Reads the `documents` row whose `id` is `id`. */
     @Query("SELECT * FROM documents WHERE id = :id LIMIT 1")
     suspend fun getById(id: Int): DocumentEntity?
 
+    /** Inserts `documents`, or replaces rows with the same key. */
     @Upsert
     suspend fun upsertAll(documents: List<DocumentEntity>)
 
+    /** Deletes the `documents` rows whose `id` is `id`. */
     @Query("DELETE FROM documents WHERE id = :id")
     suspend fun deleteById(id: Int)
 
+    /** Deletes the `documents` rows whose `parentEntityType` is `entityType` and `parentEntityId` is `entityId`. */
     @Query("DELETE FROM documents WHERE parentEntityType = :entityType AND parentEntityId = :entityId")
     suspend fun deleteForEntity(entityType: String, entityId: Int)
 
+    /** Deletes every `documents` row. */
     @Query("DELETE FROM documents")
     suspend fun deleteAll()
 

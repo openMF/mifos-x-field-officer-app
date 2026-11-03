@@ -12,9 +12,14 @@ package kpt.core.model.objects.account.loan.loanDisburse
 import kpt.core.model.objects.account.loan.Currency
 import kpt.core.model.objects.account.loan.PaymentType
 
+/** Server template for a loan disburse: the options its form offers. */
 data class LoanDisburseTemplate(
+    /** The amount disbursed after the charges deducted at disbursement. */
     val netDisbursalAmount: Double,
+    /** The date. */
     val date: List<Int>,
+    /** The currency the amounts are in. */
     val currency: Currency,
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentType>,
 )

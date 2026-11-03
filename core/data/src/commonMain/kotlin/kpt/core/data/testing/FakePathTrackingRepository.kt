@@ -20,7 +20,10 @@ import kpt.core.model.objects.users.UserLocation
 @ExperimentalDataTestingApi
 class FakePathTrackingRepository(paths: List<UserLocation> = emptyList()) : PathTrackingRepository {
 
+    /** The tracked paths the stream emits. */
     val paths = MutableStateFlow<ScreenState<List<UserLocation>>>(ScreenState.Content(paths))
+
+    /** The users whose paths were read, in order. */
     val requested = mutableListOf<Int>()
 
     override fun userPathsStream(

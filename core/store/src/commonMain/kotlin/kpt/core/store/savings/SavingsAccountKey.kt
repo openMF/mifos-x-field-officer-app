@@ -15,7 +15,10 @@ package kpt.core.store.savings
  * key, not as a caller-side constant.
  */
 data class SavingsAccountKey(
+    /** The savings account kind (`savingsaccounts`, `recurringdepositaccounts`, …). */
     val savingsAccountType: String,
+    /** The savings account's server id. */
     val savingsAccountId: Int,
+    /** The associations to include, comma-separated. */
     val associations: String? = "transactions",
 )

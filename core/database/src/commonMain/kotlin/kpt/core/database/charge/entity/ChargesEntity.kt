@@ -51,41 +51,58 @@ data class ChargesEntity(
     /** This levied instance's id, unique only within its owner. */
     val id: Int = 0,
 
+    /** The server id of the client. */
     val clientId: Int? = null,
 
+    /** The server id of the loan. */
     val loanId: Int? = null,
 
     /** The charge DEFINITION's id — which charge this is, repeated across every owner levying it. */
     val chargeId: Int? = null,
 
+    /** The display name. */
     val name: String? = null,
 
+    /** When the charge is applied (disbursement, specified due date, …). */
     val chargeTimeType: ChargeTimeTypeEntity? = null,
 
+    /** The date the charge is due. */
     val chargeDueDate: ClientDateEntity? = null,
 
+    /** The date the amount is due. */
     val dueDate: List<Int>? = null,
 
+    /** How the charge amount is calculated (flat, percent of amount, …). */
     val chargeCalculationType: ChargeCalculationTypeEntity? = null,
 
+    /** The currency the amounts are in. */
     val currency: ClientChargeCurrencyEntity? = null,
 
+    /** The amount, in the record's currency. */
     val amount: Double? = null,
 
+    /** The amount already paid. */
     val amountPaid: Double? = null,
 
+    /** The amount waived. */
     val amountWaived: Double? = null,
 
+    /** The amount written off. */
     val amountWrittenOff: Double? = null,
 
+    /** The amount still outstanding. */
     val amountOutstanding: Double? = null,
 
+    /** True when this charge is a penalty rather than a fee. */
     val penalty: Boolean? = null,
 
+    /** True when the record is active. */
     val active: Boolean? = null,
 
+    /** True when it has been paid. */
     val paid: Boolean? = null,
 
+    /** True when it has been waived. */
     val waived: Boolean? = null,
 ) {
 

@@ -13,6 +13,7 @@ import androidx.room3.Entity
 import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
+/** Room row for a savings product offered by the client template. */
 @Serializable
 @DbEntity
 @Entity(
@@ -24,12 +25,16 @@ import kpt.core.base.database.annotation.DbEntity
     tableName = "ClientTemplateSavingProductsOptions",
 )
 data class SavingProductOptionsEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
 
+    /** The display name. */
     val name: String = "",
 
+    /** True when the withdrawal fee also applies to transfers. */
     val withdrawalFeeForTransfers: Boolean = false,
 
+    /** True when the account may be overdrawn. */
     val allowOverdraft: Boolean = false,
 )

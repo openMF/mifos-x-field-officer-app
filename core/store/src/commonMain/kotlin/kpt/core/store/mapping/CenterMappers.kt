@@ -22,6 +22,7 @@ import kpt.core.database.center.entity.CenterPayloadEntity as CenterPayloadRow
 import kpt.core.database.center.entity.CenterWithAssociations as CenterWithAssociationsRow
 import kpt.core.database.collectionsheet.entity.CenterDetail as CenterDetailRow
 
+/** Maps the stored row to its `CenterDate` model. */
 fun CenterDateRow.toModel(): CenterDate = CenterDate(
     centerId = centerId,
     chargeId = chargeId,
@@ -30,6 +31,7 @@ fun CenterDateRow.toModel(): CenterDate = CenterDate(
     year = year,
 )
 
+/** Maps the model to its stored `CenterDateRow`. */
 fun CenterDate.toEntity(): CenterDateRow = CenterDateRow(
     centerId = centerId,
     chargeId = chargeId,
@@ -38,6 +40,7 @@ fun CenterDate.toEntity(): CenterDateRow = CenterDateRow(
     year = year,
 )
 
+/** Maps the stored row to its `Center` model. */
 fun CenterRow.toModel(): Center = Center(
     id = id,
     sync = sync,
@@ -56,6 +59,7 @@ fun CenterRow.toModel(): Center = Center(
     externalId = externalId,
 )
 
+/** Maps the model to its stored `CenterRow`. */
 fun Center.toEntity(): CenterRow = CenterRow(
     id = id,
     sync = sync,
@@ -74,6 +78,7 @@ fun Center.toEntity(): CenterRow = CenterRow(
     externalId = externalId,
 )
 
+/** Maps the stored row to its `CenterPayload` model. */
 fun CenterPayloadRow.toModel(): CenterPayload = CenterPayload(
     id = id,
     errorMessage = errorMessage,
@@ -85,6 +90,7 @@ fun CenterPayloadRow.toModel(): CenterPayload = CenterPayload(
     activationDate = activationDate,
 )
 
+/** Maps the model to its stored `CenterPayloadRow`. */
 fun CenterPayload.toEntity(): CenterPayloadRow = CenterPayloadRow(
     id = id,
     errorMessage = errorMessage,
@@ -96,30 +102,35 @@ fun CenterPayload.toEntity(): CenterPayloadRow = CenterPayloadRow(
     activationDate = activationDate,
 )
 
+/** Maps the stored row to its `CenterDetail` model. */
 fun CenterDetailRow.toModel(): CenterDetail = CenterDetail(
     staffId = staffId,
     staffName = staffName,
     meetingFallCenters = meetingFallCenters?.map { it.toModel() },
 )
 
+/** Maps the model to its stored `CenterDetailRow`. */
 fun CenterDetail.toEntity(): CenterDetailRow = CenterDetailRow(
     staffId = staffId,
     staffName = staffName,
     meetingFallCenters = meetingFallCenters?.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `CenterAccounts` model. */
 fun CenterAccountsRow.toModel(): CenterAccounts = CenterAccounts(
     loanAccounts = loanAccounts.map { it.toModel() },
     savingsAccounts = savingsAccounts.map { it.toModel() },
     memberLoanAccounts = memberLoanAccounts.map { it.toModel() },
 )
 
+/** Maps the model to its stored `CenterAccountsRow`. */
 fun CenterAccounts.toEntity(): CenterAccountsRow = CenterAccountsRow(
     loanAccounts = loanAccounts.map { it.toEntity() },
     savingsAccounts = savingsAccounts.map { it.toEntity() },
     memberLoanAccounts = memberLoanAccounts.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `CenterWithAssociations` model. */
 fun CenterWithAssociationsRow.toModel(): CenterWithAssociations = CenterWithAssociations(
     id = id,
     accountNo = accountNo,
@@ -138,6 +149,7 @@ fun CenterWithAssociationsRow.toModel(): CenterWithAssociations = CenterWithAsso
     collectionMeetingCalendar = collectionMeetingCalendar,
 )
 
+/** Maps the model to its stored `CenterWithAssociationsRow`. */
 fun CenterWithAssociations.toEntity(): CenterWithAssociationsRow = CenterWithAssociationsRow(
     id = id,
     accountNo = accountNo,

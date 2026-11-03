@@ -26,10 +26,10 @@ only the app's display name, yet it is a real domain model rather than a raw `St
 replaces the *fetcher*, not the screen. Swapping in a signed-in user means widening the model and
 returning it from the store, with the ViewModel and composable untouched.
 
-<!-- api-docs:begin module=feature/profile sha=a92fc436dc24c37082156f12a1a6090d14930542 -->
+<!-- api-docs:begin module=feature/profile sha=5d27a7682ed27f822b3120703ef3673783c81d33 -->
 ## API reference
 
-_Generated from `feature/profile` at tree `a92fc436dc24` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/profile` at tree `5d27a7682ed2` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -42,7 +42,7 @@ rather than re-declaring what they already own.
 ```kotlin
 data object ProfileRoute
 ```
-_No KDoc at source._
+The signed-in user's profile screen.
 
 <details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/navigation/ClientProfileRouteNameTest.kt:32</code></summary>
 
@@ -59,7 +59,7 @@ _No KDoc at source._
 ```kotlin
 fun NavController.navigateToProfile(navOptions: NavOptions? = null) = navigate(ProfileRoute, navOptions)
 ```
-_No KDoc at source._
+Opens the profile screen.
 
 ```kotlin
 fun NavGraphBuilder.profileDestination(profileBody: @Composable () -> Unit = {})
@@ -71,7 +71,7 @@ The profile backbone destination.
 ```kotlin
 object TestTags
 ```
-_No KDoc at source._
+Test-tag registry for the profile screen; the Compose UI tests and Maestro flows select by these.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:104</code></summary>
 
@@ -89,18 +89,18 @@ _No KDoc at source._
 
 - `const val SCREEN: String = "profile_screen"` — Root scaffold — always rendered regardless of content state.
 - `const val BODY: String = "profile.body"` — The fork body, supplied through ForkBackboneRegistry.profileBody.
-- `const val USERNAME: String = "profile.username"`
-- `const val SERVER: String = "profile_session"`
-- `const val OFFLINE_BANNER: String = "profile_offline_banner"`
-- `const val IDENTITY: String = "profile_identity"`
-- `const val FULL_NAME: String = "profile_full_name"`
-- `const val STAFF_CHIP: String = "profile_staff_chip"`
-- `const val NAME_ERROR: String = "profile_name_error"`
-- `const val RETRY: String = "profile_retry"`
-- `const val SCOPE: String = "profile_scope"`
-- `const val ROLES: String = "profile_roles"`
-- `const val LIVE: String = "profile_live"`
-- `const val SERVER_SETTINGS: String = "profile_server_settings"`
+- `const val USERNAME: String = "profile.username"` — The username line in the identity card.
+- `const val SERVER: String = "profile_session"` — The server-session card.
+- `const val OFFLINE_BANNER: String = "profile_offline_banner"` — The banner shown while the device has no network.
+- `const val IDENTITY: String = "profile_identity"` — The identity card.
+- `const val FULL_NAME: String = "profile_full_name"` — The user's full name.
+- `const val STAFF_CHIP: String = "profile_staff_chip"` — The chip naming the user's staff role.
+- `const val NAME_ERROR: String = "profile_name_error"` — The error shown when the user record failed to load.
+- `const val RETRY: String = "profile_retry"` — The retry button beside the name error.
+- `const val SCOPE: String = "profile_scope"` — The line saying whose book the user works on.
+- `const val ROLES: String = "profile_roles"` — The user's role chips.
+- `const val LIVE: String = "profile_live"` — The "Live" badge on a published instance.
+- `const val SERVER_SETTINGS: String = "profile_server_settings"` — The link to the server settings.
   _…more members; read the file._
 
 ### `feature/profile/src/commonMain/kotlin/kpt/feature/profile/di/ProfileModule.kt`
@@ -138,7 +138,7 @@ val ProfileModule = module {
 ```kotlin
 data class ProfileUiState(
 ```
-_No KDoc at source._
+What the profile screen shows: the signed-in user, their staff link, the server session and the change-password sheet.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:129</code></summary>
 
@@ -157,7 +157,7 @@ internal fun ProfileBodyContent(
 ```kotlin
 sealed interface NameState
 ```
-_No KDoc at source._
+The load state of the user's full name.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:153</code></summary>
 
@@ -176,7 +176,7 @@ _No KDoc at source._
 ```kotlin
 data class ServerSession(
 ```
-_No KDoc at source._
+The server session shown in the profile's server card.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBodyPreviews.kt:27</code></summary>
 
@@ -195,7 +195,7 @@ _No KDoc at source._
 ```kotlin
 data class PasswordForm(
 ```
-_No KDoc at source._
+The change-password sheet's form.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBodyPreviews.kt:86</code></summary>
 
@@ -214,7 +214,7 @@ internal fun ProfileChangePasswordPreview() = KptTheme(darkTheme = false) {
 ```kotlin
 sealed interface PasswordError
 ```
-_No KDoc at source._
+Why a password change failed.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBodyPreviews.kt:97</code></summary>
 
@@ -233,7 +233,7 @@ _No KDoc at source._
 ```kotlin
 sealed interface ProfileAction
 ```
-_No KDoc at source._
+What the user did on the profile screen.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:130</code></summary>
 
@@ -252,7 +252,7 @@ internal fun ProfileBodyContent(
 ```kotlin
 sealed interface ProfileEvent
 ```
-_No KDoc at source._
+One-off effects of the profile screen, for the screen to act on.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:108</code></summary>
 
@@ -270,5 +270,5 @@ _No KDoc at source._
 
 ---
 
-_10 type(s), 18 function(s)/property(ies); 6 carry KDoc at source; 0 authored example(s); 10 live call site(s)._
+_10 type(s), 18 function(s)/property(ies); 28 carry KDoc at source; 0 authored example(s); 10 live call site(s)._
 <!-- api-docs:end -->

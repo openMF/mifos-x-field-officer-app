@@ -23,10 +23,10 @@ ViewModels: `ActivateViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/activate sha=1ce6bce78fd47dc37d6fd29e24024e8c12385d83 -->
+<!-- api-docs:begin module=feature/activate sha=47e5b38b5a85a5b3315555f722688d6ef85b681a -->
 ## API reference
 
-_Generated from `feature/activate` at tree `1ce6bce78fd4` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/activate` at tree `47e5b38b5a85` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -51,17 +51,17 @@ Activate a client, centre or group. `type` is the entity kind — one of `Consta
 ```kotlin
 fun NavController.navigateToActivateClient(clientId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the activation screen for client `clientId`.
 
 ```kotlin
 fun NavController.navigateToActivateCenter(centerId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the activation screen for centre `centerId`.
 
 ```kotlin
 fun NavController.navigateToActivateGroup(groupId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the activation screen for group `groupId`.
 
 ```kotlin
 fun NavGraphBuilder.activateDestination(navController: NavController)
@@ -70,5 +70,5 @@ Annotated `@FeatureDestination`, so the generator registers it ONCE on the authe
 
 ---
 
-_1 type(s), 5 function(s)/property(ies); 3 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_1 type(s), 5 function(s)/property(ies); 6 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

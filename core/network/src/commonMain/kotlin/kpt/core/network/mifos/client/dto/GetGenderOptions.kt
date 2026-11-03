@@ -11,11 +11,14 @@ package kpt.core.network.mifos.client.dto
 
 import kotlinx.serialization.Serializable
 
+/** A gender offered by the client template. */
 @Serializable
 data class GetGenderOptions(
 
+    /** The server id of this record. */
     val id: Long? = null,
 
+    /** The display name. */
     val name: String? = null,
 
 )

@@ -23,10 +23,10 @@ ViewModels: `ChargeDetailViewModel`, `ChargeFormViewModel`, `ChargeListViewModel
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/charge sha=4a4b46cad9498b729fc26608382c161519ac83e8 -->
+<!-- api-docs:begin module=feature/charge sha=4362afd3bc6dfb3ffeac70fa753f9d73fe8dd338 -->
 ## API reference
 
-_Generated from `feature/charge` at tree `4a4b46cad949` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/charge` at tree `4362afd3bc6d` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -61,7 +61,7 @@ The add / edit form. `chargeId` is `-1` for a CREATE: a nav argument cannot be a
 ```kotlin
 fun NavController.navigateToCharges(
 ```
-_No KDoc at source._
+Opens the charges of one resource.
 
 ```kotlin
 fun NavController.navigateToAddCharge(
@@ -94,23 +94,23 @@ Append-only test-tag registry for the charge feature — Compose UI tests and Ma
 
 </details>
 
-- `const val SCREEN: String = "charge_list_screen"`
-- `const val CONTENT: String = "charge_list_content"`
-- `const val LIST: String = "charge_list"`
-- `const val EMPTY: String = "charge_list_empty"`
-- `const val ADD: String = "charge_list_add"`
-- `const val DELETE_DIALOG: String = "charge_list_delete_dialog"`
+- `const val SCREEN: String = "charge_list_screen"` — The charge list screen's root.
+- `const val CONTENT: String = "charge_list_content"` — The charge list's loaded content.
+- `const val LIST: String = "charge_list"` — The list of charges.
+- `const val EMPTY: String = "charge_list_empty"` — The empty state shown when the account has no charges.
+- `const val ADD: String = "charge_list_add"` — The "add charge" button.
+- `const val DELETE_DIALOG: String = "charge_list_delete_dialog"` — The confirm dialog for deleting a charge.
 - `const val WRITE_ERROR: String = "charge_list_write_error"` — A failed write renders ABOVE the list, never instead of it.
-- `fun row(id: Int): String = "charge_list_row_$id"`
+- `fun row(id: Int): String = "charge_list_row_$id"` — One charge row, keyed by the charge id.
 - `const val DELETING: String = "charge_list_deleting"` — Progress overlay while a delete is in flight.
-- `const val SCREEN: String = "charge_detail_screen"`
-- `const val CONTENT: String = "charge_detail_content"`
-- `const val EDIT: String = "charge_detail_edit"`
-- `const val NOT_FOUND: String = "charge_detail_not_found"`
-- `const val SCREEN: String = "charge_form_screen"`
+- `const val SCREEN: String = "charge_detail_screen"` — The charge detail screen's root.
+- `const val CONTENT: String = "charge_detail_content"` — The charge detail's loaded content.
+- `const val EDIT: String = "charge_detail_edit"` — The "edit charge" action.
+- `const val NOT_FOUND: String = "charge_detail_not_found"` — The state shown when the charge no longer exists.
+- `const val SCREEN: String = "charge_form_screen"` — The charge form's root.
   _…more members; read the file._
 
 ---
 
-_4 type(s), 18 function(s)/property(ies); 9 carry KDoc at source; 0 authored example(s); 1 live call site(s)._
+_4 type(s), 18 function(s)/property(ies); 22 carry KDoc at source; 0 authored example(s); 1 live call site(s)._
 <!-- api-docs:end -->

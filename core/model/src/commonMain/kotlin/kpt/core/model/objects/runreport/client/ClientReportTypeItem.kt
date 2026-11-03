@@ -17,27 +17,35 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ClientReportTypeItem(
+    /** The server id of the parameter. */
     @SerialName("parameter_id")
     var parameterId: Int? = null,
 
+    /** The name of the parameter. */
     @SerialName("parameter_name")
     var parameterName: String? = null,
 
+    /** The report's category. */
     @SerialName("report_category")
     var reportCategory: String? = null,
 
+    /** The server id of the report. */
     @SerialName("report_id")
     var reportId: Int? = null,
 
+    /** The report's name. */
     @SerialName("report_name")
     var reportName: String? = null,
 
+    /** The name the report expects the parameter under. */
     @SerialName("report_parameter_name")
     var reportParameterName: String? = null,
 
+    /** The report's subtype. */
     @SerialName("report_subtype")
     var reportSubtype: String? = null,
 
+    /** The report's type (table, chart, …). */
     @SerialName("report_type")
     var reportType: String? = null,
 )

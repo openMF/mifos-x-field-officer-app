@@ -34,6 +34,7 @@ import kpt.core.model.shared.GenericResponse
  */
 interface SavingsCommandRepository {
 
+    /** Opens a fixed-deposit account. */
     suspend fun createFixedDepositAccount(fixedDepositPayload: FixedDepositPayload): MutationResult<HttpResponse>
 
     /**
@@ -74,5 +75,6 @@ interface SavingsCommandRepository {
      */
     suspend fun createSavingsAccount(input: SavingsApplicationInput): MutationResult<Unit>
 
+    /** Opens a share account. */
     suspend fun createShareAccount(shareAccountPayload: ShareAccountPayload): MutationResult<HttpResponse>
 }

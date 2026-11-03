@@ -41,16 +41,21 @@ import org.jetbrains.compose.resources.StringResource
  * seven items, same titles, same subtitles, same drawables (copied across with it).
  */
 sealed class ClientProfileActionItem(
+    /** The row's title. */
     val title: StringResource,
+    /** The line under the title saying what the row opens. */
     val subTitle: StringResource,
+    /** The row's leading icon. */
     val icon: DrawableResource,
 ) {
+    /** The client's general view: performance and accounts. */
     data object General : ClientProfileActionItem(
         title = Res.string.feature_client_profile_general_title,
         subTitle = Res.string.feature_client_profile_general_subtitle,
         icon = Res.drawable.design_services,
     )
 
+    /** The client's postal addresses. */
     data object Address : ClientProfileActionItem(
         title = Res.string.feature_client_profile_address_title,
         subTitle = Res.string.feature_client_profile_address_subtitle,
@@ -68,24 +73,28 @@ sealed class ClientProfileActionItem(
         icon = Res.drawable.people,
     )
 
+    /** The client's identity documents. */
     data object Identifiers : ClientProfileActionItem(
         title = Res.string.feature_client_profile_identifiers_title,
         subTitle = Res.string.feature_client_profile_identifiers_subtitle,
         icon = Res.drawable.sign_language,
     )
 
+    /** The client's attached documents. */
     data object Documents : ClientProfileActionItem(
         title = Res.string.feature_client_profile_documents_title,
         subTitle = Res.string.feature_client_profile_documents_subtitle,
         icon = Res.drawable.note_add,
     )
 
+    /** Notes on the client. */
     data object Notes : ClientProfileActionItem(
         title = Res.string.feature_client_profile_notes_title,
         subTitle = Res.string.feature_client_profile_notes_subtitle,
         icon = Res.drawable.note_alt,
     )
 
+    /** Pin the client's location on a map. */
     data object PinpointLocation : ClientProfileActionItem(
         title = Res.string.feature_client_profile_pinpoint_location_title,
         subTitle = Res.string.feature_client_profile_pinpoint_location_subtitle,

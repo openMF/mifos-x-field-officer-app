@@ -14,5 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 
+/** Makes test tags visible to UI Automator and Maestro as resource ids. */
 @OptIn(ExperimentalComposeUiApi::class)
 actual fun Modifier.exposeTestTagsAsResourceIds(): Modifier = semantics { testTagsAsResourceId = true }

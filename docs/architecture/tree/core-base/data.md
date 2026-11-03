@@ -95,11 +95,11 @@ fun provideLoanOutbox(dao: DraftDao): SubmitOutbox<Loan> =
 
 </details>
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:45</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:46</code></summary>
 
 ```kotlin
-const val CREATE_SYNCER_QUALIFIER: String = "syncer.create"
 
+/** The outbox holding the create forms' unsent submissions. */
 @DataProvider(qualifier = CREATE_OUTBOX_QUALIFIER)
 fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
     RoomSubmitOutbox(dao = dao, serializer = FormDraft.serializer(), ownsFormKey = { it.startsWith(CreateForm.PREFIX) })
@@ -114,7 +114,7 @@ annotation class FromQualifier(val name: String)
 ```
 Resolves this parameter from a NAMED qualifier rather than by bare type. The counterpart to `FromStore` for bindings the data layer itself qualifies — chiefly a `SubmitOutbox<T>`, whose erased type is shared by every outbox in the graph.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:72</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:74</code></summary>
 
 ```kotlin
 fun provideCreateDraftSyncer(

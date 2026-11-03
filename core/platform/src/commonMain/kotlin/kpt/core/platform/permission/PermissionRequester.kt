@@ -20,10 +20,19 @@ import kpt.core.base.platform.context.AppContext
  * from common code, which meant every caller was writing Android into a multiplatform module.
  */
 enum class Permission {
+    /** The camera. */
     Camera,
+
+    /** The microphone. */
     Microphone,
+
+    /** Device location. */
     Location,
+
+    /** Posting notifications. */
     Notifications,
+
+    /** The contacts. */
     Contacts,
 
     /**

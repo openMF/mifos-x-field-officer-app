@@ -15,6 +15,7 @@ import kpt.core.model.group.Group
 import kpt.core.model.group.GroupAccounts
 import kpt.core.model.group.GroupWithAssociations
 
+/** Reads groups, their members and accounts, from the cache and the server. */
 interface GroupRepository {
     /** Groups the officer services. */
     fun groupsStream(scope: CoroutineScope): ScreenDataStream<List<Group>>

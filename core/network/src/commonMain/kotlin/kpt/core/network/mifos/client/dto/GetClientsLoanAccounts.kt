@@ -43,10 +43,13 @@ data class GetClientsLoanAccounts(
 
     val status: GetClientsLoanAccountsStatus? = null,
 
+    /** The original loan amount. */
     val originalLoan: Double? = null,
 
+    /** The loan balance. */
     val loanBalance: Double? = null,
 
+    /** The amount already paid. */
     val amountPaid: Double? = null,
 
 )

@@ -31,6 +31,10 @@ private val COLUMNS = mapOf(
     "parentParameterName" to 8,
 )
 
+/**
+ * Reads the report's parameters from the result set, finding each column by name and falling back to its usual
+ * position.
+ */
 fun FullParameterListResponse.toReportParameters(): List<ReportParameter> {
     val index = COLUMNS.mapValues { (name, position) ->
         columnHeaders.indexOfFirst { it.columnName.equals(name, ignoreCase = true) }.takeIf { it >= 0 } ?: position

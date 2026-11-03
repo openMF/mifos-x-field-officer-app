@@ -29,21 +29,30 @@ import kpt.core.database.note.entity.NoteEntity
 @Dao
 interface NoteDao {
 
+    /** Saves `notes`, replacing rows with the same key. */
     @Insert(entity = NoteEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNotes(notes: List<NoteEntity>)
 
+    /**
+     * Observes the `Note` rows whose `resourceType` is `resourceType` and `clientId` is `resourceId`, ordered by
+     * `createdOn`.
+     */
     @Query("SELECT * FROM Note WHERE resourceType = :resourceType AND clientId = :resourceId ORDER BY createdOn DESC")
     fun getNotesFor(resourceType: String, resourceId: Long): Flow<List<NoteEntity>>
 
+    /** Observes the `Note` row whose `id` is `id`. */
     @Query("SELECT * FROM Note WHERE id = :id LIMIT 1")
     fun observeById(id: Long): Flow<NoteEntity?>
 
+    /** Deletes the `Note` rows whose `id` is `id`. */
     @Query("DELETE FROM Note WHERE id = :id")
     suspend fun deleteById(id: Long)
 
+    /** Deletes the `Note` rows whose `resourceType` is `resourceType` and `clientId` is `resourceId`. */
     @Query("DELETE FROM Note WHERE resourceType = :resourceType AND clientId = :resourceId")
     suspend fun deleteNotesFor(resourceType: String, resourceId: Long)
 
+    /** Deletes every `Note` row. */
     @Query("DELETE FROM Note")
     suspend fun deleteAll()
 

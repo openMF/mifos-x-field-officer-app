@@ -13,8 +13,11 @@ import kpt.core.database.client.entity.ClientEntity
 /*
  * Created by Aditya Gupta on 22/7/23.
 */
+/** Navigation arguments for the client list. */
 data class ClientListArgs(
+    /** The clients to show. */
     val clientsList: List<ClientEntity> = emptyList(),
 
+    /** True when the list is shown inside another screen. */
     val isParentFragment: Boolean = false,
 )

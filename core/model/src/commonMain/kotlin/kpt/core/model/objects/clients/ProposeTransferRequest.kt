@@ -11,11 +11,17 @@ package kpt.core.model.objects.clients
 
 import kotlinx.serialization.Serializable
 
+/** Request body for a propose transfer. */
 @Serializable
 data class ProposeTransferRequest(
+    /** The server id of the office the client moves to. */
     val destinationOfficeId: Int,
+    /** The date of the transfer. */
     val transferDate: String,
+    /** A free-text note. */
     val note: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
 )

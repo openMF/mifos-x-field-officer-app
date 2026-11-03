@@ -11,10 +11,15 @@ package kpt.core.model.recurringdeposit
 
 import kotlinx.serialization.Serializable
 
+/** A timeline. */
 @Serializable
 data class Timeline(
+    /** The first name of whoever submitted the record. */
     val submittedByFirstname: String? = null,
+    /** The last name of whoever submitted the record. */
     val submittedByLastname: String? = null,
+    /** The username of whoever submitted the record. */
     val submittedByUsername: String? = null,
+    /** The date the record was submitted. */
     val submittedOnDate: List<Int>? = null,
 )

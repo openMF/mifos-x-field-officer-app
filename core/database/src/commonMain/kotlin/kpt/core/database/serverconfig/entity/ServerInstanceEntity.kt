@@ -24,15 +24,22 @@ data class ServerInstanceEntity(
     /** `endpoint/tenant` — the same pair the remote table keys on. */
     @PrimaryKey
     val id: String,
+    /** The display name. */
     val name: String,
+    /** `http` or `https`. */
     val protocol: String,
+    /** The server's host name or address. */
     val endPoint: String,
+    /** The Fineract API path on the server. */
     val apiPath: String,
+    /** The TCP port. */
     val port: String,
+    /** The Fineract tenant identifier. */
     val tenant: String,
     /** Serialized published demo sign-ins (`[{role, username, password}]`) — only ever read whole. */
     val demoAccounts: String,
     /** The remote `sort_order` position, so the picker keeps the table's order. */
     val position: Int,
+    /** When this cached copy was fetched, in epoch milliseconds. */
     val fetchedAtMs: Long,
 )

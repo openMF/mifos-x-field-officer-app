@@ -18,6 +18,7 @@ import kpt.core.database.payment.entity.PaymentTypeOptionEntity
 import kpt.core.database.savings.entity.SavingAccountCurrencyEntity
 import kpt.core.model.loan.LoanType
 
+/** Room row for a loan repayment template. */
 @Serializable
 @DbEntity
 @Entity(
@@ -29,6 +30,7 @@ import kpt.core.model.loan.LoanType
     tableName = "LoanRepaymentTemplate",
 )
 data class LoanRepaymentTemplateEntity(
+    /** The server id of the loan. */
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(
         index = true,
@@ -39,21 +41,30 @@ data class LoanRepaymentTemplateEntity(
     )
     val loanId: Int = 0,
 
+    /** The record's type. */
     val type: LoanType? = null,
 
+    /** The date. */
     val date: List<Int>? = null,
 
+    /** The currency the amounts are in. */
     val currency: SavingAccountCurrencyEntity? = null,
 
+    /** The amount, in the record's currency. */
     val amount: Double? = null,
 
+    /** The part of the transaction that went to principal. */
     val principalPortion: Double? = null,
 
+    /** The part of the transaction that went to interest. */
     val interestPortion: Double? = null,
 
+    /** The part of the transaction that went to fees. */
     val feeChargesPortion: Double? = null,
 
+    /** The part of the transaction that went to penalties. */
     val penaltyChargesPortion: Double? = null,
 
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentTypeOptionEntity>? = null,
 )

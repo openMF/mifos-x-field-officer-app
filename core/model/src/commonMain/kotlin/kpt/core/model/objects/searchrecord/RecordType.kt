@@ -11,8 +11,12 @@ package kpt.core.model.objects.searchrecord
 
 import kotlinx.serialization.Serializable
 
+/** Kind of a record. */
 @Serializable
 enum class RecordType {
+    /** An address. */
     ADDRESS,
+
+    /** An identity document. */
     IDENTIFIER,
 }

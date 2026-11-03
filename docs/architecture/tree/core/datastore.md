@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/datastore sha=82e8d52a876afd04cf6728810f0199a9b101a9ab -->
+<!-- api-docs:begin module=core/datastore sha=10286267122fabcc0facd53f904c960d3111186e -->
 ## API reference
 
-_Generated from `core/datastore` at tree `82e8d52a876a` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/datastore` at tree `10286267122f` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/DatastoreModule.kt`
@@ -68,8 +68,8 @@ _No KDoc at source._
 
 </details>
 
-- `val settings: StateFlow<RefreshSettings>`
-- `fun update(settings: RefreshSettings)`
+- `val settings: StateFlow<RefreshSettings>` — The stored refresh settings.
+- `fun update(settings: RefreshSettings)` — Stores `settings`.
 
 ```kotlin
 class SettingsOfflineSyncSettingsStore(private val plainSettings: Settings) : OfflineSyncSettingsStore
@@ -160,7 +160,7 @@ class ProfileViewModel(
 
 - `val fineractUser: StateFlow<User>` — The signed-in Fineract user. Distinct from `userData`, which is the framework's device-level preference record — this is the server's account object (office, staff, roles, permissions).
 - `val authHeader: String` — `Basic <key>` for the current `fineractUser`, or empty when signed out. Derived rather than stored: Fineract returns the encoded key as part of authentication, so a second copy in preferences could disagree with the user record it came from.
-- `suspend fun updateFineractUser(user: User)`
+- `suspend fun updateFineractUser(user: User)` — Stores the signed-in Fineract user.
 - `suspend fun clearFineractUser()` — Sign out of Fineract, leaving device preferences (theme, language) intact.
 
 ### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/prefs/ForkPreferencesRepositoryImpl.kt`
@@ -244,5 +244,5 @@ Splits user data storage between plain (UI preferences) and secure (credentials/
 
 ---
 
-_9 type(s), 24 function(s)/property(ies); 29 carry KDoc at source; 0 authored example(s); 9 live call site(s)._
+_9 type(s), 24 function(s)/property(ies); 32 carry KDoc at source; 0 authored example(s); 9 live call site(s)._
 <!-- api-docs:end -->

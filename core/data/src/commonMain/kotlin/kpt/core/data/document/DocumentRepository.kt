@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.model.objects.noncoreobjects.Document
 
+/** Reads the documents of an entity and their content. */
 interface DocumentRepository {
     /** Documents attached to any Fineract entity — clients, loans, groups all share this surface. */
     fun documentsStream(

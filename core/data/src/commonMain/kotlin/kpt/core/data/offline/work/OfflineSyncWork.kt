@@ -46,6 +46,7 @@ public class OfflineSyncWorker(
         return WorkResult.success()
     }
 
+    /** Input keys of the sync work. */
     public companion object {
         internal const val KEY_REFRESH_ALL: String = "offline_sync.refresh_all"
     }

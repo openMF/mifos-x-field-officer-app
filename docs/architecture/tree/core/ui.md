@@ -16,10 +16,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/ui sha=55104488c5642498e25835fe9b3292ca49650764 -->
+<!-- api-docs:begin module=core/ui sha=9194bb0dfbd10386b927311c380618acd8fb05ad -->
 ## API reference
 
-_Generated from `core/ui` at tree `55104488c564` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/ui` at tree `9194bb0dfbd1` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt`
@@ -250,7 +250,7 @@ One item in `KptNavigationRail`.
 ```kotlin
 fun AddChargeBottomSheet(
 ```
-_No KDoc at source._
+Bottom sheet for adding a charge: pick the charge, then its amount and collection date.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:184</code></summary>
 
@@ -271,12 +271,12 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsListingComponentOutline(
 ```
-_No KDoc at source._
+Card frame of an actions listing; the content is clipped while collapsed.
 
 ```kotlin
 fun AppActionsIdentifierListingComponent(
 ```
-_No KDoc at source._
+Identifier card with its actions menu.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/identifiers/ClientIdentifiersScreen.kt:209</code></summary>
 
@@ -295,7 +295,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsCollateralDataListingComponent(
 ```
-_No KDoc at source._
+Collateral card with its actions menu.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/collateraldetails/ClientCollateralDetailsScreen.kt:99</code></summary>
 
@@ -314,7 +314,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsClientDocumentListingComponent(
 ```
-_No KDoc at source._
+Client document card with its actions menu.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/documents/ClientDocumentsScreen.kt:195</code></summary>
 
@@ -333,7 +333,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsLoanListingComponent(
 ```
-_No KDoc at source._
+Loan account card with its actions menu.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/loanaccounts/ClientLoanAccountsScreen.kt:295</code></summary>
 
@@ -352,7 +352,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsShareListingComponent(
 ```
-_No KDoc at source._
+Share account card with its actions menu.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/shareaccounts/ClientShareAccountsScreen.kt:200</code></summary>
 
@@ -371,7 +371,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsChargeListingComponent(
 ```
-_No KDoc at source._
+Charge card with its actions menu, expandable for the details.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/list/ChargeListScreen.kt:212</code></summary>
 
@@ -390,7 +390,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsSavingsListingComponent(
 ```
-_No KDoc at source._
+Savings account card with its actions menu, expandable for the details.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/depositaccounts/ClientDepositAccountsScreen.kt:260</code></summary>
 
@@ -409,7 +409,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsClientFeeListingComponent(
 ```
-_No KDoc at source._
+Client fee card with its actions menu.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreview.kt:112</code></summary>
 
@@ -428,7 +428,7 @@ private fun PreviewAppActionsClientFeeListingComponent() {
 ```kotlin
 sealed class Actions(open val icon: ImageVector, open val text: StringResource)
 ```
-_No KDoc at source._
+An entry of a listing card's actions menu.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/list/ChargeListScreen.kt:219</code></summary>
 
@@ -447,7 +447,7 @@ _No KDoc at source._
 ```kotlin
 fun AppActionsNoteListingComponent(
 ```
-_No KDoc at source._
+Note card with its actions menu, expandable for the full text.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreview.kt:57</code></summary>
 
@@ -468,7 +468,7 @@ private fun PreviewAppActionsNoteListingComponent() {
 ```kotlin
 fun AppAddressCard(
 ```
-_No KDoc at source._
+Titled card listing an address, one labelled line per field.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/address/ClientAddressScreen.kt:179</code></summary>
 
@@ -487,14 +487,14 @@ _No KDoc at source._
 ```kotlin
 fun AppAddressItem(
 ```
-_No KDoc at source._
+One labelled line of an address card.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAlertDialog.kt`
 
 ```kotlin
 fun AppAlertDialog(
 ```
-_No KDoc at source._
+Alert dialog with a message, a confirm button and an optional dismiss button.
 
 <details><summary>Used in the template — <code>feature/activate/src/commonMain/kotlin/kpt/feature/activate/ui/ActivateScreen.kt:232</code></summary>
 
@@ -515,12 +515,12 @@ _No KDoc at source._
 ```kotlin
 fun AppBreadcrumbNavBar(
 ```
-_No KDoc at source._
+Breadcrumb trail of the back stack; tapping an entry pops back to it.
 
 ```kotlin
 fun BreadcrumbItem(
 ```
-_No KDoc at source._
+One entry of a breadcrumb trail.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreview.kt:259</code></summary>
 
@@ -541,7 +541,7 @@ _No KDoc at source._
 ```kotlin
 fun AppCheckBox(
 ```
-_No KDoc at source._
+Checkbox with a label.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:155</code></summary>
 
@@ -583,7 +583,7 @@ Shows a downloaded document in place — a PDF through PDFium (`pdf-viewer-kmp`)
 ```kotlin
 fun AppEmptyCard(
 ```
-_No KDoc at source._
+Card shown when a list is empty, with an optional action button.
 
 <details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/ui/CheckerInboxScreen.kt:421</code></summary>
 
@@ -604,7 +604,7 @@ private fun Empty(message: org.jetbrains.compose.resources.StringResource) {
 ```kotlin
 fun AppEmptyUi(
 ```
-_No KDoc at source._
+Centred icon and message for an empty screen.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:123</code></summary>
 
@@ -625,12 +625,12 @@ _No KDoc at source._
 ```kotlin
 fun AppErrorComponent(
 ```
-_No KDoc at source._
+Error state: no-internet, empty-data or a message, with an optional retry.
 
 ```kotlin
 fun NoInternetComponent(
 ```
-_No KDoc at source._
+No-internet state with an optional retry.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreview.kt:309</code></summary>
 
@@ -647,7 +647,7 @@ private fun NoInternetPreview() {
 ```kotlin
 fun EmptyDataComponent(
 ```
-_No KDoc at source._
+Empty-data or error state with an optional retry.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:27</code></summary>
 
@@ -666,7 +666,7 @@ private fun EmptyDataPreview() {
 ```kotlin
 fun EmptyDataComponentWithModifiedMessageAndIcon(
 ```
-_No KDoc at source._
+Empty-data state with a custom message and icon.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:37</code></summary>
 
@@ -687,7 +687,7 @@ _No KDoc at source._
 ```kotlin
 fun AppFAB(
 ```
-_No KDoc at source._
+Floating action button with an icon.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:50</code></summary>
 
@@ -708,7 +708,7 @@ private fun AppFABPreview() {
 ```kotlin
 fun AppFilePickerBottomSheet(
 ```
-_No KDoc at source._
+Bottom sheet for choosing a file from the gallery, the files app or more sources.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/adddocument/ClientAddDocumentScreen.kt:205</code></summary>
 
@@ -724,39 +724,29 @@ _No KDoc at source._
 
 </details>
 
-```kotlin
-fun PreviewAppFilePickerBottomSheet()
-```
-_No KDoc at source._
-
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppGeneralCard.kt`
 
 ```kotlin
 fun AppGeneralCardComponentOutline(
 ```
-_No KDoc at source._
+Rounded outlined frame of a general card.
 
 ```kotlin
 fun AppGeneralRowItem(
 ```
-_No KDoc at source._
+One key/value row of a general card.
 
 ```kotlin
 fun AppGeneralCard(
 ```
-_No KDoc at source._
-
-```kotlin
-fun AppPreviewGeneralCard()
-```
-_No KDoc at source._
+Card listing `contentMap` as key/value rows.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppIcon.kt`
 
 ```kotlin
 fun AppIcon(
 ```
-_No KDoc at source._
+App icon image.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:63</code></summary>
 
@@ -777,7 +767,7 @@ _No KDoc at source._
 ```kotlin
 fun AppImageCropperDialog(
 ```
-_No KDoc at source._
+Dialog for cropping an image at `aspectRatio`.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:715</code></summary>
 
@@ -798,7 +788,7 @@ _No KDoc at source._
 ```kotlin
 fun AppItemCard(
 ```
-_No KDoc at source._
+Clickable card around caller-supplied content.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:76</code></summary>
 
@@ -819,7 +809,7 @@ _No KDoc at source._
 ```kotlin
 fun AppLinkText(
 ```
-_No KDoc at source._
+Clickable link-styled text.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:91</code></summary>
 
@@ -840,9 +830,9 @@ _No KDoc at source._
 ```kotlin
 fun AppListingComponentOutline(
 ```
-_No KDoc at source._
+Outlined frame of a listing card.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAddressCard.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAddressCard.kt:33</code></summary>
 
 ```kotlin
     modifier: Modifier = Modifier,
@@ -859,9 +849,9 @@ _No KDoc at source._
 ```kotlin
 fun AppListingRowItem(
 ```
-_No KDoc at source._
+One key/value row of a listing card, from composables.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:187</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:188</code></summary>
 
 ```kotlin
                     verticalArrangement = Arrangement.spacedBy(DesignToken.padding.medium),
@@ -878,9 +868,9 @@ _No KDoc at source._
 ```kotlin
 fun AppListingColumnItem(
 ```
-_No KDoc at source._
+One key-above-value item of a listing card, from composables.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:872</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:895</code></summary>
 
 ```kotlin
                 Spacer(Modifier.height(DesignToken.padding.large))
@@ -896,9 +886,9 @@ _No KDoc at source._
 ```kotlin
 fun AppListingColumnItem(
 ```
-_No KDoc at source._
+One key-above-value item of a listing card.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:872</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:895</code></summary>
 
 ```kotlin
                 Spacer(Modifier.height(DesignToken.padding.large))
@@ -914,9 +904,9 @@ _No KDoc at source._
 ```kotlin
 fun AppListingRowItem(
 ```
-_No KDoc at source._
+One key/value row of a listing card.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:187</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:188</code></summary>
 
 ```kotlin
                     verticalArrangement = Arrangement.spacedBy(DesignToken.padding.medium),
@@ -933,9 +923,9 @@ _No KDoc at source._
 ```kotlin
 fun AppListingRowItemHeader(
 ```
-_No KDoc at source._
+Header row of a listing card.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:179</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:180</code></summary>
 
 ```kotlin
         ) {
@@ -952,7 +942,7 @@ _No KDoc at source._
 ```kotlin
 fun AppDefaultListingComponent(
 ```
-_No KDoc at source._
+Listing card of `data`'s key/value rows.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:110</code></summary>
 
@@ -971,7 +961,7 @@ _No KDoc at source._
 ```kotlin
 fun AppDefaultListingComponentFromStringResources(
 ```
-_No KDoc at source._
+Listing card of `data`'s key/value rows, keys from string resources.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsScreen.kt:296</code></summary>
 
@@ -990,7 +980,7 @@ _No KDoc at source._
 ```kotlin
 fun AppClientFeeListingComponent(
 ```
-_No KDoc at source._
+Client fee card.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:118</code></summary>
 
@@ -1009,7 +999,7 @@ private fun PreviewAppClientFeeListingComponent() {
 ```kotlin
 fun AppLoanListingComponent(
 ```
-_No KDoc at source._
+Loan account card.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:133</code></summary>
 
@@ -1028,7 +1018,7 @@ private fun PreviewAppLoanListingComponent() {
 ```kotlin
 fun AppSavingsListingComponent(
 ```
-_No KDoc at source._
+Savings account card.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:148</code></summary>
 
@@ -1047,7 +1037,7 @@ private fun PreviewAppSavingsListingComponent() {
 ```kotlin
 fun AppCollateralDataListingComponent(
 ```
-_No KDoc at source._
+Collateral card.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:161</code></summary>
 
@@ -1066,7 +1056,7 @@ private fun PreviewAppCollateralDataListingComponent() {
 ```kotlin
 fun AppIdentifierListingComponent(
 ```
-_No KDoc at source._
+Identifier card.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:174</code></summary>
 
@@ -1085,7 +1075,7 @@ private fun PreviewAppIdentifierListingComponent() {
 ```kotlin
 enum class Status(val color: Color)
 ```
-_No KDoc at source._
+Status of a listed item.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/identifiers/IdentifierDocumentKey.kt:30</code></summary>
 
@@ -1104,7 +1094,7 @@ internal fun identifierDocumentKeyPrefix(documentTypeName: String?, documentKey:
 ```kotlin
 fun AppDelinquencyListingComponent(
 ```
-_No KDoc at source._
+Delinquency card: when it applies and whether it is paused.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:189</code></summary>
 
@@ -1123,7 +1113,7 @@ private fun PreviewAppDelinquencyListingComponent() {
 ```kotlin
 fun AppChargesListingComponent(
 ```
-_No KDoc at source._
+Charge card with due, paid, waived and outstanding amounts.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:203</code></summary>
 
@@ -1142,7 +1132,7 @@ private fun PreviewAppChargesListingComponent() {
 ```kotlin
 fun AppSellLoanListingComponent(
 ```
-_No KDoc at source._
+Loan sale card.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart2.kt:220</code></summary>
 
@@ -1163,7 +1153,7 @@ private fun PreviewAppSellLoanListingComponent() {
 ```kotlin
 fun AppProgressIndicator(
 ```
-_No KDoc at source._
+Full-size loading indicator.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormScreen.kt:124</code></summary>
 
@@ -1182,7 +1172,7 @@ _No KDoc at source._
 ```kotlin
 fun AppProgressIndicatorOverlay(
 ```
-_No KDoc at source._
+Loading indicator over the content, blocking touches.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormScreen.kt:149</code></summary>
 
@@ -1201,12 +1191,12 @@ _No KDoc at source._
 ```kotlin
 fun AppPagingAppendProgress(modifier: Modifier = Modifier)
 ```
-_No KDoc at source._
+Loading indicator at the end of a paged list.
 
 ```kotlin
 fun AppProgressIndicatorMini(
 ```
-_No KDoc at source._
+Small loading indicator.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:278</code></summary>
 
@@ -1227,12 +1217,12 @@ _No KDoc at source._
 ```kotlin
 fun AppRadioButtonDialog(
 ```
-_No KDoc at source._
+Dialog listing `items` as radio buttons, with `selectedItem` checked.
 
-<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppAlertDialog.kt:114</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/fieldofficer/component/AppAlertDialog.kt:117</code></summary>
 
 ```kotlin
-
+/** Dialog listing `items` as radio buttons, with `selectedItem` checked. */
 @Composable
 fun AppRadioButtonDialog(
     title: String,
@@ -1248,7 +1238,7 @@ fun AppRadioButtonDialog(
 ```kotlin
 fun AppRoundIcon(
 ```
-_No KDoc at source._
+Round icon image.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart3.kt:77</code></summary>
 
@@ -1269,7 +1259,7 @@ _No KDoc at source._
 ```kotlin
 fun AppRowCard(
 ```
-_No KDoc at source._
+Clickable card with a title and two columns of text.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsScreen.kt:351</code></summary>
 
@@ -1288,7 +1278,7 @@ _No KDoc at source._
 ```kotlin
 fun AppRowCard(
 ```
-_No KDoc at source._
+Card with an image, a title and two columns of text.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsScreen.kt:351</code></summary>
 
@@ -1307,7 +1297,7 @@ _No KDoc at source._
 ```kotlin
 fun AppRowTextWithButton(
 ```
-_No KDoc at source._
+Row with a title, description and size, and a button.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart3.kt:86</code></summary>
 
@@ -1326,7 +1316,7 @@ private fun AppRowTextWithButton() {
 ```kotlin
 fun AppRowWithLabels(
 ```
-_No KDoc at source._
+Clickable row with an image, title, subtitle and two labels.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart3.kt:142</code></summary>
 
@@ -1345,7 +1335,7 @@ private fun AppRowWithLabelsPreview() {
 ```kotlin
 fun AppDropDownRow(
 ```
-_No KDoc at source._
+Clickable account row: status dot, title, account number, office and date.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart3.kt:157</code></summary>
 
@@ -1366,7 +1356,7 @@ private fun AppRowDropDownPreview() {
 ```kotlin
 fun AppRowWithTextAndButton(
 ```
-_No KDoc at source._
+Row with text and a button.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/adddocument/ClientAddDocumentScreen.kt:159</code></summary>
 
@@ -1387,7 +1377,7 @@ _No KDoc at source._
 ```kotlin
 fun AppSearchBar(
 ```
-_No KDoc at source._
+Search bar with back and search buttons.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/depositaccounts/ClientDepositAccountsScreen.kt:196</code></summary>
 
@@ -1408,7 +1398,7 @@ _No KDoc at source._
 ```kotlin
 fun AppSignatureDrawDialog(
 ```
-_No KDoc at source._
+Dialog for drawing a signature; saving returns it as an image.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/signature/ClientSignatureScreen.kt:283</code></summary>
 
@@ -1428,7 +1418,7 @@ _No KDoc at source._
 ```kotlin
 fun AppStatusDialog(
 ```
-_No KDoc at source._
+Success or failure result, with a confirm button; inline or as a dialog.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormScreen.kt:163</code></summary>
 
@@ -1447,7 +1437,7 @@ _No KDoc at source._
 ```kotlin
 enum class ResultStatus
 ```
-_No KDoc at source._
+Outcome shown by an `AppStatusDialog`.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormScreen.kt:164</code></summary>
 
@@ -1466,17 +1456,17 @@ _No KDoc at source._
 ```kotlin
 object AppStatusDialogTestTags
 ```
-_No KDoc at source._
+Test tags of `AppStatusDialog`.
 
-- `const val SECONDARY = "status-dialog:secondary"`
-- `const val NOTE = "status-dialog:note"`
+- `const val SECONDARY = "status-dialog:secondary"` — The secondary action under the button.
+- `const val NOTE = "status-dialog:note"` — The note under the message.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppStepper.kt`
 
 ```kotlin
 fun AppStepper(
 ```
-_No KDoc at source._
+Stepper over `steps`, showing the content of the current one.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart3.kt:236</code></summary>
 
@@ -1497,7 +1487,7 @@ _No KDoc at source._
 ```kotlin
 fun AppTextUserImage(
 ```
-_No KDoc at source._
+Round avatar showing the initial of `text`.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:89</code></summary>
 
@@ -1518,7 +1508,7 @@ _No KDoc at source._
 ```kotlin
 fun AppTextTitleDescSingleLine(
 ```
-_No KDoc at source._
+Title and description on one line.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:31</code></summary>
 
@@ -1537,7 +1527,7 @@ _No KDoc at source._
 ```kotlin
 fun AppTextTitleDescDoubleLine(
 ```
-_No KDoc at source._
+Title above its description.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:45</code></summary>
 
@@ -1556,7 +1546,7 @@ _No KDoc at source._
 ```kotlin
 fun AppTextTitleDescDrawableSingleLine(
 ```
-_No KDoc at source._
+Title and description on one line, with a clickable image.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:60</code></summary>
 
@@ -1575,7 +1565,7 @@ _No KDoc at source._
 ```kotlin
 fun AppTitleDescSingleLineEqual(
 ```
-_No KDoc at source._
+Title and description on one line, each taking half the width.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:75</code></summary>
 
@@ -1596,7 +1586,7 @@ _No KDoc at source._
 ```kotlin
 fun SelectionModeTopAppBar(
 ```
-_No KDoc at source._
+Top bar of selection mode: the selected count, a close button and actions.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:100</code></summary>
 
@@ -1638,7 +1628,7 @@ The cancel / confirm button pair used by every form in this app.
 ```kotlin
 fun AppUserImage(
 ```
-_No KDoc at source._
+Round profile picture from image bytes, or a placeholder.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:331</code></summary>
 
@@ -1659,7 +1649,7 @@ _No KDoc at source._
 ```kotlin
 fun AppUserSignatureImage(
 ```
-_No KDoc at source._
+Signature image from image bytes, or `emptyMessage` when there is none.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/signature/ClientSignatureScreen.kt:183</code></summary>
 
@@ -1678,7 +1668,7 @@ _No KDoc at source._
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/components/DocumentKind.kt`
 
 ```kotlin
-enum class DocumentKind { Pdf, Image, Unsupported }
+enum class DocumentKind
 ```
 What a document's bytes can be shown as.
 
@@ -1706,7 +1696,7 @@ Decides how to show a document. The CONTENT is asked first — a file's leading 
 ```kotlin
 fun EmptyDataView(
 ```
-_No KDoc at source._
+Centred icon and error message.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreview.kt:32</code></summary>
 
@@ -1725,7 +1715,7 @@ _No KDoc at source._
 ```kotlin
 fun EmptyDataView(
 ```
-_No KDoc at source._
+Centred image and error message, from a string resource.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreview.kt:32</code></summary>
 
@@ -1746,34 +1736,34 @@ _No KDoc at source._
 ```kotlin
 enum class FabType
 ```
-_No KDoc at source._
+What a create button creates.
 
 ```kotlin
 sealed class FabButtonState
 ```
-_No KDoc at source._
+Whether the create buttons are shown.
 
 ```kotlin
 sealed class FabButton(val fabType: FabType)
 ```
-_No KDoc at source._
+One create button.
 
 ```kotlin
 fun FabItem(
 ```
-_No KDoc at source._
+One create button.
 
 ```kotlin
 fun MultiFloatingActionButton(
 ```
-_No KDoc at source._
+Expanding floating action button that reveals the create buttons.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/components/NoInternet.kt`
 
 ```kotlin
 fun NoInternet(
 ```
-_No KDoc at source._
+No-internet message with an optional retry.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppAllUiComponentsPreviewPart4.kt:169</code></summary>
 
@@ -1832,25 +1822,25 @@ Progress of a download. While running it can be cancelled (what is already downl
 ```kotlin
 object OfflineDownloadTestTags
 ```
-_No KDoc at source._
+Test tags of the offline download screen.
 
-- `const val SELECTION_BAR = "offline:selectionBar"`
-- `const val CLEAR = "offline:clear"`
-- `const val DOWNLOAD = "offline:download"`
-- `const val DIALOG = "offline:dialog"`
-- `const val PROGRESS = "offline:progress"`
-- `const val FAILURES = "offline:failures"`
-- `const val CANCEL = "offline:cancel"`
-- `const val DONE = "offline:done"`
+- `const val SELECTION_BAR = "offline:selectionBar"` — The selection bar.
+- `const val CLEAR = "offline:clear"` — The clear-selection button.
+- `const val DOWNLOAD = "offline:download"` — The download button.
+- `const val DIALOG = "offline:dialog"` — The download dialog.
+- `const val PROGRESS = "offline:progress"` — The progress indicator.
+- `const val FAILURES = "offline:failures"` — The failure list.
+- `const val CANCEL = "offline:cancel"` — The cancel button.
+- `const val DONE = "offline:done"` — The done button.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/components/PrintTextUtil.kt`
 
 ```kotlin
 fun PrintTextUtil(
 ```
-_No KDoc at source._
+Text drawn from a `TextUtil`.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:583</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppActionsListingCardComponent.kt:589</code></summary>
 
 ```kotlin
                     verticalArrangement = Arrangement.spacedBy(DesignToken.padding.extraExtraSmall),
@@ -1869,7 +1859,7 @@ _No KDoc at source._
 ```kotlin
 data class Step(
 ```
-_No KDoc at source._
+One step of an `AppStepper`.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/newloan/NewLoanApplicationScreenUiTest.kt:52</code></summary>
 
@@ -1890,7 +1880,7 @@ _No KDoc at source._
 ```kotlin
 fun getClientIdentifierStatus(status: String?): Status?
 ```
-_No KDoc at source._
+The listing status of an identifier's status text, or null when there is none.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/input/PasswordStrengthIndicator.kt`
 
@@ -2159,7 +2149,7 @@ KptScaffold(
 ```kotlin
 object PasswordChecker
 ```
-_No KDoc at source._
+Password strength checks.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/utils/PasswordChecker.kt:20</code></summary>
 
@@ -2175,7 +2165,7 @@ object PasswordChecker {
 
 </details>
 
-- `fun getPasswordStrengthResult(password: String): PasswordStrengthResult`
+- `fun getPasswordStrengthResult(password: String): PasswordStrengthResult` — The password's strength, or an error when it is empty or too long.
 - `val result = getPasswordStrength(password)`
 - `val length = password.length`
 - `val hasUpperCase = password.any { it.isUpperCase() }`
@@ -2185,13 +2175,13 @@ object PasswordChecker {
 - `val numTypesPresent =`
 - `val entropyBits = calculateEntropy(password)`
 - `val charPool = 26 + 26 + 10 + 33 // lowercase + uppercase + digits + symbols`
-- `fun getPasswordFeedback(password: String): List<String>`
+- `fun getPasswordFeedback(password: String): List<String>` — Hints for strengthening the password.
 - `val feedback = mutableListOf<String>()`
 
 ```kotlin
 sealed class PasswordStrengthResult
 ```
-_No KDoc at source._
+Result of a strength check.
 
 <details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/utils/PasswordChecker.kt:34</code></summary>
 
@@ -2287,41 +2277,41 @@ Convenience method for observing event flow from `BaseViewModel`. By default, ev
 ```kotlin
 fun imageToByteArray(image: String?): ByteArray?
 ```
-_No KDoc at source._
+Decodes a base64 image (with or without a `data:` prefix) and resizes it; null when it cannot be decoded.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/util/ImageUtil.kt`
 
 ```kotlin
 expect object ImageUtil
 ```
-_No KDoc at source._
+Image resizing for uploads.
 
-<details><summary>Used in the template — <code>core/ui/src/androidMain/kotlin/kpt/core/ui/util/ImageUtil.android.kt:20</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/androidMain/kotlin/kpt/core/ui/util/ImageUtil.android.kt:21</code></summary>
 
 ```kotlin
-import java.io.ByteArrayOutputStream
 
+/** Image resizing with Android's `BitmapFactory`. */
 actual object ImageUtil {
+    /** Widest an image is scaled to, in pixels. */
     actual val DEFAULT_MAX_WIDTH: Float = 816f
-    actual val DEFAULT_MAX_HEIGHT: Float = 612f
 
-    actual fun compressImage(
+    /** Tallest an image is scaled to, in pixels. */
 ```
 
 </details>
 
-- `val DEFAULT_MAX_WIDTH: Float`
-- `val DEFAULT_MAX_HEIGHT: Float`
-- `fun compressImage(`
+- `val DEFAULT_MAX_WIDTH: Float` — Widest an image is scaled to, in pixels.
+- `val DEFAULT_MAX_HEIGHT: Float` — Tallest an image is scaled to, in pixels.
+- `fun compressImage(` — Scales the image down to fit `maxWidth` × `maxHeight` and re-encodes it.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/util/LottieConstants.kt`
 
 ```kotlin
 object LottieConstants
 ```
-_No KDoc at source._
+Paths of the bundled Lottie animations.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppProgressIndicator.kt:47</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/components/AppProgressIndicator.kt:48</code></summary>
 
 ```kotlin
     val composition by rememberLottieComposition {
@@ -2335,14 +2325,14 @@ _No KDoc at source._
 
 </details>
 
-- `const val LOADING_ANIMATION = "files/loading_animation.json"`
+- `const val LOADING_ANIMATION = "files/loading_animation.json"` — The loading animation.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/util/MultipartRequestBody.kt`
 
 ```kotlin
 fun multipartRequestBody(
 ```
-_No KDoc at source._
+Multipart form body carrying `file`, plus a description when given.
 
 ```kotlin
 fun documentUpload(
@@ -2352,14 +2342,14 @@ What the officer picked, as a `DocumentUpload` — the document write path's inp
 ```kotlin
 fun getMimeTypeFromPlatformFile(extension: String): String
 ```
-_No KDoc at source._
+MIME type for a file extension.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/util/ShareUtils.kt`
 
 ```kotlin
 expect object ShareUtils
 ```
-_No KDoc at source._
+Platform share, dial, mail and browser actions.
 
 <details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:97</code></summary>
 
@@ -2374,16 +2364,16 @@ _No KDoc at source._
 
 </details>
 
-- `fun shareText(text: String)`
-- `suspend fun shareImage(title: String, image: ImageBitmap)`
-- `suspend fun shareImage(title: String, byte: ByteArray)`
-- `fun openAppInfo()`
-- `fun shareApp()`
-- `fun callHelpline()`
-- `fun mailHelpline()`
-- `fun openUrl(url: String)`
-- `fun ossLicensesMenuActivity()`
-- `fun restartApplication()`
+- `fun shareText(text: String)` — Shares `text` through the platform share sheet.
+- `suspend fun shareImage(title: String, image: ImageBitmap)` — Shares an image through the platform share sheet, or saves it where there is none.
+- `suspend fun shareImage(title: String, byte: ByteArray)` — Shares an image through the platform share sheet, or saves it where there is none.
+- `fun openAppInfo()` — Opens this app's page in the system settings.
+- `fun shareApp()` — Shares a link to this app's store listing.
+- `fun callHelpline()` — Opens the dialler on the support helpline.
+- `fun mailHelpline()` — Opens a mail draft to support.
+- `fun openUrl(url: String)` — Opens `url` in the browser.
+- `fun ossLicensesMenuActivity()` — Opens the open-source licences screen.
+- `fun restartApplication()` — Restarts the app.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/util/TestTagsAsResourceIds.kt`
 
@@ -2397,7 +2387,7 @@ Expose every `Modifier.testTag` below this node as an Android resource id, so de
 ```kotlin
 object TextFieldsValidator
 ```
-_No KDoc at source._
+Validators for form text fields; each returns the error message, or null when the input is valid.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/collateral/ClientCollateralViewModel.kt:131</code></summary>
 
@@ -2413,18 +2403,14 @@ _No KDoc at source._
 
 </details>
 
-- `fun stringValidator(input: String): StringResource?`
-- `fun optionalStringValidator(input: String): StringResource?`
-- `fun numberValidator(input: String): StringResource?`
-- `fun doubleNumberValidator(input: String): StringResource?`
-- `fun dropDownEmptyValidator(input: Boolean): StringResource?`
+- `fun numberValidator(input: String): StringResource?` — Requires a whole number greater than zero.
 
 ### `core/ui/src/commonMain/kotlin/kpt/core/ui/util/TextUtil.kt`
 
 ```kotlin
 data class TextUtil(
 ```
-_No KDoc at source._
+Text with an optional style and colour.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsScreen.kt:355</code></summary>
 
@@ -2445,7 +2431,7 @@ _No KDoc at source._
 ```kotlin
 fun List<Int?>?.toDateString(): String
 ```
-_No KDoc at source._
+Formats a Fineract `[year, month, day]` date as `dd-MM-yyyy`; empty when it is incomplete.
 
 <details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:217</code></summary>
 
@@ -2468,11 +2454,11 @@ object PasswordChecker
 ```
 Scores a password against the app's rules and explains what is missing. Pure and platform-free, so the same verdict drives the indicator and any validation.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/util/AppPasswordChecker.kt:16</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/util/AppPasswordChecker.kt:17</code></summary>
 
 ```kotlin
-import kotlin.math.pow
 
+/** Password strength checks. */
 object PasswordChecker {
     private const val MIN_PASSWORD_LENGTH = 8
     private const val STRONG_PASSWORD_LENGTH = 12
@@ -2501,11 +2487,11 @@ sealed class PasswordStrengthResult
 ```
 The verdict: a strength band plus the unmet requirements, so the UI can say WHAT to fix rather than only that it is weak.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/util/AppPasswordChecker.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/util/AppPasswordChecker.kt:24</code></summary>
 
 ```kotlin
-    private const val MAX_PASSWORD_LENGTH = 128
 
+    /** The password's strength, or an error when it is empty or too long. */
     fun getPasswordStrengthResult(password: String): PasswordStrengthResult {
         return when {
             password.isEmpty() -> PasswordStrengthResult.Error("Password cannot be empty.")
@@ -2522,7 +2508,7 @@ enum class PasswordStrength
 ```
 Password strength bands used by `PasswordChecker`.
 
-<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/util/AppPasswordChecker.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/util/AppPasswordChecker.kt:34</code></summary>
 
 ```kotlin
 
@@ -2550,5 +2536,5 @@ Converts the given `PasswordStrength` to an `Int`.
 
 ---
 
-_37 type(s), 205 function(s)/property(ies); 85 carry KDoc at source; 2 authored example(s); 107 live call site(s)._
+_37 type(s), 199 function(s)/property(ies); 211 carry KDoc at source; 2 authored example(s); 107 live call site(s)._
 <!-- api-docs:end -->

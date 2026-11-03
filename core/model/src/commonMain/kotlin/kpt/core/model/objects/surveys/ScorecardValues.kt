@@ -16,9 +16,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ScorecardValues(
+    /** The server id of the question. */
     var questionId: Int? = null,
 
+    /** The server id of the response. */
     var responseId: Int? = null,
 
+    /** The score given for the answer. */
     var value: Int? = null,
 )

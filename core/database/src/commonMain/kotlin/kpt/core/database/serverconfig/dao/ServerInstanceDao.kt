@@ -18,16 +18,20 @@ import kotlinx.coroutines.flow.Flow
 import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.serverconfig.entity.ServerInstanceEntity
 
+/** Room queries for server instance rows. */
 @DbDao
 @Dao
 interface ServerInstanceDao {
 
+    /** Observes the `server_instances` rows, ordered by `position`. */
     @Query("SELECT * FROM server_instances ORDER BY position")
     fun observeAll(): Flow<List<ServerInstanceEntity>>
 
+    /** Saves `instances`, replacing rows with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(instances: List<ServerInstanceEntity>)
 
+    /** Deletes every `server_instances` row. */
     @Query("DELETE FROM server_instances")
     suspend fun deleteAll()
 

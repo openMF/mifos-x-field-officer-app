@@ -10,10 +10,15 @@
 package kpt.core.model.objects.checkerinboxtask
 
 import kotlinx.serialization.Serializable
+/** A reschedule reason code value. */
 @Serializable
 data class RescheduleReasonCodeValue(
+    /** The server id of this record. */
     var id: Int = 0,
+    /** The display name. */
     var name: String = "",
+    /** True when the record is active. */
     var active: Boolean = true,
+    /** True when this option must be filled in. */
     var mandatory: Boolean = false,
 )

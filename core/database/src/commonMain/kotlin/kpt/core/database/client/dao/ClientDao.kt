@@ -24,6 +24,7 @@ import kpt.core.database.client.entity.ClientsTemplateEntity
 import kpt.core.database.loan.entity.LoanAccountEntity
 import kpt.core.database.savings.entity.SavingsAccountEntity
 
+/** Room queries for client rows. */
 @DbDao
 @Dao
 interface ClientDao :
@@ -31,15 +32,19 @@ interface ClientDao :
     ClientDataTableDao,
     ClientPayloadDao,
     ClientAddressIdentifierDao {
+    /** Saves `client`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientEntity::class)
     suspend fun insertClient(client: ClientEntity)
 
+    /** Observes the `Client` rows. */
     @Query("SELECT * FROM Client")
     fun getAllClients(): Flow<List<ClientEntity>>
 
+    /** Observes the `Client` rows whose `groupId` is `groupId`. */
     @Query("SELECT * FROM Client WHERE groupId = :groupId")
     fun getClientsByGroupId(groupId: Int): Flow<List<ClientEntity>>
 
+    /** Observes the `Client` row whose `id` is `clientId`. */
     @Query("SELECT * FROM Client WHERE id = :clientId LIMIT 1")
     fun getClientByClientId(clientId: Int): Flow<ClientEntity?>
 
@@ -51,21 +56,31 @@ interface ClientDao :
     @Query("DELETE FROM Client")
     suspend fun deleteAllClients()
 
+    /** Saves `loanAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = LoanAccountEntity::class)
     suspend fun insertLoanAccount(loanAccount: LoanAccountEntity)
 
+    /** Saves `savingsAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = SavingsAccountEntity::class)
     suspend fun insertSavingsAccount(savingsAccount: SavingsAccountEntity)
 
+    /** Observes the `LoanAccountEntity` rows whose `clientId` is `clientId`. */
     @Query("SELECT * FROM LoanAccountEntity WHERE clientId = :clientId")
     fun getLoanAccountsByClientId(clientId: Long): Flow<List<LoanAccountEntity>>
 
+    /** Observes the `SavingsAccount` rows whose `clientId` is `clientId`. */
     @Query("SELECT * FROM SavingsAccount WHERE clientId = :clientId")
     fun getSavingsAccountsByClientId(clientId: Long): Flow<List<SavingsAccountEntity>>
 
+    /** Constants and factories of `ClientDao`. */
     companion object {
+        /** The option type of genders. */
         const val GENDER_OPTIONS = "genderOptions"
+
+        /** The option type of client types. */
         const val CLIENT_TYPE_OPTIONS = "clientTypeOptions"
+
+        /** The option type of client classifications. */
         const val CLIENT_CLASSIFICATION_OPTIONS = "clientClassificationOptions"
     }
 

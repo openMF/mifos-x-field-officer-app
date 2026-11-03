@@ -33,6 +33,7 @@ import kpt.core.ui.generated.resources.bread_crumb_back_icon
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Breadcrumb trail of the back stack; tapping an entry pops back to it. */
 @Composable
 fun AppBreadcrumbNavBar(
     navController: NavController,
@@ -105,6 +106,7 @@ fun AppBreadcrumbNavBar(
     }
 }
 
+/** One entry of a breadcrumb trail. */
 @Composable
 fun BreadcrumbItem(
     text: String,

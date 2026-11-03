@@ -7,9 +7,13 @@
 
 privacy_policy_url: https://raw.githubusercontent.com/openMF/kmp-project-template/main/legal/output/privacy-policy.md
 
+# Whether the app shows ads. Play requires the declaration, and an incorrect answer is a
+# policy violation rather than a listing error.
 ads:
   contains_ads: false
 
+# How a reviewer reaches gated content — demo credentials, or a statement that all content
+# is open. Play cannot review what it cannot open.
 app_access:
   all_functionality_available_without_special_access: true
   login_required: false
@@ -20,11 +24,15 @@ app_access:
     schedule, loan comparison, interest rates, country macro data, currency
     exchange rates) is usable immediately after install with zero setup.
 
+# IARC content-rating answers. The full questionnaire lives in content-rating.yaml; this is
+# the summary Play stores against the listing.
 content_rating:
   ref: ./content-rating.yaml
   category: Utility
   expected_rating: Everyone
 
+# Declared age bands. Selecting a child band puts the app under Families policy, which adds
+# requirements for ads, data collection and API usage.
 target_audience:
   age_groups: ["18 and over"]
   appeals_to_children: false
@@ -33,6 +41,8 @@ target_audience:
     Personal-finance / loan-tracking utility aimed at adults managing their
     own finances. Not designed or marketed for children.
 
+# The Data Safety form: what is collected, whether it is shared, and whether it is encrypted
+# in transit. Must match what the app actually does — Play audits against observed traffic.
 data_safety:
   ref: ./data-safety.csv
   collects_or_shares_data: false
@@ -45,6 +55,8 @@ data_safety:
     rates) carry no personal identifiers and are not "data collected" from
     the user. See data-safety.csv for the full Play Console questionnaire.
 
+# Declarations for regulated categories (finance, health, government, gambling).
+# An undeclared regulated app is removed rather than warned.
 special_categories:
   news_apps_declaration:
     is_news_app: false
@@ -53,6 +65,8 @@ special_categories:
   government_apps:
     is_government_app: false
 
+# Play's financial-features form, required when the app handles loans, payments or
+# investments. The toolkit's demo features are calculators, not regulated products.
 financial_features_declaration:
   is_financial_app_requiring_declaration: false
   notes: >
@@ -61,6 +75,7 @@ financial_features_declaration:
     payments, or any regulated financial transaction, so it does not trigger
     Play's financial-services app declaration requirements.
 
+# Health-app declaration, required when the app handles health or fitness data.
 health_apps:
   is_health_app: false
 

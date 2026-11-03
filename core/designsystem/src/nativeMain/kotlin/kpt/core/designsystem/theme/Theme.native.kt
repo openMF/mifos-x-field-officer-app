@@ -12,6 +12,7 @@ package kpt.core.designsystem.theme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 
+/** The brand scheme; this platform has no dynamic colour. */
 @Composable
 actual fun colorScheme(useDarkTheme: Boolean, dynamicColor: Boolean): ColorScheme {
     return when {

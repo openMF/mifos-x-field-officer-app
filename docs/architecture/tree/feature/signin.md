@@ -23,10 +23,10 @@ ViewModels: `SignInViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/signin sha=7d438fdbaea94f27c334392445ddd93e7e88e82f -->
+<!-- api-docs:begin module=feature/signin sha=87e371e849a6f1f884b8c3aa5cabdc8c62cb124e -->
 ## API reference
 
-_Generated from `feature/signin` at tree `7d438fdbaea9` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/signin` at tree `87e371e849a6` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -39,12 +39,12 @@ rather than re-declaring what they already own.
 ```kotlin
 data object SignInRoute
 ```
-_No KDoc at source._
+The sign-in screen.
 
 ```kotlin
 fun NavController.navigateToSignIn(navOptions: NavOptions? = null) = navigate(SignInRoute, navOptions)
 ```
-_No KDoc at source._
+Opens the sign-in screen.
 
 ```kotlin
 fun NavGraphBuilder.signInDestination(
@@ -56,7 +56,7 @@ Login is NOT annotated `@FeatureDestination`. That annotation registers a destin
 ```kotlin
 val SignInModule = module
 ```
-_No KDoc at source._
+Koin bindings for the sign-in feature's view model.
 
 ### `feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt`
 
@@ -65,7 +65,7 @@ fun SignInScreen(
 ```
 Sign-in screen. **UI source: the stitch renders under `idea-layer/mockups/signin/stitch/`** — the highest design tier on disk, so per RULE-UI-SOURCE-001 US9 this file is converted from them, not from `ui.yaml`.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/SignInRoute.kt:36</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/SignInRoute.kt:38</code></summary>
 
 ```kotlin
 ) {
@@ -100,13 +100,13 @@ Stable handles for the login screen — asserted by UI tests, never shown to a u
 
 </details>
 
-- `const val SCREEN = "signin:screen"`
-- `const val USERNAME = "signin:username"`
-- `const val PASSWORD = "signin:password"`
-- `const val DEMO_CREDENTIALS = "signin:demo-credentials"`
-- `const val SUBMIT = "signin:submit"`
-- `const val ERROR = "signin:error"`
-- `const val PROGRESS = "signin:progress"`
+- `const val SCREEN = "signin:screen"` — The sign-in screen's root.
+- `const val USERNAME = "signin:username"` — The username field.
+- `const val PASSWORD = "signin:password"` — The password field.
+- `const val DEMO_CREDENTIALS = "signin:demo-credentials"` — The demo-account chooser.
+- `const val SUBMIT = "signin:submit"` — The sign-in button.
+- `const val ERROR = "signin:error"` — The error message under the form.
+- `const val PROGRESS = "signin:progress"` — The progress shown while signing in.
 - `const val LOGO = "signin:logo"` — Restored in S1 T3 — absent from the authored replacement.
 - `const val TITLE = "signin:title"` — The headline + prompt block. The stitch mockup renders TWO lines here (app name, then the prompt); the pre-migration screen rendered only the prompt.
 - `const val PROGRESS_OVERLAY = "signin:progress-overlay"` — The modal submit overlay (`ui.yaml#components.progress_overlay`, RE-EXTRACT D4). Distinct from `PROGRESS`: the port replaced the login button with an inline spinner, which is what PROGRESS tagged.
@@ -123,10 +123,10 @@ class SignInViewModel(
 ```
 Sign-in against the configured Fineract instance.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/di/SignInModule.kt:17</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/di/SignInModule.kt:18</code></summary>
 
 ```kotlin
-
+/** Koin bindings for the sign-in feature's view model. */
 val SignInModule = module {
     viewModelOf(::SignInViewModel)
 }
@@ -137,7 +137,7 @@ val SignInModule = module {
 ```kotlin
 data class SignInState(
 ```
-_No KDoc at source._
+What the sign-in screen shows: the typed credentials, the server, lockout progress and the biometric shortcut.
 
 <details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:153</code></summary>
 
@@ -175,7 +175,7 @@ Distinct causes, because the officer's next step differs for each.
 ```kotlin
 sealed interface SignInAction
 ```
-_No KDoc at source._
+What the officer did on the sign-in screen.
 
 <details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:154</code></summary>
 
@@ -194,7 +194,7 @@ internal fun SignInContent(
 ```kotlin
 sealed interface SignInEvent
 ```
-_No KDoc at source._
+One-off effects of the sign-in screen, for the screen to act on.
 
 <details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:138</code></summary>
 
@@ -211,5 +211,5 @@ _No KDoc at source._
 
 ---
 
-_7 type(s), 18 function(s)/property(ies); 12 carry KDoc at source; 0 authored example(s); 7 live call site(s)._
+_7 type(s), 18 function(s)/property(ies); 25 carry KDoc at source; 0 authored example(s); 7 live call site(s)._
 <!-- api-docs:end -->

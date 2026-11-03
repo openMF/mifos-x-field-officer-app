@@ -53,6 +53,9 @@ import kpt.feature.savings.transaction.SavingsTransactionScreen
  *
  * The create wizard (`savingsAccountv2`) and recurring deposit land later in S5. Approval,
  * activation and deposit/withdraw arrived in S5b, so the summary's action buttons are now live.
+ *
+ * @property accountType the account's kind (savings, fixed or recurring deposit)
+ * @property accountId the Fineract account id
  */
 @Serializable
 data class SavingsSummaryRoute(val accountType: String, val accountId: Int)
@@ -62,6 +65,9 @@ data class SavingsSummaryRoute(val accountType: String, val accountId: Int)
  *
  * [change] is a [SavingsStatusChange] name rather than a boolean, so adding a third status command
  * (reject, withdraw-by-applicant) is an enum entry and not a second route.
+ *
+ * @property accountId the Fineract account id
+ * @property change the `SavingsStatusChange` name to apply
  */
 @Serializable
 data class SavingsStatusChangeRoute(val accountId: Int, val change: String)
@@ -74,6 +80,9 @@ data class SavingsStatusChangeRoute(val accountId: Int, val change: String)
  * read only `clientId` — so `groupId` and `isGroupAccount` were accepted by the route and
  * discarded, and a group application posted with no group. Two ids where one is always wrong is
  * what made that possible.
+ *
+ * @property ownerId the client or group opening the account
+ * @property isGroup true when [ownerId] is a group
  */
 @Serializable
 data class SavingsApplicationRoute(val ownerId: Int, val isGroup: Boolean)
@@ -85,6 +94,8 @@ data class SavingsApplicationRoute(val ownerId: Int, val isGroup: Boolean)
  * original's own route carried only a client id too. It lives in `feature/savings` rather than its
  * own module because a recurring deposit is a savings-family account — see
  * `RecurringDepositViewModel`.
+ *
+ * @property clientId the client opening the account
  */
 @Serializable
 data class RecurringDepositApplicationRoute(val clientId: Int)
@@ -92,8 +103,11 @@ data class RecurringDepositApplicationRoute(val clientId: Int)
 /** Deposit or withdraw. Carries the account TYPE, since Fineract's path segment names it. */
 @Serializable
 data class SavingsTransactionRoute(
+    /** The account's kind (savings, fixed or recurring deposit). */
     val accountType: String,
+    /** The Fineract account id. */
     val accountId: Int,
+    /** The transaction to make — a `TransactionKind` name: deposit or withdrawal. */
     val kind: String,
 )
 
@@ -115,23 +129,28 @@ fun NavController.navigateToSavingsSummary(
     navOptions: NavOptions? = null,
 ) = navigate(SavingsSummaryRoute(accountType, accountId), navOptions)
 
+/** Opens the savings application for a client or a group. */
 fun NavController.navigateToSavingsApplication(
     ownerId: Int,
     isGroup: Boolean,
     navOptions: NavOptions? = null,
 ) = navigate(SavingsApplicationRoute(ownerId, isGroup), navOptions)
 
+/** Opens the recurring-deposit application for a client. */
 fun NavController.navigateToRecurringDepositApplication(
     clientId: Int,
     navOptions: NavOptions? = null,
 ) = navigate(RecurringDepositApplicationRoute(clientId), navOptions)
 
+/** Opens the approval of savings account [accountId]. */
 fun NavController.navigateToSavingsApproval(accountId: Int, navOptions: NavOptions? = null) =
     navigate(SavingsStatusChangeRoute(accountId, SavingsStatusChange.APPROVE.name), navOptions)
 
+/** Opens the activation of savings account [accountId]. */
 fun NavController.navigateToSavingsActivation(accountId: Int, navOptions: NavOptions? = null) =
     navigate(SavingsStatusChangeRoute(accountId, SavingsStatusChange.ACTIVATE.name), navOptions)
 
+/** Registers every savings screen in the nav graph. */
 @FeatureDestination
 fun NavGraphBuilder.savingsDestination(navController: NavController) {
     composableWithPushTransitions<SavingsSummaryRoute> {

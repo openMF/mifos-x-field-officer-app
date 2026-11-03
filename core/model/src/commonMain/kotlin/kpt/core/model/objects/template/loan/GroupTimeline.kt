@@ -16,19 +16,27 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class GroupTimeline(
+    /** The date the record was submitted. */
     var submittedOnDate: List<Int>? = null,
 
+    /** The username of whoever submitted the record. */
     var submittedByUsername: String? = null,
 
+    /** The first name of whoever submitted the record. */
     var submittedByFirstname: String? = null,
 
+    /** The last name of whoever submitted the record. */
     var submittedByLastname: String? = null,
 
+    /** The date the record was activated. */
     var activatedOnDate: List<Int>? = null,
 
+    /** The username of whoever activated the record. */
     var activatedByUsername: String? = null,
 
+    /** The first name of whoever activated the record. */
     var activatedByFirstname: String? = null,
 
+    /** The last name of whoever activated the record. */
     var activatedByLastname: String? = null,
 )

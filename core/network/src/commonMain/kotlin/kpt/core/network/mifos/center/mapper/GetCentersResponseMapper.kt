@@ -14,6 +14,7 @@ import kpt.core.model.objects.clients.Page
 import kpt.core.network.mifos.center.dto.GetCentersResponse
 import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps get centers response between its network, stored and domain shapes. */
 object GetCentersResponseMapper : AbstractMapper<GetCentersResponse, Page<Center>>() {
 
     override fun mapFromEntity(entity: GetCentersResponse): Page<Center> {

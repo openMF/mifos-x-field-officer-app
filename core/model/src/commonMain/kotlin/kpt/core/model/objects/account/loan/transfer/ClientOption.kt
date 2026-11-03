@@ -10,10 +10,15 @@
 package kpt.core.model.objects.account.loan.transfer
 
 import kotlinx.serialization.Serializable
+/** One client choice offered by a template. */
 @Serializable
 data class ClientOption(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The display name. */
     val displayName: String? = null,
+    /** The server id of the office. */
     val officeId: Int? = null,
+    /** The name of the office. */
     val officeName: String? = null,
 )

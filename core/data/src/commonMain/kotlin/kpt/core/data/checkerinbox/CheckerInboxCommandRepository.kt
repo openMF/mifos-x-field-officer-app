@@ -26,9 +26,12 @@ import kpt.core.model.shared.GenericResponse
  */
 interface CheckerInboxCommandRepository {
 
+    /** Approves a maker-checker entry. */
     suspend fun approveCheckerEntry(auditId: Int): MutationResult<GenericResponse>
 
+    /** Rejects a maker-checker entry. */
     suspend fun rejectCheckerEntry(auditId: Int): MutationResult<GenericResponse>
 
+    /** Deletes a maker-checker entry. */
     suspend fun deleteCheckerEntry(auditId: Int): MutationResult<GenericResponse>
 }

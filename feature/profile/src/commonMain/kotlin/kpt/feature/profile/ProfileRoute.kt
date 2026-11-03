@@ -16,9 +16,11 @@ import androidx.navigation.NavOptions
 import kotlinx.serialization.Serializable
 import kpt.core.base.ui.nav.composableWithPushTransitions
 
+/** The signed-in user's profile screen. */
 @Serializable
 data object ProfileRoute
 
+/** Opens the profile screen. */
 fun NavController.navigateToProfile(navOptions: NavOptions? = null) = navigate(ProfileRoute, navOptions)
 
 /**

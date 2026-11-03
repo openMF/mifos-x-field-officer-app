@@ -64,8 +64,10 @@ import kpt.core.model.shared.GenericResponse
  */
 interface LoanCommandRepository {
 
+    /** Approves a loan application. */
     suspend fun approveLoanApplication(loanId: Int, approval: LoanApproval): MutationResult<GenericResponse>
 
+    /** Rejects a loan application. */
     suspend fun rejectLoan(loanId: Int, request: RejectLoanRequestDto): MutationResult<RejectLoanResponseDto>
 
     /**
@@ -78,13 +80,16 @@ interface LoanCommandRepository {
      */
     suspend fun disburse(loanId: Int, request: LoanDisburseInput): MutationResult<Unit>
 
+    /** Records a loan repayment. */
     suspend fun submitPayment(
         loanId: Int,
         request: LoanRepaymentRequest,
     ): MutationResult<LoanRepaymentResponse>
 
+    /** Charges off a loan. */
     suspend fun chargeOff(loanId: Int, request: LoanChargeOffRequestDto): MutationResult<LoanChargeOffResponseDto>
 
+    /** Assigns or changes a loan's officer. */
     suspend fun assignLoanOfficer(
         loanId: Int,
         request: AssignLoanOfficerRequestDto,
@@ -99,6 +104,7 @@ interface LoanCommandRepository {
      */
     suspend fun createLoanAccount(input: LoanApplicationInput): MutationResult<Unit>
 
+    /** Opens a group loan account. */
     suspend fun createGroupLoanAccount(payload: GroupLoanPayload): MutationResult<Loan>
 
     /**
@@ -109,6 +115,7 @@ interface LoanCommandRepository {
      */
     suspend fun calculateLoanSchedule(input: LoanApplicationInput): MutationResult<RepaymentSchedule>
 
+    /** Adds a guarantor to a loan. */
     suspend fun createGuarantor(loanId: Int, request: GuarantorRequestDto): MutationResult<CreateGuarantorResponseDto>
 
     /**

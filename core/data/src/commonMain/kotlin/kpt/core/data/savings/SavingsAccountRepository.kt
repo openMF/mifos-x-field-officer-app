@@ -18,6 +18,7 @@ import kpt.core.model.savings.SavingsAccountTransactionTemplate
 import kpt.core.model.savings.SavingsAccountWithAssociations
 import kpt.core.model.savings.ShareTemplate
 
+/** Reads savings accounts, their transactions and templates, from the cache and the server. */
 interface SavingsAccountRepository {
     /**
      * One savings account with its transactions.

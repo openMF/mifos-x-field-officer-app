@@ -23,31 +23,37 @@ import kpt.core.model.shared.Timeline
 @DbConverters
 class GroupTypeConverters {
 
+    /** Stores a `GroupDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromGroupDate(date: GroupDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `GroupDateEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toGroupDate(json: String?): GroupDateEntity? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `Timeline?` in a JSON column. */
     @ColumnTypeConverter
     fun fromTimeline(timeline: Timeline?): String? {
         return timeline?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `Timeline?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toTimeline(json: String?): Timeline? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `List<GroupEntity>` in a JSON column. */
     @ColumnTypeConverter
     fun fromListGroup(date: List<GroupEntity>): String {
         return date.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `List<GroupEntity>` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toListGroup(json: String): List<GroupEntity> {
         return json.let { Json.decodeFromString(it) }

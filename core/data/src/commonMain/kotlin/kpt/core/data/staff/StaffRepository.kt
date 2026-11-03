@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.model.staff.Staff
 
+/** Reads staff and loan officers. */
 interface StaffRepository {
     /** Loan officers attached to one office. */
     fun staffStream(officeId: Int, scope: CoroutineScope): ScreenDataStream<List<Staff>>

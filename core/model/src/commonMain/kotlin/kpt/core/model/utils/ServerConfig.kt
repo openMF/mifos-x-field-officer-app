@@ -12,22 +12,30 @@ package kpt.core.model.utils
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/** A server config. */
 @Serializable
 data class ServerConfig(
+    /** `http` or `https`. */
     val protocol: String,
+    /** The server's host name or address. */
     @SerialName("end_point")
     val endPoint: String,
+    /** The Fineract API path on the server. */
     @SerialName("api_path")
     val apiPath: String,
+    /** The TCP port. */
     val port: String,
+    /** The Fineract tenant identifier. */
     val tenant: String,
 ) {
+    /** Constants and factories of `ServerConfig`. */
     companion object {
         // No `DEFAULT` here, deliberately. The shipped server is DERIVED from the generated access point
         // (`kpt.core.network.mifos.server.AppServerConfig.DEFAULT`, from `app-profile/app.yaml`) — a constant
         // in this module could only ever be a second copy of it. Read it through
         // `ServerConfigRepository.defaultConfig`.
 
+        /** A server on this machine, for development. */
         val LOCALHOST = ServerConfig(
             protocol = "http://",
             endPoint = "localhost",
@@ -38,6 +46,7 @@ data class ServerConfig(
     }
 }
 
+/** The API base URL: protocol, endpoint and API path, without the port. */
 fun ServerConfig.getInstanceUrl(): String {
     return "$protocol$endPoint$apiPath"
 }
@@ -77,15 +86,24 @@ fun serverConfigOf(url: String, tenant: String): ServerConfig? {
  * PUBLIC demo instance — the Mifos community publishes those sign-ins, so showing them is the point.
  */
 data class ServerInstance(
+    /** The server id of this record. */
     val id: String,
+    /** The display name. */
     val name: String,
+    /** The server's connection settings. */
     val config: ServerConfig,
     val demoAccounts: List<DemoCredentials> = emptyList(),
 ) {
+    /** True for a published demo server. */
     val isDemo: Boolean get() = demoAccounts.isNotEmpty()
 }
 
-/** One published sign-in of a demo [ServerInstance] — [role] says what it can do. Never a real account. */
+/**
+ * One published sign-in of a demo [ServerInstance] — [role] says what it can do. Never a real account.
+ *
+ * @property password the password
+ * @property username the username
+ */
 @Serializable
 data class DemoCredentials(val role: String, val username: String, val password: String)
 

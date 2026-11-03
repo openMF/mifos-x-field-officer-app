@@ -108,19 +108,29 @@ class HomeViewModel(
         }
     }
 
+    /** Reloads the streams behind one card after it failed. */
     fun onRetry(card: HomeCardId) = trySendAction(HomeAction.Retry(card))
 
+    /** Reloads every card's streams (pull-to-refresh). */
     fun onRefresh() = trySendAction(HomeAction.Refresh)
 
-    private fun <S : ScreenDataStream<*>> S.on(vararg cards: HomeCardId, key: String): S =
+    private fun <S : ScreenDataStream<*>> S.on(vararg cards: HomeCardId, key: String): S = on(cards.asList(), key)
+
+    private fun <S : ScreenDataStream<*>> S.on(cards: Iterable<HomeCardId>, key: String): S =
         also { stream -> cards.forEach { cardStreams.getValue(it)[key] = stream } }
 
     private fun start(user: User) {
         updateState {
-            copy(header = header.copy(name = user.username.orEmpty(), officeName = user.officeName.orEmpty()), quickActions = QuickAction.entries.toList())
+            copy(
+                header = header.copy(name = user.username.orEmpty(), officeName = user.officeName.orEmpty()),
+                quickActions = QuickAction.entries.toList(),
+            )
         }
 
-        val userStream = dashboardRepository.userStream(user.userId, viewModelScope).on(*HomeCardId.entries.toTypedArray(), key = "user")
+        val userStream = dashboardRepository.userStream(
+            user.userId,
+            viewModelScope,
+        ).on(HomeCardId.entries, key = "user")
         // The staff link scopes the book. Until it answers, wait; if it cannot be read, fall back to the office.
         val scope: Flow<DashboardScope> = userStream.state.mapNotNull { state ->
             when (state) {
@@ -141,7 +151,11 @@ class HomeViewModel(
             // sheet to sees the card's own error state (03), never a missing section.
             add(HomeCardId.COLLECTIONS to collectionsCard(user, businessDate, scope))
             workQueueCard(user, scope)?.let { add(HomeCardId.WORK_QUEUE to it) }
-            if (user.can("READ_CALENDAR") && user.can("READ_CENTER")) add(HomeCardId.MEETINGS to meetingsCard(businessDate, scope, centers))
+            if (user.can("READ_CALENDAR") && user.can("READ_CENTER")) {
+                add(
+                    HomeCardId.MEETINGS to meetingsCard(businessDate, scope, centers),
+                )
+            }
             portfolioCard(user, scope) { centers }?.let { add(HomeCardId.PORTFOLIO to it) }
         }
         if (cards.isEmpty()) return
@@ -150,7 +164,11 @@ class HomeViewModel(
             .launchIn(viewModelScope)
     }
 
-    private fun header(user: User, userStream: ScreenDataStream<DashboardUser>, businessDate: ScreenDataStream<String>) {
+    private fun header(
+        user: User,
+        userStream: ScreenDataStream<DashboardUser>,
+        businessDate: ScreenDataStream<String>,
+    ) {
         combine(
             userStream.state,
             businessDate.state,
@@ -161,23 +179,36 @@ class HomeViewModel(
             val self = (me as? ScreenState.Content)?.data
             HomeHeader(
                 name = self?.firstname?.takeIf { it.isNotBlank() } ?: user.username.orEmpty(),
-                initials = listOfNotNull(self?.firstname, self?.lastname).filter { it.isNotBlank() }.joinToString("") { it.first().uppercase() }
+                initials = listOfNotNull(self?.firstname, self?.lastname).filter {
+                    it.isNotBlank()
+                }.joinToString("") { it.first().uppercase() }
                     .ifEmpty { user.username.orEmpty().take(1).uppercase() },
                 officeName = user.officeName.orEmpty(),
                 businessDate = (date as? ScreenState.Content)?.data,
-                instanceName = cfg?.let { c -> (instances as? ScreenState.Content)?.data?.matching(c)?.name ?: c.endPoint },
+                instanceName = cfg?.let { c ->
+                    (instances as? ScreenState.Content)?.data?.matching(c)?.name ?: c.endPoint
+                },
                 ownPortfolio = self?.staffId != null,
             )
         }.onEach { h -> updateState { copy(header = h) } }.launchIn(viewModelScope)
     }
 
-    private fun collectionsCard(user: User, businessDate: ScreenDataStream<String>, scope: Flow<DashboardScope>): Flow<ScreenState<HomeCard>> {
+    private fun collectionsCard(
+        user: User,
+        businessDate: ScreenDataStream<String>,
+        scope: Flow<DashboardScope>,
+    ): Flow<ScreenState<HomeCard>> {
         // No collection sheet for this role, but its loans are readable: compute the day from them.
         if (!user.can("READ_COLLECTIONSHEET") && user.can("READ_LOAN")) return collectionsFromLoans(businessDate, scope)
         // Clients with an active loan in arrears — the "overdue" side of today's list. Absent without READ_LOAN.
         val inArrears: Flow<Set<Long>?> = if (user.can("READ_LOAN")) {
-            dashboardRepository.loansStream(DashboardRepository.STATUS_ACTIVE, viewModelScope).on(HomeCardId.COLLECTIONS, key = "arrears").state
-                .map { state -> (state as? ScreenState.Content)?.data?.filter { it.inArrears }?.mapNotNull { it.clientId }?.toSet() }
+            dashboardRepository.loansStream(
+                DashboardRepository.STATUS_ACTIVE,
+                viewModelScope,
+            ).on(HomeCardId.COLLECTIONS, key = "arrears").state
+                .map { state ->
+                    (state as? ScreenState.Content)?.data?.filter { it.inArrears }?.mapNotNull { it.clientId }?.toSet()
+                }
         } else {
             flowOf(null)
         }
@@ -192,7 +223,10 @@ class HomeViewModel(
                         transactionDate = fineractDate(date),
                     ),
                     viewModelScope,
-                ).on(HomeCardId.COLLECTIONS, key = "sheet").state.combineContent(inArrears) { sheet, arrears, _ -> collections(sheet, arrears) }
+                ).on(
+                    HomeCardId.COLLECTIONS,
+                    key = "sheet",
+                ).state.combineContent(inArrears) { sheet, arrears, _ -> collections(sheet, arrears) }
             }
         }
     }
@@ -201,7 +235,11 @@ class HomeViewModel(
         val q = HomeCardId.WORK_QUEUE
         val parts = buildList<Flow<ScreenState<Pair<String, Int>>>> {
             if (user.canAnyChecker()) {
-                add(checkerInboxRepository.checkerTasksStream(viewModelScope).on(q, key = CHECKER).state.mapContent { t, _ -> CHECKER to t.size })
+                add(
+                    checkerInboxRepository.checkerTasksStream(
+                        viewModelScope,
+                    ).on(q, key = CHECKER).state.mapContent { t, _ -> CHECKER to t.size },
+                )
             }
             if (user.can("READ_LOAN")) {
                 for (status in listOf(DashboardRepository.STATUS_SUBMITTED, DashboardRepository.STATUS_APPROVED)) {
@@ -210,10 +248,20 @@ class HomeViewModel(
                 }
             }
             if (user.can("READ_CLIENT")) {
-                add(dashboardRepository.clientCountStream(user.officeId, "pending", viewModelScope).on(q, key = PENDING).state.mapContent { n, _ -> PENDING to n })
+                add(
+                    dashboardRepository.clientCountStream(
+                        user.officeId,
+                        "pending",
+                        viewModelScope,
+                    ).on(q, key = PENDING).state.mapContent { n, _ -> PENDING to n },
+                )
             }
             if (user.can("READ_RESCHEDULELOAN")) {
-                add(checkerInboxRepository.rescheduleRequestsStream(viewModelScope).on(q, key = RESCHEDULES).state.mapContent { r, _ -> RESCHEDULES to r.size })
+                add(
+                    checkerInboxRepository.rescheduleRequestsStream(
+                        viewModelScope,
+                    ).on(q, key = RESCHEDULES).state.mapContent { r, _ -> RESCHEDULES to r.size },
+                )
             }
         }
         if (parts.isEmpty()) return null
@@ -238,18 +286,34 @@ class HomeViewModel(
         centers.on(m, key = "centers")
         return businessDate.state.thenCard { date ->
             val today = date.split('-').map { it.toInt() }
-            centers.state.combineContent(scope) { list, sc, _ -> list.inScope(sc).mapNotNull { it.id }.take(MAX_MEETING_CENTERS) }
+            centers.state.combineContent(
+                scope,
+            ) { list, sc, _ -> list.inScope(sc).mapNotNull { it.id }.take(MAX_MEETING_CENTERS) }
                 .thenCard { ids ->
                     if (ids.isEmpty()) {
                         flowOf(ScreenState.Content(HomeCard.Meetings(emptyList())))
                     } else {
                         combineScreenStates(
-                            ids.map { id -> centerRepository.centerWithMeetingStream(id, viewModelScope).on(m, key = "center:$id").state },
+                            ids.map { id ->
+                                centerRepository.centerWithMeetingStream(
+                                    id,
+                                    viewModelScope,
+                                ).on(m, key = "center:$id").state
+                            },
                         ).mapContent { rows, _ ->
                             HomeCard.Meetings(
                                 rows.filterIsInstance<CenterWithAssociations>()
-                                    .filter { c -> c.collectionMeetingCalendar.nextTenRecurringDates.any { it == today } }
-                                    .map { c -> MeetingToday(centerId = c.id ?: 0, name = c.name.orEmpty(), groups = c.groupMembers.size, time = c.collectionMeetingCalendar.meetingTime.toMeetingTime()) },
+                                    .filter { c ->
+                                        c.collectionMeetingCalendar.nextTenRecurringDates.any { it == today }
+                                    }
+                                    .map { c ->
+                                        MeetingToday(
+                                            centerId = c.id ?: 0,
+                                            name = c.name.orEmpty(),
+                                            groups = c.groupMembers.size,
+                                            time = c.collectionMeetingCalendar.meetingTime.toMeetingTime(),
+                                        )
+                                    },
                             )
                         }
                     }
@@ -257,22 +321,41 @@ class HomeViewModel(
         }
     }
 
-    private fun portfolioCard(user: User, scope: Flow<DashboardScope>, centers: () -> ScreenDataStream<List<Center>>): Flow<ScreenState<HomeCard>>? {
+    private fun portfolioCard(
+        user: User,
+        scope: Flow<DashboardScope>,
+        centers: () -> ScreenDataStream<List<Center>>,
+    ): Flow<ScreenState<HomeCard>>? {
         val p = HomeCardId.PORTFOLIO
         val parts = buildList<Flow<ScreenState<Pair<String, Any>>>> {
             if (user.can("READ_LOAN")) {
-                val active = dashboardRepository.loansStream(DashboardRepository.STATUS_ACTIVE, viewModelScope).on(p, key = "active")
-                add(active.state.combineContent(scope) { list, sc, _ -> LOANS to portfolioOf(if (sc.staffId != null) list.ownedBy(sc) else list) })
+                val active = dashboardRepository.loansStream(
+                    DashboardRepository.STATUS_ACTIVE,
+                    viewModelScope,
+                ).on(p, key = "active")
+                add(
+                    active.state.combineContent(
+                        scope,
+                    ) { list, sc, _ -> LOANS to portfolioOf(if (sc.staffId != null) list.ownedBy(sc) else list) },
+                )
             }
             if (user.can("READ_CLIENT")) {
-                add(dashboardRepository.clientCountStream(user.officeId, "active", viewModelScope).on(p, key = "activeClients").state.mapContent { n, _ -> CLIENTS to n })
+                add(
+                    dashboardRepository.clientCountStream(
+                        user.officeId,
+                        "active",
+                        viewModelScope,
+                    ).on(p, key = "activeClients").state.mapContent { n, _ -> CLIENTS to n },
+                )
             }
             if (user.can("READ_SAVINGSACCOUNT")) {
                 val savings = dashboardRepository.savingsStream(viewModelScope).on(p, key = SAVINGS)
                 add(
                     savings.state.combineContent(scope) { list, sc, _ ->
                         val mine = if (sc.staffId != null) list.filter { it.fieldOfficerId == sc.staffId } else list
-                        SAVINGS to mine.groupBy { it.currencyCode }.map { (code, rows) -> Money(rows.sumOf { it.balance }, code, rows.first().currencySymbol) }
+                        SAVINGS to mine.groupBy {
+                            it.currencyCode
+                        }.map { (code, rows) -> Money(rows.sumOf { it.balance }, code, rows.first().currencySymbol) }
                     },
                 )
             }
@@ -280,12 +363,23 @@ class HomeViewModel(
                 val groups = groupRepository.groupsStream(viewModelScope).on(p, key = GROUPS)
                 add(
                     groups.state.combineContent(scope) { list, sc, _ ->
-                        GROUPS to list.count { g -> if (sc.staffId != null) g.staffId?.toLong() == sc.staffId else g.officeId?.toLong() == sc.officeId }
+                        GROUPS to list.count { g ->
+                            if (sc.staffId != null) {
+                                g.staffId?.toLong() == sc.staffId
+                            } else {
+                                g.officeId?.toLong() == sc.officeId
+                            }
+                        }
                     },
                 )
             }
             if (user.can("READ_CENTER")) {
-                add(centers().on(p, key = CENTERS).state.combineContent(scope) { list, sc, _ -> CENTERS to list.inScope(sc).size })
+                add(
+                    centers().on(
+                        p,
+                        key = CENTERS,
+                    ).state.combineContent(scope) { list, sc, _ -> CENTERS to list.inScope(sc).size },
+                )
             }
         }
         if (parts.isEmpty()) return null
@@ -308,11 +402,25 @@ class HomeViewModel(
      * Today's collections without READ_COLLECTIONSHEET: the officer's active loans (the portfolio's own
      * scope — by staff link, else office-wide), then each one's repayment schedule for the business date.
      */
-    private fun collectionsFromLoans(businessDate: ScreenDataStream<String>, scope: Flow<DashboardScope>): Flow<ScreenState<HomeCard>> {
-        val active = dashboardRepository.loansStream(DashboardRepository.STATUS_ACTIVE, viewModelScope).on(HomeCardId.COLLECTIONS, key = "arrears")
+    private fun collectionsFromLoans(
+        businessDate: ScreenDataStream<String>,
+        scope: Flow<DashboardScope>,
+    ): Flow<ScreenState<HomeCard>> {
+        val active = dashboardRepository.loansStream(
+            DashboardRepository.STATUS_ACTIVE,
+            viewModelScope,
+        ).on(HomeCardId.COLLECTIONS, key = "arrears")
         return businessDate.state.thenCard { date ->
-            active.state.combineContent(scope) { list, sc, _ -> if (sc.staffId != null) list.ownedBy(sc) else list }.thenCard { owned ->
-                dashboardRepository.dueTodayStream(date, owned.map { it.id }, viewModelScope).on(HomeCardId.COLLECTIONS, key = "dueToday")
+            active.state.combineContent(
+                scope,
+            ) { list, sc, _ -> if (sc.staffId != null) list.ownedBy(sc) else list }.thenCard { owned ->
+                dashboardRepository.dueTodayStream(
+                    date,
+                    owned.map {
+                        it.id
+                    },
+                    viewModelScope,
+                ).on(HomeCardId.COLLECTIONS, key = "dueToday")
                     .state.mapContent { rows, _ -> collectionsFrom(rows, owned) }
             }
         }
@@ -323,7 +431,13 @@ class HomeViewModel(
         val dueClients = dueRows.mapNotNull { it.clientId }.toSet()
         val inArrears = owned.filter { it.inArrears }.mapNotNull { it.clientId }.toSet()
         fun money(list: List<DueTodayLoan>, amount: (DueTodayLoan) -> Double) =
-            list.groupBy { it.currencyCode }.map { (code, group) -> Money(group.sumOf(amount), code, group.first().currencySymbol) }
+            list.groupBy { it.currencyCode }.map { (code, group) ->
+                Money(
+                    group.sumOf(amount),
+                    code,
+                    group.first().currencySymbol,
+                )
+            }
         return HomeCard.Collections(
             clientsDue = dueClients.size,
             loansDue = dueRows.size,
@@ -346,14 +460,18 @@ class HomeViewModel(
             clientsDue = dueClients.size,
             loansDue = dueLoans.size,
             dueByCurrency = money(dueLoans) { it.totalDue },
-            collectedByCurrency = money(allLoans) { (it.principalPaid ?: 0.0) + (it.interestPaid ?: 0.0) + (it.feePaid ?: 0.0) }
+            collectedByCurrency = money(
+                allLoans,
+            ) { (it.principalPaid ?: 0.0) + (it.interestPaid ?: 0.0) + (it.feePaid ?: 0.0) }
                 .filter { it.amount > 0.0 },
             overdueClients = inArrears?.let { ids -> dueClients.count { it.clientId.toLong() in ids } },
         )
     }
 
     private fun List<Center>.inScope(scope: DashboardScope): List<Center> =
-        filter { c -> if (scope.staffId != null) c.staffId?.toLong() == scope.staffId else c.officeId?.toLong() == scope.officeId }
+        filter { c ->
+            if (scope.staffId != null) c.staffId?.toLong() == scope.staffId else c.officeId?.toLong() == scope.officeId
+        }
 
     private companion object {
         const val FINERACT_DATE_FORMAT = "dd MMMM yyyy"
@@ -373,7 +491,11 @@ class HomeViewModel(
     }
 }
 
-private val MONTHS = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+private val MONTHS =
+    listOf(
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    )
 
 /** `2026-10-26` → `26 October 2026`, the `dd MMMM yyyy` form Fineract's collection sheet expects. */
 internal fun fineractDate(iso: String): String {
@@ -383,17 +505,27 @@ internal fun fineractDate(iso: String): String {
 
 /** Fineract `meetingTime` → `HH:mm`: an `[h, m]` array or an `"HH:mm[:ss]"` string; anything else is unknown. */
 internal fun JsonElement?.toMeetingTime(): String? {
-    val (h, m) = when (this) {
+    val hm = when (this) {
         is JsonArray -> mapNotNull { it.jsonPrimitive.intOrNull }.takeIf { it.size >= 2 }?.let { it[0] to it[1] }
-        is JsonPrimitive -> contentOrNull?.split(':')?.takeIf { it.size >= 2 }?.let { p -> p[0].toIntOrNull()?.let { hh -> p[1].toIntOrNull()?.let { mm -> hh to mm } } }
+        is JsonPrimitive -> contentOrNull?.toHourMinute()
         else -> null
-    } ?: return null
-    if (h !in 0..23 || m !in 0..59) return null
-    return "${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}"
+    }
+    return hm?.takeIf { (h, m) -> h in 0..23 && m in 0..59 }
+        ?.let { (h, m) -> "${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}" }
+}
+
+/** `"HH:mm[:ss]"` → hour to minute; null unless both of the first two parts are numbers. */
+private fun String.toHourMinute(): Pair<Int, Int>? {
+    val parts = split(':')
+    val h = parts.getOrNull(0)?.toIntOrNull()
+    val m = parts.getOrNull(1)?.toIntOrNull()
+    return if (h != null && m != null) h to m else null
 }
 
 /** `combineScreenStates` yields `List<Any?>`; each part is a `key to value` pair. */
-private fun List<Any?>.asKeyed(): Map<String, Any?> = filterIsInstance<Pair<*, *>>().associate { it.first.toString() to it.second }
+private fun List<Any?>.asKeyed(): Map<String, Any?> = filterIsInstance<Pair<*, *>>().associate {
+    it.first.toString() to it.second
+}
 
 /**
  * Build a card from a dependency's VALUE. [inner] is rebuilt only when that value changes — a refresh

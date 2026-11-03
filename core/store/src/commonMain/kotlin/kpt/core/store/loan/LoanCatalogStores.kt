@@ -35,6 +35,7 @@ fun provideLoanProductsStore(
     fetch = { loanApi.getAllLoans() },
 )
 
+/** Store reading the loan reschedule template. */
 @StoreProvider(id = "loanRescheduleTemplate", ttl = "12h")
 @CacheKey(name = "LIST", key = "loanRescheduleTemplate")
 fun provideLoanRescheduleTemplateStore(

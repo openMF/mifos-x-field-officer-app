@@ -18,15 +18,21 @@ import kpt.core.model.objects.template.loan.Type
  */
 @Serializable
 data class LoanTransactionTemplate(
+    /** The record's type. */
     val type: Type? = null,
 
+    /** The date. */
     val date: List<Int> = emptyList(),
 
+    /** The amount, in the record's currency. */
     val amount: Double? = null,
 
+    /** True when the transaction was reversed by hand. */
     val manuallyReversed: Boolean? = null,
 
+    /** The earliest date the next repayment can be made. */
     val possibleNextRepaymentDate: List<Int> = emptyList(),
 
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentTypeOptionEntity> = emptyList(),
 )

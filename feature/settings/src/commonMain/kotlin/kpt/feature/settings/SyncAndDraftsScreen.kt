@@ -420,7 +420,10 @@ internal fun ConflictRowCard(
  * [syncAndDraftsDestination]'s `draftExtras`; null fields keep the template's defaults.
  */
 data class DraftRowExtras(
+    /** Title shown in place of the form key. */
     val title: String? = null,
+    /** Subtitle shown under the title. */
     val subtitle: String? = null,
+    /** Reopens the form the draft came from. */
     val onOpen: (() -> Unit)? = null,
 )

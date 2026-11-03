@@ -11,7 +11,10 @@ package kpt.core.store.office
 
 /** Addresses one `retrieveOffices` read. */
 data class RetrieveOfficesKey(
+    /** True to include records from every office. */
     val includeAllOffices: Boolean? = false,
+    /** Field the results are ordered by. */
     val orderBy: String? = null,
+    /** Sort direction (`ASC`, `DESC`). */
     val sortOrder: String? = null,
 )

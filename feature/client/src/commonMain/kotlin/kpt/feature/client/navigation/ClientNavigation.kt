@@ -71,6 +71,7 @@ import kpt.feature.searchrecord.navigation.searchRecordDestination
 @Serializable
 data object ClientDestination
 
+/** The client list inside the client graph (its start destination). */
 @Serializable
 data object ClientListRoute
 
@@ -83,6 +84,8 @@ data object ClientListRoute
  * is a SEPARATE, legacy destination the list never opened.
  *
  * `clientId` is a type-safe route argument, not a SavedStateHandle default.
+ *
+ * @property clientId the Fineract client id
  */
 @Serializable
 data class ClientProfileRoute(val clientId: Int)
@@ -94,53 +97,81 @@ data class ClientProfileRoute(val clientId: Int)
  * the route through `savedStateHandle.toRoute<ClientStaffRoute>()` and needed a value when the key
  * was absent — a screen reachable with id `-1` that would then ask Fineract for client -1. A
  * type-safe route with no default makes the caller supply it.
+ *
+ * @property clientId the Fineract client id
  */
 @Serializable
 data class ClientStaffRoute(val clientId: Int)
 
-/** Close a client. Same `clientId`-without-a-default reasoning as [ClientStaffRoute]. */
+/**
+ * Close a client. Same `clientId`-without-a-default reasoning as [ClientStaffRoute].
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientClosureRoute(val clientId: Int)
 
-/** Propose transferring a client to another office. */
+/**
+ * Propose transferring a client to another office.
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientTransferRoute(val clientId: Int)
 
-/** Pledge collateral against a client. */
+/**
+ * Pledge collateral against a client.
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientCollateralRoute(val clientId: Int)
 
 /**
  * The client's GENERAL view — performance history + linked-account actions. Reached from the
  * profile's "General" row, and where the client's accounts actually live.
+ *
+ * @property clientId the Fineract client id
  */
 @Serializable
 data class ClientGeneralRoute(val clientId: Int)
 
-/** The client's identity documents. Reached from the profile's "Identifiers" row. */
+/**
+ * The client's identity documents. Reached from the profile's "Identifiers" row.
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientIdentifiersRoute(val clientId: Int)
 
-/**
- * The client's DETAIL fields + its eight actions — what the profile's ProfileCard taps through to.
- *
- * Named for the original's `clientDetailsProfile`. Not to be confused with the original's separate
- * legacy `clientDetails` screen, which nothing navigates to (see [ClientProfileRoute]).
- */
 /**
  * "Apply for a new account" — the client-side chooser.
  *
  * `clientId` only. The original's route also carried `status` and `accountNo`; the status is read
  * from the client instead (a nav-arg status is a snapshot that goes stale — see
  * `ClientApplyNewViewModel`).
+ *
+ * @property clientId the Fineract client id
  */
 @Serializable
 data class ClientApplyNewRoute(val clientId: Int)
 
+/**
+ * The client's DETAIL fields + its eight actions — what the profile's ProfileCard taps through to.
+ *
+ * Named for the original's `clientDetailsProfile`. Not to be confused with the original's separate
+ * legacy `clientDetails` screen, which nothing navigates to (see [ClientProfileRoute]).
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientDetailsRoute(val clientId: Int)
 
-/** The client's postal addresses. Reached from the profile's "Address" row. */
+/**
+ * The client's postal addresses. Reached from the profile's "Address" row.
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientAddressRoute(val clientId: Int)
 
@@ -151,6 +182,8 @@ data class ClientAddressRoute(val clientId: Int)
  * Distinct from [ClientCollateralRoute], which is the ADD form reached from client details'
  * "Create Collateral". An earlier pass pointed General's row at the form; the original points it
  * here.
+ *
+ * @property clientId the Fineract client id
  */
 @Serializable
 data class ClientCollateralDetailsRoute(val clientId: Int)
@@ -163,6 +196,8 @@ data class ClientCollateralDetailsRoute(val clientId: Int)
  * which is why it is ported here rather than later: `feature/loan`'s profile had no caller at all
  * until S4d wired search to the loan SUMMARY, and this is its own path in. See the spec's
  * "Verify the PATH into the screen" rule.
+ *
+ * @property clientId the Fineract client id
  */
 @Serializable
 data class ClientLoanAccountsRoute(val clientId: Int)
@@ -173,6 +208,9 @@ data class ClientLoanAccountsRoute(val clientId: Int)
  * [kind] is a [DepositAccountKind] name. The original had three separate routes over three
  * near-identical screens reading the same list; see [ClientDepositAccountsViewModel] for why they
  * collapsed into one parameterised destination.
+ *
+ * @property clientId the Fineract client id
+ * @property kind the `DepositAccountKind` name to list
  */
 @Serializable
 data class ClientDepositAccountsRoute(val clientId: Int, val kind: String)
@@ -186,7 +224,11 @@ data class ClientDepositAccountsRoute(val clientId: Int, val kind: String)
 @Serializable
 data object CreateNewClientRoute
 
-/** Edit a client's details. Same `clientId`-without-a-default reasoning as [ClientStaffRoute]. */
+/**
+ * Edit a client's details. Same `clientId`-without-a-default reasoning as [ClientStaffRoute].
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientEditDetailsRoute(val clientId: Int)
 
@@ -198,20 +240,35 @@ data class ClientEditDetailsRoute(val clientId: Int)
  */
 @Serializable
 data class ClientEditProfileRoute(
+    /** The Fineract client id. */
     val clientId: Int,
+    /** The client's display name, shown in the header. */
     val clientName: String,
+    /** The client's account number, shown in the header. */
     val accountNo: String,
 )
 
-/** Nominate a client's default savings account. Same no-default reasoning as [ClientStaffRoute]. */
+/**
+ * Nominate a client's default savings account. Same no-default reasoning as [ClientStaffRoute].
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientDefaultAccountRoute(val clientId: Int)
 
-/** Attach a document to a client. Reached from the client documents screen's "+". */
+/**
+ * Attach a document to a client. Reached from the client documents screen's "+".
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientAddDocumentRoute(val clientId: Int)
 
-/** Add a postal address to a client. Reached from the client address screen's "+". */
+/**
+ * Add a postal address to a client. Reached from the client address screen's "+".
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientAddAddressRoute(val clientId: Int)
 
@@ -220,21 +277,33 @@ data class ClientAddAddressRoute(val clientId: Int)
  *
  * `clientId` is a Long here because the identifier commands and the template store are keyed by
  * Long, unlike every other client route.
+ *
+ * @property clientId the Fineract client id, as a Long like the identifier commands
  */
 @Serializable
 data class ClientAddIdentifierRoute(val clientId: Long)
 
-/** A client's SHARE accounts. Reached from client-general's "Share Accounts" row. */
+/**
+ * A client's SHARE accounts. Reached from client-general's "Share Accounts" row.
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientShareAccountsRoute(val clientId: Int)
 
-/** Open a SHARE account. Reached from the apply-new chooser and from the share-accounts list. */
+/**
+ * Open a SHARE account. Reached from the apply-new chooser and from the share-accounts list.
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ShareApplicationRoute(val clientId: Int)
 
 /**
  * Open a FIXED DEPOSIT account. Reached from the apply-new chooser and from the deposit-accounts
  * list when it is showing the FIXED kind.
+ *
+ * @property clientId the Fineract client id
  */
 @Serializable
 data class FixedDepositApplicationRoute(val clientId: Int)
@@ -248,12 +317,19 @@ data class FixedDepositApplicationRoute(val clientId: Int)
  */
 @Serializable
 data class ClientSignatureRoute(
+    /** The Fineract client id. */
     val clientId: Int,
+    /** The client's display name, shown in the header. */
     val clientName: String,
+    /** The client's account number, shown in the header. */
     val accountNo: String,
 )
 
-/** The client's attached documents. Reached from the profile's "Documents" row. */
+/**
+ * The client's attached documents. Reached from the profile's "Documents" row.
+ *
+ * @property clientId the Fineract client id
+ */
 @Serializable
 data class ClientDocumentsRoute(val clientId: Int)
 
@@ -264,11 +340,17 @@ data class ClientDocumentsRoute(val clientId: Int)
  */
 @Serializable
 data class ClientDocumentPreviewRoute(
+    /** The Fineract entity the document is attached to (`clients`, `loans`, …). */
     val entityType: String,
+    /** The id of that entity. */
     val entityId: Int,
+    /** The title shown above the document. */
     val title: String,
+    /** The document to show, or `NO_DOCUMENT_ID` to find it by key. */
     val documentId: Int = NO_DOCUMENT_ID,
+    /** The identifier key the document's name must equal. */
     val matchKey: String = "",
+    /** The prefix the document's name must start with. */
     val matchPrefix: String = "",
 )
 

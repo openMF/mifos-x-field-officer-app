@@ -11,9 +11,13 @@ package kpt.core.model.objects.account.loan.reschedules
 
 import kotlinx.serialization.Serializable
 
+/** Request body for a loan reschedule rejection. */
 @Serializable
 data class LoanRescheduleRejectionRequest(
+    /** The date the request was rejected. */
     val rejectedOnDate: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
 )

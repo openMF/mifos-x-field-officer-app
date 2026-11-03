@@ -16,7 +16,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class IncomeOrLiabilityAccount(
+    /** The server id of this record. */
     val id: Int,
+    /** The display name. */
     val name: String,
+    /** The general-ledger code of the account. */
     val glCode: String,
 )

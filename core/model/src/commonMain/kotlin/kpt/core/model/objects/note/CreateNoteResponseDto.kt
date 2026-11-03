@@ -11,9 +11,13 @@ package kpt.core.model.objects.note
 
 import kotlinx.serialization.Serializable
 
+/** Server response to a create note request. */
 @Serializable
 data class CreateNoteResponseDto(
+    /** The server id of the office. */
     val officeId: Long? = null,
+    /** The server id of the client. */
     val clientId: Long? = null,
+    /** The server id of the resource the request created or changed. */
     val resourceId: Long? = null,
 )

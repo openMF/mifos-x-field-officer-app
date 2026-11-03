@@ -19,14 +19,24 @@ import kpt.core.model.savings.SavingAccountCurrency
  */
 @Serializable
 data class LoanRepaymentTemplate(
+    /** The server id of the loan. */
     val loanId: Int = 0,
+    /** The record's type. */
     val type: LoanType? = null,
+    /** The date. */
     val date: List<Int>? = null,
+    /** The currency the amounts are in. */
     val currency: SavingAccountCurrency? = null,
+    /** The amount, in the record's currency. */
     val amount: Double? = null,
+    /** The part of the transaction that went to principal. */
     val principalPortion: Double? = null,
+    /** The part of the transaction that went to interest. */
     val interestPortion: Double? = null,
+    /** The part of the transaction that went to fees. */
     val feeChargesPortion: Double? = null,
+    /** The part of the transaction that went to penalties. */
     val penaltyChargesPortion: Double? = null,
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentTypeOption>? = null,
 )

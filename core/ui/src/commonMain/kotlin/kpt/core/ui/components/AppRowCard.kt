@@ -39,6 +39,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Clickable card with a title and two columns of text. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppRowCard(
@@ -89,6 +90,7 @@ fun AppRowCard(
     }
 }
 
+/** Card with an image, a title and two columns of text. */
 @Composable
 fun AppRowCard(
     title: String,
@@ -162,6 +164,7 @@ fun AppRowCard(
     }
 }
 
+/** Row with a title, description and size, and a button. */
 @Composable
 fun AppRowTextWithButton(
     title: String,
@@ -203,6 +206,7 @@ fun AppRowTextWithButton(
     }
 }
 
+/** Clickable row with an image, title, subtitle and two labels. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppRowWithLabels(
@@ -267,6 +271,7 @@ fun AppRowWithLabels(
     }
 }
 
+/** Clickable account row: status dot, title, account number, office and date. */
 @Composable
 fun AppDropDownRow(
     isActive: Boolean,

@@ -172,7 +172,9 @@ internal fun mifosTypography() = Typography(
     ),
 )
 
+/** The app's text styles, in the app font. */
 object AppTypography {
+    /** Material display large text style. */
     val displayLarge: TextStyle
         @Composable get() = TextStyle(
             fontSize = 57.sp,
@@ -182,6 +184,7 @@ object AppTypography {
             fontWeight = FontWeight.Normal,
         )
 
+    /** Material display medium text style. */
     val displayMedium: TextStyle
         @Composable get() = TextStyle(
             fontSize = 45.sp,
@@ -190,6 +193,7 @@ object AppTypography {
             fontWeight = FontWeight.Normal,
         )
 
+    /** Material display small text style. */
     val displaySmall: TextStyle
         @Composable get() = TextStyle(
             fontSize = 36.sp,
@@ -198,6 +202,7 @@ object AppTypography {
             fontWeight = FontWeight(700),
         )
 
+    /** Material headline large text style. */
     val headlineLarge: TextStyle
         @Composable get() = TextStyle(
             fontSize = 32.sp,
@@ -207,6 +212,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material headline medium text style. */
     val headlineMedium: TextStyle
         @Composable get() = TextStyle(
             fontSize = 28.sp,
@@ -216,6 +222,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material headline small text style. */
     val headlineSmall: TextStyle
         @Composable get() = TextStyle(
             fontSize = 24.sp,
@@ -225,6 +232,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material headline small text style, emphasized (heavier weight). */
     val headlineSmallEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 24.sp,
@@ -234,6 +242,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material title large text style. */
     val titleLarge: TextStyle
         @Composable get() = TextStyle(
             fontSize = 22.sp,
@@ -242,6 +251,7 @@ object AppTypography {
             fontWeight = FontWeight(700),
         )
 
+    /** Material title large text style, emphasized (heavier weight). */
     val titleLargeEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 22.sp,
@@ -251,6 +261,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material title medium text style. */
     val titleMedium: TextStyle
         @Composable get() = TextStyle(
             fontSize = 16.sp,
@@ -259,6 +270,7 @@ object AppTypography {
             fontWeight = FontWeight(500),
         )
 
+    /** Material title medium text style, emphasized (heavier weight). */
     val titleMediumEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 16.sp,
@@ -267,6 +279,7 @@ object AppTypography {
             fontWeight = FontWeight(600),
         )
 
+    /** Material title small text style. */
     val titleSmall: TextStyle
         @Composable get() = TextStyle(
             fontSize = 14.sp,
@@ -276,6 +289,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material title small text style, emphasized (heavier weight). */
     val titleSmallEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 14.sp,
@@ -284,6 +298,7 @@ object AppTypography {
             fontWeight = FontWeight(600),
         )
 
+    /** Material label large text style. */
     val labelLarge: TextStyle
         @Composable get() = TextStyle(
             fontSize = 14.sp,
@@ -293,6 +308,7 @@ object AppTypography {
             fontWeight = FontWeight(500),
         )
 
+    /** Material label large text style, emphasized (heavier weight). */
     val labelLargeEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 14.sp,
@@ -303,6 +319,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material label medium text style. */
     val labelMedium: TextStyle
         @Composable get() = TextStyle(
             fontSize = 12.sp,
@@ -312,6 +329,7 @@ object AppTypography {
             fontWeight = FontWeight(500),
         )
 
+    /** Material label medium text style, emphasized (heavier weight). */
     val labelMediumEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 12.sp,
@@ -321,6 +339,7 @@ object AppTypography {
             fontWeight = FontWeight(600),
         )
 
+    /** Material label small text style. */
     val labelSmall: TextStyle
         @Composable get() = TextStyle(
             fontSize = 11.sp,
@@ -330,6 +349,7 @@ object AppTypography {
             fontWeight = FontWeight(500),
         )
 
+    /** Material label small text style, emphasized (heavier weight). */
     val labelSmallEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 11.sp,
@@ -340,6 +360,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material body large text style. */
     val bodyLarge: TextStyle
         @Composable get() = TextStyle(
             fontSize = 16.sp,
@@ -349,6 +370,7 @@ object AppTypography {
             fontWeight = FontWeight(400),
         )
 
+    /** Material body medium text style. */
     val bodyMedium: TextStyle
         @Composable get() = TextStyle(
             fontSize = 14.sp,
@@ -358,6 +380,7 @@ object AppTypography {
             fontWeight = FontWeight(400),
         )
 
+    /** Material body medium text style, emphasized (heavier weight). */
     val bodyMediumEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 14.sp,
@@ -368,6 +391,7 @@ object AppTypography {
         )
 
     // verified
+    /** Material body small text style. */
     val bodySmall: TextStyle
         @Composable get() = TextStyle(
             fontSize = 12.sp,
@@ -377,6 +401,7 @@ object AppTypography {
             fontWeight = FontWeight(400),
         )
 
+    /** Material body small text style, emphasized (heavier weight). */
     val bodySmallEmphasized: TextStyle
         @Composable get() = TextStyle(
             fontSize = 12.sp,
@@ -387,27 +412,11 @@ object AppTypography {
         )
 
     // verified
+    /** Text style for small status tags. */
     val tag: TextStyle
         @Composable get() = TextStyle(
             fontSize = 10.sp,
             fontFamily = fontFamily(),
             fontWeight = FontWeight(600),
-        )
-
-    val keyBoardNumeric: TextStyle
-        @Composable get() = TextStyle(
-            fontSize = 21.sp,
-            lineHeight = 24.sp,
-            fontFamily = fontFamily(),
-            fontWeight = FontWeight(400),
-
-        )
-
-    val keyBoardAlpha: TextStyle
-        @Composable get() = TextStyle(
-            fontSize = 11.sp,
-            lineHeight = 16.sp,
-            fontFamily = fontFamily(),
-            fontWeight = FontWeight(400),
         )
 }

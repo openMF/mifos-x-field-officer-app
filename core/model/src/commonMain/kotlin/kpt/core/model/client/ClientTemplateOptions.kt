@@ -56,6 +56,8 @@ data class ClientTemplateOptions(
  */
 @Serializable
 data class SavingAccountOption(
+    /** The server id of this record. */
     val id: Long = 0,
+    /** The account number Fineract assigned. */
     val accountNo: String = "",
 )

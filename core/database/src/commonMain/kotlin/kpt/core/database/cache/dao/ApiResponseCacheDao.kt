@@ -16,10 +16,12 @@ import kotlinx.coroutines.flow.Flow
 import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.cache.entity.ApiResponseCacheEntity
 
+/** Room queries for api response cache rows. */
 @DbDao
 @Dao
 interface ApiResponseCacheDao {
 
+    /** Observes the `api_response_cache` row whose `cacheKey` is `cacheKey`. */
     @Query("SELECT * FROM api_response_cache WHERE cacheKey = :cacheKey LIMIT 1")
     fun observe(cacheKey: String): Flow<ApiResponseCacheEntity?>
 
@@ -31,9 +33,11 @@ interface ApiResponseCacheDao {
     @Query("SELECT * FROM api_response_cache WHERE cacheKey LIKE :prefix || '%'")
     fun observeByPrefix(prefix: String): Flow<List<ApiResponseCacheEntity>>
 
+    /** Inserts `row`, or replaces the row with the same key. */
     @Upsert
     suspend fun upsert(row: ApiResponseCacheEntity)
 
+    /** Deletes the `api_response_cache` rows whose `cacheKey` is `cacheKey`. */
     @Query("DELETE FROM api_response_cache WHERE cacheKey = :cacheKey")
     suspend fun delete(cacheKey: String)
 
@@ -44,6 +48,7 @@ interface ApiResponseCacheDao {
     @Query("DELETE FROM api_response_cache WHERE cacheKey LIKE :prefix || '%'")
     suspend fun deleteByPrefix(prefix: String)
 
+    /** Deletes every `api_response_cache` row. */
     @Query("DELETE FROM api_response_cache")
     suspend fun deleteAll()
 }

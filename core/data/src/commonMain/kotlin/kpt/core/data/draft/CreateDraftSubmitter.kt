@@ -49,6 +49,7 @@ class CreateDraftSubmitter(
     private val savings: SavingsCommandRepository,
     private val recurring: RecurringDepositCommandRepository,
 ) {
+    /** Sends `draft` to the server through the command repository for its form. */
     suspend fun submit(draft: FormDraft) {
         val owner = draft.ownerId?.toInt()
         val result = send(draft, owner)

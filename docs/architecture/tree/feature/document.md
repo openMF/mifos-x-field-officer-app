@@ -23,10 +23,10 @@ ViewModels: `DocumentListViewModel`, `DocumentUploadViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/document sha=87e18cb2ca907ceb493d60a398fc574f77d73047 -->
+<!-- api-docs:begin module=feature/document sha=3d2e8442e17dc5952313fcf70f68e3f7361b5c1c -->
 ## API reference
 
-_Generated from `feature/document` at tree `87e18cb2ca90` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/document` at tree `3d2e8442e17d` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -70,12 +70,12 @@ The upload / replace form. `documentId` is `-1` for a CREATE: a nav argument can
 ```kotlin
 fun NavController.navigateToDocumentList(
 ```
-_No KDoc at source._
+Opens the documents of one entity.
 
 ```kotlin
 fun NavController.navigateToDocumentUpload(
 ```
-_No KDoc at source._
+Opens the upload or replace form for one entity's document.
 
 ```kotlin
 fun NavGraphBuilder.documentDestinations(navController: NavController)
@@ -84,5 +84,5 @@ Annotated `@FeatureDestination`, so the generator registers these ONCE on the au
 
 ---
 
-_2 type(s), 4 function(s)/property(ies); 4 carry KDoc at source; 0 authored example(s); 1 live call site(s)._
+_2 type(s), 4 function(s)/property(ies); 6 carry KDoc at source; 0 authored example(s); 1 live call site(s)._
 <!-- api-docs:end -->

@@ -26,15 +26,33 @@ import org.mobilenativefoundation.store.store5.MutableStore
 import org.mobilenativefoundation.store.store5.SourceOfTruth
 import org.mobilenativefoundation.store.store5.Store
 
-/** Documents hang off any entity (client, loan, group, ...), so the owner pair is the key. */
+/**
+ * Documents hang off any entity (client, loan, group, ...), so the owner pair is the key.
+ *
+ * @property entityId the id of the entity the record belongs to
+ * @property entityType the entity kind, as Fineract names it in the path (`clients`, `loans`, `groups`)
+ */
 data class DocumentKey(val entityType: String, val entityId: Int)
 
-/** One document's FILE — the owner pair plus the document's id. */
+/**
+ * One document's FILE — the owner pair plus the document's id.
+ *
+ * @property documentId the document's server id
+ * @property entityId the id of the entity the record belongs to
+ * @property entityType the entity kind, as Fineract names it in the path (`clients`, `loans`, `groups`)
+ */
 data class DocumentContentKey(val entityType: String, val entityId: Int, val documentId: Int)
 
-/** One document ROW — the owner pair plus the document's id. */
+/**
+ * One document ROW — the owner pair plus the document's id.
+ *
+ * @property documentId the document's server id
+ * @property entityId the id of the entity the record belongs to
+ * @property entityType the entity kind, as Fineract names it in the path (`clients`, `loans`, `groups`)
+ */
 data class DocumentItemKey(val entityType: String, val entityId: Int, val documentId: Int)
 
+/** Store reading the document. */
 @StoreProvider(id = "documents", ttl = "15m")
 @CacheKey(
     fn = "forEntity",
@@ -113,6 +131,7 @@ fun provideDocumentContentStore(
  * hierarchy the purge registers; the rows are still purged by the paired read store's `deleteAll`
  * (same pairing as `queue/OfflineQueueStores.kt`).
  */
+/** Store reading the document item. */
 // logout-exempt: MutableStore is outside the purge; the paired read store's deleteAll clears its rows
 @StoreProvider(id = "documentItem", logout = false)
 @CacheKey(
@@ -132,6 +151,7 @@ fun provideDocumentItemStore(
     ),
 )
 
+/** Store reading the document content. */
 // logout-exempt: MutableStore is outside the purge; the paired read store's deleteAll clears its rows
 @StoreProvider(id = "documentContentLocal", logout = false)
 @CacheKey(

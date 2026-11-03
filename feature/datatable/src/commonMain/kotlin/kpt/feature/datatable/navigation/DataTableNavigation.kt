@@ -26,20 +26,30 @@ import kpt.feature.datatable.rows.DataTableRowsScreen
  * datatables to list. `entityId` is the entity those datatables will be read for when one is
  * opened. The original's route carried only `tableName` and reconstructed the entity id from a
  * JSON nav argument one screen later.
+ *
+ * @property tableName the registered data table's name
+ * @property entityId the entity the table's rows belong to
  */
 @Serializable
 data class DataTableListRoute(val tableName: String, val entityId: Int)
 
-/** One datatable's rows. `tableName` here is the DATATABLE's registered name, not the apptable. */
+/**
+ * One datatable's rows. `tableName` here is the DATATABLE's registered name, not the apptable.
+ *
+ * @property tableName the registered data table's name
+ * @property entityId the entity the table's rows belong to
+ */
 @Serializable
 data class DataTableRowsRoute(val tableName: String, val entityId: Int)
 
+/** Opens the data tables registered for one entity. */
 fun NavController.navigateToDataTableList(
     appTable: String,
     entityId: Int,
     navOptions: NavOptions? = null,
 ) = navigate(DataTableListRoute(appTable, entityId), navOptions)
 
+/** Opens one data table's rows for an entity. */
 fun NavController.navigateToDataTableRows(
     tableName: String,
     entityId: Int,

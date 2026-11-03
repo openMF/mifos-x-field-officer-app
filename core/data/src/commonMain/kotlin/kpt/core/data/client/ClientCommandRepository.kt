@@ -54,6 +54,7 @@ interface ClientCommandRepository {
      * already means "the server accepted it", and the response object carries nothing beyond that.
      */
 
+    /** Runs a Fineract `command` (close, reject, withdraw, …) on a client. */
     suspend fun activate1(
         clientId: Long,
         postClientsClientIdRequest: PostClientsClientIdRequest,
@@ -63,52 +64,69 @@ interface ClientCommandRepository {
     /** The photo as bytes + name + MIME type; the multipart encoding is core/data's job, not the caller's. */
     suspend fun uploadClientImage(clientId: Int, image: DocumentUpload): MutationResult<Unit>
 
+    /** Deletes the client's photo. */
     suspend fun deleteClientImage(clientId: Int): MutationResult<Unit>
 
+    /** Creates a client. */
     suspend fun createClient(clientPayload: ClientPayload?): MutationResult<Client>
 
+    /** Updates a client's details. */
     suspend fun updateClient(clientId: Int, clientPayload: ClientPayload?): MutationResult<Client>
 
+    /** Adds a pinpoint location to a client. */
     suspend fun addClientPinpointLocation(
         clientId: Int,
         clientAddressRequest: ClientAddressRequest?,
     ): MutationResult<PinpointLocationActionResponse>
 
+    /** Deletes a client's pinpoint location. */
     suspend fun deleteClientPinpointLocation(
         apptableId: Int,
         datatableId: Int,
     ): MutationResult<PinpointLocationActionResponse>
 
+    /** Updates a client's pinpoint location. */
     suspend fun updateClientPinpointLocation(
         apptableId: Int,
         datatableId: Int,
         address: ClientAddressRequest?,
     ): MutationResult<PinpointLocationActionResponse>
 
+    /** Activates a client. */
     suspend fun activateClient(clientId: Int, clientActivate: ActivatePayload?): MutationResult<GenericResponse>
 
+    /** Adds an address of one type to a client. */
     suspend fun createClientAddress(
         clientId: Int,
         addressTypeId: Int,
         addressPayload: PostClientAddressRequest,
     ): MutationResult<PostClientAddressResponse>
 
+    /** Assigns a loan officer to a client. */
     suspend fun assignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>
 
+    /** Removes the client's loan officer. */
     suspend fun unassignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>
 
+    /** Proposes transferring the client to another office. */
     suspend fun proposeTransfer(clientId: Int, payload: ProposeTransferRequest): MutationResult<Unit>
 
+    /** Sets the client's default savings account. */
     suspend fun updateSavingsAccount(clientId: Int, payload: UpdateSavingsAccountRequest): MutationResult<Unit>
 
+    /** Closes a client. */
     suspend fun closeClient(clientId: Int, payload: ClientCloseRequest): MutationResult<Unit>
 
+    /** Pledges collateral for a client. */
     suspend fun createCollateral(clientId: Int, payload: CollateralPayload): MutationResult<Unit>
 
+    /** Deletes one of a client's identifiers. */
     suspend fun deleteClientIdentifier(clientId: Long, identifierId: Long): MutationResult<GenericResponse>
 
+    /** Adds an identifier to a client. */
     suspend fun createClientIdentifier(clientId: Long, identifierPayload: IdentifierPayload): MutationResult<Unit>
 
+    /** Updates one of a client's identifiers. */
     suspend fun updateClientIdentifier(
         clientId: Long,
         identifierId: Long,

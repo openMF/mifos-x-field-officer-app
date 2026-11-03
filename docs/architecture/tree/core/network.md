@@ -22,10 +22,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/network sha=3ba6187bda15ee7be3b51f7c6f0665b097effc28 -->
+<!-- api-docs:begin module=core/network sha=0de24a8b08d378adc737b2f3b61ef4fd16acc006 -->
 ## API reference
 
-_Generated from `core/network` at tree `3ba6187bda15` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/network` at tree `0de24a8b08d3` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt`
@@ -282,7 +282,7 @@ internal class AuthCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun authenticate(`
+- `suspend fun authenticate(` — Signs in with a username and password; the response carries the user, their roles and the Basic-auth key.
 - `suspend fun changePassword(` — The signed-in user's own password. A validation refusal (policy, mismatch) is a 400 whose `errors[]` carry the reasons; the success body (a command result) is not read.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/api/CenterApi.kt`
@@ -290,7 +290,7 @@ internal class AuthCommandRepositoryImpl(
 ```kotlin
 interface CenterApi
 ```
-_No KDoc at source._
+Fineract endpoints for center.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/center/impl/CenterCommandRepositoryImpl.kt:54</code></summary>
 
@@ -308,16 +308,16 @@ internal class CenterCommandRepositoryImpl(
 
 - `suspend fun retrieveAll23(` — List Centers The default implementation supports pagination and sorting with the default pagination size set to 200 records. The parameter limit with description -1 will return all entries.
 - `suspend fun activate2(` — Activate a Center | Generate Collection Sheet | Save Collection Sheet | Close a Center | Associate Groups | Disassociate Groups Activate a Center: Centers can be created in a Pending state. This API exists to enable center activation.
-- `suspend fun getCenters(`
-- `suspend fun getCenterAccounts(@Path("centerId") centerId: Int): CenterAccounts`
-- `suspend fun getCenterWithGroupMembersAndCollectionMeetingCalendar(`
-- `suspend fun getAllCentersInOffice(`
-- `suspend fun getAllGroupsForCenter(@Path("centerId") centerId: Int): CenterWithAssociations`
-- `suspend fun getCollectionSheet(`
-- `suspend fun saveCollectionSheet(`
-- `suspend fun saveCollectionSheetAsync(`
-- `suspend fun createCenter(@Body centerPayload: CenterPayload?): SaveResponse`
-- `suspend fun getCenterList(`
+- `suspend fun getCenters(` — Reads one page of centres.
+- `suspend fun getCenterAccounts(@Path("centerId") centerId: Int): CenterAccounts` — Reads a centre's loan and savings accounts.
+- `suspend fun getCenterWithGroupMembersAndCollectionMeetingCalendar(` — Reads a centre with its groups and its collection-meeting calendar.
+- `suspend fun getAllCentersInOffice(` — Reads the centres of one office.
+- `suspend fun getAllGroupsForCenter(@Path("centerId") centerId: Int): CenterWithAssociations` — Reads a centre with its groups.
+- `suspend fun getCollectionSheet(` — Generates the centre's collection sheet for a meeting.
+- `suspend fun saveCollectionSheet(` — Saves a centre's collection sheet.
+- `suspend fun saveCollectionSheetAsync(` — Saves a centre's collection sheet and returns the raw response.
+- `suspend fun createCenter(@Body centerPayload: CenterPayload?): SaveResponse` — Creates a centre.
+- `suspend fun getCenterList(` — Reads the centre list with the given filters.
 - `suspend fun activateCenter(` — This is the service to activate the center REST ENT POINT https://demo.openmf.org/fineract-provider/api/v1/centers/{centerId}?command=activate
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/dto/GetCentersPageItems.kt`
@@ -348,7 +348,7 @@ data class GetCentersResponse(
 ```
 GetCentersResponse
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/api/CenterApi.kt:77</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/api/CenterApi.kt:78</code></summary>
 
 ```kotlin
         @Query("dateFormat") dateFormat: String? = null,
@@ -386,9 +386,9 @@ _No KDoc at source._
 ```kotlin
 object CenterMapper : AbstractMapper<GetCentersPageItems, Center>()
 ```
-_No KDoc at source._
+Maps center between its network, stored and domain shapes.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/GetCentersResponseMapper.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/GetCentersResponseMapper.kt:23</code></summary>
 
 ```kotlin
         return Page<Center>().apply {
@@ -407,7 +407,7 @@ _No KDoc at source._
 ```kotlin
 object GetCentersResponseMapper : AbstractMapper<GetCentersResponse, Page<Center>>()
 ```
-_No KDoc at source._
+Maps get centers response between its network, stored and domain shapes.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/charge/api/ChargeApi.kt`
 
@@ -445,7 +445,7 @@ internal class ChargeCommandRepositoryImpl(
 ```kotlin
 interface CheckerInboxApi
 ```
-_No KDoc at source._
+Fineract endpoints for checker inbox.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/checkerinbox/impl/CheckerInboxCommandRepositoryImpl.kt:40</code></summary>
 
@@ -460,13 +460,13 @@ internal class CheckerInboxCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun getCheckerList(`
-- `suspend fun approveCheckerEntry(@Path("auditId") auditId: Int): GenericResponse`
-- `suspend fun rejectCheckerEntry(@Path("auditId") auditId: Int): GenericResponse`
-- `suspend fun deleteCheckerEntry(@Path("auditId") auditId: Int): GenericResponse`
-- `suspend fun getRescheduleLoansTaskList(): List<RescheduleLoansTask>`
-- `suspend fun getCheckerInboxSearchTemplate(): CheckerInboxSearchTemplate`
-- `suspend fun getCheckerTasksFromResourceId(`
+- `suspend fun getCheckerList(` — Reads the maker-checker entries, optionally filtered.
+- `suspend fun approveCheckerEntry(@Path("auditId") auditId: Int): GenericResponse` — Approves a maker-checker entry.
+- `suspend fun rejectCheckerEntry(@Path("auditId") auditId: Int): GenericResponse` — Rejects a maker-checker entry.
+- `suspend fun deleteCheckerEntry(@Path("auditId") auditId: Int): GenericResponse` — Deletes a maker-checker entry.
+- `suspend fun getRescheduleLoansTaskList(): List<RescheduleLoansTask>` — Reads the loan reschedule requests waiting for a decision.
+- `suspend fun getCheckerInboxSearchTemplate(): CheckerInboxSearchTemplate` — Reads the entity and action names the inbox can be filtered by.
+- `suspend fun getCheckerTasksFromResourceId(` — Reads the maker-checker entries for one resource.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/checkerinbox/dto/GetMakerCheckerResponse.kt`
 
@@ -482,7 +482,7 @@ interface ClientAccountsApi
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/client/ClientKeyedReadStores.kt:148</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/client/ClientKeyedReadStores.kt:156</code></summary>
 
 ```kotlin
 @CacheKey(fn = "forKey", key = "clientGetAllAccountsOfClient:{key}", params = ["key:String"])
@@ -496,14 +496,14 @@ fun provideGetAllAccountsOfClientStore(
 
 </details>
 
-- `suspend fun getAllAccountsOfClient(@Path("clientId") clientId: Int): ClientAccounts`
+- `suspend fun getAllAccountsOfClient(@Path("clientId") clientId: Int): ClientAccounts` — Reads every account of a client.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt`
 
 ```kotlin
 interface ClientApi : ClientDetailsApi
 ```
-_No KDoc at source._
+Fineract endpoints for client.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/impl/ClientCommandRepositoryImpl.kt:75</code></summary>
 
@@ -523,16 +523,16 @@ internal class ClientCommandRepositoryImpl(
 - `suspend fun retrieveAll21(` — List Clients The list capability of clients can support pagination and sorting.
 - `suspend fun retrieveAssociatedAccounts(@Path("clientId") clientId: Long): GetClientsClientIdAccountsResponse` — Retrieve client accounts overview An example of how a loan portfolio summary can be provided. This is requested in a specific use case of the community application.
 - `suspend fun getAllClients(`
-- `suspend fun getClient(@Path("clientId") clientId: Int): Client`
-- `suspend fun uploadClientImage(`
-- `suspend fun deleteClientImage(@Path("clientId") clientId: Int)`
-- `suspend fun getClientImage(@Path("clientId") clientId: Int): HttpResponse`
-- `suspend fun createClient(@Body clientPayload: ClientPayload?): Client?`
-- `suspend fun updateClient(`
-- `suspend fun getClientTemplate(): ClientsTemplate`
-- `suspend fun getClientAccounts(@Path("clientId") clientId: Int): ClientAccounts`
+- `suspend fun getClient(@Path("clientId") clientId: Int): Client` — Reads a client.
+- `suspend fun uploadClientImage(` — Uploads the client's photo.
+- `suspend fun deleteClientImage(@Path("clientId") clientId: Int)` — Deletes the client's photo.
+- `suspend fun getClientImage(@Path("clientId") clientId: Int): HttpResponse` — Downloads the client's photo.
+- `suspend fun createClient(@Body clientPayload: ClientPayload?): Client?` — Creates a client.
+- `suspend fun updateClient(` — Updates a client's details.
+- `suspend fun getClientTemplate(): ClientsTemplate` — Reads the new-client template: offices, staff, genders, types and classifications.
+- `suspend fun getClientAccounts(@Path("clientId") clientId: Int): ClientAccounts` — Reads the client's accounts.
 - `suspend fun activateClient(` — This is the service to activate the client REST ENT POINT https://demo.openmf.org/fineract-provider/api/v1/clients/{clientId}?command=activate
-- `suspend fun getClientTemplate(@Path("clientId") clientId: Int): GetClientsPageItemsResponse`
+- `suspend fun getClientTemplate(@Path("clientId") clientId: Int): GetClientsPageItemsResponse` — Reads the edit template of a client, with staff from the client's office only.
   _…more members; read the file._
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientDetailsApi.kt`
@@ -542,10 +542,10 @@ interface ClientDetailsApi
 ```
 Pinpoint locations, addresses and collateral of a client — split from `ClientApi`, which extends it.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:40</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:41</code></summary>
 
 ```kotlin
-
+/** Fineract endpoints for client. */
 @ApiBinding("mifos")
 interface ClientApi : ClientDetailsApi {
 
@@ -562,19 +562,19 @@ interface ClientApi : ClientDetailsApi {
 - `suspend fun updateClientPinpointLocation(` — This is the service for updating the pinpoint location from DataTable "client_pinpoint_location" REST ENT POINT: https://demo.openmf.org/fineract-provider/api/v1/datatables/client_pinpoint_location /{appTableId}/{datatableId}
 - `suspend fun getAddressConfiguration(): AddressConfiguration` — Retrieves address configuration from Global Configuration.
 - `suspend fun getAddressTemplate(): AddressTemplate` — Retrieves an address template. This template can be used to pre-fill address forms or guide users in providing address information.
-- `suspend fun getClientAddresses(@Path("clientId") clientId: Int): List<ClientAddressEntity>`
-- `suspend fun createClientAddress(`
-- `suspend fun getClientCloseTemplate(): ClientCloseTemplateResponse`
-- `suspend fun getCollateralItems(): List<CollateralItem>`
-- `suspend fun getClientCollateralItems(@Path("clientId") clientId: Int): List<CollateralItemResult>`
-- `suspend fun createCollateral(`
+- `suspend fun getClientAddresses(@Path("clientId") clientId: Int): List<ClientAddressEntity>` — Reads a client's addresses.
+- `suspend fun createClientAddress(` — Adds an address of one type to a client.
+- `suspend fun getClientCloseTemplate(): ClientCloseTemplateResponse` — Reads the close-client template: the closure reasons.
+- `suspend fun getCollateralItems(): List<CollateralItem>` — Reads the collateral types the organisation accepts.
+- `suspend fun getClientCollateralItems(@Path("clientId") clientId: Int): List<CollateralItemResult>` — Reads the collateral a client may pledge.
+- `suspend fun createCollateral(` — Pledges collateral for a client.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientIdentifierApi.kt`
 
 ```kotlin
 interface ClientIdentifierApi
 ```
-_No KDoc at source._
+Fineract endpoints for client identifier.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/impl/ClientCommandRepositoryImpl.kt:76</code></summary>
 
@@ -602,13 +602,13 @@ internal class ClientCommandRepositoryImpl(
 ```kotlin
 data class GetClientClassificationOptions(
 ```
-_No KDoc at source._
+A client classification offered by the client template.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:72</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:84</code></summary>
 
 ```kotlin
-    val clientType: GetClientTypeOptions? = null,
 
+    /** The client's classification. */
     val clientClassification: GetClientClassificationOptions? = null,
 
 )
@@ -623,16 +623,15 @@ data class GetClientStatus(
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:54</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:57</code></summary>
 
 ```kotlin
     val groupName: String? = null,
 
     val status: GetClientStatus? = null,
 
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
-
-    val legalForm: GetClientStatus? = null,
 ```
 
 </details>
@@ -642,18 +641,17 @@ _No KDoc at source._
 ```kotlin
 data class GetClientTypeOptions(
 ```
-_No KDoc at source._
+A client type offered by the client template.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:70</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:81</code></summary>
 
 ```kotlin
-    val gender: GetGenderOptions? = null,
 
+    /** The client's type. */
     val clientType: GetClientTypeOptions? = null,
 
+    /** The client's classification. */
     val clientClassification: GetClientClassificationOptions? = null,
-
-)
 ```
 
 </details>
@@ -672,7 +670,7 @@ data class GetClientsClientIdAccountsResponse(
 ```
 GetClientsClientIdAccountsResponse
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:141</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:142</code></summary>
 
 ```kotlin
      */
@@ -709,7 +707,7 @@ data class GetClientsClientIdAccountsResponse(
 
     val savingsAccounts: Set<GetClientsSavingsAccounts>? = null,
 
-    val shareAccounts: Set<ShareAccountResponse>? = null,
+    /** The share accounts. */
 ```
 
 </details>
@@ -728,9 +726,8 @@ _No KDoc at source._
 
     val status: GetClientsLoanAccountsStatus? = null,
 
+    /** The original loan amount. */
     val originalLoan: Double? = null,
-
-    val loanBalance: Double? = null,
 ```
 
 </details>
@@ -763,16 +760,16 @@ data class GetClientsPageItemsResponse(
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:201</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:211</code></summary>
 
 ```kotlin
-
+    /** Reads the edit template of a client, with staff from the client's office only. */
     @GET("clients/{clientId}?template=true&staffInSelectedOfficeOnly=true")
     suspend fun getClientTemplate(@Path("clientId") clientId: Int): GetClientsPageItemsResponse
 
+    /** Assigns a loan officer to a client. */
     @POST("clients/{clientId}?command=assignStaff")
     suspend fun assignStaff(
-        @Path("clientId") clientId: Int,
 ```
 
 </details>
@@ -784,7 +781,7 @@ data class GetClientsResponse(
 ```
 GetClientsResponse
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:126</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:127</code></summary>
 
 ```kotlin
         @Query("sortOrder") sortOrder: String? = null,
@@ -812,6 +809,7 @@ _No KDoc at source._
 
     val savingsAccounts: Set<GetClientsSavingsAccounts>? = null,
 
+    /** The share accounts. */
     val shareAccounts: Set<ShareAccountResponse>? = null,
 )
 ```
@@ -825,7 +823,7 @@ data class GetClientsSavingsAccountsCurrency(
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:34</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:35</code></summary>
 
 ```kotlin
     val accountBalance: Double? = null,
@@ -846,7 +844,7 @@ data class GetClientsSavingsAccountsDepositType(
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:36</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:37</code></summary>
 
 ```kotlin
     val currency: GetClientsSavingsAccountsCurrency? = null,
@@ -867,7 +865,7 @@ data class GetClientsSavingsAccountsStatus(
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:47</code></summary>
 
 ```kotlin
     val shortProductName: String? = null,
@@ -884,18 +882,17 @@ _No KDoc at source._
 ```kotlin
 data class GetGenderOptions(
 ```
-_No KDoc at source._
+A gender offered by the client template.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:68</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:78</code></summary>
 
 ```kotlin
-    val shareAccounts: List<ShareAccounts> = emptyList(),
 
+    /** The client's gender. */
     val gender: GetGenderOptions? = null,
 
+    /** The client's type. */
     val clientType: GetClientTypeOptions? = null,
-
-    val clientClassification: GetClientClassificationOptions? = null,
 ```
 
 </details>
@@ -905,9 +902,9 @@ _No KDoc at source._
 ```kotlin
 object ClientMapper : AbstractMapper<GetClientsPageItemsResponse, Client>()
 ```
-_No KDoc at source._
+Maps client between its network, stored and domain shapes.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/mapper/GetClientResponseMapper.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/mapper/GetClientResponseMapper.kt:23</code></summary>
 
 ```kotlin
         return Page<Client>().apply {
@@ -926,7 +923,7 @@ _No KDoc at source._
 ```kotlin
 object GetClientResponseMapper : AbstractMapper<GetClientsResponse, Page<Client>>()
 ```
-_No KDoc at source._
+Maps get client response between its network, stored and domain shapes.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/mapper/GetClientsClientIdAccountMapper.kt`
 
@@ -956,14 +953,14 @@ internal class CollectionSheetCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun getIndividualCollectionSheet(`
-- `suspend fun saveIndividualCollectionSheet(`
+- `suspend fun getIndividualCollectionSheet(` — Generates an individual collection sheet for the given office, officer and date.
+- `suspend fun saveIndividualCollectionSheet(` — Saves an individual collection sheet.
 - `suspend fun fetchCenterDetails(` — Endpoint to fetch Productive CollectionSheet
 - `suspend fun fetchProductiveSheet(` — Request Endpoint to fetch Productive CollectionSheet
-- `suspend fun submitProductiveSheet(`
-- `suspend fun fetchCollectionSheet(`
-- `suspend fun submitCollectionSheet(`
-- `suspend fun fetchGroupsAssociatedWithCenter(`
+- `suspend fun submitProductiveSheet(` — Saves a centre's productive collection sheet.
+- `suspend fun fetchCollectionSheet(` — Generates a group's collection sheet.
+- `suspend fun submitCollectionSheet(` — Saves a group's collection sheet.
+- `suspend fun fetchGroupsAssociatedWithCenter(` — Reads a centre's groups and its collection-meeting calendar.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt`
 
@@ -972,7 +969,7 @@ interface DashboardApi
 ```
 Reads behind the home dashboard that no other feature needed. Every figure is computed from these, never from a report.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:54</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:66</code></summary>
 
 ```kotlin
 @CacheKey(fn = "forKey", key = "dashboardUser:{key}", params = ["key:String"])
@@ -990,7 +987,7 @@ fun provideDashboardUserStore(
 - `suspend fun getBusinessDate(): BusinessDateDto` — The date every "today" on the dashboard means — never the device clock.
 - `suspend fun getLoans(` — Loans by status (100 pending approval, 200 approved, 300 active). No officer filter exists on this endpoint.
 - `suspend fun batch(` — Fineract's batch API: many reads in ONE round-trip, each answered independently (`enclosingTransaction=false`).
-- `suspend fun getSavingsAccounts(`
+- `suspend fun getSavingsAccounts(` — Reads one page of savings accounts.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/dto/DashboardDtos.kt`
 
@@ -1016,12 +1013,12 @@ data class AppUserDto(
 ```kotlin
 data class RoleRefDto(val id: Long = 0, val name: String? = null)
 ```
-_No KDoc at source._
+Reference to a role embedded in another payload.
 
 ```kotlin
 data class StaffRefDto(val id: Long = 0, val displayName: String? = null)
 ```
-_No KDoc at source._
+Reference to a staff embedded in another payload.
 
 ```kotlin
 data class BusinessDateDto(val type: String? = null, val date: List<Int> = emptyList())
@@ -1045,7 +1042,7 @@ data class BusinessDateDto(val type: String? = null, val date: List<Int> = empty
 ```kotlin
 data class CurrencyRefDto(val code: String? = null, val displaySymbol: String? = null)
 ```
-_No KDoc at source._
+Reference to a currency embedded in another payload.
 
 <details><summary>Used in the template — <code>core/store/src/commonTest/kotlin/kpt/core/store/dashboard/DueTodayTest.kt:26</code></summary>
 
@@ -1064,19 +1061,19 @@ _No KDoc at source._
 ```kotlin
 data class LoanSummaryRefDto(
 ```
-_No KDoc at source._
+Reference to a loan summary embedded in another payload.
 
 ```kotlin
 data class LoanTimelineRefDto(val submittedByUsername: String? = null)
 ```
-_No KDoc at source._
+Reference to a loan timeline embedded in another payload.
 
 ```kotlin
 data class LoanListItemDto(
 ```
-_No KDoc at source._
+Wire shape of a loan list item.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:103</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:117</code></summary>
 
 ```kotlin
             do {
@@ -1093,12 +1090,12 @@ _No KDoc at source._
 ```kotlin
 data class GroupRefDto(val id: Long = 0, val name: String? = null)
 ```
-_No KDoc at source._
+Reference to a group embedded in another payload.
 
 ```kotlin
 data class LoanListPageDto(val totalFilteredRecords: Int = 0, val pageItems: List<LoanListItemDto> = emptyList())
 ```
-_No KDoc at source._
+One page of loan list results.
 
 <details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:48</code></summary>
 
@@ -1117,19 +1114,19 @@ _No KDoc at source._
 ```kotlin
 data class SavingsSummaryRefDto(val accountBalance: Double = 0.0)
 ```
-_No KDoc at source._
+Reference to a savings summary embedded in another payload.
 
 ```kotlin
 data class SavingsListItemDto(
 ```
-_No KDoc at source._
+Wire shape of a savings list item.
 
 ```kotlin
 data class SavingsListPageDto(val totalFilteredRecords: Int = 0, val pageItems: List<SavingsListItemDto> = emptyList())
 ```
-_No KDoc at source._
+One page of savings list results.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:66</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:67</code></summary>
 
 ```kotlin
         @Query("offset") offset: Int,
@@ -1145,7 +1142,7 @@ data class LoanScheduleDto(
 ```
 `GET loans/{id}?associations=repaymentSchedule` — only what Today's collections reads.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:154</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:169</code></summary>
 
 ```kotlin
             error("Client request(POST batches) invalid: ${first.statusCode}. Text: \"${first.body.orEmpty()}\"")
@@ -1162,7 +1159,7 @@ data class LoanScheduleDto(
 ```kotlin
 data class RepaymentScheduleDto(val periods: List<SchedulePeriodDto> = emptyList())
 ```
-_No KDoc at source._
+Wire shape of a repayment schedule.
 
 <details><summary>Used in the template — <code>core/store/src/commonTest/kotlin/kpt/core/store/dashboard/DueTodayTest.kt:27</code></summary>
 
@@ -1211,7 +1208,7 @@ One request inside `POST batches`; `relativeUrl` is relative to the API root (`l
         @Query("enclosingTransaction") enclosingTransaction: Boolean = false,
     ): List<BatchResponseDto>
 
-    @GET("savingsaccounts")
+    /** Reads one page of savings accounts. */
 ```
 
 </details>
@@ -1228,9 +1225,9 @@ Its answer: `body` is the JSON the single request would have returned, as a stri
         @Query("enclosingTransaction") enclosingTransaction: Boolean = false,
     ): List<BatchResponseDto>
 
+    /** Reads one page of savings accounts. */
     @GET("savingsaccounts")
     suspend fun getSavingsAccounts(
-        @Query("offset") offset: Int,
 ```
 
 </details>
@@ -1240,7 +1237,7 @@ Its answer: `body` is the JSON the single request would have returned, as a stri
 ```kotlin
 interface DataTableApi
 ```
-_No KDoc at source._
+Fineract endpoints for data table.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/datatable/impl/DataTableCommandRepositoryImpl.kt:46</code></summary>
 
@@ -1258,12 +1255,12 @@ internal class DataTableCommandRepositoryImpl(
 
 - `suspend fun getDatatables(@Query("apptable") apptable: String? = null): List<GetDataTablesResponse>` — List Data Tables Lists registered data tables and the Apache Fineract Core application table they are registered to. ARGUMENTS apptable - optional The Apache Fineract core application table.
 - `suspend fun deleteDatatableEntry(` — Delete Entry in Datatable (One to Many) Deletes the entry (if it exists) for data tables that are one to many with the application table.
-- `suspend fun getTableOf(@Query("apptable") table: String?): List<DataTable>`
-- `suspend fun getDataOfDataTable(`
-- `suspend fun createEntryInDataTable(`
-- `suspend fun deleteEntryOfDataTableManyToMany(`
-- `suspend fun addUserPathTracking(`
-- `suspend fun getUserPathTracking(@Path("userId") userId: Int): List<UserLocation>`
+- `suspend fun getTableOf(@Query("apptable") table: String?): List<DataTable>` — Reads the data tables registered against an application table.
+- `suspend fun getDataOfDataTable(` — Reads an entity's rows in a data table.
+- `suspend fun createEntryInDataTable(` — Adds a row for an entity to a data table.
+- `suspend fun deleteEntryOfDataTableManyToMany(` — Deletes one row of a multi-row data table.
+- `suspend fun addUserPathTracking(` — Records a tracked path for a user.
+- `suspend fun getUserPathTracking(@Path("userId") userId: Int): List<UserLocation>` — Reads the paths tracked for a user.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/datatable/dto/GetDataTablesResponse.kt`
 
@@ -1305,7 +1302,7 @@ The wire encoding of a `DocumentUpload` for Fineract's `POST|PUT {entity}/{id}/d
 ```kotlin
 interface DocumentApi
 ```
-_No KDoc at source._
+Fineract endpoints for document.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/document/impl/DocumentCommandRepositoryImpl.kt:46</code></summary>
 
@@ -1321,7 +1318,7 @@ internal class DocumentCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun getDocuments(`
+- `suspend fun getDocuments(` — Reads the documents attached to an entity.
 - `suspend fun createDocument(`
 - `suspend fun downloadDocument(` — This Service is for downloading the Document with EntityType and EntityId and Document Id Rest End Point : https://demo.openmf.org/fineract-provider/api/v1/{entityType}/{entityId}/documents/ {documentId}/attachment
 - `suspend fun removeDocument(` — This Service is for Deleting the Document with EntityType and EntityId and Document Id.
@@ -1332,7 +1329,7 @@ internal class DocumentCommandRepositoryImpl(
 ```kotlin
 interface GroupApi
 ```
-_No KDoc at source._
+Fineract endpoints for group.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/group/impl/GroupCommandRepositoryImpl.kt:46</code></summary>
 
@@ -1349,12 +1346,12 @@ internal class GroupCommandRepositoryImpl(
 </details>
 
 - `suspend fun retrieveAll24(` — List Groups The default implementation of listing Groups returns 200 entries with support for pagination and sorting. Using the parameter limit with description -1 returns all entries.
-- `suspend fun getGroups(`
-- `suspend fun getGroupWithAssociations(@Path("groupId") groupId: Int): GroupWithAssociations`
-- `suspend fun getAllGroupsInOffice(`
-- `suspend fun createGroup(@Body groupPayload: GroupPayload?): SaveResponse`
-- `suspend fun getGroup(@Path("groupId") groupId: Int): Group`
-- `suspend fun getGroupAccounts(@Path("groupId") groupId: Int): GroupAccounts`
+- `suspend fun getGroups(` — Reads one page of groups.
+- `suspend fun getGroupWithAssociations(@Path("groupId") groupId: Int): GroupWithAssociations` — Reads a group with all its associations.
+- `suspend fun getAllGroupsInOffice(` — Reads the groups of one office.
+- `suspend fun createGroup(@Body groupPayload: GroupPayload?): SaveResponse` — Creates a group.
+- `suspend fun getGroup(@Path("groupId") groupId: Int): Group` — Reads a group.
+- `suspend fun getGroupAccounts(@Path("groupId") groupId: Int): GroupAccounts` — Reads a group's accounts.
 - `suspend fun activateGroup(` — This is the service to activate the Group REST ENT POINT https://demo.openmf.org/fineract-provider/api/v1/groups/{groupId}?command=activate
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/dto/GetGroupsPageItems.kt`
@@ -1385,16 +1382,16 @@ data class GetGroupsResponse(
 ```
 GetGroupsResponse
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/api/GroupApi.kt:67</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/api/GroupApi.kt:68</code></summary>
 
 ```kotlin
         @Query("sortOrder") sortOrder: String? = null,
         @Query("orphansOnly") orphansOnly: Boolean? = null,
     ): GetGroupsResponse
 
+    /** Reads one page of groups. */
     @GET("groups")
     suspend fun getGroups(
-        @Query("paged") b: Boolean,
 ```
 
 </details>
@@ -1423,16 +1420,16 @@ _No KDoc at source._
 ```kotlin
 object GetGroupsResponseMapper : AbstractMapper<GetGroupsResponse, Page<Group>>()
 ```
-_No KDoc at source._
+Maps get groups response between its network, stored and domain shapes.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/mapper/GroupMapper.kt`
 
 ```kotlin
 object GroupMapper : AbstractMapper<GetGroupsPageItems, Group>()
 ```
-_No KDoc at source._
+Maps group between its network, stored and domain shapes.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/mapper/GetGroupsResponseMapper.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/mapper/GetGroupsResponseMapper.kt:23</code></summary>
 
 ```kotlin
         return Page<Group>().apply {
@@ -1467,20 +1464,20 @@ internal class LoanCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun getLoanByIdWithAllAssociations(@Path("loanId") loanId: Int): LoanWithAssociationsDto`
-- `suspend fun getLoanRepaymentTemplate(@Path("loanId") loanId: Int): LoanRepaymentTemplate`
-- `suspend fun approveLoanApplication(`
-- `suspend fun submitPayment(`
-- `suspend fun rejectLoan(`
-- `suspend fun getLoanRepaymentSchedule(@Path("loanId") loanId: Int): LoanWithAssociationsDto`
-- `suspend fun getLoanWithTransactions(@Path("loanId") loanId: Int): LoanWithAssociationsDto`
-- `suspend fun getAllLoans(): List<LoanProducts>`
+- `suspend fun getLoanByIdWithAllAssociations(@Path("loanId") loanId: Int): LoanWithAssociationsDto` — Reads a loan with every association except guarantors and the future schedule.
+- `suspend fun getLoanRepaymentTemplate(@Path("loanId") loanId: Int): LoanRepaymentTemplate` — Reads the repayment template of a loan: the amount due and the payment types.
+- `suspend fun approveLoanApplication(` — Approves a loan application.
+- `suspend fun submitPayment(` — Records a loan repayment.
+- `suspend fun rejectLoan(` — Rejects a loan application.
+- `suspend fun getLoanRepaymentSchedule(@Path("loanId") loanId: Int): LoanWithAssociationsDto` — Reads a loan with its repayment schedule.
+- `suspend fun getLoanWithTransactions(@Path("loanId") loanId: Int): LoanWithAssociationsDto` — Reads a loan with its transactions.
+- `suspend fun getAllLoans(): List<LoanProducts>` — Reads every loan product.
 - `suspend fun createLoansAccount(@Body loansPayload: LoansPayload?): SaveResponse` — Typed as `SaveResponse`, not `HttpResponse`: Fineract answers `{"loanId": N, "resourceId": N, ...}`, and the new id is what the command repository ingests the created loan by.
 - `suspend fun calculateLoanSchedule(@Body loansPayload: LoansPayload?): RepaymentSchedule` — Calculate loan repayment schedule without creating the loan. Used to preview the schedule before submitting the loan application.
-- `suspend fun getLoansAccountTemplate(`
+- `suspend fun getLoansAccountTemplate(` — Reads the individual-loan template for a client.
 - `suspend fun getLoanTransactionTemplate(` — For fetching any type of loan template. Example: 1. repayment 2. disburse 3. waiver 4. refundbycash 5.
 - `suspend fun createGroupLoansAccount(@Body loansPayload: GroupLoanPayload?): SaveResponse` — `SaveResponse`, not `Loan`: the body is Fineract's command result, whose new id is `resourceId`. Decoded as a `Loan` it had no `id` key, so the created loan's id was always null.
-- `suspend fun getGroupLoansAccountTemplate(`
+- `suspend fun getGroupLoansAccountTemplate(` — Reads the group-loan template for a group.
   _…more members; read the file._
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/api/LoanServicingApi.kt`
@@ -1497,33 +1494,34 @@ Guarantors, reschedules, officer assignment, disbursement and charge-off — spl
 @ApiBinding("mifos")
 interface LoanApi : LoanServicingApi {
 
+    /** Reads a loan with every association except guarantors and the future schedule. */
     @GET("loans/{loanId}?associations=all&exclude=guarantors,futureSchedule")
     suspend fun getLoanByIdWithAllAssociations(@Path("loanId") loanId: Int): LoanWithAssociationsDto
 ```
 
 </details>
 
-- `suspend fun getChargeOffTemplate(`
-- `suspend fun chargeOff(`
-- `suspend fun getGuarantorTemplate(@Path("loanId") loanId: Int): GuarantorTemplateDto`
-- `suspend fun createGuarantor(`
-- `suspend fun getGuarantorAccountTemplate(`
-- `suspend fun getLoanReschedules(`
-- `suspend fun getLoanRescheduleTemplate(): LoanRescheduleTemplate`
-- `suspend fun submitLoanReschedule(`
-- `suspend fun approveLoanReschedule(`
-- `suspend fun rejectLoanReschedule(`
-- `suspend fun getLoanOfficerTemplate(`
-- `suspend fun assignLoanOfficer(`
-- `suspend fun getDisburseTemplate(`
-- `suspend fun disburse(`
+- `suspend fun getChargeOffTemplate(` — Reads the charge-off template of a loan.
+- `suspend fun chargeOff(` — Charges off a loan.
+- `suspend fun getGuarantorTemplate(@Path("loanId") loanId: Int): GuarantorTemplateDto` — Reads the guarantor template of a loan.
+- `suspend fun createGuarantor(` — Adds a guarantor to a loan.
+- `suspend fun getGuarantorAccountTemplate(` — Reads the accounts a guarantor may pledge funds from.
+- `suspend fun getLoanReschedules(` — Reads the reschedule requests of a loan.
+- `suspend fun getLoanRescheduleTemplate(): LoanRescheduleTemplate` — Reads the reschedule template: the reschedule reasons.
+- `suspend fun submitLoanReschedule(` — Proposes a loan reschedule.
+- `suspend fun approveLoanReschedule(` — Approves a loan reschedule.
+- `suspend fun rejectLoanReschedule(` — Rejects a loan reschedule.
+- `suspend fun getLoanOfficerTemplate(` — Reads the loan-officer template of a loan.
+- `suspend fun assignLoanOfficer(` — Assigns or changes a loan's officer.
+- `suspend fun getDisburseTemplate(` — Reads the disbursement template of a loan.
+- `suspend fun disburse(` — Disburses a loan.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/GuarantorTemplateDto.kt`
 
 ```kotlin
 data class GuarantorTemplateDto(
 ```
-_No KDoc at source._
+Server template for a guarantor: the options its form offers.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:180</code></summary>
 
@@ -1542,12 +1540,12 @@ _No KDoc at source._
 ```kotlin
 data class GuarantorRelationshipOptionDto(
 ```
-_No KDoc at source._
+One guarantor relationship choice offered by a template.
 
 ```kotlin
 data class GuarantorAccountTemplateDto(
 ```
-_No KDoc at source._
+Server template for a guarantor account: the options its form offers.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:188</code></summary>
 
@@ -1566,14 +1564,14 @@ _No KDoc at source._
 ```kotlin
 data class GuarantorTypeDto(
 ```
-_No KDoc at source._
+Wire shape of a guarantor type.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanChargeOffTemplateDto.kt`
 
 ```kotlin
 data class LoanChargeOffTemplateDto(
 ```
-_No KDoc at source._
+Server template for a loan charge off: the options its form offers.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:172</code></summary>
 
@@ -1592,14 +1590,14 @@ _No KDoc at source._
 ```kotlin
 data class ChargeOffReasonOptionDto(
 ```
-_No KDoc at source._
+One charge off reason choice offered by a template.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseRequestDto.kt`
 
 ```kotlin
 data class LoanDisburseRequestDto(
 ```
-_No KDoc at source._
+Request body for a loan disburse.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/impl/LoanCommandRepositoryImpl.kt:226</code></summary>
 
@@ -1620,7 +1618,7 @@ private fun LoanDisburseInput.toDto() = LoanDisburseRequestDto(
 ```kotlin
 data class LoanDisburseResponseDto(
 ```
-_No KDoc at source._
+Server response to a loan disburse request.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:124</code></summary>
 
@@ -1641,7 +1639,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanDisburseTemplateDto(
 ```
-_No KDoc at source._
+Server template for a loan disburse: the options its form offers.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:227</code></summary>
 
@@ -1661,7 +1659,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanOfficerOptionsTemplateDto(
 ```
-_No KDoc at source._
+Server template for assigning a loan officer: the officers on offer.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:221</code></summary>
 
@@ -1680,14 +1678,14 @@ _No KDoc at source._
 ```kotlin
 data class LoanOfficerOptionDto(
 ```
-_No KDoc at source._
+One loan officer choice offered by a template.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanWithAssociationsDto.kt`
 
 ```kotlin
 data class LoanWithAssociationsDto(
 ```
-_No KDoc at source._
+Wire shape of a loan with associations.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:170</code></summary>
 
@@ -1706,13 +1704,13 @@ _No KDoc at source._
 ```kotlin
 data class LoanStatusDto(
 ```
-_No KDoc at source._
+Wire shape of a loan status.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:78</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:80</code></summary>
 
 ```kotlin
-)
 
+/** Maps the network loan status to the domain status. */
 fun LoanStatusDto.toDomain() = LoanStatus(
     id = this.id,
     code = this.code,
@@ -1725,13 +1723,13 @@ fun LoanStatusDto.toDomain() = LoanStatus(
 ```kotlin
 data class LoanTypeDto(val id: Int, val code: String? = null, val value: String? = null)
 ```
-_No KDoc at source._
+Wire shape of a loan type.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:92</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:95</code></summary>
 
 ```kotlin
-)
 
+/** Maps the network loan type to the domain type. */
 fun LoanTypeDto.toDomain() = LoanType(
     id = this.id,
     code = this.code,
@@ -1744,13 +1742,13 @@ fun LoanTypeDto.toDomain() = LoanType(
 ```kotlin
 data class LoanCurrencyDto(
 ```
-_No KDoc at source._
+Wire shape of a loan currency.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:98</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:102</code></summary>
 
 ```kotlin
-)
 
+/** Maps the network loan currency to the domain currency. */
 fun LoanCurrencyDto.toDomain() = SavingAccountCurrency(
     code = this.code,
     name = this.name,
@@ -1763,13 +1761,13 @@ fun LoanCurrencyDto.toDomain() = SavingAccountCurrency(
 ```kotlin
 data class LoanTimelineDto(
 ```
-_No KDoc at source._
+Wire shape of a loan timeline.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:106</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:111</code></summary>
 
 ```kotlin
-)
 
+/** Maps the network loan timeline to the domain timeline. */
 fun LoanTimelineDto.toDomain() = LoanTimeline(
     submittedOnDate = this.submittedOnDate,
     approvedOnDate = this.approvedOnDate,
@@ -1782,13 +1780,13 @@ fun LoanTimelineDto.toDomain() = LoanTimeline(
 ```kotlin
 data class LoanSummaryDto(
 ```
-_No KDoc at source._
+Wire shape of a loan summary.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:116</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:122</code></summary>
 
 ```kotlin
-)
 
+/** Maps the network loan summary to the domain summary. */
 fun LoanSummaryDto.toDomain() = LoanAccountSummary(
     loanId = this.loanId,
     currency = this.currency?.toDomain(),
@@ -1801,13 +1799,13 @@ fun LoanSummaryDto.toDomain() = LoanAccountSummary(
 ```kotlin
 data class LoanRepaymentScheduleDto(
 ```
-_No KDoc at source._
+Wire shape of a loan repayment schedule.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:155</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:162</code></summary>
 
 ```kotlin
-)
 
+/** Maps the network repayment schedule to the domain schedule. */
 fun LoanRepaymentScheduleDto.toDomain() = RepaymentSchedule(
     loanTermInDays = this.loanTermInDays,
     totalPrincipalDisbursed = this.totalPrincipalDisbursed,
@@ -1820,18 +1818,18 @@ fun LoanRepaymentScheduleDto.toDomain() = RepaymentSchedule(
 ```kotlin
 data class LoanPeriodDto(
 ```
-_No KDoc at source._
+Wire shape of a loan period.
 
 ```kotlin
 data class LoanTransactionDto(
 ```
-_No KDoc at source._
+Wire shape of a loan transaction.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:174</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:182</code></summary>
 
 ```kotlin
-)
 
+/** Maps a network loan transaction to the domain transaction. */
 fun LoanTransactionDto.toDomain() = Transaction(
     id = this.id.toInt(),
     officeId = this.officeId?.toInt(),
@@ -1844,37 +1842,37 @@ fun LoanTransactionDto.toDomain() = Transaction(
 ```kotlin
 data class LoanTransactionTypeDto(
 ```
-_No KDoc at source._
+Wire shape of a loan transaction type.
 
 ```kotlin
 data class PaymentDetailDataDto(
 ```
-_No KDoc at source._
+Wire shape of a payment detail data.
 
 ```kotlin
 data class PaymentTypeDto(
 ```
-_No KDoc at source._
+Wire shape of a payment type.
 
 ```kotlin
 data class LoanChargeDto(
 ```
-_No KDoc at source._
+Wire shape of a loan charge.
 
 ```kotlin
 data class LoanNoteDto(val id: Long, val note: String? = null, val createdOn: String? = null)
 ```
-_No KDoc at source._
+Wire shape of a loan note.
 
 ```kotlin
 data class LoanDelinquentDto(
 ```
-_No KDoc at source._
+Wire shape of a loan delinquent.
 
 ```kotlin
 data class NoteDto(
 ```
-_No KDoc at source._
+Wire shape of a note.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/note/NoteDraftReplayTest.kt:42</code></summary>
 
@@ -1893,7 +1891,7 @@ _No KDoc at source._
 ```kotlin
 data class DelinquentDto(
 ```
-_No KDoc at source._
+Wire shape of a delinquent.
 
 ```kotlin
 data class LoanGroupDto(val id: Long? = null, val name: String? = null)
@@ -1933,55 +1931,55 @@ Wire → domain for the disbursement template.
 ```kotlin
 fun LoanWithAssociationsDto.toDomain(): LoanWithAssociations = LoanWithAssociations(
 ```
-_No KDoc at source._
+Maps the network loan to the domain loan.
 
 ```kotlin
 fun LoanStatusDto.toDomain() = LoanStatus(
 ```
-_No KDoc at source._
+Maps the network loan status to the domain status.
 
 ```kotlin
 fun LoanTypeDto.toDomain() = LoanType(
 ```
-_No KDoc at source._
+Maps the network loan type to the domain type.
 
 ```kotlin
 fun LoanCurrencyDto.toDomain() = SavingAccountCurrency(
 ```
-_No KDoc at source._
+Maps the network loan currency to the domain currency.
 
 ```kotlin
 fun LoanTimelineDto.toDomain() = LoanTimeline(
 ```
-_No KDoc at source._
+Maps the network loan timeline to the domain timeline.
 
 ```kotlin
 fun LoanSummaryDto.toDomain() = LoanAccountSummary(
 ```
-_No KDoc at source._
+Maps the network loan summary to the domain summary.
 
 ```kotlin
 fun LoanRepaymentScheduleDto.toDomain() = RepaymentSchedule(
 ```
-_No KDoc at source._
+Maps the network repayment schedule to the domain schedule.
 
 ```kotlin
 fun LoanTransactionDto.toDomain() = Transaction(
 ```
-_No KDoc at source._
+Maps a network loan transaction to the domain transaction.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/mapper/AbstractMapper.kt`
 
 ```kotlin
 abstract class AbstractMapper<Entity, DomainModel> : EntityMapper<Entity, DomainModel>
 ```
-_No KDoc at source._
+Base for mappers between a network shape and a domain shape.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/CenterMapper.kt:18</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/CenterMapper.kt:19</code></summary>
 
 ```kotlin
-import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps center between its network, stored and domain shapes. */
 object CenterMapper : AbstractMapper<GetCentersPageItems, Center>() {
 
     override fun mapFromEntity(entity: GetCentersPageItems): Center {
@@ -1996,13 +1994,13 @@ object CenterMapper : AbstractMapper<GetCentersPageItems, Center>() {
 ```kotlin
 interface EntityMapper<Entity, DomainModel>
 ```
-_No KDoc at source._
+Maps between a stored entity and its domain model.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/mapper/AbstractMapper.kt:12</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/mapper/AbstractMapper.kt:13</code></summary>
 
 ```kotlin
-package kpt.core.network.mifos.mapper
 
+/** Base for mappers between a network shape and a domain shape. */
 abstract class AbstractMapper<Entity, DomainModel> : EntityMapper<Entity, DomainModel> {
 
     override fun mapFromEntityList(entities: List<Entity>): List<DomainModel> {
@@ -2012,17 +2010,17 @@ abstract class AbstractMapper<Entity, DomainModel> : EntityMapper<Entity, Domain
 
 </details>
 
-- `fun mapFromEntity(entity: Entity): DomainModel`
-- `fun mapToEntity(domainModel: DomainModel): Entity`
-- `fun mapFromEntityList(entities: List<Entity>): List<DomainModel>`
-- `fun mapToEntityList(domainModels: List<DomainModel>): List<Entity>`
+- `fun mapFromEntity(entity: Entity): DomainModel` — Maps a stored entity to its domain model.
+- `fun mapToEntity(domainModel: DomainModel): Entity` — Maps a domain model to its stored entity.
+- `fun mapFromEntityList(entities: List<Entity>): List<DomainModel>` — Maps stored entities to domain models.
+- `fun mapToEntityList(domainModels: List<DomainModel>): List<Entity>` — Maps domain models to stored entities.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/note/api/NoteApi.kt`
 
 ```kotlin
 interface NoteApi
 ```
-_No KDoc at source._
+Fineract endpoints for note.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/note/impl/NoteCommandRepositoryImpl.kt:55</code></summary>
 
@@ -2145,7 +2143,7 @@ internal fun NotificationDto.toModel() = AppNotification(
 ```kotlin
 interface OfficeApi
 ```
-_No KDoc at source._
+Fineract endpoints for office.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/office/OfficeKeyedReadStores.kt:29</code></summary>
 
@@ -2171,7 +2169,7 @@ data class GetOfficesResponse(
 ```
 GetOfficesResponse
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/office/api/OfficeApi.kt:37</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/office/api/OfficeApi.kt:38</code></summary>
 
 ```kotlin
         @Query("orderBy") orderBy: String? = null,
@@ -2190,14 +2188,14 @@ GetOfficesResponse
 ```kotlin
 object GetOfficeResponseMapper : AbstractMapper<GetOfficesResponse, Office>()
 ```
-_No KDoc at source._
+Maps get office response between its network, stored and domain shapes.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/recurringdeposit/api/RecurringAccountApi.kt`
 
 ```kotlin
 interface RecurringAccountApi
 ```
-_No KDoc at source._
+Fineract endpoints for recurring account.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recurringdeposit/impl/RecurringDepositCommandRepositoryImpl.kt:42</code></summary>
 
@@ -2213,8 +2211,8 @@ internal class RecurringDepositCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun createRecurringDepositAccount(`
-- `suspend fun getRecurringDepositAccountTemplate(`
+- `suspend fun createRecurringDepositAccount(` — Opens a recurring-deposit account.
+- `suspend fun getRecurringDepositAccountTemplate(` — Reads the recurring-deposit template for a client.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/report/api/RunReportsApi.kt`
 
@@ -2223,7 +2221,7 @@ interface RunReportsApi
 ```
 Created by Rajan Maurya on 05/02/17.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/report/ReportKeyedReadStores.kt:69</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/report/ReportKeyedReadStores.kt:84</code></summary>
 
 ```kotlin
 @CacheKey(fn = "forKey", key = "reportGetReportFullParameterList:{key}", params = ["key:String"])
@@ -2240,10 +2238,10 @@ fun provideGetReportFullParameterListStore(
 - `suspend fun getReportCategories(` — Endpoint to fetch Categories of the reports
 - `suspend fun getReportFullParameterList(` — Endpoint to fetch FullParameter list after fetching the categories.
 - `suspend fun getReportParameterDetails(` — Endpoint to fetch the details for a particular parameter.
-- `suspend fun getReportOffice(`
-- `suspend fun getReportProduct(`
+- `suspend fun getReportOffice(` — Runs a report's office-parameter query.
+- `suspend fun getReportProduct(` — Runs a report's product-parameter query.
 - `suspend fun getRunReportWithQuery(` — Endpoint to retrieve final Report based on the parameters.
-- `suspend fun getCenterSummaryInfo(`
+- `suspend fun getCenterSummaryInfo(` — Runs the group-summary report for a centre.
 - `suspend fun getSavingsAccountTransactionReceipt(` — Fetches the savings account transaction receipt from the server. This endpoint generates a receipt for the given transaction and returns it in the requested output format (default: PDF).
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/api/FixedDepositApi.kt`
@@ -2251,7 +2249,7 @@ fun provideGetReportFullParameterListStore(
 ```kotlin
 interface FixedDepositApi
 ```
-_No KDoc at source._
+Fineract endpoints for fixed deposit.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/impl/SavingsCommandRepositoryImpl.kt:61</code></summary>
 
@@ -2267,8 +2265,8 @@ internal class SavingsCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun fixedDepositProductTemplate(`
-- `suspend fun createFixedDepositAccount(`
+- `suspend fun fixedDepositProductTemplate(` — Reads the fixed-deposit template for a client.
+- `suspend fun createFixedDepositAccount(` — Opens a fixed-deposit account.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/api/SavingsAccountApi.kt`
 
@@ -2294,20 +2292,20 @@ internal class SavingsCommandRepositoryImpl(
 - `suspend fun getSavingsAccountWithAssociations(` — This Service Retrieve a savings application/account.
 - `suspend fun getSavingsAccountTransactionTemplate(` — This Method for Retrieving Savings Account Transaction Template from REST API https://demo.openmf.org/fineract-provider/api/v1/{savingsAccountType}/{savingsAccountId} /transactions/template.
 - `suspend fun processTransaction(` — This Service making POST Request to the REST API : https://demo.openmf.org/fineract-provider/api/v1/{savingsAccountType}/ {savingsAccountId}/transactions?command={transactionType}
-- `suspend fun activateSavings(`
-- `suspend fun approveSavingsApplication(`
-- `suspend fun allSavingsAccounts(): List<ProductSavings>`
-- `suspend fun createSavingsAccount(@Body savingsPayload: SavingsPayload?): HttpResponse`
-- `suspend fun savingsAccountTemplate(): SavingProductsTemplate`
-- `suspend fun getClientSavingsAccountTemplateByProduct(`
-- `suspend fun getGroupSavingsAccountTemplateByProduct(`
+- `suspend fun activateSavings(` — Activates a savings account.
+- `suspend fun approveSavingsApplication(` — Approves a savings application.
+- `suspend fun allSavingsAccounts(): List<ProductSavings>` — Reads every savings product.
+- `suspend fun createSavingsAccount(@Body savingsPayload: SavingsPayload?): HttpResponse` — Opens a savings account.
+- `suspend fun savingsAccountTemplate(): SavingProductsTemplate` — Reads the savings product template.
+- `suspend fun getClientSavingsAccountTemplateByProduct(` — Reads the savings-account template of a product for a client.
+- `suspend fun getGroupSavingsAccountTemplateByProduct(` — Reads the savings-account template of a product for a group.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/api/ShareAccountApi.kt`
 
 ```kotlin
 interface ShareAccountApi
 ```
-_No KDoc at source._
+Fineract endpoints for share account.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/impl/SavingsCommandRepositoryImpl.kt:63</code></summary>
 
@@ -2323,15 +2321,15 @@ _No KDoc at source._
 
 </details>
 
-- `suspend fun shareProductTemplate(`
-- `suspend fun createShareAccount(`
+- `suspend fun shareProductTemplate(` — Reads the share-account template for a client.
+- `suspend fun createShareAccount(` — Opens a share account.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/dto/SavingAccountOption.kt`
 
 ```kotlin
 data class SavingAccountOption(
 ```
-_No KDoc at source._
+One saving account choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/defaultaccount/ClientDefaultAccountScreen.kt:139</code></summary>
 
@@ -2352,13 +2350,13 @@ internal fun ClientDefaultAccountContent(
 ```kotlin
 data class ShareAccountResponse(
 ```
-_No KDoc at source._
+Server response to a share account request.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsClientIdAccountsResponse.kt:29</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsClientIdAccountsResponse.kt:30</code></summary>
 
 ```kotlin
-    val savingsAccounts: Set<GetClientsSavingsAccounts>? = null,
 
+    /** The share accounts. */
     val shareAccounts: Set<ShareAccountResponse>? = null,
 )
 ```
@@ -2370,17 +2368,18 @@ _No KDoc at source._
 ```kotlin
 data class ShareAccountsStatusResponse(
 ```
-_No KDoc at source._
+Server response to a share accounts status request.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/dto/ShareAccountResponse.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/dto/ShareAccountResponse.kt:38</code></summary>
 
 ```kotlin
-    val productId: Int? = null,
     val productName: String? = null,
+    /** The record's Fineract status. */
     val status: ShareAccountsStatusResponse? = null,
+    /** The dates and users of the record's lifecycle events (submitted, approved, activated, …). */
     val timeline: Timeline? = null,
+    /** The currency the amounts are in. */
     val currency: Currency? = null,
-)
 ```
 
 </details>
@@ -2406,7 +2405,7 @@ fun provideSearchResourcesStore(
 
 </details>
 
-- `suspend fun searchResources(`
+- `suspend fun searchResources(` — Searches clients, groups, centres and accounts for a query.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/server/AppServerConfig.kt`
 
@@ -2485,7 +2484,7 @@ The list that ships in the app — also the fallback a remote loader must use.
 ```kotlin
 interface StaffApi
 ```
-_No KDoc at source._
+Fineract endpoints for staff.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/staff/StaffKeyedReadStores2.kt:29</code></summary>
 
@@ -2502,16 +2501,16 @@ fun provideAllStaffStore(
 </details>
 
 - `suspend fun retrieveAll16(` — Retrieve Staff Returns the list of staff members. Example Requests: staff Retrieve a Staff by status Returns the details of a Staff based on status. By default it Returns all the ACTIVE Staff.
-- `suspend fun getStaffForOffice(@Query("officeId") officeId: Int): List<Staff>`
-- `suspend fun allStaff(): List<Staff>`
-- `suspend fun fieldStaffForOffice(): List<Staff>`
+- `suspend fun getStaffForOffice(@Query("officeId") officeId: Int): List<Staff>` — Reads the staff of an office, active or not.
+- `suspend fun allStaff(): List<Staff>` — Reads every staff member.
+- `suspend fun fieldStaffForOffice(): List<Staff>` — Reads every loan officer.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/staff/mapper/StaffMapper.kt`
 
 ```kotlin
 object StaffMapper : AbstractMapper<RetrieveOneResponse, Staff>()
 ```
-_No KDoc at source._
+Maps staff between its network, stored and domain shapes.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/survey/api/SurveyApi.kt`
 
@@ -2534,9 +2533,9 @@ internal class SurveyCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun allSurveys(): List<Survey>`
-- `suspend fun getSurvey(@Path("surveyId") surveyId: Int): Survey`
-- `suspend fun submitScore(`
+- `suspend fun allSurveys(): List<Survey>` — Reads every survey.
+- `suspend fun getSurvey(@Path("surveyId") surveyId: Int): Survey` — Reads a survey.
+- `suspend fun submitScore(` — Submits a scorecard for a survey.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/survey/dto/ScorecardPayload.kt`
 
@@ -2547,5 +2546,5 @@ Created by Nasim Banu on 28,January,2016.
 
 ---
 
-_129 type(s), 200 function(s)/property(ies); 125 carry KDoc at source; 2 authored example(s); 97 live call site(s)._
+_129 type(s), 200 function(s)/property(ies); 307 carry KDoc at source; 2 authored example(s); 97 live call site(s)._
 <!-- api-docs:end -->

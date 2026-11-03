@@ -28,6 +28,7 @@ class FakeRecurringDepositRepository(
     private val template: MutableStateFlow<ScreenState<RecurringDepositAccountTemplate>>? = null,
 ) : RecurringDepositRepository {
 
+    /** Every stream's refresh signal. */
     val refreshes: MutableSharedFlow<Unit> = MutableSharedFlow(extraBufferCapacity = 8)
 
     /** Every client the template was asked for — proves the route argument arrived. */

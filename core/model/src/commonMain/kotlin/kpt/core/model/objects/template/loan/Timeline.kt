@@ -16,5 +16,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Timeline(
+    /** The date the loan is expected to be disbursed. */
     val expectedDisbursementDate: List<Int>? = null,
 )

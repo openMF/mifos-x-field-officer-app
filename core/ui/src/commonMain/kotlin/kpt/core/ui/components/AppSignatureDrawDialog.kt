@@ -37,6 +37,7 @@ import kpt.core.designsystem.fieldofficer.component.AppTopBar
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.DesignToken
 
+/** Dialog for drawing a signature; saving returns it as an image. */
 @Composable
 fun AppSignatureDrawDialog(
     onSaveFile: (ImageBitmap) -> Unit,

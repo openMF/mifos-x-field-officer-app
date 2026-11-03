@@ -23,6 +23,10 @@
 
 version: 1
 
+# The eight Store5 archetypes, each with its factory, fetch policy and showcase feature.
+# The MACHINE-READABLE contract: product-health's store-archetype-coverage check fails the
+# build when an archetype loses its last showcase, so this file is what keeps every archetype
+# provably exercised rather than merely documented.
 archetypes:
   NETWORK_WITH_CACHE:
     factory: createStore

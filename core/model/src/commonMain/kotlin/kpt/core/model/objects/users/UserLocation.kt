@@ -17,21 +17,30 @@ import kpt.core.model.utils.DateConstants
  */
 @Serializable
 data class UserLocation(
+    /** The server id of the staff member (loan officer). */
     var staffId: Int? = null,
 
+    /** The tracked points, serialised. */
     var latLng: String? = null,
 
+    /** When tracking started. */
     var startTime: String? = null,
 
+    /** When tracking stopped. */
     var stopTime: String? = null,
 
+    /** The date the path was tracked. */
     var date: String? = null,
 
+    /** The address where the tracked path started. */
     var startAddress: String? = null,
 
+    /** The address where the tracked path ended. */
     var endAddress: String? = null,
 
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat: String? = DateConstants.DATE_FORMAT_WITH_TIME,
 
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     var locale: String? = DateConstants.LOCALE,
 )

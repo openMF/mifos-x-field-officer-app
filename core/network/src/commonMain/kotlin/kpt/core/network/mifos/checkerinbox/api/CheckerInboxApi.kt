@@ -20,9 +20,11 @@ import kpt.core.model.objects.checkerinboxtask.CheckerTask
 import kpt.core.model.objects.checkerinboxtask.RescheduleLoansTask
 import kpt.core.model.shared.GenericResponse
 
+/** Fineract endpoints for checker inbox. */
 @ApiBinding("mifos")
 interface CheckerInboxApi {
 
+    /** Reads the maker-checker entries, optionally filtered. */
     @GET("makercheckers")
     suspend fun getCheckerList(
         @Query("actionName") actionName: String? = null,
@@ -30,21 +32,27 @@ interface CheckerInboxApi {
         @Query("resourceId") resourceId: Int? = null,
     ): List<CheckerTask>
 
+    /** Approves a maker-checker entry. */
     @POST("makercheckers/{auditId}?command=approve")
     suspend fun approveCheckerEntry(@Path("auditId") auditId: Int): GenericResponse
 
+    /** Rejects a maker-checker entry. */
     @POST("makercheckers/{auditId}?command=reject")
     suspend fun rejectCheckerEntry(@Path("auditId") auditId: Int): GenericResponse
 
+    /** Deletes a maker-checker entry. */
     @DELETE("makercheckers/{auditId}")
     suspend fun deleteCheckerEntry(@Path("auditId") auditId: Int): GenericResponse
 
+    /** Reads the loan reschedule requests waiting for a decision. */
     @GET("rescheduleloans?command=pending")
     suspend fun getRescheduleLoansTaskList(): List<RescheduleLoansTask>
 
+    /** Reads the entity and action names the inbox can be filtered by. */
     @GET("makercheckers/searchtemplate?fields=entityNames,actionNames")
     suspend fun getCheckerInboxSearchTemplate(): CheckerInboxSearchTemplate
 
+    /** Reads the maker-checker entries for one resource. */
     @GET("makercheckers")
     suspend fun getCheckerTasksFromResourceId(
         @Query("actionName") actionName: String? = null,

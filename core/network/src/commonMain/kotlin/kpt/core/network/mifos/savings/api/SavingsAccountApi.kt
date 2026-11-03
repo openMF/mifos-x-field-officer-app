@@ -90,33 +90,40 @@ interface SavingsAccountApi {
         @Body savingsAccountTransactionRequest: SavingsAccountTransactionRequest?,
     ): SavingsAccountTransactionResponse
 
+    /** Activates a savings account. */
     @POST("savingsaccounts/{savingsAccountId}/?command=activate")
     suspend fun activateSavings(
         @Path("savingsAccountId") savingsAccountId: Int,
         @Body genericRequest: HashMap<String, String>,
     ): GenericResponse
 
+    /** Approves a savings application. */
     @POST("savingsaccounts/{savingsAccountId}?command=approve")
     suspend fun approveSavingsApplication(
         @Path("savingsAccountId") savingsAccountId: Int,
         @Body savingsApproval: SavingsApproval?,
     ): GenericResponse
 
+    /** Reads every savings product. */
     @GET("savingsproducts")
     suspend fun allSavingsAccounts(): List<ProductSavings>
 
+    /** Opens a savings account. */
     @POST("savingsaccounts")
     suspend fun createSavingsAccount(@Body savingsPayload: SavingsPayload?): HttpResponse
 
+    /** Reads the savings product template. */
     @GET("savingsproducts/template")
     suspend fun savingsAccountTemplate(): SavingProductsTemplate
 
+    /** Reads the savings-account template of a product for a client. */
     @GET("savingsaccounts/template")
     suspend fun getClientSavingsAccountTemplateByProduct(
         @Query("clientId") clientId: Int,
         @Query("productId") productId: Int,
     ): SavingProductsTemplate
 
+    /** Reads the savings-account template of a product for a group. */
     @GET("savingsaccounts/template")
     suspend fun getGroupSavingsAccountTemplateByProduct(
         @Query("groupId") groupId: Int,

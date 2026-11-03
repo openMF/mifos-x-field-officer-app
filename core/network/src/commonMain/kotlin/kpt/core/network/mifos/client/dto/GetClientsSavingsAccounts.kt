@@ -29,6 +29,7 @@ data class GetClientsSavingsAccounts(
 
     val accountNo: String? = null,
 
+    /** The account balance. */
     val accountBalance: Double? = null,
 
     val currency: GetClientsSavingsAccountsCurrency? = null,

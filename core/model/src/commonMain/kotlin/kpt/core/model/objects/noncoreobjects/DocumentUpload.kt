@@ -26,6 +26,7 @@ class DocumentUpload(
     val name: String,
     val fileName: String,
     val mimeType: String,
+    /** The file's content. */
     val bytes: ByteArray,
     val description: String? = null,
 )

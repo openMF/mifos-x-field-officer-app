@@ -35,6 +35,7 @@ fun provideGetListOfLoanChargesStore(
     fetch = { key -> loanApi.getListOfLoanCharges(loanId = key) },
 )
 
+/** Store reading the list of charges. */
 @StoreProvider(id = "loanGetListOfCharges", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetListOfCharges:{key}", params = ["key:String"])
 fun provideGetListOfChargesStore(

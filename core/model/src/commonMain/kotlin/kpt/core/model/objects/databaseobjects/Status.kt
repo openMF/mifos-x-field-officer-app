@@ -9,8 +9,14 @@
  */
 package kpt.core.model.objects.databaseobjects
 
+/** Lifecycle status flags of an account. */
 data class Status(
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     var code: String? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     var value: String? = null,
 )

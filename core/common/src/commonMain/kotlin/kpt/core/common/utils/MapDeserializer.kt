@@ -31,6 +31,10 @@ import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 
+/**
+ * Deserialises an arbitrary JSON object into a `Map<String, Any>` of plain values (strings, numbers, booleans,
+ * nested lists and maps).
+ */
 object MapDeserializer : KSerializer<Map<String, Any>> {
 
     @OptIn(ExperimentalSerializationApi::class)
@@ -54,7 +58,7 @@ object MapDeserializer : KSerializer<Map<String, Any>> {
         }
     }
 
-    fun read(jsonElement: JsonElement): Any? {
+    private fun read(jsonElement: JsonElement): Any? {
         return when (jsonElement) {
             is JsonArray -> {
                 val list = jsonElement.jsonArray.map { read(it) }

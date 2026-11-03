@@ -2,11 +2,11 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_MODEL.md`
-> **Measured:** 465 Kotlin files, 5 test files
+> **Measured:** 422 Kotlin files, 0 test files
 
 ## Principal types
 
-`Account`, `AccountChart`, `AccountLinkingOptions`, `AccountOption`, `AccountOptions`, `AccountTransferChanges`, `AccountTransferRequest`, `AccountTransferResponse`, `AccountTransferTemplate`, `AccountTypeOption`, `AccountingRule`, `ActivatePayload`, `ActualDisbursementDate`, `Address`  …and 393 more
+`Account`, `AccountChart`, `AccountLinkingOptions`, `AccountOption`, `AccountOptions`, `AccountTransferRequest`, `AccountTransferTemplate`, `AccountTypeOption`, `AccountingRule`, `ActivatePayload`, `ActualDisbursementDate`, `Address`, `AddressConfiguration`, `AddressDraftPayload`  …and 353 more
 
 <!-- scaffold:end -->
 
@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/model sha=fb87866924dd2ff1cd6e650267ff442d8e7e6c14 -->
+<!-- api-docs:begin module=core/model sha=5f49c2dc81f9ed6e836312d01ecd5d2c7e2bb96a -->
 ## API reference
 
-_Generated from `core/model` at tree `fb87866924dd` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/model` at tree `5f49c2dc81f9` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/auth/ChangePasswordRequest.kt`
@@ -132,16 +132,16 @@ data class CenterDate(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `CenterDateEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:25</code></summary>
 
 ```kotlin
-
+    /** Stores a `CenterDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromCenterDate(centerDate: CenterDateEntity?): String? {
         return centerDate?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `CenterDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -216,16 +216,16 @@ data class PostCentersCenterIdResponse(
 ```
 PostCentersCenterIdResponse
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/center/CenterCommandRepository.kt:40</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/center/CenterCommandRepository.kt:41</code></summary>
 
 ```kotlin
         postCentersCenterIdRequest: PostCentersCenterIdRequest,
         command: String? = null,
     ): MutationResult<PostCentersCenterIdResponse>
 
+    /** Saves a centre's collection sheet. */
     suspend fun saveCollectionSheet(
         centerId: Int,
-        collectionSheetPayload: CollectionSheetPayload?,
 ```
 
 </details>
@@ -300,16 +300,16 @@ data class ClientChargeCurrency(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `ClientChargeCurrencyEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:43</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:49</code></summary>
 
 ```kotlin
-
+    /** Stores a `ClientChargeCurrencyEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromClientChargeCurrency(currency: ClientChargeCurrencyEntity?): String? {
         return currency?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ClientChargeCurrencyEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -321,16 +321,15 @@ data class AddressConfiguration(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `AddressConfiguration`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientRepository.kt:106</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientRepository.kt:107</code></summary>
 
 ```kotlin
      * validation made client creation impossible on such a tenant.
      */
     fun addressConfigurationStream(scope: CoroutineScope): ScreenDataStream<AddressConfiguration>
 
+    /** The address template: address types and the fields each one takes. */
     fun addressTemplateStream(scope: CoroutineScope): ScreenDataStream<AddressTemplate>
-
-    /** Where the officer has recorded this client — the pinpoint map/list. */
 ```
 
 </details>
@@ -405,11 +404,11 @@ data class ClientClassification(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `ClientClassificationEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/client/Client.kt:53</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/client/Client.kt:85</code></summary>
 
 ```kotlin
-    val gender: ClientGender? = null,
     val clientType: ClientType? = null,
+    /** The client's classification. */
     val clientClassification: ClientClassification? = null,
 )
 ```
@@ -421,7 +420,7 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 data class ClientCloseTemplateResponse(
 ```
-_No KDoc at source._
+Server response to a client close template request.
 
 <details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/closure/ClientClosureViewModelTest.kt:52</code></summary>
 
@@ -440,7 +439,7 @@ _No KDoc at source._
 ```kotlin
 data class Narration(
 ```
-_No KDoc at source._
+A closure reason offered by the close-client template.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/closure/ClientClosureScreen.kt:123</code></summary>
 
@@ -463,16 +462,16 @@ data class ClientDate(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `ClientDateEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientTypeConverters.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientTypeConverters.kt:52</code></summary>
 
 ```kotlin
-
+    /** Stores a `ClientDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromClientDate(date: ClientDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ClientDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -585,12 +584,13 @@ data class ClientType(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `ClientTypeEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/client/Client.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/client/Client.kt:83</code></summary>
 
 ```kotlin
-    val legalForm: ClientStatus? = null,
     val gender: ClientGender? = null,
+    /** The client's type. */
     val clientType: ClientType? = null,
+    /** The client's classification. */
     val clientClassification: ClientClassification? = null,
 )
 ```
@@ -602,18 +602,17 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 data class ClientsAttendance(
 ```
-_No KDoc at source._
+One client's attendance on a collection sheet.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/collectionsheet/CollectionSheetPayload.kt:30</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/collectionsheet/CollectionSheetPayload.kt:35</code></summary>
 
 ```kotlin
-    var calendarId: Int? = 0,
 
+    /** The attendance recorded for each client. */
     var clientsAttendance: MutableList<ClientsAttendance> = ArrayList(),
 
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat: String = ApiDateFormatter.DATE_FORMAT,
-
-    var locale: String = ApiDateFormatter.LOCALE,
 ```
 
 </details>
@@ -646,12 +645,13 @@ data class InterestTypeOption(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `InterestTypeEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/client/ClientsTemplate.kt:29</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/client/ClientsTemplate.kt:38</code></summary>
 
 ```kotlin
-    val clientTypeOptions: List<Options>? = emptyList(),
     val clientClassificationOptions: List<Options>? = emptyList(),
+    /** The legal forms that may be chosen. */
     val clientLegalFormOptions: List<InterestTypeOption>? = emptyList(),
+    /** The data tables registered for this entity. */
     val dataTables: List<DataTable>? = emptyList(),
 )
 ```
@@ -686,16 +686,16 @@ data class Options(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `OptionsEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>feature/activate/src/commonMain/kotlin/kpt/feature/activate/navigation/ActivateRoute.kt:33</code></summary>
+<details><summary>Used in the template — <code>feature/activate/src/commonMain/kotlin/kpt/feature/activate/navigation/ActivateRoute.kt:37</code></summary>
 
 ```kotlin
-data class ActivateRoute(val id: Int, val type: String)
 
+/** Opens the activation screen for client [clientId]. */
 fun NavController.navigateToActivateClient(clientId: Int, navOptions: NavOptions? = null) =
     navigate(ActivateRoute(clientId, Constants.ACTIVATE_CLIENT), navOptions)
 
+/** Opens the activation screen for centre [centerId]. */
 fun NavController.navigateToActivateCenter(centerId: Int, navOptions: NavOptions? = null) =
-    navigate(ActivateRoute(centerId, Constants.ACTIVATE_CENTER), navOptions)
 ```
 
 </details>
@@ -705,7 +705,7 @@ fun NavController.navigateToActivateCenter(centerId: Int, navOptions: NavOptions
 ```kotlin
 data class PostClientAddressRequest(
 ```
-_No KDoc at source._
+Request body for a post client address.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/addaddress/ClientAddAddressViewModel.kt:255</code></summary>
 
@@ -726,18 +726,17 @@ internal fun ClientAddAddressState.toPayload(): PostClientAddressRequest = PostC
 ```kotlin
 data class PostClientAddressResponse(
 ```
-_No KDoc at source._
+Server response to a post client address request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:94</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:103</code></summary>
 
 ```kotlin
         addressTypeId: Int,
         addressPayload: PostClientAddressRequest,
     ): MutationResult<PostClientAddressResponse>
 
+    /** Assigns a loan officer to a client. */
     suspend fun assignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>
-
-    suspend fun unassignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>
 ```
 
 </details>
@@ -749,7 +748,7 @@ data class PostClientsClientIdRequest(
 ```
 PostClientsClientIdRequest
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:59</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:60</code></summary>
 
 ```kotlin
     suspend fun activate1(
@@ -770,7 +769,7 @@ data class PostClientsClientIdResponse(
 ```
 PostClientsClientIdResponse
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:61</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:62</code></summary>
 
 ```kotlin
         postClientsClientIdRequest: PostClientsClientIdRequest,
@@ -790,7 +789,7 @@ data class SavingProductOptions(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `SavingProductOptionsEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:131</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:146</code></summary>
 
 ```kotlin
         clientsTemplate.officeOptions?.let { insertOfficeOptions(it) }
@@ -811,7 +810,7 @@ data class Savings(
 ```
 Created by nellyk on 2/19/2016.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:52</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:58</code></summary>
 
 ```kotlin
     listOf(
@@ -830,7 +829,7 @@ private val demoPortfolio = HomeCard.Portfolio(
 ```kotlin
 data class StaffOption(
 ```
-_No KDoc at source._
+One staff choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/staff/ClientStaffScreen.kt:116</code></summary>
 
@@ -853,7 +852,7 @@ data class StaffOptions(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `StaffOptionsEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:130</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:145</code></summary>
 
 ```kotlin
         insertClientsTemplate(clientsTemplate)
@@ -874,7 +873,7 @@ data class CenterDetail(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `CenterDetail`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:33</code></summary>
 
 ```kotlin
         meetingDate: String,
@@ -937,13 +936,14 @@ data class CollectionSheetResponse(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `CollectionSheetResponse`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:55</code></summary>
 
 ```kotlin
-    suspend fun individualCollectionSheet(request: RequestCollectionSheetPayload): IndividualCollectionSheet?
 
+    /** Generates a centre's productive collection sheet, or null when there is none. */
     suspend fun productiveSheet(centerId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 
+    /** Generates a group's collection sheet, or null when there is none. */
     suspend fun groupCollectionSheet(groupId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 }
 ```
@@ -957,16 +957,15 @@ data class GroupCollectionSheet(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `GroupCollectionSheet`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:29</code></summary>
 
 ```kotlin
-    var dueDate: IntArray? = null,
 
+    /** The groups. */
     var groups: List<GroupCollectionSheet> = ArrayList(),
 
+    /** The loan products the sheet covers. */
     var loanProducts: List<kpt.core.model.objects.organisations.LoanProducts> = ArrayList(),
-
-    var paymentTypeOptions: List<PaymentTypeOptionEntity> = ArrayList(),
 ```
 
 </details>
@@ -1020,16 +1019,16 @@ data class MeetingFallCalendar(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `MeetingFallCalendar`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/converter/CollectionSheetTypeConverters.kt:21</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/converter/CollectionSheetTypeConverters.kt:23</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<MeetingFallCalendar>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromMeetingFallCalendarList(meetings: List<MeetingFallCalendar>?): String =
         Json.encodeToString(meetings ?: emptyList())
 
+    /** Reads a `List<MeetingFallCalendar>` back from the JSON column it is stored in. */
     @ColumnTypeConverter
-    fun toMeetingFallCalendarList(json: String): List<MeetingFallCalendar> =
 ```
 
 </details>
@@ -1041,7 +1040,7 @@ data class ProductiveCollectionSheetPayload(
 ```
 Created by Tarun on 25-07-2017.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetCommandRepository.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetCommandRepository.kt:47</code></summary>
 
 ```kotlin
     suspend fun submitProductiveSheet(
@@ -1049,8 +1048,8 @@ Created by Tarun on 25-07-2017.
         payload: ProductiveCollectionSheetPayload?,
     ): MutationResult<GenericResponse>
 
+    /** Submits a group's collection sheet. */
     suspend fun submitCollectionSheet(groupId: Int, payload: CollectionSheetPayload?): MutationResult<GenericResponse>
-}
 ```
 
 </details>
@@ -1083,11 +1082,11 @@ data class SavingsCollectionSheet(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `SavingsCollectionSheet`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/ClientCollectionSheet.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/ClientCollectionSheet.kt:32</code></summary>
 
 ```kotlin
-    var attendanceType: AttendanceTypeOption? = null,
 
+    /** The savings accounts. */
     var savings: ArrayList<SavingsCollectionSheet> = ArrayList(),
 )
 ```
@@ -1099,7 +1098,7 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 class CollectionSheetPayload : Payload()
 ```
-_No KDoc at source._
+Request body for a collection sheet.
 
 <details><summary>Used in the template — <code>feature/activate/src/commonTest/kotlin/kpt/feature/activate/ui/ActivateViewModelTest.kt:270</code></summary>
 
@@ -1202,10 +1201,10 @@ data class DashboardScope(val officeId: Long, val staffId: Long?, val username: 
 ```
 Whose book the dashboard shows. A user linked to a staff record sees their own portfolio; an unlinked user (the gateway demo user) sees their office, and "own" loans fall back to the ones they submitted.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:125</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:135</code></summary>
 
 ```kotlin
-        val userStream = dashboardRepository.userStream(user.userId, viewModelScope).on(*HomeCardId.entries.toTypedArray(), key = "user")
+        ).on(HomeCardId.entries, key = "user")
         // The staff link scopes the book. Until it answers, wait; if it cannot be read, fall back to the office.
         val scope: Flow<DashboardScope> = userStream.state.mapNotNull { state ->
             when (state) {
@@ -1221,16 +1220,16 @@ data class DashboardUser(
 ```
 The signed-in user's own Fineract record — the fields the dashboard and Profile read.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:153</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:169</code></summary>
 
 ```kotlin
-    }
-
-    private fun header(user: User, userStream: ScreenDataStream<DashboardUser>, businessDate: ScreenDataStream<String>) {
+    private fun header(
+        user: User,
+        userStream: ScreenDataStream<DashboardUser>,
+        businessDate: ScreenDataStream<String>,
+    ) {
         combine(
             userStream.state,
-            businessDate.state,
-            serverConfigRepository.serverConfigStream(viewModelScope).state,
 ```
 
 </details>
@@ -1240,7 +1239,7 @@ data class DashboardLoan(
 ```
 One loan as the dashboard needs it: ownership, arrears and the summary sums.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:321</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:429</code></summary>
 
 ```kotlin
     }
@@ -1259,11 +1258,11 @@ data class DashboardSavings(
 ```
 One savings account's balance, for the portfolio total.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/dashboard/DashboardRepository.kt:34</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/dashboard/DashboardRepository.kt:35</code></summary>
 
 ```kotlin
-    fun clientCountStream(officeId: Long, status: String, scope: CoroutineScope): ScreenDataStream<Int>
 
+    /** The officer's savings accounts. */
     fun savingsStream(scope: CoroutineScope): ScreenDataStream<List<DashboardSavings>>
 
     /** Installments of [loanIds] due on [date] (`yyyy-MM-dd`) — Today's collections without the collection sheet. */
@@ -1277,16 +1276,16 @@ data class CurrencyTotals(
 ```
 Money sums for one currency — never mixed across currencies.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardModels.kt:67</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardCards.kt:722</code></summary>
 
 ```kotlin
-        val activeLoans: Int?,
-        val inArrears: Int?,
-        val loanTotals: List<CurrencyTotals>?,
-        val savings: List<Money>?,
-        val groups: Int?,
-        val centers: Int?,
-    ) : HomeCard
+/** col-span-2 bg-primary-container/40 — total outstanding per currency under a bank glyph (03 #portfolio_card). */
+@Composable
+private fun OutstandingTile(t: List<CurrencyTotals>) {
+    val c = KptTheme.colorScheme
+    Box(
+        Modifier.fillMaxWidth().clip(
+            KptTheme.shapes.medium,
 ```
 
 </details>
@@ -1294,9 +1293,9 @@ Money sums for one currency — never mixed across currencies.
 ```kotlin
 data class LoanPortfolio(val activeLoans: Int, val inArrears: Int, val byCurrency: List<CurrencyTotals>)
 ```
-_No KDoc at source._
+The officer's loan portfolio totals.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:294</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:388</code></summary>
 
 ```kotlin
         return combineScreenStates(parts).mapContent { values, _ ->
@@ -1315,7 +1314,7 @@ data class DueTodayLoan(
 ```
 A loan's installment due on the business date, read from its repayment schedule: `due` is what is still outstanding on it, `paid` what has already been paid against it.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:321</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:429</code></summary>
 
 ```kotlin
     }
@@ -1342,7 +1341,7 @@ Computed from the active-loan list, not from a stretchy report: the Portfolio at
 ```kotlin
 fun User.can(code: String): Boolean =
 ```
-_No KDoc at source._
+True when the user holds permission `code`, directly or through a covering super-permission.
 
 ```kotlin
 fun User.canAnyChecker(): Boolean =
@@ -1444,16 +1443,16 @@ data class DeleteDataTablesDatatableAppTableIdDatatableIdResponse(
 ```
 DeleteDataTablesDatatableAppTableIdDatatableIdResponse
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/datatable/DataTableCommandRepository.kt:35</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/datatable/DataTableCommandRepository.kt:36</code></summary>
 
 ```kotlin
         apptableId: Long,
         datatableId: Long,
     ): MutationResult<DeleteDataTablesDatatableAppTableIdDatatableIdResponse>
 
+    /** Adds a row for an entity to a data table. */
     suspend fun createEntryInDataTable(
         dataTableName: String,
-        entityId: Int,
 ```
 
 </details>
@@ -1545,16 +1544,16 @@ data class GroupDate(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `GroupDateEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/group/converter/GroupTypeConverters.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/group/converter/GroupTypeConverters.kt:28</code></summary>
 
 ```kotlin
-
+    /** Stores a `GroupDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromGroupDate(date: GroupDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `GroupDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -1606,16 +1605,16 @@ data class ActualDisbursementDate(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `ActualDisbursementDateEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanScheduleTypeConverters.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanScheduleTypeConverters.kt:44</code></summary>
 
 ```kotlin
-
+    /** Stores a `ActualDisbursementDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromActualDisbursementDate(date: ActualDisbursementDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ActualDisbursementDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -1625,7 +1624,7 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 class AmortizationType(
 ```
-_No KDoc at source._
+Kind of an amortization.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/newloan/NewLoanApplicationViewModelTest.kt:89</code></summary>
 
@@ -1646,9 +1645,9 @@ _No KDoc at source._
 ```kotlin
 data class AssignLoanOfficerRequestDto(
 ```
-_No KDoc at source._
+Request body for an assign loan officer.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:90</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:95</code></summary>
 
 ```kotlin
     suspend fun assignLoanOfficer(
@@ -1667,9 +1666,9 @@ _No KDoc at source._
 ```kotlin
 data class AssignLoanOfficerResponseDto(
 ```
-_No KDoc at source._
+Server response to an assign loan officer request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:91</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:96</code></summary>
 
 ```kotlin
         loanId: Int,
@@ -1688,13 +1687,13 @@ _No KDoc at source._
 ```kotlin
 data class CreateGuarantorResponseDto(
 ```
-_No KDoc at source._
+Server response to a create guarantor request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:112</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:119</code></summary>
 
 ```kotlin
-    suspend fun calculateLoanSchedule(input: LoanApplicationInput): MutationResult<RepaymentSchedule>
 
+    /** Adds a guarantor to a loan. */
     suspend fun createGuarantor(loanId: Int, request: GuarantorRequestDto): MutationResult<CreateGuarantorResponseDto>
 
     /**
@@ -1709,13 +1708,13 @@ _No KDoc at source._
 ```kotlin
 data class GuarantorRequestDto(
 ```
-_No KDoc at source._
+Request body for a guarantor.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:112</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:119</code></summary>
 
 ```kotlin
-    suspend fun calculateLoanSchedule(input: LoanApplicationInput): MutationResult<RepaymentSchedule>
 
+    /** Adds a guarantor to a loan. */
     suspend fun createGuarantor(loanId: Int, request: GuarantorRequestDto): MutationResult<CreateGuarantorResponseDto>
 
     /**
@@ -1795,16 +1794,16 @@ data class LoanAccountType(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `LoanTypeEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/loan/Loan.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/loan/Loan.kt:53</code></summary>
 
 ```kotlin
-    val loanOfficerId: Int? = null,
     val loanOfficerName: String? = null,
+    /** The loan type (individual, group or JLG). */
     val loanType: LoanAccountType? = null,
+    /** The currency the amounts are in. */
     val currency: Currency? = null,
+    /** The loan principal. */
     val principal: Double? = null,
-    val approvedPrincipal: Double? = null,
-    val termFrequency: Int? = null,
 ```
 
 </details>
@@ -1814,25 +1813,25 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 data class LoanApprovalData(
 ```
-_No KDoc at source._
+A loan approval data.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/loan/LoanChargeOffRequestDto.kt`
 
 ```kotlin
 data class LoanChargeOffRequestDto(
 ```
-_No KDoc at source._
+Request body for a loan charge off.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:86</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:90</code></summary>
 
 ```kotlin
-    ): MutationResult<LoanRepaymentResponse>
 
+    /** Charges off a loan. */
     suspend fun chargeOff(loanId: Int, request: LoanChargeOffRequestDto): MutationResult<LoanChargeOffResponseDto>
 
+    /** Assigns or changes a loan's officer. */
     suspend fun assignLoanOfficer(
         loanId: Int,
-        request: AssignLoanOfficerRequestDto,
 ```
 
 </details>
@@ -1842,18 +1841,18 @@ _No KDoc at source._
 ```kotlin
 data class LoanChargeOffResponseDto(
 ```
-_No KDoc at source._
+Server response to a loan charge off request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:86</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:90</code></summary>
 
 ```kotlin
-    ): MutationResult<LoanRepaymentResponse>
 
+    /** Charges off a loan. */
     suspend fun chargeOff(loanId: Int, request: LoanChargeOffRequestDto): MutationResult<LoanChargeOffResponseDto>
 
+    /** Assigns or changes a loan's officer. */
     suspend fun assignLoanOfficer(
         loanId: Int,
-        request: AssignLoanOfficerRequestDto,
 ```
 
 </details>
@@ -1861,7 +1860,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanChargeOffChanges(
 ```
-_No KDoc at source._
+A loan charge off changes.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/loan/LoanRepaymentRequest.kt`
 
@@ -1891,16 +1890,15 @@ data class LoanRepaymentResponse(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `LoanRepaymentResponseEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:84</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:87</code></summary>
 
 ```kotlin
         loanId: Int,
         request: LoanRepaymentRequest,
     ): MutationResult<LoanRepaymentResponse>
 
+    /** Charges off a loan. */
     suspend fun chargeOff(loanId: Int, request: LoanChargeOffRequestDto): MutationResult<LoanChargeOffResponseDto>
-
-    suspend fun assignLoanOfficer(
 ```
 
 </details>
@@ -2015,18 +2013,18 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 data class LoanType(
 ```
-_No KDoc at source._
+Kind of a loan.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/converter/ListTypeConverters.kt:96</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/converter/ListTypeConverters.kt:111</code></summary>
 
 ```kotlin
-
+    /** Stores a `LoanType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromType(type: LoanType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `LoanType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2036,13 +2034,13 @@ _No KDoc at source._
 ```kotlin
 data class RejectLoanRequestDto(
 ```
-_No KDoc at source._
+Request body for a reject loan.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:69</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:71</code></summary>
 
 ```kotlin
-    suspend fun approveLoanApplication(loanId: Int, approval: LoanApproval): MutationResult<GenericResponse>
 
+    /** Rejects a loan application. */
     suspend fun rejectLoan(loanId: Int, request: RejectLoanRequestDto): MutationResult<RejectLoanResponseDto>
 
     /**
@@ -2057,13 +2055,13 @@ _No KDoc at source._
 ```kotlin
 data class RejectLoanResponseDto(
 ```
-_No KDoc at source._
+Server response to a reject loan request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:69</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:71</code></summary>
 
 ```kotlin
-    suspend fun approveLoanApplication(loanId: Int, approval: LoanApproval): MutationResult<GenericResponse>
 
+    /** Rejects a loan application. */
     suspend fun rejectLoan(loanId: Int, request: RejectLoanRequestDto): MutationResult<RejectLoanResponseDto>
 
     /**
@@ -2101,7 +2099,7 @@ data class AppNotification(
 ```
 One Fineract notification. `objectType` (`loan`, `client`, `group`, `center`, `savingsAccount` …) and `objectId` name the record it is about; `createdAt` is the server's ISO local date-time.
 
-<details><summary>Used in the template — <code>feature/notification/src/commonMain/kotlin/kpt/feature/notification/navigation/NotificationsRoute.kt:44</code></summary>
+<details><summary>Used in the template — <code>feature/notification/src/commonMain/kotlin/kpt/feature/notification/navigation/NotificationsRoute.kt:46</code></summary>
 
 ```kotlin
 
@@ -2120,7 +2118,7 @@ private fun NavController.openRecordOf(notification: AppNotification) {
 ```kotlin
 data class Changes(
 ```
-_No KDoc at source._
+The fields a command changed, as the server echoes them.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:197</code></summary>
 
@@ -2136,21 +2134,14 @@ _No KDoc at source._
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/ErrorSyncServerMessage.kt`
-
-```kotlin
-class ErrorSyncServerMessage
-```
-Created by Rajan Maurya on 23/07/16.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/LanguageConfig.kt`
 
 ```kotlin
 enum class LanguageConfig(
 ```
-_No KDoc at source._
+A language the app can be shown in.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:62</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:64</code></summary>
 
 ```kotlin
     onDismiss: () -> Unit,
@@ -2192,16 +2183,15 @@ data class AccountLinkingOptions(
 ```
 Created by Tarun on 12/16/2016.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:132</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:189</code></summary>
 
 ```kotlin
-
     val maximumGap: Int? = null,
+    /** The savings accounts that may be linked for repayments. */
     val accountLinkingOptions: List<AccountLinkingOptions> = emptyList(),
 
+    /** The loan's schedule type. */
     val loanScheduleType: TermFrequencyTypeOptions? = null,
-
-    val overdueCharges: List<ChargesEntity> = emptyList(),
 ```
 
 </details>
@@ -2211,7 +2201,7 @@ Created by Tarun on 12/16/2016.
 ```kotlin
 class AmortizationType(
 ```
-_No KDoc at source._
+Kind of an amortization.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/newloan/NewLoanApplicationViewModelTest.kt:89</code></summary>
 
@@ -2227,13 +2217,6 @@ _No KDoc at source._
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/ChargeOffReasonOption.kt`
-
-```kotlin
-data class ChargeOffReasonOption(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/Currency.kt`
 
 ```kotlin
@@ -2241,7 +2224,7 @@ data class Currency(
 ```
 Created by mayankjindal on 22/10/16.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:299</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:393</code></summary>
 
 ```kotlin
                 activeLoans = loans?.activeLoans,
@@ -2262,15 +2245,16 @@ data class DaysInMonthType(
 ```
 Created by nellyk on 2/21/2016.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:122</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:173</code></summary>
 
 ```kotlin
-    val canDisburse: Boolean? = null,
     val product: Product? = null,
+    /** How many days a month has for interest calculation (actual or 30). */
     val daysInMonthType: DaysInMonthType? = null,
+    /** How many days a year has for interest calculation (actual, 360, 364 or 365). */
     val daysInYearType: DaysInYearType? = null,
 
-    val isInterestRecalculationEnabled: Boolean? = null,
+    /** True when interest is recalculated as repayments arrive. */
 ```
 
 </details>
@@ -2282,16 +2266,15 @@ data class DaysInYearType(
 ```
 Created by nellyk on 2/21/2016.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:123</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:175</code></summary>
 
 ```kotlin
-    val product: Product? = null,
     val daysInMonthType: DaysInMonthType? = null,
+    /** How many days a year has for interest calculation (actual, 360, 364 or 365). */
     val daysInYearType: DaysInYearType? = null,
 
+    /** True when interest is recalculated as repayments arrive. */
     val isInterestRecalculationEnabled: Boolean? = null,
-
-    val isvaliableInstallmentsAllowed: Boolean? = null,
 ```
 
 </details>
@@ -2301,7 +2284,7 @@ Created by nellyk on 2/21/2016.
 ```kotlin
 data class InterestCalculationPeriodType(
 ```
-_No KDoc at source._
+Kind of an interest calculation period.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/newloan/NewLoanApplicationScreenUiTest.kt:45</code></summary>
 
@@ -2322,18 +2305,18 @@ _No KDoc at source._
 ```kotlin
 data class InterestRateFrequencyType(
 ```
-_No KDoc at source._
+Kind of an interest rate frequency.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:80</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:91</code></summary>
 
 ```kotlin
-
+    /** Stores a `InterestRateFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestRateFrequencyType(type: InterestRateFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `InterestRateFrequencyType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2343,7 +2326,7 @@ _No KDoc at source._
 ```kotlin
 class InterestType(
 ```
-_No KDoc at source._
+Kind of an interest.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/newloan/NewLoanApplicationViewModelTest.kt:90</code></summary>
 
@@ -2400,20 +2383,6 @@ What the officer is asking Fineract to approve.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/LoanApprovalRequest.kt`
-
-```kotlin
-data class LoanApprovalRequest(
-```
-Created by ishankhanna on 23/06/14.
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/LoanChargeOffInput.kt`
-
-```kotlin
-data class LoanChargeOffInput(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/LoanPurposeOptions.kt`
 
 ```kotlin
@@ -2440,18 +2409,17 @@ Created by nellyk on 2/25/2016.
 ```kotlin
 data class LoanRepaymentResponse(
 ```
-_No KDoc at source._
+Server response to a loan repayment request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:84</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/LoanCommandRepository.kt:87</code></summary>
 
 ```kotlin
         loanId: Int,
         request: LoanRepaymentRequest,
     ): MutationResult<LoanRepaymentResponse>
 
+    /** Charges off a loan. */
     suspend fun chargeOff(loanId: Int, request: LoanChargeOffRequestDto): MutationResult<LoanChargeOffResponseDto>
-
-    suspend fun assignLoanOfficer(
 ```
 
 </details>
@@ -2461,18 +2429,18 @@ _No KDoc at source._
 ```kotlin
 data class PaymentDetailData(
 ```
-_No KDoc at source._
+A payment detail data.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/Transaction.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/Transaction.kt:30</code></summary>
 
 ```kotlin
-    var date: List<Int> = ArrayList(),
     var currency: Currency? = null,
+    /** The payment details of the transaction. */
     var paymentDetailData: PaymentDetailData? = null,
+    /** The amount, in the record's currency. */
     var amount: Double? = null,
+    /** The amount disbursed after the charges deducted at disbursement. */
     var netDisbursalAmount: Double? = null,
-    var principalPortion: Double? = null,
-    var interestPortion: Double? = null,
 ```
 
 </details>
@@ -2482,7 +2450,7 @@ _No KDoc at source._
 ```kotlin
 data class PaymentType(
 ```
-_No KDoc at source._
+Kind of a payment.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/disbursement/LoanDisbursementViewModelTest.kt:57</code></summary>
 
@@ -2539,33 +2507,12 @@ Created by ishankhanna on 19/06/14.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/RejectLoanInput.kt`
-
-```kotlin
-data class RejectLoanInput(
-```
-_No KDoc at source._
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/RepaymentFrequencyDayOfWeekType.kt`
-
-```kotlin
-data class RepaymentFrequencyDayOfWeekType(
-```
-Created by nellyk on 2/21/2016.
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/RepaymentFrequencyNthDayType.kt`
-
-```kotlin
-data class RepaymentFrequencyNthDayType(
-```
-Created by nellyk on 2/21/2016.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/RepaymentFrequencyType.kt`
 
 ```kotlin
 data class RepaymentFrequencyType(
 ```
-_No KDoc at source._
+Kind of a repayment frequency.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/newloan/NewLoanApplicationViewModelTest.kt:88</code></summary>
 
@@ -2609,7 +2556,7 @@ data class RepaymentSchedule(
 ```
 Created by ishankhanna on 19/06/14.
 
-<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:240</code></summary>
+<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:275</code></summary>
 
 ```kotlin
 private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, loanId: Int) {
@@ -2628,7 +2575,7 @@ private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, l
 ```kotlin
 data class RepaymentScheduleTableData(
 ```
-_No KDoc at source._
+A repayment schedule table data.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/schedule/LoanScheduleScreen.kt:106</code></summary>
 
@@ -2647,7 +2594,7 @@ internal fun LoanScheduleContent(
 ```kotlin
 data class RepaymentScheduleRowData(
 ```
-_No KDoc at source._
+A repayment schedule row data.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/schedule/LoanScheduleScreen.kt:275</code></summary>
 
@@ -2666,7 +2613,7 @@ private fun RepaymentScheduleRowData.toDisplayValues() = listOf(
 ```kotlin
 data class RepaymentScheduleTotalsData(
 ```
-_No KDoc at source._
+A repayment schedule totals data.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/schedule/LoanScheduleScreen.kt:281</code></summary>
 
@@ -2729,7 +2676,7 @@ Created by nellyk on 2/27/2016.
 ```kotlin
 data class TermPeriodFrequencyType(
 ```
-_No KDoc at source._
+Kind of a term period frequency.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/newloan/NewLoanApplicationViewModelTest.kt:87</code></summary>
 
@@ -2750,7 +2697,7 @@ _No KDoc at source._
 ```kotlin
 data class Transaction(
 ```
-_No KDoc at source._
+A transaction.
 
 <details><summary>Used in the template — <code>feature/collectionsheet/src/commonMain/kotlin/kpt/feature/collectionsheet/ui/details/CollectionSheetDetailsViewModel.kt:128</code></summary>
 
@@ -2765,19 +2712,12 @@ _No KDoc at source._
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/TransactionProcessingStrategy.kt`
-
-```kotlin
-data class TransactionProcessingStrategy(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/Type.kt`
 
 ```kotlin
 data class Type(
 ```
-_No KDoc at source._
+A Fineract code value: an id, a code and its display text.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:72</code></summary>
 
@@ -2792,84 +2732,6 @@ internal fun ChargeDetailScreen(
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/assignLoanOfficer/AssignLoanOfficerInput.kt`
-
-```kotlin
-data class AssignLoanOfficerInput(
-```
-_No KDoc at source._
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/assignLoanOfficer/AssignLoanOfficerResponse.kt`
-
-```kotlin
-data class AssignLoanOfficerResponse(
-```
-_No KDoc at source._
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/guarantor/CreateGuarantor.kt`
-
-```kotlin
-data class CreateGuarantor(
-```
-_No KDoc at source._
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/guarantor/CreateGuarantorInput.kt`
-
-```kotlin
-data class CreateGuarantorInput(
-```
-_No KDoc at source._
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/guarantor/GuarantorTemplate.kt`
-
-```kotlin
-data class GuarantorTemplate(
-```
-_No KDoc at source._
-
-<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:180</code></summary>
-
-```kotlin
-        override suspend fun getLoanRepaymentSchedule(loanId: Int): LoanWithAssociationsDto = unused()
-        override suspend fun getLoanWithTransactions(loanId: Int): LoanWithAssociationsDto = unused()
-        override suspend fun getGuarantorTemplate(loanId: Int): GuarantorTemplateDto = unused()
-        override suspend fun createGuarantor(
-            loanId: Int,
-            request: GuarantorRequestDto,
-        ): CreateGuarantorResponseDto = unused()
-```
-
-</details>
-
-```kotlin
-data class GuarantorRelationshipOption(
-```
-_No KDoc at source._
-
-```kotlin
-data class GuarantorAccountTemplate(
-```
-_No KDoc at source._
-
-<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:185</code></summary>
-
-```kotlin
-            request: GuarantorRequestDto,
-        ): CreateGuarantorResponseDto = unused()
-        override suspend fun getGuarantorAccountTemplate(
-            loanId: Int,
-            clientId: Int,
-        ): GuarantorAccountTemplateDto = unused()
-        override suspend fun getAllLoans(): List<LoanProducts> = unused()
-```
-
-</details>
-
-```kotlin
-data class GuarantorType(
-```
-_No KDoc at source._
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/loanDisburse/LoanDisburseInput.kt`
 
@@ -2897,7 +2759,7 @@ What the officer is asking Fineract to disburse.
 ```kotlin
 data class LoanDisburseTemplate(
 ```
-_No KDoc at source._
+Server template for a loan disburse: the options its form offers.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/disbursement/LoanDisbursementViewModelTest.kt:50</code></summary>
 
@@ -2918,18 +2780,18 @@ _No KDoc at source._
 ```kotlin
 data class ActualDisbursementDate(
 ```
-_No KDoc at source._
+An actual disbursement date.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanScheduleTypeConverters.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanScheduleTypeConverters.kt:44</code></summary>
 
 ```kotlin
-
+    /** Stores a `ActualDisbursementDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromActualDisbursementDate(date: ActualDisbursementDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ActualDisbursementDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2939,7 +2801,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanAccountSummary(
 ```
-_No KDoc at source._
+A loan account summary.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/profile/LoanProfileScreenPreview.kt:37</code></summary>
 
@@ -2960,7 +2822,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanStatus(
 ```
-_No KDoc at source._
+Lifecycle status of a loan.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/loanaccounts/ClientLoanAccountsViewModel.kt:192</code></summary>
 
@@ -2981,7 +2843,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanTimeline(
 ```
-_No KDoc at source._
+A loan timeline.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/approval/LoanApprovalViewModelTest.kt:233</code></summary>
 
@@ -3002,18 +2864,18 @@ _No KDoc at source._
 ```kotlin
 data class LoanType(
 ```
-_No KDoc at source._
+Kind of a loan.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/converter/ListTypeConverters.kt:96</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/converter/ListTypeConverters.kt:111</code></summary>
 
 ```kotlin
-
+    /** Stores a `LoanType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromType(type: LoanType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `LoanType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -3023,7 +2885,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanWithAssociations(
 ```
-_No KDoc at source._
+A loan with associations.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/profile/LoanProfileScreen.kt:131</code></summary>
 
@@ -3044,7 +2906,7 @@ internal fun LoanProfileContent(
 ```kotlin
 data class SavingAccountCurrency(
 ```
-_No KDoc at source._
+A saving account currency.
 
 <details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/general/ClientGeneralViewModelTest.kt:84</code></summary>
 
@@ -3064,7 +2926,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanRescheduleApprovalRequest(
 ```
-_No KDoc at source._
+Request body for a loan reschedule approval.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/reschedules/LoanReschedulesViewModel.kt:162</code></summary>
 
@@ -3085,7 +2947,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanRescheduleRejectionRequest(
 ```
-_No KDoc at source._
+Request body for a loan reschedule rejection.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/reschedules/LoanReschedulesViewModel.kt:172</code></summary>
 
@@ -3106,7 +2968,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanRescheduleRequest(
 ```
-_No KDoc at source._
+Request body for a loan reschedule.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/rescheduleform/LoanRescheduleFormViewModel.kt:212</code></summary>
 
@@ -3127,7 +2989,7 @@ _No KDoc at source._
 ```kotlin
 data class LoanRescheduleResponse(
 ```
-_No KDoc at source._
+Server response to a loan reschedule request.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/reschedules/LoanReschedulesViewModel.kt:245</code></summary>
 
@@ -3148,7 +3010,7 @@ private fun kpt.core.model.objects.account.loan.reschedules.LoanRescheduleRespon
 ```kotlin
 data class LoanRescheduleTemplate(
 ```
-_No KDoc at source._
+Server template for a loan reschedule: the options its form offers.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/rescheduleform/LoanRescheduleFormViewModelTest.kt:57</code></summary>
 
@@ -3169,7 +3031,7 @@ _No KDoc at source._
 ```kotlin
 data class RescheduleReasonOption(
 ```
-_No KDoc at source._
+One reschedule reason choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/rescheduleform/LoanRescheduleFormScreenPreview.kt:30</code></summary>
 
@@ -3190,7 +3052,7 @@ private val previewReasons = listOf(
 ```kotlin
 data class RescheduleStatus(
 ```
-_No KDoc at source._
+Lifecycle status of a reschedule.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/reschedules/LoanReschedulesViewModel.kt:273</code></summary>
 
@@ -3211,7 +3073,7 @@ internal fun RescheduleStatus?.toStatusCode(): RescheduleStatusCode = when {
 ```kotlin
 data class RescheduleTimeline(
 ```
-_No KDoc at source._
+A reschedule timeline.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonTest/kotlin/kpt/feature/loan/reschedules/LoanReschedulesViewModelTest.kt:78</code></summary>
 
@@ -3248,13 +3110,6 @@ private val previewAccount = AccountOption(
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/transfer/AccountTransferChanges.kt`
-
-```kotlin
-data class AccountTransferChanges(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/transfer/AccountTransferRequest.kt`
 
 ```kotlin
@@ -3275,13 +3130,6 @@ Move money from one account to another.
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/transfer/AccountTransferResponse.kt`
-
-```kotlin
-data class AccountTransferResponse(
-```
-Response from account transfer submission
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/account/loan/transfer/AccountTransferTemplate.kt`
 
@@ -3309,7 +3157,7 @@ Data class representing the template for account transfers
 ```kotlin
 data class AccountTypeOption(
 ```
-_No KDoc at source._
+One account type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/transfer/LoanTransferScreenPreview.kt:35</code></summary>
 
@@ -3330,7 +3178,7 @@ private val previewAccount = AccountOption(
 ```kotlin
 data class ClientOption(
 ```
-_No KDoc at source._
+One client choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientScreen.kt:216</code></summary>
 
@@ -3351,7 +3199,7 @@ _No KDoc at source._
 ```kotlin
 data class OfficeOption(
 ```
-_No KDoc at source._
+One office choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/groups/src/commonMain/kotlin/kpt/feature/groups/create/CreateGroupScreen.kt:165</code></summary>
 
@@ -3372,7 +3220,7 @@ _No KDoc at source._
 ```kotlin
 data class ChargeCalculationType(
 ```
-_No KDoc at source._
+Kind of a charge calculation.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonTest/kotlin/kpt/feature/charge/ChargeFormViewModelTest.kt:61</code></summary>
 
@@ -3393,7 +3241,7 @@ _No KDoc at source._
 ```kotlin
 data class ChargeTimeType(
 ```
-_No KDoc at source._
+Kind of a charge time.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonTest/kotlin/kpt/feature/charge/ChargeFormViewModelTest.kt:60</code></summary>
 
@@ -3416,13 +3264,14 @@ class FieldOfficerOptions(
 ```
 Created by nkiboi on 12/15/2015.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/entity/SavingProductsTemplate.kt:45</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/entity/SavingProductsTemplate.kt:65</code></summary>
 
 ```kotlin
-    val expenseAccountOptions: List<AccountOptions>? = null,
     val incomeAccountOptions: List<AccountOptions>? = null,
+    /** The field officers that may be assigned. */
     val fieldOfficerOptions: List<FieldOfficerOptions>? = null,
 
+    /** The charges that may be added. */
     val chargeOptions: List<ChargeOptions>? = null,
 )
 ```
@@ -3434,12 +3283,12 @@ Created by nkiboi on 12/15/2015.
 ```kotlin
 class InterestCalculationDaysInYearType(
 ```
-_No KDoc at source._
+Kind of an interest calculation days in year.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:52</code></summary>
 
 ```kotlin
-
+    /** Stores an `InterestCalculationDaysInYearType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCalculationDaysInYearType(
         type: InterestCalculationDaysInYearType?,
@@ -3455,18 +3304,18 @@ _No KDoc at source._
 ```kotlin
 data class InterestCalculationType(
 ```
-_No KDoc at source._
+Kind of an interest calculation.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:58</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:66</code></summary>
 
 ```kotlin
-
+    /** Stores a `InterestCalculationType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCalculationType(type: InterestCalculationType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `InterestCalculationType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -3476,12 +3325,12 @@ _No KDoc at source._
 ```kotlin
 data class InterestCompoundingPeriodType(
 ```
-_No KDoc at source._
+Kind of an interest compounding period.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:68</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:78</code></summary>
 
 ```kotlin
-
+    /** Stores an `InterestCompoundingPeriodType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCompoundingPeriodType(
         type: InterestCompoundingPeriodType?,
@@ -3497,12 +3346,12 @@ _No KDoc at source._
 ```kotlin
 data class InterestPostingPeriodType(
 ```
-_No KDoc at source._
+Kind of an interest posting period.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:27</code></summary>
 
 ```kotlin
-class SavingsPeriodTypeConverters {
+    /** Stores an `InterestPostingPeriodType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestPostingPeriodType(
         type: InterestPostingPeriodType?,
@@ -3518,18 +3367,18 @@ class SavingsPeriodTypeConverters {
 ```kotlin
 data class LockinPeriodFrequencyType(
 ```
-_No KDoc at source._
+Kind of a lockin period frequency.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:43</code></summary>
 
 ```kotlin
-
+    /** Stores a `LockinPeriodFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromLockinPeriodFrequencyType(type: LockinPeriodFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `LockinPeriodFrequencyType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -3541,7 +3390,7 @@ data class SavingsAccountTransactionResponse(
 ```
 Created by ishankhanna on 12/06/14.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/SavingsCommandRepository.kt:54</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/SavingsCommandRepository.kt:55</code></summary>
 
 ```kotlin
         transactionType: String,
@@ -3657,7 +3506,7 @@ One charge on a savings application: which charge, and how much.
 ```kotlin
 data class Timeline(
 ```
-_No KDoc at source._
+A timeline.
 
 <details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/editdetails/ClientEditDetailsFormTest.kt:189</code></summary>
 
@@ -3678,7 +3527,7 @@ _No KDoc at source._
 ```kotlin
 data class ShareAccounts(
 ```
-_No KDoc at source._
+A share account as listed on a client.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/shareaccounts/ClientShareAccountsScreen.kt:133</code></summary>
 
@@ -3699,13 +3548,13 @@ internal fun ClientShareAccountsContent(
 ```kotlin
 data class ShareAccountsStatus(
 ```
-_No KDoc at source._
+Lifecycle status of a share account.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/account/share/ShareAccounts.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/account/share/ShareAccounts.kt:36</code></summary>
 
 ```kotlin
-    val productId: Int? = null,
     val productName: String? = null,
+    /** The record's Fineract status. */
     val status: ShareAccountsStatus? = null,
 )
 ```
@@ -3738,7 +3587,7 @@ What a charge is levied ON. `path` is the Fineract path segment of `/{resource}/
 ```kotlin
 data class CheckerInboxSearchTemplate(
 ```
-_No KDoc at source._
+Server template for a checker inbox search: the options its form offers.
 
 <details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/ui/CheckerInboxPreviews.kt:45</code></summary>
 
@@ -3758,7 +3607,7 @@ private val previewTemplate = CheckerInboxSearchTemplate(
 ```kotlin
 data class CheckerTask(
 ```
-_No KDoc at source._
+A checker task.
 
 <details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/ui/CheckerInboxPreviews.kt:27</code></summary>
 
@@ -3778,7 +3627,7 @@ private val previewTasks = listOf(
 ```kotlin
 data class RescheduleLoansTask(
 ```
-_No KDoc at source._
+A reschedule loans task.
 
 <details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/ui/CheckerInboxPreviews.kt:34</code></summary>
 
@@ -3799,7 +3648,7 @@ private val previewReschedules = listOf(
 ```kotlin
 data class RescheduleReasonCodeValue(
 ```
-_No KDoc at source._
+A reschedule reason code value.
 
 <details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/ui/CheckerInboxPreviews.kt:40</code></summary>
 
@@ -3861,7 +3710,7 @@ internal object ClientAddressTestTags {
 ```kotlin
 data class AssignStaffRequest(
 ```
-_No KDoc at source._
+Request body for an assign staff.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/details/ClientDetailsViewModel.kt:138</code></summary>
 
@@ -3884,19 +3733,12 @@ data class ChargeCreationResponse(
 ```
 Created by Tarun on 13-08-17.
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/clients/ChargesRename.kt`
-
-```kotlin
-data class ChargesRename(
-```
-Created by nellyk on 2/15/2016. / /* This project is licensed under the open source MPL V2.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/clients/ClientAddressEntity.kt`
 
 ```kotlin
 data class ClientAddressEntity(
 ```
-_No KDoc at source._
+Room row for a client address.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/address/ClientAddressScreen.kt:129</code></summary>
 
@@ -3917,9 +3759,9 @@ internal fun ClientAddressContent(
 ```kotlin
 data class ClientAddressRequest(
 ```
-_No KDoc at source._
+Request body for a client address.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:74</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:79</code></summary>
 
 ```kotlin
     suspend fun addClientPinpointLocation(
@@ -3927,8 +3769,8 @@ _No KDoc at source._
         clientAddressRequest: ClientAddressRequest?,
     ): MutationResult<PinpointLocationActionResponse>
 
+    /** Deletes a client's pinpoint location. */
     suspend fun deleteClientPinpointLocation(
-        apptableId: Int,
 ```
 
 </details>
@@ -3938,9 +3780,9 @@ _No KDoc at source._
 ```kotlin
 data class ClientAddressResponse(
 ```
-_No KDoc at source._
+Server response to a client address request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientRepository.kt:111</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientRepository.kt:113</code></summary>
 
 ```kotlin
 
@@ -3958,7 +3800,7 @@ _No KDoc at source._
 ```kotlin
 data class ClientCloseRequest(
 ```
-_No KDoc at source._
+Request body for a client close.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/closure/ClientClosureViewModel.kt:105</code></summary>
 
@@ -3979,7 +3821,7 @@ _No KDoc at source._
 ```kotlin
 data class CollateralPayload(
 ```
-_No KDoc at source._
+Request body for a collateral.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/collateral/ClientCollateralViewModel.kt:86</code></summary>
 
@@ -4040,7 +3882,7 @@ fun AnalyticsHelper.trackPermission(permissionName: String, granted: Boolean) {
 ```kotlin
 data class ProposeTransferRequest(
 ```
-_No KDoc at source._
+Request body for a propose transfer.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/transfer/ClientTransferViewModel.kt:97</code></summary>
 
@@ -4063,16 +3905,16 @@ data class Role(
 ```
 Created by ishankhanna on 09/02/14.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:443</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardErrors.kt:210</code></summary>
 
 ```kotlin
-                    .shadow(CARD_SHADOW, CircleShape)
-                    .clip(CircleShape)
-                    .clickable(role = Role.Button, onClick = onProfile)
-                    .semantics { contentDescription = profileLabel }
-                    .testTag(TestTags.Home.PROFILE)
-                    .background(c.primaryContainer, CircleShape)
-                    .border(0.5f.tw, c.surfaceContainerLowest, CircleShape),
+                        .clip(KptTheme.shapes.small)
+                        .background(f.moneyNegative)
+                        .clickable(role = Role.Button, onClick = onRetry)
+                        .padding(horizontal = 3.tw, vertical = 1.5f.tw),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(1.5f.tw),
+                ) {
 ```
 
 </details>
@@ -4082,7 +3924,7 @@ Created by ishankhanna on 09/02/14.
 ```kotlin
 data class UpdateSavingsAccountRequest(
 ```
-_No KDoc at source._
+Request body for an update savings account.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/defaultaccount/ClientDefaultAccountViewModel.kt:133</code></summary>
 
@@ -4104,13 +3946,14 @@ data class AttendanceTypeOption(
 ```
 Created by Tarun on 21-07-2017.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/ClientCollectionSheet.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/ClientCollectionSheet.kt:29</code></summary>
 
 ```kotlin
-    var clientName: String? = null,
     var loans: ArrayList<LoanCollectionSheet>? = null,
+    /** Whether the client attended the meeting. */
     var attendanceType: AttendanceTypeOption? = null,
 
+    /** The savings accounts. */
     var savings: ArrayList<SavingsCollectionSheet> = ArrayList(),
 )
 ```
@@ -4124,26 +3967,18 @@ data class BulkSavingsDueTransaction(
 ```
 Created by Tarun on 31-07-17.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/collectionsheet/CollectionSheetPayload.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/collectionsheet/CollectionSheetPayload.kt:29</code></summary>
 
 ```kotlin
-
     var bulkRepaymentTransactions: MutableList<BulkRepaymentTransactions> = ArrayList(),
+    /** The savings deposits collected at the meeting. */
     var bulkSavingsDueTransactions: MutableList<BulkSavingsDueTransaction> = ArrayList(),
 
+    /** The server id of the meeting calendar. */
     var calendarId: Int? = 0,
-
-    var clientsAttendance: MutableList<ClientsAttendance> = ArrayList(),
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/collectionsheets/CollectionFrequency.kt`
-
-```kotlin
-data class CollectionFrequency(
-```
-Created by ishankhanna on 16/07/14.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/collectionsheets/CollectionMeetingCalendar.kt`
 
@@ -4152,11 +3987,11 @@ data class CollectionMeetingCalendar(
 ```
 Created by ishankhanna on 16/07/14.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterWithAssociations.kt:50</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterWithAssociations.kt:65</code></summary>
 
 ```kotlin
-
     var groupMembers: List<GroupEntity> = ArrayList(),
+    /** The calendar of the collection meetings. */
     var collectionMeetingCalendar: CollectionMeetingCalendar = CollectionMeetingCalendar(),
 )
 ```
@@ -4170,13 +4005,14 @@ data class CollectionSheetRequestPayload(
 ```
 Created by Tarun on 25-07-2017.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:55</code></summary>
 
 ```kotlin
-    suspend fun individualCollectionSheet(request: RequestCollectionSheetPayload): IndividualCollectionSheet?
 
+    /** Generates a centre's productive collection sheet, or null when there is none. */
     suspend fun productiveSheet(centerId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 
+    /** Generates a group's collection sheet, or null when there is none. */
     suspend fun groupCollectionSheet(groupId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 }
 ```
@@ -4204,19 +4040,12 @@ Created by ishankhanna on 16/07/14.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/collectionsheets/LoanAndClientName.kt`
-
-```kotlin
-class LoanAndClientName(
-```
-Created by Tarun on 17-07-2017.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/collectionsheets/LoanCollectionSheet.kt`
 
 ```kotlin
 data class LoanCollectionSheet(
 ```
-_No KDoc at source._
+A loan collection sheet.
 
 <details><summary>Used in the template — <code>feature/collectionsheet/src/commonMain/kotlin/kpt/feature/collectionsheet/ui/CollectionSheetPreviews.kt:37</code></summary>
 
@@ -4239,11 +4068,11 @@ data class SavingsProduct(
 ```
 Created by Tarun on 31-07-17.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:38</code></summary>
 
 ```kotlin
-    var paymentTypeOptions: List<PaymentTypeOptionEntity> = ArrayList(),
 
+    /** The savings products the sheet covers. */
     var savingsProducts: List<SavingsProduct> = ArrayList(),
 )
 ```
@@ -4276,7 +4105,7 @@ Created by rajan on 13/3/16.
 ```kotlin
 data class Account(
 ```
-_No KDoc at source._
+An account.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/shareapplication/ShareApplicationScreen.kt:217</code></summary>
 
@@ -4297,15 +4126,16 @@ _No KDoc at source._
 ```kotlin
 data class AppGroup(
 ```
-_No KDoc at source._
+An app group.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/Client.kt:21</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/Client.kt:26</code></summary>
 
 ```kotlin
-    var attendanceType: AttendanceType? = null,
 
+    /** The group the client belongs to. */
     var mifosGroup: AppGroup? = null,
 
+    /** The loans. */
     val loans: List<Loan> = ArrayList(),
 )
 ```
@@ -4317,18 +4147,17 @@ _No KDoc at source._
 ```kotlin
 data class AttendanceType(
 ```
-_No KDoc at source._
+Kind of an attendance.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/Client.kt:19</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/Client.kt:23</code></summary>
 
 ```kotlin
-    var clientName: String? = null,
 
+    /** Whether the client attended the meeting. */
     var attendanceType: AttendanceType? = null,
 
+    /** The group the client belongs to. */
     var mifosGroup: AppGroup? = null,
-
-    val loans: List<Loan> = ArrayList(),
 ```
 
 </details>
@@ -4338,7 +4167,7 @@ _No KDoc at source._
 ```kotlin
 data class Client(
 ```
-_No KDoc at source._
+A client.
 
 <details><summary>Used in the template — <code>feature/activate/src/commonMain/kotlin/kpt/feature/activate/ui/ActivateScreen.kt:210</code></summary>
 
@@ -4359,13 +4188,13 @@ _No KDoc at source._
 ```kotlin
 data class CollectionMeetingCalendar(
 ```
-_No KDoc at source._
+A collection meeting calendar.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterWithAssociations.kt:50</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterWithAssociations.kt:65</code></summary>
 
 ```kotlin
-
     var groupMembers: List<GroupEntity> = ArrayList(),
+    /** The calendar of the collection meetings. */
     var collectionMeetingCalendar: CollectionMeetingCalendar = CollectionMeetingCalendar(),
 )
 ```
@@ -4377,7 +4206,7 @@ _No KDoc at source._
 ```kotlin
 data class CollectionSheet(
 ```
-_No KDoc at source._
+A collection sheet.
 
 <details><summary>Used in the template — <code>feature/activate/src/commonTest/kotlin/kpt/feature/activate/ui/ActivateViewModelTest.kt:268</code></summary>
 
@@ -4397,9 +4226,9 @@ _No KDoc at source._
 ```kotlin
 data class Currency(
 ```
-_No KDoc at source._
+A currency.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:299</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:393</code></summary>
 
 ```kotlin
                 activeLoans = loans?.activeLoans,
@@ -4418,7 +4247,7 @@ _No KDoc at source._
 ```kotlin
 data class EntityType(
 ```
-_No KDoc at source._
+Kind of an entity.
 
 <details><summary>Used in the template — <code>feature/document/src/commonMain/kotlin/kpt/feature/document/list/DocumentListScreenPreview.kt:29</code></summary>
 
@@ -4439,7 +4268,7 @@ _No KDoc at source._
 ```kotlin
 data class Loan(
 ```
-_No KDoc at source._
+A loan.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/list/CenterListScreenPreview.kt:92</code></summary>
 
@@ -4460,13 +4289,13 @@ _No KDoc at source._
 ```kotlin
 data class MeetingCenter(
 ```
-_No KDoc at source._
+A meeting center.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/OfflineCenter.kt:17</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/OfflineCenter.kt:21</code></summary>
 
 ```kotlin
-    var staffName: String? = null,
 
+    /** The centres whose meetings fall on the date. */
     var meetingFallCenters: Array<MeetingCenter>? = null,
 )
 ```
@@ -4478,18 +4307,17 @@ _No KDoc at source._
 ```kotlin
 data class MeetingDate(
 ```
-_No KDoc at source._
+A meeting date.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/CollectionMeetingCalendar.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/CollectionMeetingCalendar.kt:36</code></summary>
 
 ```kotlin
-    var location: String? = null,
 
+    /** The date of the meeting. */
     var meetingCalendarDate: MeetingDate? = null,
 
+    /** True when the meeting repeats. */
     var isRepeating: Boolean = false,
-
-    var recurrence: String? = null,
 ```
 
 </details>
@@ -4499,9 +4327,9 @@ _No KDoc at source._
 ```kotlin
 data class OfflineCenter(
 ```
-_No KDoc at source._
+An offline center.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/api/CenterApi.kt:161</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/api/CenterApi.kt:172</code></summary>
 
 ```kotlin
         @Query("officeId") officeId: Int,
@@ -4515,19 +4343,12 @@ _No KDoc at source._
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/RepaymentTransaction.kt`
-
-```kotlin
-data class RepaymentTransaction(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/databaseobjects/Status.kt`
 
 ```kotlin
 data class Status(
 ```
-_No KDoc at source._
+Lifecycle status flags of an account.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/identifiers/IdentifierDocumentKey.kt:30</code></summary>
 
@@ -4548,7 +4369,7 @@ internal fun identifierDocumentKeyPrefix(documentTypeName: String?, documentKey:
 ```kotlin
 data class AppError(
 ```
-_No KDoc at source._
+An error the server returned for a request.
 
 <details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/error/ServerErrorParser.kt:29</code></summary>
 
@@ -4569,14 +4390,14 @@ _No KDoc at source._
 ```kotlin
 data class Arg(
 ```
-_No KDoc at source._
+An argument of a validation error.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/error/Errors.kt`
 
 ```kotlin
 data class Errors(
 ```
-_No KDoc at source._
+The validation errors of a failed request.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonTest/kotlin/kpt/feature/charge/ChargeFormViewModelTest.kt:267</code></summary>
 
@@ -4629,16 +4450,16 @@ fun Throwable?.serverErrorMessage(): String? = ServerErrorParser.parse(this)?.us
 ```
 The server's user-facing message for this failure, or null when it sent none — in which case show the screen's own generic copy, never this throwable's `message` (a diagnostic, not copy).
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:1339</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardErrors.kt:90</code></summary>
 
 ```kotlin
  */
 @Composable
-private fun errorKind(error: Throwable?, offline: Boolean): String {
+internal fun errorKind(error: Throwable?, offline: Boolean): String {
     if (offline || error == null) {
-        return stringResource(if (offline) Res.string.feature_home_dashboard_error_kind_offline else Res.string.feature_home_dashboard_error_kind_failed)
-    }
-    return when (val cat = categorize(error)) {
+        return stringResource(
+            if (offline) {
+                Res.string.feature_home_dashboard_error_kind_offline
 ```
 
 </details>
@@ -4663,20 +4484,6 @@ Created by Rajan Maurya on 05/02/17. The `GroupSummaryCounts` report answers in 
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/nav/ClientArgs.kt`
-
-```kotlin
-data class ClientArgs(
-```
-/* Copyright 2024 Mifos Initiative This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/nav/DataTableNavigationArg.kt`
-
-```kotlin
-data class DataTableNavigationArg(
-```
-_No KDoc at source._
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/noncoreobjects/Document.kt`
 
@@ -4802,26 +4609,12 @@ internal fun ClientAddIdentifierContent(
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/noncoreobjects/IdentifierType.kt`
-
-```kotlin
-data class IdentifierType(
-```
-Created by Rajan Maurya on 01/10/16.
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/note/CreateNoteInput.kt`
-
-```kotlin
-data class CreateNoteInput(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/note/CreateNoteResponseDto.kt`
 
 ```kotlin
 data class CreateNoteResponseDto(
 ```
-_No KDoc at source._
+Server response to a create note request.
 
 <details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:110</code></summary>
 
@@ -4842,7 +4635,7 @@ _No KDoc at source._
 ```kotlin
 data class DeleteNoteResponseDto(
 ```
-_No KDoc at source._
+Server response to a delete note request.
 
 <details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:130</code></summary>
 
@@ -4883,7 +4676,7 @@ A note on a client — what every layer above `core/store` sees. The Room row is
 ```kotlin
 data class NoteRequestDto(
 ```
-_No KDoc at source._
+Request body for a note.
 
 <details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:108</code></summary>
 
@@ -4899,19 +4692,12 @@ _No KDoc at source._
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/note/UpdateNoteInput.kt`
-
-```kotlin
-data class UpdateNoteInput(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/note/UpdateNoteResponseDto.kt`
 
 ```kotlin
 data class UpdateNoteResponseDto(
 ```
-_No KDoc at source._
+Server response to an update note request.
 
 <details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:121</code></summary>
 
@@ -4929,7 +4715,7 @@ _No KDoc at source._
 ```kotlin
 data class ChangesDto(
 ```
-_No KDoc at source._
+Transfer shape of a changes.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/AccountingRule.kt`
 
@@ -4938,13 +4724,14 @@ data class AccountingRule(
 ```
 Created by Rajan Maurya on 15/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/LoanProducts.kt:151</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/LoanProducts.kt:195</code></summary>
 
 ```kotlin
-
+    /** The accounting rule (none, cash or accrual). */
     @SerialName("accountingRule")
     var accountingRule: AccountingRule? = null,
 
+    /** True when the loan can be disbursed in several tranches. */
     @SerialName("multiDisburseLoan")
     var multiDisburseLoan: Boolean? = null,
 ```
@@ -4958,10 +4745,10 @@ data class AllowAttributeOverrides(
 ```
 Created by Rajan Maurya on 15/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/LoanProducts.kt:169</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/LoanProducts.kt:219</code></summary>
 
 ```kotlin
-
+    /** Which product attributes an account may override. */
     @SerialName("allowAttributeOverrides")
     var allowAttributeOverrides: AllowAttributeOverrides? = null,
 )
@@ -4990,20 +4777,6 @@ Created by Rajan Maurya on 15/07/16.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/ClientClassificationOptions.kt`
-
-```kotlin
-data class ClientClassificationOptions(
-```
-Created by nkiboi on 12/15/2015.
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/ClientTypeOptions.kt`
-
-```kotlin
-data class ClientTypeOptions(
-```
-Created by nkiboi on 12/15/2015.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/Currency.kt`
 
 ```kotlin
@@ -5011,7 +4784,7 @@ data class Currency(
 ```
 Created by Rajan Maurya on 15/07/16.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:299</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:393</code></summary>
 
 ```kotlin
                 activeLoans = loans?.activeLoans,
@@ -5032,15 +4805,16 @@ data class DaysInMonthType(
 ```
 Created by Rajan Maurya on 15/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:122</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:173</code></summary>
 
 ```kotlin
-    val canDisburse: Boolean? = null,
     val product: Product? = null,
+    /** How many days a month has for interest calculation (actual or 30). */
     val daysInMonthType: DaysInMonthType? = null,
+    /** How many days a year has for interest calculation (actual, 360, 364 or 365). */
     val daysInYearType: DaysInYearType? = null,
 
-    val isInterestRecalculationEnabled: Boolean? = null,
+    /** True when interest is recalculated as repayments arrive. */
 ```
 
 </details>
@@ -5052,26 +4826,18 @@ data class DaysInYearType(
 ```
 Created by Rajan Maurya on 15/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:123</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:175</code></summary>
 
 ```kotlin
-    val product: Product? = null,
     val daysInMonthType: DaysInMonthType? = null,
+    /** How many days a year has for interest calculation (actual, 360, 364 or 365). */
     val daysInYearType: DaysInYearType? = null,
 
+    /** True when interest is recalculated as repayments arrive. */
     val isInterestRecalculationEnabled: Boolean? = null,
-
-    val isvaliableInstallmentsAllowed: Boolean? = null,
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/GenderOptions.kt`
-
-```kotlin
-data class GenderOptions(
-```
-Created by nkiboi on 12/15/2015.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/InterestCalculationDaysInYearType.kt`
 
@@ -5080,10 +4846,10 @@ data class InterestCalculationDaysInYearType(
 ```
 Created by nkiboi on 12/15/2015.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:52</code></summary>
 
 ```kotlin
-
+    /** Stores an `InterestCalculationDaysInYearType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCalculationDaysInYearType(
         type: InterestCalculationDaysInYearType?,
@@ -5115,20 +4881,6 @@ Created by Rajan Maurya on 15/07/16.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/InterestCalculationTypeOptions.kt`
-
-```kotlin
-data class InterestCalculationTypeOptions(
-```
-Created by nkiboi on 12/15/2015.
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/InterestCompoundingPeriod.kt`
-
-```kotlin
-data class InterestCompoundingPeriod(
-```
-Created by nkiboi on 12/15/2015.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/InterestPostingPeriodType.kt`
 
 ```kotlin
@@ -5136,10 +4888,10 @@ data class InterestPostingPeriodType(
 ```
 Created by nkiboi on 12/15/2015.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:27</code></summary>
 
 ```kotlin
-class SavingsPeriodTypeConverters {
+    /** Stores an `InterestPostingPeriodType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestPostingPeriodType(
         type: InterestPostingPeriodType?,
@@ -5157,16 +4909,16 @@ data class InterestRateFrequencyType(
 ```
 Created by Rajan Maurya on 15/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:80</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:91</code></summary>
 
 ```kotlin
-
+    /** Stores a `InterestRateFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestRateFrequencyType(type: InterestRateFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `InterestRateFrequencyType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -5192,13 +4944,6 @@ Created by Rajan Maurya on 15/07/16.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/LoanFund.kt`
-
-```kotlin
-data class LoanFund(
-```
-Created by nellyk on 2/21/2016.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/LoanProducts.kt`
 
 ```kotlin
@@ -5219,13 +4964,6 @@ Created by Rajan Maurya on 12/15/2015.
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/LoanPurpose.kt`
-
-```kotlin
-data class LoanPurpose(
-```
-Created by nellyk on 2/21/2016.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/organisations/ProductSavings.kt`
 
@@ -5310,19 +5048,12 @@ Created by nellyk on 2/20/2016.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/payloads/NotesPayload.kt`
-
-```kotlin
-data class NotesPayload(
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/payloads/RecurringDepositAccountPayload.kt`
 
 ```kotlin
 data class RecurringDepositAccountPayload(
 ```
-_No KDoc at source._
+Request body for a recurring deposit account.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recurringdeposit/impl/RecurringDepositCommandRepositoryImpl.kt:73</code></summary>
 
@@ -5341,7 +5072,7 @@ private fun RecurringDepositApplicationInput.toPayload() = RecurringDepositAccou
 ```kotlin
 data class ChargeItem(
 ```
-_No KDoc at source._
+A charge item.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/charge/impl/ChargeCommandRepositoryImpl.kt:50</code></summary>
 
@@ -5383,7 +5114,7 @@ private fun SavingsApplicationInput.toPayload() = SavingsPayload().apply {
 ```kotlin
 class SaveResponse(
 ```
-_No KDoc at source._
+Server response to a save request.
 
 <details><summary>Used in the template — <code>feature/center/src/commonTest/kotlin/kpt/feature/center/create/CreateCenterViewModelTest.kt:64</code></summary>
 
@@ -5444,7 +5175,7 @@ Created by Tarun on 03-08-17.
 ```kotlin
 object RowDeserializer : KSerializer<List<String?>>
 ```
-_No KDoc at source._
+Row deserializer.
 
 - `val jsonElement = (decoder as? JsonDecoder)?.decodeJsonElement()`
 - `val jsonArray = JsonArray(`
@@ -5496,9 +5227,9 @@ private val previewReports = listOf(
 ```kotlin
 data class GenericSearchRecord(
 ```
-_No KDoc at source._
+One search hit: a client, group, centre or account.
 
-<details><summary>Used in the template — <code>feature/searchrecord/src/commonMain/kotlin/kpt/feature/searchrecord/navigation/SearchRecordRoute.kt:33</code></summary>
+<details><summary>Used in the template — <code>feature/searchrecord/src/commonMain/kotlin/kpt/feature/searchrecord/navigation/SearchRecordRoute.kt:37</code></summary>
 
 ```kotlin
 fun NavGraphBuilder.searchRecordDestination(
@@ -5517,9 +5248,9 @@ fun NavGraphBuilder.searchRecordDestination(
 ```kotlin
 enum class RecordType
 ```
-_No KDoc at source._
+Kind of a record.
 
-<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/navigation/ClientNavigation.kt:412</code></summary>
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/navigation/ClientNavigation.kt:494</code></summary>
 
 ```kotlin
             // landed.
@@ -5561,11 +5292,11 @@ data class Scorecard(
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/survey/SurveyCommandRepository.kt:28</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/survey/SurveyCommandRepository.kt:29</code></summary>
 
 ```kotlin
-interface SurveyCommandRepository {
 
+    /** Submits a scorecard for a survey. */
     suspend fun submitScore(surveyId: Int, scorecardPayload: Scorecard?): MutationResult<Scorecard>
 }
 ```
@@ -5579,11 +5310,11 @@ data class ScorecardValues(
 ```
 Created by Nasim Banu on 28,January,2016.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/surveys/Scorecard.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/surveys/Scorecard.kt:30</code></summary>
 
 ```kotlin
-//    var createdOn: Date? = null,
     var createdOn: List<Int> = emptyList(),
+    /** The answers in the scorecard. */
     var scorecardValues: List<ScorecardValues>? = null,
 )
 ```
@@ -5611,13 +5342,6 @@ Created by ishankhanna on 16/06/14.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/systems/CodeValue.kt`
-
-```kotlin
-class CodeValue
-```
-Created by ishankhanna on 16/06/14.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeAppliesTo.kt`
 
 ```kotlin
@@ -5625,16 +5349,16 @@ data class ChargeAppliesTo(
 ```
 Created by mayankjindal on 13/12/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:35</code></summary>
 
 ```kotlin
-    val amount: Double? = null,
     val chargeTimeType: ChargeTimeType? = null,
+    /** What the charge applies to (loan, savings, client, …). */
     val chargeAppliesTo: ChargeAppliesTo? = null,
+    /** How the charge amount is calculated (flat, percent of amount, …). */
     val chargeCalculationType: ChargeCalculationType? = null,
+    /** How the charge is paid (regular or from a linked savings account). */
     val chargePaymentMode: ChargePaymentMode? = null,
-    val incomeOrLiabilityAccount: IncomeOrLiabilityAccount? = null,
-)
 ```
 
 </details>
@@ -5688,12 +5412,13 @@ data class ChargePaymentMode(
 ```
 Created by mayankjindal on 13/12/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:29</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:39</code></summary>
 
 ```kotlin
-    val chargeAppliesTo: ChargeAppliesTo? = null,
     val chargeCalculationType: ChargeCalculationType? = null,
+    /** How the charge is paid (regular or from a linked savings account). */
     val chargePaymentMode: ChargePaymentMode? = null,
+    /** The GL account the charge is booked to. */
     val incomeOrLiabilityAccount: IncomeOrLiabilityAccount? = null,
 )
 ```
@@ -5747,9 +5472,9 @@ Created by mayankjindal on 13/12/16.
 ```kotlin
 data class Currency(
 ```
-_No KDoc at source._
+A currency.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:299</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:393</code></summary>
 
 ```kotlin
                 activeLoans = loans?.activeLoans,
@@ -5770,11 +5495,11 @@ data class IncomeOrLiabilityAccount(
 ```
 Created by mayankjindal on 13/12/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:30</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:41</code></summary>
 
 ```kotlin
-    val chargeCalculationType: ChargeCalculationType? = null,
     val chargePaymentMode: ChargePaymentMode? = null,
+    /** The GL account the charge is booked to. */
     val incomeOrLiabilityAccount: IncomeOrLiabilityAccount? = null,
 )
 ```
@@ -5794,9 +5519,10 @@ Created by Rajan Maurya on 16/07/16.
  */
 @Serializable
 data class AccountingRule(
+    /** The server id of this record. */
     var id: Int? = null,
 
-    var code: String? = null,
+    /**
 ```
 
 </details>
@@ -5814,9 +5540,10 @@ Created by Rajan Maurya on 16/07/16.
  */
 @Serializable
 data class AllowAttributeOverrides(
+    /** How the principal is amortised (equal installments or equal principal). */
     var amortizationType: Boolean? = null,
 
-    var interestType: Boolean? = null,
+    /** The interest method (declining balance or flat). */
 ```
 
 </details>
@@ -5869,16 +5596,15 @@ data class CalendarOptions(
 ```
 Created by mayankjindal on 02/10/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/GroupLoanTemplate.kt:99</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/GroupLoanTemplate.kt:140</code></summary>
 
 ```kotlin
-    var chargeOptions: List<ChargeOptions>? = null,
 
+    /** The meeting calendars the loan may follow. */
     var calendarOptions: List<CalendarOptions>? = null,
 
+    /** True when the loan can be disbursed in several tranches. */
     var multiDisburseLoan: Boolean? = null,
-
-    var canDefineInstallmentAmount: Boolean? = null,
 ```
 
 </details>
@@ -5890,16 +5616,15 @@ data class CalendarOptionsType(
 ```
 Created by mayankjindal on 02/10/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/CalendarOptions.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/CalendarOptions.kt:41</code></summary>
 
 ```kotlin
-    var duration: Int? = null,
 
+    /** The record's type. */
     var type: CalendarOptionsType? = null,
 
+    /** True when the meeting repeats. */
     var repeating: Boolean? = null,
-
-    var recurrence: String? = null,
 ```
 
 </details>
@@ -5917,10 +5642,10 @@ Created by Rajan Maurya on 16/07/16.
  */
 @Serializable
 data class ChargeAppliesTo(
+    /** The server id of this record. */
     val id: Int,
-    val code: String,
-    val value: String,
-) {
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
 ```
 
 </details>
@@ -5974,12 +5699,13 @@ data class ChargePaymentMode(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:29</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:39</code></summary>
 
 ```kotlin
-    val chargeAppliesTo: ChargeAppliesTo? = null,
     val chargeCalculationType: ChargeCalculationType? = null,
+    /** How the charge is paid (regular or from a linked savings account). */
     val chargePaymentMode: ChargePaymentMode? = null,
+    /** The GL account the charge is booked to. */
     val incomeOrLiabilityAccount: IncomeOrLiabilityAccount? = null,
 )
 ```
@@ -6035,7 +5761,7 @@ data class Currency(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:299</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:393</code></summary>
 
 ```kotlin
                 activeLoans = loans?.activeLoans,
@@ -6056,15 +5782,16 @@ class DaysInMonthType(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:122</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:173</code></summary>
 
 ```kotlin
-    val canDisburse: Boolean? = null,
     val product: Product? = null,
+    /** How many days a month has for interest calculation (actual or 30). */
     val daysInMonthType: DaysInMonthType? = null,
+    /** How many days a year has for interest calculation (actual, 360, 364 or 365). */
     val daysInYearType: DaysInYearType? = null,
 
-    val isInterestRecalculationEnabled: Boolean? = null,
+    /** True when interest is recalculated as repayments arrive. */
 ```
 
 </details>
@@ -6076,16 +5803,15 @@ data class DaysInYearType(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:123</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:175</code></summary>
 
 ```kotlin
-    val product: Product? = null,
     val daysInMonthType: DaysInMonthType? = null,
+    /** How many days a year has for interest calculation (actual, 360, 364 or 365). */
     val daysInYearType: DaysInYearType? = null,
 
+    /** True when interest is recalculated as repayments arrive. */
     val isInterestRecalculationEnabled: Boolean? = null,
-
-    val isvaliableInstallmentsAllowed: Boolean? = null,
 ```
 
 </details>
@@ -6202,11 +5928,11 @@ data class GroupTimeline(
 ```
 Created by mayankjindal on 02/10/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/Group.kt:41</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/Group.kt:53</code></summary>
 
 ```kotlin
-    var groupLevel: Int? = null,
 
+    /** The dates and users of the record's lifecycle events (submitted, approved, activated, …). */
     var timeline: GroupTimeline? = null,
 )
 ```
@@ -6234,13 +5960,6 @@ Created by Rajan Maurya on 16/07/16.
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestCalculationPeriodTypeOptions.kt`
-
-```kotlin
-data class InterestCalculationPeriodTypeOptions(
-```
-Created by Rajan Maurya on 16/07/16.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRateFrequencyType.kt`
 
 ```kotlin
@@ -6248,16 +5967,16 @@ data class InterestRateFrequencyType(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:80</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:91</code></summary>
 
 ```kotlin
-
+    /** Stores a `InterestRateFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestRateFrequencyType(type: InterestRateFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `InterestRateFrequencyType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -6269,16 +5988,16 @@ data class InterestRateFrequencyTypeOptions(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:106</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:145</code></summary>
 
 ```kotlin
-    val repaymentFrequencyNthDayTypeOptions: List<RepaymentFrequencyNthDayTypeOptions> = emptyList(),
     val repaymentFrequencyDaysOfWeekTypeOptions: List<RepaymentFrequencyDaysOfWeekTypeOptions> = emptyList(),
+    /** The interest rate frequency choices. */
     val interestRateFrequencyTypeOptions: List<InterestRateFrequencyTypeOptions> = emptyList(),
+    /** The amortisation choices. */
     val amortizationTypeOptions: List<AmortizationTypeOptions> = emptyList(),
+    /** The interest method choices. */
     val interestTypeOptions: List<InterestTypeOptions> = emptyList(),
-    val interestCalculationPeriodTypeOptions: List<InterestCalculationPeriodType> = emptyList(),
-    val transactionProcessingStrategyOptions: List<TransactionProcessingStrategyOptions> = emptyList(),
 ```
 
 </details>
@@ -6290,16 +6009,15 @@ data class InterestRecalculationCompoundingType(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:26</code></summary>
 
 ```kotlin
-    var productId: Int? = null,
 
+    /** What interest recalculation compounds (interest, fees or both). */
     var interestRecalculationCompoundingType: InterestRecalculationCompoundingType? = null,
 
+    /** How the schedule is adjusted when repayments arrive early. */
     var rescheduleStrategyType: RescheduleStrategyType? = null,
-
-    var recalculationRestFrequencyType: RecalculationRestFrequencyType? = null,
 ```
 
 </details>
@@ -6311,16 +6029,15 @@ data class InterestRecalculationData(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/GroupLoanTemplate.kt:121</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/GroupLoanTemplate.kt:173</code></summary>
 
 ```kotlin
-    var isInterestRecalculationEnabled: Boolean? = null,
 
+    /** The product's interest-recalculation settings. */
     var interestRecalculationData: InterestRecalculationData? = null,
 
+    /** True when installment amounts may vary. */
     var isVariableInstallmentsAllowed: Boolean? = null,
-
-    var minimumGap: Int? = null,
 ```
 
 </details>
@@ -6374,16 +6091,15 @@ data class LoanCollateralOptions(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:112</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:157</code></summary>
 
 ```kotlin
-    val transactionProcessingStrategyOptions: List<TransactionProcessingStrategyOptions> = emptyList(),
     val chargeOptions: List<ChargeOptions> = emptyList(),
+    /** The collateral types that may be pledged. */
     val loanCollateralOptions: List<LoanCollateralOptions> = emptyList(),
 
+    /** True when the loan can be disbursed in several tranches. */
     val multiDisburseLoan: Boolean? = null,
-
-    val transactionProcessingStrategyCode: String? = null,
 ```
 
 </details>
@@ -6395,16 +6111,16 @@ data class LoanOfficerOption(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:99</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:131</code></summary>
 
 ```kotlin
-
     val dataTables: ArrayList<DataTableEntity> = ArrayList(),
+    /** The loan officers that may be assigned. */
     val loanOfficerOptions: List<LoanOfficerOption> = emptyList(),
+    /** The loan purposes that may be chosen. */
     val loanPurposeOptions: List<LoanPurposeOptions> = emptyList(),
+    /** The funds that may be chosen. */
     val fundOptions: List<FundOptions> = emptyList(),
-    val termFrequencyTypeOptions: List<TermFrequencyTypeOptions> = emptyList(),
-    val repaymentFrequencyTypeOptions: List<RepaymentFrequencyTypeOptions> = emptyList(),
 ```
 
 </details>
@@ -6437,16 +6153,15 @@ class OverdueCharges
 ```
 Created by mayankjindal on 02/10/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/GroupLoanTemplate.kt:113</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/GroupLoanTemplate.kt:161</code></summary>
 
 ```kotlin
-    var product: Product? = null,
 
+    /** The charges applied when an installment is overdue. */
     var overdueCharges: List<OverdueCharges>? = null,
 
+    /** How many days a month has for interest calculation (actual or 30). */
     var daysInMonthType: DaysInMonthType? = null,
-
-    var daysInYearType: DaysInYearType? = null,
 ```
 
 </details>
@@ -6458,13 +6173,14 @@ data class PreClosureInterestCalculationStrategy(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:35</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:44</code></summary>
 
 ```kotlin
-    var isCompoundingToBePostedAsTransaction: Boolean? = null,
 
+    /** How interest is calculated when the loan is closed early. */
     var preClosureInterestCalculationStrategy: PreClosureInterestCalculationStrategy? = null,
 
+    /** True when interest compounds at end of day. */
     var allowCompoundingOnEod: Boolean? = null,
 )
 ```
@@ -6499,7 +6215,7 @@ data class ProductOptions(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:131</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:146</code></summary>
 
 ```kotlin
         clientsTemplate.officeOptions?.let { insertOfficeOptions(it) }
@@ -6520,16 +6236,15 @@ data class RecalculationRestFrequencyType(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:32</code></summary>
 
 ```kotlin
-    var rescheduleStrategyType: RescheduleStrategyType? = null,
 
+    /** The unit of the recalculation rest frequency. */
     var recalculationRestFrequencyType: RecalculationRestFrequencyType? = null,
 
+    /** How many rest-frequency units between recalculations. */
     var recalculationRestFrequencyInterval: Int? = null,
-
-    var isArrearsBasedOnOriginalSchedule: Boolean? = null,
 ```
 
 </details>
@@ -6541,16 +6256,16 @@ data class RepaymentFrequencyDaysOfWeekTypeOptions(
 ```
 Created by mayankjindal on 02/10/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:105</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:143</code></summary>
 
 ```kotlin
-    val repaymentFrequencyTypeOptions: List<RepaymentFrequencyTypeOptions> = emptyList(),
     val repaymentFrequencyNthDayTypeOptions: List<RepaymentFrequencyNthDayTypeOptions> = emptyList(),
+    /** The weekday choices for the repayment day. */
     val repaymentFrequencyDaysOfWeekTypeOptions: List<RepaymentFrequencyDaysOfWeekTypeOptions> = emptyList(),
+    /** The interest rate frequency choices. */
     val interestRateFrequencyTypeOptions: List<InterestRateFrequencyTypeOptions> = emptyList(),
+    /** The amortisation choices. */
     val amortizationTypeOptions: List<AmortizationTypeOptions> = emptyList(),
-    val interestTypeOptions: List<InterestTypeOptions> = emptyList(),
-    val interestCalculationPeriodTypeOptions: List<InterestCalculationPeriodType> = emptyList(),
 ```
 
 </details>
@@ -6562,16 +6277,16 @@ data class RepaymentFrequencyNthDayTypeOptions(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:104</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanTemplate.kt:141</code></summary>
 
 ```kotlin
-    val termFrequencyTypeOptions: List<TermFrequencyTypeOptions> = emptyList(),
     val repaymentFrequencyTypeOptions: List<RepaymentFrequencyTypeOptions> = emptyList(),
+    /** The nth-day choices for the repayment day. */
     val repaymentFrequencyNthDayTypeOptions: List<RepaymentFrequencyNthDayTypeOptions> = emptyList(),
+    /** The weekday choices for the repayment day. */
     val repaymentFrequencyDaysOfWeekTypeOptions: List<RepaymentFrequencyDaysOfWeekTypeOptions> = emptyList(),
+    /** The interest rate frequency choices. */
     val interestRateFrequencyTypeOptions: List<InterestRateFrequencyTypeOptions> = emptyList(),
-    val amortizationTypeOptions: List<AmortizationTypeOptions> = emptyList(),
-    val interestTypeOptions: List<InterestTypeOptions> = emptyList(),
 ```
 
 </details>
@@ -6625,16 +6340,15 @@ data class RepeatsOnNthDayOfMonth(
 ```
 Created by mayankjindal on 02/10/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/CalendarOptions.kt:43</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/CalendarOptions.kt:56</code></summary>
 
 ```kotlin
-    var interval: Int? = null,
 
+    /** Which occurrence in the month the meeting falls on. */
     var repeatsOnNthDayOfMonth: RepeatsOnNthDayOfMonth? = null,
 
+    /** Minutes before the meeting the first reminder fires. */
     var firstReminder: Int? = null,
-
-    var secondReminder: Int? = null,
 ```
 
 </details>
@@ -6646,16 +6360,15 @@ data class RescheduleStrategyType(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/InterestRecalculationData.kt:29</code></summary>
 
 ```kotlin
-    var interestRecalculationCompoundingType: InterestRecalculationCompoundingType? = null,
 
+    /** How the schedule is adjusted when repayments arrive early. */
     var rescheduleStrategyType: RescheduleStrategyType? = null,
 
+    /** The unit of the recalculation rest frequency. */
     var recalculationRestFrequencyType: RecalculationRestFrequencyType? = null,
-
-    var recalculationRestFrequencyInterval: Int? = null,
 ```
 
 </details>
@@ -6688,11 +6401,11 @@ data class TaxGroup(
 ```
 Created by Rajan Maurya on 16/07/16.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/ChargeOptions.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/loan/ChargeOptions.kt:50</code></summary>
 
 ```kotlin
-    var chargePaymentMode: ChargePaymentMode? = null,
 
+    /** The tax group applied to the charge. */
     var taxGroup: TaxGroup? = null,
 )
 ```
@@ -6787,7 +6500,7 @@ Created by Rajan Maurya on 16/07/16.
 ```kotlin
 data class Type(
 ```
-_No KDoc at source._
+A Fineract code value: an id, a code and its display text.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:72</code></summary>
 
@@ -6808,18 +6521,18 @@ internal fun ChargeDetailScreen(
 ```kotlin
 data class AccountChart(
 ```
-_No KDoc at source._
+An account chart.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/AccountChart.kt:15</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/AccountChart.kt:16</code></summary>
 
 ```kotlin
-
+/** An account chart. */
 @Serializable
 data class AccountChart(
+    /** The server id of the account. */
     val accountId: Int? = null,
+    /** The account number the payment was made from or to. */
     val accountNumber: String? = null,
-    val chartSlabs: List<ChartSlab>? = null,
-    val endDate: List<Int>? = null,
 ```
 
 </details>
@@ -6829,18 +6542,18 @@ data class AccountChart(
 ```kotlin
 data class AttributeName(
 ```
-_No KDoc at source._
+A client attribute an incentive is conditioned on.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:19</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:22</code></summary>
 
 ```kotlin
-data class Incentive(
     val amount: Double? = null,
+    /** The client attribute the incentive depends on. */
     val attributeName: AttributeName? = null,
+    /** The attribute value the incentive applies to. */
     val attributeValue: String? = null,
+    /** The description of that attribute value. */
     val attributeValueDesc: String? = null,
-    val conditionType: ConditionType? = null,
-    val entityType: EntityType? = null,
 ```
 
 </details>
@@ -6850,18 +6563,18 @@ data class Incentive(
 ```kotlin
 data class AttributeNameOption(
 ```
-_No KDoc at source._
+One attribute name choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:17</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:19</code></summary>
 
 ```kotlin
-@Serializable
 data class AccountChart(
+    /** The client attributes incentives may depend on. */
     val attributeNameOptions: List<AttributeNameOption>? = null,
+    /** The rate slabs of the chart. */
     val chartSlabs: List<ChartSlab>? = null,
 //    val clientClassificationOptions: List<Any?>? = null,
-    val clientTypeOptions: List<ClientTypeOption>? = null,
-    val conditionTypeOptions: List<ConditionTypeOption>? = null,
+    /** The client types that may be chosen. */
 ```
 
 </details>
@@ -6871,18 +6584,18 @@ data class AccountChart(
 ```kotlin
 data class ChartSlab(
 ```
-_No KDoc at source._
+A chart slab.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:18</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:21</code></summary>
 
 ```kotlin
-data class AccountChart(
     val attributeNameOptions: List<AttributeNameOption>? = null,
+    /** The rate slabs of the chart. */
     val chartSlabs: List<ChartSlab>? = null,
 //    val clientClassificationOptions: List<Any?>? = null,
+    /** The client types that may be chosen. */
     val clientTypeOptions: List<ClientTypeOption>? = null,
-    val conditionTypeOptions: List<ConditionTypeOption>? = null,
-    val endDate: List<Int>? = null,
+    /** The comparisons incentives may use. */
 ```
 
 </details>
@@ -6892,18 +6605,18 @@ data class AccountChart(
 ```kotlin
 data class ClientTypeOption(
 ```
-_No KDoc at source._
+One client type choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:20</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:24</code></summary>
 
 ```kotlin
-    val chartSlabs: List<ChartSlab>? = null,
 //    val clientClassificationOptions: List<Any?>? = null,
+    /** The client types that may be chosen. */
     val clientTypeOptions: List<ClientTypeOption>? = null,
+    /** The comparisons incentives may use. */
     val conditionTypeOptions: List<ConditionTypeOption>? = null,
+    /** The date this ends. */
     val endDate: List<Int>? = null,
-    val entityTypeOptions: List<EntityTypeOption>? = null,
-    val fromDate: List<Int>? = null,
 ```
 
 </details>
@@ -6913,17 +6626,18 @@ _No KDoc at source._
 ```kotlin
 data class ConditionType(
 ```
-_No KDoc at source._
+Kind of a condition.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:28</code></summary>
 
 ```kotlin
-    val attributeValue: String? = null,
     val attributeValueDesc: String? = null,
+    /** The comparison the incentive uses (equal, greater than, …). */
     val conditionType: ConditionType? = null,
+    /** The kind of entity this record belongs to (client, group, loan, …). */
     val entityType: EntityType? = null,
+    /** How the incentive changes the rate (fixed, increase, decrease). */
     val incentiveType: IncentiveType? = null,
-)
 ```
 
 </details>
@@ -6933,18 +6647,18 @@ _No KDoc at source._
 ```kotlin
 data class ConditionTypeOption(
 ```
-_No KDoc at source._
+One condition type choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:21</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:26</code></summary>
 
 ```kotlin
-//    val clientClassificationOptions: List<Any?>? = null,
     val clientTypeOptions: List<ClientTypeOption>? = null,
+    /** The comparisons incentives may use. */
     val conditionTypeOptions: List<ConditionTypeOption>? = null,
+    /** The date this ends. */
     val endDate: List<Int>? = null,
+    /** The entity types the chart may be attached to. */
     val entityTypeOptions: List<EntityTypeOption>? = null,
-    val fromDate: List<Int>? = null,
-//    val genderOptions: List<Any?>? = null,
 ```
 
 </details>
@@ -6954,9 +6668,9 @@ _No KDoc at source._
 ```kotlin
 data class Currency(
 ```
-_No KDoc at source._
+A currency.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:299</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:393</code></summary>
 
 ```kotlin
                 activeLoans = loans?.activeLoans,
@@ -6975,7 +6689,7 @@ _No KDoc at source._
 ```kotlin
 data class EntityType(
 ```
-_No KDoc at source._
+Kind of an entity.
 
 <details><summary>Used in the template — <code>feature/document/src/commonMain/kotlin/kpt/feature/document/list/DocumentListScreenPreview.kt:29</code></summary>
 
@@ -6996,18 +6710,18 @@ _No KDoc at source._
 ```kotlin
 data class EntityTypeOption(
 ```
-_No KDoc at source._
+One entity type choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:30</code></summary>
 
 ```kotlin
-    val conditionTypeOptions: List<ConditionTypeOption>? = null,
     val endDate: List<Int>? = null,
+    /** The entity types the chart may be attached to. */
     val entityTypeOptions: List<EntityTypeOption>? = null,
+    /** The date this starts from. */
     val fromDate: List<Int>? = null,
 //    val genderOptions: List<Any?>? = null,
-    val incentiveTypeOptions: List<IncentiveTypeOption>? = null,
-    val isPrimaryGroupingByAmount: Boolean? = null,
+    /** The incentive types that may be chosen. */
 ```
 
 </details>
@@ -7017,7 +6731,7 @@ _No KDoc at source._
 ```kotlin
 data class FieldOfficerOption(
 ```
-_No KDoc at source._
+One field officer choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:68</code></summary>
 
@@ -7038,18 +6752,18 @@ _No KDoc at source._
 ```kotlin
 data class MaturityInstructionOption(
 ```
-_No KDoc at source._
+One maturity instruction choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/savings/FixedDepositTemplate.kt:60</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/savings/FixedDepositTemplate.kt:73</code></summary>
 
 ```kotlin
-
     val lockinPeriodFrequencyTypeOptions: List<LockinPeriodFrequencyTypeOption>? = null,
+    /** The maturity instructions that may be chosen. */
     val maturityInstructionOptions: List<MaturityInstructionOption>? = null,
+    /** The interest-rate chart of the deposit. */
     val accountChart: AccountChart? = null,
 
-    val chargeOptions: List<ChargeOption>? = null,
-    val savingsAccounts: List<SavingsAccountOption>? = null,
+    /** The charges that may be added. */
 ```
 
 </details>
@@ -7059,7 +6773,7 @@ _No KDoc at source._
 ```kotlin
 class Timeline(
 ```
-_No KDoc at source._
+A timeline.
 
 <details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/editdetails/ClientEditDetailsFormTest.kt:189</code></summary>
 
@@ -7080,13 +6794,13 @@ _No KDoc at source._
 ```kotlin
 data class WithdrawalFeeTypeOption(
 ```
-_No KDoc at source._
+One withdrawal fee type choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDepositAccountTemplate.kt:74</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDepositAccountTemplate.kt:112</code></summary>
 
 ```kotlin
-    val withHoldTax: Boolean? = null,
     val withdrawalFeeForTransfers: Boolean? = null,
+    /** The withdrawal fee choices. */
     val withdrawalFeeTypeOptions: List<WithdrawalFeeTypeOption>? = null,
 )
 ```
@@ -7098,7 +6812,7 @@ _No KDoc at source._
 ```kotlin
 data class ChargeAppliesTo(
 ```
-_No KDoc at source._
+What a charge applies to: loans, savings or clients.
 
 <details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeAppliesTo.kt:18</code></summary>
 
@@ -7106,10 +6820,10 @@ _No KDoc at source._
  */
 @Serializable
 data class ChargeAppliesTo(
+    /** The server id of this record. */
     val id: Int,
-    val code: String,
-    val value: String,
-) {
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
 ```
 
 </details>
@@ -7119,7 +6833,7 @@ data class ChargeAppliesTo(
 ```kotlin
 data class ChargeCalculationType(
 ```
-_No KDoc at source._
+Kind of a charge calculation.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonTest/kotlin/kpt/feature/charge/ChargeFormViewModelTest.kt:61</code></summary>
 
@@ -7140,7 +6854,7 @@ _No KDoc at source._
 ```kotlin
 data class ChargeOption(
 ```
-_No KDoc at source._
+One charge choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:83</code></summary>
 
@@ -7161,14 +6875,15 @@ _No KDoc at source._
 ```kotlin
 data class ChargePaymentMode(
 ```
-_No KDoc at source._
+A charge payment mode.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:29</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/client/ChargeOptions.kt:39</code></summary>
 
 ```kotlin
-    val chargeAppliesTo: ChargeAppliesTo? = null,
     val chargeCalculationType: ChargeCalculationType? = null,
+    /** How the charge is paid (regular or from a linked savings account). */
     val chargePaymentMode: ChargePaymentMode? = null,
+    /** The GL account the charge is booked to. */
     val incomeOrLiabilityAccount: IncomeOrLiabilityAccount? = null,
 )
 ```
@@ -7180,7 +6895,7 @@ _No KDoc at source._
 ```kotlin
 data class ChargeTimeType(
 ```
-_No KDoc at source._
+Kind of a charge time.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonTest/kotlin/kpt/feature/charge/ChargeFormViewModelTest.kt:60</code></summary>
 
@@ -7201,18 +6916,18 @@ _No KDoc at source._
 ```kotlin
 data class DepositType(
 ```
-_No KDoc at source._
+Kind of a deposit.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:37</code></summary>
 
 ```kotlin
-
+    /** Stores a `SavingAccountDepositTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromDepositType(type: SavingAccountDepositTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `SavingAccountDepositTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -7222,18 +6937,18 @@ _No KDoc at source._
 ```kotlin
 data class InMultiplesOfDepositTermType(
 ```
-_No KDoc at source._
+Kind of an in multiples of deposit term.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:43</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:63</code></summary>
 
 ```kotlin
-    val fieldOfficerName: String? = null,
     val id: Int? = null,
+    /** The unit the deposit term is counted in multiples of. */
     val inMultiplesOfDepositTermType: InMultiplesOfDepositTermType? = null,
+    /** How many days a year has for interest calculation (360, 365, actual). */
     val interestCalculationDaysInYearType: InterestCalculationDaysInYearType? = null,
+    /** How interest is calculated on the balance (daily or average daily balance). */
     val interestCalculationType: InterestCalculationType? = null,
-    val interestCompoundingPeriodType: InterestCompoundingPeriodType? = null,
-    val interestPostingPeriodType: InterestPostingPeriodType? = null,
 ```
 
 </details>
@@ -7243,18 +6958,18 @@ _No KDoc at source._
 ```kotlin
 data class MaxDepositTermType(
 ```
-_No KDoc at source._
+Kind of a max deposit term.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:55</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:87</code></summary>
 
 ```kotlin
-    val maturityAmount: Double? = null,
     val maturityDate: List<Int>? = null,
+    /** The unit of the maximum deposit term. */
     val maxDepositTermType: MaxDepositTermType? = null,
+    /** The shortest deposit term. */
     val minDepositTerm: Int? = null,
+    /** The unit of the minimum deposit term. */
     val minDepositTermType: MinDepositTermType? = null,
-    val nominalAnnualInterestRate: Double? = null,
-    val preClosurePenalApplicable: Boolean? = null,
 ```
 
 </details>
@@ -7264,18 +6979,18 @@ _No KDoc at source._
 ```kotlin
 data class MinDepositTermType(
 ```
-_No KDoc at source._
+Kind of a min deposit term.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:57</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:91</code></summary>
 
 ```kotlin
-    val maxDepositTermType: MaxDepositTermType? = null,
     val minDepositTerm: Int? = null,
+    /** The unit of the minimum deposit term. */
     val minDepositTermType: MinDepositTermType? = null,
+    /** The nominal annual interest rate, in percent. */
     val nominalAnnualInterestRate: Double? = null,
+    /** True when a penalty applies if the deposit is closed early. */
     val preClosurePenalApplicable: Boolean? = null,
-    val recurringFrequency: Int? = null,
-    val recurringFrequencyType: RecurringFrequencyType? = null,
 ```
 
 </details>
@@ -7285,14 +7000,15 @@ _No KDoc at source._
 ```kotlin
 data class Incentive(
 ```
-_No KDoc at source._
+An incentive.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/ChartSlab.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/ChartSlab.kt:29</code></summary>
 
 ```kotlin
-    val description: String? = null,
     val fromPeriod: Int? = null,
+    /** The incentives of this rate slab. */
     val incentives: List<Incentive>? = null,
+    /** The unit of the period range. */
     val periodType: PeriodType? = null,
 )
 ```
@@ -7304,13 +7020,13 @@ _No KDoc at source._
 ```kotlin
 data class IncentiveType(
 ```
-_No KDoc at source._
+Kind of an incentive.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:24</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:32</code></summary>
 
 ```kotlin
-    val conditionType: ConditionType? = null,
     val entityType: EntityType? = null,
+    /** How the incentive changes the rate (fixed, increase, decrease). */
     val incentiveType: IncentiveType? = null,
 )
 ```
@@ -7322,18 +7038,18 @@ _No KDoc at source._
 ```kotlin
 data class IncentiveTypeOption(
 ```
-_No KDoc at source._
+One incentive type choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:35</code></summary>
 
 ```kotlin
-    val fromDate: List<Int>? = null,
 //    val genderOptions: List<Any?>? = null,
+    /** The incentive types that may be chosen. */
     val incentiveTypeOptions: List<IncentiveTypeOption>? = null,
+    /** True when the chart groups its slabs by amount before period. */
     val isPrimaryGroupingByAmount: Boolean? = null,
+    /** The display name. */
     val name: String? = null,
-    val description: String? = null,
-    val periodTypes: List<PeriodType>? = null,
 ```
 
 </details>
@@ -7343,12 +7059,12 @@ _No KDoc at source._
 ```kotlin
 data class InterestCalculationDaysInYearType(
 ```
-_No KDoc at source._
+Kind of an interest calculation days in year.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:52</code></summary>
 
 ```kotlin
-
+    /** Stores an `InterestCalculationDaysInYearType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCalculationDaysInYearType(
         type: InterestCalculationDaysInYearType?,
@@ -7364,7 +7080,7 @@ _No KDoc at source._
 ```kotlin
 data class InterestCalculationDaysInYearTypeOption(
 ```
-_No KDoc at source._
+One interest calculation days in year type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:78</code></summary>
 
@@ -7385,18 +7101,18 @@ _No KDoc at source._
 ```kotlin
 data class InterestCalculationType(
 ```
-_No KDoc at source._
+Kind of an interest calculation.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:58</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:66</code></summary>
 
 ```kotlin
-
+    /** Stores a `InterestCalculationType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCalculationType(type: InterestCalculationType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `InterestCalculationType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -7406,7 +7122,7 @@ _No KDoc at source._
 ```kotlin
 data class InterestCalculationTypeOption(
 ```
-_No KDoc at source._
+One interest calculation type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:76</code></summary>
 
@@ -7427,12 +7143,12 @@ _No KDoc at source._
 ```kotlin
 data class InterestCompoundingPeriodType(
 ```
-_No KDoc at source._
+Kind of an interest compounding period.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:68</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:78</code></summary>
 
 ```kotlin
-
+    /** Stores an `InterestCompoundingPeriodType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCompoundingPeriodType(
         type: InterestCompoundingPeriodType?,
@@ -7448,7 +7164,7 @@ _No KDoc at source._
 ```kotlin
 data class InterestCompoundingPeriodTypeOption(
 ```
-_No KDoc at source._
+One interest compounding period type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:74</code></summary>
 
@@ -7469,12 +7185,12 @@ _No KDoc at source._
 ```kotlin
 data class InterestPostingPeriodType(
 ```
-_No KDoc at source._
+Kind of an interest posting period.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:27</code></summary>
 
 ```kotlin
-class SavingsPeriodTypeConverters {
+    /** Stores an `InterestPostingPeriodType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestPostingPeriodType(
         type: InterestPostingPeriodType?,
@@ -7490,7 +7206,7 @@ class SavingsPeriodTypeConverters {
 ```kotlin
 data class InterestPostingPeriodTypeOption(
 ```
-_No KDoc at source._
+One interest posting period type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:75</code></summary>
 
@@ -7511,7 +7227,7 @@ _No KDoc at source._
 ```kotlin
 data class PreClosurePenalInterestOnTypeOption(
 ```
-_No KDoc at source._
+One pre closure penal interest on type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:81</code></summary>
 
@@ -7531,18 +7247,18 @@ _No KDoc at source._
 ```kotlin
 data class LockinPeriodFrequencyType(
 ```
-_No KDoc at source._
+Kind of a lockin period frequency.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:43</code></summary>
 
 ```kotlin
-
+    /** Stores a `LockinPeriodFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromLockinPeriodFrequencyType(type: LockinPeriodFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `LockinPeriodFrequencyType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -7552,7 +7268,7 @@ _No KDoc at source._
 ```kotlin
 data class LockinPeriodFrequencyTypeOption(
 ```
-_No KDoc at source._
+One lockin period frequency type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:73</code></summary>
 
@@ -7573,7 +7289,7 @@ _No KDoc at source._
 ```kotlin
 data class PeriodFrequencyTypeOption(
 ```
-_No KDoc at source._
+One period frequency type choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:70</code></summary>
 
@@ -7594,7 +7310,7 @@ _No KDoc at source._
 ```kotlin
 data class PeriodType(
 ```
-_No KDoc at source._
+Kind of a period.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/fixeddepositapplication/FixedDepositApplicationScreen.kt:281</code></summary>
 
@@ -7615,7 +7331,7 @@ _No KDoc at source._
 ```kotlin
 data class ProductOption(
 ```
-_No KDoc at source._
+One product choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:64</code></summary>
 
@@ -7657,13 +7373,13 @@ Created by rajan on 13/3/16.
 ```kotlin
 data class TagId(
 ```
-_No KDoc at source._
+A savings transaction tag.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/saving/AccountOptions.kt:40</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/saving/AccountOptions.kt:49</code></summary>
 
 ```kotlin
-    var nameDecorated: String? = null,
 
+    /** The tag of the GL account. */
     var tagId: TagId? = null,
 )
 ```
@@ -7675,18 +7391,17 @@ _No KDoc at source._
 ```kotlin
 data class User(
 ```
-_No KDoc at source._
+A signed-in user.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:95</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:131</code></summary>
 
 ```kotlin
-        """{"developerMessage":"The user associated with credentials passed on this request does not have sufficient privileges to perform this action.",""" +
         """"httpStatusCode":"403","defaultUserMessage":"Insufficient privileges to perform this action.",""" +
-        """"userMessageGlobalisationCode":"error.msg.not.authorized","errors":[{"developerMessage":"User has no authority to READ collectionsheets",""" +
-        """"defaultUserMessage":"User has no authority to READ collectionsheets","userMessageGlobalisationCode":"error.msg.not.authorized","parameterName":"id","args":[]}]}""" + "\"",
+        """"userMessageGlobalisationCode":"error.msg.not.authorized",""" +
+        """"errors":[{"developerMessage":"User has no authority to READ collectionsheets",""" +
+        """"defaultUserMessage":"User has no authority to READ collectionsheets",""" +
+        """"userMessageGlobalisationCode":"error.msg.not.authorized","parameterName":"id","args":[]}]}""" + "\"",
 )
-
-private fun content(card: HomeCard): ScreenState<HomeCard> = ScreenState.Content(card)
 ```
 
 </details>
@@ -7761,16 +7476,16 @@ data class OfficeOpeningDate(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `OfficeOpeningDateEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/office/converter/OfficeTypeConverters.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/office/converter/OfficeTypeConverters.kt:29</code></summary>
 
 ```kotlin
-
+    /** Stores a `OfficeOpeningDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromOfficeOpeningDate(status: OfficeOpeningDateEntity?): String? {
         return status?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `OfficeOpeningDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -7823,7 +7538,7 @@ A selected center or group: its id, and the name progress and failures are repor
 ### `core/model/src/commonMain/kotlin/kpt/core/model/offline/OfflineSync.kt`
 
 ```kotlin
-enum class RecordKind { CENTRE, GROUP, CLIENT }
+enum class RecordKind
 ```
 The three levels an officer can keep on the device (Settings → Offline sync).
 
@@ -7861,9 +7576,9 @@ One record the officer chose to keep on the device.
 </details>
 
 ```kotlin
-enum class RecordSyncStatus { WAITING, SYNCING, SYNCED, FAILED }
+enum class RecordSyncStatus
 ```
-_No KDoc at source._
+Lifecycle status of a record sync.
 
 <details><summary>Used in the template — <code>feature/offlinesync/src/commonMain/kotlin/kpt/feature/offlinesync/ui/OfflineSyncPreviews.kt:41</code></summary>
 
@@ -7899,9 +7614,9 @@ internal fun RemoveDialog(record: OfflineRecord, onAction: (OfflineSyncAction) -
 </details>
 
 ```kotlin
-enum class SyncJobStatus { RUNNING, FINISHED, CANCELLED }
+enum class SyncJobStatus
 ```
-_No KDoc at source._
+Lifecycle status of a sync job.
 
 <details><summary>Used in the template — <code>feature/center/src/commonTest/kotlin/kpt/feature/center/list/CenterListViewModelTest.kt:168</code></summary>
 
@@ -7942,9 +7657,9 @@ fun SyncJob.toDownloadProgress(): DownloadProgress = DownloadProgress(
 The job as the centre / group lists' progress dialog draws it (`core/ui` OfflineDownload).
 
 ```kotlin
-enum class RefreshMode { MANUAL, AUTOMATIC }
+enum class RefreshMode
 ```
-_No KDoc at source._
+Refresh mode.
 
 <details><summary>Used in the template — <code>feature/offlinesync/src/commonMain/kotlin/kpt/feature/offlinesync/ui/OfflineSyncPreviews.kt:166</code></summary>
 
@@ -8003,7 +7718,7 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ### `core/model/src/commonMain/kotlin/kpt/core/model/recent/RecentRecord.kt`
 
 ```kotlin
-enum class RecentKind { CLIENT, GROUP, CENTER, LOAN }
+enum class RecentKind
 ```
 What a recently-opened record is — decides its icon and which profile reopens it.
 
@@ -8043,18 +7758,18 @@ A record the officer opened, for Home's "Recently opened". `detail` is the secon
 ```kotlin
 data class AccountChart(
 ```
-_No KDoc at source._
+An account chart.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:16</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:17</code></summary>
 
 ```kotlin
-import kpt.core.model.objects.template.recurring.period.PeriodType
+/** An account chart. */
 @Serializable
 data class AccountChart(
+    /** The client attributes incentives may depend on. */
     val attributeNameOptions: List<AttributeNameOption>? = null,
+    /** The rate slabs of the chart. */
     val chartSlabs: List<ChartSlab>? = null,
-//    val clientClassificationOptions: List<Any?>? = null,
-    val clientTypeOptions: List<ClientTypeOption>? = null,
 ```
 
 </details>
@@ -8064,18 +7779,18 @@ data class AccountChart(
 ```kotlin
 data class AttributeName(
 ```
-_No KDoc at source._
+A client attribute an incentive is conditioned on.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AttributeName.kt:14</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AttributeName.kt:15</code></summary>
 
 ```kotlin
-import kotlinx.serialization.Serializable
+/** A client attribute an incentive is conditioned on. */
 @Serializable
 data class AttributeName(
-    val code: String? = null,
-    val id: Int? = null,
-    val value: String? = null,
-)
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
 ```
 
 </details>
@@ -8085,18 +7800,18 @@ data class AttributeName(
 ```kotlin
 data class ChartSlab(
 ```
-_No KDoc at source._
+A chart slab.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:18</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/AccountChart.kt:21</code></summary>
 
 ```kotlin
-data class AccountChart(
     val attributeNameOptions: List<AttributeNameOption>? = null,
+    /** The rate slabs of the chart. */
     val chartSlabs: List<ChartSlab>? = null,
 //    val clientClassificationOptions: List<Any?>? = null,
+    /** The client types that may be chosen. */
     val clientTypeOptions: List<ClientTypeOption>? = null,
-    val conditionTypeOptions: List<ConditionTypeOption>? = null,
-    val endDate: List<Int>? = null,
+    /** The comparisons incentives may use. */
 ```
 
 </details>
@@ -8106,18 +7821,18 @@ data class AccountChart(
 ```kotlin
 data class ConditionType(
 ```
-_No KDoc at source._
+Kind of a condition.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/ConditionType.kt:14</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/ConditionType.kt:15</code></summary>
 
 ```kotlin
-import kotlinx.serialization.Serializable
+/** Kind of a condition. */
 @Serializable
 data class ConditionType(
-    val code: String? = null,
-    val id: Int? = null,
-    val value: String? = null,
-)
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
 ```
 
 </details>
@@ -8127,9 +7842,9 @@ data class ConditionType(
 ```kotlin
 data class Currency(
 ```
-_No KDoc at source._
+A currency.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:299</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:393</code></summary>
 
 ```kotlin
                 activeLoans = loans?.activeLoans,
@@ -8148,7 +7863,7 @@ _No KDoc at source._
 ```kotlin
 data class EntityType(
 ```
-_No KDoc at source._
+Kind of an entity.
 
 <details><summary>Used in the template — <code>feature/document/src/commonMain/kotlin/kpt/feature/document/list/DocumentListScreenPreview.kt:29</code></summary>
 
@@ -8169,14 +7884,15 @@ _No KDoc at source._
 ```kotlin
 data class Incentive(
 ```
-_No KDoc at source._
+An incentive.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/ChartSlab.kt:22</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/ChartSlab.kt:29</code></summary>
 
 ```kotlin
-    val description: String? = null,
     val fromPeriod: Int? = null,
+    /** The incentives of this rate slab. */
     val incentives: List<Incentive>? = null,
+    /** The unit of the period range. */
     val periodType: PeriodType? = null,
 )
 ```
@@ -8188,13 +7904,13 @@ _No KDoc at source._
 ```kotlin
 data class IncentiveType(
 ```
-_No KDoc at source._
+Kind of an incentive.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:24</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/incentive/Incentive.kt:32</code></summary>
 
 ```kotlin
-    val conditionType: ConditionType? = null,
     val entityType: EntityType? = null,
+    /** How the incentive changes the rate (fixed, increase, decrease). */
     val incentiveType: IncentiveType? = null,
 )
 ```
@@ -8206,18 +7922,18 @@ _No KDoc at source._
 ```kotlin
 data class LockinPeriodFrequencyType(
 ```
-_No KDoc at source._
+Kind of a lockin period frequency.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:43</code></summary>
 
 ```kotlin
-
+    /** Stores a `LockinPeriodFrequencyType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromLockinPeriodFrequencyType(type: LockinPeriodFrequencyType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `LockinPeriodFrequencyType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -8227,7 +7943,7 @@ _No KDoc at source._
 ```kotlin
 data class PeriodType(
 ```
-_No KDoc at source._
+Kind of a period.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/fixeddepositapplication/FixedDepositApplicationScreen.kt:281</code></summary>
 
@@ -8248,7 +7964,7 @@ _No KDoc at source._
 ```kotlin
 data class RecurringDeposit(
 ```
-_No KDoc at source._
+A recurring deposit.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonMain/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModel.kt:324</code></summary>
 
@@ -8269,7 +7985,7 @@ _No KDoc at source._
 ```kotlin
 data class RecurringDepositAccountTemplate(
 ```
-_No KDoc at source._
+Server template for a recurring deposit account: the options its form offers.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonMain/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModel.kt:345</code></summary>
 
@@ -8329,18 +8045,18 @@ One charge on a recurring-deposit application.
 ```kotlin
 data class RecurringFrequencyType(
 ```
-_No KDoc at source._
+Kind of a recurring frequency.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:61</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:99</code></summary>
 
 ```kotlin
-    val preClosurePenalApplicable: Boolean? = null,
     val recurringFrequency: Int? = null,
+    /** The unit of the deposit frequency. */
     val recurringFrequencyType: RecurringFrequencyType? = null,
+    /** The record's Fineract status. */
     val status: Status? = null,
+    /** The account's running totals. */
     val summary: Summary? = null,
-    val timeline: Timeline? = null,
-    val withHoldTax: Boolean? = null,
 ```
 
 </details>
@@ -8350,7 +8066,7 @@ _No KDoc at source._
 ```kotlin
 data class Status(
 ```
-_No KDoc at source._
+Lifecycle status flags of an account.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/identifiers/IdentifierDocumentKey.kt:30</code></summary>
 
@@ -8371,7 +8087,7 @@ internal fun identifierDocumentKeyPrefix(documentTypeName: String?, documentKey:
 ```kotlin
 data class Summary(
 ```
-_No KDoc at source._
+A summary.
 
 <details><summary>Used in the template — <code>feature/collectionsheet/src/commonMain/kotlin/kpt/feature/collectionsheet/ui/details/CollectionSheetDetailsScreen.kt:132</code></summary>
 
@@ -8392,7 +8108,7 @@ _No KDoc at source._
 ```kotlin
 data class Timeline(
 ```
-_No KDoc at source._
+A timeline.
 
 <details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/editdetails/ClientEditDetailsFormTest.kt:189</code></summary>
 
@@ -8413,18 +8129,18 @@ _No KDoc at source._
 ```kotlin
 data class DepositPeriodFrequency(
 ```
-_No KDoc at source._
+A deposit period frequency.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:34</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/recurringdeposit/RecurringDeposit.kt:45</code></summary>
 
 ```kotlin
-    val depositAmount: Double? = null,
     val depositPeriod: Int? = null,
+    /** The unit of the deposit term. */
     val depositPeriodFrequency: DepositPeriodFrequency? = null,
+    /** The server id of the deposit product. */
     val depositProductId: Int? = null,
+    /** The name of the deposit product. */
     val depositProductName: String? = null,
-    val depositType: DepositType? = null,
-    val expectedFirstDepositOnDate: List<Int>? = null,
 ```
 
 </details>
@@ -8434,18 +8150,18 @@ _No KDoc at source._
 ```kotlin
 data class DepositType(
 ```
-_No KDoc at source._
+Kind of a deposit.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:37</code></summary>
 
 ```kotlin
-
+    /** Stores a `SavingAccountDepositTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromDepositType(type: SavingAccountDepositTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `SavingAccountDepositTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -8455,18 +8171,18 @@ _No KDoc at source._
 ```kotlin
 data class InMultiplesOfDepositTermType(
 ```
-_No KDoc at source._
+Kind of an in multiples of deposit term.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/deposit/InMultiplesOfDepositTermType.kt:14</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/deposit/InMultiplesOfDepositTermType.kt:15</code></summary>
 
 ```kotlin
-import kotlinx.serialization.Serializable
+/** Kind of an in multiples of deposit term. */
 @Serializable
 data class InMultiplesOfDepositTermType(
-    val code: String? = null,
-    val id: Int? = null,
-    val value: String? = null,
-)
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
 ```
 
 </details>
@@ -8476,18 +8192,18 @@ data class InMultiplesOfDepositTermType(
 ```kotlin
 data class MaxDepositTermType(
 ```
-_No KDoc at source._
+Kind of a max deposit term.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/deposit/MaxDepositTermType.kt:14</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/deposit/MaxDepositTermType.kt:15</code></summary>
 
 ```kotlin
-import kotlinx.serialization.Serializable
+/** Kind of a max deposit term. */
 @Serializable
 data class MaxDepositTermType(
-    val code: String? = null,
-    val id: Int? = null,
-    val value: String? = null,
-)
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
 ```
 
 </details>
@@ -8497,18 +8213,18 @@ data class MaxDepositTermType(
 ```kotlin
 data class MinDepositTermType(
 ```
-_No KDoc at source._
+Kind of a min deposit term.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/deposit/MinDepositTermType.kt:14</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/objects/template/recurring/deposit/MinDepositTermType.kt:15</code></summary>
 
 ```kotlin
-import kotlinx.serialization.Serializable
+/** Kind of a min deposit term. */
 @Serializable
 data class MinDepositTermType(
-    val code: String? = null,
-    val id: Int? = null,
-    val value: String? = null,
-)
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
 ```
 
 </details>
@@ -8518,12 +8234,12 @@ data class MinDepositTermType(
 ```kotlin
 data class InterestCalculationDaysInYearType(
 ```
-_No KDoc at source._
+Kind of an interest calculation days in year.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:52</code></summary>
 
 ```kotlin
-
+    /** Stores an `InterestCalculationDaysInYearType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCalculationDaysInYearType(
         type: InterestCalculationDaysInYearType?,
@@ -8539,18 +8255,18 @@ _No KDoc at source._
 ```kotlin
 data class InterestCalculationType(
 ```
-_No KDoc at source._
+Kind of an interest calculation.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:58</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:66</code></summary>
 
 ```kotlin
-
+    /** Stores a `InterestCalculationType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCalculationType(type: InterestCalculationType?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `InterestCalculationType?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -8560,12 +8276,12 @@ _No KDoc at source._
 ```kotlin
 data class InterestCompoundingPeriodType(
 ```
-_No KDoc at source._
+Kind of an interest compounding period.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:68</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:78</code></summary>
 
 ```kotlin
-
+    /** Stores an `InterestCompoundingPeriodType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestCompoundingPeriodType(
         type: InterestCompoundingPeriodType?,
@@ -8581,12 +8297,12 @@ _No KDoc at source._
 ```kotlin
 data class InterestPostingPeriodType(
 ```
-_No KDoc at source._
+Kind of an interest posting period.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:27</code></summary>
 
 ```kotlin
-class SavingsPeriodTypeConverters {
+    /** Stores an `InterestPostingPeriodType?` in a JSON column. */
     @ColumnTypeConverter
     fun fromInterestPostingPeriodType(
         type: InterestPostingPeriodType?,
@@ -8619,9 +8335,9 @@ private val previewParameters = listOf(
 </details>
 
 ```kotlin
-enum class ReportParameterType { SELECT, DATE, TEXT, HIDDEN }
+enum class ReportParameterType
 ```
-_No KDoc at source._
+Kind of a report parameter.
 
 <details><summary>Used in the template — <code>feature/report/src/commonMain/kotlin/kpt/feature/report/ui/ReportPreviews.kt:50</code></summary>
 
@@ -8682,7 +8398,7 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 data class FixedDepositPayload(
 ```
-_No KDoc at source._
+Request body for a fixed deposit.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/fixeddepositapplication/FixedDepositApplicationViewModel.kt:108</code></summary>
 
@@ -8702,15 +8418,16 @@ _No KDoc at source._
 ```kotlin
 data class FixedDepositProductOption(
 ```
-_No KDoc at source._
+One fixed deposit product choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/savings/FixedDepositTemplate.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/savings/FixedDepositTemplate.kt:44</code></summary>
 
 ```kotlin
-
+    /** The products that may be chosen. */
     @SerialName("productOptions")
     val productOptions: List<FixedDepositProductOption>? = null,
 
+    /** The field officers that may be assigned. */
     @SerialName("fieldOfficerOptions")
     val fieldOfficerOptions: List<FieldOfficerOptions>? = null,
 ```
@@ -8722,7 +8439,7 @@ _No KDoc at source._
 ```kotlin
 data class FixedDepositTemplate(
 ```
-_No KDoc at source._
+Server template for a fixed deposit: the options its form offers.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/fixeddepositapplication/FixedDepositApplicationScreen.kt:133</code></summary>
 
@@ -8765,16 +8482,15 @@ data class SavingAccountDepositType(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `SavingAccountDepositTypeEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/depositaccounts/ClientDepositAccountsViewModel.kt:174</code></summary>
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/depositaccounts/ClientDepositAccountsViewModel.kt:175</code></summary>
 
 ```kotlin
- */
 enum class DepositAccountKind(
+    /** The deposit type the accounts are filtered on. */
     val serverType: SavingAccountDepositType.ServerTypes,
 ) {
+    /** Plain savings accounts. */
     SAVINGS(SavingAccountDepositType.ServerTypes.SAVINGS),
-    FIXED(SavingAccountDepositType.ServerTypes.FIXED),
-    RECURRING(SavingAccountDepositType.ServerTypes.RECURRING),
 ```
 
 </details>
@@ -8994,7 +8710,7 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
 ```kotlin
 data class ShareAccountPayload(
 ```
-_No KDoc at source._
+Request body for a share account.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/shareapplication/ShareApplicationViewModel.kt:99</code></summary>
 
@@ -9014,7 +8730,7 @@ _No KDoc at source._
 ```kotlin
 data class ShareTemplate(
 ```
-_No KDoc at source._
+Server template for a share account: the options its form offers.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/shareapplication/ShareApplicationScreen.kt:125</code></summary>
 
@@ -9033,13 +8749,13 @@ internal fun ShareApplicationContent(
 ```kotlin
 data class SavingsAccountOption(
 ```
-_No KDoc at source._
+One savings account choice offered by a template.
 
-<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/savings/FixedDepositTemplate.kt:64</code></summary>
+<details><summary>Used in the template — <code>core/model/src/commonMain/kotlin/kpt/core/model/savings/FixedDepositTemplate.kt:80</code></summary>
 
 ```kotlin
-
     val chargeOptions: List<ChargeOption>? = null,
+    /** The savings accounts. */
     val savingsAccounts: List<SavingsAccountOption>? = null,
 )
 ```
@@ -9049,12 +8765,12 @@ _No KDoc at source._
 ```kotlin
 data class FrequencyTypeOption(
 ```
-_No KDoc at source._
+One frequency type choice offered by a template.
 
 ```kotlin
 data class ChargeOptions(
 ```
-_No KDoc at source._
+One charge choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormViewModel.kt:240</code></summary>
 
@@ -9096,7 +8812,7 @@ Addresses one `searchResources` read: what a search screen asks `SearchRepositor
 ```kotlin
 data class BulkRepaymentTransactions(
 ```
-_No KDoc at source._
+One repayment row of a collection sheet.
 
 <details><summary>Used in the template — <code>feature/collectionsheet/src/commonMain/kotlin/kpt/feature/collectionsheet/ui/CollectionSheetPreviews.kt:63</code></summary>
 
@@ -9117,7 +8833,7 @@ private val previewDrafts = mapOf(
 ```kotlin
 data class Changes(
 ```
-_No KDoc at source._
+The fields a command changed, as the server echoes them.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:197</code></summary>
 
@@ -9138,7 +8854,7 @@ _No KDoc at source._
 ```kotlin
 data class CollateralItem(
 ```
-_No KDoc at source._
+A collateral item a client may pledge.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/collateral/ClientCollateralScreen.kt:127</code></summary>
 
@@ -9157,7 +8873,7 @@ internal fun ClientCollateralContent(
 ```kotlin
 data class CollateralItemResult(
 ```
-_No KDoc at source._
+Collateral pledged by a client.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/collateraldetails/ClientCollateralDetailsScreen.kt:77</code></summary>
 
@@ -9178,26 +8894,20 @@ internal fun ClientCollateralDetailsContent(
 ```kotlin
 data class CurrencyDto(
 ```
-_No KDoc at source._
+Transfer shape of a currency.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseTemplateDto.kt:20</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseTemplateDto.kt:24</code></summary>
 
 ```kotlin
-    val netDisbursalAmount: Double,
     val date: List<Int>,
+    /** The currency the amounts are in. */
     val currency: CurrencyDto? = null,
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentTypeOptionDto> = emptyList(),
 )
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/shared/DefaultPayload.kt`
-
-```kotlin
-data class DefaultPayload(
-```
-Created by ADMIN on 16-Jun-15.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/shared/EnumOptionData.kt`
 
@@ -9220,19 +8930,12 @@ _No KDoc at source._
 
 </details>
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/shared/GenericRequest.kt`
-
-```kotlin
-class GenericRequest
-```
-Created by ishankhanna on 24/06/14.
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/shared/GenericResponse.kt`
 
 ```kotlin
 data class GenericResponse(
 ```
-_No KDoc at source._
+Server response to a generic request.
 
 <details><summary>Used in the template — <code>feature/activate/src/commonTest/kotlin/kpt/feature/activate/ui/ActivateViewModelTest.kt:248</code></summary>
 
@@ -9252,7 +8955,7 @@ private class FakeCenterCommands(
 ```kotlin
 open class Payload
 ```
-_No KDoc at source._
+Request body for creating an entity.
 
 <details><summary>Used in the template — <code>feature/activate/src/commonTest/kotlin/kpt/feature/activate/ui/ActivateViewModelTest.kt:255</code></summary>
 
@@ -9273,13 +8976,13 @@ _No KDoc at source._
 ```kotlin
 data class PaymentTypeOptionDto(
 ```
-_No KDoc at source._
+One payment type choice offered by a template.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseTemplateDto.kt:21</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseTemplateDto.kt:26</code></summary>
 
 ```kotlin
-    val date: List<Int>,
     val currency: CurrencyDto? = null,
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentTypeOptionDto> = emptyList(),
 )
 ```
@@ -9291,18 +8994,18 @@ _No KDoc at source._
 ```kotlin
 data class PinpointLocationActionResponse(
 ```
-_No KDoc at source._
+Server response to a pinpoint location action request.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:75</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientCommandRepository.kt:80</code></summary>
 
 ```kotlin
         clientId: Int,
         clientAddressRequest: ClientAddressRequest?,
     ): MutationResult<PinpointLocationActionResponse>
 
+    /** Deletes a client's pinpoint location. */
     suspend fun deleteClientPinpointLocation(
         apptableId: Int,
-        datatableId: Int,
 ```
 
 </details>
@@ -9312,7 +9015,7 @@ _No KDoc at source._
 ```kotlin
 data class ProductOption(
 ```
-_No KDoc at source._
+One product choice offered by a template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonTest/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModelTest.kt:64</code></summary>
 
@@ -9331,7 +9034,7 @@ _No KDoc at source._
 ```kotlin
 data class ProductCurrency(
 ```
-_No KDoc at source._
+A product currency.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/shared/ResultsetColumnHeaderData.kt`
 
@@ -9361,13 +9064,14 @@ data class RetrieveOneResponse(
 ```
 GetStaffResponse
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/staff/api/StaffApi.kt:42</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/staff/api/StaffApi.kt:43</code></summary>
 
 ```kotlin
         @Query("loanOfficersOnly") loanOfficersOnly: Boolean? = false,
         @Query("status") status: String? = "active",
     ): List<RetrieveOneResponse>
 
+    /** Reads the staff of an office, active or not. */
     @GET("staff?status=all")
     suspend fun getStaffForOffice(@Query("officeId") officeId: Int): List<Staff>
 ```
@@ -9400,7 +9104,7 @@ _No KDoc at source._
 ```kotlin
 data class Timeline(
 ```
-_No KDoc at source._
+A timeline.
 
 <details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/editdetails/ClientEditDetailsFormTest.kt:189</code></summary>
 
@@ -9444,7 +9148,7 @@ data class ComponentDatas(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `ComponentDatasEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/entity/ComponentDatasEntity.kt:24</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/entity/ComponentDatasEntity.kt:25</code></summary>
 
 ```kotlin
     foreignKeys = [],
@@ -9452,8 +9156,8 @@ GENERATED twin — what every layer above `core/store` sees of `core/database`'s
     tableName = "ComponentDatas",
 )
 data class ComponentDatasEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
 ```
 
 </details>
@@ -9465,16 +9169,16 @@ data class QuestionDatas(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `QuestionDatasEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/dao/SurveyDao.kt:55</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/dao/SurveyDao.kt:61</code></summary>
 
 ```kotlin
-    }
 
+    /** Observes the `QuestionDatas` rows whose `surveyId` is `surveyId`, ordered by `sequenceNo`. */
     @Query("SELECT * FROM QuestionDatas WHERE surveyId = :surveyId ORDER BY sequenceNo ASC")
     fun getQuestionDatas(surveyId: Int): Flow<List<QuestionDatasEntity>>
 
+    /** Observes the `ResponseDatas` rows whose `id` is `questionId`, ordered by `sequenceNo`. */
     @Query("SELECT * FROM ResponseDatas WHERE id = :questionId ORDER BY sequenceNo ASC")
-    fun getResponseDatas(questionId: Int): Flow<List<ResponseDatasEntity>>
 ```
 
 </details>
@@ -9486,11 +9190,11 @@ data class ResponseDatas(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `ResponseDatasEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/dao/SurveyDao.kt:58</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/dao/SurveyDao.kt:65</code></summary>
 
 ```kotlin
-    fun getQuestionDatas(surveyId: Int): Flow<List<QuestionDatasEntity>>
 
+    /** Observes the `ResponseDatas` rows whose `id` is `questionId`, ordered by `sequenceNo`. */
     @Query("SELECT * FROM ResponseDatas WHERE id = :questionId ORDER BY sequenceNo ASC")
     fun getResponseDatas(questionId: Int): Flow<List<ResponseDatasEntity>>
 
@@ -9507,16 +9211,13 @@ data class Survey(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `SurveyEntity`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/common/src/commonMain/kotlin/kpt/core/common/utils/Constants.kt:44</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/survey/SurveyRepository.kt:19</code></summary>
 
 ```kotlin
-    const val CLIENT_NAME = "clientName"
-    const val CLIENT_ID = "clientId"
-    const val CLIENT_SURVEY = "clientSurvey"
-    const val ID = "id"
-    const val CLIENT = "Client"
-    const val CLIENTS = "clients"
-    const val LOAN_ACCOUNT_NUMBER = "loanAccountNumber"
+interface SurveyRepository {
+    /** Surveys the officer can administer in the field. */
+    fun surveysStream(scope: CoroutineScope): ScreenDataStream<List<Survey>>
+}
 ```
 
 </details>
@@ -9535,7 +9236,7 @@ enum class DarkThemeConfig(val configName: String, val osValue: Int)
 ```
 The user's dark-mode preference: follow the system, or force light/dark. `osValue` maps to the platform's own night-mode constant, so the choice can be handed straight to the OS rather than re-interpreted per platform.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsDialog.kt:68</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsDialog.kt:69</code></summary>
 
 ```kotlin
         onChangeThemeBrand = viewModel::updateThemeBrand,
@@ -9544,7 +9245,7 @@ The user's dark-mode preference: follow the system, or force light/dark. `osValu
     )
 }
 
-@Composable
+/** The stateless theme settings dialog: brand, dark mode and dynamic colour. */
 ```
 
 </details>
@@ -9556,7 +9257,7 @@ enum class LanguageConfig(
 ```
 Every language the app can be switched to, in the user's OWN language. GENERATED from core/registries/LOCALE_REGISTRY.yaml by `core/scripts/language-picker-sync.sh --write` — DO NOT HAND-EDIT.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:62</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:64</code></summary>
 
 ```kotlin
     onDismiss: () -> Unit,
@@ -9577,7 +9278,7 @@ enum class ThemeBrand(val brandName: String)
 ```
 The selected colour brand. A fork extends this to offer its own palettes.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsDialog.kt:66</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsDialog.kt:67</code></summary>
 
 ```kotlin
         settingsState = settingsState,
@@ -9590,13 +9291,6 @@ The selected colour brand. A fork extends this to offer its own palettes.
 ```
 
 </details>
-
-### `core/model/src/commonMain/kotlin/kpt/core/model/user/UnlockType.kt`
-
-```kotlin
-enum class UnlockType
-```
-How the user unlocks the app — passcode or biometric.
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/user/UserData.kt`
 
@@ -9704,19 +9398,12 @@ fun formatDate(millis: Long, pattern: DateFormatPattern): String
 ```
 Format epoch milliseconds to date string using specified pattern.
 
-### `core/model/src/commonMain/kotlin/kpt/core/model/utils/JsonExtension.kt`
-
-```kotlin
-fun String.asServerConfig(): ServerConfig
-```
-_No KDoc at source._
-
 ### `core/model/src/commonMain/kotlin/kpt/core/model/utils/ServerConfig.kt`
 
 ```kotlin
 data class ServerConfig(
 ```
-_No KDoc at source._
+A server config.
 
 <details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:77</code></summary>
 
@@ -9735,7 +9422,7 @@ _No KDoc at source._
 ```kotlin
 fun ServerConfig.getInstanceUrl(): String
 ```
-_No KDoc at source._
+The API base URL: protocol, endpoint and API path, without the port.
 
 ```kotlin
 fun ServerConfig.baseUrl(): String
@@ -9752,7 +9439,7 @@ data class ServerInstance(
 ```
 A server the officer picks by name instead of typing five fields. `demoAccounts` is non-empty for a PUBLIC demo instance — the Mifos community publishes those sign-ins, so showing them is the point.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigScreen.kt:464</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigScreen.kt:491</code></summary>
 
 ```kotlin
 /** "Signed in to …": the session's server, its address and tenant, and who is signed in. */
@@ -9792,5 +9479,5 @@ The instance whose config is exactly `config`, or null for a custom server.
 
 ---
 
-_500 type(s), 46 function(s)/property(ies); 308 carry KDoc at source; 2 authored example(s); 453 live call site(s)._
+_460 type(s), 45 function(s)/property(ies); 487 carry KDoc at source; 2 authored example(s); 451 live call site(s)._
 <!-- api-docs:end -->

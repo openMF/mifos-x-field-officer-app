@@ -17,9 +17,14 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ResponseDatas(
+    /** The server id of the response. */
     val responseId: Int = 0,
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The text shown for this item. */
     val text: String? = null,
+    /** The order this item is shown in. */
     val sequenceNo: Int = 0,
+    /** The score this answer carries. */
     val value: Int = 0,
 )

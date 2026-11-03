@@ -11,10 +11,15 @@ package kpt.core.model.objects.account.loan.reschedules
 
 import kotlinx.serialization.Serializable
 
+/** A reschedule timeline. */
 @Serializable
 data class RescheduleTimeline(
+    /** The date the record was submitted. */
     val submittedOnDate: List<Int>? = null,
+    /** The username of whoever submitted the record. */
     val submittedByUsername: String? = null,
+    /** The date the record was approved. */
     val approvedOnDate: List<Int>? = null,
+    /** The username of whoever approved the record. */
     val approvedByUsername: String? = null,
 )

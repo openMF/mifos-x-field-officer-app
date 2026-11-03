@@ -15,6 +15,7 @@ import kpt.core.base.network.annotation.ApiBinding
 import kpt.core.model.shared.RetrieveOneResponse
 import kpt.core.model.staff.Staff
 
+/** Fineract endpoints for staff. */
 @ApiBinding("mifos")
 interface StaffApi {
 
@@ -41,12 +42,15 @@ interface StaffApi {
         @Query("status") status: String? = "active",
     ): List<RetrieveOneResponse>
 
+    /** Reads the staff of an office, active or not. */
     @GET("staff?status=all")
     suspend fun getStaffForOffice(@Query("officeId") officeId: Int): List<Staff>
 
+    /** Reads every staff member. */
     @GET("staff")
     suspend fun allStaff(): List<Staff>
 
+    /** Reads every loan officer. */
     @GET("staff?isLoanOfficer=true")
     suspend fun fieldStaffForOffice(): List<Staff>
 }

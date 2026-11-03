@@ -11,8 +11,11 @@ package kpt.core.network.mifos.savings.dto
 
 import kotlinx.serialization.Serializable
 
+/** One saving account choice offered by a template. */
 @Serializable
 data class SavingAccountOption(
+    /** The server id of this record. */
     val id: Long,
+    /** The account number Fineract assigned. */
     val accountNo: String,
 )

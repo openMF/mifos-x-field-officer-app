@@ -65,6 +65,7 @@ import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Outlined text field over a [TextFieldValue], with an optional leading icon and error text. */
 @Composable
 fun AppOutlinedTextField(
     value: TextFieldValue,
@@ -125,6 +126,7 @@ fun AppOutlinedTextField(
     )
 }
 
+/** Outlined text field with placeholder, error text and an optional password visibility toggle. */
 @Composable
 fun AppOutlinedTextField(
     value: String,
@@ -246,6 +248,7 @@ fun AppOutlinedTextField(
     )
 }
 
+/** Outlined text field that shows `error` beneath it when non-null. */
 @Composable
 fun AppOutlinedTextField(
     value: String,
@@ -364,6 +367,7 @@ private fun ClearIconButton(
     }
 }
 
+/** Read-only field showing a date; tapping it calls `openDatePicker`. */
 @Composable
 fun AppDatePickerTextField(
     value: String,
@@ -422,6 +426,7 @@ fun AppDatePickerTextField(
     )
 }
 
+/** Outlined text field configured by an [AppTextFieldConfig]. */
 @Composable
 fun AppOutlinedTextField(
     value: String,
@@ -501,26 +506,44 @@ fun AppOutlinedTextField(
  * ([KeyboardType.Password]) only.
  */
 data class AppPasswordToggle(
+    /** True while the password is shown in clear text. */
     val isVisible: Boolean = false,
+    /** Called with the new visibility when the toggle is tapped. */
     val onClick: (Boolean) -> Unit = {},
     val isDisplayed: Boolean? = null,
 )
 
+/** Behaviour and decoration of an [AppOutlinedTextField]. */
 data class AppTextFieldConfig(
+    /** False to disable input. */
     val enabled: Boolean = true,
+    /** True to show a clear button while the field has text. */
     val showClearIcon: Boolean = true,
+    /** True to show the value without allowing edits. */
     val readOnly: Boolean = false,
+    /** Icon of the clear button. */
     val clearIcon: ImageVector = AppIcons.Close,
+    /** True to draw the field in its error state. */
     val isError: Boolean = false,
+    /** Error message shown beneath the field. */
     val errorText: String? = null,
+    /** Transformation of the displayed text, such as password masking. */
     val visualTransformation: VisualTransformation = VisualTransformation.None,
+    /** Handlers for the soft keyboard's IME actions. */
     val keyboardActions: KeyboardActions = KeyboardActions.Default,
+    /** True to keep the text on one line. */
     val singleLine: Boolean = true,
+    /** Most lines the field grows to. */
     val maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    /** Fewest lines the field shows. */
     val minLines: Int = 1,
+    /** Soft-keyboard type and IME action. */
     val keyboardOptions: KeyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+    /** Content after the text, replacing the clear button. */
     val trailingIcon: @Composable (() -> Unit)? = null,
+    /** Content before the text. */
     val leadingIcon: @Composable (() -> Unit)? = null,
+    /** Content directly before the text, such as a currency symbol. */
     val prefix: @Composable (() -> Unit)? = null,
 )
 

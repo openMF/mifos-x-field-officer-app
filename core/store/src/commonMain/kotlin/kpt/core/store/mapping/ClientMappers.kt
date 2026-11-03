@@ -32,18 +32,21 @@ import kpt.core.database.client.entity.ClientStatusEntity as ClientStatusRow
  * S5-FEATURE-DEP-DIRECTION).
  */
 
+/** Maps the stored row to its `ClientAccounts` model. */
 fun ClientAccountsRow.toModel(): ClientAccounts = ClientAccounts(
     loanAccounts = loanAccounts.map { it.toModel() },
     savingsAccounts = savingsAccounts.map { it.toModel() },
     shareAccounts = shareAccounts,
 )
 
+/** Maps the model to its stored `ClientAccountsRow`. */
 fun ClientAccounts.toEntity(): ClientAccountsRow = ClientAccountsRow(
     loanAccounts = loanAccounts.map { it.toEntity() },
     savingsAccounts = savingsAccounts.map { it.toEntity() },
     shareAccounts = shareAccounts,
 )
 
+/** Maps the stored row to its `ClientChargeCurrency` model. */
 fun ClientChargeCurrencyRow.toModel(): ClientChargeCurrency = ClientChargeCurrency(
     id = id,
     code = code,
@@ -55,6 +58,7 @@ fun ClientChargeCurrencyRow.toModel(): ClientChargeCurrency = ClientChargeCurren
     displayLabel = displayLabel,
 )
 
+/** Maps the model to its stored `ClientChargeCurrencyRow`. */
 fun ClientChargeCurrency.toEntity(): ClientChargeCurrencyRow = ClientChargeCurrencyRow(
     id = id,
     code = code,
@@ -66,6 +70,7 @@ fun ClientChargeCurrency.toEntity(): ClientChargeCurrencyRow = ClientChargeCurre
     displayLabel = displayLabel,
 )
 
+/** Maps the stored row to its `ClientDate` model. */
 fun ClientDateRow.toModel(): ClientDate = ClientDate(
     clientId = clientId,
     chargeId = chargeId,
@@ -74,6 +79,7 @@ fun ClientDateRow.toModel(): ClientDate = ClientDate(
     year = year,
 )
 
+/** Maps the model to its stored `ClientDateRow`. */
 fun ClientDate.toEntity(): ClientDateRow = ClientDateRow(
     clientId = clientId,
     chargeId = chargeId,
@@ -82,6 +88,7 @@ fun ClientDate.toEntity(): ClientDateRow = ClientDateRow(
     year = year,
 )
 
+/** Maps the stored row to its `Client` model. */
 fun ClientRow.toModel(): Client = Client(
     id = id,
     groupId = groupId,
@@ -117,6 +124,7 @@ fun ClientRow.toModel(): Client = Client(
     clientClassification = clientClassification?.toModel(),
 )
 
+/** Maps the model to its stored `ClientRow`. */
 fun Client.toEntity(): ClientRow = ClientRow(
     id = id,
     groupId = groupId,
@@ -152,6 +160,7 @@ fun Client.toEntity(): ClientRow = ClientRow(
     clientClassification = clientClassification?.toEntity(),
 )
 
+/** Maps the stored row to its `ClientPayload` model. */
 fun ClientPayloadRow.toModel(): ClientPayload = ClientPayload(
     id = id,
     clientCreationTime = clientCreationTime,
@@ -178,6 +187,7 @@ fun ClientPayloadRow.toModel(): ClientPayload = ClientPayload(
     legalFormId = legalFormId,
 )
 
+/** Maps the model to its stored `ClientPayloadRow`. */
 fun ClientPayload.toEntity(): ClientPayloadRow = ClientPayloadRow(
     id = id,
     clientCreationTime = clientCreationTime,
@@ -204,12 +214,14 @@ fun ClientPayload.toEntity(): ClientPayloadRow = ClientPayloadRow(
     legalFormId = legalFormId,
 )
 
+/** Maps the stored row to its `ClientStatus` model. */
 fun ClientStatusRow.toModel(): ClientStatus = ClientStatus(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the model to its stored `ClientStatusRow`. */
 fun ClientStatus.toEntity(): ClientStatusRow = ClientStatusRow(
     id = id,
     code = code,

@@ -53,10 +53,18 @@ class ConflictInboxViewModel(
 
 /** Per-row conflict actions accepted by [ConflictInboxViewModel]. */
 sealed interface ConflictInboxAction {
-    /** Accept the server record for conflict [id]. */
+    /**
+     * Accept the server record for conflict [id].
+     *
+     * @property id the conflict
+     */
     data class AcceptServer(val id: String) : ConflictInboxAction
 
-    /** Retry the recorded local payload for conflict [id]. */
+    /**
+     * Retry the recorded local payload for conflict [id].
+     *
+     * @property id the conflict
+     */
     data class RetryLocal(val id: String) : ConflictInboxAction
 }
 
@@ -65,7 +73,11 @@ sealed interface ConflictInboxUiState {
     /** Initial state before the first [ConflictInbox.observePending] emission. */
     data object Loading : ConflictInboxUiState
 
-    /** The live pending-conflict feed, newest first. */
+    /**
+     * The live pending-conflict feed, newest first.
+     *
+     * @property conflicts the sync conflicts waiting for a decision, newest first
+     */
     data class Success(val conflicts: List<ConflictEntry>) : ConflictInboxUiState {
         /** True when there are no pending conflicts — drives the empty state. */
         val isEmpty: Boolean get() = conflicts.isEmpty()

@@ -11,6 +11,8 @@ package kpt.core.store.client
 
 /** Addresses one `getClientIdentifiers` read. */
 data class GetClientIdentifiersKey(
+    /** The client's server id. */
     val clientId: Long,
+    /** The identifier's server id. */
     val identifierId: Long,
 )

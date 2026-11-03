@@ -173,66 +173,129 @@ class ProfileViewModel(
     }
 }
 
+/**
+ * What the profile screen shows: the signed-in user, their staff link, the server session and the change-password
+ * sheet.
+ */
 data class ProfileUiState(
+    /** The signed-in username. */
     val username: String = "",
+    /** Avatar initials, drawn the same way as on Home. */
     val initials: String = "",
+    /** The user's office. */
     val officeName: String = "",
     /** Null until `users/{id}` answers, or when it never does. */
     val fullName: String? = null,
+    /** The user's email address, when the user record has one. */
     val email: String? = null,
+    /** The names of the user's Fineract roles. */
     val roles: List<String> = emptyList(),
+    /** The display name of the linked staff record; null when there is no link. */
     val staffName: String? = null,
+    /** True when the user is linked to a staff record. */
     val hasStaffLink: Boolean = false,
     /** Null when unknown (no link, or the staff read was refused) — the chip then says "Staff". */
     val isLoanOfficer: Boolean? = null,
+    /** Whether the full name has loaded, is loading, or failed. */
     val name: NameState = NameState.Loading,
+    /** False while the device has no network. */
     val online: Boolean = true,
+    /** The server the app is signed in to. */
     val server: ServerSession = ServerSession(),
     /** Null = the change-password sheet is closed. */
     val password: PasswordForm? = null,
 )
 
+/** The load state of the user's full name. */
 sealed interface NameState {
+    /** The user record is still loading. */
     data object Loading : NameState
+
+    /** The user record loaded. */
     data object Loaded : NameState
 
-    /** [reason] is the server's own message when it sent one. */
+    /**
+     * [reason] is the server's own message when it sent one.
+     *
+     * @property reason the server's message, when it sent one
+     */
     data class Failed(val reason: String?) : NameState
 }
 
+/** The server session shown in the profile's server card. */
 data class ServerSession(
+    /** The instance's display name. */
     val instanceName: String = "",
     /** True when the config is one of the published instances — the "Live" badge. */
     val known: Boolean = false,
+    /** The server's base URL. */
     val url: String = "",
+    /** The Fineract tenant identifier. */
     val tenant: String = "",
 )
 
+/** The change-password sheet's form. */
 data class PasswordForm(
+    /** The new password as typed. */
     val new: String = "",
+    /** The new password typed a second time. */
     val repeat: String = "",
+    /** True while the change is being sent. */
     val submitting: Boolean = false,
+    /** Why the last attempt failed; null when it has not failed. */
     val error: PasswordError? = null,
 ) {
+    /** True once the repeat has text that differs from the new password. */
     val mismatch: Boolean get() = repeat.isNotEmpty() && repeat != new
+
+    /** True when both fields are filled, they match, and nothing is being sent. */
     val canSave: Boolean get() = new.isNotEmpty() && repeat.isNotEmpty() && !mismatch && !submitting
 }
 
+/** Why a password change failed. */
 sealed interface PasswordError {
-    /** [message] is the server's per-field messages, one per line; null → the screen's generic copy. */
+    /**
+     * [message] is the server's per-field messages, one per line; null → the screen's generic copy.
+     *
+     * @property message the server's per-field messages, one per line
+     */
     data class Server(val message: String?) : PasswordError
+
+    /** The device has no network; nothing was sent. */
     data object Offline : PasswordError
 }
 
+/** What the user did on the profile screen. */
 sealed interface ProfileAction {
+    /** Reload the user record after a failure. */
     data object Retry : ProfileAction
+
+    /** Open the change-password sheet. */
     data object OpenChangePassword : ProfileAction
+
+    /** Close the change-password sheet without saving. */
     data object DismissPassword : ProfileAction
+
+    /**
+     * The new-password field changed.
+     *
+     * @property value the new text
+     */
     data class NewPassword(val value: String) : ProfileAction
+
+    /**
+     * The repeat-password field changed.
+     *
+     * @property value the new text
+     */
     data class RepeatPassword(val value: String) : ProfileAction
+
+    /** Send the password change. */
     data object SubmitPassword : ProfileAction
 }
 
+/** One-off effects of the profile screen, for the screen to act on. */
 sealed interface ProfileEvent {
+    /** The password was changed — the screen confirms and closes the sheet. */
     data object PasswordChanged : ProfileEvent
 }

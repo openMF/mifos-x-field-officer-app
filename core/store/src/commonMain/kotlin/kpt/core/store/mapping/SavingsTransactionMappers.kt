@@ -24,6 +24,7 @@ import kpt.core.database.savings.entity.SavingsAccountTransactionTemplateEntity 
 import kpt.core.database.savings.entity.SavingsTransactionDateEntity as SavingsTransactionDateRow
 import kpt.core.database.savings.entity.SavingsTransactionTypeEntity as SavingsTransactionTypeRow
 
+/** Maps the stored row to its `SavingProductOptions` model. */
 fun SavingProductOptionsRow.toModel(): SavingProductOptions = SavingProductOptions(
     id = id,
     name = name,
@@ -31,6 +32,7 @@ fun SavingProductOptionsRow.toModel(): SavingProductOptions = SavingProductOptio
     allowOverdraft = allowOverdraft,
 )
 
+/** Maps the model to its stored `SavingProductOptionsRow`. */
 fun SavingProductOptions.toEntity(): SavingProductOptionsRow = SavingProductOptionsRow(
     id = id,
     name = name,
@@ -38,6 +40,7 @@ fun SavingProductOptions.toEntity(): SavingProductOptionsRow = SavingProductOpti
     allowOverdraft = allowOverdraft,
 )
 
+/** Maps the stored row to its `SavingProductsTemplate` model. */
 fun SavingProductsTemplateRow.toModel(): SavingProductsTemplate = SavingProductsTemplate(
     currency = currency,
     interestCompoundingPeriodType = interestCompoundingPeriodType,
@@ -62,6 +65,7 @@ fun SavingProductsTemplateRow.toModel(): SavingProductsTemplate = SavingProducts
     chargeOptions = chargeOptions,
 )
 
+/** Maps the model to its stored `SavingProductsTemplateRow`. */
 fun SavingProductsTemplate.toEntity(): SavingProductsTemplateRow = SavingProductsTemplateRow(
     currency = currency,
     interestCompoundingPeriodType = interestCompoundingPeriodType,
@@ -86,6 +90,7 @@ fun SavingProductsTemplate.toEntity(): SavingProductsTemplateRow = SavingProduct
     chargeOptions = chargeOptions,
 )
 
+/** Maps the stored row to its `SavingsAccountTransaction` model. */
 fun SavingsAccountTransactionRow.toModel(): SavingsAccountTransaction = SavingsAccountTransaction(
     id = id,
     savingsAccountId = savingsAccountId,
@@ -100,6 +105,7 @@ fun SavingsAccountTransactionRow.toModel(): SavingsAccountTransaction = SavingsA
     reversed = reversed,
 )
 
+/** Maps the model to its stored `SavingsAccountTransactionRow`. */
 fun SavingsAccountTransaction.toEntity(): SavingsAccountTransactionRow = SavingsAccountTransactionRow(
     id = id,
     savingsAccountId = savingsAccountId,
@@ -114,6 +120,7 @@ fun SavingsAccountTransaction.toEntity(): SavingsAccountTransactionRow = Savings
     reversed = reversed,
 )
 
+/** Maps the stored row to its `SavingsAccountTransactionTemplate` model. */
 fun SavingsAccountTransactionTemplateRow.toModel(): SavingsAccountTransactionTemplate =
     SavingsAccountTransactionTemplate(
         accountId = accountId,
@@ -123,6 +130,7 @@ fun SavingsAccountTransactionTemplateRow.toModel(): SavingsAccountTransactionTem
         paymentTypeOptions = paymentTypeOptions.map { it.toModel() },
     )
 
+/** Maps the model to its stored `SavingsAccountTransactionTemplateRow`. */
 fun SavingsAccountTransactionTemplate.toEntity(): SavingsAccountTransactionTemplateRow =
     SavingsAccountTransactionTemplateRow(
         accountId = accountId,
@@ -132,6 +140,7 @@ fun SavingsAccountTransactionTemplate.toEntity(): SavingsAccountTransactionTempl
         paymentTypeOptions = paymentTypeOptions.map { it.toEntity() },
     )
 
+/** Maps the stored row to its `SavingsTransactionDate` model. */
 fun SavingsTransactionDateRow.toModel(): SavingsTransactionDate = SavingsTransactionDate(
     transactionId = transactionId,
     year = year,
@@ -139,6 +148,7 @@ fun SavingsTransactionDateRow.toModel(): SavingsTransactionDate = SavingsTransac
     day = day,
 )
 
+/** Maps the model to its stored `SavingsTransactionDateRow`. */
 fun SavingsTransactionDate.toEntity(): SavingsTransactionDateRow = SavingsTransactionDateRow(
     transactionId = transactionId,
     year = year,
@@ -146,6 +156,7 @@ fun SavingsTransactionDate.toEntity(): SavingsTransactionDateRow = SavingsTransa
     day = day,
 )
 
+/** Maps the stored row to its `SavingsTransactionType` model. */
 fun SavingsTransactionTypeRow.toModel(): SavingsTransactionType = SavingsTransactionType(
     id = id,
     code = code,
@@ -163,6 +174,7 @@ fun SavingsTransactionTypeRow.toModel(): SavingsTransactionType = SavingsTransac
     overdraftFee = overdraftFee,
 )
 
+/** Maps the model to its stored `SavingsTransactionTypeRow`. */
 fun SavingsTransactionType.toEntity(): SavingsTransactionTypeRow = SavingsTransactionTypeRow(
     id = id,
     code = code,
@@ -180,6 +192,7 @@ fun SavingsTransactionType.toEntity(): SavingsTransactionTypeRow = SavingsTransa
     overdraftFee = overdraftFee,
 )
 
+/** Maps the stored row to its `SavingsAccountTransactionRequest` model. */
 fun SavingsAccountTransactionRequestRow.toModel(): SavingsAccountTransactionRequest = SavingsAccountTransactionRequest(
     id = id,
     savingAccountId = savingAccountId,
@@ -199,6 +212,7 @@ fun SavingsAccountTransactionRequestRow.toModel(): SavingsAccountTransactionRequ
     errorMessage = errorMessage,
 )
 
+/** Maps the model to its stored `SavingsAccountTransactionRequestRow`. */
 fun SavingsAccountTransactionRequest.toEntity(): SavingsAccountTransactionRequestRow =
     SavingsAccountTransactionRequestRow(
         id = id,

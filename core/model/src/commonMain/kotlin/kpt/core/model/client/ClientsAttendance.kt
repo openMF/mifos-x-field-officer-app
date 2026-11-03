@@ -10,8 +10,11 @@
 package kpt.core.model.client
 
 import kotlinx.serialization.Serializable
+/** One client's attendance on a collection sheet. */
 @Serializable
 data class ClientsAttendance(
+    /** Whether the client attended the meeting. */
     val attendanceType: Int,
+    /** The server id of the client. */
     val clientId: Int,
 )

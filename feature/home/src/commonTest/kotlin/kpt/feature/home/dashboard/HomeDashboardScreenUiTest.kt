@@ -33,15 +33,26 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalTestApi::class)
 class HomeDashboardScreenUiTest {
 
-    private val queue = HomeCard.WorkQueue(checkerTasks = 0, awaitingApproval = 12, awaitingDisbursal = 1, pendingClients = 9, pendingReschedules = 1)
+    private val queue = HomeCard.WorkQueue(
+        checkerTasks = 0,
+        awaitingApproval = 12,
+        awaitingDisbursal = 1,
+        pendingClients = 9,
+        pendingReschedules = 1,
+    )
 
     private fun state(
         queueState: ScreenState<HomeCard> = ScreenState.Content(queue),
-        collections: ScreenState<HomeCard> = ScreenState.Content(HomeCard.Collections(clientsDue = 3, loansDue = 4, dueByCurrency = listOf(Money(900.0, "MXN", "$")))),
+        collections: ScreenState<HomeCard> = ScreenState.Content(
+            HomeCard.Collections(clientsDue = 3, loansDue = 4, dueByCurrency = listOf(Money(900.0, "MXN", "$"))),
+        ),
         draftCount: Int = 0,
     ) = HomeUiState(
         header = HomeHeader(name = "IRVING", officeName = "CENTRAL", businessDate = "2026-10-26"),
-        cards = listOf(HomeCardSlot(HomeCardId.COLLECTIONS, collections), HomeCardSlot(HomeCardId.WORK_QUEUE, queueState)),
+        cards = listOf(
+            HomeCardSlot(HomeCardId.COLLECTIONS, collections),
+            HomeCardSlot(HomeCardId.WORK_QUEUE, queueState),
+        ),
         quickActions = listOf(QuickAction.NEW_CLIENT, QuickAction.SEARCH, QuickAction.PATH_TRACKER),
         draftCount = draftCount,
     )
@@ -49,7 +60,13 @@ class HomeDashboardScreenUiTest {
     @Test
     fun contentRendersEveryDeclaredSurface() = runComposeUiTest {
         setContent { KptTheme { HomeDashboardScreenContent(state(), onRetry = {}, onRefresh = {}, onNavigate = {}) } }
-        listOf(TestTags.Home.HEADER, TestTags.Home.COLLECTIONS, TestTags.Home.OPEN_COLLECTION_SHEET, TestTags.Home.WORK_QUEUE, TestTags.Home.QUICK_ACTIONS)
+        listOf(
+            TestTags.Home.HEADER,
+            TestTags.Home.COLLECTIONS,
+            TestTags.Home.OPEN_COLLECTION_SHEET,
+            TestTags.Home.WORK_QUEUE,
+            TestTags.Home.QUICK_ACTIONS,
+        )
             .forEach { onNodeWithTag(it).performScrollTo().assertIsDisplayed() }
     }
 
@@ -59,7 +76,15 @@ class HomeDashboardScreenUiTest {
         setContent {
             KptTheme {
                 HomeDashboardScreenContent(
-                    state(collections = ScreenState.Content(HomeCard.Collections(clientsDue = due, loansDue = due, dueByCurrency = listOf(Money(900.0, "MXN", "$"))))),
+                    state(
+                        collections = ScreenState.Content(
+                            HomeCard.Collections(
+                                clientsDue = due,
+                                loansDue = due,
+                                dueByCurrency = listOf(Money(900.0, "MXN", "$")),
+                            ),
+                        ),
+                    ),
                     onRetry = {},
                     onRefresh = {},
                     onNavigate = {},
@@ -76,7 +101,9 @@ class HomeDashboardScreenUiTest {
     @Test
     fun queueTilesNavigateToTheirDeclaredTargets() = runComposeUiTest {
         val taps = mutableListOf<HomeNavigation>()
-        setContent { KptTheme { HomeDashboardScreenContent(state(), onRetry = {}, onRefresh = {}, onNavigate = { taps += it }) } }
+        setContent {
+            KptTheme { HomeDashboardScreenContent(state(), onRetry = {}, onRefresh = {}, onNavigate = { taps += it }) }
+        }
         onNodeWithTag(TestTags.Home.QUEUE_APPROVAL).performScrollTo().performClick()
         onNodeWithTag(TestTags.Home.QUEUE_PENDING_CLIENTS).performScrollTo().performClick()
         onNodeWithTag(TestTags.Home.OPEN_COLLECTION_SHEET).performScrollTo().performClick()
@@ -101,11 +128,26 @@ class HomeDashboardScreenUiTest {
     @Test
     fun draftsTileAlwaysShowsItsCount() = runComposeUiTest {
         var drafts by mutableIntStateOf(0)
-        setContent { KptTheme { HomeDashboardScreenContent(state(draftCount = drafts), onRetry = {}, onRefresh = {}, onNavigate = {}) } }
+        setContent {
+            KptTheme {
+                HomeDashboardScreenContent(
+                    state(draftCount = drafts),
+                    onRetry = {},
+                    onRefresh = {},
+                    onNavigate = {},
+                )
+            }
+        }
         // Stitch 02: the sixth queue tile is always there; "0" means nothing is waiting to sync.
-        onNode(hasText("0") and hasAnyAncestor(hasTestTag(TestTags.Home.QUEUE_DRAFTS)), useUnmergedTree = true).performScrollTo().assertIsDisplayed()
+        onNode(
+            hasText("0") and hasAnyAncestor(hasTestTag(TestTags.Home.QUEUE_DRAFTS)),
+            useUnmergedTree = true,
+        ).performScrollTo().assertIsDisplayed()
         drafts = 2
-        onNode(hasText("2") and hasAnyAncestor(hasTestTag(TestTags.Home.QUEUE_DRAFTS)), useUnmergedTree = true).performScrollTo().assertIsDisplayed()
+        onNode(
+            hasText("2") and hasAnyAncestor(hasTestTag(TestTags.Home.QUEUE_DRAFTS)),
+            useUnmergedTree = true,
+        ).performScrollTo().assertIsDisplayed()
     }
 
     @Test
@@ -133,7 +175,10 @@ class HomeDashboardScreenUiTest {
         var refreshed = false
         val failed = ScreenState.Error(IllegalStateException("offline"))
         setContent {
-            KptTheme { HomeDashboardScreenContent(state(queueState = failed, collections = failed), onRetry = {}, onRefresh = { refreshed = true }, onNavigate = {}) }
+            KptTheme {
+                HomeDashboardScreenContent(state(queueState = failed, collections = failed), onRetry = {
+                }, onRefresh = { refreshed = true }, onNavigate = {})
+            }
         }
         onNodeWithTag(TestTags.Home.SCREEN_ERROR).performScrollTo().assertIsDisplayed()
         onNodeWithTag(TestTags.Home.WORK_QUEUE).assertDoesNotExist()

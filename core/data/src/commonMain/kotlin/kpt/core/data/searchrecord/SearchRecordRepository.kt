@@ -23,5 +23,6 @@ import kpt.core.model.objects.searchrecord.SearchRecordKey
  * (nothing matched), not "no data yet".
  */
 interface SearchRecordRepository {
+    /** Search results for each query `keys` emits. */
     fun searchStream(keys: Flow<SearchRecordKey>, scope: CoroutineScope): ScreenDataStream<List<GenericSearchRecord>>
 }

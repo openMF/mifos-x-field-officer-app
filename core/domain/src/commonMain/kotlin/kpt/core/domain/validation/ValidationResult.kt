@@ -58,10 +58,17 @@ sealed interface ValidationFailure {
  */
 sealed interface ValidationResult {
 
+    /** The value passes. */
     data object Valid : ValidationResult
 
+    /**
+     * The value fails.
+     *
+     * @property failure why it fails
+     */
     data class Invalid(val failure: ValidationFailure) : ValidationResult
 
+    /** True for [Valid]. */
     val isValid: Boolean get() = this is Valid
 }
 

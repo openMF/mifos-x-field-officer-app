@@ -46,6 +46,7 @@ class FakeOfflineQueueRepository(
     /** Every repayment handed to the queue, in order — a test asserts WHAT was saved. */
     val enqueued: MutableList<Pair<Int, LoanRepaymentRequest>> = mutableListOf()
 
+    /** Every stream's refresh signal. */
     val refreshes: MutableSharedFlow<Unit> = MutableSharedFlow(extraBufferCapacity = 8)
 
     override fun pendingLoanRepaymentsStream(scope: CoroutineScope) =

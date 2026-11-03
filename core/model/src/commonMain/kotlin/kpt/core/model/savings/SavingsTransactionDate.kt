@@ -17,8 +17,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsTransactionDate(
+    /** The server id of the transaction. */
     val transactionId: Int? = null,
+    /** The year. */
     val year: Int? = null,
+    /** The month (1–12). */
     val month: Int? = null,
+    /** The day of the month. */
     val day: Int? = null,
 )

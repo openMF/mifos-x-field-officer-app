@@ -17,8 +17,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ColumnValue(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The value stored in this cell. */
     val value: String? = null,
+    /** The score attached to this value. */
     val score: Int? = null,
+    /** The registered name of the data table. */
     val registeredTableName: String? = null,
 )

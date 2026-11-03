@@ -20,13 +20,21 @@ import kpt.core.ui.util.ImageUtil.compressImage
 import platform.Foundation.NSURL
 import platform.UIKit.UIApplication
 
+/** iOS actions through `UIApplication` and the share sheet. */
 actual object ShareUtils {
+    /** Does nothing on this platform. */
     actual fun shareText(text: String) {
     }
 
+    /**
+     * Compresses the image, saves it to the cache and opens the iOS share sheet; the bitmap overload does nothing.
+     */
     actual suspend fun shareImage(title: String, image: ImageBitmap) {
     }
 
+    /**
+     * Compresses the image, saves it to the cache and opens the iOS share sheet; the bitmap overload does nothing.
+     */
     actual suspend fun shareImage(title: String, byte: ByteArray) {
         try {
             val compressedBytes =
@@ -69,6 +77,7 @@ actual object ShareUtils {
         return PlatformFile(nsUrl)
     }
 
+    /** Opens the dialler on the support helpline, when the device can dial. */
     actual fun callHelpline() {
         val url = NSURL.URLWithString("tel://8000000000")
         if (url?.let { UIApplication.sharedApplication.canOpenURL(it) } == true) {
@@ -76,6 +85,7 @@ actual object ShareUtils {
         }
     }
 
+    /** Opens a mail draft to support, when a mail app is set up. */
     actual fun mailHelpline() {
         val url =
             "mailto:support@example.com?subject=Help%20Request&body=Hello,%20I%20need%20assistance%20with..."
@@ -86,12 +96,15 @@ actual object ShareUtils {
         }
     }
 
+    /** Does nothing on this platform. */
     actual fun openAppInfo() {
     }
 
+    /** Does nothing on this platform. */
     actual fun shareApp() {
     }
 
+    /** Opens `url` in the browser. */
     actual fun openUrl(url: String) {
         val nsUrl = NSURL.URLWithString(url)
         if (nsUrl != null) {
@@ -99,9 +112,11 @@ actual object ShareUtils {
         }
     }
 
+    /** Does nothing on this platform. */
     actual fun ossLicensesMenuActivity() {
     }
 
+    /** Does nothing on this platform. */
     actual fun restartApplication() {
     }
 }

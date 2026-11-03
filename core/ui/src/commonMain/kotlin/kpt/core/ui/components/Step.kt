@@ -11,7 +11,10 @@ package kpt.core.ui.components
 
 import androidx.compose.runtime.Composable
 
+/** One step of an [AppStepper]. */
 data class Step(
+    /** The step's name. */
     val name: String,
+    /** The step's content. */
     val content: @Composable () -> Unit,
 )

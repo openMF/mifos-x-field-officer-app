@@ -22,12 +22,15 @@ import kpt.core.model.survey.Survey
  */
 @ApiBinding("mifos")
 interface SurveyApi {
+    /** Reads every survey. */
     @GET("surveys")
     suspend fun allSurveys(): List<Survey>
 
+    /** Reads a survey. */
     @GET("surveys/{surveyId}")
     suspend fun getSurvey(@Path("surveyId") surveyId: Int): Survey
 
+    /** Submits a scorecard for a survey. */
     @POST("surveys/{surveyId}/scorecards")
     suspend fun submitScore(
         @Path("surveyId") surveyId: Int,

@@ -31,6 +31,7 @@ import org.mobilenativefoundation.store.store5.Store
  */
 private val templateJson = Json { ignoreUnknownKeys = true }
 
+/** Store reading the recurring deposit template. */
 @StoreProvider(id = "recurringDepositTemplate", ttl = "12h")
 @CacheKey(
     fn = "forClient",

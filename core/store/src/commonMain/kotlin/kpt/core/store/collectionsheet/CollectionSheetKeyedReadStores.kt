@@ -45,9 +45,15 @@ fun provideFetchGroupsAssociatedWithCenterStore(
  * the saved sheet through these same stores, and the cached row is the post-save one.
  */
 
-/** One generated sheet: the owning center/group plus the request that selects the meeting. */
+/**
+ * One generated sheet: the owning center/group plus the request that selects the meeting.
+ *
+ * @property ownerId the centre or group the sheet is for
+ * @property request the meeting the sheet is generated for
+ */
 data class GeneratedSheetKey(val ownerId: Int, val request: CollectionSheetRequestPayload)
 
+/** Store reading the individual collection sheet. */
 @StoreProvider(id = "collectionsheetIndividual", ttl = "12h")
 @CacheKey(fn = "forKey", key = "collectionsheetIndividual:{key}", params = ["key:String"])
 fun provideIndividualCollectionSheetStore(
@@ -59,6 +65,7 @@ fun provideIndividualCollectionSheetStore(
     fetch = { key -> collectionSheetApi.getIndividualCollectionSheet(payload = key) },
 )
 
+/** Store reading the productive collection sheet. */
 @StoreProvider(id = "collectionsheetProductive", ttl = "12h")
 @CacheKey(fn = "forKey", key = "collectionsheetProductive:{key}", params = ["key:String"])
 fun provideProductiveCollectionSheetStore(
@@ -70,6 +77,7 @@ fun provideProductiveCollectionSheetStore(
     fetch = { key -> collectionSheetApi.fetchProductiveSheet(centerId = key.ownerId, payload = key.request) },
 )
 
+/** Store reading the group collection sheet. */
 @StoreProvider(id = "collectionsheetGroup", ttl = "12h")
 @CacheKey(fn = "forKey", key = "collectionsheetGroup:{key}", params = ["key:String"])
 fun provideGroupCollectionSheetStore(

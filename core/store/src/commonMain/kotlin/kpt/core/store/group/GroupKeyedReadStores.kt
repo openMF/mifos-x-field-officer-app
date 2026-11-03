@@ -36,6 +36,7 @@ fun provideGetGroupWithAssociationsStore(
     fetch = { key -> groupApi.getGroupWithAssociations(groupId = key) },
 )
 
+/** Store reading all groups in office. */
 @StoreProvider(id = "groupGetAllGroupsInOffice", ttl = "12h")
 @CacheKey(fn = "forKey", key = "groupGetAllGroupsInOffice:{key}", params = ["key:String"])
 fun provideGetAllGroupsInOfficeStore(
@@ -47,6 +48,7 @@ fun provideGetAllGroupsInOfficeStore(
     fetch = { key -> groupApi.getAllGroupsInOffice(officeId = key.officeId, params = key.params) },
 )
 
+/** Store reading the group. */
 @StoreProvider(id = "groupGetGroup", ttl = "12h")
 @CacheKey(fn = "forKey", key = "groupGetGroup:{key}", params = ["key:String"])
 fun provideGetGroupStore(
@@ -58,6 +60,7 @@ fun provideGetGroupStore(
     fetch = { key -> groupApi.getGroup(groupId = key) },
 )
 
+/** Store reading the group accounts. */
 @StoreProvider(id = "groupGetGroupAccounts", ttl = "12h")
 @CacheKey(fn = "forKey", key = "groupGetGroupAccounts:{key}", params = ["key:String"])
 fun provideGetGroupAccountsStore(

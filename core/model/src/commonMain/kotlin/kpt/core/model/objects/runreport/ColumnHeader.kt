@@ -18,10 +18,16 @@ import kotlinx.serialization.Serializable
 // Defaults on every field: Fineract's result-set header JSON varies by version (`columnDisplayType`
 // and `columnValues` are not always present), and a missing field must not fail the WHOLE report.
 data class ColumnHeader(
+    /** How the column is displayed (text, date, code lookup, …). */
     var columnDisplayType: String = "",
+    /** The column's name. */
     var columnName: String = "",
+    /** The column's database type. */
     var columnType: String = "",
+    /** The values the column may take. */
     var columnValues: List<String> = emptyList(),
+    /** True when the column may be empty. */
     var isColumnNullable: Boolean = true,
+    /** True when the column is the primary key. */
     var isColumnPrimaryKey: Boolean = false,
 )

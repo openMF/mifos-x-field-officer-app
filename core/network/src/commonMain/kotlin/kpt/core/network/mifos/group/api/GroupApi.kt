@@ -26,6 +26,7 @@ import kpt.core.model.objects.clients.Page
 import kpt.core.model.objects.responses.SaveResponse
 import kpt.core.network.mifos.group.dto.GetGroupsResponse
 
+/** Fineract endpoints for group. */
 @ApiBinding("mifos")
 interface GroupApi {
 
@@ -66,6 +67,7 @@ interface GroupApi {
         @Query("orphansOnly") orphansOnly: Boolean? = null,
     ): GetGroupsResponse
 
+    /** Reads one page of groups. */
     @GET("groups")
     suspend fun getGroups(
         @Query("paged") b: Boolean,
@@ -73,21 +75,26 @@ interface GroupApi {
         @Query("limit") limit: Int,
     ): Page<Group>
 
+    /** Reads a group with all its associations. */
     @GET("groups/{groupId}?associations=all")
     suspend fun getGroupWithAssociations(@Path("groupId") groupId: Int): GroupWithAssociations
 
+    /** Reads the groups of one office. */
     @GET("groups")
     suspend fun getAllGroupsInOffice(
         @Query("officeId") officeId: Int,
         @QueryMap params: Map<String, String>,
     ): List<Group>
 
+    /** Creates a group. */
     @POST("groups")
     suspend fun createGroup(@Body groupPayload: GroupPayload?): SaveResponse
 
+    /** Reads a group. */
     @GET("groups/{groupId}")
     suspend fun getGroup(@Path("groupId") groupId: Int): Group
 
+    /** Reads a group's accounts. */
     @GET("groups/{groupId}/accounts")
     suspend fun getGroupAccounts(@Path("groupId") groupId: Int): GroupAccounts
 

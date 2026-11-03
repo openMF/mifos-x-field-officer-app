@@ -14,6 +14,7 @@ import kotlinx.serialization.json.JsonArray
 import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.model.datatable.DataTable
 
+/** Reads data tables and their rows. */
 interface DataTableRepository {
     /** Registered datatables for one application table (m_client, m_loan, ...). */
     fun dataTablesStream(appTable: String, scope: CoroutineScope): ScreenDataStream<List<DataTable>>

@@ -17,7 +17,11 @@ import kpt.core.model.objects.searchrecord.GenericSearchRecord
 import kpt.core.model.objects.searchrecord.RecordType
 import kpt.feature.searchrecord.ui.SearchRecordScreen
 
-/** [type] is a [RecordType] name — a String so the route stays serializable as the original's. */
+/**
+ * [type] is a [RecordType] name — a String so the route stays serializable as the original's.
+ *
+ * @property type the `RecordType` name to search
+ */
 @Serializable
 data class SearchRecordRoute(val type: String)
 
@@ -40,6 +44,7 @@ fun NavGraphBuilder.searchRecordDestination(
     }
 }
 
+/** Opens the record search for one record [type]. */
 fun NavController.navigateToSearchRecord(type: RecordType) {
     navigate(SearchRecordRoute(type = type.name))
 }

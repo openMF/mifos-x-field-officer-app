@@ -30,12 +30,20 @@ import kpt.core.base.database.annotation.DbEntity
     indices = [Index(value = ["reportCategory"])],
 )
 data class ReportTypeEntity(
+    /** The server id of the report. */
     val reportId: Int,
+    /** The server id of the parameter. */
     val parameterId: Int,
+    /** The report's name. */
     val reportName: String? = null,
+    /** The report's category. */
     val reportCategory: String? = null,
+    /** The name of the parameter. */
     val parameterName: String? = null,
+    /** The name the report expects the parameter under. */
     val reportParameterName: String? = null,
+    /** The report's subtype. */
     val reportSubtype: String? = null,
+    /** The report's type (table, chart, …). */
     val reportType: String? = null,
 )

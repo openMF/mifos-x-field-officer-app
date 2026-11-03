@@ -17,5 +17,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class AddressConfiguration(
+    /** True when address capture is enabled on the server. */
     val enabled: Boolean = false,
 )

@@ -23,10 +23,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/store sha=1bd9c4dd02435c054e4fb0ab9e0413471a58fc20 -->
+<!-- api-docs:begin module=core/store sha=ad53f79b99d7e8945aeca9ed347e8a967f2c111e -->
 ## API reference
 
-_Generated from `core/store` at tree `1bd9c4dd0243` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/store` at tree `ad53f79b99d7` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/center/CenterKeyedReadStores.kt`
@@ -39,12 +39,12 @@ Keyed reads for center with no table of their own — cached through the shared 
 ```kotlin
 fun provideGetCenterWithGroupMembersAndCollectionMeetingCalendarStore(
 ```
-_No KDoc at source._
+Store reading the center with group members and collection meeting calendar.
 
 ```kotlin
 fun provideGetAllGroupsForCenterStore(
 ```
-_No KDoc at source._
+Store reading all groups for center.
 
 ```kotlin
 data class GetAllCentersInOfficeKey(
@@ -54,7 +54,7 @@ Addresses one `getAllCentersInOffice` read.
 ```kotlin
 fun provideGetAllCentersInOfficeStore(
 ```
-_No KDoc at source._
+Store reading all centers in office.
 
 ```kotlin
 data class CenterCollectionSheetKey(
@@ -119,17 +119,17 @@ Addresses one `getCharge` read.
 ```kotlin
 fun provideGetListOfPagingChargesStore(
 ```
-_No KDoc at source._
+Store reading the list of paging charges.
 
 ```kotlin
 fun provideGetListOfOtherAccountChargeStore(
 ```
-_No KDoc at source._
+Store reading the list of other account charge.
 
 ```kotlin
 fun provideGetChargeStore(
 ```
-_No KDoc at source._
+Store reading the charge.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/charge/ChargeStore.kt`
 
@@ -212,7 +212,7 @@ Catalogue and template reads for checkerinbox — option lists and form template
 ```kotlin
 fun provideCheckerSearchTemplateStore(
 ```
-_No KDoc at source._
+Store reading the checker search template.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/checkerinbox/CheckerInboxKeyedReadStores.kt`
 
@@ -269,17 +269,17 @@ The TENANT's client template — the gender / client-type / classification / leg
 ```kotlin
 fun provideAddressTemplateStore(
 ```
-_No KDoc at source._
+Store reading the address template.
 
 ```kotlin
 fun provideClientCloseTemplateStore(
 ```
-_No KDoc at source._
+Store reading the client close template.
 
 ```kotlin
 fun provideCollateralItemsStore(
 ```
-_No KDoc at source._
+Store reading the collateral items.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/client/ClientKeyedReadStores.kt`
 
@@ -291,52 +291,52 @@ Keyed reads for client with no table of their own — cached through the shared 
 ```kotlin
 fun provideGetClientStore(
 ```
-_No KDoc at source._
+Store reading the client.
 
 ```kotlin
 fun provideGetClientPinpointLocationsStore(
 ```
-_No KDoc at source._
+Store reading the client pinpoint locations.
 
 ```kotlin
 fun provideGetClientTemplateStore(
 ```
-_No KDoc at source._
+Store reading the client template.
 
 ```kotlin
 fun provideGetClientCollateralItemsStore(
 ```
-_No KDoc at source._
+Store reading the client collateral items.
 
 ```kotlin
 fun provideGetClientListIdentifiersStore(
 ```
-_No KDoc at source._
+Store reading the client list identifiers.
 
 ```kotlin
 fun provideGetClientIdentifiersStore(
 ```
-_No KDoc at source._
+Store reading the client identifiers.
 
 ```kotlin
 fun provideGetClientIdentifierTemplateStore(
 ```
-_No KDoc at source._
+Store reading the client identifier template.
 
 ```kotlin
 fun provideGetAllAccountsOfClientStore(
 ```
-_No KDoc at source._
+Store reading all accounts of client.
 
 ```kotlin
 fun provideGetClientAccountsStore(
 ```
-_No KDoc at source._
+Store reading the client accounts.
 
 ```kotlin
 fun provideGetClientAddressesStore(
 ```
-_No KDoc at source._
+Store reading the client addresses.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/client/ClientLocalStores.kt`
 
@@ -417,7 +417,7 @@ data class GetClientIdentifiersKey(
 ```
 Addresses one `getClientIdentifiers` read.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/client/ClientKeyedReadStores.kt:123</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/client/ClientKeyedReadStores.kt:129</code></summary>
 
 ```kotlin
     clientIdentifierApi: ClientIdentifierApi,
@@ -480,24 +480,24 @@ One generated sheet: the owning center/group plus the request that selects the m
 ```kotlin
 fun provideIndividualCollectionSheetStore(
 ```
-_No KDoc at source._
+Store reading the individual collection sheet.
 
 ```kotlin
 fun provideProductiveCollectionSheetStore(
 ```
-_No KDoc at source._
+Store reading the productive collection sheet.
 
 ```kotlin
 fun provideGroupCollectionSheetStore(
 ```
-_No KDoc at source._
+Store reading the group collection sheet.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/collectionsheet/CollectionSheetStore.kt`
 
 ```kotlin
 fun provideCollectionSheetStore(
 ```
-_No KDoc at source._
+Store reading the collection sheet.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/config/ForkErrorMapper.kt`
 
@@ -630,7 +630,7 @@ object ForkScreenStateDefaults : ScreenStateOverrides
 ```kotlin
 data class ClientCountKey(val officeId: Long, val status: String)
 ```
-Home dashboard reads. Each card is its own store so one slow or failing source never blanks the others, and each is offline-first through the shared read cache.
+Key of a client-count read.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/dashboard/impl/DashboardRepositoryImpl.kt:38</code></summary>
 
@@ -667,22 +667,22 @@ The business date (`yyyy-MM-dd`) and the officer's active loans to read the sche
 ```kotlin
 fun provideDashboardUserStore(
 ```
-_No KDoc at source._
+Store reading the dashboard user.
 
 ```kotlin
 fun provideDashboardBusinessDateStore(
 ```
-_No KDoc at source._
+Store reading the dashboard business date.
 
 ```kotlin
 fun provideDashboardLoansStore(
 ```
-_No KDoc at source._
+Store reading the dashboard loans.
 
 ```kotlin
 fun provideDashboardClientCountStore(
 ```
-_No KDoc at source._
+Store reading the dashboard client count.
 
 ```kotlin
 fun provideDashboardDueTodayStore(
@@ -692,7 +692,7 @@ _No KDoc at source._
 ```kotlin
 fun provideDashboardSavingsStore(
 ```
-_No KDoc at source._
+Store reading the dashboard savings.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/datatable/DataTableKeyedReadStores.kt`
 
@@ -704,12 +704,12 @@ Addresses one `getDatatables` read.
 ```kotlin
 fun provideGetDatatablesStore(
 ```
-_No KDoc at source._
+Store reading the datatables.
 
 ```kotlin
 fun provideGetUserPathTrackingStore(
 ```
-_No KDoc at source._
+Store reading the user path tracking.
 
 ```kotlin
 data class DataTableDataKey(
@@ -841,7 +841,7 @@ One document ROW — the owner pair plus the document's id.
 ```kotlin
 fun provideDocumentStore(
 ```
-_No KDoc at source._
+Store reading the document.
 
 ```kotlin
 fun provideDocumentContentStore(
@@ -865,7 +865,7 @@ data class GetAllGroupsInOfficeKey(
 ```
 Addresses one `getAllGroupsInOffice` read.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/group/GroupKeyedReadStores.kt:44</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/group/GroupKeyedReadStores.kt:45</code></summary>
 
 ```kotlin
     groupApi: GroupApi,
@@ -889,17 +889,17 @@ Keyed reads for group with no table of their own — cached through the shared r
 ```kotlin
 fun provideGetAllGroupsInOfficeStore(
 ```
-_No KDoc at source._
+Store reading all groups in office.
 
 ```kotlin
 fun provideGetGroupStore(
 ```
-_No KDoc at source._
+Store reading the group.
 
 ```kotlin
 fun provideGetGroupAccountsStore(
 ```
-_No KDoc at source._
+Store reading the group accounts.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/group/GroupStore.kt`
 
@@ -918,7 +918,7 @@ _No KDoc at source._
 ```kotlin
 object LoanAccountMapper : AbstractMapper<LoanWithAssociationsEntity, LoanWithAssociations>()
 ```
-_No KDoc at source._
+Maps a stored loan with associations to its domain model.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/loan/LoanStore.kt:40</code></summary>
 
@@ -944,7 +944,7 @@ Catalogue and template reads for loan — option lists and form templates with n
 ```kotlin
 fun provideLoanRescheduleTemplateStore(
 ```
-_No KDoc at source._
+Store reading the loan reschedule template.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/loan/LoanKeyedReadStores.kt`
 
@@ -999,52 +999,52 @@ Addresses one `getAccountTransferTemplate` read.
 ```kotlin
 fun provideGetChargeOffTemplateStore(
 ```
-_No KDoc at source._
+Store reading the charge off template.
 
 ```kotlin
 fun provideGetLoanRepaymentScheduleStore(
 ```
-_No KDoc at source._
+Store reading the loan repayment schedule.
 
 ```kotlin
 fun provideGetLoanWithTransactionsStore(
 ```
-_No KDoc at source._
+Store reading the loan with transactions.
 
 ```kotlin
 fun provideGetGuarantorTemplateStore(
 ```
-_No KDoc at source._
+Store reading the guarantor template.
 
 ```kotlin
 fun provideGetGuarantorAccountTemplateStore(
 ```
-_No KDoc at source._
+Store reading the guarantor account template.
 
 ```kotlin
 fun provideGetLoanTransactionTemplateStore(
 ```
-_No KDoc at source._
+Store reading the loan transaction template.
 
 ```kotlin
 fun provideGetGroupLoansAccountTemplateStore(
 ```
-_No KDoc at source._
+Store reading the group loans account template.
 
 ```kotlin
 fun provideGetAccountTransferTemplateStore(
 ```
-_No KDoc at source._
+Store reading the account transfer template.
 
 ```kotlin
 fun provideGetLoanReschedulesStore(
 ```
-_No KDoc at source._
+Store reading the loan reschedules.
 
 ```kotlin
 fun provideGetLoanOfficerTemplateStore(
 ```
-_No KDoc at source._
+Store reading the loan officer template.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/loan/LoanKeyedReadStores2.kt`
 
@@ -1056,7 +1056,7 @@ Keyed reads for loan with no table of their own — cached through the shared re
 ```kotlin
 fun provideGetListOfChargesStore(
 ```
-_No KDoc at source._
+Store reading the list of charges.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/loan/LoanStore.kt`
 
@@ -1106,766 +1106,766 @@ The disbursement template — cached so a disbursement can be prepared offline a
 ```kotlin
 fun CenterDateRow.toModel(): CenterDate = CenterDate(
 ```
-_No KDoc at source._
+Maps the stored row to its `CenterDate` model.
 
 ```kotlin
 fun CenterDate.toEntity(): CenterDateRow = CenterDateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `CenterDateRow`.
 
 ```kotlin
 fun CenterRow.toModel(): Center = Center(
 ```
-_No KDoc at source._
+Maps the stored row to its `Center` model.
 
 ```kotlin
 fun Center.toEntity(): CenterRow = CenterRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `CenterRow`.
 
 ```kotlin
 fun CenterPayloadRow.toModel(): CenterPayload = CenterPayload(
 ```
-_No KDoc at source._
+Maps the stored row to its `CenterPayload` model.
 
 ```kotlin
 fun CenterPayload.toEntity(): CenterPayloadRow = CenterPayloadRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `CenterPayloadRow`.
 
 ```kotlin
 fun CenterDetailRow.toModel(): CenterDetail = CenterDetail(
 ```
-_No KDoc at source._
+Maps the stored row to its `CenterDetail` model.
 
 ```kotlin
 fun CenterDetail.toEntity(): CenterDetailRow = CenterDetailRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `CenterDetailRow`.
 
 ```kotlin
 fun CenterAccountsRow.toModel(): CenterAccounts = CenterAccounts(
 ```
-_No KDoc at source._
+Maps the stored row to its `CenterAccounts` model.
 
 ```kotlin
 fun CenterAccounts.toEntity(): CenterAccountsRow = CenterAccountsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `CenterAccountsRow`.
 
 ```kotlin
 fun CenterWithAssociationsRow.toModel(): CenterWithAssociations = CenterWithAssociations(
 ```
-_No KDoc at source._
+Maps the stored row to its `CenterWithAssociations` model.
 
 ```kotlin
 fun CenterWithAssociations.toEntity(): CenterWithAssociationsRow = CenterWithAssociationsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `CenterWithAssociationsRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/ChargeMappers.kt`
 
 ```kotlin
 fun ChargeRow.toModel(): Charge = Charge(
 ```
-_No KDoc at source._
+Maps the stored row to its `Charge` model.
 
 ```kotlin
 fun Charge.toEntity(): ChargeRow = ChargeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ChargeRow`.
 
 ```kotlin
 fun ChargeCalculationTypeRow.toModel(): ChargeCalculationType = ChargeCalculationType(
 ```
-_No KDoc at source._
+Maps the stored row to its `ChargeCalculationType` model.
 
 ```kotlin
 fun ChargeCalculationType.toEntity(): ChargeCalculationTypeRow = ChargeCalculationTypeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ChargeCalculationTypeRow`.
 
 ```kotlin
 fun ChargeTimeTypeRow.toModel(): ChargeTimeType = ChargeTimeType(
 ```
-_No KDoc at source._
+Maps the stored row to its `ChargeTimeType` model.
 
 ```kotlin
 fun ChargeTimeType.toEntity(): ChargeTimeTypeRow = ChargeTimeTypeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ChargeTimeTypeRow`.
 
 ```kotlin
 fun ChargesRow.toModel(): Charges = Charges(
 ```
-_No KDoc at source._
+Maps the stored row to its `Charges` model.
 
 ```kotlin
 fun Charges.toEntity(): ChargesRow = ChargesRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ChargesRow`.
 
 ```kotlin
 fun PaymentTypeOptionRow.toModel(): PaymentTypeOption = PaymentTypeOption(
 ```
-_No KDoc at source._
+Maps the stored row to its `PaymentTypeOption` model.
 
 ```kotlin
 fun PaymentTypeOption.toEntity(): PaymentTypeOptionRow = PaymentTypeOptionRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `PaymentTypeOptionRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/ClientMappers.kt`
 
 ```kotlin
 fun ClientAccountsRow.toModel(): ClientAccounts = ClientAccounts(
 ```
-/* Copyright 2025 Mifos Initiative This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+Maps the stored row to its `ClientAccounts` model.
 
 ```kotlin
 fun ClientAccounts.toEntity(): ClientAccountsRow = ClientAccountsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientAccountsRow`.
 
 ```kotlin
 fun ClientChargeCurrencyRow.toModel(): ClientChargeCurrency = ClientChargeCurrency(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientChargeCurrency` model.
 
 ```kotlin
 fun ClientChargeCurrency.toEntity(): ClientChargeCurrencyRow = ClientChargeCurrencyRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientChargeCurrencyRow`.
 
 ```kotlin
 fun ClientDateRow.toModel(): ClientDate = ClientDate(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientDate` model.
 
 ```kotlin
 fun ClientDate.toEntity(): ClientDateRow = ClientDateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientDateRow`.
 
 ```kotlin
 fun ClientRow.toModel(): Client = Client(
 ```
-_No KDoc at source._
+Maps the stored row to its `Client` model.
 
 ```kotlin
 fun Client.toEntity(): ClientRow = ClientRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientRow`.
 
 ```kotlin
 fun ClientPayloadRow.toModel(): ClientPayload = ClientPayload(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientPayload` model.
 
 ```kotlin
 fun ClientPayload.toEntity(): ClientPayloadRow = ClientPayloadRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientPayloadRow`.
 
 ```kotlin
 fun ClientStatusRow.toModel(): ClientStatus = ClientStatus(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientStatus` model.
 
 ```kotlin
 fun ClientStatus.toEntity(): ClientStatusRow = ClientStatusRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientStatusRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/ClientTemplateMappers.kt`
 
 ```kotlin
 fun AddressTemplateRow.toModel(): AddressTemplate = AddressTemplate(
 ```
-_No KDoc at source._
+Maps the stored row to its `AddressTemplate` model.
 
 ```kotlin
 fun AddressTemplate.toEntity(): AddressTemplateRow = AddressTemplateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `AddressTemplateRow`.
 
 ```kotlin
 fun ClientClassificationRow.toModel(): ClientClassification = ClientClassification(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientClassification` model.
 
 ```kotlin
 fun ClientClassification.toEntity(): ClientClassificationRow = ClientClassificationRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientClassificationRow`.
 
 ```kotlin
 fun ClientGenderRow.toModel(): ClientGender = ClientGender(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientGender` model.
 
 ```kotlin
 fun ClientGender.toEntity(): ClientGenderRow = ClientGenderRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientGenderRow`.
 
 ```kotlin
 fun ClientTypeRow.toModel(): ClientType = ClientType(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientType` model.
 
 ```kotlin
 fun ClientType.toEntity(): ClientTypeRow = ClientTypeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientTypeRow`.
 
 ```kotlin
 fun ClientsTemplateRow.toModel(): ClientsTemplate = ClientsTemplate(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientsTemplate` model.
 
 ```kotlin
 fun ClientsTemplate.toEntity(): ClientsTemplateRow = ClientsTemplateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientsTemplateRow`.
 
 ```kotlin
 fun AddressConfigurationRow.toModel(): AddressConfiguration = AddressConfiguration(
 ```
-_No KDoc at source._
+Maps the stored row to its `AddressConfiguration` model.
 
 ```kotlin
 fun AddressConfiguration.toEntity(): AddressConfigurationRow = AddressConfigurationRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `AddressConfigurationRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/CollectionSheetMappers.kt`
 
 ```kotlin
 fun CollectionSheetResponseRow.toModel(): CollectionSheetResponse = CollectionSheetResponse(
 ```
-_No KDoc at source._
+Maps the stored row to its `CollectionSheetResponse` model.
 
 ```kotlin
 fun CollectionSheetResponse.toEntity(): CollectionSheetResponseRow = CollectionSheetResponseRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `CollectionSheetResponseRow`.
 
 ```kotlin
 fun IndividualCollectionSheetRow.toModel(): IndividualCollectionSheet = IndividualCollectionSheet(
 ```
-_No KDoc at source._
+Maps the stored row to its `IndividualCollectionSheet` model.
 
 ```kotlin
 fun IndividualCollectionSheet.toEntity(): IndividualCollectionSheetRow = IndividualCollectionSheetRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `IndividualCollectionSheetRow`.
 
 ```kotlin
 fun GroupCollectionSheetRow.toModel(): GroupCollectionSheet = GroupCollectionSheet(
 ```
-_No KDoc at source._
+Maps the stored row to its `GroupCollectionSheet` model.
 
 ```kotlin
 fun GroupCollectionSheet.toEntity(): GroupCollectionSheetRow = GroupCollectionSheetRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `GroupCollectionSheetRow`.
 
 ```kotlin
 fun ClientCollectionSheetRow.toModel(): ClientCollectionSheet = ClientCollectionSheet(
 ```
-_No KDoc at source._
+Maps the stored row to its `ClientCollectionSheet` model.
 
 ```kotlin
 fun ClientCollectionSheet.toEntity(): ClientCollectionSheetRow = ClientCollectionSheetRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ClientCollectionSheetRow`.
 
 ```kotlin
 fun SavingsCollectionSheetRow.toModel(): SavingsCollectionSheet = SavingsCollectionSheet(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsCollectionSheet` model.
 
 ```kotlin
 fun SavingsCollectionSheet.toEntity(): SavingsCollectionSheetRow = SavingsCollectionSheetRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsCollectionSheetRow`.
 
 ```kotlin
 fun MeetingFallCalendarRow.toModel(): MeetingFallCalendar = MeetingFallCalendar(
 ```
-_No KDoc at source._
+Maps the stored row to its `MeetingFallCalendar` model.
 
 ```kotlin
 fun MeetingFallCalendar.toEntity(): MeetingFallCalendarRow = MeetingFallCalendarRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `MeetingFallCalendarRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/DataTableMappers.kt`
 
 ```kotlin
 fun ColumnHeaderRow.toModel(): ColumnHeader = ColumnHeader(
 ```
-_No KDoc at source._
+Maps the stored row to its `ColumnHeader` model.
 
 ```kotlin
 fun ColumnHeader.toEntity(): ColumnHeaderRow = ColumnHeaderRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ColumnHeaderRow`.
 
 ```kotlin
 fun ColumnValueRow.toModel(): ColumnValue = ColumnValue(
 ```
-_No KDoc at source._
+Maps the stored row to its `ColumnValue` model.
 
 ```kotlin
 fun ColumnValue.toEntity(): ColumnValueRow = ColumnValueRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ColumnValueRow`.
 
 ```kotlin
 fun DataTableRow.toModel(): DataTable = DataTable(
 ```
-_No KDoc at source._
+Maps the stored row to its `DataTable` model.
 
 ```kotlin
 fun DataTable.toEntity(): DataTableRow = DataTableRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `DataTableRow`.
 
 ```kotlin
 fun DataTablePayloadRow.toModel(): DataTablePayload = DataTablePayload(
 ```
-_No KDoc at source._
+Maps the stored row to its `DataTablePayload` model.
 
 ```kotlin
 fun DataTablePayload.toEntity(): DataTablePayloadRow = DataTablePayloadRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `DataTablePayloadRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/GroupMappers.kt`
 
 ```kotlin
 fun GroupDateRow.toModel(): GroupDate = GroupDate(
 ```
-_No KDoc at source._
+Maps the stored row to its `GroupDate` model.
 
 ```kotlin
 fun GroupDate.toEntity(): GroupDateRow = GroupDateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `GroupDateRow`.
 
 ```kotlin
 fun GroupRow.toModel(): Group = Group(
 ```
-_No KDoc at source._
+Maps the stored row to its `Group` model.
 
 ```kotlin
 fun Group.toEntity(): GroupRow = GroupRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `GroupRow`.
 
 ```kotlin
 fun GroupPayloadRow.toModel(): GroupPayload = GroupPayload(
 ```
-_No KDoc at source._
+Maps the stored row to its `GroupPayload` model.
 
 ```kotlin
 fun GroupPayload.toEntity(): GroupPayloadRow = GroupPayloadRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `GroupPayloadRow`.
 
 ```kotlin
 fun GroupAccountsRow.toModel(): GroupAccounts = GroupAccounts(
 ```
-_No KDoc at source._
+Maps the stored row to its `GroupAccounts` model.
 
 ```kotlin
 fun GroupAccounts.toEntity(): GroupAccountsRow = GroupAccountsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `GroupAccountsRow`.
 
 ```kotlin
 fun GroupWithAssociationsRow.toModel(): GroupWithAssociations = GroupWithAssociations(
 ```
-_No KDoc at source._
+Maps the stored row to its `GroupWithAssociations` model.
 
 ```kotlin
 fun GroupWithAssociations.toEntity(): GroupWithAssociationsRow = GroupWithAssociationsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `GroupWithAssociationsRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/LoanMappers.kt`
 
 ```kotlin
 fun ActualDisbursementDateRow.toModel(): ActualDisbursementDate = ActualDisbursementDate(
 ```
-_No KDoc at source._
+Maps the stored row to its `ActualDisbursementDate` model.
 
 ```kotlin
 fun ActualDisbursementDate.toEntity(): ActualDisbursementDateRow = ActualDisbursementDateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ActualDisbursementDateRow`.
 
 ```kotlin
 fun LoanAccountRow.toModel(): LoanAccount = LoanAccount(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanAccount` model.
 
 ```kotlin
 fun LoanAccount.toEntity(): LoanAccountRow = LoanAccountRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanAccountRow`.
 
 ```kotlin
 fun LoanStatusRow.toModel(): LoanStatus = LoanStatus(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanStatus` model.
 
 ```kotlin
 fun LoanStatus.toEntity(): LoanStatusRow = LoanStatusRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanStatusRow`.
 
 ```kotlin
 fun LoanTimelineRow.toModel(): LoanTimeline = LoanTimeline(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanTimeline` model.
 
 ```kotlin
 fun LoanTimeline.toEntity(): LoanTimelineRow = LoanTimelineRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanTimelineRow`.
 
 ```kotlin
 fun LoanAccountTypeRow.toModel(): LoanAccountType = LoanAccountType(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanAccountType` model.
 
 ```kotlin
 fun LoanAccountType.toEntity(): LoanAccountTypeRow = LoanAccountTypeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanAccountTypeRow`.
 
 ```kotlin
 fun LoanRow.toModel(): Loan = Loan(
 ```
-_No KDoc at source._
+Maps the stored row to its `Loan` model.
 
 ```kotlin
 fun Loan.toEntity(): LoanRow = LoanRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanRow`.
 
 ```kotlin
 fun LoanAccountSummaryRow.toModel(): LoanAccountSummary = LoanAccountSummary(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanAccountSummary` model.
 
 ```kotlin
 fun LoanAccountSummary.toEntity(): LoanAccountSummaryRow = LoanAccountSummaryRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanAccountSummaryRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/LoanTemplateMappers.kt`
 
 ```kotlin
 fun InterestTypeOptionRow.toModel(): InterestTypeOption = InterestTypeOption(
 ```
-_No KDoc at source._
+Maps the stored row to its `InterestTypeOption` model.
 
 ```kotlin
 fun InterestTypeOption.toEntity(): InterestTypeOptionRow = InterestTypeOptionRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `InterestTypeOptionRow`.
 
 ```kotlin
 fun LoanRepaymentRequestRow.toModel(): LoanRepaymentRequest = LoanRepaymentRequest(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanRepaymentRequest` model.
 
 ```kotlin
 fun LoanRepaymentRequest.toEntity(): LoanRepaymentRequestRow = LoanRepaymentRequestRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanRepaymentRequestRow`.
 
 ```kotlin
 fun LoanRepaymentTemplateRow.toModel(): LoanRepaymentTemplate = LoanRepaymentTemplate(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanRepaymentTemplate` model.
 
 ```kotlin
 fun LoanRepaymentTemplate.toEntity(): LoanRepaymentTemplateRow = LoanRepaymentTemplateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanRepaymentTemplateRow`.
 
 ```kotlin
 fun LoanTemplateRow.toModel(): LoanTemplate = LoanTemplate(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanTemplate` model.
 
 ```kotlin
 fun LoanTemplate.toEntity(): LoanTemplateRow = LoanTemplateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanTemplateRow`.
 
 ```kotlin
 fun LoanRepaymentResponseRow.toModel(): LoanRepaymentResponse = LoanRepaymentResponse(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanRepaymentResponse` model.
 
 ```kotlin
 fun LoanRepaymentResponse.toEntity(): LoanRepaymentResponseRow = LoanRepaymentResponseRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanRepaymentResponseRow`.
 
 ```kotlin
 fun LoanTransactionTemplateRow.toModel(): LoanTransactionTemplate = LoanTransactionTemplate(
 ```
-_No KDoc at source._
+Maps the stored row to its `LoanTransactionTemplate` model.
 
 ```kotlin
 fun LoanTransactionTemplate.toEntity(): LoanTransactionTemplateRow = LoanTransactionTemplateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `LoanTransactionTemplateRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/OfficeStaffMappers.kt`
 
 ```kotlin
 fun OfficeRow.toModel(): Office = Office(
 ```
-_No KDoc at source._
+Maps the stored row to its `Office` model.
 
 ```kotlin
 fun Office.toEntity(): OfficeRow = OfficeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `OfficeRow`.
 
 ```kotlin
 fun OfficeOpeningDateRow.toModel(): OfficeOpeningDate = OfficeOpeningDate(
 ```
-_No KDoc at source._
+Maps the stored row to its `OfficeOpeningDate` model.
 
 ```kotlin
 fun OfficeOpeningDate.toEntity(): OfficeOpeningDateRow = OfficeOpeningDateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `OfficeOpeningDateRow`.
 
 ```kotlin
 fun OfficeOptionsRow.toModel(): OfficeOptions = OfficeOptions(
 ```
-_No KDoc at source._
+Maps the stored row to its `OfficeOptions` model.
 
 ```kotlin
 fun OfficeOptions.toEntity(): OfficeOptionsRow = OfficeOptionsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `OfficeOptionsRow`.
 
 ```kotlin
 fun OptionsRow.toModel(): Options = Options(
 ```
-_No KDoc at source._
+Maps the stored row to its `Options` model.
 
 ```kotlin
 fun Options.toEntity(): OptionsRow = OptionsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `OptionsRow`.
 
 ```kotlin
 fun StaffRow.toModel(): Staff = Staff(
 ```
-_No KDoc at source._
+Maps the stored row to its `Staff` model.
 
 ```kotlin
 fun Staff.toEntity(): StaffRow = StaffRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `StaffRow`.
 
 ```kotlin
 fun StaffOptionsRow.toModel(): StaffOptions = StaffOptions(
 ```
-_No KDoc at source._
+Maps the stored row to its `StaffOptions` model.
 
 ```kotlin
 fun StaffOptions.toEntity(): StaffOptionsRow = StaffOptionsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `StaffOptionsRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/SavingsMappers.kt`
 
 ```kotlin
 fun SavingAccountCurrencyRow.toModel(): SavingAccountCurrency = SavingAccountCurrency(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingAccountCurrency` model.
 
 ```kotlin
 fun SavingAccountCurrency.toEntity(): SavingAccountCurrencyRow = SavingAccountCurrencyRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingAccountCurrencyRow`.
 
 ```kotlin
 fun SavingAccountDepositTypeRow.toModel(): SavingAccountDepositType = SavingAccountDepositType(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingAccountDepositType` model.
 
 ```kotlin
 fun SavingAccountDepositType.toEntity(): SavingAccountDepositTypeRow = SavingAccountDepositTypeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingAccountDepositTypeRow`.
 
 ```kotlin
 fun SavingsAccountRow.toModel(): SavingsAccount = SavingsAccount(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsAccount` model.
 
 ```kotlin
 fun SavingsAccount.toEntity(): SavingsAccountRow = SavingsAccountRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsAccountRow`.
 
 ```kotlin
 fun SavingsAccountStatusRow.toModel(): SavingsAccountStatus = SavingsAccountStatus(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsAccountStatus` model.
 
 ```kotlin
 fun SavingsAccountStatus.toEntity(): SavingsAccountStatusRow = SavingsAccountStatusRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsAccountStatusRow`.
 
 ```kotlin
 fun SavingsAccountSummaryRow.toModel(): SavingsAccountSummary = SavingsAccountSummary(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsAccountSummary` model.
 
 ```kotlin
 fun SavingsAccountSummary.toEntity(): SavingsAccountSummaryRow = SavingsAccountSummaryRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsAccountSummaryRow`.
 
 ```kotlin
 fun SavingsAccountWithAssociationsRow.toModel(): SavingsAccountWithAssociations = SavingsAccountWithAssociations(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsAccountWithAssociations` model.
 
 ```kotlin
 fun SavingsAccountWithAssociations.toEntity(): SavingsAccountWithAssociationsRow = SavingsAccountWithAssociationsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsAccountWithAssociationsRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/SavingsTransactionMappers.kt`
 
 ```kotlin
 fun SavingProductOptionsRow.toModel(): SavingProductOptions = SavingProductOptions(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingProductOptions` model.
 
 ```kotlin
 fun SavingProductOptions.toEntity(): SavingProductOptionsRow = SavingProductOptionsRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingProductOptionsRow`.
 
 ```kotlin
 fun SavingProductsTemplateRow.toModel(): SavingProductsTemplate = SavingProductsTemplate(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingProductsTemplate` model.
 
 ```kotlin
 fun SavingProductsTemplate.toEntity(): SavingProductsTemplateRow = SavingProductsTemplateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingProductsTemplateRow`.
 
 ```kotlin
 fun SavingsAccountTransactionRow.toModel(): SavingsAccountTransaction = SavingsAccountTransaction(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsAccountTransaction` model.
 
 ```kotlin
 fun SavingsAccountTransaction.toEntity(): SavingsAccountTransactionRow = SavingsAccountTransactionRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsAccountTransactionRow`.
 
 ```kotlin
 fun SavingsAccountTransactionTemplateRow.toModel(): SavingsAccountTransactionTemplate =
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsAccountTransactionTemplate` model.
 
 ```kotlin
 fun SavingsAccountTransactionTemplate.toEntity(): SavingsAccountTransactionTemplateRow =
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsAccountTransactionTemplateRow`.
 
 ```kotlin
 fun SavingsTransactionDateRow.toModel(): SavingsTransactionDate = SavingsTransactionDate(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsTransactionDate` model.
 
 ```kotlin
 fun SavingsTransactionDate.toEntity(): SavingsTransactionDateRow = SavingsTransactionDateRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsTransactionDateRow`.
 
 ```kotlin
 fun SavingsTransactionTypeRow.toModel(): SavingsTransactionType = SavingsTransactionType(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsTransactionType` model.
 
 ```kotlin
 fun SavingsTransactionType.toEntity(): SavingsTransactionTypeRow = SavingsTransactionTypeRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsTransactionTypeRow`.
 
 ```kotlin
 fun SavingsAccountTransactionRequestRow.toModel(): SavingsAccountTransactionRequest = SavingsAccountTransactionRequest(
 ```
-_No KDoc at source._
+Maps the stored row to its `SavingsAccountTransactionRequest` model.
 
 ```kotlin
 fun SavingsAccountTransactionRequest.toEntity(): SavingsAccountTransactionRequestRow =
 ```
-_No KDoc at source._
+Maps the model to its stored `SavingsAccountTransactionRequestRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/mapping/SurveyMappers.kt`
 
 ```kotlin
 fun SurveyRow.toModel(): Survey = Survey(
 ```
-_No KDoc at source._
+Maps the stored row to its `Survey` model.
 
 ```kotlin
 fun Survey.toEntity(): SurveyRow = SurveyRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `SurveyRow`.
 
 ```kotlin
 fun ComponentDatasRow.toModel(): ComponentDatas = ComponentDatas(
 ```
-_No KDoc at source._
+Maps the stored row to its `ComponentDatas` model.
 
 ```kotlin
 fun ComponentDatas.toEntity(): ComponentDatasRow = ComponentDatasRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ComponentDatasRow`.
 
 ```kotlin
 fun QuestionDatasRow.toModel(): QuestionDatas = QuestionDatas(
 ```
-_No KDoc at source._
+Maps the stored row to its `QuestionDatas` model.
 
 ```kotlin
 fun QuestionDatas.toEntity(): QuestionDatasRow = QuestionDatasRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `QuestionDatasRow`.
 
 ```kotlin
 fun ResponseDatasRow.toModel(): ResponseDatas = ResponseDatas(
 ```
-_No KDoc at source._
+Maps the stored row to its `ResponseDatas` model.
 
 ```kotlin
 fun ResponseDatas.toEntity(): ResponseDatasRow = ResponseDatasRow(
 ```
-_No KDoc at source._
+Maps the model to its stored `ResponseDatasRow`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/note/NoteKeyedReadStores.kt`
 
@@ -1879,12 +1879,12 @@ Keyed reads for note with no table of their own — cached through the shared re
 ```kotlin
 fun NoteEntity.toModel() = Note(
 ```
-_No KDoc at source._
+Maps the stored row to its `Note` model.
 
 ```kotlin
 fun Note.toEntity() = NoteEntity(
 ```
-_No KDoc at source._
+Maps the model to its stored `NoteEntity`.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/note/NoteStore.kt`
 
@@ -1910,7 +1910,7 @@ One owner's notes — Fineract's `{resourceType}/{resourceId}/notes`.
 ```kotlin
 fun provideNoteStore(
 ```
-_No KDoc at source._
+Store reading the note.
 
 ```kotlin
 data class NoteItemKey(val resourceType: String, val resourceId: Long, val noteId: Long)
@@ -2048,34 +2048,34 @@ _No KDoc at source._
 ```kotlin
 fun providePendingClientPayloadsStore(
 ```
-_No KDoc at source._
+Store reading the pending client payloads.
 
 ```kotlin
 fun providePendingCenterPayloadsStore(
 ```
-_No KDoc at source._
+Store reading the pending center payloads.
 
 ```kotlin
 fun providePendingGroupPayloadsStore(
 ```
-_No KDoc at source._
+Store reading the pending group payloads.
 
 ```kotlin
 fun providePendingLoanRepaymentsStore(
 ```
-_No KDoc at source._
+Store reading the pending loan repayments.
 
 ```kotlin
 fun providePendingSavingsTransactionsStore(
 ```
-_No KDoc at source._
+Store reading the pending savings transactions.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/recurringdeposit/RecurringDepositTemplateStore.kt`
 
 ```kotlin
 fun provideRecurringDepositTemplateStore(
 ```
-_No KDoc at source._
+Store reading the recurring deposit template.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/report/ReportKeyedReadStores.kt`
 
@@ -2140,32 +2140,32 @@ Addresses one `getCenterSummaryInfo` read.
 ```kotlin
 fun provideGetReportFullParameterListStore(
 ```
-_No KDoc at source._
+Store reading the report full parameter list.
 
 ```kotlin
 fun provideGetReportParameterDetailsStore(
 ```
-_No KDoc at source._
+Store reading the report parameter details.
 
 ```kotlin
 fun provideGetReportOfficeStore(
 ```
-_No KDoc at source._
+Store reading the report office.
 
 ```kotlin
 fun provideGetReportProductStore(
 ```
-_No KDoc at source._
+Store reading the report product.
 
 ```kotlin
 fun provideGetRunReportWithQueryStore(
 ```
-_No KDoc at source._
+Store reading the run report with query.
 
 ```kotlin
 fun provideGetCenterSummaryInfoStore(
 ```
-_No KDoc at source._
+Store reading the center summary info.
 
 ```kotlin
 fun provideReportParametersStore(
@@ -2177,7 +2177,7 @@ A report's parameters as data — `FullParameterList` mapped by `toReportParamet
 ```kotlin
 fun FullParameterListResponse.toReportParameters(): List<ReportParameter>
 ```
-_No KDoc at source._
+Reads the report's parameters from the result set, finding each column by name and falling back to its usual position.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/report/ReportStore.kt`
 
@@ -2212,7 +2212,7 @@ data class SavingsAccountKey(
 ```kotlin
 fun provideSavingsAccountStore(
 ```
-_No KDoc at source._
+Store reading the savings account.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/savings/SavingsCatalogStores.kt`
 
@@ -2224,7 +2224,7 @@ Catalogue and template reads for savings — option lists and form templates wit
 ```kotlin
 fun provideSavingsProductTemplateStore(
 ```
-_No KDoc at source._
+Store reading the savings product template.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/savings/SavingsKeyedReadStores.kt`
 
@@ -2306,22 +2306,22 @@ Addresses one `shareProductTemplate` read.
 ```kotlin
 fun provideFixedDepositProductTemplateStore(
 ```
-_No KDoc at source._
+Store reading the fixed deposit product template.
 
 ```kotlin
 fun provideGetClientSavingsAccountTemplateByProductStore(
 ```
-_No KDoc at source._
+Store reading the client savings account template by product.
 
 ```kotlin
 fun provideGetGroupSavingsAccountTemplateByProductStore(
 ```
-_No KDoc at source._
+Store reading the group savings account template by product.
 
 ```kotlin
 fun provideShareProductTemplateStore(
 ```
-_No KDoc at source._
+Store reading the share product template.
 
 ```kotlin
 data class GetSavingsAccountTransactionTemplateKey(
@@ -2345,7 +2345,7 @@ Addresses one `getSavingsAccountTransactionTemplate` read.
 ```kotlin
 fun provideGetSavingsAccountTransactionTemplateStore(
 ```
-_No KDoc at source._
+Store reading the savings account transaction template.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/search/SearchKeyedReadStores.kt`
 
@@ -2402,7 +2402,7 @@ Keyed reads for staff with no table of their own — cached through the shared r
 ```kotlin
 fun provideFieldStaffForOfficeStore(
 ```
-_No KDoc at source._
+Store reading the field staff for office.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/staff/StaffStore.kt`
 
@@ -2427,5 +2427,5 @@ Surveys — READ-CACHE (`createStore`). Survey definitions are server-authoritat
 
 ---
 
-_48 type(s), 289 function(s)/property(ies); 97 carry KDoc at source; 4 authored example(s); 37 live call site(s)._
+_48 type(s), 289 function(s)/property(ies); 316 carry KDoc at source; 4 authored example(s); 37 live call site(s)._
 <!-- api-docs:end -->

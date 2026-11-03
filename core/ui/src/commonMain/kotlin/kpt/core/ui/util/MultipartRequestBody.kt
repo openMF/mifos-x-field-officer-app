@@ -19,6 +19,7 @@ import io.ktor.utils.io.InternalAPI
 import kpt.core.model.objects.noncoreobjects.DocumentUpload
 import kotlin.text.substringBeforeLast
 
+/** Multipart form body carrying `file`, plus a description when given. */
 @OptIn(InternalAPI::class)
 fun multipartRequestBody(
     file: ByteArray,
@@ -61,6 +62,7 @@ fun documentUpload(
     description = description,
 )
 
+/** MIME type for a file extension. */
 fun getMimeTypeFromPlatformFile(extension: String): String {
     return when (extension.lowercase()) {
         "jpeg", "jpg" -> "image/jpeg"

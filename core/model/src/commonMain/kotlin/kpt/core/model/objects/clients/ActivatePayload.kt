@@ -16,9 +16,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ActivatePayload(
+    /** The date the record was activated. */
     var activationDate: String? = null,
 
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat: String? = null,
 
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     var locale: String? = null,
 )

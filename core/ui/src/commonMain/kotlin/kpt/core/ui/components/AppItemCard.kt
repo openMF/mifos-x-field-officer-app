@@ -24,6 +24,7 @@ import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Clickable card around caller-supplied content. */
 @Composable
 fun AppItemCard(
     onClick: () -> Unit,

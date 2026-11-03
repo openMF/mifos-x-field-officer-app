@@ -32,8 +32,12 @@ import kpt.core.base.database.annotation.DbEntity
     primaryKeys = ["entityType", "entityId", "documentId"],
 )
 class DocumentContentEntity(
+    /** The kind of entity this record belongs to (client, group, loan, …). */
     val entityType: String,
+    /** The server id of the entity this record belongs to. */
     val entityId: Int,
+    /** The server id of the document. */
     val documentId: Int,
+    /** The file's content. */
     val bytes: ByteArray,
 )

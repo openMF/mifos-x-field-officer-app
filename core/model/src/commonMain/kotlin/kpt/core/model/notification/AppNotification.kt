@@ -17,11 +17,18 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class AppNotification(
+    /** The server id of this record. */
     val id: Long,
+    /** The kind of record the notification is about (`loan`, `client`, …). */
     val objectType: String,
+    /** The id of that record, when there is one. */
     val objectId: Long?,
+    /** The action. */
     val action: String,
+    /** The notification text. */
     val content: String,
+    /** True once the notification has been read. */
     val isRead: Boolean,
+    /** When it was created, as the server's ISO local date-time. */
     val createdAt: String,
 )

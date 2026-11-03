@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.checkerinbox.entity.CheckerTaskEntity
 
+/** Room queries for checker inbox rows. */
 @DbDao
 @Dao
 interface CheckerInboxDao {
@@ -33,6 +34,7 @@ interface CheckerInboxDao {
     @Query("SELECT * FROM checker_tasks WHERE id = :id LIMIT 1")
     suspend fun getById(id: Int): CheckerTaskEntity?
 
+    /** Inserts `tasks`, or replaces rows with the same key. */
     @Upsert
     suspend fun upsertAll(tasks: List<CheckerTaskEntity>)
 
@@ -40,6 +42,7 @@ interface CheckerInboxDao {
     @Query("DELETE FROM checker_tasks WHERE id = :id")
     suspend fun deleteById(id: Int)
 
+    /** Deletes every `checker_tasks` row. */
     @Query("DELETE FROM checker_tasks")
     suspend fun deleteAll()
 

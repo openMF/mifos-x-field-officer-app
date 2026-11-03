@@ -14,9 +14,14 @@ package kpt.core.store.collectionsheet
  * date) triple, so date or staff changing must re-fetch rather than serve the previous sheet.
  */
 data class CollectionSheetKey(
+    /** The office's server id. */
     val officeId: Int,
+    /** The staff member's server id. */
     val staffId: Int,
+    /** Date of the meeting. */
     val meetingDate: String,
+    /** Pattern the dates are written in. */
     val dateFormat: String = "dd MMMM yyyy",
+    /** Locale the dates and numbers are written in. */
     val locale: String = "en",
 )

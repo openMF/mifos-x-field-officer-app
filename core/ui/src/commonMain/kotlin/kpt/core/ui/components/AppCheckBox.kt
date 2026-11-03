@@ -21,6 +21,7 @@ import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.AppTypography
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Checkbox with a label. */
 @Composable
 fun AppCheckBox(
     text: String,

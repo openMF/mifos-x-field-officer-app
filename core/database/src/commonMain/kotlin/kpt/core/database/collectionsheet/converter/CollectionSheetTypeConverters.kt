@@ -14,13 +14,16 @@ import kotlinx.serialization.json.Json
 import kpt.core.base.database.annotation.DbConverters
 import kpt.core.database.collectionsheet.entity.MeetingFallCalendar
 
+/** Room column converters for collection sheet fields. */
 @DbConverters
 class CollectionSheetTypeConverters {
 
+    /** Stores a `List<MeetingFallCalendar>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromMeetingFallCalendarList(meetings: List<MeetingFallCalendar>?): String =
         Json.encodeToString(meetings ?: emptyList())
 
+    /** Reads a `List<MeetingFallCalendar>` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toMeetingFallCalendarList(json: String): List<MeetingFallCalendar> =
         if (json.isBlank()) emptyList() else Json.decodeFromString(json)

@@ -36,7 +36,13 @@ private val demoHeader = HomeHeader(
 
 private val demoQuickActions = QuickAction.entries.toList()
 
-private val demoCollections = HomeCard.Collections(clientsDue = 14, loansDue = 17, dueByCurrency = listOf(Money(18_450.0, "MXN", "$")), collectedByCurrency = listOf(Money(30_250.0, "MXN", "$")), overdueClients = 3)
+private val demoCollections = HomeCard.Collections(
+    clientsDue = 14,
+    loansDue = 17,
+    dueByCurrency = listOf(Money(18_450.0, "MXN", "$")),
+    collectedByCurrency = listOf(Money(30_250.0, "MXN", "$")),
+    overdueClients = 3,
+)
 
 private val demoQueue = HomeCard.WorkQueue(
     checkerTasks = 2,
@@ -77,10 +83,38 @@ private fun demoRecent(): List<RecentRecord> {
     val now = Clock.System.now().toEpochMilliseconds()
     val min = 60_000L
     return listOf(
-        RecentRecord(RecentKind.CLIENT, 192, "FOTest Asha", accountNo = "00192", detail = "Active client", openedAtMs = now - 12 * min),
-        RecentRecord(RecentKind.GROUP, 84, "MARIPOSAS MONARCAS", accountNo = "0084", detail = "Solidarity group", openedAtMs = now - 45 * min),
-        RecentRecord(RecentKind.LOAN, 883, "CREDITO A LA PALABRA", accountNo = "LN-2024-883", detail = "FOTest Asha", openedAtMs = now - 120 * min),
-        RecentRecord(RecentKind.CENTER, 12, "Arin", accountNo = "CN-0012", detail = "Centre · 4 groups", openedAtMs = now - 26 * 60 * min),
+        RecentRecord(
+            RecentKind.CLIENT,
+            192,
+            "FOTest Asha",
+            accountNo = "00192",
+            detail = "Active client",
+            openedAtMs = now - 12 * min,
+        ),
+        RecentRecord(
+            RecentKind.GROUP,
+            84,
+            "MARIPOSAS MONARCAS",
+            accountNo = "0084",
+            detail = "Solidarity group",
+            openedAtMs = now - 45 * min,
+        ),
+        RecentRecord(
+            RecentKind.LOAN,
+            883,
+            "CREDITO A LA PALABRA",
+            accountNo = "LN-2024-883",
+            detail = "FOTest Asha",
+            openedAtMs = now - 120 * min,
+        ),
+        RecentRecord(
+            RecentKind.CENTER,
+            12,
+            "Arin",
+            accountNo = "CN-0012",
+            detail = "Centre · 4 groups",
+            openedAtMs = now - 26 * 60 * min,
+        ),
     )
 }
 
@@ -90,15 +124,23 @@ private fun demoRecent(): List<RecentRecord> {
  */
 private val gateway403 = RuntimeException(
     "Client request(POST https://apis.mifos.community/1.0/field/v1/collectionsheet) invalid: 403. Text: \"" +
-        """{"developerMessage":"The user associated with credentials passed on this request does not have sufficient privileges to perform this action.",""" +
+        """{"developerMessage":"The user associated with credentials passed on this request does not have """ +
+        """sufficient privileges to perform this action.",""" +
         """"httpStatusCode":"403","defaultUserMessage":"Insufficient privileges to perform this action.",""" +
-        """"userMessageGlobalisationCode":"error.msg.not.authorized","errors":[{"developerMessage":"User has no authority to READ collectionsheets",""" +
-        """"defaultUserMessage":"User has no authority to READ collectionsheets","userMessageGlobalisationCode":"error.msg.not.authorized","parameterName":"id","args":[]}]}""" + "\"",
+        """"userMessageGlobalisationCode":"error.msg.not.authorized",""" +
+        """"errors":[{"developerMessage":"User has no authority to READ collectionsheets",""" +
+        """"defaultUserMessage":"User has no authority to READ collectionsheets",""" +
+        """"userMessageGlobalisationCode":"error.msg.not.authorized","parameterName":"id","args":[]}]}""" + "\"",
 )
 
 private fun content(card: HomeCard): ScreenState<HomeCard> = ScreenState.Content(card)
 
-private fun state(collections: ScreenState<HomeCard> = content(demoCollections), all: ScreenState<HomeCard>? = null) = HomeUiState(
+private fun state(
+    collections: ScreenState<HomeCard> = content(
+        demoCollections,
+    ),
+    all: ScreenState<HomeCard>? = null,
+) = HomeUiState(
     header = demoHeader,
     cards = listOf(
         HomeCardSlot(HomeCardId.COLLECTIONS, all ?: collections),

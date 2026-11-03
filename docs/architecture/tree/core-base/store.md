@@ -171,16 +171,16 @@ sealed interface ErrorCategory
 ```
 High-level classification of a `Throwable` for state-aware UI rendering. Pure logic — no platform calls, no side effects. Lives in `core-base/store` (state layer) so both UI and non-UI consumers can branch on the same categorization.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:1344</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardErrors.kt:105</code></summary>
 
 ```kotlin
-    }
-    return when (val cat = categorize(error)) {
+/** The bold kind for a categorised failure, with the HTTP status when the category carries one. */
+@Composable
+private fun ErrorCategory.kind(): String {
+    val cat = this
+    return when (cat) {
         ErrorCategory.Network -> stringResource(Res.string.feature_home_dashboard_error_kind_offline)
-        ErrorCategory.Timeout.Connect, ErrorCategory.Timeout.Read -> stringResource(Res.string.feature_home_dashboard_error_kind_timeout)
-        ErrorCategory.Auth -> "${stringResource(Res.string.feature_home_dashboard_error_kind_signed_out)} (${HTTP_UNAUTHORIZED})"
-        ErrorCategory.RateLimit, ErrorCategory.QuotaExceeded -> stringResource(Res.string.feature_home_dashboard_error_kind_busy)
-        is ErrorCategory.ClientError -> {
+        ErrorCategory.Timeout.Connect, ErrorCategory.Timeout.Read -> stringResource(
 ```
 
 </details>
@@ -263,7 +263,7 @@ data class FreshnessSignal(
 ```
 Pure-staleness signal carried by `kpt.core.base.store.screen.ScreenDataStream.freshness` alongside `state`. Decouples cache age from network connectivity.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:140</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:182</code></summary>
 
 ```kotlin
             demoCollections,
@@ -384,7 +384,7 @@ data class DraftRecord(
 ```
 One draft row as seen by the cross-form `DraftInventory` — untyped (no deserialized payload), because the Sync & Drafts screen renders every form's drafts side-by-side and cannot know each `P`.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsRoute.kt:61</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsRoute.kt:68</code></summary>
 
 ```kotlin
 fun NavGraphBuilder.syncAndDraftsDestination(
@@ -573,7 +573,7 @@ single<SubmitOutbox<LoanApplicationPayload>> {
 
 </details>
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:47</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:48</code></summary>
 
 ```kotlin
 @DataProvider(qualifier = CREATE_OUTBOX_QUALIFIER)
@@ -804,11 +804,11 @@ data class ConflictEntry(
 ```
 A single recorded write conflict awaiting user resolution.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/ConflictInboxViewModel.kt:69</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/ConflictInboxViewModel.kt:81</code></summary>
 
 ```kotlin
-
-    /** The live pending-conflict feed, newest first. */
+     * @property conflicts the sync conflicts waiting for a decision, newest first
+     */
     data class Success(val conflicts: List<ConflictEntry>) : ConflictInboxUiState {
         /** True when there are no pending conflicts — drives the empty state. */
         val isEmpty: Boolean get() = conflicts.isEmpty()
@@ -1798,7 +1798,7 @@ syncer.start()
 
 </details>
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:76</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:78</code></summary>
 
 ```kotlin
     userPreferences: UserPreferencesRepository,
@@ -2148,10 +2148,10 @@ data class FormDraft(
 ```
 A form submission that did not reach the server, kept so it can be RESUMED in its form or REPLAYED by an `OfflineSubmitSyncer` — one row type for every form, in `framework_submit_drafts`.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:47</code></summary>
 
 ```kotlin
-
+/** The outbox holding the create forms' unsent submissions. */
 @DataProvider(qualifier = CREATE_OUTBOX_QUALIFIER)
 fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
     RoomSubmitOutbox(dao = dao, serializer = FormDraft.serializer(), ownsFormKey = { it.startsWith(CreateForm.PREFIX) })
@@ -2240,16 +2240,16 @@ class RoomFormDraftRepository(
 ```
 Over the DAO rather than `RoomSubmitOutbox`: a form must see its FAILED draft too (the outbox's observers are PENDING-only), and a save must replace the slot whatever its status (the outbox upserts only a PENDING row, so saving over a FAILED one would leave two).
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:53</code></summary>
 
 ```kotlin
 @DataProvider
 fun provideCreateDraftRepository(dao: DraftDao): FormDraftRepository =
     RoomFormDraftRepository(dao, CreateForm.entries.map { it.key })
 
+/** Sends a create-form draft through the repository for its form. */
 @DataProvider
 fun provideCreateDraftSubmitter(
-    clients: ClientCommandRepository,
 ```
 
 </details>

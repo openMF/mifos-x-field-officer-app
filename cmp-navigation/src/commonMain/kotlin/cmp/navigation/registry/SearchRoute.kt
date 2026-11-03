@@ -75,6 +75,7 @@ data object SearchRoute
 internal const val SEARCH_SCREEN_TAG: String = "shell:search"
 internal const val SEARCH_CREATE_FAB_TAG: String = "shell:search:create"
 
+/** Opens the global search screen. */
 fun NavController.navigateToSearch() = navigate(SearchRoute)
 
 internal fun NavGraphBuilder.searchDestination(

@@ -23,7 +23,10 @@ import kpt.core.model.offline.RefreshSettings
 // datastore-scope: per-device — the choice is about this phone's data plan and battery, not the
 // officer's account, so it survives sign-out like the review-prompt counters.
 interface OfflineSyncSettingsStore {
+    /** The stored refresh settings. */
     val settings: StateFlow<RefreshSettings>
+
+    /** Stores `settings`. */
     fun update(settings: RefreshSettings)
 }
 

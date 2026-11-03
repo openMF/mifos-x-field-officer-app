@@ -22,6 +22,7 @@ import kpt.core.database.collectionsheet.entity.IndividualCollectionSheet as Ind
 import kpt.core.database.collectionsheet.entity.MeetingFallCalendar as MeetingFallCalendarRow
 import kpt.core.database.collectionsheet.entity.SavingsCollectionSheet as SavingsCollectionSheetRow
 
+/** Maps the stored row to its `CollectionSheetResponse` model. */
 fun CollectionSheetResponseRow.toModel(): CollectionSheetResponse = CollectionSheetResponse(
     attendanceTypeOptions = attendanceTypeOptions,
     dueDate = dueDate,
@@ -31,6 +32,7 @@ fun CollectionSheetResponseRow.toModel(): CollectionSheetResponse = CollectionSh
     savingsProducts = savingsProducts,
 )
 
+/** Maps the model to its stored `CollectionSheetResponseRow`. */
 fun CollectionSheetResponse.toEntity(): CollectionSheetResponseRow = CollectionSheetResponseRow(
     attendanceTypeOptions = attendanceTypeOptions,
     dueDate = dueDate,
@@ -40,18 +42,21 @@ fun CollectionSheetResponse.toEntity(): CollectionSheetResponseRow = CollectionS
     savingsProducts = savingsProducts,
 )
 
+/** Maps the stored row to its `IndividualCollectionSheet` model. */
 fun IndividualCollectionSheetRow.toModel(): IndividualCollectionSheet = IndividualCollectionSheet(
     dueDate = dueDate,
     clients = clients?.mapTo(ArrayList()) { it.toModel() },
     paymentTypeOptions = paymentTypeOptions,
 )
 
+/** Maps the model to its stored `IndividualCollectionSheetRow`. */
 fun IndividualCollectionSheet.toEntity(): IndividualCollectionSheetRow = IndividualCollectionSheetRow(
     dueDate = dueDate,
     clients = clients?.mapTo(ArrayList()) { it.toEntity() },
     paymentTypeOptions = paymentTypeOptions,
 )
 
+/** Maps the stored row to its `GroupCollectionSheet` model. */
 fun GroupCollectionSheetRow.toModel(): GroupCollectionSheet = GroupCollectionSheet(
     clients = clients.mapTo(ArrayList()) { it.toModel() },
     groupId = groupId,
@@ -62,6 +67,7 @@ fun GroupCollectionSheetRow.toModel(): GroupCollectionSheet = GroupCollectionShe
     staffName = staffName,
 )
 
+/** Maps the model to its stored `GroupCollectionSheetRow`. */
 fun GroupCollectionSheet.toEntity(): GroupCollectionSheetRow = GroupCollectionSheetRow(
     clients = clients.mapTo(ArrayList()) { it.toEntity() },
     groupId = groupId,
@@ -72,6 +78,7 @@ fun GroupCollectionSheet.toEntity(): GroupCollectionSheetRow = GroupCollectionSh
     staffName = staffName,
 )
 
+/** Maps the stored row to its `ClientCollectionSheet` model. */
 fun ClientCollectionSheetRow.toModel(): ClientCollectionSheet = ClientCollectionSheet(
     clientId = clientId,
     clientName = clientName,
@@ -80,6 +87,7 @@ fun ClientCollectionSheetRow.toModel(): ClientCollectionSheet = ClientCollection
     savings = savings.mapTo(ArrayList()) { it.toModel() },
 )
 
+/** Maps the model to its stored `ClientCollectionSheetRow`. */
 fun ClientCollectionSheet.toEntity(): ClientCollectionSheetRow = ClientCollectionSheetRow(
     clientId = clientId,
     clientName = clientName,
@@ -88,6 +96,7 @@ fun ClientCollectionSheet.toEntity(): ClientCollectionSheetRow = ClientCollectio
     savings = savings.mapTo(ArrayList()) { it.toEntity() },
 )
 
+/** Maps the stored row to its `SavingsCollectionSheet` model. */
 fun SavingsCollectionSheetRow.toModel(): SavingsCollectionSheet = SavingsCollectionSheet(
     accountId = accountId,
     accountStatusId = accountStatusId,
@@ -99,6 +108,7 @@ fun SavingsCollectionSheetRow.toModel(): SavingsCollectionSheet = SavingsCollect
     savingsId = savingsId,
 )
 
+/** Maps the model to its stored `SavingsCollectionSheetRow`. */
 fun SavingsCollectionSheet.toEntity(): SavingsCollectionSheetRow = SavingsCollectionSheetRow(
     accountId = accountId,
     accountStatusId = accountStatusId,
@@ -110,6 +120,7 @@ fun SavingsCollectionSheet.toEntity(): SavingsCollectionSheetRow = SavingsCollec
     savingsId = savingsId,
 )
 
+/** Maps the stored row to its `MeetingFallCalendar` model. */
 fun MeetingFallCalendarRow.toModel(): MeetingFallCalendar = MeetingFallCalendar(
     accountNo = accountNo,
     activationDate = activationDate,
@@ -128,6 +139,7 @@ fun MeetingFallCalendarRow.toModel(): MeetingFallCalendar = MeetingFallCalendar(
     totaldue = totaldue,
 )
 
+/** Maps the model to its stored `MeetingFallCalendarRow`. */
 fun MeetingFallCalendar.toEntity(): MeetingFallCalendarRow = MeetingFallCalendarRow(
     accountNo = accountNo,
     activationDate = activationDate,

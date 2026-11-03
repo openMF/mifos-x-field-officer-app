@@ -9,6 +9,7 @@
  */
 package kpt.core.ui.util
 
+/** Formats a Fineract `[year, month, day]` date as `dd-MM-yyyy`; empty when it is incomplete. */
 fun List<Int?>?.toDateString(): String {
     if (this == null) return ""
     return if (this.size >= 3) {

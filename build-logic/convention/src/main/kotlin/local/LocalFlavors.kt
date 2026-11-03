@@ -12,7 +12,9 @@ package local
 import com.mobilebytelabs.kmpflavors.KmpFlavorExtension
 import org.gradle.api.Project
 
+/** This fork's product flavours, applied on top of the template's. */
 object LocalFlavors {
+    /** Adds this fork's flavours to `ext`. */
     @JvmStatic
     fun apply(ext: KmpFlavorExtension, project: Project) {
         // ── Example: add a second "bank" dimension with two flavors ─────────────

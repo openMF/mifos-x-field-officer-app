@@ -11,8 +11,11 @@ package kpt.core.model.recurringdeposit
 
 import kotlinx.serialization.Serializable
 
+/** A summary. */
 @Serializable
 data class Summary(
+    /** The account balance. */
     val accountBalance: Double? = null,
+    /** The currency the amounts are in. */
     val currency: Currency? = null,
 )

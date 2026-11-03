@@ -10,19 +10,27 @@
 package kpt.core.model.client
 
 import kotlinx.serialization.Serializable
+/** Request body for a post client address. */
 @Serializable
 data class PostClientAddressRequest(
+    /** The first address line. */
     val addressLine1: String = "",
 
+    /** The second address line. */
     val addressLine2: String = "",
 
+    /** The third address line. */
     val addressLine3: String = "",
 
+    /** The city. */
     val city: String = "",
 
+    /** The server id of the state or province. */
     val stateProvinceId: Int = -1,
 
+    /** The server id of the country. */
     val countryId: Int = -1,
 
+    /** The postal code. */
     val postalCode: String = "",
 )

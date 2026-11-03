@@ -23,6 +23,7 @@ import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Titled card listing an address, one labelled line per field. */
 @Composable
 fun AppAddressCard(
     title: String,
@@ -47,6 +48,7 @@ fun AppAddressCard(
     }
 }
 
+/** One labelled line of an address card. */
 @Composable
 fun AppAddressItem(
     addressLabel: String,

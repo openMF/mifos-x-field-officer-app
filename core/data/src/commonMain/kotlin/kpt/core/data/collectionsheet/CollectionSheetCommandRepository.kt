@@ -41,10 +41,12 @@ interface CollectionSheetCommandRepository {
         payload: IndividualCollectionSheetPayload?,
     ): MutationResult<GenericResponse>
 
+    /** Submits a centre's productive collection sheet. */
     suspend fun submitProductiveSheet(
         centerId: Int,
         payload: ProductiveCollectionSheetPayload?,
     ): MutationResult<GenericResponse>
 
+    /** Submits a group's collection sheet. */
     suspend fun submitCollectionSheet(groupId: Int, payload: CollectionSheetPayload?): MutationResult<GenericResponse>
 }

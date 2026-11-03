@@ -16,17 +16,24 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsProduct(
+    /** True when the account may be overdrawn. */
     var isAllowOverdraft: Boolean = false,
 
+    /** The kind of deposit account. */
     var depositAccountType: String? = null,
 
+    /** True when the minimum balance is enforced. */
     var isEnforceMinRequiredBalance: Boolean = false,
 
+    /** The server id of this record. */
     var id: Int = 0,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** True when tax is withheld on interest. */
     var isWithHoldTax: Boolean = false,
 
+    /** True when the withdrawal fee also applies to transfers. */
     var isWithdrawalFeeForTransfers: Boolean = false,
 )

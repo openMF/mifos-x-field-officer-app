@@ -31,9 +31,20 @@ import org.mobilenativefoundation.store.store5.Store
  * others, and each is offline-first through the shared read cache.
  */
 
+/**
+ * Key of a client-count read.
+ *
+ * @property officeId the office counted
+ * @property status the client status counted (`pending`, `active`)
+ */
 data class ClientCountKey(val officeId: Long, val status: String)
 
-/** The business date (`yyyy-MM-dd`) and the officer's active loans to read the schedules of. */
+/**
+ * The business date (`yyyy-MM-dd`) and the officer's active loans to read the schedules of.
+ *
+ * @property date the date, as `yyyy-MM-dd`
+ * @property loanIds the loans to read
+ */
 data class DueTodayKey(val date: String, val loanIds: List<Long>)
 
 // Loans per batch call — bounds one response (~24 KB a schedule) without adding round-trips for a book.
@@ -48,6 +59,7 @@ private const val PAGE = 200
 // officer filter if Fineract ever adds one to GET /loans.
 private const val MAX_ROWS = 2000
 
+/** Store reading the dashboard user. */
 @StoreProvider(id = "dashboardUser", ttl = "12h")
 @CacheKey(fn = "forKey", key = "dashboardUser:{key}", params = ["key:String"])
 fun provideDashboardUserStore(
@@ -72,6 +84,7 @@ fun provideDashboardUserStore(
     },
 )
 
+/** Store reading the dashboard business date. */
 @StoreProvider(id = "dashboardBusinessDate", ttl = "1h")
 @CacheKey(name = "CURRENT", key = "dashboardBusinessDate")
 fun provideDashboardBusinessDateStore(
@@ -87,6 +100,7 @@ fun provideDashboardBusinessDateStore(
     },
 )
 
+/** Store reading the dashboard loans. */
 @StoreProvider(id = "dashboardLoans", ttl = "15m")
 @CacheKey(fn = "forKey", key = "dashboardLoans:{key}", params = ["key:String"])
 fun provideDashboardLoansStore(
@@ -107,6 +121,7 @@ fun provideDashboardLoansStore(
     },
 )
 
+/** Store reading the dashboard client count. */
 @StoreProvider(id = "dashboardClientCount", ttl = "15m")
 @CacheKey(fn = "forKey", key = "dashboardClientCount:{key}", params = ["key:String"])
 fun provideDashboardClientCountStore(
@@ -173,6 +188,7 @@ internal fun LoanScheduleDto.dueOn(date: String): DueTodayLoan? {
     )
 }
 
+/** Store reading the dashboard savings. */
 @StoreProvider(id = "dashboardSavings", ttl = "15m")
 @CacheKey(name = "LIST", key = "dashboardSavings")
 fun provideDashboardSavingsStore(

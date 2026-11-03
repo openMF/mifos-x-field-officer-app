@@ -11,6 +11,7 @@ package kpt.core.ui.fieldofficer.utils
 
 import kpt.core.ui.components.Status
 
+/** The listing status of an identifier's status text, or null when there is none. */
 fun getClientIdentifierStatus(status: String?): Status? {
     return if (status != null) {
         if (status.lowercase().endsWith("inactive")) {

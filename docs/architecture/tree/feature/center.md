@@ -23,10 +23,10 @@ ViewModels: `CenterDetailViewModel`, `CenterListViewModel`, `CreateCenterViewMod
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/center sha=abe3bbb683baa5dc5860b9ef4d9e9ff5dcab7378 -->
+<!-- api-docs:begin module=feature/center sha=4402a3bfc66518d10740bea0fc7c66be616c24bb -->
 ## API reference
 
-_Generated from `feature/center` at tree `abe3bbb683ba` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/center` at tree `4402a3bfc665` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -64,7 +64,7 @@ The tab's graph. Mirrors `ClientDestination` — the tab points at the graph, no
 ```kotlin
 data object CenterListRoute
 ```
-_No KDoc at source._
+The centre list.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/navigation/CenterTab.kt:44</code></summary>
 
@@ -86,27 +86,27 @@ Center detail. `centerId` is a type-safe route argument, not a SavedStateHandle 
 ```kotlin
 fun NavController.navigateToCenterList(navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the centre list.
 
 ```kotlin
 fun NavController.navigateToCenters(navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the centres graph (the tab's destination).
 
 ```kotlin
 fun NavController.navigateToCenterDetail(centerId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens centre `centerId`'s details.
 
 ```kotlin
 data object CreateCenterRoute
 ```
-_No KDoc at source._
+The new-centre form.
 
 ```kotlin
 fun NavController.navigateToCreateCenter(navOptions: NavOptions? = null) = navigate(CreateCenterRoute, navOptions)
 ```
-_No KDoc at source._
+Opens the new-centre form.
 
 ```kotlin
 fun NavGraphBuilder.centerListDestination(navController: NavController)
@@ -127,5 +127,5 @@ The Centers bottom-nav tab. Declared here via `@FeatureTab` rather than in `cmp-
 
 ---
 
-_5 type(s), 7 function(s)/property(ies); 6 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
+_5 type(s), 7 function(s)/property(ies); 12 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
 <!-- api-docs:end -->

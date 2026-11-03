@@ -11,9 +11,13 @@ package kpt.core.model.loan
 
 import kotlinx.serialization.Serializable
 
+/** Server response to a create guarantor request. */
 @Serializable
 data class CreateGuarantorResponseDto(
+    /** The server id of the office. */
     val officeId: Long,
+    /** The server id of the loan. */
     val loanId: Long,
+    /** The server id of the resource the request created or changed. */
     val resourceId: Long,
 )

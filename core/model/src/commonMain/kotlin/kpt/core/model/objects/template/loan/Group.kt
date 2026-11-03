@@ -16,27 +16,39 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Group(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The account number Fineract assigned. */
     var accountNo: Int? = null,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** The id an external system uses for this record, if one was set. */
     var externalId: Int? = null,
 
+    /** The record's Fineract status. */
     var status: Status? = null,
 
+    /** True when the record is active. */
     var active: Boolean? = null,
 
+    /** The date the record was activated. */
     var activationDate: List<Int>? = null,
 
+    /** The server id of the office. */
     var officeId: Int? = null,
 
+    /** The name of the office. */
     var officeName: String? = null,
 
+    /** The office hierarchy path (e.g. `.1.2.`). */
     var hierarchy: String? = null,
 
+    /** The group's level in the group hierarchy. */
     var groupLevel: Int? = null,
 
+    /** The dates and users of the record's lifecycle events (submitted, approved, activated, …). */
     var timeline: GroupTimeline? = null,
 )

@@ -13,12 +13,14 @@ import kpt.core.ui.utils.PasswordStrength
 import kotlin.math.log2
 import kotlin.math.pow
 
+/** Password strength checks. */
 object PasswordChecker {
     private const val MIN_PASSWORD_LENGTH = 8
     private const val STRONG_PASSWORD_LENGTH = 12
     private const val MIN_ENTROPY_BITS = 60.0
     private const val MAX_PASSWORD_LENGTH = 128
 
+    /** The password's strength, or an error when it is empty or too long. */
     fun getPasswordStrengthResult(password: String): PasswordStrengthResult {
         return when {
             password.isEmpty() -> PasswordStrengthResult.Error("Password cannot be empty.")
@@ -63,6 +65,7 @@ object PasswordChecker {
         return log2(charPool.toDouble().pow(password.length))
     }
 
+    /** Hints for strengthening the password. */
     fun getPasswordFeedback(password: String): List<String> {
         val feedback = mutableListOf<String>()
 
@@ -89,8 +92,19 @@ object PasswordChecker {
     }
 }
 
+/** Result of a strength check. */
 sealed class PasswordStrengthResult {
+    /**
+     * The password was rated.
+     *
+     * @property passwordStrength its strength
+     */
     data class Success(val passwordStrength: PasswordStrength) : PasswordStrengthResult()
 
+    /**
+     * The password could not be rated.
+     *
+     * @property message why
+     */
     data class Error(val message: String) : PasswordStrengthResult()
 }

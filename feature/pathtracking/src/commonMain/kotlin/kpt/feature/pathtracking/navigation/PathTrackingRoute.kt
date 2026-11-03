@@ -20,6 +20,7 @@ import kpt.feature.pathtracking.ui.PathTrackingScreen
 @Serializable
 data object PathTrackingRoute
 
+/** Registers the path-tracker screen in the nav graph. */
 @FeatureDestination
 fun NavGraphBuilder.pathTrackingDestination(navController: NavController) {
     composableWithPushTransitions<PathTrackingRoute> {
@@ -27,4 +28,5 @@ fun NavGraphBuilder.pathTrackingDestination(navController: NavController) {
     }
 }
 
+/** Opens the officer's path tracker. */
 fun NavController.navigateToPathTracking() = navigate(PathTrackingRoute)

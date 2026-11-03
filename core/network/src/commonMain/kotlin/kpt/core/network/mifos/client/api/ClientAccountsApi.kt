@@ -19,6 +19,7 @@ import kpt.core.model.client.ClientAccounts
  */
 @ApiBinding("mifos")
 interface ClientAccountsApi {
+    /** Reads every account of a client. */
     @GET("clients/{clientId}/accounts")
     suspend fun getAllAccountsOfClient(@Path("clientId") clientId: Int): ClientAccounts
 }

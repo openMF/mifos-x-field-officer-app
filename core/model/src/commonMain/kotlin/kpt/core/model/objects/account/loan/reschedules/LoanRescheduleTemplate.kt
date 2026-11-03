@@ -11,7 +11,9 @@ package kpt.core.model.objects.account.loan.reschedules
 
 import kotlinx.serialization.Serializable
 
+/** Server template for a loan reschedule: the options its form offers. */
 @Serializable
 data class LoanRescheduleTemplate(
+    /** The reschedule reasons that may be chosen. */
     val rescheduleReasons: List<RescheduleReasonOption> = emptyList(),
 )

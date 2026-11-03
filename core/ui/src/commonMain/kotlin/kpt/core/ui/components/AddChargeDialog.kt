@@ -44,6 +44,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
+/** Bottom sheet for adding a charge: pick the charge, then its amount and collection date. */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun AddChargeBottomSheet(

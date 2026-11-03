@@ -15,6 +15,7 @@ import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 import kpt.core.database.client.entity.ClientStatusEntity
 import kpt.core.database.loan.entity.LoanTimelineEntity
+/** Room row for a center. */
 @DbEntity
 @Entity(
     tableName = "Center",
@@ -33,34 +34,49 @@ import kpt.core.database.loan.entity.LoanTimelineEntity
 )
 @Serializable
 data class CenterEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
 
+    /** True when this record is queued to be synced to the server. */
     val sync: Boolean = false,
 
+    /** The account number Fineract assigned. */
     val accountNo: String? = null,
 
+    /** The display name. */
     val name: String? = null,
 
+    /** The server id of the office. */
     val officeId: Int? = null,
 
+    /** The name of the office. */
     val officeName: String? = null,
 
+    /** The server id of the staff member (loan officer). */
     val staffId: Int? = null,
 
+    /** The staff member's display name. */
     val staffName: String? = null,
 
+    /** The office hierarchy path (e.g. `.1.2.`). */
     val hierarchy: String? = null,
 
+    /** The record's Fineract status. */
     val status: ClientStatusEntity? = null,
 
+    /** True when the record is active. */
     val active: Boolean? = null,
 
+    /** The centre's dates. */
     val centerDate: CenterDateEntity? = null,
 
+    /** The date the record was activated. */
     val activationDate: List<Int?> = emptyList(),
 
+    /** The dates and users of the record's lifecycle events (submitted, approved, activated, …). */
     val timeline: LoanTimelineEntity? = null,
 
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
 )

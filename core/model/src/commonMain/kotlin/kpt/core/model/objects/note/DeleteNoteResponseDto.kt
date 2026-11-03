@@ -11,7 +11,9 @@ package kpt.core.model.objects.note
 
 import kotlinx.serialization.Serializable
 
+/** Server response to a delete note request. */
 @Serializable
 data class DeleteNoteResponseDto(
+    /** The server id of the resource the request created or changed. */
     val resourceId: Long? = null,
 )

@@ -11,9 +11,13 @@ package kpt.core.model.objects.clients
 
 import kotlinx.serialization.Serializable
 
+/** Request body for a collateral. */
 @Serializable
 data class CollateralPayload(
+    /** The server id of the collateral. */
     val collateralId: Int,
+    /** The quantity of collateral. */
     val quantity: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
 )

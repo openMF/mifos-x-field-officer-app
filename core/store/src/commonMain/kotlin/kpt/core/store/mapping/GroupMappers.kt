@@ -20,6 +20,7 @@ import kpt.core.database.group.entity.GroupEntity as GroupRow
 import kpt.core.database.group.entity.GroupPayloadEntity as GroupPayloadRow
 import kpt.core.database.group.entity.GroupWithAssociations as GroupWithAssociationsRow
 
+/** Maps the stored row to its `GroupDate` model. */
 fun GroupDateRow.toModel(): GroupDate = GroupDate(
     groupId = groupId,
     chargeId = chargeId,
@@ -28,6 +29,7 @@ fun GroupDateRow.toModel(): GroupDate = GroupDate(
     year = year,
 )
 
+/** Maps the model to its stored `GroupDateRow`. */
 fun GroupDate.toEntity(): GroupDateRow = GroupDateRow(
     groupId = groupId,
     chargeId = chargeId,
@@ -36,6 +38,7 @@ fun GroupDate.toEntity(): GroupDateRow = GroupDateRow(
     year = year,
 )
 
+/** Maps the stored row to its `Group` model. */
 fun GroupRow.toModel(): Group = Group(
     id = id,
     accountNo = accountNo,
@@ -57,6 +60,7 @@ fun GroupRow.toModel(): Group = Group(
     externalId = externalId,
 )
 
+/** Maps the model to its stored `GroupRow`. */
 fun Group.toEntity(): GroupRow = GroupRow(
     id = id,
     accountNo = accountNo,
@@ -78,6 +82,7 @@ fun Group.toEntity(): GroupRow = GroupRow(
     externalId = externalId,
 )
 
+/** Maps the stored row to its `GroupPayload` model. */
 fun GroupPayloadRow.toModel(): GroupPayload = GroupPayload(
     id = id,
     errorMessage = errorMessage,
@@ -91,6 +96,7 @@ fun GroupPayloadRow.toModel(): GroupPayload = GroupPayload(
     dateFormat = dateFormat,
 )
 
+/** Maps the model to its stored `GroupPayloadRow`. */
 fun GroupPayload.toEntity(): GroupPayloadRow = GroupPayloadRow(
     id = id,
     errorMessage = errorMessage,
@@ -104,16 +110,19 @@ fun GroupPayload.toEntity(): GroupPayloadRow = GroupPayloadRow(
     dateFormat = dateFormat,
 )
 
+/** Maps the stored row to its `GroupAccounts` model. */
 fun GroupAccountsRow.toModel(): GroupAccounts = GroupAccounts(
     loanAccounts = loanAccounts.map { it.toModel() },
     savingsAccounts = savingsAccounts.map { it.toModel() },
 )
 
+/** Maps the model to its stored `GroupAccountsRow`. */
 fun GroupAccounts.toEntity(): GroupAccountsRow = GroupAccountsRow(
     loanAccounts = loanAccounts.map { it.toEntity() },
     savingsAccounts = savingsAccounts.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `GroupWithAssociations` model. */
 fun GroupWithAssociationsRow.toModel(): GroupWithAssociations = GroupWithAssociations(
     id = id,
     accountNo = accountNo,
@@ -131,6 +140,7 @@ fun GroupWithAssociationsRow.toModel(): GroupWithAssociations = GroupWithAssocia
     timeline = timeline,
 )
 
+/** Maps the model to its stored `GroupWithAssociationsRow`. */
 fun GroupWithAssociations.toEntity(): GroupWithAssociationsRow = GroupWithAssociationsRow(
     id = id,
     accountNo = accountNo,

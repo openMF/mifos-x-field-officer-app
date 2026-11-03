@@ -35,10 +35,15 @@ import kpt.feature.savings.navigation.navigateToSavingsSummary
 @Serializable
 data object GroupsDestination
 
+/** The group list. */
 @Serializable
 data object GroupsListRoute
 
-/** Group detail. `groupId` is a type-safe route argument, not a SavedStateHandle default. */
+/**
+ * Group detail. `groupId` is a type-safe route argument, not a SavedStateHandle default.
+ *
+ * @property groupId the Fineract group id
+ */
 @Serializable
 data class GroupsDetailRoute(val groupId: Int)
 
@@ -46,15 +51,19 @@ data class GroupsDetailRoute(val groupId: Int)
 @Serializable
 data object CreateGroupRoute
 
+/** Opens the group list. */
 fun NavController.navigateToGroupsList(navOptions: NavOptions? = null) =
     navigate(GroupsListRoute, navOptions)
 
+/** Opens the groups graph (the tab's destination). */
 fun NavController.navigateToGroups(navOptions: NavOptions? = null) =
     navigate(GroupsDestination, navOptions)
 
+/** Opens group [groupId]'s details. */
 fun NavController.navigateToGroupsDetail(groupId: Int, navOptions: NavOptions? = null) =
     navigate(GroupsDetailRoute(groupId), navOptions)
 
+/** Opens the new-group form. */
 fun NavController.navigateToCreateGroup(navOptions: NavOptions? = null) =
     navigate(CreateGroupRoute, navOptions)
 
@@ -161,4 +170,5 @@ fun NavGraphBuilder.groupsTabGraph(outerNav: NavController) {
  */
 const val CLIENT_PROFILE_ROUTE_NAME = "kpt.feature.client.navigation.ClientProfileRoute"
 
+/** The string route of client [clientId]'s profile, for navigating there without depending on the client module. */
 fun clientProfileRoute(clientId: Int): String = "$CLIENT_PROFILE_ROUTE_NAME/$clientId"

@@ -24,6 +24,7 @@ import kpt.feature.loan.navigation.LoanReschedulesRoute
 @Serializable
 data object CheckerInboxRoute
 
+/** Registers the checker inbox and its task detail in the nav graph. */
 @FeatureDestination
 fun NavGraphBuilder.checkerInboxDestinations(navController: NavController) {
     composableWithPushTransitions<CheckerInboxRoute> {
@@ -35,4 +36,5 @@ fun NavGraphBuilder.checkerInboxDestinations(navController: NavController) {
     }
 }
 
+/** Opens the maker-checker inbox. */
 fun NavController.navigateToCheckerInbox() = navigate(CheckerInboxRoute)

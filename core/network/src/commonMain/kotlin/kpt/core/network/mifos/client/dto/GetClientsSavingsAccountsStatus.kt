@@ -54,6 +54,7 @@ data class GetClientsSavingsAccountsStatus(
 
     val transferOnHold: Boolean? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     val value: String? = null,
 
     val withdrawnByApplicant: Boolean? = null,

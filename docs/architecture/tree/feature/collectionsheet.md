@@ -23,10 +23,10 @@ ViewModels: `CollectionSheetDetailsViewModel`, `NewCollectionSheetViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/collectionsheet sha=03462f5302eda73eff310cb4e309a96934118357 -->
+<!-- api-docs:begin module=feature/collectionsheet sha=d176e01893eba22df85226975fd253164e6ae05e -->
 ## API reference
 
-_Generated from `feature/collectionsheet` at tree `03462f5302ed` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/collectionsheet` at tree `d176e01893eb` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -56,14 +56,14 @@ One generated sheet, addressed by the REQUEST that selects it — never the shee
 ```kotlin
 fun NavGraphBuilder.collectionSheetDestinations(navController: NavController)
 ```
-_No KDoc at source._
+Registers the collection-sheet search and details screens in the nav graph.
 
 ```kotlin
 fun NavController.navigateToIndividualCollectionSheet() = navigate(IndividualCollectionSheetRoute)
 ```
-_No KDoc at source._
+Opens the individual collection sheet search.
 
 ---
 
-_2 type(s), 3 function(s)/property(ies); 3 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_2 type(s), 3 function(s)/property(ies); 5 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

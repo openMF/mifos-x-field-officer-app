@@ -16,13 +16,18 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class LoanCollateralOptions(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** The sort position of this option. */
     var position: Int? = null,
 
+    /** A free-text description. */
     var description: String? = null,
 
+    /** True when the record is active. */
     var isActive: Boolean? = null,
 )

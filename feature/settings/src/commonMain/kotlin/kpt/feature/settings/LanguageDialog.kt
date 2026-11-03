@@ -43,6 +43,7 @@ import kpt.feature.settings.generated.resources.feature_settings_loading
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
+/** The language picker, wired to [SettingsViewModel]. */
 @Composable
 fun LanguageDialog(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinViewModel()) {
     val settingsState by viewModel.settingsState.collectAsStateWithLifecycle()
@@ -54,6 +55,7 @@ fun LanguageDialog(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinVie
     )
 }
 
+/** The stateless language picker: the current [settings], and [onChangeLanguage] for a pick. */
 @Composable
 fun LanguageDialog(
     settingsState: ScreenState<UserEditableSettings>,
@@ -123,6 +125,7 @@ private fun LanguagePanel(currentLanguage: LanguageConfig, onChangeLanguage: (la
     }
 }
 
+/** One selectable language row. */
 @Composable
 fun LanguageChooserRow(text: String, selected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Row(

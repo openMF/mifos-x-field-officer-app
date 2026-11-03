@@ -16,6 +16,7 @@ import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 import kpt.core.database.client.entity.ClientStatusEntity
 import kpt.core.model.shared.Timeline
+/** Room row for a group. */
 @DbEntity
 @Entity(
     tableName = "GroupTable",
@@ -34,19 +35,26 @@ import kpt.core.model.shared.Timeline
 )
 @Serializable
 data class GroupEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
 
+    /** The account number Fineract assigned. */
     val accountNo: String? = null,
 
+    /** True when this record is queued to be synced to the server. */
     val sync: Boolean = false,
 
+    /** The display name. */
     val name: String? = null,
 
+    /** The record's Fineract status. */
     val status: ClientStatusEntity? = null,
 
+    /** True when the record is active. */
     val active: Boolean? = null,
 
+    /** The group's dates. */
     @ColumnInfo(
         index = true,
         name = ColumnInfo.INHERIT_FIELD_NAME,
@@ -56,25 +64,36 @@ data class GroupEntity(
     )
     val groupDate: GroupDateEntity? = null,
 
+    /** The date the record was activated. */
     val activationDate: List<Int> = emptyList(),
 
+    /** The server id of the office. */
     val officeId: Int? = null,
 
+    /** The name of the office. */
     val officeName: String? = null,
 
+    /** The server id of the centre. */
     val centerId: Int? = 0,
 
+    /** The name of the centre. */
     val centerName: String? = null,
 
+    /** The server id of the staff member (loan officer). */
     val staffId: Int? = null,
 
+    /** The staff member's display name. */
     val staffName: String? = null,
 
+    /** The office hierarchy path (e.g. `.1.2.`). */
     val hierarchy: String? = null,
 
+    /** The group's level in the group hierarchy. */
     val groupLevel: Int = 0,
 
+    /** The dates and users of the record's lifecycle events (submitted, approved, activated, …). */
     val timeline: Timeline? = null,
 
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
 )

@@ -39,6 +39,7 @@ data class GetClientsPageItemsResponse(
 
     val emailAddress: String? = null,
 
+    /** The full name. */
     val fullName: String? = null,
 
     val id: Long? = null,
@@ -47,28 +48,39 @@ data class GetClientsPageItemsResponse(
 
     val officeName: String? = null,
 
+    /** The server id of the group. */
     val groupId: Int? = null,
 
+    /** The name of the group. */
     val groupName: String? = null,
 
     val status: GetClientStatus? = null,
 
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
 
+    /** The client's legal form (person or entity). */
     val legalForm: GetClientStatus? = null,
 
+    /** The date of birth. */
     val dateOfBirth: List<Int?> = emptyList(),
 
+    /** The staff members that may be assigned. */
     val staffOptions: List<StaffOption> = emptyList(),
 
+    /** The client's savings accounts. */
     val savingAccountOptions: List<SavingAccountOption> = emptyList(),
 
+    /** The share accounts. */
     val shareAccounts: List<ShareAccounts> = emptyList(),
 
+    /** The client's gender. */
     val gender: GetGenderOptions? = null,
 
+    /** The client's type. */
     val clientType: GetClientTypeOptions? = null,
 
+    /** The client's classification. */
     val clientClassification: GetClientClassificationOptions? = null,
 
 )

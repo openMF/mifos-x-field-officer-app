@@ -27,18 +27,23 @@ import kpt.core.database.survey.entity.SurveyEntity
 @Dao
 interface SurveyDao {
 
+    /** Saves `survey`, replacing any row with the same key. */
     @Insert(entity = SurveyEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSurvey(survey: SurveyEntity)
 
+    /** Saves `questionData`, replacing any row with the same key. */
     @Insert(entity = QuestionDatasEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuestionData(questionData: QuestionDatasEntity)
 
+    /** Saves `responseDatas`, replacing any row with the same key. */
     @Insert(entity = ResponseDatasEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertResponseData(responseDatas: ResponseDatasEntity)
 
+    /** Observes the `Survey` rows. */
     @Query("SELECT * FROM Survey")
     fun getAllSurveys(): Flow<List<SurveyEntity>>
 
+    /** Deletes every `Survey` row. */
     @Query("DELETE FROM Survey")
     suspend fun deleteAllSurveys()
 
@@ -52,9 +57,11 @@ interface SurveyDao {
         surveys.forEach { insertSurvey(it) }
     }
 
+    /** Observes the `QuestionDatas` rows whose `surveyId` is `surveyId`, ordered by `sequenceNo`. */
     @Query("SELECT * FROM QuestionDatas WHERE surveyId = :surveyId ORDER BY sequenceNo ASC")
     fun getQuestionDatas(surveyId: Int): Flow<List<QuestionDatasEntity>>
 
+    /** Observes the `ResponseDatas` rows whose `id` is `questionId`, ordered by `sequenceNo`. */
     @Query("SELECT * FROM ResponseDatas WHERE id = :questionId ORDER BY sequenceNo ASC")
     fun getResponseDatas(questionId: Int): Flow<List<ResponseDatasEntity>>
 

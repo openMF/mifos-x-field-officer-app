@@ -37,6 +37,7 @@ import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Search bar with back and search buttons. */
 @Composable
 fun AppSearchBar(
     query: String,

@@ -24,6 +24,7 @@ import org.mobilenativefoundation.store.store5.SourceOfTruth
 import org.mobilenativefoundation.store.store5.Store
 import kpt.core.model.collectionsheet.CenterDetail as CenterDetailModel
 
+/** Store reading the collection sheet. */
 @StoreProvider(id = "collectionSheetCenters", ttl = "5m")
 @CacheKey(
     fn = "forQuery",

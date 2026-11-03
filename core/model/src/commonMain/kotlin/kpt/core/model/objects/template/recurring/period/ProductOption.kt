@@ -10,9 +10,13 @@
 package kpt.core.model.objects.template.recurring.period
 
 import kotlinx.serialization.Serializable
+/** One product choice offered by a template. */
 @Serializable
 data class ProductOption(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The display name. */
     val name: String? = null,
+    /** True when tax is withheld on interest. */
     val withHoldTax: Boolean? = null,
 )

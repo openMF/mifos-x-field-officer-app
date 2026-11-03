@@ -16,11 +16,15 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ChargeCreationResponse(
+    /** The server id of the client. */
     var clientId: Int = 0,
 
+    /** The server id of the office. */
     var officeId: Int = 0,
 
+    /** The server id of the resource the request created or changed. */
     var resourceId: Int = 0,
 
+    /** The server id of the loan. */
     var loanId: Int = 0,
 )

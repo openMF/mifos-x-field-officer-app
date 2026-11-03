@@ -27,9 +27,11 @@ import org.mobilenativefoundation.store.store5.Store
 
 /** Addresses one `getDatatables` read. */
 data class GetDatatablesKey(
+    /** The application table the data table is registered against. */
     val apptable: String? = null,
 )
 
+/** Store reading the datatables. */
 @StoreProvider(id = "datatableGetDatatables", ttl = "12h")
 @CacheKey(fn = "forKey", key = "datatableGetDatatables:{key}", params = ["key:String"])
 fun provideGetDatatablesStore(
@@ -41,6 +43,7 @@ fun provideGetDatatablesStore(
     fetch = { key -> dataTableApi.getDatatables(apptable = key.apptable) },
 )
 
+/** Store reading the user path tracking. */
 @StoreProvider(id = "datatableGetUserPathTracking", ttl = "12h")
 @CacheKey(fn = "forKey", key = "datatableGetUserPathTracking:{key}", params = ["key:String"])
 fun provideGetUserPathTrackingStore(
@@ -54,7 +57,9 @@ fun provideGetUserPathTrackingStore(
 
 /** Addresses one `getDataOfDataTable` read — a datatable's ROWS for one entity. */
 data class DataTableDataKey(
+    /** The data table's registered name. */
     val tableName: String,
+    /** The id of the entity the record belongs to. */
     val entityId: Int,
 )
 

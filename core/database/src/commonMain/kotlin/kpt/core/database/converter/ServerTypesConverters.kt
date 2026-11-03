@@ -13,13 +13,16 @@ import androidx.room3.ColumnTypeConverter
 import kpt.core.base.database.annotation.DbConverters
 import kpt.core.database.savings.entity.SavingAccountDepositTypeEntity.ServerTypes
 
+/** Room column converters for server-type enums. */
 @DbConverters
 class ServerTypesConverters {
+    /** Converts a `Int?` column value to `ServerTypes?`. */
     @ColumnTypeConverter
     fun toServerTypes(id: Int?): ServerTypes? {
         return id?.let { ServerTypes.fromId(it) }
     }
 
+    /** Converts a `ServerTypes?` column value to `Int?`. */
     @ColumnTypeConverter
     fun fromServerTypes(serverTypes: ServerTypes?): Int? {
         return serverTypes?.id

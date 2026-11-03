@@ -23,10 +23,10 @@ ViewModels: `RecurringDepositViewModel`, `SavingsApplicationViewModel`, `Savings
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/savings sha=cbd3d9bce1128d2d89ffc98966157c7d1edb92a3 -->
+<!-- api-docs:begin module=feature/savings sha=f1da4f6f4e007956975cb92b7bbf7f3a54f31c71 -->
 ## API reference
 
-_Generated from `feature/savings` at tree `cbd3d9bce112` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/savings` at tree `f1da4f6f4e00` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -76,29 +76,29 @@ Open one savings account's summary. `accountType` defaults to the plain-savings 
 ```kotlin
 fun NavController.navigateToSavingsApplication(
 ```
-_No KDoc at source._
+Opens the savings application for a client or a group.
 
 ```kotlin
 fun NavController.navigateToRecurringDepositApplication(
 ```
-_No KDoc at source._
+Opens the recurring-deposit application for a client.
 
 ```kotlin
 fun NavController.navigateToSavingsApproval(accountId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the approval of savings account `accountId`.
 
 ```kotlin
 fun NavController.navigateToSavingsActivation(accountId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the activation of savings account `accountId`.
 
 ```kotlin
 fun NavGraphBuilder.savingsDestination(navController: NavController)
 ```
-_No KDoc at source._
+Registers every savings screen in the nav graph.
 
 ---
 
-_5 type(s), 7 function(s)/property(ies); 7 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_5 type(s), 7 function(s)/property(ies); 12 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

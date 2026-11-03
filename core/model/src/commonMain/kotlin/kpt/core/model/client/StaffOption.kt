@@ -21,8 +21,11 @@ package kpt.core.model.client
 
 import kotlinx.serialization.Serializable
 
+/** One staff choice offered by a template. */
 @Serializable
 data class StaffOption(
+    /** The server id of this record. */
     val id: Int,
+    /** The display name. */
     val displayName: String,
 )

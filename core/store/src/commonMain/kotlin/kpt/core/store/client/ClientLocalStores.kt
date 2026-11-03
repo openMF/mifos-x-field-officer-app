@@ -71,12 +71,23 @@ fun provideClientImageStore(
  * are purged by the paired read store's `deleteAll` (same pairing as `queue/OfflineQueueStores.kt`).
  */
 
-/** One pinpoint row — the client plus the datatable row's id. */
+/**
+ * One pinpoint row — the client plus the datatable row's id.
+ *
+ * @property clientId the client's server id
+ * @property datatableId the data table row's id
+ */
 data class PinpointItemKey(val clientId: Int, val datatableId: Int)
 
-/** One identifier row — the client plus the identifier's id. */
+/**
+ * One identifier row — the client plus the identifier's id.
+ *
+ * @property clientId the client's server id
+ * @property identifierId the identifier's server id
+ */
 data class IdentifierItemKey(val clientId: Long, val identifierId: Long)
 
+/** Store reading the client. */
 // logout-exempt: MutableStore is outside the purge; the paired read store's deleteAll clears its rows
 @StoreProvider(id = "clientLocal", logout = false)
 @CacheKey(fn = "byId", key = "clientLocal:{id}", params = ["id:Int"])
@@ -84,6 +95,7 @@ fun provideClientLocalStore(
     cache: ApiResponseCacheDao,
 ): MutableStore<Int, Client> = cachedLocal(cache) { id -> AppCacheKeys.ClientGetClient.forKey(id.toString()) }
 
+/** Store reading the client pinpoint item. */
 // logout-exempt: MutableStore is outside the purge; the paired read store's deleteAll clears its rows
 @StoreProvider(id = "clientPinpointItem", logout = false)
 @CacheKey(
@@ -99,6 +111,7 @@ fun provideClientPinpointItemStore(
     matches = { key, row -> row.id == key.datatableId },
 )
 
+/** Store reading the client identifier item. */
 // logout-exempt: MutableStore is outside the purge; the paired read store's deleteAll clears its rows
 @StoreProvider(id = "clientIdentifierItem", logout = false)
 @CacheKey(

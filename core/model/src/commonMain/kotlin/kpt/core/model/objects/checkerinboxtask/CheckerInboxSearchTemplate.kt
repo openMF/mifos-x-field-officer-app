@@ -11,8 +11,11 @@ package kpt.core.model.objects.checkerinboxtask
 
 import kotlinx.serialization.Serializable
 
+/** Server template for a checker inbox search: the options its form offers. */
 @Serializable
 data class CheckerInboxSearchTemplate(
+    /** The actions the inbox can be filtered by. */
     val actionNames: List<String> = emptyList(),
+    /** The entities the inbox can be filtered by. */
     val entityNames: List<String> = emptyList(),
 )

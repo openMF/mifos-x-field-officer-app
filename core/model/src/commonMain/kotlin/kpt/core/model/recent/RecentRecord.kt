@@ -11,9 +11,32 @@ package kpt.core.model.recent
 
 import kotlinx.serialization.Serializable
 
-/** What a recently-opened record is — decides its icon and which profile reopens it. */
+/**
+ * What a recently-opened record is — decides its icon and which profile reopens it.
+ *
+ * @property CENTER A centre
+ * @property CLIENT A client
+ * @property GROUP A group
+ * @property LOAN A loan
+ * @property CENTER A centre
+ * @property CLIENT A client
+ * @property GROUP A group
+ * @property LOAN A loan
+ */
 @Serializable
-enum class RecentKind { CLIENT, GROUP, CENTER, LOAN }
+enum class RecentKind {
+    /** A client. */
+    CLIENT,
+
+    /** A group. */
+    GROUP,
+
+    /** A centre. */
+    CENTER,
+
+    /** A loan account. */
+    LOAN,
+}
 
 /**
  * A record the officer opened, for Home's "Recently opened". [detail] is the secondary line the
@@ -21,10 +44,15 @@ enum class RecentKind { CLIENT, GROUP, CENTER, LOAN }
  */
 @Serializable
 data class RecentRecord(
+    /** The kind of record. */
     val kind: RecentKind,
+    /** The server id of this record. */
     val id: Long,
+    /** The title. */
     val title: String,
+    /** The account number Fineract assigned. */
     val accountNo: String? = null,
     val detail: String? = null,
+    /** When the record was last opened, in epoch milliseconds. */
     val openedAtMs: Long = 0,
 )

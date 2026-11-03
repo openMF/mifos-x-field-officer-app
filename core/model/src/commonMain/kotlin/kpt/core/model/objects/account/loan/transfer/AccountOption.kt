@@ -17,13 +17,22 @@ import kpt.core.model.objects.template.loan.Currency
  */
 @Serializable
 data class AccountOption(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The account number Fineract assigned. */
     val accountNo: String? = null,
+    /** The server id of the client. */
     val clientId: Int? = null,
+    /** The client's display name. */
     val clientName: String? = null,
+    /** The server id of the product. */
     val productId: Int? = null,
+    /** The name of the product. */
     val productName: String? = null,
+    /** The server id of the field officer. */
     val fieldOfficerId: Int? = null,
+    /** The currency the amounts are in. */
     val currency: Currency? = null,
+    /** The account's currency code. */
     val currencyCodeFromCurrency: String? = null,
 )

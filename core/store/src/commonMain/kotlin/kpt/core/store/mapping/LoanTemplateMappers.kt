@@ -22,18 +22,21 @@ import kpt.core.database.loan.entity.LoanRepaymentTemplateEntity as LoanRepaymen
 import kpt.core.database.loan.entity.LoanTemplate as LoanTemplateRow
 import kpt.core.database.loan.entity.LoanTransactionTemplate as LoanTransactionTemplateRow
 
+/** Maps the stored row to its `InterestTypeOption` model. */
 fun InterestTypeOptionRow.toModel(): InterestTypeOption = InterestTypeOption(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the model to its stored `InterestTypeOptionRow`. */
 fun InterestTypeOption.toEntity(): InterestTypeOptionRow = InterestTypeOptionRow(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the stored row to its `LoanRepaymentRequest` model. */
 fun LoanRepaymentRequestRow.toModel(): LoanRepaymentRequest = LoanRepaymentRequest(
     timeStamp = timeStamp,
     loanId = loanId,
@@ -51,6 +54,7 @@ fun LoanRepaymentRequestRow.toModel(): LoanRepaymentRequest = LoanRepaymentReque
     bankNumber = bankNumber,
 )
 
+/** Maps the model to its stored `LoanRepaymentRequestRow`. */
 fun LoanRepaymentRequest.toEntity(): LoanRepaymentRequestRow = LoanRepaymentRequestRow(
     timeStamp = timeStamp,
     loanId = loanId,
@@ -68,6 +72,7 @@ fun LoanRepaymentRequest.toEntity(): LoanRepaymentRequestRow = LoanRepaymentRequ
     bankNumber = bankNumber,
 )
 
+/** Maps the stored row to its `LoanRepaymentTemplate` model. */
 fun LoanRepaymentTemplateRow.toModel(): LoanRepaymentTemplate = LoanRepaymentTemplate(
     loanId = loanId,
     type = type,
@@ -81,6 +86,7 @@ fun LoanRepaymentTemplateRow.toModel(): LoanRepaymentTemplate = LoanRepaymentTem
     paymentTypeOptions = paymentTypeOptions?.map { it.toModel() },
 )
 
+/** Maps the model to its stored `LoanRepaymentTemplateRow`. */
 fun LoanRepaymentTemplate.toEntity(): LoanRepaymentTemplateRow = LoanRepaymentTemplateRow(
     loanId = loanId,
     type = type,
@@ -94,6 +100,7 @@ fun LoanRepaymentTemplate.toEntity(): LoanRepaymentTemplateRow = LoanRepaymentTe
     paymentTypeOptions = paymentTypeOptions?.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `LoanTemplate` model. */
 fun LoanTemplateRow.toModel(): LoanTemplate = LoanTemplate(
     clientId = clientId,
     clientAccountNo = clientAccountNo,
@@ -156,6 +163,7 @@ fun LoanTemplateRow.toModel(): LoanTemplate = LoanTemplate(
     overdueCharges = overdueCharges.map { it.toModel() },
 )
 
+/** Maps the model to its stored `LoanTemplateRow`. */
 fun LoanTemplate.toEntity(): LoanTemplateRow = LoanTemplateRow(
     clientId = clientId,
     clientAccountNo = clientAccountNo,
@@ -218,6 +226,7 @@ fun LoanTemplate.toEntity(): LoanTemplateRow = LoanTemplateRow(
     overdueCharges = overdueCharges.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `LoanRepaymentResponse` model. */
 fun LoanRepaymentResponseRow.toModel(): LoanRepaymentResponse = LoanRepaymentResponse(
     id = id,
     officeId = officeId,
@@ -227,6 +236,7 @@ fun LoanRepaymentResponseRow.toModel(): LoanRepaymentResponse = LoanRepaymentRes
     changes = changes,
 )
 
+/** Maps the model to its stored `LoanRepaymentResponseRow`. */
 fun LoanRepaymentResponse.toEntity(): LoanRepaymentResponseRow = LoanRepaymentResponseRow(
     id = id,
     officeId = officeId,
@@ -236,6 +246,7 @@ fun LoanRepaymentResponse.toEntity(): LoanRepaymentResponseRow = LoanRepaymentRe
     changes = changes,
 )
 
+/** Maps the stored row to its `LoanTransactionTemplate` model. */
 fun LoanTransactionTemplateRow.toModel(): LoanTransactionTemplate = LoanTransactionTemplate(
     type = type,
     date = date,
@@ -245,6 +256,7 @@ fun LoanTransactionTemplateRow.toModel(): LoanTransactionTemplate = LoanTransact
     paymentTypeOptions = paymentTypeOptions.map { it.toModel() },
 )
 
+/** Maps the model to its stored `LoanTransactionTemplateRow`. */
 fun LoanTransactionTemplate.toEntity(): LoanTransactionTemplateRow = LoanTransactionTemplateRow(
     type = type,
     date = date,

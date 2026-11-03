@@ -16,7 +16,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Page<T>(
+    /** The number of records matching the query, across every page. */
     var totalFilteredRecords: Int = 0,
 
+    /** The records on this page. */
     var pageItems: List<T> = emptyList(),
 )

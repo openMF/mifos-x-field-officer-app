@@ -16,7 +16,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class PaymentTypeOptions(
+    /** The server id of this record. */
     var id: Int,
 
+    /** The display name. */
     var name: String?,
 )

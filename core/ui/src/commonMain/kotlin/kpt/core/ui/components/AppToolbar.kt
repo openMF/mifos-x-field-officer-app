@@ -21,6 +21,7 @@ import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Top bar of selection mode: the selected count, a close button and actions. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectionModeTopAppBar(

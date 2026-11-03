@@ -17,7 +17,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class CenterDetail(
+    /** The server id of the staff member (loan officer). */
     var staffId: Int = 0,
+    /** The staff member's display name. */
     var staffName: String? = null,
+    /** The centres whose meetings fall on the date. */
     var meetingFallCenters: List<MeetingFallCalendar>? = ArrayList(),
 )

@@ -26,10 +26,18 @@ import org.mobilenativefoundation.store.store5.Store
 /**
  * The charges levied on one resource. [resourceType] is the Fineract path segment
  * (`clients` / `loans` / `savingsaccounts`) — the same pair the endpoint and the table key on.
+ *
+ * @property resourceId the id of the resource the records belong to
  */
 data class ChargeKey(val resourceType: String, val resourceId: Int)
 
-/** One charge ROW — the owner plus the charge's id. */
+/**
+ * One charge ROW — the owner plus the charge's id.
+ *
+ * @property chargeId the charge's server id
+ * @property resourceId the id of the resource the records belong to
+ * @property resourceType the resource kind, as Fineract names it in the path (`loans`, `clients`, `savings`)
+ */
 data class ChargeItemKey(val resourceType: String, val resourceId: Int, val chargeId: Int)
 
 /**

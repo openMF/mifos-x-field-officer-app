@@ -42,6 +42,8 @@ import kpt.feature.note.navigation.navigateToNotes
 /**
  * A loan account's profile. `loanId` is required — the original's route defaulted it, so a missing
  * argument produced a screen that asked Fineract for loan `-1`.
+ *
+ * @property loanId the Fineract loan id
  */
 @Serializable
 data class LoanProfileRoute(val loanId: Int)
@@ -52,10 +54,17 @@ data class LoanProfileRoute(val loanId: Int)
  * Both carry only `loanId`: they are projections of the SAME `loans/{id}?associations=all` read the
  * profile already cached, so there is nothing else to pass. The original's routes called these
  * `loanAccountNumber`, which they never were — the value was always the loan's primary key.
+ *
+ * @property loanId the Fineract loan id
  */
 @Serializable
 data class LoanScheduleRoute(val loanId: Int)
 
+/**
+ * A loan's transactions.
+ *
+ * @property loanId the Fineract loan id
+ */
 @Serializable
 data class LoanTransactionsRoute(val loanId: Int)
 
@@ -65,6 +74,8 @@ data class LoanTransactionsRoute(val loanId: Int)
  * `loanId` only. The original route carried the whole `LoanWithAssociations` JSON-encoded through
  * the back stack — see [kpt.feature.loan.approval.LoanApprovalViewModel]'s header for the three
  * things that broke.
+ *
+ * @property loanId the Fineract loan id
  */
 @Serializable
 data class LoanApprovalRoute(val loanId: Int)
@@ -77,6 +88,8 @@ data class LoanApprovalRoute(val loanId: Int)
  * `loanAccountNumber` was empty to decide whether to fetch them. Two call sites existed, one
  * passing the whole loan and one passing just the id, so the screen had two header-population
  * paths. Reading them from the cached loan removes both.
+ *
+ * @property loanId the Fineract loan id
  */
 @Serializable
 data class LoanRepaymentRoute(val loanId: Int)
@@ -88,6 +101,8 @@ data class LoanRepaymentRoute(val loanId: Int)
  * Both exist and both are the original's; see [kpt.feature.loan.summary.LoanSummaryViewModel] for
  * the caller table. This is the one that makes `feature/loan` reachable at all, because the
  * client's loan list is not ported yet.
+ *
+ * @property loanId the Fineract loan id
  */
 @Serializable
 data class LoanSummaryRoute(val loanId: Int)
@@ -97,6 +112,8 @@ data class LoanSummaryRoute(val loanId: Int)
  *
  * Reached only from the SUMMARY — `waitingForDisbursal` is one of the two states the loan profile
  * collapses into "Unknown", so the profile never offers this action.
+ *
+ * @property loanId the Fineract loan id
  */
 @Serializable
 data class LoanDisbursementRoute(val loanId: Int)
@@ -108,15 +125,25 @@ data class LoanDisbursementRoute(val loanId: Int)
  * number, currency and account id — each snapshotted by the caller from the loan it had just
  * rendered. The transfer screen reads the loan itself; see
  * [kpt.feature.loan.transfer.LoanTransferViewModel].
+ *
+ * @property loanId the Fineract loan id
  */
 @Serializable
 data class LoanTransferRoute(val loanId: Int)
 
-/** Every reschedule proposed on a loan, with approve and reject. */
+/**
+ * Every reschedule proposed on a loan, with approve and reject.
+ *
+ * @property loanId the Fineract loan id
+ */
 @Serializable
 data class LoanReschedulesRoute(val loanId: Int)
 
-/** Propose a reschedule. Reached from the reschedules list's "+". */
+/**
+ * Propose a reschedule. Reached from the reschedules list's "+".
+ *
+ * @property loanId the Fineract loan id
+ */
 @Serializable
 data class LoanRescheduleFormRoute(val loanId: Int)
 
@@ -124,10 +151,13 @@ data class LoanRescheduleFormRoute(val loanId: Int)
  * Apply for a new INDIVIDUAL loan. Reached from the client's loan-accounts list "add account"
  * affordance, whose whole chain was already ported and `null`-gated — the original's
  * `clientLoanAccountsDestination(createAccount = …)` edge.
+ *
+ * @property clientId the client applying
  */
 @Serializable
 data class NewLoanApplicationRoute(val clientId: Int)
 
+/** Opens the new-loan application for client [clientId]. */
 fun NavController.navigateToNewLoanApplication(clientId: Int, navOptions: NavOptions? = null) =
     navigate(NewLoanApplicationRoute(clientId), navOptions)
 
@@ -138,16 +168,21 @@ fun NavController.navigateToNewLoanApplication(clientId: Int, navOptions: NavOpt
  * Keyed on `groupId`, not `loanId`: this is the one route in this file that CREATES a loan rather
  * than opening one. It lives in `feature/loan` because the form is loan-shaped (product template,
  * terms, amortization) and `feature/groups` would otherwise need every loan model and store.
+ *
+ * @property groupId the group applying
  */
 @Serializable
 data class GroupLoanApplicationRoute(val groupId: Int)
 
+/** Opens the group-loan application for group [groupId]. */
 fun NavController.navigateToGroupLoanApplication(groupId: Int, navOptions: NavOptions? = null) =
     navigate(GroupLoanApplicationRoute(groupId), navOptions)
 
+/** Opens loan [loanId]'s profile. */
 fun NavController.navigateToLoanProfile(loanId: Int, navOptions: NavOptions? = null) =
     navigate(LoanProfileRoute(loanId), navOptions)
 
+/** Opens loan [loanId]'s summary. */
 fun NavController.navigateToLoanSummary(loanId: Int, navOptions: NavOptions? = null) =
     navigate(LoanSummaryRoute(loanId), navOptions)
 

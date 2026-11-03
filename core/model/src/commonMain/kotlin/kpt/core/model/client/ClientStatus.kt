@@ -17,14 +17,23 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ClientStatus(
+    /** The server id of this record. */
     val id: Int = 0,
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     val code: String? = null,
+    /** The human-readable label Fineract sends for this value. */
     val value: String? = null,
 ) {
 
+    /** Constants and factories of `ClientStatus`. */
     companion object {
+        /** Fineract's code for an active client. */
         const val STATUS_ACTIVE = "Active"
 
+        /** True when `value` is the active status. */
         fun isActive(value: String): Boolean {
             return value == STATUS_ACTIVE
         }

@@ -23,10 +23,10 @@ ViewModels: `DataTableListViewModel`, `DataTableRowsViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/datatable sha=c9d61cad066e00808e0c7cb54d299f0e8efb32c1 -->
+<!-- api-docs:begin module=feature/datatable sha=2abd114a4289d4721bf95fb52c5d96a453faf613 -->
 ## API reference
 
-_Generated from `feature/datatable` at tree `c9d61cad066e` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/datatable` at tree `2abd114a4289` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -56,12 +56,12 @@ One datatable's rows. `tableName` here is the DATATABLE's registered name, not t
 ```kotlin
 fun NavController.navigateToDataTableList(
 ```
-_No KDoc at source._
+Opens the data tables registered for one entity.
 
 ```kotlin
 fun NavController.navigateToDataTableRows(
 ```
-_No KDoc at source._
+Opens one data table's rows for an entity.
 
 ```kotlin
 fun NavGraphBuilder.dataTableDestinations(navController: NavController)
@@ -70,5 +70,5 @@ fun NavGraphBuilder.dataTableDestinations(navController: NavController)
 
 ---
 
-_2 type(s), 4 function(s)/property(ies); 4 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_2 type(s), 4 function(s)/property(ies); 6 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

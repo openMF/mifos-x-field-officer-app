@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/domain sha=ee7c50a817ea88cd83f94740a01bcce45e6df793 -->
+<!-- api-docs:begin module=core/domain sha=5388d394922e9e283dd9699eb966456e34a87118 -->
 ## API reference
 
-_Generated from `core/domain` at tree `ee7c50a817ea` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/domain` at tree `5388d394922e` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/domain/src/commonMain/kotlin/kpt/core/domain/validation/ValidationResult.kt`
@@ -86,10 +86,10 @@ Sign-in credential rules.
 
 </details>
 
-- `const val MIN_USERNAME_LENGTH: Int = 4`
-- `const val MIN_PASSWORD_LENGTH: Int = 6`
-- `fun username(value: String): ValidationResult = when`
-- `fun password(value: String): ValidationResult = when`
+- `const val MIN_USERNAME_LENGTH: Int = 4` — Fewest characters a username may have.
+- `const val MIN_PASSWORD_LENGTH: Int = 6` — Fewest characters a password may have.
+- `fun username(value: String): ValidationResult = when` — Checks a username: required, at least `MIN_USERNAME_LENGTH` characters.
+- `fun password(value: String): ValidationResult = when` — Checks a password: required, at least `MIN_PASSWORD_LENGTH` characters.
 
 ```kotlin
 object ServerConfigRules
@@ -110,15 +110,15 @@ Fineract server-configuration rules — the five fields the server-config screen
 
 </details>
 
-- `val PORT_RANGE: IntRange = 1..65535`
-- `fun endpoint(value: String): ValidationResult = when`
-- `fun port(value: String): ValidationResult`
+- `val PORT_RANGE: IntRange = 1..65535` — The ports a server may listen on.
+- `fun endpoint(value: String): ValidationResult = when` — Checks a server host name.
+- `fun port(value: String): ValidationResult` — Checks a port: a number within `PORT_RANGE`.
 - `val parsed = value.toIntOrNull()`
-- `fun protocol(value: String): ValidationResult = when`
-- `fun apiPath(value: String): ValidationResult = when`
-- `fun tenant(value: String): ValidationResult = when`
+- `fun protocol(value: String): ValidationResult = when` — Checks a protocol: `http://` or `https://`.
+- `fun apiPath(value: String): ValidationResult = when` — Checks an API path: it must start and end with `/`.
+- `fun tenant(value: String): ValidationResult = when` — Checks a tenant id: letters, digits, `-` and `_` only.
 
 ---
 
-_4 type(s), 12 function(s)/property(ies); 5 carry KDoc at source; 0 authored example(s); 4 live call site(s)._
+_4 type(s), 12 function(s)/property(ies); 15 carry KDoc at source; 0 authored example(s); 4 live call site(s)._
 <!-- api-docs:end -->

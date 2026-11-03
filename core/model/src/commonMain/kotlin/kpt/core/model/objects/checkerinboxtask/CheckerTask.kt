@@ -14,19 +14,29 @@ import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
+/** A checker task. */
 @Serializable
 data class CheckerTask(
+    /** The server id of this record. */
     val id: Int,
+    /** When the maker made the change, in epoch milliseconds. */
     val madeOnDate: Long,
+    /** The result of processing the task. */
     val processingResult: String,
+    /** The username of whoever made the change. */
     val maker: String,
+    /** The action the task or permission covers (create, approve, …). */
     val actionName: String,
+    /** The entity the task or permission covers (CLIENT, LOAN, …). */
     val entityName: String,
+    /** The server id of the resource the request created or changed. */
     val resourceId: String,
 ) {
 
+    /** True when the task is selected. */
     var selectedFlag = false
 
+    /** The day the task was made, as `d Mon yyyy` in the device's time zone. */
     @OptIn(ExperimentalTime::class)
     fun getDate(): String {
         val instant = Instant.fromEpochMilliseconds(madeOnDate)
@@ -34,10 +44,5 @@ data class CheckerTask(
         return "${localDate.day} ${
             localDate.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }
         } ${localDate.year}"
-    }
-
-    @OptIn(ExperimentalTime::class)
-    fun getTimeStamp(): Instant {
-        return Instant.fromEpochMilliseconds(madeOnDate)
     }
 }

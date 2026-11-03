@@ -17,6 +17,8 @@ import kpt.core.model.recent.RecentRecord
 @ExperimentalDataTestingApi
 class FakeRecentRecordsRepository(initial: List<RecentRecord> = emptyList()) : RecentRecordsRepository {
     override val recent = MutableStateFlow(initial)
+
+    /** The records recorded, in order. */
     val recorded = mutableListOf<RecentRecord>()
 
     override suspend fun record(record: RecentRecord) {

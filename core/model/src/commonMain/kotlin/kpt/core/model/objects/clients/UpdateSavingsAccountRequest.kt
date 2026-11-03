@@ -11,7 +11,9 @@ package kpt.core.model.objects.clients
 
 import kotlinx.serialization.Serializable
 
+/** Request body for an update savings account. */
 @Serializable
 data class UpdateSavingsAccountRequest(
+    /** The server id of the savings account. */
     val savingsAccountId: Long,
 )

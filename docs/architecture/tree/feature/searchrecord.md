@@ -23,10 +23,10 @@ ViewModels: `SearchRecordViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/searchrecord sha=ae7e5cd27e8b8366caf66ba224ef35a7628b01bb -->
+<!-- api-docs:begin module=feature/searchrecord sha=3593e5775e1e1f57c077b0538cf16f85092580bf -->
 ## API reference
 
-_Generated from `feature/searchrecord` at tree `ae7e5cd27e8b` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/searchrecord` at tree `3593e5775e1e` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -56,9 +56,9 @@ Ported from `6b66e8a43:feature/search-record/.../navigation/SearchRecordNavigati
 ```kotlin
 fun NavController.navigateToSearchRecord(type: RecordType)
 ```
-_No KDoc at source._
+Opens the record search for one record `type`.
 
 ---
 
-_1 type(s), 3 function(s)/property(ies); 3 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_1 type(s), 3 function(s)/property(ies); 4 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

@@ -10,7 +10,6 @@
 package kpt.core.model.objects.account.loan
 
 import kotlinx.serialization.Serializable
-@Serializable
 /**
  * The wire body for `POST savingsaccounts/{id}?command=approve`.
  *
@@ -22,6 +21,7 @@ import kotlinx.serialization.Serializable
  * `SavingsCommandRepositoryImpl` from `SavingsApprovalInput`, which carries the same contract up to
  * the feature layer.
  */
+@Serializable
 data class SavingsApproval(
     val approvedOnDate: String,
 
@@ -29,5 +29,6 @@ data class SavingsApproval(
 
     val dateFormat: String,
 
+    /** A free-text note. */
     val note: String? = null,
 )

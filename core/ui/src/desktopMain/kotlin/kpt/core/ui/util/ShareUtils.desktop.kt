@@ -17,10 +17,13 @@ import io.github.vinceglb.filekit.write
 import java.awt.Desktop
 import java.net.URI
 
+/** Desktop actions through `java.awt.Desktop`; sharing saves the file instead. */
 actual object ShareUtils {
+    /** Does nothing on this platform. */
     actual fun shareText(text: String) {
     }
 
+    /** Saves the image as a PNG where the user picks. */
     actual suspend fun shareImage(title: String, image: ImageBitmap) {
         val newFile = FileKit.openFileSaver(
             suggestedName = "AppQrCode",
@@ -29,6 +32,7 @@ actual object ShareUtils {
         image.asSkiaBitmap().readPixels()?.let { newFile?.write(it) }
     }
 
+    /** Saves the image as a PNG where the user picks. */
     actual suspend fun shareImage(title: String, byte: ByteArray) {
         val newFile = FileKit.openFileSaver(
             suggestedName = "AppQrCode",
@@ -37,6 +41,7 @@ actual object ShareUtils {
         newFile?.write(byte)
     }
 
+    /** Opens a `tel:` link to the helpline, where the desktop supports it. */
     actual fun callHelpline() {
         if (Desktop.isDesktopSupported()) {
             val uri = URI("tel:8000000000")
@@ -50,6 +55,7 @@ actual object ShareUtils {
         }
     }
 
+    /** Opens a mail draft to support, where the desktop supports it. */
     actual fun mailHelpline() {
         val uri =
             URI("mailto:support@example.com?subject=Help%20Request&body=Hello,%20I%20need%20assistance%20with...")
@@ -58,12 +64,15 @@ actual object ShareUtils {
         }
     }
 
+    /** Does nothing on this platform. */
     actual fun openAppInfo() {
     }
 
+    /** Does nothing on this platform. */
     actual fun shareApp() {
     }
 
+    /** Opens `url` in the default browser, where the desktop supports it. */
     actual fun openUrl(url: String) {
         try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop()
@@ -76,9 +85,11 @@ actual object ShareUtils {
         }
     }
 
+    /** Does nothing on this platform. */
     actual fun ossLicensesMenuActivity() {
     }
 
+    /** Does nothing on this platform. */
     actual fun restartApplication() {
     }
 }

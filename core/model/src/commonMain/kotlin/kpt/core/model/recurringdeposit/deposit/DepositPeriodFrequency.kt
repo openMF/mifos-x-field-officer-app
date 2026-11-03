@@ -11,9 +11,16 @@ package kpt.core.model.recurringdeposit.deposit
 
 import kotlinx.serialization.Serializable
 
+/** A deposit period frequency. */
 @Serializable
 data class DepositPeriodFrequency(
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     val code: String,
+    /** The server id of this record. */
     val id: Int,
+    /** The human-readable label Fineract sends for this value. */
     val value: String,
 )

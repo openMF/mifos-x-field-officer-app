@@ -121,9 +121,11 @@ interface ClientDetailsApi {
     @GET("client/addresses/template")
     suspend fun getAddressTemplate(): AddressTemplate
 
+    /** Reads a client's addresses. */
     @GET("client/{clientId}/addresses")
     suspend fun getClientAddresses(@Path("clientId") clientId: Int): List<ClientAddressEntity>
 
+    /** Adds an address of one type to a client. */
     @POST("client/{clientId}/addresses?type={addressTypeId}")
     suspend fun createClientAddress(
         @Path("clientId") clientId: Int,
@@ -131,15 +133,19 @@ interface ClientDetailsApi {
         @Body addressPayload: PostClientAddressRequest,
     ): PostClientAddressResponse
 
+    /** Reads the close-client template: the closure reasons. */
     @GET("clients/template?commandParam=close")
     suspend fun getClientCloseTemplate(): ClientCloseTemplateResponse
 
+    /** Reads the collateral types the organisation accepts. */
     @GET("collateral-management")
     suspend fun getCollateralItems(): List<CollateralItem>
 
+    /** Reads the collateral a client may pledge. */
     @GET("clients/{clientId}/collaterals/template")
     suspend fun getClientCollateralItems(@Path("clientId") clientId: Int): List<CollateralItemResult>
 
+    /** Pledges collateral for a client. */
     @POST("clients/{clientId}/collaterals")
     suspend fun createCollateral(
         @Path("clientId") clientId: Int,

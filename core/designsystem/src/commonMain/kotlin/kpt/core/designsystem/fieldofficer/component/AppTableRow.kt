@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kpt.core.designsystem.theme.DesignToken
 
+/** One table row: `cells` laid out at `widths`, with optional borders. */
 @Composable
 fun AppTableRow(
     cells: List<@Composable () -> Unit>,

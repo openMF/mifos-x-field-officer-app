@@ -13,7 +13,12 @@ package kpt.core.model.objects.systems
  * Created by ishankhanna on 16/06/14.
  */
 class Code {
+    /** The server id of this record. */
     var id: Int? = null
+
+    /** The display name. */
     var name: String? = null
+
+    /** True when the value is built into Fineract. */
     var isSystemDefined: Boolean? = null
 }

@@ -11,10 +11,15 @@ package kpt.core.model.objects.clients
 
 import kotlinx.serialization.Serializable
 
+/** Request body for a client close. */
 @Serializable
 data class ClientCloseRequest(
+    /** The date the client is closed. */
     val closureDate: String,
+    /** The server id of the closure reason. */
     val closureReasonId: Int,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
 )

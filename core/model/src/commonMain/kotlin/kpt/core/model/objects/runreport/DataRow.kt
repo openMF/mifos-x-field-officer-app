@@ -34,9 +34,12 @@ import kotlinx.serialization.json.jsonPrimitive
  */
 @Serializable
 data class DataRow(
+    /** The row's values. */
     @Serializable(with = RowDeserializer::class)
     val row: List<String?> = emptyList(),
 )
+
+/** Row deserializer. */
 object RowDeserializer : KSerializer<List<String?>> {
 
     @OptIn(ExperimentalSerializationApi::class)

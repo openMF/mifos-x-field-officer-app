@@ -12,6 +12,7 @@ package kpt.core.database.document.mapper
 import kpt.core.database.document.entity.DocumentEntity
 import kpt.core.model.objects.noncoreobjects.Document
 
+/** Maps the stored row to its domain model. */
 fun DocumentEntity.toDomain(): Document = Document(
     id = id,
     parentEntityType = parentEntityType,

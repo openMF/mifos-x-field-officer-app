@@ -19,21 +19,27 @@ import kpt.core.database.client.entity.ClientIdentifierEntity
 
 /** Client addresses and identifiers. */
 interface ClientAddressIdentifierDao {
+    /** Saves `address`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientAddressEntity::class)
     suspend fun insertAddress(address: ClientAddressEntity)
 
+    /** Saves `addresses`, replacing rows with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientAddressEntity::class)
     suspend fun insertAddresses(addresses: List<ClientAddressEntity>)
 
+    /** Observes the `ClientAddress` rows whose `clientID` is `clientId`. */
     @Query("SELECT * FROM ClientAddress WHERE clientID = :clientId")
     fun getAddressesByClientId(clientId: Int): Flow<List<ClientAddressEntity>>
 
+    /** Observes the `ClientAddress` row whose `addressId` is `addressId`. */
     @Query("SELECT * FROM ClientAddress WHERE addressId = :addressId LIMIT 1")
     fun getAddressById(addressId: Int): Flow<ClientAddressEntity?>
 
+    /** Deletes the `ClientAddress` rows whose `clientID` is `clientId`. */
     @Query("DELETE FROM ClientAddress WHERE clientID = :clientId")
     suspend fun deleteAddressesByClientId(clientId: Int)
 
+    /** Observes the addresses with any text field matching `query`, a LIKE pattern. */
     @Query(
         """
     SELECT * FROM ClientAddress 
@@ -50,15 +56,19 @@ interface ClientAddressIdentifierDao {
     )
     fun searchAddressesByQuery(query: String): Flow<List<ClientAddressEntity>>
 
+    /** Saves `identifiers`, replacing rows with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientIdentifierEntity::class)
     suspend fun insertIdentifiers(identifiers: List<ClientIdentifierEntity>)
 
+    /** Observes the `ClientIdentifier` rows whose `clientId` is `clientId`. */
     @Query("SELECT * FROM ClientIdentifier WHERE clientId = :clientId")
     fun getIdentifiersByClientId(clientId: Int): Flow<List<ClientIdentifierEntity>>
 
+    /** Deletes the `ClientIdentifier` rows whose `clientId` is `clientId`. */
     @Query("DELETE FROM ClientIdentifier WHERE clientId = :clientId")
     suspend fun deleteIdentifiersByClientId(clientId: Int)
 
+    /** Observes the identifiers with any text field matching `query`, a LIKE pattern. */
     @Query(
         """
     SELECT * FROM ClientIdentifier 

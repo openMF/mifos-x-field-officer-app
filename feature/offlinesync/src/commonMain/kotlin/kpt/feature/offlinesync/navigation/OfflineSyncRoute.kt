@@ -25,6 +25,7 @@ import kpt.feature.settings.navigateToSyncAndDrafts
 @Serializable
 data object OfflineSyncRoute
 
+/** Registers the offline-sync screen in the nav graph. */
 @FeatureDestination
 fun NavGraphBuilder.offlineSyncDestination(navController: NavController) {
     composableWithPushTransitions<OfflineSyncRoute> {
@@ -42,4 +43,5 @@ fun NavGraphBuilder.offlineSyncDestination(navController: NavController) {
     }
 }
 
+/** Opens the offline-sync screen. */
 fun NavController.navigateToOfflineSync() = navigate(OfflineSyncRoute)

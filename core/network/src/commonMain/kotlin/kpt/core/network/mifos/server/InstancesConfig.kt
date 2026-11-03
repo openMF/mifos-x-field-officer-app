@@ -102,6 +102,7 @@ fun instancesConfigJson(rows: List<RemoteServerInstanceDto>): String = json.enco
  * `SupabaseInstanceConfigLoader` contract.
  */
 fun interface InstanceConfigLoader {
+    /** Loads the published server instances. */
     suspend fun load(): List<ServerInstance>
 }
 

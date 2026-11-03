@@ -26,6 +26,7 @@ import kpt.core.ui.generated.resources.file_picker_bottom_sheet_more
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Bottom sheet for choosing a file from the gallery, the files app or more sources. */
 @Composable
 fun AppFilePickerBottomSheet(
     onDismiss: () -> Unit,
@@ -72,7 +73,7 @@ fun AppFilePickerBottomSheet(
 
 @Preview
 @Composable
-fun PreviewAppFilePickerBottomSheet() {
+private fun PreviewAppFilePickerBottomSheet() {
     KptTheme {
         AppFilePickerBottomSheet(
             onDismiss = {},

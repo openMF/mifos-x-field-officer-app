@@ -23,6 +23,7 @@ import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Top app bar with a title, back button and optional actions. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopBar(

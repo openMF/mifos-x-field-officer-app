@@ -128,7 +128,9 @@ internal fun SearchBodyContent(
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).testTag(TestTags.Home.SEARCH_FILTERS),
+            modifier = Modifier.fillMaxWidth().horizontalScroll(
+                rememberScrollState(),
+            ).testTag(TestTags.Home.SEARCH_FILTERS),
         ) {
             SearchFilter.entries.forEach { filter ->
                 FilterChip(
@@ -216,8 +218,7 @@ private fun SearchResultRow(entity: SearchedEntity, onClick: (() -> Unit)?) {
  * because this value reaches the app from a server response rather than from a closed enum, and a
  * tenant returning `"Client"` would otherwise silently make every client result inert.
  */
-private fun SearchedEntity.hasPortedDestination(): Boolean =
-    entityType?.uppercase() in PORTED_SEARCH_ENTITIES
+private fun SearchedEntity.hasPortedDestination(): Boolean = entityType?.uppercase() in PORTED_SEARCH_ENTITIES
 
 private val PORTED_SEARCH_ENTITIES = setOf(
     Constants.SEARCH_ENTITY_CLIENT,

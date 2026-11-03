@@ -17,8 +17,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChargePaymentMode(
+    /** The server id of this record. */
     val id: Int?,
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     val code: String?,
+    /** The human-readable label Fineract sends for this value. */
     val value: String?,
 ) {
     override fun toString(): String {

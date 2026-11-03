@@ -37,6 +37,7 @@ import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Stepper over `steps`, showing the content of the current one. */
 @Composable
 fun AppStepper(
     steps: List<Step>,

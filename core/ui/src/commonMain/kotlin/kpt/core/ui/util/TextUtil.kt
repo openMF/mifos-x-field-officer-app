@@ -12,8 +12,12 @@ package kpt.core.ui.util
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 
+/** Text with an optional style and colour. */
 data class TextUtil(
+    /** The text. */
     val text: String = "",
+    /** Its style; the default when null. */
     val style: TextStyle? = null,
+    /** Its colour; the default when null. */
     val color: Color? = null,
 )

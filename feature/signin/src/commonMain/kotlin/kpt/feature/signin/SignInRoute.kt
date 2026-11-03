@@ -16,9 +16,11 @@ import kotlinx.serialization.Serializable
 import kpt.core.base.ui.nav.composableWithStayTransitions
 import kpt.feature.signin.ui.SignInScreen
 
+/** The sign-in screen. */
 @Serializable
 data object SignInRoute
 
+/** Opens the sign-in screen. */
 fun NavController.navigateToSignIn(navOptions: NavOptions? = null) = navigate(SignInRoute, navOptions)
 
 /**

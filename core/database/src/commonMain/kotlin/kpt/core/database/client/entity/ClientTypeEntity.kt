@@ -10,7 +10,6 @@
 package kpt.core.database.client.entity
 
 import kotlinx.serialization.Serializable
-@Serializable
 /**
  * A COLUMN, not a table.
  *
@@ -20,8 +19,11 @@ import kotlinx.serialization.Serializable
  * `onValidateSchema`, which at 85 tables exceeded the JVM 64KB method limit and broke every
  * JVM target.
  */
+@Serializable
 data class ClientTypeEntity(
+    /** The server id of this record. */
     val id: Int = 0,
 
+    /** The display name. */
     val name: String? = null,
 )

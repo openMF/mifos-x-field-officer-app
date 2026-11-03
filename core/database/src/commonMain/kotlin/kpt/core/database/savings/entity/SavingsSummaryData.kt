@@ -16,6 +16,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsSummaryData(
+    /** The server id of this record. */
     val id: Int,
+    /** The record's type. */
     val type: SavingAccountDepositTypeEntity,
 )

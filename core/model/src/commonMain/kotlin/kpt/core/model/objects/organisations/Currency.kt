@@ -16,17 +16,27 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Currency(
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     var code: String? = null,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** The number of decimal places amounts in this currency carry. */
     var decimalPlaces: Int? = null,
 
+    /** The unit amounts in this currency are rounded to. */
     var inMultiplesOf: Int? = null,
 
+    /** The currency symbol to display (e.g. `$`). */
     var displaySymbol: String? = null,
 
+    /** The currency's name code used in translations (e.g. `currency.USD`). */
     var nameCode: String? = null,
 
+    /** The currency's display label (name and symbol). */
     var displayLabel: String? = null,
 )

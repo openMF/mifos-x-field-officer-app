@@ -36,6 +36,7 @@ import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Text field that opens a dropdown of `options`; read-only unless `readOnly` is false. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTextFieldDropdown(

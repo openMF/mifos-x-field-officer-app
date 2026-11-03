@@ -20,14 +20,17 @@ import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.loan.entity.ActualDisbursementDateEntity
 import kpt.core.database.loan.entity.LoanWithAssociationsEntity
 
+/** Room queries for loan rows. */
 @DbDao
 @Dao
 interface LoanDao :
     LoanRepaymentDao,
     LoanTemplateCacheDao {
+    /** Saves `loanWithAssociations`, replacing any row with the same key. */
     @Insert(entity = LoanWithAssociationsEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveLoanWithAssociations(loanWithAssociations: LoanWithAssociationsEntity)
 
+    /** Observes the `LoanWithAssociations` row whose `id` is `loanId`. */
     @Query("SELECT * FROM LoanWithAssociations WHERE id = :loanId LIMIT 1")
     fun getLoanById(loanId: Int): Flow<LoanWithAssociationsEntity?>
 

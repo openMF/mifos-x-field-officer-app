@@ -27,10 +27,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/data sha=175b802e07f22abde4ef98a12e2a2bc73a14e834 -->
+<!-- api-docs:begin module=core/data sha=097dfc8ac4cd235eb46d2c26f18dac725f9b7c8a -->
 ## API reference
 
-_Generated from `core/data` at tree `175b802e07f2` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/data` at tree `097dfc8ac4cd` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/auth/AuthCommandRepository.kt`
@@ -99,18 +99,18 @@ internal class ActivateViewModel(
 
 </details>
 
-- `suspend fun activate2(`
-- `suspend fun saveCollectionSheet(`
-- `suspend fun saveCollectionSheetAsync(`
-- `suspend fun createCenter(centerPayload: CenterPayload?): MutationResult<SaveResponse>`
-- `suspend fun activateCenter(centerId: Int, activatePayload: ActivatePayload?): MutationResult<GenericResponse>`
+- `suspend fun activate2(` — Runs a Fineract `command` (close, activate, …) on a centre.
+- `suspend fun saveCollectionSheet(` — Saves a centre's collection sheet.
+- `suspend fun saveCollectionSheetAsync(` — Saves a centre's collection sheet through the endpoint that returns the raw response.
+- `suspend fun createCenter(centerPayload: CenterPayload?): MutationResult<SaveResponse>` — Creates a centre.
+- `suspend fun activateCenter(centerId: Int, activatePayload: ActivatePayload?): MutationResult<GenericResponse>` — Activates a centre.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/center/CenterRepository.kt`
 
 ```kotlin
 interface CenterRepository
 ```
-_No KDoc at source._
+Reads centres, their groups and accounts, from the cache and the server.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/detail/CenterDetailViewModel.kt:58</code></summary>
 
@@ -152,7 +152,7 @@ internal class ChargeFormViewModel(
 </details>
 
 - `suspend fun createCharge(` — Levy a charge on a resource. `Unit`, not `HttpResponse`: the endpoint's Ktorfit signature returns a raw response, and a FEATURE cannot name a Ktor type.
-- `suspend fun deleteCharge(resource: ChargeResource, resourceId: Int, chargeId: Int): MutationResult<Unit>`
+- `suspend fun deleteCharge(resource: ChargeResource, resourceId: Int, chargeId: Int): MutationResult<Unit>` — Deletes one charge of a resource.
 - `suspend fun updateCharge(` — Edit a levied charge. Only where `ChargeResource.canUpdate` — Fineract has no PUT for a client charge, so for `ChargeResource.CLIENT` the server refuses it and this reports `Failed`.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/charge/ChargeRepository.kt`
@@ -201,16 +201,16 @@ internal class CheckerInboxViewModel(
 
 </details>
 
-- `suspend fun approveCheckerEntry(auditId: Int): MutationResult<GenericResponse>`
-- `suspend fun rejectCheckerEntry(auditId: Int): MutationResult<GenericResponse>`
-- `suspend fun deleteCheckerEntry(auditId: Int): MutationResult<GenericResponse>`
+- `suspend fun approveCheckerEntry(auditId: Int): MutationResult<GenericResponse>` — Approves a maker-checker entry.
+- `suspend fun rejectCheckerEntry(auditId: Int): MutationResult<GenericResponse>` — Rejects a maker-checker entry.
+- `suspend fun deleteCheckerEntry(auditId: Int): MutationResult<GenericResponse>` — Deletes a maker-checker entry.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/checkerinbox/CheckerInboxRepository.kt`
 
 ```kotlin
 interface CheckerInboxRepository
 ```
-_No KDoc at source._
+Reads the maker-checker inbox and its filter template.
 
 <details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/ui/CheckerInboxViewModel.kt:50</code></summary>
 
@@ -251,20 +251,20 @@ internal class ActivateViewModel(
 
 </details>
 
-- `suspend fun activate1(` — Every client write, as an explicit outcome.
+- `suspend fun activate1(` — Runs a Fineract `command` (close, reject, withdraw, …) on a client.
 - `suspend fun uploadClientImage(clientId: Int, image: DocumentUpload): MutationResult<Unit>` — The photo as bytes + name + MIME type; the multipart encoding is core/data's job, not the caller's.
-- `suspend fun deleteClientImage(clientId: Int): MutationResult<Unit>`
-- `suspend fun createClient(clientPayload: ClientPayload?): MutationResult<Client>`
-- `suspend fun updateClient(clientId: Int, clientPayload: ClientPayload?): MutationResult<Client>`
-- `suspend fun addClientPinpointLocation(`
-- `suspend fun deleteClientPinpointLocation(`
-- `suspend fun updateClientPinpointLocation(`
-- `suspend fun activateClient(clientId: Int, clientActivate: ActivatePayload?): MutationResult<GenericResponse>`
-- `suspend fun createClientAddress(`
-- `suspend fun assignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>`
-- `suspend fun unassignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>`
-- `suspend fun proposeTransfer(clientId: Int, payload: ProposeTransferRequest): MutationResult<Unit>`
-- `suspend fun updateSavingsAccount(clientId: Int, payload: UpdateSavingsAccountRequest): MutationResult<Unit>`
+- `suspend fun deleteClientImage(clientId: Int): MutationResult<Unit>` — Deletes the client's photo.
+- `suspend fun createClient(clientPayload: ClientPayload?): MutationResult<Client>` — Creates a client.
+- `suspend fun updateClient(clientId: Int, clientPayload: ClientPayload?): MutationResult<Client>` — Updates a client's details.
+- `suspend fun addClientPinpointLocation(` — Adds a pinpoint location to a client.
+- `suspend fun deleteClientPinpointLocation(` — Deletes a client's pinpoint location.
+- `suspend fun updateClientPinpointLocation(` — Updates a client's pinpoint location.
+- `suspend fun activateClient(clientId: Int, clientActivate: ActivatePayload?): MutationResult<GenericResponse>` — Activates a client.
+- `suspend fun createClientAddress(` — Adds an address of one type to a client.
+- `suspend fun assignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>` — Assigns a loan officer to a client.
+- `suspend fun unassignStaff(clientId: Int, payload: AssignStaffRequest): MutationResult<Unit>` — Removes the client's loan officer.
+- `suspend fun proposeTransfer(clientId: Int, payload: ProposeTransferRequest): MutationResult<Unit>` — Proposes transferring the client to another office.
+- `suspend fun updateSavingsAccount(clientId: Int, payload: UpdateSavingsAccountRequest): MutationResult<Unit>` — Sets the client's default savings account.
   _…more members; read the file._
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/client/ClientRepository.kt`
@@ -272,7 +272,7 @@ internal class ActivateViewModel(
 ```kotlin
 interface ClientRepository
 ```
-_No KDoc at source._
+Reads clients and everything shown on them, from the cache and the server.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/addaddress/ClientAddAddressViewModel.kt:84</code></summary>
 
@@ -297,7 +297,7 @@ internal class ClientAddAddressViewModel(
 - `fun clientAddressesStream(clientId: Int, scope: CoroutineScope): ScreenDataStream<List<ClientAddressEntity>>` — The client's postal addresses.
 - `fun clientsTemplateStream(scope: CoroutineScope): ScreenDataStream<ClientsTemplate>` — The TENANT's client template — gender / client-type / classification / legal-form code values, and the tenant's configured data tables. NOT the same read as `clientTemplateStream`, which is per-client.
 - `fun addressConfigurationStream(scope: CoroutineScope): ScreenDataStream<AddressConfiguration>` — Whether this tenant collects client ADDRESSES at all, and how. The store behind this (`@StoreProvider(id = "addressConfiguration")`) already existed and was unexposed — the create-client form is its first reader.
-- `fun addressTemplateStream(scope: CoroutineScope): ScreenDataStream<AddressTemplate>`
+- `fun addressTemplateStream(scope: CoroutineScope): ScreenDataStream<AddressTemplate>` — The address template: address types and the fields each one takes.
 - `fun pinpointLocationsStream(clientId: Int, scope: CoroutineScope): ScreenDataStream<List<ClientAddressResponse>>` — Where the officer has recorded this client — the pinpoint map/list.
 - `fun clientCollateralStream(clientId: Int, scope: CoroutineScope): ScreenDataStream<List<CollateralItemResult>>` — Collateral the client has already pledged.
 - `fun collateralItemsStream(scope: CoroutineScope): ScreenDataStream<List<CollateralItem>>` — The collateral TYPES the tenant offers — a catalog, not client data, which is why it is keyed `Unit` and shared across clients. Backs the type picker on the add-collateral form.
@@ -325,15 +325,15 @@ Every collectionsheet write, as an explicit outcome.
 </details>
 
 - `suspend fun saveIndividualCollectionSheet(` — `request` is the generate request the sheet came from: the save body carries no office or staff, so without it the saved sheet could not be found again to record the outcome against.
-- `suspend fun submitProductiveSheet(`
-- `suspend fun submitCollectionSheet(groupId: Int, payload: CollectionSheetPayload?): MutationResult<GenericResponse>`
+- `suspend fun submitProductiveSheet(` — Submits a centre's productive collection sheet.
+- `suspend fun submitCollectionSheet(groupId: Int, payload: CollectionSheetPayload?): MutationResult<GenericResponse>` — Submits a group's collection sheet.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt`
 
 ```kotlin
 interface CollectionSheetRepository
 ```
-_No KDoc at source._
+Reads collection sheets and the offices, officers and centres that select them.
 
 <details><summary>Used in the template — <code>feature/collectionsheet/src/commonMain/kotlin/kpt/feature/collectionsheet/ui/details/CollectionSheetDetailsViewModel.kt:63</code></summary>
 
@@ -351,9 +351,9 @@ internal class CollectionSheetDetailsViewModel(
 
 - `fun centerDetailsStream(` — The centre sheet for one (office, staff, meeting date). A sheet is only meaningful for that triple, so all three are part of the address — a date change must re-fetch rather than serve the previous meeting's sheet.
 - `fun individualCollectionSheetStream(` — The individual collection sheet for one (office, staff, date) request — network first, and offline the last sheet generated for it.
-- `suspend fun individualCollectionSheet(request: RequestCollectionSheetPayload): IndividualCollectionSheet?` — The individual collection sheet for one (office, staff, date) request — network first, and offline the last sheet generated for it.
-- `suspend fun productiveSheet(centerId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?`
-- `suspend fun groupCollectionSheet(groupId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?`
+- `suspend fun individualCollectionSheet(request: RequestCollectionSheetPayload): IndividualCollectionSheet?` — Generates the individual collection sheet for `request`, or null when there is none.
+- `suspend fun productiveSheet(centerId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?` — Generates a centre's productive collection sheet, or null when there is none.
+- `suspend fun groupCollectionSheet(groupId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?` — Generates a group's collection sheet, or null when there is none.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/dashboard/DashboardRepository.kt`
 
@@ -362,16 +362,16 @@ interface DashboardRepository
 ```
 Home dashboard reads — each its own stream, so one failing card never blanks the rest.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:779</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardCards.kt:401</code></summary>
 
 ```kotlin
-        }
-        data.awaitingApproval?.let { n ->
-            add { QueueTile(Res.string.feature_home_dashboard_queue_approval, n, Icons.Outlined.PendingActions, c.tertiaryContainer, c.tertiary, TestTags.Home.QUEUE_APPROVAL) { onNavigate(HomeNavigation.LoanQueue(DashboardRepository.STATUS_SUBMITTED)) } }
+                    TestTags.Home.QUEUE_APPROVAL,
+                ) {
+                    onNavigate(HomeNavigation.LoanQueue(DashboardRepository.STATUS_SUBMITTED))
+                }
+            }
         }
         data.awaitingDisbursal?.let { n ->
-            add { QueueTile(Res.string.feature_home_dashboard_queue_disbursal, n, Icons.Outlined.Verified, c.secondaryContainer, c.secondary, TestTags.Home.QUEUE_DISBURSAL) { onNavigate(HomeNavigation.LoanQueue(DashboardRepository.STATUS_APPROVED)) } }
-        }
 ```
 
 </details>
@@ -380,11 +380,11 @@ Home dashboard reads — each its own stream, so one failing card never blanks t
 - `fun businessDateStream(scope: CoroutineScope): ScreenDataStream<String>` — Fineract's business date as `yyyy-MM-dd` — the "today" every card means.
 - `fun loansStream(status: Int, scope: CoroutineScope): ScreenDataStream<List<DashboardLoan>>` — Loans in one status (100 submitted, 200 approved, 300 active), unfiltered by officer.
 - `fun clientCountStream(officeId: Long, status: String, scope: CoroutineScope): ScreenDataStream<Int>` — How many clients of `officeId` are in `status` (`pending`, `active`).
-- `fun savingsStream(scope: CoroutineScope): ScreenDataStream<List<DashboardSavings>>`
+- `fun savingsStream(scope: CoroutineScope): ScreenDataStream<List<DashboardSavings>>` — The officer's savings accounts.
 - `fun dueTodayStream(date: String, loanIds: List<Long>, scope: CoroutineScope): ScreenDataStream<List<DueTodayLoan>>` — Installments of `loanIds` due on `date` (`yyyy-MM-dd`) — Today's collections without the collection sheet.
-- `const val STATUS_SUBMITTED = 100`
-- `const val STATUS_APPROVED = 200`
-- `const val STATUS_ACTIVE = 300`
+- `const val STATUS_SUBMITTED = 100` — Submitted, waiting for approval.
+- `const val STATUS_APPROVED = 200` — Approved, waiting for disbursal.
+- `const val STATUS_ACTIVE = 300` — Active.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/datatable/DataTableCommandRepository.kt`
 
@@ -407,17 +407,17 @@ internal class DataTableRowsViewModel(
 
 </details>
 
-- `suspend fun deleteDatatableEntry(`
-- `suspend fun createEntryInDataTable(`
-- `suspend fun deleteEntryOfDataTableManyToMany(`
-- `suspend fun addUserPathTracking(userId: Int, userLocation: UserLocation?): MutationResult<GenericResponse>`
+- `suspend fun deleteDatatableEntry(` — Deletes an entity's rows in a data table.
+- `suspend fun createEntryInDataTable(` — Adds a row for an entity to a data table.
+- `suspend fun deleteEntryOfDataTableManyToMany(` — Deletes one row of a multi-row data table.
+- `suspend fun addUserPathTracking(userId: Int, userLocation: UserLocation?): MutationResult<GenericResponse>` — Records a tracked path for a user.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/datatable/DataTableRepository.kt`
 
 ```kotlin
 interface DataTableRepository
 ```
-_No KDoc at source._
+Reads data tables and their rows.
 
 <details><summary>Used in the template — <code>feature/datatable/src/commonMain/kotlin/kpt/feature/datatable/list/DataTableListViewModel.kt:44</code></summary>
 
@@ -500,15 +500,15 @@ internal class ClientAddDocumentViewModel(
 </details>
 
 - `suspend fun createDocument(entityType: String, entityId: Int, upload: DocumentUpload): MutationResult<SaveResponse>` — `SaveResponse.resourceId` is the new document's id.
-- `suspend fun removeDocument(entityType: String, entityId: Int, documentId: Int): MutationResult<GenericResponse>`
-- `suspend fun updateDocument(`
+- `suspend fun removeDocument(entityType: String, entityId: Int, documentId: Int): MutationResult<GenericResponse>` — Deletes a document of an entity.
+- `suspend fun updateDocument(` — Replaces a document of an entity.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/document/DocumentRepository.kt`
 
 ```kotlin
 interface DocumentRepository
 ```
-_No KDoc at source._
+Reads the documents of an entity and their content.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/documentpreview/ClientDocumentPreviewViewModel.kt:48</code></summary>
 
@@ -533,7 +533,7 @@ internal class ClientDocumentPreviewViewModel(
 ```kotlin
 fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
 ```
-_No KDoc at source._
+The outbox holding the create forms' unsent submissions.
 
 ```kotlin
 fun provideCreateDraftRepository(dao: DraftDao): FormDraftRepository =
@@ -543,7 +543,7 @@ The create forms' drafts — what each create form's `FormDraftSlot` and Sync & 
 ```kotlin
 fun provideCreateDraftSubmitter(
 ```
-_No KDoc at source._
+Sends a create-form draft through the repository for its form.
 
 ```kotlin
 fun provideCreateDraftSyncer(
@@ -557,10 +557,10 @@ class CreateDraftSubmitter(
 ```
 Sends a kept create the way its form would have: decodes `FormDraft.payload` with the form's own payload type and calls the same command repository the form calls.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:55</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:57</code></summary>
 
 ```kotlin
-
+/** Sends a create-form draft through the repository for its form. */
 @DataProvider
 fun provideCreateDraftSubmitter(
     clients: ClientCommandRepository,
@@ -592,15 +592,15 @@ Every group write, as an explicit outcome.
 
 </details>
 
-- `suspend fun createGroup(groupPayload: GroupPayload?): MutationResult<SaveResponse>`
-- `suspend fun activateGroup(groupId: Int, activatePayload: ActivatePayload): MutationResult<Unit>`
+- `suspend fun createGroup(groupPayload: GroupPayload?): MutationResult<SaveResponse>` — Creates a group.
+- `suspend fun activateGroup(groupId: Int, activatePayload: ActivatePayload): MutationResult<Unit>` — Activates a group.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/group/GroupRepository.kt`
 
 ```kotlin
 interface GroupRepository
 ```
-_No KDoc at source._
+Reads groups, their members and accounts, from the cache and the server.
 
 <details><summary>Used in the template — <code>feature/center/src/commonTest/kotlin/kpt/feature/center/testing/FakeCenterRepositories.kt:69</code></summary>
 
@@ -641,16 +641,16 @@ internal class LoanApprovalViewModel(
 
 </details>
 
-- `suspend fun approveLoanApplication(loanId: Int, approval: LoanApproval): MutationResult<GenericResponse>`
-- `suspend fun rejectLoan(loanId: Int, request: RejectLoanRequestDto): MutationResult<RejectLoanResponseDto>`
+- `suspend fun approveLoanApplication(loanId: Int, approval: LoanApproval): MutationResult<GenericResponse>` — Approves a loan application.
+- `suspend fun rejectLoan(loanId: Int, request: RejectLoanRequestDto): MutationResult<RejectLoanResponseDto>` — Rejects a loan application.
 - `suspend fun disburse(loanId: Int, request: LoanDisburseInput): MutationResult<Unit>` — Disburse an approved loan. Takes `LoanDisburseInput` — a `core/model` type — rather than the network DTO, because `feature/loan` must not depend on `core:network`.
-- `suspend fun submitPayment(`
-- `suspend fun chargeOff(loanId: Int, request: LoanChargeOffRequestDto): MutationResult<LoanChargeOffResponseDto>`
-- `suspend fun assignLoanOfficer(`
+- `suspend fun submitPayment(` — Records a loan repayment.
+- `suspend fun chargeOff(loanId: Int, request: LoanChargeOffRequestDto): MutationResult<LoanChargeOffResponseDto>` — Charges off a loan.
+- `suspend fun assignLoanOfficer(` — Assigns or changes a loan's officer.
 - `suspend fun createLoanAccount(input: LoanApplicationInput): MutationResult<Unit>` — Submit a new INDIVIDUAL loan application.
-- `suspend fun createGroupLoanAccount(payload: GroupLoanPayload): MutationResult<Loan>`
+- `suspend fun createGroupLoanAccount(payload: GroupLoanPayload): MutationResult<Loan>` — Opens a group loan account.
 - `suspend fun calculateLoanSchedule(input: LoanApplicationInput): MutationResult<RepaymentSchedule>` — Preview the repayment schedule for an application that has NOT been submitted. Returns the schedule itself — the preview page renders it, so handing back an `HttpResponse` would make the one caller parse a body from a feature module.
-- `suspend fun createGuarantor(loanId: Int, request: GuarantorRequestDto): MutationResult<CreateGuarantorResponseDto>`
+- `suspend fun createGuarantor(loanId: Int, request: GuarantorRequestDto): MutationResult<CreateGuarantorResponseDto>` — Adds a guarantor to a loan.
 - `suspend fun submitAccountTransfer(request: AccountTransferRequest): MutationResult<Unit>` — Move money between two accounts.
 - `suspend fun submitLoanReschedule(request: LoanRescheduleRequest): MutationResult<Unit>` — Propose a reschedule. `Unit` for the same reason as `submitAccountTransfer` — the endpoint returns a raw Ktor response and a feature cannot name one.
 - `suspend fun approveLoanReschedule(` — Approve a proposed reschedule. `loanId` is the loan it belongs to: the wire command is keyed by the reschedule alone, but its outcome — the reschedule's status and the loan's new schedule — is recorded under the loan.
@@ -661,7 +661,7 @@ internal class LoanApprovalViewModel(
 ```kotlin
 interface LoanRepository
 ```
-_No KDoc at source._
+Reads loans, their schedules, transactions and templates, from the cache and the server.
 
 <details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/approval/LoanApprovalViewModel.kt:82</code></summary>
 
@@ -709,9 +709,9 @@ internal class AddEditNoteViewModel(
 
 </details>
 
-- `suspend fun addNewNote(`
-- `suspend fun deleteNote(resourceType: String, resourceId: Long, noteId: Long): MutationResult<DeleteNoteResponseDto>`
-- `suspend fun updateNote(`
+- `suspend fun addNewNote(` — Adds a note to a resource.
+- `suspend fun deleteNote(resourceType: String, resourceId: Long, noteId: Long): MutationResult<DeleteNoteResponseDto>` — Deletes a note of a resource.
+- `suspend fun updateNote(` — Updates a note of a resource.
 - `suspend fun submitDraft(draft: NoteDraft)` — Send one `NoteDraft` — create or update, decided by `noteId`. The single entry point the OUTBOX replays against.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/note/NoteDataProviders.kt`
@@ -731,7 +731,7 @@ Eager: watches connectivity from Koin start and replays pending notes once the a
 ```kotlin
 interface NoteRepository
 ```
-_No KDoc at source._
+Reads the notes of a resource.
 
 <details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteViewModel.kt:63</code></summary>
 
@@ -790,7 +790,7 @@ internal class NotificationsViewModel(
 
 </details>
 
-- `fun notificationsStream(scope: CoroutineScope): ScreenDataStream<List<AppNotification>>`
+- `fun notificationsStream(scope: CoroutineScope): ScreenDataStream<List<AppNotification>>` — The user's notifications.
 - `suspend fun markAllRead(): MutationResult<Unit>` — Marks every notification read on the server. Online only — the list it changes is the server's.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/office/OfficeRepository.kt`
@@ -798,7 +798,7 @@ internal class NotificationsViewModel(
 ```kotlin
 interface OfficeRepository
 ```
-_No KDoc at source._
+Reads the offices.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterViewModel.kt:54</code></summary>
 
@@ -839,7 +839,7 @@ internal class CenterListViewModel(
 
 - `val records: Flow<List<OfflineRecord>>` — Everything held on the device, at all three levels, for the signed-in officer.
 - `val latestJob: Flow<SyncJob?>` — The running job, else the last one (its result card), else null.
-- `val refresh: StateFlow<RefreshSettings>`
+- `val refresh: StateFlow<RefreshSettings>` — The current refresh settings.
 - `suspend fun download(targets: List<SyncTarget>)` — Keep `targets` on the device and download them now (picker, list long-press).
 - `suspend fun syncNow()` — Re-download every chosen record.
 - `suspend fun refreshRecord(target: SyncTarget)` — Re-download one chosen record.
@@ -868,9 +868,9 @@ Where the work runs — the background scheduler, so a download survives the scr
 
 </details>
 
-- `suspend fun runNow()`
-- `suspend fun cancelRun()`
-- `suspend fun schedule(settings: RefreshSettings)`
+- `suspend fun runNow()` — Starts a sync now, unless one is already running.
+- `suspend fun cancelRun()` — Cancels the running sync.
+- `suspend fun schedule(settings: RefreshSettings)` — Schedules, reschedules or cancels the periodic sync for `settings`.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/offline/work/OfflineSyncWork.kt`
 
@@ -922,8 +922,8 @@ The signed-in officer's recently-opened records — written by the profile scree
 
 </details>
 
-- `val recent: Flow<List<RecentRecord>>`
-- `suspend fun record(record: RecentRecord)`
+- `val recent: Flow<List<RecentRecord>>` — The user's recently opened records, newest first.
+- `suspend fun record(record: RecentRecord)` — Records that `record` was opened now.
 
 ```kotlin
 class RecentRecordsRepositoryImpl(
@@ -972,7 +972,7 @@ internal class RecurringDepositViewModel(
 ```kotlin
 interface RecurringDepositRepository
 ```
-_No KDoc at source._
+Reads the recurring-deposit template.
 
 <details><summary>Used in the template — <code>feature/savings/src/commonMain/kotlin/kpt/feature/savings/recurring/RecurringDepositViewModel.kt:89</code></summary>
 
@@ -995,7 +995,7 @@ internal class RecurringDepositViewModel(
 ```kotlin
 interface ReportRepository
 ```
-_No KDoc at source._
+Reads reports, their parameters and their results.
 
 <details><summary>Used in the template — <code>feature/report/src/commonMain/kotlin/kpt/feature/report/ui/list/ReportListViewModel.kt:31</code></summary>
 
@@ -1020,7 +1020,7 @@ internal class ReportListViewModel(
 ```kotlin
 interface SavingsAccountRepository
 ```
-_No KDoc at source._
+Reads savings accounts, their transactions and templates, from the cache and the server.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/fixeddepositapplication/FixedDepositApplicationViewModel.kt:89</code></summary>
 
@@ -1064,12 +1064,12 @@ internal class FixedDepositApplicationViewModel(
 
 </details>
 
-- `suspend fun createFixedDepositAccount(fixedDepositPayload: FixedDepositPayload): MutationResult<HttpResponse>`
+- `suspend fun createFixedDepositAccount(fixedDepositPayload: FixedDepositPayload): MutationResult<HttpResponse>` — Opens a fixed-deposit account.
 - `suspend fun processTransaction(` — Deposit or withdraw on one savings account. `savingsAccountType` is Fineract's path segment for the deposit kind, so the same numeric id under a different type is a different account.
 - `suspend fun activateSavings(` — Activate an approved savings account. Typed, not a `HashMap<String, String>`.
 - `suspend fun approveSavingsApplication(` — Approve a submitted savings application.
 - `suspend fun createSavingsAccount(input: SavingsApplicationInput): MutationResult<Unit>` — Submit a new savings application for a client or a group.
-- `suspend fun createShareAccount(shareAccountPayload: ShareAccountPayload): MutationResult<HttpResponse>`
+- `suspend fun createShareAccount(shareAccountPayload: ShareAccountPayload): MutationResult<HttpResponse>` — Opens a share account.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/search/SearchRepository.kt`
 
@@ -1115,7 +1115,7 @@ internal class SearchRecordViewModel(
 
 </details>
 
-- `fun searchStream(keys: Flow<SearchRecordKey>, scope: CoroutineScope): ScreenDataStream<List<GenericSearchRecord>>`
+- `fun searchStream(keys: Flow<SearchRecordKey>, scope: CoroutineScope): ScreenDataStream<List<GenericSearchRecord>>` — Search results for each query `keys` emits.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/serverconfig/ServerConfigRepository.kt`
 
@@ -1171,7 +1171,7 @@ class HomeViewModel(
 ```kotlin
 interface StaffRepository
 ```
-_No KDoc at source._
+Reads staff and loan officers.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/CreateNewClientViewModel.kt:201</code></summary>
 
@@ -1210,14 +1210,14 @@ internal class SurveyCommandRepositoryImpl(
 
 </details>
 
-- `suspend fun submitScore(surveyId: Int, scorecardPayload: Scorecard?): MutationResult<Scorecard>`
+- `suspend fun submitScore(surveyId: Int, scorecardPayload: Scorecard?): MutationResult<Scorecard>` — Submits a scorecard for a survey.
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/survey/SurveyRepository.kt`
 
 ```kotlin
 interface SurveyRepository
 ```
-_No KDoc at source._
+Reads surveys.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/survey/impl/SurveyRepositoryImpl.kt:25</code></summary>
 
@@ -1255,20 +1255,20 @@ Work captured with no connectivity, and the queue the sync screen drains. Enqueu
 
 </details>
 
-- `fun pendingClientsStream(scope: CoroutineScope): ScreenDataStream<List<ClientPayload>>`
-- `fun pendingCentersStream(scope: CoroutineScope): ScreenDataStream<List<CenterPayload>>`
-- `fun pendingGroupsStream(scope: CoroutineScope): ScreenDataStream<List<GroupPayload>>`
-- `fun pendingLoanRepaymentsStream(scope: CoroutineScope): ScreenDataStream<List<LoanRepaymentRequest>>`
-- `fun pendingSavingsTransactionsStream(`
-- `suspend fun enqueueClient(id: Int, payload: ClientPayload): MutationResult<ClientPayload>`
-- `suspend fun enqueueCenter(id: Int, payload: CenterPayload): MutationResult<CenterPayload>`
-- `suspend fun enqueueGroup(id: Int, payload: GroupPayload): MutationResult<GroupPayload>`
-- `suspend fun enqueueLoanRepayment(loanId: Int, request: LoanRepaymentRequest): MutationResult<LoanRepaymentRequest>`
-- `suspend fun enqueueSavingsTransaction(`
+- `fun pendingClientsStream(scope: CoroutineScope): ScreenDataStream<List<ClientPayload>>` — The client creations waiting to be sent.
+- `fun pendingCentersStream(scope: CoroutineScope): ScreenDataStream<List<CenterPayload>>` — The centre creations waiting to be sent.
+- `fun pendingGroupsStream(scope: CoroutineScope): ScreenDataStream<List<GroupPayload>>` — The group creations waiting to be sent.
+- `fun pendingLoanRepaymentsStream(scope: CoroutineScope): ScreenDataStream<List<LoanRepaymentRequest>>` — The loan repayments waiting to be sent.
+- `fun pendingSavingsTransactionsStream(` — The savings transactions waiting to be sent.
+- `suspend fun enqueueClient(id: Int, payload: ClientPayload): MutationResult<ClientPayload>` — Queues a client creation to send when online.
+- `suspend fun enqueueCenter(id: Int, payload: CenterPayload): MutationResult<CenterPayload>` — Queues a centre creation to send when online.
+- `suspend fun enqueueGroup(id: Int, payload: GroupPayload): MutationResult<GroupPayload>` — Queues a group creation to send when online.
+- `suspend fun enqueueLoanRepayment(loanId: Int, request: LoanRepaymentRequest): MutationResult<LoanRepaymentRequest>` — Queues a loan repayment to send when online.
+- `suspend fun enqueueSavingsTransaction(` — Queues a savings transaction to send when online.
 - `suspend fun discardClient(id: Int)` — Drop a queued row — the sync accepted it, or the officer discarded it.
-- `suspend fun discardCenter(id: Int)`
-- `suspend fun discardGroup(id: Int)`
-- `suspend fun discardLoanRepayment(loanId: Int)`
+- `suspend fun discardCenter(id: Int)` — Drops a queued centre creation.
+- `suspend fun discardGroup(id: Int)` — Drops a queued group creation.
+- `suspend fun discardLoanRepayment(loanId: Int)` — Drops a queued loan repayment.
   _…more members; read the file._
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/testing/ExperimentalDataTestingApi.kt`
@@ -1508,7 +1508,7 @@ class FakeDashboardRepository(
 ```
 Scripted dashboard sources; every stream is a `MutableStateFlow` a test can move. `requested` records each call.
 
-<details><summary>Used in the template — <code>feature/home/src/commonTest/kotlin/kpt/feature/home/dashboard/HomeViewModelTest.kt:67</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonTest/kotlin/kpt/feature/home/dashboard/HomeViewModelTest.kt:70</code></summary>
 
 ```kotlin
         permissions: List<String>,
@@ -1517,7 +1517,7 @@ Scripted dashboard sources; every stream is a `MutableStateFlow` a test can move
             user = DashboardUser(id = 32, firstname = "Irving", staffId = staffId),
             loansByStatus = mapOf(100 to emptyList(), 200 to emptyList(), 300 to emptyList()),
         ),
-        val sheet: FakeCollectionSheetRepository = FakeCollectionSheetRepository(ScreenState.Content(IndividualCollectionSheet())),
+        val sheet: FakeCollectionSheetRepository =
 ```
 
 </details>
@@ -1886,7 +1886,7 @@ class FakeServerConfigRepository(
 ```
 Test double for `ServerConfigRepository`: `saved` is the persisted preference, so a test reads what a submit actually wrote. `failSaves` models the write failing.
 
-<details><summary>Used in the template — <code>feature/home/src/commonTest/kotlin/kpt/feature/home/dashboard/HomeViewModelTest.kt:81</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonTest/kotlin/kpt/feature/home/dashboard/HomeViewModelTest.kt:93</code></summary>
 
 ```kotlin
             groupRepository = FakeGroupRepository(),
@@ -1906,16 +1906,16 @@ class FakeSessionRepository(initial: User = User()) : SessionRepository
 ```
 Test double for `SessionRepository`: `session` is the stored user; an empty `User` is "signed out".
 
-<details><summary>Used in the template — <code>feature/home/src/commonTest/kotlin/kpt/feature/home/dashboard/HomeViewModelTest.kt:74</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonTest/kotlin/kpt/feature/home/dashboard/HomeViewModelTest.kt:78</code></summary>
 
 ```kotlin
     ) {
         val vm = HomeViewModel(
-            sessionRepository = FakeSessionRepository(User(username = "fieldofficer", userId = 32, officeId = 1, officeName = "CENTRAL", permissions = permissions)),
-            dashboardRepository = dashboard,
-            checkerInboxRepository = FakeCheckerInboxRepository(),
-            collectionSheetRepository = sheet,
-            centerRepository = FakeCenterRepository(),
+            sessionRepository = FakeSessionRepository(
+                User(
+                    username = "fieldofficer",
+                    userId = 32,
+                    officeId = 1,
 ```
 
 </details>
@@ -2080,5 +2080,5 @@ Creates a `MutableSharedFlow` with a buffer of `Int.MAX_VALUE` and the given `re
 
 ---
 
-_85 type(s), 208 function(s)/property(ies); 204 carry KDoc at source; 2 authored example(s); 81 live call site(s)._
+_85 type(s), 208 function(s)/property(ies); 293 carry KDoc at source; 2 authored example(s); 81 live call site(s)._
 <!-- api-docs:end -->

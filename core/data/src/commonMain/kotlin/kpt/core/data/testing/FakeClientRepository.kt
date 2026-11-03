@@ -81,6 +81,7 @@ class FakeClientRepository(
      */
     private val triggers: MutableMap<String, MutableSharedFlow<Unit>> = mutableMapOf()
 
+    /** The refresh signal of one stream, so a test can see it re-read. */
     fun refreshesFor(stream: String): MutableSharedFlow<Unit> =
         triggers.getOrPut(stream) { MutableSharedFlow(extraBufferCapacity = 8) }
 

@@ -16,6 +16,7 @@ import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 import kpt.core.common.utils.MapDeserializer
 
+/** Request body for a data-table row. */
 @Serializable
 @DbEntity
 @Entity(
@@ -28,15 +29,20 @@ import kpt.core.common.utils.MapDeserializer
 )
 data class DataTablePayload(
 
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
 
+    /** When the client was created offline, in epoch milliseconds. */
     val clientCreationTime: Long? = null,
 
+    /** The data-table values, serialised as JSON. */
     val dataTableString: String? = null,
 
+    /** The registered name of the data table. */
     val registeredTableName: String? = null,
 
+    /** The data. */
     @Serializable(with = MapDeserializer::class)
     @Contextual
     val data: Map<

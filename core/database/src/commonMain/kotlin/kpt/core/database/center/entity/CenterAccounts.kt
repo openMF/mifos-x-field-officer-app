@@ -18,9 +18,12 @@ import kpt.core.database.savings.entity.SavingsAccountEntity
  */
 @Serializable
 data class CenterAccounts(
+    /** The loan accounts. */
     val loanAccounts: List<LoanAccountEntity> = emptyList(),
 
+    /** The savings accounts. */
     val savingsAccounts: List<SavingsAccountEntity> = emptyList(),
 
+    /** The loan accounts of the centre's members. */
     val memberLoanAccounts: List<LoanAccountEntity> = emptyList(),
 )

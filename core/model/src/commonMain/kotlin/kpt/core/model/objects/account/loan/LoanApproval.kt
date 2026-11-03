@@ -33,10 +33,16 @@ package kpt.core.model.objects.account.loan
  * one field at a time.
  */
 data class LoanApproval(
+    /** The date the record was approved. */
     val approvedOnDate: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
+    /** The loan amount being approved. */
     val approvedLoanAmount: String? = null,
+    /** The date the loan is expected to be disbursed. */
     val expectedDisbursementDate: String? = null,
+    /** A free-text note. */
     val note: String? = null,
 )

@@ -14,6 +14,7 @@ import kpt.core.model.objects.note.Note
 
 // The row ↔ model boundary. Entities never leave core/store: the stores read rows and emit models.
 
+/** Maps the stored row to its `Note` model. */
 fun NoteEntity.toModel() = Note(
     id = id,
     clientId = clientId,
@@ -26,6 +27,7 @@ fun NoteEntity.toModel() = Note(
     updatedOn = updatedOn,
 )
 
+/** Maps the model to its stored `NoteEntity`. */
 fun Note.toEntity() = NoteEntity(
     id = id,
     clientId = clientId,

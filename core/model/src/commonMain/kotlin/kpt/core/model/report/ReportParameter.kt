@@ -22,8 +22,11 @@ import kotlinx.serialization.Serializable
 data class ReportParameter(
     val name: String,
     val variable: String,
+    /** The label shown for the parameter. */
     val label: String,
+    /** How the parameter is entered. */
     val displayType: ReportParameterType,
+    /** The parameter's default value. */
     val defaultValue: String? = null,
     /** Fineract's `selectAll`: the options include "All", sent as -1. */
     val allowAll: Boolean = false,
@@ -33,9 +36,34 @@ data class ReportParameter(
     val queryKey: String get() = "R_$variable"
 }
 
+/**
+ * Kind of a report parameter.
+ *
+ * @property DATE A date
+ * @property HIDDEN A hidden parameter, filled in by the app
+ * @property SELECT A pick-one-of parameter
+ * @property TEXT free text
+ */
 @Serializable
-enum class ReportParameterType { SELECT, DATE, TEXT, HIDDEN }
+enum class ReportParameterType {
+    /** Chosen from a list of options. */
+    SELECT,
 
-/** A choosable value of a SELECT parameter: what is sent, and what the officer sees. */
+    /** A date. */
+    DATE,
+
+    /** Free text. */
+    TEXT,
+
+    /** Filled in by the app, never shown. */
+    HIDDEN,
+}
+
+/**
+ * A choosable value of a SELECT parameter: what is sent, and what the officer sees.
+ *
+ * @property id the server id of this record
+ * @property label the label shown for the parameter
+ */
 @Serializable
 data class ReportOption(val id: String, val label: String)

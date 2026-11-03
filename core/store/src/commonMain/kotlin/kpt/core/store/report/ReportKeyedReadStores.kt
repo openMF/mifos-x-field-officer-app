@@ -27,42 +27,57 @@ import org.mobilenativefoundation.store.store5.Store
 
 /** Addresses one `getReportFullParameterList` read. */
 data class GetReportFullParameterListKey(
+    /** The report's name. */
     val reportName: String,
+    /** Fineract's `parameterType` flag: true runs the report as a parameter query. */
     val parameterType: Boolean,
 )
 
 /** Addresses one `getReportParameterDetails` read. */
 data class GetReportParameterDetailsKey(
+    /** The report parameter's name. */
     val parameterName: String,
+    /** Fineract's `parameterType` flag: true runs the report as a parameter query. */
     val parameterType: Boolean,
 )
 
 /** Addresses one `getReportOffice` read. */
 data class GetReportOfficeKey(
+    /** The report parameter's name. */
     val parameterName: String,
+    /** The office's server id. */
     val office: Int,
+    /** Fineract's `parameterType` flag: true runs the report as a parameter query. */
     val parameterType: Boolean,
 )
 
 /** Addresses one `getReportProduct` read. */
 data class GetReportProductKey(
+    /** The report parameter's name. */
     val parameterName: String,
+    /** The currency code. */
     val currency: String,
+    /** Fineract's `parameterType` flag: true runs the report as a parameter query. */
     val parameterType: Boolean,
 )
 
 /** Addresses one `getRunReportWithQuery` read. */
 data class GetRunReportWithQueryKey(
+    /** The report's name. */
     val reportName: String,
+    /** The report's parameter values. */
     val options: Map<String, String>,
 )
 
 /** Addresses one `getCenterSummaryInfo` read. */
 data class GetCenterSummaryInfoKey(
+    /** The centre's server id. */
     val centerId: Int,
+    /** True to return the generic result-set shape. */
     val genericResultSet: Boolean,
 )
 
+/** Store reading the report full parameter list. */
 @StoreProvider(id = "reportGetReportFullParameterList", ttl = "12h")
 @CacheKey(fn = "forKey", key = "reportGetReportFullParameterList:{key}", params = ["key:String"])
 fun provideGetReportFullParameterListStore(
@@ -79,6 +94,7 @@ fun provideGetReportFullParameterListStore(
     },
 )
 
+/** Store reading the report parameter details. */
 @StoreProvider(id = "reportGetReportParameterDetails", ttl = "12h")
 @CacheKey(fn = "forKey", key = "reportGetReportParameterDetails:{key}", params = ["key:String"])
 fun provideGetReportParameterDetailsStore(
@@ -95,6 +111,7 @@ fun provideGetReportParameterDetailsStore(
     },
 )
 
+/** Store reading the report office. */
 @StoreProvider(id = "reportGetReportOffice", ttl = "12h")
 @CacheKey(fn = "forKey", key = "reportGetReportOffice:{key}", params = ["key:String"])
 fun provideGetReportOfficeStore(
@@ -114,6 +131,7 @@ fun provideGetReportOfficeStore(
     },
 )
 
+/** Store reading the report product. */
 @StoreProvider(id = "reportGetReportProduct", ttl = "12h")
 @CacheKey(fn = "forKey", key = "reportGetReportProduct:{key}", params = ["key:String"])
 fun provideGetReportProductStore(
@@ -133,6 +151,7 @@ fun provideGetReportProductStore(
     },
 )
 
+/** Store reading the run report with query. */
 @StoreProvider(id = "reportGetRunReportWithQuery", ttl = "12h")
 @CacheKey(fn = "forKey", key = "reportGetRunReportWithQuery:{key}", params = ["key:String"])
 fun provideGetRunReportWithQueryStore(
@@ -144,6 +163,7 @@ fun provideGetRunReportWithQueryStore(
     fetch = { key -> runReportsApi.getRunReportWithQuery(reportName = key.reportName, options = key.options) },
 )
 
+/** Store reading the center summary info. */
 @StoreProvider(id = "reportGetCenterSummaryInfo", ttl = "12h")
 @CacheKey(fn = "forKey", key = "reportGetCenterSummaryInfo:{key}", params = ["key:String"])
 fun provideGetCenterSummaryInfoStore(

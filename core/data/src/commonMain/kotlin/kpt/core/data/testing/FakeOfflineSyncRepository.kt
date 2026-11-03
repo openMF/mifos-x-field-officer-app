@@ -31,6 +31,8 @@ class FakeOfflineSyncRepository(
     override val records = MutableStateFlow(records)
     override val latestJob = MutableStateFlow(job)
     override val refresh = MutableStateFlow(refresh)
+
+    /** The calls made, in order (`syncNow`, `download:<kind>:<id>`, …). */
     val calls = mutableListOf<String>()
 
     override suspend fun download(targets: List<SyncTarget>) {

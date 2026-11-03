@@ -21,21 +21,30 @@ import kpt.core.model.objects.account.loan.InterestType
  */
 @Serializable
 data class AccountOptions(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** The general-ledger code of the account. */
     var glCode: Int? = null,
 
+    /** True when the account is disabled. */
     var disabled: Boolean? = null,
 
+    /** True when manual journal entries may be posted to the account. */
     var manualEntriesAllowed: Boolean? = null,
 
+    /** The record's type. */
     var type: InterestType? = null,
 
+    /** How the GL account is used (header or detail). */
     var usage: InterestType? = null,
 
+    /** The office name indented to show its place in the hierarchy. */
     var nameDecorated: String? = null,
 
+    /** The tag of the GL account. */
     var tagId: TagId? = null,
 )

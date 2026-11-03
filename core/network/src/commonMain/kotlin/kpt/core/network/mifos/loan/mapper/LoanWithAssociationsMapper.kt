@@ -31,6 +31,7 @@ import kpt.core.network.mifos.loan.dto.LoanTransactionDto
 import kpt.core.network.mifos.loan.dto.LoanTypeDto
 import kpt.core.network.mifos.loan.dto.LoanWithAssociationsDto
 
+/** Maps the network loan to the domain loan. */
 fun LoanWithAssociationsDto.toDomain(): LoanWithAssociations = LoanWithAssociations(
     id = this.id.toInt(),
     accountNo = this.accountNo,
@@ -75,6 +76,7 @@ fun LoanWithAssociationsDto.toDomain(): LoanWithAssociations = LoanWithAssociati
     chargedOff = this.chargedOff,
 )
 
+/** Maps the network loan status to the domain status. */
 fun LoanStatusDto.toDomain() = LoanStatus(
     id = this.id,
     code = this.code,
@@ -89,12 +91,14 @@ fun LoanStatusDto.toDomain() = LoanStatus(
     overpaid = this.overpaid,
 )
 
+/** Maps the network loan type to the domain type. */
 fun LoanTypeDto.toDomain() = LoanType(
     id = this.id,
     code = this.code,
     value = this.value,
 )
 
+/** Maps the network loan currency to the domain currency. */
 fun LoanCurrencyDto.toDomain() = SavingAccountCurrency(
     code = this.code,
     name = this.name,
@@ -103,6 +107,7 @@ fun LoanCurrencyDto.toDomain() = SavingAccountCurrency(
     displayLabel = this.displayLabel,
 )
 
+/** Maps the network loan timeline to the domain timeline. */
 fun LoanTimelineDto.toDomain() = LoanTimeline(
     submittedOnDate = this.submittedOnDate,
     approvedOnDate = this.approvedOnDate,
@@ -113,6 +118,7 @@ fun LoanTimelineDto.toDomain() = LoanTimeline(
     withdrawnOnDate = this.withdrawnOnDate,
 )
 
+/** Maps the network loan summary to the domain summary. */
 fun LoanSummaryDto.toDomain() = LoanAccountSummary(
     loanId = this.loanId,
     currency = this.currency?.toDomain(),
@@ -152,6 +158,7 @@ fun LoanSummaryDto.toDomain() = LoanAccountSummary(
     overdueSinceDate = this.overdueSinceDate,
 )
 
+/** Maps the network repayment schedule to the domain schedule. */
 fun LoanRepaymentScheduleDto.toDomain() = RepaymentSchedule(
     loanTermInDays = this.loanTermInDays,
     totalPrincipalDisbursed = this.totalPrincipalDisbursed,
@@ -171,6 +178,7 @@ fun LoanRepaymentScheduleDto.toDomain() = RepaymentSchedule(
     },
 )
 
+/** Maps a network loan transaction to the domain transaction. */
 fun LoanTransactionDto.toDomain() = Transaction(
     id = this.id.toInt(),
     officeId = this.officeId?.toInt(),

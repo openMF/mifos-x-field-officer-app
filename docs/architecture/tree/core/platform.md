@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/platform sha=0fe996aa1627e690cced793f10e1425f96e3d126 -->
+<!-- api-docs:begin module=core/platform sha=eacc3545af1d4b7c53b0d88826c150e746fc6b39 -->
 ## API reference
 
-_Generated from `core/platform` at tree `0fe996aa1627` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/platform` at tree `eacc3545af1d` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/platform/src/commonMain/kotlin/kpt/core/platform/config/AppReviewConfig.kt`
@@ -78,11 +78,11 @@ sealed interface PermissionResult
 ```
 The outcome of a permission request. Every platform returns this same vocabulary so that callers stay platform-agnostic (CORE_PLATFORM.md).
 
-<details><summary>Used in the template — <code>core/platform/src/androidMain/kotlin/kpt/core/platform/permission/PermissionRequester.android.kt:64</code></summary>
+<details><summary>Used in the template — <code>core/platform/src/androidMain/kotlin/kpt/core/platform/permission/PermissionRequester.android.kt:66</code></summary>
 
 ```kotlin
-        }
 
+    /** Asks the user for any of `permissions` not yet granted; Denied when no activity can show the dialog. */
     actual suspend fun request(permissions: List<Permission>): PermissionResult {
         val manifestPermissions = permissions.flatMap { it.manifestPermissions() }.distinct()
         // No activity means no way to show the system dialog. Denied (not DeniedPermanently) —

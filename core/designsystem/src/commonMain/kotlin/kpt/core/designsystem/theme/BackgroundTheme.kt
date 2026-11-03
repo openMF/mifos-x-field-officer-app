@@ -19,7 +19,9 @@ import androidx.compose.ui.unit.Dp
  */
 @Immutable
 data class BackgroundTheme(
+    /** Background colour; unspecified means the theme's default. */
     val color: Color = Color.Unspecified,
+    /** Tonal elevation of the background; unspecified means the theme's default. */
     val tonalElevation: Dp = Dp.Unspecified,
 )
 

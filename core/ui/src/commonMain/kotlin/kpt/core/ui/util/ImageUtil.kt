@@ -9,10 +9,15 @@
  */
 package kpt.core.ui.util
 
+/** Image resizing for uploads. */
 expect object ImageUtil {
+    /** Widest an image is scaled to, in pixels. */
     val DEFAULT_MAX_WIDTH: Float
+
+    /** Tallest an image is scaled to, in pixels. */
     val DEFAULT_MAX_HEIGHT: Float
 
+    /** Scales the image down to fit `maxWidth` × `maxHeight` and re-encodes it. */
     fun compressImage(
         decodedBytes: ByteArray,
         maxWidth: Float = DEFAULT_MAX_WIDTH,

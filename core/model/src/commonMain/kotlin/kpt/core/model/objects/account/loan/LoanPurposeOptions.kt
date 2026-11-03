@@ -13,7 +13,9 @@ package kpt.core.model.objects.account.loan
  * Created by nellyk on 2/25/2016.
  */
 data class LoanPurposeOptions(
+    /** The server id of this record. */
     var id: Int = 0,
 
+    /** The display name. */
     var name: String? = null,
 )

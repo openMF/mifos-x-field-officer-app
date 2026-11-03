@@ -19,9 +19,14 @@ import kpt.core.model.objects.collectionsheets.LoanCollectionSheet
  */
 @Serializable
 data class ClientCollectionSheet(
+    /** The server id of the client. */
     var clientId: Int = 0,
+    /** The client's display name. */
     var clientName: String? = null,
+    /** The loans. */
     var loans: ArrayList<LoanCollectionSheet>? = null,
+    /** Whether the client attended the meeting. */
     var attendanceType: AttendanceTypeOption? = null,
+    /** The savings accounts. */
     var savings: ArrayList<SavingsCollectionSheet> = ArrayList(),
 )

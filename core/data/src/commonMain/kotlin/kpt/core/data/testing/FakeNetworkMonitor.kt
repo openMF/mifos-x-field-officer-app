@@ -28,6 +28,7 @@ import kpt.core.base.data.infra.NetworkMonitor
 /** A [NetworkMonitor] the test switches: set [online] to drive a screen into / out of its offline state. */
 @ExperimentalDataTestingApi
 class FakeNetworkMonitor(online: Boolean = true) : NetworkMonitor {
+    /** Whether the fake network is online; set it to simulate a change. */
     val online = MutableStateFlow(online)
 
     override val isOnline: StateFlow<Boolean> = this.online

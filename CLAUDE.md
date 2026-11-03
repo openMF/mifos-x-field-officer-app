@@ -31,7 +31,7 @@
 ## Quick Links
 
 🚀 **New fork? Start here:**
-- [Fork Quickstart](docs/setup/FORK_QUICKSTART.md) - Day-1 customization checklist for new forks
+- [Fork Quickstart](docs/architecture/cross-cutting/customization-surface.md) - Day-1 customization checklist for new forks
 
 📖 **Domain-Specific Guides:**
 - [GitHub Actions & CI/CD](.github/CLAUDE.md) - Workflows, custom actions, secrets
@@ -39,19 +39,17 @@
 - [Bash Scripts](scripts/CLAUDE.md) - Setup, deployment, and verification scripts
 
 📚 **Deep-Dive Documentation:**
-- [Troubleshooting Guide](docs/claude/troubleshooting.md)
-- [Onboarding Guide](docs/claude/onboarding.md)
-- [Deployment Playbook](docs/claude/deployment-playbook.md)
-- [Patterns & Best Practices](docs/claude/patterns.md)
-- [Independent Cards Pattern](docs/claude/PATTERN-independent-cards.md) - Multi-card dashboards where each card has its own ScreenState (loading / error / empty / content) — `IndependentCardLayout` + `DashboardProgressBar` + `aggregateDashboardProgress`
-- [Store Implementation Guide](docs/claude/store-implementation.md) - Offline-first streams, mutations, FetchPolicy, cache lifecycle
+- [Troubleshooting Guide](docs/troubleshooting.md)
+- [Onboarding Guide](docs/onboarding.md)
+- [Deployment Playbook](docs/architecture/tree/deployment.md)
+- [Patterns & Best Practices](docs/architecture/patterns/README.md)
+- [Independent Cards Pattern](docs/architecture/patterns/independent-cards.md) - Multi-card dashboards where each card has its own ScreenState (loading / error / empty / content) — `IndependentCardLayout` + `DashboardProgressBar` + `aggregateDashboardProgress`
+- [Store Implementation Guide](docs/architecture/tree/core/store-implementation.md) - Offline-first streams, mutations, FetchPolicy, cache lifecycle
 - [Motion + Transitions](core-base/ui/MOTION.md) - Symmetric durations, M3 patterns, debug Transition Gallery
-- [GitHub Actions Deep Dive](docs/claude/github-actions-deep-dive.md)
-- [Secrets Management](docs/claude/secrets-management.md)
-- [Version Handling](docs/claude/version-handling.md)
+- [GitHub Actions Deep Dive](docs/architecture/tree/github/actions-deep-dive.md)
+- [Secrets Management](docs/architecture/tree/secrets/management.md)
+- [Version Handling](docs/architecture/tree/gradle/version-handling.md)
 
-🐛 **Known Issues:**
-- [Infrastructure Bugs & Workarounds](docs/analysis/BUGS_AND_ISSUES.md)
 
 ---
 
@@ -119,7 +117,7 @@ the per-feature branding, or selectively remove features they don't need.
 > **Moved.** The 8-archetype decision matrix, the archetype ↔ showcase contract and the
 > `@StoreProvider` declaration rules now live in the architecture SoT:
 >
-> - [`modules/core/store.md`](docs/architecture/modules/core/store.md) — the module, its contracts and failure modes
+> - [`modules/core/store.md`](docs/architecture/tree/core/store.md) — the module, its contracts and failure modes
 > - [`cross-cutting/store-architecture.md`](docs/architecture/cross-cutting/store-architecture.md) — the archetypes end to end
 > - [`cross-cutting/store-data-api.md`](docs/architecture/cross-cutting/store-data-api.md) — the canonical API reference
 >
@@ -341,7 +339,7 @@ On **logout**, call `storeCacheManager.clearAll()` to wipe all Store caches and 
 On **app start**, call `storeCacheManager.pruneExpiredDrafts()` to remove SUBMITTED/FAILED
 drafts older than 30 days (PENDING drafts are never pruned).
 
-See [Store Implementation Guide](docs/claude/store-implementation.md) for full examples.
+See [Store Implementation Guide](docs/architecture/tree/core/store-implementation.md) for full examples.
 
 ---
 
@@ -439,7 +437,7 @@ declared in `customization-surface.yaml` — fork-owned paths (e.g. `app-profile
 - **App Store requires:** `YYYY.M.{commitCount}` format (`2026.1.9`)
 - **Auto-sanitization:** Fastlane automatically converts Gradle version to App Store format
 
-See [Version Handling Guide](docs/claude/version-handling.md) for details.
+See [Version Handling Guide](docs/architecture/tree/gradle/version-handling.md) for details.
 
 ### Secret Management
 - **`cmp-android/google-services.json` IS committed — it is PUBLIC, not a secret.** The Firebase **client**
@@ -460,7 +458,7 @@ See [Version Handling Guide](docs/claude/version-handling.md) for details.
   - `Auth_key.p8` → `APPSTORE_AUTH_KEY`
   - `match_ci_key` → `MATCH_GIT_PRIVATE_KEY`
 
-See [Secrets Management Guide](docs/claude/secrets-management.md) for complete reference.
+See [Secrets Management Guide](docs/architecture/tree/secrets/management.md) for complete reference.
 
 ### Production Deployments
 ⚠️ **CRITICAL:** App Store and Play Store **production** deployments require:
@@ -557,16 +555,15 @@ scripts/white-label/keystore.sh add               # Add secrets to GitHub (requi
 4. **Version generation may fail silently** - `set +e` swallows errors
 5. **Production promotion has no validation** - Doesn't verify beta release exists
 
-See [BUGS_AND_ISSUES.md](docs/analysis/BUGS_AND_ISSUES.md) for complete analysis with fixes.
 
 ---
 
 ## Need Help?
 
-1. **Start here:** [Onboarding Guide](docs/claude/onboarding.md)
-2. **Stuck?** [Troubleshooting Guide](docs/claude/troubleshooting.md)
-3. **Deploying?** [Deployment Playbook](docs/claude/deployment-playbook.md)
-4. **GitHub Actions failing?** [GitHub Actions Deep Dive](docs/claude/github-actions-deep-dive.md)
+1. **Start here:** [Onboarding Guide](docs/onboarding.md)
+2. **Stuck?** [Troubleshooting Guide](docs/troubleshooting.md)
+3. **Deploying?** [Deployment Playbook](docs/architecture/tree/deployment.md)
+4. **GitHub Actions failing?** [GitHub Actions Deep Dive](docs/architecture/tree/github/actions-deep-dive.md)
 
 ---
 

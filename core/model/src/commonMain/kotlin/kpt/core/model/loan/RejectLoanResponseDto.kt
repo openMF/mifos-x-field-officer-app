@@ -10,10 +10,15 @@
 package kpt.core.model.loan
 import kotlinx.serialization.Serializable
 
+/** Server response to a reject loan request. */
 @Serializable
 data class RejectLoanResponseDto(
+    /** The server id of the office. */
     val officeId: Int,
+    /** The server id of the client. */
     val clientId: Int,
+    /** The server id of the loan. */
     val loanId: Int,
+    /** The server id of the resource the request created or changed. */
     val resourceId: Int,
 )

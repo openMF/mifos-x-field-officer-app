@@ -15,6 +15,7 @@ import kpt.core.network.mifos.center.dto.GetCentersPageItems
 import kpt.core.network.mifos.center.dto.GetCentersStatus
 import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps center between its network, stored and domain shapes. */
 object CenterMapper : AbstractMapper<GetCentersPageItems, Center>() {
 
     override fun mapFromEntity(entity: GetCentersPageItems): Center {

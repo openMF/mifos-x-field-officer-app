@@ -18,6 +18,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ChangePasswordRequest(
+    /** The password. */
     val password: String,
+    /** The new password typed a second time. */
     val repeatPassword: String,
 )

@@ -223,7 +223,7 @@ data class DashboardProgressState(
 ```
 Aggregate progress snapshot for a multi-card dashboard.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:252</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:73</code></summary>
 
 ```kotlin
 ) {
@@ -243,7 +243,7 @@ fun <T> IndependentCardLayout(
 ```
 Renders a vertical stack of cards where each card carries its OWN `ScreenState` — so a slow card can still spin while a fast one shows content, and a single failed fetch only ruins one card instead of blanking the whole dashboard.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:310</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:139</code></summary>
 
 ```kotlin
     Column(verticalArrangement = Arrangement.spacedBy(6.tw)) {
@@ -252,7 +252,7 @@ Renders a vertical stack of cards where each card carries its OWN `ScreenState` 
                 states = states,
                 onRetry = { index -> onRetry(state.cards[index].id) },
                 cardChrome = { index, card ->
-                    Section(state.cards[index], state.draftCount, state.header.businessDate, onNavigate, { onRetry(state.cards[index].id) }, card)
+                    Section(state.cards[index], state.draftCount, state.header.businessDate, onNavigate, {
 ```
 
 </details>
@@ -272,7 +272,7 @@ IndependentCardLayout(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:310</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:139</code></summary>
 
 ```kotlin
     Column(verticalArrangement = Arrangement.spacedBy(6.tw)) {
@@ -281,7 +281,7 @@ IndependentCardLayout(
                 states = states,
                 onRetry = { index -> onRetry(state.cards[index].id) },
                 cardChrome = { index, card ->
-                    Section(state.cards[index], state.draftCount, state.header.businessDate, onNavigate, { onRetry(state.cards[index].id) }, card)
+                    Section(state.cards[index], state.draftCount, state.header.businessDate, onNavigate, {
 ```
 
 </details>
@@ -544,7 +544,7 @@ public annotation class FeatureDestination
 ```
 Marks a `NavGraphBuilder` extension as a TOP-LEVEL feature destination — one the app shell registers directly on the authenticated graph.
 
-<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/navigation/AboutRoute.kt:27</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/navigation/AboutRoute.kt:28</code></summary>
 
 ```kotlin
  * this module.

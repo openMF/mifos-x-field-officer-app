@@ -20,6 +20,7 @@ import kpt.core.database.charge.entity.ChargesEntity as ChargesRow
 import kpt.core.database.payment.entity.PaymentTypeOptionEntity as PaymentTypeOptionRow
 import kpt.core.database.savings.entity.Charge as ChargeRow
 
+/** Maps the stored row to its `Charge` model. */
 fun ChargeRow.toModel(): Charge = Charge(
     id = id,
     chargeId = chargeId,
@@ -40,6 +41,7 @@ fun ChargeRow.toModel(): Charge = Charge(
     additionalProperties = additionalProperties,
 )
 
+/** Maps the model to its stored `ChargeRow`. */
 fun Charge.toEntity(): ChargeRow = ChargeRow(
     id = id,
     chargeId = chargeId,
@@ -60,30 +62,35 @@ fun Charge.toEntity(): ChargeRow = ChargeRow(
     additionalProperties = additionalProperties,
 )
 
+/** Maps the stored row to its `ChargeCalculationType` model. */
 fun ChargeCalculationTypeRow.toModel(): ChargeCalculationType = ChargeCalculationType(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the model to its stored `ChargeCalculationTypeRow`. */
 fun ChargeCalculationType.toEntity(): ChargeCalculationTypeRow = ChargeCalculationTypeRow(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the stored row to its `ChargeTimeType` model. */
 fun ChargeTimeTypeRow.toModel(): ChargeTimeType = ChargeTimeType(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the model to its stored `ChargeTimeTypeRow`. */
 fun ChargeTimeType.toEntity(): ChargeTimeTypeRow = ChargeTimeTypeRow(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the stored row to its `Charges` model. */
 fun ChargesRow.toModel(): Charges = Charges(
     resourceType = resourceType,
     resourceId = resourceId,
@@ -108,6 +115,7 @@ fun ChargesRow.toModel(): Charges = Charges(
     waived = waived,
 )
 
+/** Maps the model to its stored `ChargesRow`. */
 fun Charges.toEntity(): ChargesRow = ChargesRow(
     resourceType = resourceType,
     resourceId = resourceId,
@@ -132,6 +140,7 @@ fun Charges.toEntity(): ChargesRow = ChargesRow(
     waived = waived,
 )
 
+/** Maps the stored row to its `PaymentTypeOption` model. */
 fun PaymentTypeOptionRow.toModel(): PaymentTypeOption = PaymentTypeOption(
     id = id,
     name = name,
@@ -140,6 +149,7 @@ fun PaymentTypeOptionRow.toModel(): PaymentTypeOption = PaymentTypeOption(
     position = position,
 )
 
+/** Maps the model to its stored `PaymentTypeOptionRow`. */
 fun PaymentTypeOption.toEntity(): PaymentTypeOptionRow = PaymentTypeOptionRow(
     id = id,
     name = name,

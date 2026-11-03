@@ -90,16 +90,16 @@ interface LoanDao { ... }
 
 </details>
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/cache/dao/ApiResponseCacheDao.kt:19</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/cache/dao/ApiResponseCacheDao.kt:20</code></summary>
 
 ```kotlin
-import kpt.core.database.cache.entity.ApiResponseCacheEntity
 
+/** Room queries for api response cache rows. */
 @DbDao
 @Dao
 interface ApiResponseCacheDao {
 
-    @Query("SELECT * FROM api_response_cache WHERE cacheKey = :cacheKey LIMIT 1")
+    /** Observes the `api_response_cache` row whose `cacheKey` is `cacheKey`. */
 ```
 
 </details>
@@ -109,16 +109,16 @@ annotation class DbConverters
 ```
 Marks a class holding Room `@TypeConverter` functions. Collected into the generated `@ColumnTypeConverters(...)` annotation on `AppDatabase`. Same declare-once contract as `DbEntity`: the converter class is the only place it is named.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:19</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:20</code></summary>
 
 ```kotlin
-import kpt.core.database.savings.entity.SavingAccountDepositTypeEntity
 
+/** Room column converters for center fields. */
 @DbConverters
 class CenterTypeConverters {
 
+    /** Stores a `CenterDateEntity?` in a JSON column. */
     @ColumnTypeConverter
-    fun fromCenterDate(centerDate: CenterDateEntity?): String? {
 ```
 
 </details>
@@ -183,10 +183,10 @@ interface DraftDao
 ```
 DAO for the framework-owned `framework_submit_drafts` table. Consumed by `kpt.core.data.store.RoomSubmitOutbox`. The framework uses this table to persist form payloads that failed to reach the server so users can resume or retry later.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:47</code></summary>
 
 ```kotlin
-
+/** The outbox holding the create forms' unsent submissions. */
 @DataProvider(qualifier = CREATE_OUTBOX_QUALIFIER)
 fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
     RoomSubmitOutbox(dao = dao, serializer = FormDraft.serializer(), ownsFormKey = { it.startsWith(CreateForm.PREFIX) })

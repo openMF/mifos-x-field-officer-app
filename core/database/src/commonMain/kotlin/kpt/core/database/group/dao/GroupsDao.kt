@@ -30,27 +30,35 @@ import kpt.core.database.savings.entity.SavingsAccountEntity
 @Dao
 interface GroupsDao :
     GroupPayloadDao {
+    /** Saves `group`, replacing any row with the same key. */
     @Insert(entity = GroupEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroup(group: GroupEntity)
 
+    /** Saves `loanAccount`, replacing any row with the same key. */
     @Insert(entity = LoanAccountEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoanAccount(loanAccount: LoanAccountEntity)
 
+    /** Saves `savingsAccount`, replacing any row with the same key. */
     @Insert(entity = SavingsAccountEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSavingsAccount(savingsAccount: SavingsAccountEntity)
 
+    /** Observes the `GroupTable` rows. */
     @Query("SELECT * FROM GroupTable")
     fun getAllGroups(): Flow<List<GroupEntity>>
 
+    /** Reads one page of groups. */
     @Query("SELECT * FROM GroupTable LIMIT :limit OFFSET :offset")
     suspend fun getAllGroups(offset: Int, limit: Int): List<GroupEntity>
 
+    /** Observes the `GroupTable` row whose `id` is `groupId`. */
     @Query("SELECT * FROM GroupTable WHERE id = :groupId")
     fun getGroupById(groupId: Int): Flow<GroupEntity>
 
+    /** Observes the `LoanAccountEntity` rows whose `groupId` is `groupId`. */
     @Query("SELECT * FROM LoanAccountEntity WHERE groupId = :groupId")
     fun getLoanAccountsByGroupId(groupId: Int): Flow<List<LoanAccountEntity>>
 
+    /** Observes the `SavingsAccount` rows whose `groupId` is `groupId`. */
     @Query("SELECT * FROM SavingsAccount WHERE groupId = :groupId")
     fun getSavingsAccountsByGroupId(groupId: Int): Flow<List<SavingsAccountEntity>>
 
@@ -101,6 +109,7 @@ interface GroupsDao :
     @Query("SELECT * FROM GroupTable WHERE id = :id LIMIT 1")
     fun observeGroup(id: Int): Flow<GroupEntity?>
 
+    /** Deletes the `GroupTable` rows whose `id` is `id`. */
     @Query("DELETE FROM GroupTable WHERE id = :id")
     suspend fun deleteGroupById(id: Int)
 

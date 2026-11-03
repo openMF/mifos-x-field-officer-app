@@ -12,12 +12,16 @@ package kpt.core.database.shared.entity
 import kotlinx.serialization.Serializable
 import kpt.core.database.datatable.entity.DataTableEntity
 
+/** Navigation arguments for a data-table form. */
 @Serializable
 data class DataTableDataNavigationArg(
 
+    /** The name of the data table. */
     val tableName: String,
 
+    /** The server id of the entity this record belongs to. */
     val entityId: Int,
 
+    /** The data table to show. */
     val dataTable: DataTableEntity,
 )

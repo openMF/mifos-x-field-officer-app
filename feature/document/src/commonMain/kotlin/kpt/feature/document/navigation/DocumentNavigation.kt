@@ -25,6 +25,9 @@ import kpt.feature.document.upload.DocumentUploadScreen
  *
  * Neither has a default. The original's route defaulted both, so a missing argument produced a
  * screen that asked Fineract for documents of entity `-1` under an empty type.
+ *
+ * @property entityType the Fineract entity the documents belong to (`clients`, `loans`, …)
+ * @property entityId the id of that entity
  */
 @Serializable
 data class DocumentListRoute(val entityType: String, val entityId: Int)
@@ -35,21 +38,28 @@ data class DocumentListRoute(val entityType: String, val entityId: Int)
  */
 @Serializable
 data class DocumentUploadRoute(
+    /** The Fineract entity the document belongs to (`clients`, `loans`, …). */
     val entityType: String,
+    /** The id of that entity. */
     val entityId: Int,
+    /** The document to replace, or [CREATE_NEW] to upload a new one. */
     val documentId: Int = CREATE_NEW,
 ) {
+    /** Sentinels for the route's arguments. */
     companion object {
+        /** The [documentId] that means "upload a new document" — a nav argument cannot be absent. */
         const val CREATE_NEW = -1
     }
 }
 
+/** Opens the documents of one entity. */
 fun NavController.navigateToDocumentList(
     entityType: String,
     entityId: Int,
     navOptions: NavOptions? = null,
 ) = navigate(DocumentListRoute(entityType, entityId), navOptions)
 
+/** Opens the upload or replace form for one entity's document. */
 fun NavController.navigateToDocumentUpload(
     entityType: String,
     entityId: Int,

@@ -17,7 +17,10 @@ import kpt.core.model.objects.account.loan.loanWithAssociations.LoanWithAssociat
  * Created by Rajan Maurya on 08/08/16.
  */
 class LoanAndLoanRepayment {
+    /** The loan with its schedule, transactions and charges. */
     var loanWithAssociations: LoanWithAssociations? = null
+
+    /** The repayment template of the loan. */
     var loanRepaymentTemplate: LoanRepaymentTemplateEntity? = null
 
     constructor()

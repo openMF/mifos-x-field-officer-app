@@ -17,6 +17,9 @@ import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonPrimitive
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.data.dashboard.DashboardRepository
 import kpt.core.data.testing.FakeCenterRepository
@@ -68,10 +71,19 @@ class HomeViewModelTest {
             user = DashboardUser(id = 32, firstname = "Irving", staffId = staffId),
             loansByStatus = mapOf(100 to emptyList(), 200 to emptyList(), 300 to emptyList()),
         ),
-        val sheet: FakeCollectionSheetRepository = FakeCollectionSheetRepository(ScreenState.Content(IndividualCollectionSheet())),
+        val sheet: FakeCollectionSheetRepository =
+            FakeCollectionSheetRepository(ScreenState.Content(IndividualCollectionSheet())),
     ) {
         val vm = HomeViewModel(
-            sessionRepository = FakeSessionRepository(User(username = "fieldofficer", userId = 32, officeId = 1, officeName = "CENTRAL", permissions = permissions)),
+            sessionRepository = FakeSessionRepository(
+                User(
+                    username = "fieldofficer",
+                    userId = 32,
+                    officeId = 1,
+                    officeName = "CENTRAL",
+                    permissions = permissions,
+                ),
+            ),
             dashboardRepository = dashboard,
             checkerInboxRepository = FakeCheckerInboxRepository(),
             collectionSheetRepository = sheet,
@@ -108,15 +120,39 @@ class HomeViewModelTest {
         val dashboard = FakeDashboardRepository(
             user = DashboardUser(id = 32, staffId = 1),
             // loan 1 + 3 belong to officer 1 (3 is in arrears); loan 2 is someone else's and is never read
-            loansByStatus = mapOf(100 to emptyList(), 200 to emptyList(), 300 to listOf(loan(1, 1).copy(clientId = 10), loan(2, 2).copy(clientId = 20), loan(3, 1).copy(clientId = 30, inArrears = true))),
+            loansByStatus = mapOf(
+                100 to emptyList(),
+                200 to emptyList(),
+                300 to listOf(
+                    loan(1, 1).copy(clientId = 10),
+                    loan(2, 2).copy(clientId = 20),
+                    loan(3, 1).copy(clientId = 30, inArrears = true),
+                ),
+            ),
             dueToday = listOf(
-                DueTodayLoan(loanId = 1, clientId = 10, currencyCode = "MXN", currencySymbol = "$", due = 400.0, paid = 100.0),
-                DueTodayLoan(loanId = 3, clientId = 30, currencyCode = "MXN", currencySymbol = "$", due = 250.0, paid = 0.0),
+                DueTodayLoan(
+                    loanId = 1,
+                    clientId = 10,
+                    currencyCode = "MXN",
+                    currencySymbol = "$",
+                    due = 400.0,
+                    paid = 100.0,
+                ),
+                DueTodayLoan(
+                    loanId = 3,
+                    clientId = 30,
+                    currencyCode = "MXN",
+                    currencySymbol = "$",
+                    due = 250.0,
+                    paid = 0.0,
+                ),
             ),
         )
         val f = Fixture(fieldOfficer - "READ_COLLECTIONSHEET", dashboard = dashboard)
         val state = f.settled()
-        val card = assertIs<ScreenState.Content<HomeCard>>(state.cards.first { it.id == HomeCardId.COLLECTIONS }.state).data
+        val card = assertIs<ScreenState.Content<HomeCard>>(
+            state.cards.first { it.id == HomeCardId.COLLECTIONS }.state,
+        ).data
         assertEquals(
             HomeCard.Collections(
                 clientsDue = 2,
@@ -136,10 +172,16 @@ class HomeViewModelTest {
     fun loanQueuesCountOnlyTheOfficersOwnLoans() = runTest(dispatcher) {
         val dashboard = FakeDashboardRepository(
             user = DashboardUser(id = 32, staffId = 1),
-            loansByStatus = mapOf(100 to listOf(loan(1, 1), loan(2, 2), loan(3, 1)), 200 to listOf(loan(4, 2)), 300 to emptyList()),
+            loansByStatus = mapOf(
+                100 to listOf(loan(1, 1), loan(2, 2), loan(3, 1)),
+                200 to listOf(loan(4, 2)),
+                300 to emptyList(),
+            ),
         )
         val state = Fixture(fieldOfficer, dashboard = dashboard).settled()
-        val queue = assertIs<ScreenState.Content<HomeCard>>(state.cards.first { it.id == HomeCardId.WORK_QUEUE }.state).data
+        val queue = assertIs<ScreenState.Content<HomeCard>>(
+            state.cards.first { it.id == HomeCardId.WORK_QUEUE }.state,
+        ).data
         assertIs<HomeCard.WorkQueue>(queue)
         assertEquals(2, queue.awaitingApproval)
         assertEquals(0, queue.awaitingDisbursal)
@@ -149,17 +191,29 @@ class HomeViewModelTest {
     fun withoutAStaffLinkOwnMeansSubmittedByTheUser() = runTest(dispatcher) {
         val dashboard = FakeDashboardRepository(
             user = DashboardUser(id = 32, staffId = null),
-            loansByStatus = mapOf(100 to listOf(loan(1, null, by = "fieldofficer"), loan(2, null, by = "someone")), 200 to emptyList(), 300 to emptyList()),
+            loansByStatus = mapOf(
+                100 to listOf(loan(1, null, by = "fieldofficer"), loan(2, null, by = "someone")),
+                200 to emptyList(),
+                300 to emptyList(),
+            ),
         )
         val state = Fixture(fieldOfficer, staffId = null, dashboard = dashboard).settled()
-        val queue = (state.cards.first { it.id == HomeCardId.WORK_QUEUE }.state as ScreenState.Content).data as HomeCard.WorkQueue
+        val queue = (
+            state.cards.first {
+                it.id == HomeCardId.WORK_QUEUE
+            }.state as ScreenState.Content
+            ).data as HomeCard.WorkQueue
         assertEquals(1, queue.awaitingApproval)
         assertFalse(state.header.ownPortfolio)
     }
 
     @Test
     fun oneFailingCardDoesNotBlankTheOthers() = runTest(dispatcher) {
-        val f = Fixture(fieldOfficer, sheet = FakeCollectionSheetRepository(ScreenState.Error(IllegalStateException("500"))))
+        val f =
+            Fixture(
+                fieldOfficer,
+                sheet = FakeCollectionSheetRepository(ScreenState.Error(IllegalStateException("500"))),
+            )
         val state = f.settled()
         assertIs<ScreenState.Error>(state.cards.first { it.id == HomeCardId.COLLECTIONS }.state)
         assertIs<ScreenState.Content<HomeCard>>(state.cards.first { it.id == HomeCardId.WORK_QUEUE }.state)
@@ -171,7 +225,15 @@ class HomeViewModelTest {
         // Stitch home: the same six tiles whatever the role — never client-owned account creates.
         val state = Fixture(fieldOfficer - "READ_COLLECTIONSHEET").settled()
         assertEquals(
-            listOf(QuickAction.NEW_CLIENT, QuickAction.NEW_GROUP, QuickAction.NEW_CENTER, QuickAction.COLLECTION_SHEET, QuickAction.RUN_REPORTS, QuickAction.SEARCH, QuickAction.PATH_TRACKER),
+            listOf(
+                QuickAction.NEW_CLIENT,
+                QuickAction.NEW_GROUP,
+                QuickAction.NEW_CENTER,
+                QuickAction.COLLECTION_SHEET,
+                QuickAction.RUN_REPORTS,
+                QuickAction.SEARCH,
+                QuickAction.PATH_TRACKER,
+            ),
             state.quickActions,
         )
     }
@@ -183,7 +245,25 @@ class HomeViewModelTest {
     }
 
     @Test
+    fun meetingTimeReadsArraysAndStringsAndRejectsTheRest() {
+        assertEquals("09:05", JsonArray(listOf(JsonPrimitive(9), JsonPrimitive(5))).toMeetingTime())
+        assertEquals("14:30", JsonPrimitive("14:30:00").toMeetingTime())
+        assertEquals(null, JsonPrimitive("25:00").toMeetingTime())
+        assertEquals(null, JsonPrimitive("9").toMeetingTime())
+        assertEquals(null, JsonPrimitive("aa:bb").toMeetingTime())
+        assertEquals(null, JsonArray(listOf(JsonPrimitive(9))).toMeetingTime())
+        assertEquals(null, (null as JsonElement?).toMeetingTime())
+    }
+
+    @Test
     fun statusConstantsMatchFineract() {
-        assertEquals(listOf(100, 200, 300), listOf(DashboardRepository.STATUS_SUBMITTED, DashboardRepository.STATUS_APPROVED, DashboardRepository.STATUS_ACTIVE))
+        assertEquals(
+            listOf(100, 200, 300),
+            listOf(
+                DashboardRepository.STATUS_SUBMITTED,
+                DashboardRepository.STATUS_APPROVED,
+                DashboardRepository.STATUS_ACTIVE,
+            ),
+        )
     }
 }

@@ -15,9 +15,11 @@ import androidx.navigation.NavOptions
 import kotlinx.serialization.Serializable
 import kpt.core.base.ui.nav.composableWithPushTransitions
 
+/** The server-config screen. */
 @Serializable
 data object ServerConfigRoute
 
+/** Opens the server-config screen. */
 fun NavController.navigateToServerConfig(navOptions: NavOptions? = null) =
     navigate(ServerConfigRoute, navOptions)
 

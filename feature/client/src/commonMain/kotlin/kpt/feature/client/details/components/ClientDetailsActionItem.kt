@@ -58,52 +58,63 @@ import org.jetbrains.compose.resources.StringResource
  * screen, so there is no dead row on screen.
  */
 sealed class ClientDetailsActionItem(
+    /** The action's title. */
     val title: StringResource,
+    /** The line under the title saying what the action does. */
     val subTitle: StringResource,
+    /** The action's leading icon. */
     val icon: DrawableResource,
 ) {
+    /** Apply for a new loan, savings or share account. */
     data object ApplyNewApplication : ClientDetailsActionItem(
         title = Res.string.feature_client_apply_new_application_title,
         subTitle = Res.string.feature_client_apply_new_application_subtitle,
         icon = Res.drawable.text_snippet,
     )
 
+    /** Close the client. */
     data object ClosureApplication : ClientDetailsActionItem(
         title = Res.string.feature_client_closure_application_title,
         subTitle = Res.string.feature_client_closure_application_subtitle,
         icon = Res.drawable.person_remove,
     )
 
+    /** Transfer the client to another office. */
     data object TransferClient : ClientDetailsActionItem(
         title = Res.string.feature_client_transfer_client_title,
         subTitle = Res.string.feature_client_transfer_client_subtitle,
         icon = Res.drawable.transfer_within_a_station,
     )
 
+    /** Assign a loan officer to the client. */
     data object AssignStaff : ClientDetailsActionItem(
         title = Res.string.feature_client_assign_staff_title,
         subTitle = Res.string.feature_client_assign_staff_subtitle,
         icon = Res.drawable.manage_accounts,
     )
 
+    /** Add a charge to the client. */
     data object AddCharge : ClientDetailsActionItem(
         title = Res.string.feature_client_add_charge_title,
         subTitle = Res.string.feature_client_add_charge_subtitle,
         icon = Res.drawable.request_quote,
     )
 
+    /** Pledge collateral for the client. */
     data object CreateCollateral : ClientDetailsActionItem(
         title = Res.string.feature_client_create_collateral_title,
         subTitle = Res.string.feature_client_create_collateral_subtitle,
         icon = Res.drawable.create_new_folder,
     )
 
+    /** Choose the client's default savings account. */
     data object UpdateDefaultAccount : ClientDetailsActionItem(
         title = Res.string.feature_client_update_default_account_title,
         subTitle = Res.string.feature_client_update_default_account_subtitle,
         icon = Res.drawable.switch_account,
     )
 
+    /** Create a standing instruction for the client. */
     data object CreateStandingInstructions : ClientDetailsActionItem(
         title = Res.string.feature_client_create_standing_instructions_title,
         subTitle = Res.string.feature_client_create_standing_instructions_subtitle,

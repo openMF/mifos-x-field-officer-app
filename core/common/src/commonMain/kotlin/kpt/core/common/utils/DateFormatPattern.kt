@@ -15,6 +15,8 @@ package kpt.core.common.utils
  * The Fineract API accepts dates as strings with a dateFormat parameter
  * that specifies how the date should be parsed. This enum provides
  * standardized patterns to ensure consistency across the application.
+ *
+ * @property pattern the pattern string sent to Fineract as `dateFormat`
  */
 enum class DateFormatPattern(val pattern: String) {
     /**

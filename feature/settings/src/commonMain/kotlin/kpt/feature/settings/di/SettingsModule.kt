@@ -17,6 +17,7 @@ import kpt.feature.settings.signout.SignOutViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
+/** Koin bindings for the settings feature's view models. */
 val SettingsModule = module {
     viewModelOf(::SettingsViewModel)
     viewModelOf(::SyncAndDraftsViewModel)

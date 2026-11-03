@@ -11,12 +11,25 @@ package kpt.feature.signin.ui
 
 /** Stable handles for the login screen — asserted by UI tests, never shown to a user. */
 object SignInTestTags {
+    /** The sign-in screen's root. */
     const val SCREEN = "signin:screen"
+
+    /** The username field. */
     const val USERNAME = "signin:username"
+
+    /** The password field. */
     const val PASSWORD = "signin:password"
+
+    /** The demo-account chooser. */
     const val DEMO_CREDENTIALS = "signin:demo-credentials"
+
+    /** The sign-in button. */
     const val SUBMIT = "signin:submit"
+
+    /** The error message under the form. */
     const val ERROR = "signin:error"
+
+    /** The progress shown while signing in. */
     const val PROGRESS = "signin:progress"
 
     /** Restored in S1 T3 — absent from the authored replacement. */
@@ -63,5 +76,7 @@ object SignInTestTags {
 
     /** Trailing error icons, shown per field when that field's rule failed (D2 / D3). */
     const val USERNAME_ERROR_ICON = "signin:username-error-icon"
+
+    /** The error icon inside the password field. */
     const val PASSWORD_ERROR_ICON = "signin:password-error-icon"
 }

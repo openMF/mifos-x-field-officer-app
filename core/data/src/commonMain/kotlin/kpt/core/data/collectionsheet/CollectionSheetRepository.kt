@@ -17,6 +17,7 @@ import kpt.core.model.collectionsheet.IndividualCollectionSheet
 import kpt.core.model.collectionsheet.RequestCollectionSheetPayload
 import kpt.core.model.objects.collectionsheets.CollectionSheetRequestPayload
 
+/** Reads collection sheets and the offices, officers and centres that select them. */
 interface CollectionSheetRepository {
     /**
      * The centre sheet for one (office, staff, meeting date).
@@ -47,9 +48,12 @@ interface CollectionSheetRepository {
      * for that request; `null` when neither exists.
      */
 
+    /** Generates the individual collection sheet for `request`, or null when there is none. */
     suspend fun individualCollectionSheet(request: RequestCollectionSheetPayload): IndividualCollectionSheet?
 
+    /** Generates a centre's productive collection sheet, or null when there is none. */
     suspend fun productiveSheet(centerId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 
+    /** Generates a group's collection sheet, or null when there is none. */
     suspend fun groupCollectionSheet(groupId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 }

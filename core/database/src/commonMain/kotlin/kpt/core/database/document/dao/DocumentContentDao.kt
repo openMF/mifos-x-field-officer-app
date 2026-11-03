@@ -16,25 +16,30 @@ import kotlinx.coroutines.flow.Flow
 import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.document.entity.DocumentContentEntity
 
+/** Room queries for document content rows. */
 @DbDao
 @Dao
 interface DocumentContentDao {
 
+    /** Observes the cached content of one document. */
     @Query(
         "SELECT * FROM document_contents WHERE entityType = :entityType AND entityId = :entityId " +
             "AND documentId = :documentId LIMIT 1",
     )
     fun observe(entityType: String, entityId: Int, documentId: Int): Flow<DocumentContentEntity?>
 
+    /** Inserts `content`, or replaces the row with the same key. */
     @Upsert
     suspend fun upsert(content: DocumentContentEntity)
 
+    /** Deletes the cached content of one document. */
     @Query(
         "DELETE FROM document_contents WHERE entityType = :entityType AND entityId = :entityId " +
             "AND documentId = :documentId",
     )
     suspend fun delete(entityType: String, entityId: Int, documentId: Int)
 
+    /** Deletes every `document_contents` row. */
     @Query("DELETE FROM document_contents")
     suspend fun deleteAll()
 }

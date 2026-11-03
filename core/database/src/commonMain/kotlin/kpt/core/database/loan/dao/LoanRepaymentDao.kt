@@ -23,33 +23,43 @@ import kpt.core.database.utils.getCurrentTimeInMillis
 
 /** Repayment queue, repayment template and payment-type options. */
 interface LoanRepaymentDao {
+    /** Saves `request`, replacing any row with the same key. */
     @Insert(entity = LoanRepaymentRequestEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoanRepaymentTransaction(request: LoanRepaymentRequestEntity)
 
+    /** Saves `paymentTypeOption`, replacing any row with the same key. */
     @Insert(entity = PaymentTypeOptionEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPaymentTypeOption(paymentTypeOption: PaymentTypeOptionEntity)
 
+    /** Observes the `PaymentTypeOption` rows. */
     @Query("SELECT * FROM PaymentTypeOption")
     fun getPaymentTypeOptions(): Flow<List<PaymentTypeOptionEntity>>
 
+    /** Reads the `LoanRepaymentRequestEntity` row whose `loanId` is `loanId`. */
     @Query("SELECT * FROM LoanRepaymentRequestEntity WHERE loanId = :loanId LIMIT 1")
     suspend fun getLoanRepaymentRequest(loanId: Int): LoanRepaymentRequestEntity?
 
+    /** Updates the stored row of `loanRepaymentRequest`. */
     @Update(entity = LoanRepaymentRequestEntity::class, onConflict = OnConflictStrategy.NONE)
     suspend fun updateLoanRepaymentRequest(loanRepaymentRequest: LoanRepaymentRequestEntity)
 
+    /** Observes the `LoanRepaymentRequestEntity` rows, ordered by `timeStamp`. */
     @Query("SELECT * FROM LoanRepaymentRequestEntity ORDER BY timeStamp ASC")
     fun readAllLoanRepaymentTransaction(): Flow<List<LoanRepaymentRequestEntity>>
 
+    /** Saves `template`, replacing any row with the same key. */
     @Insert(entity = LoanRepaymentTemplateEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoanRepaymentTemplate(template: LoanRepaymentTemplateEntity)
 
+    /** Reads the `LoanRepaymentTemplate` row whose `loanId` is `loanId`. */
     @Query("SELECT * FROM LoanRepaymentTemplate WHERE loanId = :loanId LIMIT 1")
     suspend fun getLoanRepaymentTemplate(loanId: Int): LoanRepaymentTemplateEntity?
 
+    /** Deletes the `LoanRepaymentTemplate` rows whose `loanId` is `loanId`. */
     @Query("DELETE FROM LoanRepaymentTemplate WHERE loanId = :loanId")
     suspend fun deleteLoanRepaymentByLoanId(loanId: Int)
 
+    /** Deletes every `LoanRepaymentTemplate` row. */
     @Query("DELETE FROM LoanRepaymentTemplate")
     suspend fun deleteAllLoanRepaymentTemplates()
 

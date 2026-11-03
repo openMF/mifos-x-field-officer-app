@@ -22,6 +22,7 @@ import kpt.core.database.savings.entity.SavingsAccountStatusEntity as SavingsAcc
 import kpt.core.database.savings.entity.SavingsAccountSummaryEntity as SavingsAccountSummaryRow
 import kpt.core.database.savings.entity.SavingsAccountWithAssociationsEntity as SavingsAccountWithAssociationsRow
 
+/** Maps the stored row to its `SavingAccountCurrency` model. */
 fun SavingAccountCurrencyRow.toModel(): SavingAccountCurrency = SavingAccountCurrency(
     id = id,
     code = code,
@@ -33,6 +34,7 @@ fun SavingAccountCurrencyRow.toModel(): SavingAccountCurrency = SavingAccountCur
     displayLabel = displayLabel,
 )
 
+/** Maps the model to its stored `SavingAccountCurrencyRow`. */
 fun SavingAccountCurrency.toEntity(): SavingAccountCurrencyRow = SavingAccountCurrencyRow(
     id = id,
     code = code,
@@ -44,18 +46,21 @@ fun SavingAccountCurrency.toEntity(): SavingAccountCurrencyRow = SavingAccountCu
     displayLabel = displayLabel,
 )
 
+/** Maps the stored row to its `SavingAccountDepositType` model. */
 fun SavingAccountDepositTypeRow.toModel(): SavingAccountDepositType = SavingAccountDepositType(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the model to its stored `SavingAccountDepositTypeRow`. */
 fun SavingAccountDepositType.toEntity(): SavingAccountDepositTypeRow = SavingAccountDepositTypeRow(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the stored row to its `SavingsAccount` model. */
 fun SavingsAccountRow.toModel(): SavingsAccount = SavingsAccount(
     id = id,
     clientId = clientId,
@@ -72,6 +77,7 @@ fun SavingsAccountRow.toModel(): SavingsAccount = SavingsAccount(
     lastActiveTransactionDate = lastActiveTransactionDate,
 )
 
+/** Maps the model to its stored `SavingsAccountRow`. */
 fun SavingsAccount.toEntity(): SavingsAccountRow = SavingsAccountRow(
     id = id,
     clientId = clientId,
@@ -88,6 +94,7 @@ fun SavingsAccount.toEntity(): SavingsAccountRow = SavingsAccountRow(
     lastActiveTransactionDate = lastActiveTransactionDate,
 )
 
+/** Maps the stored row to its `SavingsAccountStatus` model. */
 fun SavingsAccountStatusRow.toModel(): SavingsAccountStatus = SavingsAccountStatus(
     id = id,
     code = code,
@@ -100,6 +107,7 @@ fun SavingsAccountStatusRow.toModel(): SavingsAccountStatus = SavingsAccountStat
     closed = closed,
 )
 
+/** Maps the model to its stored `SavingsAccountStatusRow`. */
 fun SavingsAccountStatus.toEntity(): SavingsAccountStatusRow = SavingsAccountStatusRow(
     id = id,
     code = code,
@@ -112,6 +120,7 @@ fun SavingsAccountStatus.toEntity(): SavingsAccountStatusRow = SavingsAccountSta
     closed = closed,
 )
 
+/** Maps the stored row to its `SavingsAccountSummary` model. */
 fun SavingsAccountSummaryRow.toModel(): SavingsAccountSummary = SavingsAccountSummary(
     savingsId = savingsId,
     currency = currency?.toModel(),
@@ -121,6 +130,7 @@ fun SavingsAccountSummaryRow.toModel(): SavingsAccountSummary = SavingsAccountSu
     totalInterestEarned = totalInterestEarned,
 )
 
+/** Maps the model to its stored `SavingsAccountSummaryRow`. */
 fun SavingsAccountSummary.toEntity(): SavingsAccountSummaryRow = SavingsAccountSummaryRow(
     savingsId = savingsId,
     currency = currency?.toEntity(),
@@ -130,6 +140,7 @@ fun SavingsAccountSummary.toEntity(): SavingsAccountSummaryRow = SavingsAccountS
     totalInterestEarned = totalInterestEarned,
 )
 
+/** Maps the stored row to its `SavingsAccountWithAssociations` model. */
 fun SavingsAccountWithAssociationsRow.toModel(): SavingsAccountWithAssociations = SavingsAccountWithAssociations(
     id = id,
     accountNo = accountNo,
@@ -161,6 +172,7 @@ fun SavingsAccountWithAssociationsRow.toModel(): SavingsAccountWithAssociations 
     charges = charges.map { it?.toModel() },
 )
 
+/** Maps the model to its stored `SavingsAccountWithAssociationsRow`. */
 fun SavingsAccountWithAssociations.toEntity(): SavingsAccountWithAssociationsRow = SavingsAccountWithAssociationsRow(
     id = id,
     accountNo = accountNo,

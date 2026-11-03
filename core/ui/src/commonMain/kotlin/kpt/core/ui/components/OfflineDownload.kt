@@ -163,13 +163,29 @@ fun OfflineDownloadDialog(
     )
 }
 
+/** Test tags of the offline download screen. */
 object OfflineDownloadTestTags {
+    /** The selection bar. */
     const val SELECTION_BAR = "offline:selectionBar"
+
+    /** The clear-selection button. */
     const val CLEAR = "offline:clear"
+
+    /** The download button. */
     const val DOWNLOAD = "offline:download"
+
+    /** The download dialog. */
     const val DIALOG = "offline:dialog"
+
+    /** The progress indicator. */
     const val PROGRESS = "offline:progress"
+
+    /** The failure list. */
     const val FAILURES = "offline:failures"
+
+    /** The cancel button. */
     const val CANCEL = "offline:cancel"
+
+    /** The done button. */
     const val DONE = "offline:done"
 }

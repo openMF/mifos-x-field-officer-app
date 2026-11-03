@@ -34,6 +34,7 @@ class FakeServerConfigRepository(
     instanceList: List<ServerInstance> = TEST_INSTANCES,
 ) : ServerConfigRepository {
 
+    /** The stored server configuration. */
     val saved = MutableStateFlow(initial)
 
     /** The instance list's state — set to Loading / Error to exercise the screen's other states. */
@@ -42,6 +43,7 @@ class FakeServerConfigRepository(
     override fun instancesStream(scope: CoroutineScope): ScreenDataStream<List<ServerInstance>> =
         screenDataStreamForTesting(instancesState)
 
+    /** True to make every save fail. */
     var failSaves: Boolean = false
 
     override fun serverConfigStream(scope: CoroutineScope): ScreenDataStream<ServerConfig> =
@@ -53,6 +55,7 @@ class FakeServerConfigRepository(
         return MutationResult.Applied(value = Unit, synced = true)
     }
 
+    /** Fixtures. */
     companion object {
         /** A shipped-default stand-in: tests must not depend on which server app-profile names. */
         val TEST_DEFAULT = ServerConfig(

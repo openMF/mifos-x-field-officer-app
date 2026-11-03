@@ -11,15 +11,22 @@ package kpt.core.model.objects.note
 
 import kotlinx.serialization.Serializable
 
+/** Server response to an update note request. */
 @Serializable
 data class UpdateNoteResponseDto(
+    /** The server id of the office. */
     val officeId: Long? = null,
+    /** The server id of the client. */
     val clientId: Long? = null,
+    /** The server id of the resource the request created or changed. */
     val resourceId: Long? = null,
+    /** The fields the request changed, as Fineract reports them. */
     val changes: ChangesDto? = null,
 )
 
+/** Transfer shape of a changes. */
 @Serializable
 data class ChangesDto(
+    /** A free-text note. */
     val note: String? = null,
 )

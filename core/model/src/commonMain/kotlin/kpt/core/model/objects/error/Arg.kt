@@ -9,7 +9,9 @@
  */
 package kpt.core.model.objects.error
 
+/** An argument of a validation error. */
 data class Arg(
+    /** The value of the error's argument. */
     var value: String? = null,
 
 )

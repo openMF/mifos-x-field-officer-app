@@ -17,12 +17,15 @@ import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import kpt.core.base.ui.nav.composableWithStayTransitions
 
+/** The home graph's route — what other features navigate to. */
 @Serializable
 data object HomeDestination
 
+/** The dashboard screen inside the home graph (its start destination). */
 @Serializable
 data object HomeRoute
 
+/** Navigates to the home graph. */
 fun NavController.navigateToHome(navOptions: NavOptions? = null) {
     navigate(HomeDestination, navOptions)
 }

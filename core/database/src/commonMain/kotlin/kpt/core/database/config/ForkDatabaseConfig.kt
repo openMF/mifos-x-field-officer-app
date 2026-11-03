@@ -27,5 +27,6 @@ package kpt.core.database.config
  * slot. Same unit, different version per fork, no collision.
  */
 object ForkDatabaseConfig {
+    /** The Room schema version of the fork's database. */
     const val VERSION = 20
 }

@@ -12,8 +12,11 @@ package kpt.core.model.shared
 import kotlinx.serialization.Serializable
 import kpt.core.model.objects.clients.ClientAddressResponse
 
+/** Server response to a pinpoint location action request. */
 @Serializable
 data class PinpointLocationActionResponse(
+    /** The server id of the resource the request created or changed. */
     val resourceId: Int? = null,
+    /** The fields the request changed, as Fineract reports them. */
     val changes: ClientAddressResponse? = null,
 )

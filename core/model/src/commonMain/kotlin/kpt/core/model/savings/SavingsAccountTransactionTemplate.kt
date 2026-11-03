@@ -19,13 +19,19 @@ import kpt.core.model.payment.PaymentTypeOption
  */
 @Serializable
 data class SavingsAccountTransactionTemplate(
+    /** The server id of the account. */
     val accountId: Int? = null,
+    /** The account number Fineract assigned. */
     val accountNo: String? = null,
+    /** The date. */
     val date: List<Int> = emptyList(),
+    /** True when the transaction was reversed. */
     val reversed: Boolean? = null,
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentTypeOption> = emptyList(),
 ) {
 
+    /** True when the transaction was reversed; null when the server did not say. */
     fun isReversed(): Boolean? {
         return reversed
     }

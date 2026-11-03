@@ -13,6 +13,7 @@ import androidx.room3.Entity
 import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
+/** Room row for a survey component. */
 @Serializable
 @DbEntity
 @Entity(
@@ -24,14 +25,19 @@ import kpt.core.base.database.annotation.DbEntity
     tableName = "ComponentDatas",
 )
 data class ComponentDatasEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
 
+    /** The key of this survey item. */
     val key: String? = null,
 
+    /** The text shown for this item. */
     val text: String? = null,
 
+    /** A free-text description. */
     val description: String? = null,
 
+    /** The order this item is shown in. */
     val sequenceNo: Int = 0,
 )

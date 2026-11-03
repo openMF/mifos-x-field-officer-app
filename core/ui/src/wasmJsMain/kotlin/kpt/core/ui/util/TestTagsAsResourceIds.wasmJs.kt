@@ -11,4 +11,5 @@ package kpt.core.ui.util
 
 import androidx.compose.ui.Modifier
 
+/** Returns this modifier unchanged: resource ids are Android-only. */
 actual fun Modifier.exposeTestTagsAsResourceIds(): Modifier = this

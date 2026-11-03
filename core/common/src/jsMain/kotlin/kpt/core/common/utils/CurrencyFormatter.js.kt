@@ -9,7 +9,9 @@
  */
 package kpt.core.common.utils
 
+/** The js money formatter behind [CurrencyFormatter]. */
 actual object CurrencyFormatter {
+    /** Not implemented on the web yet: throws [NotImplementedError] (`currency-formatter-unimplemented-on-web`). */
     actual fun format(
         balance: Double?,
         currencyCode: String?,

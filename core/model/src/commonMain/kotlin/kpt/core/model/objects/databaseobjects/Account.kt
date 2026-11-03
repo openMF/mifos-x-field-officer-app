@@ -9,10 +9,14 @@
  */
 package kpt.core.model.objects.databaseobjects
 
+/** An account. */
 data class Account(
+    /** The server id of the account. */
     var accountId: String? = null,
 
+    /** The account's Fineract status id. */
     var accountStatusId: Int = 0,
 
+    /** The server id of the loan. */
     var loanId: Int = 0,
 )

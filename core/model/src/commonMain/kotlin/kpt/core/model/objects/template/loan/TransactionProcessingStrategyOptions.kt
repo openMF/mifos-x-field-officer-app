@@ -16,9 +16,15 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class TransactionProcessingStrategyOptions(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     var code: String? = null,
 
+    /** The display name. */
     var name: String? = null,
 )

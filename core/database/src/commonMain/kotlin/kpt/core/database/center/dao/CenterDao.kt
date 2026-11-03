@@ -25,37 +25,48 @@ import kpt.core.database.group.entity.GroupEntity
 import kpt.core.database.loan.entity.LoanAccountEntity
 import kpt.core.database.savings.entity.SavingsAccountEntity
 
+/** Room queries for center rows. */
 @DbDao
 @Dao
 interface CenterDao {
 
+    /** Saves `center`, replacing any row with the same key. */
     @Insert(entity = CenterEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCenter(center: CenterEntity)
 
+    /** Saves `loanAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = LoanAccountEntity::class)
     suspend fun saveLoanAccount(loanAccount: LoanAccountEntity)
 
+    /** Saves `savingsAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = SavingsAccountEntity::class)
     suspend fun saveSavingsAccount(savingsAccount: SavingsAccountEntity)
 
+    /** Saves `loanAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = LoanAccountEntity::class)
     suspend fun saveMemberLoanAccount(loanAccount: LoanAccountEntity)
 
+    /** Saves `centerPayload`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = CenterPayloadEntity::class)
     suspend fun saveCenterPayload(centerPayload: CenterPayloadEntity)
 
+    /** Updates the stored row of `centerPayload`. */
     @Update(entity = CenterPayloadEntity::class, onConflict = OnConflictStrategy.NONE)
     suspend fun updateCenterPayload(centerPayload: CenterPayloadEntity)
 
+    /** Deletes the `CenterPayload` rows whose `id` is `id`. */
     @Query("DELETE FROM CenterPayload WHERE id = :id")
     suspend fun deleteCenterPayloadById(id: Int)
 
+    /** Observes the `Center` rows. */
     @Query("SELECT * FROM Center")
     fun readAllCenters(): Flow<List<CenterEntity>>
 
+    /** Observes the `CenterPayload` rows. */
     @Query("SELECT * FROM CenterPayload")
     fun readAllCenterPayload(): Flow<List<CenterPayloadEntity>>
 
+    /** Observes the `GroupTable` rows whose `centerId` is `centerId`. */
     @Query("SELECT * FROM GroupTable WHERE centerId = :centerId")
     fun getCenterAssociateGroups(centerId: Int): Flow<List<GroupEntity>>
 
@@ -103,6 +114,7 @@ interface CenterDao {
     @Query("SELECT * FROM Center WHERE id = :id LIMIT 1")
     fun observeCenter(id: Int): Flow<CenterEntity?>
 
+    /** Deletes the `Center` rows whose `id` is `id`. */
     @Query("DELETE FROM Center WHERE id = :id")
     suspend fun deleteCenterById(id: Int)
 

@@ -40,6 +40,7 @@ data class Elevation(
     val dragging: Dp = 12.dp,
 )
 
+/** Provides the current [Elevation]. */
 val LocalElevation = staticCompositionLocalOf { Elevation() }
 
 /** Resolve the active [Elevation] tier scale from composition. */

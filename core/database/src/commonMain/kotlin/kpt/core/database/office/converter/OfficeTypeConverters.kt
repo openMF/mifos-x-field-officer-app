@@ -15,18 +15,22 @@ import kotlinx.serialization.json.Json
 import kpt.core.base.database.annotation.DbConverters
 import kpt.core.database.office.entity.OfficeOpeningDateEntity
 
+/** Room column converters for office fields. */
 @DbConverters
 class OfficeTypeConverters {
+    /** Stores a `List<Int?>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromOpeningDateList(list: List<Int?>?): String {
         return Json.encodeToString(list ?: emptyList())
     }
 
+    /** Stores a `OfficeOpeningDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromOfficeOpeningDate(status: OfficeOpeningDateEntity?): String? {
         return status?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `OfficeOpeningDateEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toOfficeOpeningDate(json: String?): OfficeOpeningDateEntity? {
         return json?.let { Json.decodeFromString(it) }

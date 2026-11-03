@@ -27,7 +27,9 @@ import kpt.core.model.objects.responses.SaveResponse
  */
 interface GroupCommandRepository {
 
+    /** Creates a group. */
     suspend fun createGroup(groupPayload: GroupPayload?): MutationResult<SaveResponse>
 
+    /** Activates a group. */
     suspend fun activateGroup(groupId: Int, activatePayload: ActivatePayload): MutationResult<Unit>
 }

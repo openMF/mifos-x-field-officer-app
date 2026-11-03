@@ -16,6 +16,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ChargeTemplate(
+    /** True when this charge is a penalty rather than a fee. */
     val penalty: Boolean,
+    /** The charges that may be added. */
     val chargeOptions: List<ChargeOptions>,
 )

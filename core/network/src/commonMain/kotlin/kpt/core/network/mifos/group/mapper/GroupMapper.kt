@@ -15,6 +15,7 @@ import kpt.core.network.mifos.group.dto.GetGroupsPageItems
 import kpt.core.network.mifos.group.dto.GetGroupsStatus
 import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps group between its network, stored and domain shapes. */
 object GroupMapper : AbstractMapper<GetGroupsPageItems, Group>() {
 
     override fun mapFromEntity(entity: GetGroupsPageItems): Group {

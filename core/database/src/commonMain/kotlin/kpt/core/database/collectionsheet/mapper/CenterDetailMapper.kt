@@ -12,12 +12,14 @@ package kpt.core.database.collectionsheet.mapper
 import kpt.core.database.collectionsheet.entity.CenterDetail
 import kpt.core.database.collectionsheet.entity.CenterDetailEntity
 
+/** Maps the stored row to its domain model. */
 fun CenterDetailEntity.toDomain(): CenterDetail = CenterDetail(
     staffId = staffId,
     staffName = staffName,
     meetingFallCenters = meetingFallCenters,
 )
 
+/** Maps the domain model to its stored row. */
 fun CenterDetail.toEntity(): CenterDetailEntity = CenterDetailEntity(
     staffId = staffId,
     staffName = staffName,

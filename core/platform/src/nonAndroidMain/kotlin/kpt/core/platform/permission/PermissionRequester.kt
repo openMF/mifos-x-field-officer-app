@@ -28,11 +28,14 @@ actual class PermissionRequester actual constructor(
     @Suppress("UNUSED_PARAMETER") context: AppContext,
 ) {
 
+    /** Always true: these targets have no runtime permissions. */
     actual fun isGranted(permissions: List<Permission>): Boolean = true
 
+    /** Always Granted: these targets have no runtime permissions. */
     actual suspend fun request(permissions: List<Permission>): PermissionResult =
         PermissionResult.Granted
 
+    /** Does nothing: these targets have no per-app permission settings. */
     // intentional-noop: no per-app permission settings surface exists on these targets.
     actual fun openAppSettings() = Unit
 }

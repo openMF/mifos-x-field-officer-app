@@ -28,23 +28,27 @@ import kpt.core.model.shared.GenericResponse
  */
 interface DataTableCommandRepository {
 
+    /** Deletes an entity's rows in a data table. */
     suspend fun deleteDatatableEntry(
         datatable: String,
         apptableId: Long,
         datatableId: Long,
     ): MutationResult<DeleteDataTablesDatatableAppTableIdDatatableIdResponse>
 
+    /** Adds a row for an entity to a data table. */
     suspend fun createEntryInDataTable(
         dataTableName: String,
         entityId: Int,
         requestPayload: Map<String, String>,
     ): MutationResult<GenericResponse>
 
+    /** Deletes one row of a multi-row data table. */
     suspend fun deleteEntryOfDataTableManyToMany(
         dataTableName: String,
         entityId: Int,
         dataTableRowId: Int,
     ): MutationResult<GenericResponse>
 
+    /** Records a tracked path for a user. */
     suspend fun addUserPathTracking(userId: Int, userLocation: UserLocation?): MutationResult<GenericResponse>
 }

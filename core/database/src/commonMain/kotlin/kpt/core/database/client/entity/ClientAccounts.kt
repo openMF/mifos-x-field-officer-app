@@ -13,12 +13,16 @@ import kotlinx.serialization.Serializable
 import kpt.core.database.loan.entity.LoanAccountEntity
 import kpt.core.database.savings.entity.SavingsAccountEntity
 import kpt.core.model.objects.account.share.ShareAccounts
+/** The loan and savings accounts of a client. */
 @Serializable
 data class ClientAccounts(
+    /** The loan accounts. */
     var loanAccounts: List<LoanAccountEntity> = emptyList(),
 
+    /** The savings accounts. */
     var savingsAccounts: List<SavingsAccountEntity> = emptyList(),
 
+    /** The share accounts. */
     var shareAccounts: List<ShareAccounts> = emptyList(),
 
 ) {
@@ -32,10 +36,12 @@ data class ClientAccounts(
         return result
     }
 
+    /** The recurring-deposit savings accounts. */
     fun getRecurringSavingsAccounts(): List<SavingsAccountEntity> {
         return getSavingsAccounts(true)
     }
 
+    /** The savings accounts that are not recurring deposits. */
     fun getNonRecurringSavingsAccounts(): List<SavingsAccountEntity> {
         return getSavingsAccounts(false)
     }

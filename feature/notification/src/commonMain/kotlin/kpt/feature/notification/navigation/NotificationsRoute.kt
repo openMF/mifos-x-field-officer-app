@@ -28,6 +28,7 @@ import kpt.feature.savings.navigation.navigateToSavingsSummary
 @Serializable
 data object NotificationsRoute
 
+/** Registers the notifications screen in the nav graph. */
 @FeatureDestination
 fun NavGraphBuilder.notificationsDestination(navController: NavController) {
     composableWithPushTransitions<NotificationsRoute> {
@@ -38,6 +39,7 @@ fun NavGraphBuilder.notificationsDestination(navController: NavController) {
     }
 }
 
+/** Opens the notifications screen. */
 fun NavController.navigateToNotifications() = navigate(NotificationsRoute)
 
 /** Opens the record a notification is about; the screen only offers the tap for these kinds. */

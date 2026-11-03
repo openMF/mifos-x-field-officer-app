@@ -11,10 +11,13 @@ package kpt.core.network.mifos.client.dto
 
 import kotlinx.serialization.Serializable
 
+/** A client classification offered by the client template. */
 @Serializable
 data class GetClientClassificationOptions(
 
+    /** The server id of this record. */
     val id: Long? = null,
 
+    /** The display name. */
     val name: String? = null,
 )

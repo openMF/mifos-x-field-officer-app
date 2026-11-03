@@ -13,6 +13,7 @@ import kpt.core.model.office.Office
 import kpt.core.network.mifos.mapper.AbstractMapper
 import kpt.core.network.mifos.office.dto.GetOfficesResponse
 
+/** Maps get office response between its network, stored and domain shapes. */
 object GetOfficeResponseMapper : AbstractMapper<GetOfficesResponse, Office>() {
 
     override fun mapFromEntity(entity: GetOfficesResponse): Office {

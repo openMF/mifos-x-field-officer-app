@@ -16,7 +16,10 @@ import kpt.core.database.savings.entity.SavingsAccountWithAssociationsEntity
  * Created by Rajan Maurya on 21/08/16.
  */
 class SavingsAccountAndTransactionTemplate {
+    /** The savings account with its transactions and charges. */
     var savingsAccountWithAssociations: SavingsAccountWithAssociationsEntity? = null
+
+    /** The transaction template of the savings account. */
     var savingsAccountTransactionTemplate: SavingsAccountTransactionTemplateEntity? = null
 
     constructor()

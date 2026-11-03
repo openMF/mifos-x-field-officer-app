@@ -24,6 +24,7 @@ import kpt.core.model.objects.users.User
 @ExperimentalDataTestingApi
 class FakeSessionRepository(initial: User = User()) : SessionRepository {
 
+    /** The stored session the stream emits. */
     val session = MutableStateFlow(initial)
 
     override fun sessionStream(scope: CoroutineScope): ScreenDataStream<User> =

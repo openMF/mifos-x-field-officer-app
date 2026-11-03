@@ -184,13 +184,13 @@ The project uses a centralized configuration system for iOS deployment workflows
 
 Configuration is read from `fastlane-config/project_config.rb` for both local and CI deployments.
 
-See [iOS Configuration Guide](docs/GITHUB_ACTIONS_IOS_MIGRATION.md) for detailed setup instructions.
+See [iOS Setup Guide](docs/architecture/tree/deployment/ios/setup.md) for detailed setup instructions.
 
 ### Documentation
 
-- [Complete iOS Setup Guide](docs/ios/IOS_SETUP.md) - Detailed setup instructions
-- [iOS Deployment Guide](docs/ios/IOS_DEPLOYMENT.md) - Deployment workflows and best practices
-- [GitHub Actions Configuration Guide](docs/GITHUB_ACTIONS_IOS_MIGRATION.md) - CI/CD setup and configuration
+- [Complete iOS Setup Guide](docs/architecture/tree/deployment/ios/setup.md) - Detailed setup instructions
+- [iOS Deployment Guide](docs/architecture/tree/deployment/ios/deployment.md) - Deployment workflows and best practices
+- [GitHub Actions Configuration Guide](docs/architecture/tree/github/workflows.md) - CI/CD setup and configuration
 
 ## 📁 Project Structure
 
@@ -206,17 +206,17 @@ The project follows a modular architecture:
 Our project includes comprehensive documentation to help you get started and understand the
 architecture:
 
-- [ ] [Setup Guide](docs/setup/SETUP.md) - Detailed instructions for setting up your development
+- [ ] [Setup Guide](docs/architecture/tree/app-profile/setup.md) - Detailed instructions for setting up your development
   environment
 - [ ] [Architecture Overview](docs/architecture/ARCHITECTURE.md) - Explanation of the project's structure and
   design patterns
 - [ ] [Code Style Guide](docs/architecture/cross-cutting/style-guide.md) - Coding conventions and best practices
 - [ ] [Source Set Hierarchy](docs/architecture/cross-cutting/source-set-hierarchy.md) - Guide to the Kotlin Multiplatform code
   sharing structure
-- [ ] [Sync Script](docs/setup/SYNC_SCRIPT.md) - Information about keeping in sync with upstream changes
-- [ ] [Secrets Manager](docs/secrets/SECRETS_MANAGER.md) - Documentation for the keystore and secrets
+- [ ] [Sync Script](docs/architecture/tree/scripts/white-label/template-sync.md) - Information about keeping in sync with upstream changes
+- [ ] [Secrets Manager](docs/architecture/tree/secrets/manager.md) - Documentation for the keystore and secrets
   management system
-- [ ] [Fastlane Configuration](docs/deployment/FASTLANE_CONFIGURATION.md) - Guide to automating deployments
+- [ ] [Fastlane Configuration](docs/architecture/tree/deployment/fastlane-configuration.md) - Guide to automating deployments
   with fastlane
 
 > Documentation is continuously improving. Check back for updates or contribute to enhancing our

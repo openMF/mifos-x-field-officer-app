@@ -13,9 +13,15 @@ package kpt.core.model.objects.account.loan
  * Created by nellyk on 2/21/2016.
  */
 data class DaysInMonthType(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     var code: Int? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     var value: Int? = null,
 )

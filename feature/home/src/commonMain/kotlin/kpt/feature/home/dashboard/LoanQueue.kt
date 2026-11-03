@@ -65,10 +65,15 @@ import kpt.feature.home.ui.TestTags
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
-/** The officer's own loans in one Fineract status (100 submitted · 200 approved) — the work-queue tap-through. */
+/**
+ * The officer's own loans in one Fineract status (100 submitted · 200 approved) — the work-queue tap-through.
+ *
+ * @property status the Fineract loan status code to list
+ */
 @Serializable
 data class LoanQueueRoute(val status: Int)
 
+/** Opens the loan queue for the loans in Fineract [status]. */
 fun NavController.navigateToLoanQueue(status: Int) = navigate(LoanQueueRoute(status))
 
 /** Registered by the fork's nav graph, which owns the loan-profile route the rows open. */
@@ -78,12 +83,17 @@ fun NavGraphBuilder.loanQueueDestination(onBack: () -> Unit, onLoanClick: (Long)
     }
 }
 
+/**
+ * Backs the loan queue: the officer's own loans in the route's status, scoped by the same staff-or-office rule as
+ * the dashboard count.
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoanQueueViewModel(
     savedStateHandle: SavedStateHandle,
     sessionRepository: SessionRepository,
     dashboardRepository: DashboardRepository,
 ) : ViewModel() {
+    /** The Fineract loan status this queue lists, from the route. */
     val status: Int = savedStateHandle.toRoute<LoanQueueRoute>().status
 
     private val loans = dashboardRepository.loansStream(status, viewModelScope)
@@ -102,6 +112,7 @@ class LoanQueueViewModel(
             .emptyIfContent { it.isEmpty() }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), ScreenState.Loading)
 
+    /** Reloads the loans after a failure. */
     fun retry() = loans.retry()
 
     private companion object {
@@ -174,6 +185,10 @@ private fun LoanRow(loan: DashboardLoan, onClick: () -> Unit) {
                 color = KptTheme.colorScheme.onSurfaceVariant,
             )
         }
-        MoneyText(CurrencyFormatter.format(loan.principal, loan.currencyCode, 2), tone = MoneyTone.Neutral, style = KptTheme.typography.titleSmall)
+        MoneyText(
+            CurrencyFormatter.format(loan.principal, loan.currencyCode, 2),
+            tone = MoneyTone.Neutral,
+            style = KptTheme.typography.titleSmall,
+        )
     }
 }

@@ -16,7 +16,10 @@ package kpt.core.model.search
  * depends on core/data + core/model only.
  */
 data class SearchResourcesKey(
+    /** The text searched for. */
     val query: String,
+    /** The kinds of record to search. */
     val resource: String?,
+    /** True to match the query exactly. */
     val exactMatch: Boolean?,
 )

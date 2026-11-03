@@ -28,11 +28,20 @@ import kpt.feature.charge.list.ChargeListScreen
  *
  * Neither argument has a default: the original defaulted both, so a missing argument asked
  * Fineract for the charges of resource `-1` under an empty type.
+ *
+ * @property resourceType the Fineract resource the charges belong to (`loans`, `savingsaccounts`, `clients`)
+ * @property resourceId the id of that resource
  */
 @Serializable
 data class ChargeListRoute(val resourceType: String, val resourceId: Int)
 
-/** One charge, read from the table the list fills. */
+/**
+ * One charge, read from the table the list fills.
+ *
+ * @property resourceType the Fineract resource the charge belongs to
+ * @property resourceId the id of that resource
+ * @property chargeId the charge to show
+ */
 @Serializable
 data class ChargeDetailRoute(val resourceType: String, val resourceId: Int, val chargeId: Int)
 
@@ -42,15 +51,21 @@ data class ChargeDetailRoute(val resourceType: String, val resourceId: Int, val 
  */
 @Serializable
 data class ChargeFormRoute(
+    /** The Fineract resource the charge belongs to (`loans`, `savingsaccounts`, `clients`). */
     val resourceType: String,
+    /** The id of that resource. */
     val resourceId: Int,
+    /** The charge to edit, or [CREATE_NEW] to add one. */
     val chargeId: Int = CREATE_NEW,
 ) {
+    /** Sentinels for the route's arguments. */
     companion object {
+        /** The [chargeId] that means "add a new charge" — a nav argument cannot be absent. */
         const val CREATE_NEW = -1
     }
 }
 
+/** Opens the charges of one resource. */
 fun NavController.navigateToCharges(
     resource: ChargeResource,
     resourceId: Int,

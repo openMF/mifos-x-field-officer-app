@@ -22,12 +22,19 @@ import kpt.core.base.database.annotation.DbEntity
 @DbEntity
 @Entity(tableName = "checker_tasks")
 data class CheckerTaskEntity(
+    /** The server id of this record. */
     @PrimaryKey
     val id: Int,
+    /** When the maker made the change, in epoch milliseconds. */
     val madeOnDate: Long = 0,
+    /** The result of processing the task. */
     val processingResult: String? = null,
+    /** The username of whoever made the change. */
     val maker: String? = null,
+    /** The action the task or permission covers (create, approve, …). */
     val actionName: String? = null,
+    /** The entity the task or permission covers (CLIENT, LOAN, …). */
     val entityName: String? = null,
+    /** The server id of the resource the request created or changed. */
     val resourceId: String? = null,
 )

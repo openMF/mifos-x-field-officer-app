@@ -11,6 +11,8 @@ package kpt.core.store.group
 
 /** Addresses one `getAllGroupsInOffice` read. */
 data class GetAllGroupsInOfficeKey(
+    /** The office's server id. */
     val officeId: Int,
+    /** Extra query parameters sent with the request. */
     val params: Map<String, String>,
 )

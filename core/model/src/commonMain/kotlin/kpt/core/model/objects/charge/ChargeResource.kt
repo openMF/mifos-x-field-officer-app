@@ -28,8 +28,13 @@ package kpt.core.model.objects.charge
  * not exist.
  */
 enum class ChargeResource(val path: String) {
+    /** A client. */
     CLIENT("clients"),
+
+    /** A loan. */
     LOAN("loans"),
+
+    /** A savings account. */
     SAVINGS("savingsaccounts"),
     ;
 
@@ -40,6 +45,7 @@ enum class ChargeResource(val path: String) {
      */
     val canUpdate: Boolean get() = this != CLIENT
 
+    /** Constants and factories of `ChargeResource`. */
     companion object {
         /** `null` for anything else, so a malformed route cannot request a fourth resource. */
         fun fromPath(path: String?): ChargeResource? = entries.firstOrNull { it.path == path }

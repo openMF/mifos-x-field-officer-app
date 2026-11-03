@@ -19,12 +19,18 @@ import kpt.core.base.database.annotation.DbEntity
 @DbEntity
 @Entity(tableName = "recent_records", primaryKeys = ["userId", "kind", "id"])
 data class RecentRecordEntity(
+    /** The server id of the user. */
     val userId: Long,
     /** `RecentKind` name — CLIENT, GROUP, CENTER or LOAN. */
     val kind: String,
+    /** The server id of this record. */
     val id: Long,
+    /** The title. */
     val title: String,
+    /** The account number Fineract assigned. */
     val accountNo: String?,
+    /** The second line shown for the record (account number, office, …). */
     val detail: String?,
+    /** When the record was last opened, in epoch milliseconds. */
     val openedAtMs: Long,
 )

@@ -28,11 +28,15 @@ data object IndividualCollectionSheetRoute
  */
 @Serializable
 data class CollectionSheetDetailsRoute(
+    /** The office the sheet is generated for. */
     val officeId: Int,
+    /** The loan officer to narrow the sheet to; null for the whole office. */
     val staffId: Int? = null,
+    /** The meeting date, `dd MMMM yyyy` as Fineract expects it. */
     val transactionDate: String,
 )
 
+/** Registers the collection-sheet search and details screens in the nav graph. */
 @FeatureDestination
 fun NavGraphBuilder.collectionSheetDestinations(navController: NavController) {
     composableWithPushTransitions<IndividualCollectionSheetRoute> {
@@ -48,4 +52,5 @@ fun NavGraphBuilder.collectionSheetDestinations(navController: NavController) {
     }
 }
 
+/** Opens the individual collection sheet search. */
 fun NavController.navigateToIndividualCollectionSheet() = navigate(IndividualCollectionSheetRoute)

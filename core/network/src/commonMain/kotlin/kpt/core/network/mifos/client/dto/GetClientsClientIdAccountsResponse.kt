@@ -26,5 +26,6 @@ data class GetClientsClientIdAccountsResponse(
 
     val savingsAccounts: Set<GetClientsSavingsAccounts>? = null,
 
+    /** The share accounts. */
     val shareAccounts: Set<ShareAccountResponse>? = null,
 )

@@ -29,6 +29,7 @@ class FakeCenterRepository(
     withMeeting: Map<Int, CenterWithAssociations> = emptyMap(),
 ) : CenterRepository {
 
+    /** The centres the stream emits. */
     val centers = MutableStateFlow<ScreenState<List<Center>>>(ScreenState.Content(centers))
     private val withMeeting = withMeeting
 

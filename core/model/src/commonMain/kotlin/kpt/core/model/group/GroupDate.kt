@@ -17,9 +17,14 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class GroupDate(
+    /** The server id of the group. */
     val groupId: Long = 0,
+    /** The server id of the charge. */
     val chargeId: Long = 0,
+    /** The day of the month. */
     val day: Int = 0,
+    /** The month (1–12). */
     val month: Int = 0,
+    /** The year. */
     val year: Int = 0,
 )

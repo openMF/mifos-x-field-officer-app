@@ -74,6 +74,7 @@ import kpt.core.ui.generated.resources.core_ui_waived
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
+/** Outlined frame of a listing card. */
 @Composable
 fun AppListingComponentOutline(
     modifier: Modifier = Modifier,
@@ -98,6 +99,7 @@ fun AppListingComponentOutline(
     }
 }
 
+/** One key/value row of a listing card, from composables. */
 @Composable
 fun AppListingRowItem(
     keyContent: @Composable () -> Unit,
@@ -126,6 +128,7 @@ fun AppListingRowItem(
     }
 }
 
+/** One key-above-value item of a listing card, from composables. */
 @Composable
 fun AppListingColumnItem(
     keyContent: @Composable () -> Unit,
@@ -140,6 +143,7 @@ fun AppListingColumnItem(
     }
 }
 
+/** One key-above-value item of a listing card. */
 @Composable
 fun AppListingColumnItem(
     key: String,
@@ -171,6 +175,7 @@ fun AppListingColumnItem(
     )
 }
 
+/** One key/value row of a listing card. */
 @Composable
 fun AppListingRowItem(
     key: String,
@@ -203,6 +208,7 @@ fun AppListingRowItem(
     )
 }
 
+/** Header row of a listing card. */
 @Composable
 fun AppListingRowItemHeader(
     text: String,
@@ -225,6 +231,7 @@ fun AppListingRowItemHeader(
     )
 }
 
+/** Listing card of `data`'s key/value rows. */
 @Composable
 fun AppDefaultListingComponent(
     data: Map<String, String>,
@@ -249,6 +256,7 @@ fun AppDefaultListingComponent(
     }
 }
 
+/** Listing card of `data`'s key/value rows, keys from string resources. */
 @Composable
 fun AppDefaultListingComponentFromStringResources(
     data: Map<StringResource, String>,
@@ -276,6 +284,7 @@ fun AppDefaultListingComponentFromStringResources(
     }
 }
 
+/** Client fee card. */
 @Composable
 fun AppClientFeeListingComponent(
     name: String,
@@ -330,6 +339,7 @@ fun AppClientFeeListingComponent(
     }
 }
 
+/** Loan account card. */
 @Composable
 fun AppLoanListingComponent(
     accountNo: String,
@@ -384,6 +394,7 @@ fun AppLoanListingComponent(
     }
 }
 
+/** Savings account card. */
 @Composable
 fun AppSavingsListingComponent(
     accountNo: String,
@@ -425,6 +436,7 @@ fun AppSavingsListingComponent(
     }
 }
 
+/** Collateral card. */
 @Composable
 fun AppCollateralDataListingComponent(
     name: String,
@@ -466,6 +478,7 @@ fun AppCollateralDataListingComponent(
     }
 }
 
+/** Identifier card. */
 @Composable
 fun AppIdentifierListingComponent(
     type: String,
@@ -514,12 +527,23 @@ fun AppIdentifierListingComponent(
     }
 }
 
+/**
+ * Status of a listed item.
+ *
+ * @property color the status colour
+ */
 enum class Status(val color: Color) {
+    /** Inactive or closed. */
     Inactive(AppColors.lightRed),
+
+    /** Waiting for approval or activation. */
     Pending(AppColors.customYellow),
+
+    /** Active. */
     Active(AppColors.customEnable),
 }
 
+/** Delinquency card: when it applies and whether it is paused. */
 @Composable
 fun AppDelinquencyListingComponent(
     date: String,
@@ -558,6 +582,7 @@ fun AppDelinquencyListingComponent(
     }
 }
 
+/** Charge card with due, paid, waived and outstanding amounts. */
 @Composable
 fun AppChargesListingComponent(
     title: String,
@@ -623,6 +648,7 @@ fun AppChargesListingComponent(
     }
 }
 
+/** Loan sale card. */
 @Composable
 fun AppSellLoanListingComponent(
     status: Status,

@@ -16,9 +16,15 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class InterestType(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     var code: String? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     var value: String? = null,
 )

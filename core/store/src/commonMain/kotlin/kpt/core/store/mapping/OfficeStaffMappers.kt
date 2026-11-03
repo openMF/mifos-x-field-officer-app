@@ -22,6 +22,7 @@ import kpt.core.database.office.entity.OfficeEntity as OfficeRow
 import kpt.core.database.office.entity.OfficeOpeningDateEntity as OfficeOpeningDateRow
 import kpt.core.database.staff.entity.StaffEntity as StaffRow
 
+/** Maps the stored row to its `Office` model. */
 fun OfficeRow.toModel(): Office = Office(
     id = id,
     externalId = externalId,
@@ -31,6 +32,7 @@ fun OfficeRow.toModel(): Office = Office(
     openingDate = openingDate,
 )
 
+/** Maps the model to its stored `OfficeRow`. */
 fun Office.toEntity(): OfficeRow = OfficeRow(
     id = id,
     externalId = externalId,
@@ -40,6 +42,7 @@ fun Office.toEntity(): OfficeRow = OfficeRow(
     openingDate = openingDate,
 )
 
+/** Maps the stored row to its `OfficeOpeningDate` model. */
 fun OfficeOpeningDateRow.toModel(): OfficeOpeningDate = OfficeOpeningDate(
     officeId = officeId,
     year = year,
@@ -47,6 +50,7 @@ fun OfficeOpeningDateRow.toModel(): OfficeOpeningDate = OfficeOpeningDate(
     day = day,
 )
 
+/** Maps the model to its stored `OfficeOpeningDateRow`. */
 fun OfficeOpeningDate.toEntity(): OfficeOpeningDateRow = OfficeOpeningDateRow(
     officeId = officeId,
     year = year,
@@ -54,18 +58,21 @@ fun OfficeOpeningDate.toEntity(): OfficeOpeningDateRow = OfficeOpeningDateRow(
     day = day,
 )
 
+/** Maps the stored row to its `OfficeOptions` model. */
 fun OfficeOptionsRow.toModel(): OfficeOptions = OfficeOptions(
     id = id,
     name = name,
     nameDecorated = nameDecorated,
 )
 
+/** Maps the model to its stored `OfficeOptionsRow`. */
 fun OfficeOptions.toEntity(): OfficeOptionsRow = OfficeOptionsRow(
     id = id,
     name = name,
     nameDecorated = nameDecorated,
 )
 
+/** Maps the stored row to its `Options` model. */
 fun OptionsRow.toModel(): Options = Options(
     optionType = optionType,
     id = id,
@@ -75,6 +82,7 @@ fun OptionsRow.toModel(): Options = Options(
     activeStatus = activeStatus,
 )
 
+/** Maps the model to its stored `OptionsRow`. */
 fun Options.toEntity(): OptionsRow = OptionsRow(
     optionType = optionType,
     id = id,
@@ -84,6 +92,7 @@ fun Options.toEntity(): OptionsRow = OptionsRow(
     activeStatus = activeStatus,
 )
 
+/** Maps the stored row to its `Staff` model. */
 fun StaffRow.toModel(): Staff = Staff(
     id = id,
     firstname = firstname,
@@ -96,6 +105,7 @@ fun StaffRow.toModel(): Staff = Staff(
     isActive = isActive,
 )
 
+/** Maps the model to its stored `StaffRow`. */
 fun Staff.toEntity(): StaffRow = StaffRow(
     id = id,
     firstname = firstname,
@@ -108,6 +118,7 @@ fun Staff.toEntity(): StaffRow = StaffRow(
     isActive = isActive,
 )
 
+/** Maps the stored row to its `StaffOptions` model. */
 fun StaffOptionsRow.toModel(): StaffOptions = StaffOptions(
     id = id,
     firstname = firstname,
@@ -119,6 +130,7 @@ fun StaffOptionsRow.toModel(): StaffOptions = StaffOptions(
     isActive = isActive,
 )
 
+/** Maps the model to its stored `StaffOptionsRow`. */
 fun StaffOptions.toEntity(): StaffOptionsRow = StaffOptionsRow(
     id = id,
     firstname = firstname,

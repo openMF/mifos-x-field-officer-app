@@ -20,6 +20,7 @@ import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** One text option of a dropdown menu. */
 @Composable
 fun AppMenuDropDownItem(
     option: String,

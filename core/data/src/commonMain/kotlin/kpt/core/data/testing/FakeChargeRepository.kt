@@ -41,6 +41,8 @@ class FakeChargeRepository(
 
     /** Every owner a stream or template was asked for — the read key is worth asserting. */
     val streamRequests: MutableList<Pair<ChargeResource, Int>> = mutableListOf()
+
+    /** The template reads, in order. */
     val templateRequests: MutableList<Pair<ChargeResource, Int>> = mutableListOf()
 
     override fun chargesStream(resource: ChargeResource, resourceId: Int, scope: CoroutineScope) =

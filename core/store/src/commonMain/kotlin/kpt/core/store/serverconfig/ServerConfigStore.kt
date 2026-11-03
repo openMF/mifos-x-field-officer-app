@@ -24,6 +24,7 @@ import org.mobilenativefoundation.store.store5.Store
  * `core/store` does not depend on. `core/data` binds it, as it does `UserDataSource`.
  */
 fun interface ServerConfigSource {
+    /** The stored server configuration, re-emitted on every change. */
     fun observe(): Flow<ServerConfig>
 }
 

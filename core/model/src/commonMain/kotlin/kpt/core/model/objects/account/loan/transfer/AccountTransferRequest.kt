@@ -33,17 +33,30 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class AccountTransferRequest(
+    /** The server id of the office the money leaves. */
     val fromOfficeId: Int,
+    /** The server id of the client the money leaves. */
     val fromClientId: Int,
+    /** The type of the account the money leaves. */
     val fromAccountType: Int,
+    /** The server id of the account the money leaves. */
     val fromAccountId: Int,
+    /** The server id of the office the money goes to. */
     val toOfficeId: Int,
+    /** The server id of the client the money goes to. */
     val toClientId: Int,
+    /** The type of the account the money goes to. */
     val toAccountType: Int,
+    /** The server id of the account the money goes to. */
     val toAccountId: Int,
+    /** The date of the transfer. */
     val transferDate: String,
+    /** The amount to transfer. */
     val transferAmount: Double,
+    /** A description of the transfer. */
     val transferDescription: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
 )

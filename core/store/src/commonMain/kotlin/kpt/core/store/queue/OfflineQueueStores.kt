@@ -67,6 +67,7 @@ fun provideClientPayloadQueueStore(
     ),
 )
 
+/** Store reading the center payload queue. */
 // logout-exempt: MutableStore; "Sign out and clear data" clears it via its pending* read store
 @StoreProvider(id = "centerPayloadQueue", logout = false)
 @CacheKey(fn = "byId", key = "centerPayloadQueue:{id}", params = ["id:Int"])
@@ -80,6 +81,7 @@ fun provideCenterPayloadQueueStore(
     ),
 )
 
+/** Store reading the group payload queue. */
 // logout-exempt: MutableStore; "Sign out and clear data" clears it via its pending* read store
 @StoreProvider(id = "groupPayloadQueue", logout = false)
 @CacheKey(fn = "byId", key = "groupPayloadQueue:{id}", params = ["id:Int"])
@@ -110,6 +112,7 @@ fun provideLoanRepaymentQueueStore(
     ),
 )
 
+/** Store reading the savings transaction queue. */
 // logout-exempt: MutableStore; "Sign out and clear data" clears it via its pending* read store
 @StoreProvider(id = "savingsTransactionQueue", logout = false)
 @CacheKey(fn = "byAccount", key = "savingsTransactionQueue:{accountId}", params = ["accountId:Int"])
@@ -131,6 +134,7 @@ fun provideSavingsTransactionQueueStore(
 // `createOfflineStore` because there is no server-side view of these — they exist only until the
 // sync drains them, so a fetcher would have nothing to call.
 
+/** Store reading the pending client payloads. */
 @StoreProvider(id = "pendingClientPayloads")
 @CacheKey(name = "LIST", key = "pendingClientPayloads")
 fun providePendingClientPayloadsStore(
@@ -143,6 +147,7 @@ fun providePendingClientPayloadsStore(
     ),
 )
 
+/** Store reading the pending center payloads. */
 @StoreProvider(id = "pendingCenterPayloads")
 @CacheKey(name = "LIST", key = "pendingCenterPayloads")
 fun providePendingCenterPayloadsStore(
@@ -155,6 +160,7 @@ fun providePendingCenterPayloadsStore(
     ),
 )
 
+/** Store reading the pending group payloads. */
 @StoreProvider(id = "pendingGroupPayloads")
 @CacheKey(name = "LIST", key = "pendingGroupPayloads")
 fun providePendingGroupPayloadsStore(
@@ -167,6 +173,7 @@ fun providePendingGroupPayloadsStore(
     ),
 )
 
+/** Store reading the pending loan repayments. */
 @StoreProvider(id = "pendingLoanRepayments")
 @CacheKey(name = "LIST", key = "pendingLoanRepayments")
 fun providePendingLoanRepaymentsStore(
@@ -179,6 +186,7 @@ fun providePendingLoanRepaymentsStore(
     ),
 )
 
+/** Store reading the pending savings transactions. */
 @StoreProvider(id = "pendingSavingsTransactions")
 @CacheKey(name = "LIST", key = "pendingSavingsTransactions")
 fun providePendingSavingsTransactionsStore(

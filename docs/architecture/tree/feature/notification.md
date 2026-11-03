@@ -22,10 +22,10 @@ ViewModels: `NotificationsViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/notification sha=52d617990523b8be6e2b4fa32bea4c61cd345180 -->
+<!-- api-docs:begin module=feature/notification sha=4cd2e64c470afd7fbdda4001eea84153e5855b3b -->
 ## API reference
 
-_Generated from `feature/notification` at tree `52d617990523` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/notification` at tree `4cd2e64c470a` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -50,14 +50,14 @@ The top bar's bell.
 ```kotlin
 fun NavGraphBuilder.notificationsDestination(navController: NavController)
 ```
-_No KDoc at source._
+Registers the notifications screen in the nav graph.
 
 ```kotlin
 fun NavController.navigateToNotifications() = navigate(NotificationsRoute)
 ```
-_No KDoc at source._
+Opens the notifications screen.
 
 ---
 
-_1 type(s), 3 function(s)/property(ies); 2 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_1 type(s), 3 function(s)/property(ies); 4 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

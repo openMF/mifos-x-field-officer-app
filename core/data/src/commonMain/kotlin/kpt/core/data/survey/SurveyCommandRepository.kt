@@ -25,5 +25,6 @@ import kpt.core.model.objects.surveys.Scorecard
  */
 interface SurveyCommandRepository {
 
+    /** Submits a scorecard for a survey. */
     suspend fun submitScore(surveyId: Int, scorecardPayload: Scorecard?): MutationResult<Scorecard>
 }

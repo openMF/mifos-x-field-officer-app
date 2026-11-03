@@ -10,7 +10,16 @@
 package kpt.core.ui.components
 
 /** What a document's bytes can be shown as. */
-enum class DocumentKind { Pdf, Image, Unsupported }
+enum class DocumentKind {
+    /** A PDF document. */
+    Pdf,
+
+    /** An image. */
+    Image,
+
+    /** Any other file type. */
+    Unsupported,
+}
 
 /**
  * Decides how to show a document.

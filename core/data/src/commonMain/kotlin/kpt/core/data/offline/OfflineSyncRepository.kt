@@ -31,6 +31,7 @@ interface OfflineSyncRepository {
     /** The running job, else the last one (its result card), else null. */
     val latestJob: Flow<SyncJob?>
 
+    /** The current refresh settings. */
     val refresh: StateFlow<RefreshSettings>
 
     /** Keep [targets] on the device and download them now (picker, list long-press). */
@@ -63,7 +64,12 @@ interface OfflineSyncRepository {
 
 /** Where the work runs — the background scheduler, so a download survives the screen and the process. */
 interface OfflineSyncScheduler {
+    /** Starts a sync now, unless one is already running. */
     suspend fun runNow()
+
+    /** Cancels the running sync. */
     suspend fun cancelRun()
+
+    /** Schedules, reschedules or cancels the periodic sync for `settings`. */
     suspend fun schedule(settings: RefreshSettings)
 }

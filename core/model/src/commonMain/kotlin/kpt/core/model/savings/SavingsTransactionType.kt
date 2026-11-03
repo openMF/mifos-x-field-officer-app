@@ -17,18 +17,35 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsTransactionType(
+    /** The server id of this record. */
     val id: Int? = null,
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     val code: String? = null,
+    /** The human-readable label Fineract sends for this value. */
     val value: String? = null,
+    /** True for a deposit. */
     val deposit: Boolean? = null,
+    /** True for a withdrawal. */
     val withdrawal: Boolean? = null,
+    /** True for an interest posting. */
     val interestPosting: Boolean? = null,
+    /** True for a fee deduction. */
     val feeDeduction: Boolean? = null,
+    /** True for an initiate-transfer transaction. */
     val initiateTransfer: Boolean? = null,
+    /** True for an approve-transfer transaction. */
     val approveTransfer: Boolean? = null,
+    /** True for a withdraw-transfer transaction. */
     val withdrawTransfer: Boolean? = null,
+    /** True for a reject-transfer transaction. */
     val rejectTransfer: Boolean? = null,
+    /** True for overdraft interest. */
     val overdraftInterest: Boolean? = null,
+    /** True for a write-off. */
     val writtenoff: Boolean? = null,
+    /** True for an overdraft fee. */
     val overdraftFee: Boolean? = null,
 )

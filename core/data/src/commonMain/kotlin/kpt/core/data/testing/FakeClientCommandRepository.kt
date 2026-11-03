@@ -107,6 +107,8 @@ class FakeClientCommandRepository(
 
     /** Client ids whose photo was uploaded, in order, and the image each upload carried. */
     val uploadedImages = mutableListOf<Int>()
+
+    /** The photos uploaded, in order. */
     val uploadedImageFiles = mutableListOf<DocumentUpload>()
 
     override suspend fun uploadClientImage(clientId: Int, image: DocumentUpload): MutationResult<Unit> {

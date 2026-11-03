@@ -34,6 +34,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Dialog listing `items` as radio buttons, with `selectedItem` checked. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppRadioButtonDialog(

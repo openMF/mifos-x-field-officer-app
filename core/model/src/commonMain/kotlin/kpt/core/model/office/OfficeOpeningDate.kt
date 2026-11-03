@@ -17,8 +17,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class OfficeOpeningDate(
+    /** The server id of the office. */
     val officeId: Int,
+    /** The year. */
     val year: Int? = null,
+    /** The month (1–12). */
     val month: Int? = null,
+    /** The day of the month. */
     val day: Int? = null,
 )

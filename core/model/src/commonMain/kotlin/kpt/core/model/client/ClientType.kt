@@ -17,6 +17,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ClientType(
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The display name. */
     val name: String? = null,
 )

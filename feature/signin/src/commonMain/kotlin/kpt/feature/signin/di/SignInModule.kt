@@ -13,6 +13,7 @@ import kpt.feature.signin.ui.SignInViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
+/** Koin bindings for the sign-in feature's view model. */
 val SignInModule = module {
     viewModelOf(::SignInViewModel)
 }

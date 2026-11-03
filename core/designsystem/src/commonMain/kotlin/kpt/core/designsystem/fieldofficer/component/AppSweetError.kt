@@ -37,6 +37,7 @@ import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Full-screen error message with an optional retry button. */
 @Composable
 fun AppSweetError(
     message: String,
@@ -85,6 +86,7 @@ fun AppSweetError(
     }
 }
 
+/** Inline error shown when loading the next page failed, with a retry action. */
 @Composable
 fun AppPaginationSweetError(
     modifier: Modifier = Modifier,

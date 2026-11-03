@@ -16,7 +16,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class FundOptions(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The display name. */
     var name: String? = null,
 )

@@ -27,8 +27,11 @@ import kpt.core.base.database.annotation.DbEntity
 @DbEntity
 @Entity(tableName = "collection_sheet_center_details")
 data class CenterDetailEntity(
+    /** The server id of the staff member (loan officer). */
     @PrimaryKey
     val staffId: Int,
+    /** The staff member's display name. */
     val staffName: String? = null,
+    /** The centres whose meetings fall on the date. */
     val meetingFallCenters: List<MeetingFallCalendar>? = null,
 )

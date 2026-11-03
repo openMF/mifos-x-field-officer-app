@@ -9,5 +9,8 @@
  */
 package kpt.feature.settings
 
+/** Reports [Platform.Desktop]. */
 actual fun getPlatform(): Platform = Platform.Desktop
+
+/** False: only Android 12+ derives colours from the wallpaper. */
 actual fun supportsDynamicTheming(): Boolean = false

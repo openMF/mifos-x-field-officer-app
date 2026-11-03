@@ -16,7 +16,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class BulkSavingsDueTransaction(
+    /** The server id of the savings account. */
     var savingsId: Int,
 
+    /** The transaction amount. */
     var transactionAmount: String?,
 )

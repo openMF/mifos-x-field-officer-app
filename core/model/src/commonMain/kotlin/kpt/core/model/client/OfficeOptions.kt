@@ -17,7 +17,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class OfficeOptions(
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The display name. */
     val name: String = "",
+    /** The office name indented to show its place in the hierarchy. */
     val nameDecorated: String = "",
 )

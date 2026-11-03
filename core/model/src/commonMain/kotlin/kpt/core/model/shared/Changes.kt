@@ -13,9 +13,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
+/** The fields a command changed, as the server echoes them. */
 @Serializable
 data class Changes(
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
 ) {
     override fun toString(): String {

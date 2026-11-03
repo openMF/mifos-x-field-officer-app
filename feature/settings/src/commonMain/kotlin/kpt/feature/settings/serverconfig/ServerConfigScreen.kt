@@ -431,19 +431,46 @@ private fun ValidationFailure.message() = when (this) {
 
 /** Stable handles for the server-config screen — asserted by UI tests, never shown to a user. */
 object ServerConfigTestTags {
+    /** The server-config screen's root. */
     const val SCREEN = "server-config:screen"
+
+    /** The card describing the server the session is signed in to. */
     const val LIVE = "server-config:live"
+
+    /** The "Live" badge on a published instance. */
     const val LIVE_BADGE = "server-config:live-badge"
+
+    /** The back button. */
     const val BACK = "server-config:back"
+
+    /** The protocol field. */
     const val PROTOCOL = "server-config:protocol"
+
+    /** The end-point (host) field. */
     const val ENDPOINT = "server-config:endpoint"
+
+    /** The API-path field. */
     const val API_PATH = "server-config:api-path"
+
+    /** The port field. */
     const val PORT = "server-config:port"
+
+    /** The tenant field. */
     const val TENANT = "server-config:tenant"
+
+    /** Prefix of each named instance's tag; the instance id follows it. */
     const val INSTANCE_PREFIX = "server-config:instance:"
+
+    /** The hint explaining the demo servers. */
     const val DEMO_HINT = "server-config:demo-hint"
+
+    /** The list of named instances. */
     const val INSTANCES = "server-config:instances"
+
+    /** The dialog confirming a sign-out to switch server. */
     const val SWITCH_CONFIRM = "server-config:switch-confirm"
+
+    /** The save button. */
     const val SAVE = "server-config:save"
 }
 

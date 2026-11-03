@@ -11,7 +11,9 @@ package kpt.core.model.client
 
 import kotlinx.serialization.Serializable
 
+/** Server response to a post client address request. */
 @Serializable
 data class PostClientAddressResponse(
+    /** The server id of the resource the request created or changed. */
     val resourceId: Long? = null,
 )

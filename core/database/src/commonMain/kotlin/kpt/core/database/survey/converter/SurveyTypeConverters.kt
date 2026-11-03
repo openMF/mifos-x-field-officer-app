@@ -23,31 +23,37 @@ import kpt.core.database.survey.entity.ResponseDatasEntity
 @DbConverters
 class SurveyTypeConverters {
 
+    /** Stores a `List<QuestionDatasEntity>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromQuestionDatasList(questionDatas: List<QuestionDatasEntity>?): String? {
         return questionDatas?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `List<QuestionDatasEntity>?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toQuestionDatasList(json: String?): List<QuestionDatasEntity>? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `List<ComponentDatasEntity>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromComponentDatasList(componentDatas: List<ComponentDatasEntity>?): String? {
         return componentDatas?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `List<ComponentDatasEntity>?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toComponentDatasList(json: String?): List<ComponentDatasEntity>? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `List<ResponseDatasEntity>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromResponseDatasList(responseDatas: List<ResponseDatasEntity>?): String? {
         return responseDatas?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `List<ResponseDatasEntity>?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toResponseDatasList(json: String?): List<ResponseDatasEntity>? {
         return json?.let { Json.decodeFromString(it) }

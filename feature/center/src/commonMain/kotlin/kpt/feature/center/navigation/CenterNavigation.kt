@@ -29,25 +29,35 @@ import kpt.feature.savings.navigation.navigateToSavingsApplication
 @Serializable
 data object CenterDestination
 
+/** The centre list. */
 @Serializable
 data object CenterListRoute
 
-/** Center detail. `centerId` is a type-safe route argument, not a SavedStateHandle default. */
+/**
+ * Center detail. `centerId` is a type-safe route argument, not a SavedStateHandle default.
+ *
+ * @property centerId the Fineract centre id
+ */
 @Serializable
 data class CenterDetailRoute(val centerId: Int)
 
+/** Opens the centre list. */
 fun NavController.navigateToCenterList(navOptions: NavOptions? = null) =
     navigate(CenterListRoute, navOptions)
 
+/** Opens the centres graph (the tab's destination). */
 fun NavController.navigateToCenters(navOptions: NavOptions? = null) =
     navigate(CenterDestination, navOptions)
 
+/** Opens centre [centerId]'s details. */
 fun NavController.navigateToCenterDetail(centerId: Int, navOptions: NavOptions? = null) =
     navigate(CenterDetailRoute(centerId), navOptions)
 
+/** The new-centre form. */
 @Serializable
 data object CreateCenterRoute
 
+/** Opens the new-centre form. */
 fun NavController.navigateToCreateCenter(navOptions: NavOptions? = null) = navigate(CreateCenterRoute, navOptions)
 
 /**

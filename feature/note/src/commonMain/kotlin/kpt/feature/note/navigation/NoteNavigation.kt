@@ -37,6 +37,9 @@ import kpt.feature.note.ui.NoteListScreen
  * Both destinations are nested drill-downs reached from client detail. Only TOP-LEVEL entries carry
  * `@FeatureDestination` (spec §4); annotating these would register them as their own root entries
  * on the authenticated graph.
+ *
+ * @property resourceType the Fineract resource the notes belong to (`clients`, `loans`, …)
+ * @property resourceId the id of that resource
  */
 @Serializable
 data class NoteListRoute(val resourceType: String, val resourceId: Int)
@@ -46,6 +49,10 @@ data class NoteListRoute(val resourceType: String, val resourceId: Int)
  *
  * `noteId == null` means ADD. The original encoded the same thing and then branched on it in four
  * places inside the ViewModel; here it is read once into `editEnabled`.
+ *
+ * @property resourceType the Fineract resource the note belongs to
+ * @property resourceId the id of that resource
+ * @property noteId the note to edit, or null to add one
  */
 @Serializable
 data class AddEditNoteRoute(val resourceType: String, val resourceId: Int, val noteId: Long?)
@@ -54,12 +61,15 @@ data class AddEditNoteRoute(val resourceType: String, val resourceId: Int, val n
 fun NavController.navigateToNotes(resourceType: String, resourceId: Int, navOptions: NavOptions? = null) =
     navigate(NoteListRoute(resourceType, resourceId), navOptions)
 
+/** Opens client [clientId]'s notes. */
 fun NavController.navigateToClientNotes(clientId: Int, navOptions: NavOptions? = null) =
     navigateToNotes(Constants.ENTITY_TYPE_CLIENTS, clientId, navOptions)
 
+/** Opens the add-note form for one resource. */
 fun NavController.navigateToAddNote(resourceType: String, resourceId: Int) =
     navigate(AddEditNoteRoute(resourceType, resourceId, noteId = null))
 
+/** Opens the edit form for note [noteId] of one resource. */
 fun NavController.navigateToEditNote(resourceType: String, resourceId: Int, noteId: Long) =
     navigate(AddEditNoteRoute(resourceType, resourceId, noteId))
 

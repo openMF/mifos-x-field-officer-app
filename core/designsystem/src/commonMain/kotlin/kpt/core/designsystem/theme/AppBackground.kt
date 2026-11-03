@@ -10,7 +10,6 @@
 package kpt.core.designsystem.theme
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.LocalAbsoluteTonalElevation
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -19,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import kpt.core.base.designsystem.theme.KptTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * The main background for the app.
@@ -43,36 +41,5 @@ fun AppBackground(
         CompositionLocalProvider(LocalAbsoluteTonalElevation provides KptTheme.elevation.level0) {
             content()
         }
-    }
-}
-
-/**
- * Multipreview annotation that represents light and dark themes. Add this annotation to a
- * composable to render the both themes.
- */
-@Preview
-annotation class ThemePreview
-
-@ThemePreview
-@Composable
-fun BackgroundDefault() {
-    AppTheme {
-        AppBackground(Modifier.size(DesignToken.sizes.backgroundDp100), content = {})
-    }
-}
-
-@ThemePreview
-@Composable
-fun BackgroundDynamic() {
-    AppTheme {
-        AppBackground(Modifier.size(DesignToken.sizes.backgroundDp100), content = {})
-    }
-}
-
-@ThemePreview
-@Composable
-fun BackgroundAndroid() {
-    AppTheme {
-        AppBackground(Modifier.size(DesignToken.sizes.backgroundDp100), content = {})
     }
 }

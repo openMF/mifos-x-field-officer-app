@@ -32,35 +32,57 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class LoanApplicationInput(
+    /** The server id of the client. */
     val clientId: Int,
+    /** The server id of the product. */
     val productId: Int,
+    /** The loan type (individual, group or JLG). */
     val loanType: String,
+    /** The date the record was submitted. */
     val submittedOnDate: String,
+    /** The date the loan is expected to be disbursed. */
     val expectedDisbursementDate: String,
     val locale: String,
     val dateFormat: String,
 
+    /** The loan principal. */
     val principal: Double?,
+    /** The number of installments. */
     val numberOfRepayments: Int?,
+    /** The interest rate per interest period, in percent. */
     val interestRatePerPeriod: Double?,
+    /** How many repayment-frequency units fall between two installments. */
     val repaymentEvery: Int?,
+    /** The loan term, in [loanTermFrequencyType] units. */
     val loanTermFrequency: Int?,
+    /** The unit of the loan term. */
     val loanTermFrequencyType: Int?,
+    /** The unit of the repayment frequency (days, weeks, months). */
     val repaymentFrequencyType: Int?,
+    /** How the principal is amortised (equal installments or equal principal). */
     val amortizationType: Int?,
+    /** The interest method (declining balance or flat). */
     val interestType: Int?,
+    /** How interest is calculated over a period (daily or same as the repayment period). */
     val interestCalculationPeriodType: Int?,
 
     /** A CODE, not an id — the one option Fineract identifies that way on this endpoint. */
     val transactionProcessingStrategyCode: String?,
+    /** True when interest is calculated for a partial first period. */
     val allowPartialPeriodInterestCalculation: Boolean = false,
 
     /** Null when the form offers no control for it, never `0` — `0` is an id that names no row. */
     val repaymentFrequencyDayOfWeekType: Int? = null,
+    /** Which occurrence in the month the repayment falls on (first, second, …). */
     val repaymentFrequencyNthDayType: Int? = null,
+    /** The server id of the loan purpose. */
     val loanPurposeId: Int? = null,
+    /** The server id of the fund the loan is financed from. */
     val fundId: Int? = null,
+    /** The server id of the loan officer. */
     val loanOfficerId: Int? = null,
+    /** The server id of the savings account linked for repayments. */
     val linkAccountId: Int? = null,
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
 )

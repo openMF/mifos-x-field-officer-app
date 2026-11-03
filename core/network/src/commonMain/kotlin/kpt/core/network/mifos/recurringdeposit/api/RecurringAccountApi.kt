@@ -18,14 +18,17 @@ import kpt.core.base.network.annotation.ApiBinding
 import kpt.core.model.objects.payloads.RecurringDepositAccountPayload
 import kpt.core.model.recurringdeposit.RecurringDepositAccountTemplate
 
+/** Fineract endpoints for recurring account. */
 @ApiBinding("mifos")
 interface RecurringAccountApi {
 
+    /** Opens a recurring-deposit account. */
     @POST("recurringdepositaccounts")
     suspend fun createRecurringDepositAccount(
         @Body recurringDepositAccountPayload: RecurringDepositAccountPayload?,
     ): HttpResponse
 
+    /** Reads the recurring-deposit template for a client. */
     @GET("recurringdepositaccounts/template")
     suspend fun getRecurringDepositAccountTemplate(
         @Query("clientId") clientId: Int,

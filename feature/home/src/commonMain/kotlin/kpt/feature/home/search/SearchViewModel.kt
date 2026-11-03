@@ -130,28 +130,60 @@ class SearchViewModel(
  * translating `feature_search_filter_options_clients_value` into any other language would have
  * silently broken the query. Only [labelRes] is translatable; the wire value is not text the user
  * reads.
+ *
+ * @property apiValue the value sent to the search API
  */
 enum class SearchFilter(val apiValue: String) {
+    /** Clients only. */
     Clients("clients"),
+
+    /** Groups only. */
     Groups("groups"),
+
+    /** Loan accounts only. */
     LoanAccounts("loans"),
+
+    /** Savings accounts only. */
     SavingsAccounts("savings"),
 }
 
+/** What the search screen shows: the query, the filter and whether to match exactly. */
 data class SearchState(
+    /** The text typed so far. */
     val query: String = "",
+    /** The record type to search; null searches every type. */
     val filter: SearchFilter? = null,
+    /** True to ask the server for exact matches only. */
     val exactMatch: Boolean = false,
     /** True when Submit was pressed with nothing typed — the original's `showEmptyError`. */
     val blankQuery: Boolean = false,
 )
 
+/** What the user did on the search screen. */
 sealed interface SearchAction {
+    /**
+     * The query text changed.
+     *
+     * @property value the new text
+     */
     data class QueryChanged(val value: String) : SearchAction
+
+    /**
+     * A filter chip was picked.
+     *
+     * @property value the record type, or null for every type
+     */
     data class FilterChanged(val value: SearchFilter?) : SearchAction
+
+    /** The exact-match switch was flipped. */
     data object ExactMatchToggled : SearchAction
+
+    /** The query was cleared. */
     data object Clear : SearchAction
+
+    /** Search was submitted. */
     data object Submit : SearchAction
 }
 
+/** One-off effects of the search screen, for the screen to act on. */
 sealed interface SearchEvent

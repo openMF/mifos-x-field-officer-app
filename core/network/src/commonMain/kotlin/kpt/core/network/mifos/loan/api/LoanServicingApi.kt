@@ -40,57 +40,68 @@ import kpt.core.network.mifos.loan.dto.LoanOfficerOptionsTemplateDto
  */
 interface LoanServicingApi {
 
+    /** Reads the charge-off template of a loan. */
     @GET("loans/{loanId}/transactions/template?command=charge-off")
     suspend fun getChargeOffTemplate(
         @Path("loanId") loanId: Int,
     ): LoanChargeOffTemplateDto
 
+    /** Charges off a loan. */
     @POST("loans/{loanId}/transactions?command=charge-off")
     suspend fun chargeOff(
         @Path("loanId") loanId: Int,
         @Body loanChargeOffRequest: LoanChargeOffRequestDto,
     ): LoanChargeOffResponseDto
 
+    /** Reads the guarantor template of a loan. */
     @GET("loans/{loanId}/guarantors/template")
     suspend fun getGuarantorTemplate(@Path("loanId") loanId: Int): GuarantorTemplateDto
 
+    /** Adds a guarantor to a loan. */
     @POST("loans/{loanId}/guarantors")
     suspend fun createGuarantor(
         @Path("loanId") loanId: Int,
         @Body request: GuarantorRequestDto,
     ): CreateGuarantorResponseDto
 
+    /** Reads the accounts a guarantor may pledge funds from. */
     @GET("loans/{loanId}/guarantors/accounts/template")
     suspend fun getGuarantorAccountTemplate(
         @Path("loanId") loanId: Int,
         @Query("clientId") clientId: Int,
     ): GuarantorAccountTemplateDto
 
+    /** Reads the reschedule requests of a loan. */
     @GET("rescheduleloans")
     suspend fun getLoanReschedules(
         @Query("loanId") loanId: Int,
     ): List<LoanRescheduleResponse>
 
+    /** Reads the reschedule template: the reschedule reasons. */
     @GET("rescheduleloans/template")
     suspend fun getLoanRescheduleTemplate(): LoanRescheduleTemplate
 
+    /** Proposes a loan reschedule. */
     @POST("rescheduleloans")
     suspend fun submitLoanReschedule(
         @Body request: LoanRescheduleRequest,
     ): HttpResponse
 
+    /** Approves a loan reschedule. */
     @POST("rescheduleloans/{scheduleId}?command=approve")
     suspend fun approveLoanReschedule(
         @Path("scheduleId") scheduleId: Int,
         @Body request: LoanRescheduleApprovalRequest,
     ): HttpResponse
 
+    /** Rejects a loan reschedule. */
     @POST("rescheduleloans/{scheduleId}?command=reject")
     suspend fun rejectLoanReschedule(
         @Path("scheduleId") scheduleId: Int,
         @Body request: LoanRescheduleRejectionRequest,
     ): HttpResponse
 
+    /** Reads the loan-officer template of a loan. */
     @GET("loans/{loanId}")
     suspend fun getLoanOfficerTemplate(
         @Path("loanId") loanId: Int,
@@ -99,6 +110,7 @@ interface LoanServicingApi {
         @Query("template") template: Boolean = true,
     ): LoanOfficerOptionsTemplateDto
 
+    /** Assigns or changes a loan's officer. */
     @POST("loans/{loanId}")
     suspend fun assignLoanOfficer(
         @Path("loanId") loanId: Int,
@@ -106,11 +118,13 @@ interface LoanServicingApi {
         @Body request: AssignLoanOfficerRequestDto,
     ): AssignLoanOfficerResponseDto
 
+    /** Reads the disbursement template of a loan. */
     @GET("loans/{loanId}/transactions/template?command=disburse")
     suspend fun getDisburseTemplate(
         @Path("loanId") loanId: Int,
     ): LoanDisburseTemplateDto
 
+    /** Disburses a loan. */
     @POST("loans/{loanId}?command=disburse")
     suspend fun disburse(
         @Path("loanId") loanId: Int,

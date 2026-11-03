@@ -19,8 +19,12 @@ import kotlin.time.Instant
 data class ScorecardPayload
 @OptIn(ExperimentalTime::class)
 constructor(
+    /** The server id of the user. */
     var userId: Int = 0,
+    /** The server id of the client. */
     var clientId: Int = 0,
+    /** When the record was created. */
     var createdOn: Instant? = null,
+    /** The answers in the scorecard. */
     var scorecardValues: List<ScorecardValues>? = null,
 )

@@ -32,6 +32,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
+/** Message dialog with a single dismiss button; nothing is shown while `visibilityState` is hidden. */
 @Composable
 fun AppBasicDialog(
     visibilityState: BasicDialogState,
@@ -74,6 +75,7 @@ fun AppBasicDialog(
     }
 }
 
+/** Message dialog with confirm and dismiss buttons; nothing is shown while `visibilityState` is hidden. */
 @Composable
 fun AppBasicDialog(
     visibilityState: BasicDialogState,
@@ -137,6 +139,7 @@ fun AppBasicDialog(
     }
 }
 
+/** Titled dialog around caller-supplied content, with confirm and dismiss buttons. */
 @Composable
 fun AppBasicDialog(
     onConfirm: () -> Unit,
@@ -215,14 +218,19 @@ private fun AppBasicDialog_preview() {
  */
 sealed class BasicDialogState {
 
+    /** No dialog is shown. */
     data object Hidden : BasicDialogState()
 
+    /** The dialog is shown with this text. */
     data class Shown(
+        /** The dialog's body text. */
         val message: String,
+        /** The dialog's title. */
         val title: String = "An Error Occurred!",
     ) : BasicDialogState()
 }
 
+/** Sample dialog states for previews. */
 class BasicDialogStatePreviewProvider : PreviewParameterProvider<BasicDialogState> {
     override val values: Sequence<BasicDialogState> = sequenceOf(
         BasicDialogState.Shown(

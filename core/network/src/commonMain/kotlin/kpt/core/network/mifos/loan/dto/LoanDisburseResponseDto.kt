@@ -11,11 +11,17 @@ package kpt.core.network.mifos.loan.dto
 
 import kotlinx.serialization.Serializable
 
+/** Server response to a loan disburse request. */
 @Serializable
 data class LoanDisburseResponseDto(
+    /** The server id of the office. */
     val officeId: Long,
+    /** The server id of the client. */
     val clientId: Long,
+    /** The server id of the loan. */
     val loanId: Long,
+    /** The server id of the resource the request created or changed. */
     val resourceId: Long,
+    /** The server id of the sub-resource the request created. */
     val subResourceId: Long,
 )

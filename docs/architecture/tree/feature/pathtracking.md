@@ -22,10 +22,10 @@ ViewModels: `PathTrackingViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/pathtracking sha=a7f0283feb011ad9eab5c542ccadc93e621c633b -->
+<!-- api-docs:begin module=feature/pathtracking sha=71734cfc4e53eec2d6fca78ad698a08adc9e9ee8 -->
 ## API reference
 
-_Generated from `feature/pathtracking` at tree `a7f0283feb01` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/pathtracking` at tree `71734cfc4e53` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -50,14 +50,14 @@ The drawer's Path Tracker — the original's `PathTrackerRoute`.
 ```kotlin
 fun NavGraphBuilder.pathTrackingDestination(navController: NavController)
 ```
-_No KDoc at source._
+Registers the path-tracker screen in the nav graph.
 
 ```kotlin
 fun NavController.navigateToPathTracking() = navigate(PathTrackingRoute)
 ```
-_No KDoc at source._
+Opens the officer's path tracker.
 
 ---
 
-_1 type(s), 3 function(s)/property(ies); 2 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_1 type(s), 3 function(s)/property(ies); 4 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

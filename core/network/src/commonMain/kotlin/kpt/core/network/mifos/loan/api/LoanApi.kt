@@ -43,38 +43,46 @@ import kpt.core.network.mifos.loan.dto.LoansPayload
 @ApiBinding("mifos")
 interface LoanApi : LoanServicingApi {
 
+    /** Reads a loan with every association except guarantors and the future schedule. */
     @GET("loans/{loanId}?associations=all&exclude=guarantors,futureSchedule")
     suspend fun getLoanByIdWithAllAssociations(@Path("loanId") loanId: Int): LoanWithAssociationsDto
 
+    /** Reads the repayment template of a loan: the amount due and the payment types. */
     @GET("loans/{loanId}/transactions/template?command=repayment")
     suspend fun getLoanRepaymentTemplate(@Path("loanId") loanId: Int): LoanRepaymentTemplate
 
     //  Mandatory Fields
     //  1. String approvedOnDate
+    /** Approves a loan application. */
     @POST("loans/{loanId}?command=approve")
     suspend fun approveLoanApplication(
         @Path("loanId") loanId: Int,
         @Body loanApproval: LoanApproval?,
     ): GenericResponse
 
+    /** Records a loan repayment. */
     @POST("loans/{loanId}/transactions?command=repayment")
     suspend fun submitPayment(
         @Path("loanId") loanId: Int,
         @Body loanRepaymentRequest: LoanRepaymentRequest?,
     ): LoanRepaymentResponse
 
+    /** Rejects a loan application. */
     @POST("loans/{loanId}?command=reject")
     suspend fun rejectLoan(
         @Path("loanId") loanId: Int,
         @Body request: RejectLoanRequestDto,
     ): RejectLoanResponseDto
 
+    /** Reads a loan with its repayment schedule. */
     @GET("loans/{loanId}?associations=repaymentSchedule")
     suspend fun getLoanRepaymentSchedule(@Path("loanId") loanId: Int): LoanWithAssociationsDto
 
+    /** Reads a loan with its transactions. */
     @GET("loans/{loanId}?associations=transactions")
     suspend fun getLoanWithTransactions(@Path("loanId") loanId: Int): LoanWithAssociationsDto
 
+    /** Reads every loan product. */
     @GET("loanproducts")
     suspend fun getAllLoans(): List<LoanProducts>
 
@@ -92,6 +100,7 @@ interface LoanApi : LoanServicingApi {
     @POST("loans?command=calculateLoanSchedule")
     suspend fun calculateLoanSchedule(@Body loansPayload: LoansPayload?): RepaymentSchedule
 
+    /** Reads the individual-loan template for a client. */
     @GET("loans/template?templateType=individual")
     suspend fun getLoansAccountTemplate(
         @Query("clientId") clientId: Int,
@@ -124,15 +133,18 @@ interface LoanApi : LoanServicingApi {
     @POST("loans")
     suspend fun createGroupLoansAccount(@Body loansPayload: GroupLoanPayload?): SaveResponse
 
+    /** Reads the group-loan template for a group. */
     @GET("loans/template?templateType=group")
     suspend fun getGroupLoansAccountTemplate(
         @Query("groupId") groupId: Int,
         @Query("productId") productId: Int,
     ): GroupLoanTemplate
 
+    /** Reads the charges on a loan. */
     @GET("loans/{loanId}/charges")
     suspend fun getListOfLoanCharges(@Path("loanId") loanId: Int): List<Charges>
 
+    /** Reads the charges on a client. */
     @GET("clients/{clientId}/charges")
     suspend fun getListOfCharges(@Path("clientId") clientId: Int): Page<Charges>
 

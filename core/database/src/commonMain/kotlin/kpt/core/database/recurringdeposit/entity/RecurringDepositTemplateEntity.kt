@@ -30,9 +30,11 @@ import kpt.core.model.recurringdeposit.RecurringDepositAccountTemplate
 @DbEntity
 @Entity(tableName = "recurring_deposit_templates")
 data class RecurringDepositTemplateEntity(
+    /** The server id of the client. */
     @PrimaryKey
     val clientId: Int,
     /** Serialized [kpt.core.model.recurringdeposit.RecurringDepositAccountTemplate]. */
     val payload: String,
+    /** When this cached copy was fetched, in epoch milliseconds. */
     val fetchedAtMs: Long,
 )

@@ -32,7 +32,11 @@ class FakeReportRepository(
 
     val reports = MutableStateFlow<ScreenState<List<ClientReportTypeItem>>>(ScreenState.Content(reports))
     val parameters = MutableStateFlow<ScreenState<List<ReportParameter>>>(ScreenState.Content(parameters))
+
+    /** The parameter-option reads, as (parameter, parent values), in order. */
     val optionRequests = mutableListOf<Pair<String, Map<String, String>>>()
+
+    /** The report runs, as (report, parameters), in order. */
     val runs = mutableListOf<Pair<String, Map<String, String>>>()
 
     override fun reportTypesStream(scope: CoroutineScope) = screenDataStreamForTesting(reports)

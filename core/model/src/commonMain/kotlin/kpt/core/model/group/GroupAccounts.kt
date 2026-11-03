@@ -19,7 +19,9 @@ import kpt.core.model.savings.SavingsAccount
  */
 @Serializable
 data class GroupAccounts(
+    /** The loan accounts. */
     var loanAccounts: List<LoanAccount> = emptyList(),
+    /** The savings accounts. */
     var savingsAccounts: List<SavingsAccount> = emptyList(),
 ) {
 
@@ -33,10 +35,12 @@ data class GroupAccounts(
         return result
     }
 
+    /** The recurring-deposit savings accounts. */
     fun getRecurringSavingsAccounts(): List<SavingsAccount> {
         return getSavingsAccounts(true)
     }
 
+    /** The savings accounts that are not recurring deposits. */
     fun getNonRecurringSavingsAccounts(): List<SavingsAccount> {
         return getSavingsAccounts(false)
     }

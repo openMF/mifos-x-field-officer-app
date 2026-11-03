@@ -14,6 +14,7 @@ import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 
+/** Room row for an office. */
 @DbEntity
 @Entity(
     tableName = "Office",
@@ -25,16 +26,22 @@ import kpt.core.base.database.annotation.DbEntity
 )
 @Serializable
 data class OfficeEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int,
 
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
 
+    /** The display name. */
     val name: String? = null,
 
+    /** The office name indented to show its place in the hierarchy. */
     val nameDecorated: String? = null,
 
+    /** The office's opening date. */
     val officeOpeningDate: OfficeOpeningDateEntity? = null,
 
+    /** The date the office opened. */
     val openingDate: List<Int?> = emptyList(),
 )

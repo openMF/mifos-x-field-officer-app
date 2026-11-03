@@ -34,6 +34,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** No-internet message with an optional retry. */
 @Composable
 fun NoInternet(
     error: StringResource,

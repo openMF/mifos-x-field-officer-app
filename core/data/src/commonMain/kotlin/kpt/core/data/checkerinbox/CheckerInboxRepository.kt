@@ -15,6 +15,7 @@ import kpt.core.model.objects.checkerinboxtask.CheckerInboxSearchTemplate
 import kpt.core.model.objects.checkerinboxtask.CheckerTask
 import kpt.core.model.objects.checkerinboxtask.RescheduleLoansTask
 
+/** Reads the maker-checker inbox and its filter template. */
 interface CheckerInboxRepository {
     /** Maker-checker tasks awaiting this user's approval. */
     fun checkerTasksStream(scope: CoroutineScope): ScreenDataStream<List<CheckerTask>>

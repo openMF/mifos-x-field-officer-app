@@ -34,8 +34,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class RecurringDepositApplicationInput(
+    /** The server id of the client. */
     val clientId: Int,
     val productId: Int,
+    /** The date the record was submitted. */
     val submittedOnDate: String,
     val locale: String,
     val dateFormat: String,
@@ -44,26 +46,42 @@ data class RecurringDepositApplicationInput(
     val mandatoryRecommendedDepositAmount: Double?,
     /** How often — a count plus the unit from the template's period-frequency options. */
     val recurringFrequency: Int?,
+    /** The unit of the deposit frequency. */
     val recurringFrequencyType: Int?,
     /** How long the deposit runs, same count + unit shape. */
     val depositPeriod: Int?,
+    /** The unit of the deposit term. */
     val depositPeriodFrequencyId: Int?,
 
+    /** The server id of the field officer. */
     val fieldOfficerId: Int? = null,
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
+    /** True when the recurring deposit is mandatory. */
     val isMandatoryDeposit: Boolean = false,
+    /** True when an advance deposit is applied to future installments. */
     val adjustAdvanceTowardsFuturePayments: Boolean = false,
+    /** True when withdrawals are allowed before maturity. */
     val allowWithdrawal: Boolean = false,
 
+    /** How often interest is compounded. */
     val interestCompoundingPeriodType: Int? = null,
+    /** How often interest is posted to the account. */
     val interestPostingPeriodType: Int? = null,
+    /** How interest is calculated on the balance (daily or average daily balance). */
     val interestCalculationType: Int? = null,
+    /** How many days a year has for interest calculation (360, 365, actual). */
     val interestCalculationDaysInYearType: Int? = null,
+    /** The length of the lock-in period, in [lockinPeriodFrequencyType] units. */
     val lockinPeriodFrequency: Int? = null,
+    /** The unit of the lock-in period. */
     val lockinPeriodFrequencyType: Int? = null,
 
+    /** True when a penalty applies if the deposit is closed early. */
     val preClosurePenalApplicable: Boolean = false,
+    /** The penalty interest rate applied on early closure. */
     val preClosurePenalInterest: Double? = null,
+    /** What the early-closure penalty interest is applied to. */
     val preClosurePenalInterestOnTypeId: Int? = null,
 
     /**
@@ -75,6 +93,11 @@ data class RecurringDepositApplicationInput(
     val charges: List<RecurringDepositChargeInput> = emptyList(),
 )
 
-/** One charge on a recurring-deposit application. */
+/**
+ * One charge on a recurring-deposit application.
+ *
+ * @property amount the amount, in the record's currency
+ * @property chargeId the server id of the charge
+ */
 @Serializable
 data class RecurringDepositChargeInput(val chargeId: Int, val amount: String)

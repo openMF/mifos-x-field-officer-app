@@ -301,11 +301,8 @@ private fun AppButtonContent(
 @Suppress("ForbiddenComment")
 object AppButtonDefaults {
     // TODO: File bug
-    // OutlinedButton border color doesn't respect disabled state by default
-    const val DISABLED_OUTLINED_BUTTON_BORDER_ALPHA = 0.12f
-
-    // TODO: File bug
     // OutlinedButton default border width isn't exposed via ButtonDefaults
+    /** Border width of an outlined button. */
     val OutlinedButtonBorderWidth = 1.dp
 }
 

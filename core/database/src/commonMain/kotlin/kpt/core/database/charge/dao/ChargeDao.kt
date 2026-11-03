@@ -30,21 +30,26 @@ import kpt.core.database.charge.entity.ChargesEntity
 @Dao
 interface ChargeDao {
 
+    /** Observes the `Charges` rows whose `resourceType` is `resourceType` and `resourceId` is `resourceId`. */
     @Query("SELECT * FROM Charges WHERE resourceType = :resourceType AND resourceId = :resourceId")
     fun observeCharges(resourceType: String, resourceId: Int): Flow<List<ChargesEntity>>
 
+    /** Observes one charge of a resource. */
     @Query(
         "SELECT * FROM Charges WHERE resourceType = :resourceType AND resourceId = :resourceId " +
             "AND id = :chargeId LIMIT 1",
     )
     fun observeCharge(resourceType: String, resourceId: Int, chargeId: Int): Flow<ChargesEntity?>
 
+    /** Saves `charges`, replacing rows with the same key. */
     @Insert(entity = ChargesEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCharges(charges: List<ChargesEntity>)
 
+    /** Deletes the `Charges` rows whose `resourceType` is `resourceType` and `resourceId` is `resourceId`. */
     @Query("DELETE FROM Charges WHERE resourceType = :resourceType AND resourceId = :resourceId")
     suspend fun deleteCharges(resourceType: String, resourceId: Int)
 
+    /** Deletes one charge of a resource. */
     @Query(
         "DELETE FROM Charges WHERE resourceType = :resourceType AND resourceId = :resourceId " +
             "AND id = :chargeId",

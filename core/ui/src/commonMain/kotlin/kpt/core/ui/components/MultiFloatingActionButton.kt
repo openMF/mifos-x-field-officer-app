@@ -41,19 +41,30 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** What a create button creates. */
 enum class FabType {
+    /** A client. */
     CLIENT,
+
+    /** A centre. */
     CENTER,
+
+    /** A group. */
     GROUP,
 }
 
+/** Whether the create buttons are shown. */
 sealed class FabButtonState {
+    /** Hidden. */
     data object Collapsed : FabButtonState()
 
+    /** Shown. */
     data object Expand : FabButtonState()
 
+    /** True when shown. */
     fun isExpanded() = this == Expand
 
+    /** The other state. */
     fun toggleValue() = if (isExpanded()) {
         Collapsed
     } else {
@@ -61,11 +72,30 @@ sealed class FabButtonState {
     }
 }
 
+/**
+ * One create button.
+ *
+ * @property fabType what it creates
+ */
 sealed class FabButton(val fabType: FabType) {
+    /**
+     * Create button with a drawable icon.
+     *
+     * @property type what it creates
+     * @property iconRes its icon
+     */
     data class DrawableFab(val type: FabType, val iconRes: DrawableResource) : FabButton(type)
+
+    /**
+     * Create button with a vector icon.
+     *
+     * @property type what it creates
+     * @property iconRes its icon
+     */
     data class VectorFab(val type: FabType, val iconRes: ImageVector) : FabButton(type)
 }
 
+/** One create button. */
 @Composable
 fun FabItem(
     fabButton: FabButton,
@@ -90,6 +120,7 @@ fun FabItem(
     }
 }
 
+/** Expanding floating action button that reveals the create buttons. */
 @Composable
 fun MultiFloatingActionButton(
     fabButtons: List<FabButton>,

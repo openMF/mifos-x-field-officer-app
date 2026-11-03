@@ -16,6 +16,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
+/** Dynamic colour on Android 12+, else the brand scheme. */
 @Composable
 actual fun platformColorScheme(useDarkTheme: Boolean, dynamicColor: Boolean): ColorScheme {
     return when {

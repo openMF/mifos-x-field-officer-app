@@ -2,7 +2,7 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_DATABASE.md`
-> **Measured:** 183 Kotlin files, 11 test files
+> **Measured:** 177 Kotlin files, 11 test files
 
 ## Codegen contracts owned here
 
@@ -16,7 +16,7 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 ## Principal types
 
-`ActualDisbursementDateEntity`, `AddressConfiguration`, `AddressTemplate`, `ApiResponseCacheDao`, `ApiResponseCacheEntity`, `CenterAccounts`, `CenterDao`, `CenterDateEntity`, `CenterDetail`, `CenterDetailEntity`, `CenterEntity`, `CenterPayloadEntity`, `CenterTypeConverters`, `CenterWithAssociations`  …and 143 more
+`ActualDisbursementDateEntity`, `AddressConfiguration`, `AddressTemplate`, `ApiResponseCacheDao`, `ApiResponseCacheEntity`, `CenterAccounts`, `CenterDao`, `CenterDateEntity`, `CenterDetail`, `CenterDetailEntity`, `CenterEntity`, `CenterPayloadEntity`, `CenterTypeConverters`, `CenterWithAssociations`  …and 142 more
 
 <!-- scaffold:end -->
 
@@ -24,10 +24,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/database sha=6841035d386761aef046b1c5b34ce3c96efb2d47 -->
+<!-- api-docs:begin module=core/database sha=4af6683775c456faf4137e304912bfb499a300f0 -->
 ## API reference
 
-_Generated from `core/database` at tree `6841035d3867` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/database` at tree `4af6683775c4` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/cache/dao/ApiResponseCacheDao.kt`
@@ -35,7 +35,7 @@ _Do not hand-edit inside this block — re-run the generator. Authored prose bel
 ```kotlin
 interface ApiResponseCacheDao
 ```
-_No KDoc at source._
+Room queries for api response cache rows.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/client/ClientRepositoryTest.kt:114</code></summary>
 
@@ -51,12 +51,12 @@ _No KDoc at source._
 
 </details>
 
-- `fun observe(cacheKey: String): Flow<ApiResponseCacheEntity?>`
+- `fun observe(cacheKey: String): Flow<ApiResponseCacheEntity?>` — Observes the `api_response_cache` row whose `cacheKey` is `cacheKey`.
 - `fun observeByPrefix(prefix: String): Flow<List<ApiResponseCacheEntity>>` — Every cached response under one prefix, re-emitting on any write to the table — the read side of `deleteByPrefix`.
-- `suspend fun upsert(row: ApiResponseCacheEntity)`
-- `suspend fun delete(cacheKey: String)`
+- `suspend fun upsert(row: ApiResponseCacheEntity)` — Inserts `row`, or replaces the row with the same key.
+- `suspend fun delete(cacheKey: String)` — Deletes the `api_response_cache` rows whose `cacheKey` is `cacheKey`.
 - `suspend fun deleteByPrefix(prefix: String)` — Drop every cached response under one prefix — the seam a feature uses to invalidate its own reads after a write, without knowing which keys exist.
-- `suspend fun deleteAll()`
+- `suspend fun deleteAll()` — Deletes every `api_response_cache` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/cache/entity/ApiResponseCacheEntity.kt`
 
@@ -84,14 +84,14 @@ One row per cached read — the offline backing for reads that have no table of 
 ```kotlin
 class CenterTypeConverters
 ```
-_No KDoc at source._
+Room column converters for center fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt`
 
 ```kotlin
 interface CenterDao
 ```
-_No KDoc at source._
+Room queries for center rows.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/center/CenterStore.kt:40</code></summary>
 
@@ -107,16 +107,16 @@ fun provideCenterStore(
 
 </details>
 
-- `suspend fun saveCenter(center: CenterEntity)`
-- `suspend fun saveLoanAccount(loanAccount: LoanAccountEntity)`
-- `suspend fun saveSavingsAccount(savingsAccount: SavingsAccountEntity)`
-- `suspend fun saveMemberLoanAccount(loanAccount: LoanAccountEntity)`
-- `suspend fun saveCenterPayload(centerPayload: CenterPayloadEntity)`
-- `suspend fun updateCenterPayload(centerPayload: CenterPayloadEntity)`
-- `suspend fun deleteCenterPayloadById(id: Int)`
-- `fun readAllCenters(): Flow<List<CenterEntity>>`
-- `fun readAllCenterPayload(): Flow<List<CenterPayloadEntity>>`
-- `fun getCenterAssociateGroups(centerId: Int): Flow<List<GroupEntity>>`
+- `suspend fun saveCenter(center: CenterEntity)` — Saves `center`, replacing any row with the same key.
+- `suspend fun saveLoanAccount(loanAccount: LoanAccountEntity)` — Saves `loanAccount`, replacing any row with the same key.
+- `suspend fun saveSavingsAccount(savingsAccount: SavingsAccountEntity)` — Saves `savingsAccount`, replacing any row with the same key.
+- `suspend fun saveMemberLoanAccount(loanAccount: LoanAccountEntity)` — Saves `loanAccount`, replacing any row with the same key.
+- `suspend fun saveCenterPayload(centerPayload: CenterPayloadEntity)` — Saves `centerPayload`, replacing any row with the same key.
+- `suspend fun updateCenterPayload(centerPayload: CenterPayloadEntity)` — Updates the stored row of `centerPayload`.
+- `suspend fun deleteCenterPayloadById(id: Int)` — Deletes the `CenterPayload` rows whose `id` is `id`.
+- `fun readAllCenters(): Flow<List<CenterEntity>>` — Observes the `Center` rows.
+- `fun readAllCenterPayload(): Flow<List<CenterPayloadEntity>>` — Observes the `CenterPayload` rows.
+- `fun getCenterAssociateGroups(centerId: Int): Flow<List<GroupEntity>>` — Observes the `GroupTable` rows whose `centerId` is `centerId`.
 - `suspend fun saveCenterWithDate(center: CenterEntity)` — Persist a center, deriving its split date columns from `activationDate`. Was `CenterDaoHelper.saveCenter`.
 - `val id = center.id`
 - `val date = if (center.activationDate.size >= 3 && id != null)`
@@ -149,18 +149,18 @@ internal class EntityStores(
 ```kotlin
 data class CenterDateEntity(
 ```
-_No KDoc at source._
+Room row for a center date.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:25</code></summary>
 
 ```kotlin
-
+    /** Stores a `CenterDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromCenterDate(centerDate: CenterDateEntity?): String? {
         return centerDate?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `CenterDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -170,18 +170,18 @@ _No KDoc at source._
 ```kotlin
 data class CenterEntity(
 ```
-_No KDoc at source._
+Room row for a center.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:34</code></summary>
 
 ```kotlin
-interface CenterDao {
 
+    /** Saves `center`, replacing any row with the same key. */
     @Insert(entity = CenterEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCenter(center: CenterEntity)
 
+    /** Saves `loanAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = LoanAccountEntity::class)
-    suspend fun saveLoanAccount(loanAccount: LoanAccountEntity)
 ```
 
 </details>
@@ -191,18 +191,18 @@ interface CenterDao {
 ```kotlin
 data class CenterPayloadEntity(
 ```
-_No KDoc at source._
+Room row for a center payload.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:44</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:50</code></summary>
 
 ```kotlin
-    suspend fun saveMemberLoanAccount(loanAccount: LoanAccountEntity)
 
+    /** Saves `centerPayload`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = CenterPayloadEntity::class)
     suspend fun saveCenterPayload(centerPayload: CenterPayloadEntity)
 
+    /** Updates the stored row of `centerPayload`. */
     @Update(entity = CenterPayloadEntity::class, onConflict = OnConflictStrategy.NONE)
-    suspend fun updateCenterPayload(centerPayload: CenterPayloadEntity)
 ```
 
 </details>
@@ -233,14 +233,14 @@ Created by ishankhanna on 28/06/14.
 ```kotlin
 object ChargeTypeConverters
 ```
-_No KDoc at source._
+Room column converters for charge fields.
 
-- `fun fromChargeTimeType(type: ChargeTimeTypeEntity?): String?`
-- `fun toChargeTimeType(json: String?): ChargeTimeTypeEntity?`
-- `fun fromChargeCalculationType(type: ChargeCalculationTypeEntity?): String?`
-- `fun toChargeCalculationType(json: String?): ChargeCalculationTypeEntity?`
-- `fun fromClientChargeCurrency(currency: ClientChargeCurrencyEntity?): String?`
-- `fun toClientChargeCurrency(json: String?): ClientChargeCurrencyEntity?`
+- `fun fromChargeTimeType(type: ChargeTimeTypeEntity?): String?` — Stores a `ChargeTimeTypeEntity?` in a JSON column.
+- `fun toChargeTimeType(json: String?): ChargeTimeTypeEntity?` — Reads a `ChargeTimeTypeEntity?` back from the JSON column it is stored in.
+- `fun fromChargeCalculationType(type: ChargeCalculationTypeEntity?): String?` — Stores a `ChargeCalculationTypeEntity?` in a JSON column.
+- `fun toChargeCalculationType(json: String?): ChargeCalculationTypeEntity?` — Reads a `ChargeCalculationTypeEntity?` back from the JSON column it is stored in.
+- `fun fromClientChargeCurrency(currency: ClientChargeCurrencyEntity?): String?` — Stores a `ClientChargeCurrencyEntity?` in a JSON column.
+- `fun toClientChargeCurrency(json: String?): ClientChargeCurrencyEntity?` — Reads a `ClientChargeCurrencyEntity?` back from the JSON column it is stored in.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/charge/dao/ChargeDao.kt`
 
@@ -249,7 +249,7 @@ interface ChargeDao
 ```
 Created by Pronay Sarker on 14/02/2025 (3:32 PM) Every query is scoped by the OWNER (`resourceType` + `resourceId`), which is also the leading half of the table's primary key — see `ChargesEntity`.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/charge/ChargeStore.kt:55</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/charge/ChargeStore.kt:63</code></summary>
 
 ```kotlin
 fun provideChargeStore(
@@ -263,11 +263,11 @@ fun provideChargeStore(
 
 </details>
 
-- `fun observeCharges(resourceType: String, resourceId: Int): Flow<List<ChargesEntity>>`
-- `fun observeCharge(resourceType: String, resourceId: Int, chargeId: Int): Flow<ChargesEntity?>`
-- `suspend fun insertAllCharges(charges: List<ChargesEntity>)`
-- `suspend fun deleteCharges(resourceType: String, resourceId: Int)`
-- `suspend fun deleteCharge(resourceType: String, resourceId: Int, chargeId: Int)`
+- `fun observeCharges(resourceType: String, resourceId: Int): Flow<List<ChargesEntity>>` — Observes the `Charges` rows whose `resourceType` is `resourceType` and `resourceId` is `resourceId`.
+- `fun observeCharge(resourceType: String, resourceId: Int, chargeId: Int): Flow<ChargesEntity?>` — Observes one charge of a resource.
+- `suspend fun insertAllCharges(charges: List<ChargesEntity>)` — Saves `charges`, replacing rows with the same key.
+- `suspend fun deleteCharges(resourceType: String, resourceId: Int)` — Deletes the `Charges` rows whose `resourceType` is `resourceType` and `resourceId` is `resourceId`.
+- `suspend fun deleteCharge(resourceType: String, resourceId: Int, chargeId: Int)` — Deletes one charge of a resource.
 - `suspend fun deleteAllCharges()` — What the logout purge reaches through the charge store's `deleteAll`.
 - `suspend fun replaceCharges(resourceType: String, resourceId: Int, charges: List<ChargesEntity>)` — A fetch is the server's WHOLE list for the owner, so a row it no longer contains was deleted and must leave the table — an upsert-only write kept a waived or deleted charge on screen.
 - `suspend fun upsertCharge(resourceType: String, resourceId: Int, charge: ChargesEntity) =` — One charge, stamped with its owner.
@@ -279,16 +279,16 @@ data class ChargeCalculationTypeEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:37</code></summary>
 
 ```kotlin
-
+    /** Stores a `ChargeCalculationTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromChargeCalculationType(type: ChargeCalculationTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ChargeCalculationTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -300,16 +300,16 @@ data class ChargeTimeTypeEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:25</code></summary>
 
 ```kotlin
-
+    /** Stores a `ChargeTimeTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromChargeTimeType(type: ChargeTimeTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ChargeTimeTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -321,16 +321,16 @@ data class ChargesEntity(
 ```
 Created by nellyk on 2/15/2016. ## Keyed by OWNER + id, not by id Client, loan and savings charges are three different Fineract tables (`m_client_charge`, `m_loan_charge`, `m_savings_account_charge`), so their ids coincide freely.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/dao/ChargeDao.kt:34</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/dao/ChargeDao.kt:35</code></summary>
 
 ```kotlin
-
+    /** Observes the `Charges` rows whose `resourceType` is `resourceType` and `resourceId` is `resourceId`. */
     @Query("SELECT * FROM Charges WHERE resourceType = :resourceType AND resourceId = :resourceId")
     fun observeCharges(resourceType: String, resourceId: Int): Flow<List<ChargesEntity>>
 
+    /** Observes one charge of a resource. */
     @Query(
         "SELECT * FROM Charges WHERE resourceType = :resourceType AND resourceId = :resourceId " +
-            "AND id = :chargeId LIMIT 1",
 ```
 
 </details>
@@ -342,16 +342,16 @@ data class ClientChargeCurrencyEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:43</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/converter/ChargeTypeConverters.kt:49</code></summary>
 
 ```kotlin
-
+    /** Stores a `ClientChargeCurrencyEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromClientChargeCurrency(currency: ClientChargeCurrencyEntity?): String? {
         return currency?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ClientChargeCurrencyEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -361,7 +361,7 @@ A COLUMN, not a table. This is embedded in its parent entity and persisted by a 
 ```kotlin
 interface CheckerInboxDao
 ```
-_No KDoc at source._
+Room queries for checker inbox rows.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/checkerinbox/CheckerInboxStore.kt:35</code></summary>
 
@@ -380,9 +380,9 @@ fun provideCheckerInboxStore(
 - `fun observeAll(): Flow<List<CheckerTaskEntity>>` — Observe the pending queue, newest first. Emits on every change.
 - `fun observeById(id: Int): Flow<CheckerTaskEntity?>` — Observe one task. Emits `null` once it is approved/rejected and purged.
 - `suspend fun getById(id: Int): CheckerTaskEntity?` — One-shot read for non-reactive callers.
-- `suspend fun upsertAll(tasks: List<CheckerTaskEntity>)`
+- `suspend fun upsertAll(tasks: List<CheckerTaskEntity>)` — Inserts `tasks`, or replaces rows with the same key.
 - `suspend fun deleteById(id: Int)` — A decided task leaves the queue — the server is the authority on what remains.
-- `suspend fun deleteAll()`
+- `suspend fun deleteAll()` — Deletes every `checker_tasks` row.
 - `suspend fun replaceAll(tasks: List<CheckerTaskEntity>)` — Make the table EXACTLY the server's pending queue. The store's writer used `upsertAll` alone, so a task decided elsewhere (the web app, another checker) stayed pending here for good.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/checkerinbox/entity/CheckerTaskEntity.kt`
@@ -392,7 +392,7 @@ data class CheckerTaskEntity(
 ```
 A maker-checker task awaiting approval. Cached so a field officer can REVIEW the pending queue offline; the approve/reject actions themselves stay online-only (D1 — an authorisation decision must reach Fineract to be real).
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/checkerinbox/dao/CheckerInboxDao.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/checkerinbox/dao/CheckerInboxDao.kt:27</code></summary>
 
 ```kotlin
     /** Observe the pending queue, newest first. Emits on every change. */
@@ -416,21 +416,21 @@ The entity columns are nullable because Fineract omits them on partially-process
 ```kotlin
 fun CheckerTask.toEntity(): CheckerTaskEntity = CheckerTaskEntity(
 ```
-_No KDoc at source._
+Maps the domain task to its stored row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt`
 
 ```kotlin
 class ClientOptionsTypeConverters
 ```
-_No KDoc at source._
+Room column converters for client options fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientTypeConverters.kt`
 
 ```kotlin
 class ClientTypeConverters
 ```
-_No KDoc at source._
+Room column converters for client fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientAddressIdentifierDao.kt`
 
@@ -439,30 +439,29 @@ interface ClientAddressIdentifierDao
 ```
 Client addresses and identifiers.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:34</code></summary>
 
 ```kotlin
     ClientDataTableDao,
     ClientPayloadDao,
     ClientAddressIdentifierDao {
+    /** Saves `client`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientEntity::class)
     suspend fun insertClient(client: ClientEntity)
-
-    @Query("SELECT * FROM Client")
 ```
 
 </details>
 
-- `suspend fun insertAddress(address: ClientAddressEntity)`
-- `suspend fun insertAddresses(addresses: List<ClientAddressEntity>)`
-- `fun getAddressesByClientId(clientId: Int): Flow<List<ClientAddressEntity>>`
-- `fun getAddressById(addressId: Int): Flow<ClientAddressEntity?>`
-- `suspend fun deleteAddressesByClientId(clientId: Int)`
-- `fun searchAddressesByQuery(query: String): Flow<List<ClientAddressEntity>>`
-- `suspend fun insertIdentifiers(identifiers: List<ClientIdentifierEntity>)`
-- `fun getIdentifiersByClientId(clientId: Int): Flow<List<ClientIdentifierEntity>>`
-- `suspend fun deleteIdentifiersByClientId(clientId: Int)`
-- `fun searchIdentifiersByQuery(query: String): Flow<List<ClientIdentifierEntity>>`
+- `suspend fun insertAddress(address: ClientAddressEntity)` — Saves `address`, replacing any row with the same key.
+- `suspend fun insertAddresses(addresses: List<ClientAddressEntity>)` — Saves `addresses`, replacing rows with the same key.
+- `fun getAddressesByClientId(clientId: Int): Flow<List<ClientAddressEntity>>` — Observes the `ClientAddress` rows whose `clientID` is `clientId`.
+- `fun getAddressById(addressId: Int): Flow<ClientAddressEntity?>` — Observes the `ClientAddress` row whose `addressId` is `addressId`.
+- `suspend fun deleteAddressesByClientId(clientId: Int)` — Deletes the `ClientAddress` rows whose `clientID` is `clientId`.
+- `fun searchAddressesByQuery(query: String): Flow<List<ClientAddressEntity>>` — Observes the addresses with any text field matching `query`, a LIKE pattern.
+- `suspend fun insertIdentifiers(identifiers: List<ClientIdentifierEntity>)` — Saves `identifiers`, replacing rows with the same key.
+- `fun getIdentifiersByClientId(clientId: Int): Flow<List<ClientIdentifierEntity>>` — Observes the `ClientIdentifier` rows whose `clientId` is `clientId`.
+- `suspend fun deleteIdentifiersByClientId(clientId: Int)` — Deletes the `ClientIdentifier` rows whose `clientId` is `clientId`.
+- `fun searchIdentifiersByQuery(query: String): Flow<List<ClientIdentifierEntity>>` — Observes the identifiers with any text field matching `query`, a LIKE pattern.
 - `suspend fun replaceIdentifiersForClients(identifiers: List<ClientIdentifierEntity>)` — Replace every identifier belonging to the touched clients.
 - `val valid = identifiers.filter { it.clientId != null }`
 
@@ -471,7 +470,7 @@ Client addresses and identifiers.
 ```kotlin
 interface ClientDao :
 ```
-_No KDoc at source._
+Room queries for client rows.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/client/ClientStore.kt:37</code></summary>
 
@@ -487,19 +486,19 @@ fun provideClientStore(
 
 </details>
 
-- `suspend fun insertClient(client: ClientEntity)`
-- `fun getAllClients(): Flow<List<ClientEntity>>`
-- `fun getClientsByGroupId(groupId: Int): Flow<List<ClientEntity>>`
-- `fun getClientByClientId(clientId: Int): Flow<ClientEntity?>`
+- `suspend fun insertClient(client: ClientEntity)` — Saves `client`, replacing any row with the same key.
+- `fun getAllClients(): Flow<List<ClientEntity>>` — Observes the `Client` rows.
+- `fun getClientsByGroupId(groupId: Int): Flow<List<ClientEntity>>` — Observes the `Client` rows whose `groupId` is `groupId`.
+- `fun getClientByClientId(clientId: Int): Flow<ClientEntity?>` — Observes the `Client` row whose `id` is `clientId`.
 - `suspend fun deleteClientById(clientId: Int)` — Per-key clear for the `clientRow` write store.
 - `suspend fun deleteAllClients()` — The roster store's `deleteAll` — what the logout purge reaches the `Client` table through.
-- `suspend fun insertLoanAccount(loanAccount: LoanAccountEntity)`
-- `suspend fun insertSavingsAccount(savingsAccount: SavingsAccountEntity)`
-- `fun getLoanAccountsByClientId(clientId: Long): Flow<List<LoanAccountEntity>>`
-- `fun getSavingsAccountsByClientId(clientId: Long): Flow<List<SavingsAccountEntity>>`
-- `const val GENDER_OPTIONS = "genderOptions"`
-- `const val CLIENT_TYPE_OPTIONS = "clientTypeOptions"`
-- `const val CLIENT_CLASSIFICATION_OPTIONS = "clientClassificationOptions"`
+- `suspend fun insertLoanAccount(loanAccount: LoanAccountEntity)` — Saves `loanAccount`, replacing any row with the same key.
+- `suspend fun insertSavingsAccount(savingsAccount: SavingsAccountEntity)` — Saves `savingsAccount`, replacing any row with the same key.
+- `fun getLoanAccountsByClientId(clientId: Long): Flow<List<LoanAccountEntity>>` — Observes the `LoanAccountEntity` rows whose `clientId` is `clientId`.
+- `fun getSavingsAccountsByClientId(clientId: Long): Flow<List<SavingsAccountEntity>>` — Observes the `SavingsAccount` rows whose `clientId` is `clientId`.
+- `const val GENDER_OPTIONS = "genderOptions"` — The option type of genders.
+- `const val CLIENT_TYPE_OPTIONS = "clientTypeOptions"` — The option type of client types.
+- `const val CLIENT_CLASSIFICATION_OPTIONS = "clientClassificationOptions"` — The option type of client classifications.
 - `suspend fun saveClientWithDate(client: ClientEntity)` — Persist a client, deriving its split date columns. Was `ClientDaoHelper.saveClient`.
   _…more members; read the file._
 
@@ -510,7 +509,7 @@ interface ClientDataTableDao
 ```
 Datatable header/value rows that ride along a client template.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:31</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:32</code></summary>
 
 ```kotlin
 interface ClientDao :
@@ -518,21 +517,21 @@ interface ClientDao :
     ClientDataTableDao,
     ClientPayloadDao,
     ClientAddressIdentifierDao {
+    /** Saves `client`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientEntity::class)
-    suspend fun insertClient(client: ClientEntity)
 ```
 
 </details>
 
-- `suspend fun insertColumnHeader(columnHeader: ColumnHeader)`
-- `suspend fun insertColumnValue(columnValue: ColumnValue)`
-- `suspend fun deleteDataTables()`
-- `suspend fun deleteColumnHeaders()`
-- `suspend fun deleteColumnValues()`
-- `fun getDatatableByTableName(tableName: String): Flow<List<DataTableEntity>>`
-- `fun getColumnHeadersByTableName(tableName: String): Flow<List<ColumnHeader>>`
-- `fun getColumnValuesByTableName(tableName: String): Flow<List<ColumnValue>>`
-- `suspend fun insertDataTable(dataTable: DataTableEntity)`
+- `suspend fun insertColumnHeader(columnHeader: ColumnHeader)` — Saves `columnHeader`, replacing any row with the same key.
+- `suspend fun insertColumnValue(columnValue: ColumnValue)` — Saves `columnValue`, replacing any row with the same key.
+- `suspend fun deleteDataTables()` — Deletes every `DataTable` row.
+- `suspend fun deleteColumnHeaders()` — Deletes every `ColumnHeader` row.
+- `suspend fun deleteColumnValues()` — Deletes every `ColumnValue` row.
+- `fun getDatatableByTableName(tableName: String): Flow<List<DataTableEntity>>` — Observes the `DataTable` rows whose `applicationTableName` is `tableName`.
+- `fun getColumnHeadersByTableName(tableName: String): Flow<List<ColumnHeader>>` — Observes the `ColumnHeader` rows whose `registeredTableName` is `tableName`.
+- `fun getColumnValuesByTableName(tableName: String): Flow<List<ColumnValue>>` — Observes the `ColumnValue` rows whose `registeredTableName` is `tableName`.
+- `suspend fun insertDataTable(dataTable: DataTableEntity)` — Saves `dataTable`, replacing any row with the same key.
 - `suspend fun replaceDataTables(dataTables: List<DataTableEntity>)` — Replace every datatable (and its headers/values) — cleared ONCE, then rewritten.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientPayloadDao.kt`
@@ -542,26 +541,27 @@ interface ClientPayloadDao
 ```
 Offline client payload queue.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:33</code></summary>
 
 ```kotlin
     ClientTemplateOptionsDao,
     ClientDataTableDao,
     ClientPayloadDao,
     ClientAddressIdentifierDao {
+    /** Saves `client`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientEntity::class)
     suspend fun insertClient(client: ClientEntity)
 ```
 
 </details>
 
-- `suspend fun insertClientPayload(clientPayload: ClientPayloadEntity)`
-- `suspend fun insertDataTablePayload(dataTablePayloads: DataTablePayload)`
-- `fun getAllClientPayload(): Flow<List<ClientPayloadEntity>>`
-- `fun getDataTablePayloadByCreationTime(clientCreationTime: Long): Flow<List<DataTablePayload>>`
-- `suspend fun deleteClientPayloadById(id: Int)`
-- `suspend fun deleteDataTablePayloadByCreationTime(clientCreationTime: Long)`
-- `suspend fun updateDatabaseClientPayload(clientPayload: ClientPayloadEntity)`
+- `suspend fun insertClientPayload(clientPayload: ClientPayloadEntity)` — Saves `clientPayload`, replacing any row with the same key.
+- `suspend fun insertDataTablePayload(dataTablePayloads: DataTablePayload)` — Saves `dataTablePayloads`, replacing any row with the same key.
+- `fun getAllClientPayload(): Flow<List<ClientPayloadEntity>>` — Observes the `ClientPayload` rows.
+- `fun getDataTablePayloadByCreationTime(clientCreationTime: Long): Flow<List<DataTablePayload>>` — Observes the `DataTablePayload` rows whose `clientCreationTime` is `clientCreationTime`.
+- `suspend fun deleteClientPayloadById(id: Int)` — Deletes the `ClientPayload` rows whose `id` is `id`.
+- `suspend fun deleteDataTablePayloadByCreationTime(clientCreationTime: Long)` — Deletes the `DataTablePayload` rows whose `clientCreationTime` is `clientCreationTime`.
+- `suspend fun updateDatabaseClientPayload(clientPayload: ClientPayloadEntity)` — Updates the stored row of `clientPayload`.
 - `suspend fun deleteClientPayloadWithData(id: Int, clientCreationTime: Long)` — Drop an offline client payload together with the datatable rows queued alongside it. Was `ClientDaoHelper.deleteAndUpdatePayloads` — now atomic, so a half-deleted payload cannot be replayed on the next sync.
 - `fun observeClientPayload(id: Int): Flow<ClientPayloadEntity?>` — One queued offline client, for the write store's source of truth.
 - `suspend fun deleteAllClientPayloads()` — The logout purge for the offline client queue — a capture must not outlive its officer.
@@ -573,7 +573,7 @@ interface ClientTemplateOptionsDao
 ```
 Client template + option-table reads/writes.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:30</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:31</code></summary>
 
 ```kotlin
 @Dao
@@ -582,30 +582,30 @@ interface ClientDao :
     ClientDataTableDao,
     ClientPayloadDao,
     ClientAddressIdentifierDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientEntity::class)
+    /** Saves `client`, replacing any row with the same key. */
 ```
 
 </details>
 
-- `suspend fun insertClientsTemplate(clientsTemplate: ClientsTemplateEntity)`
-- `suspend fun insertOfficeOptions(officeOptions: List<OfficeOptionsEntity>)`
-- `suspend fun insertStaffOptions(staffOptions: List<StaffOptionsEntity>)`
-- `suspend fun insertSavingProductOptions(savingProductOptions: List<SavingProductOptionsEntity>)`
-- `suspend fun insertOption(options: OptionsEntity)`
-- `suspend fun insertInterestTypes(interestTypes: List<InterestTypeEntity>)`
-- `suspend fun getClientsTemplate(): ClientsTemplateEntity`
-- `fun getOfficeOptions(): Flow<List<OfficeOptionsEntity>>`
-- `fun getStaffOptions(): Flow<List<StaffOptionsEntity>>`
-- `fun getSavingProductOptions(): Flow<List<SavingProductOptionsEntity>>`
-- `fun getOptions(optionType: String): Flow<List<OptionsEntity>>`
-- `fun getAllInterestType(): Flow<List<InterestTypeEntity>>`
+- `suspend fun insertClientsTemplate(clientsTemplate: ClientsTemplateEntity)` — Saves `clientsTemplate`, replacing any row with the same key.
+- `suspend fun insertOfficeOptions(officeOptions: List<OfficeOptionsEntity>)` — Saves `officeOptions`, replacing rows with the same key.
+- `suspend fun insertStaffOptions(staffOptions: List<StaffOptionsEntity>)` — Saves `staffOptions`, replacing rows with the same key.
+- `suspend fun insertSavingProductOptions(savingProductOptions: List<SavingProductOptionsEntity>)` — Saves `savingProductOptions`, replacing rows with the same key.
+- `suspend fun insertOption(options: OptionsEntity)` — Saves `options`, replacing any row with the same key.
+- `suspend fun insertInterestTypes(interestTypes: List<InterestTypeEntity>)` — Saves `interestTypes`, replacing rows with the same key.
+- `suspend fun getClientsTemplate(): ClientsTemplateEntity` — Reads the `ClientsTemplate` row.
+- `fun getOfficeOptions(): Flow<List<OfficeOptionsEntity>>` — Observes the `ClientTemplateOfficeOptions` rows.
+- `fun getStaffOptions(): Flow<List<StaffOptionsEntity>>` — Observes the `ClientTemplateStaffOptions` rows.
+- `fun getSavingProductOptions(): Flow<List<SavingProductOptionsEntity>>` — Observes the `ClientTemplateSavingProductsOptions` rows.
+- `fun getOptions(optionType: String): Flow<List<OptionsEntity>>` — Observes the `ClientTemplateOptions` rows whose `optionType` is `optionType`.
+- `fun getAllInterestType(): Flow<List<InterestTypeEntity>>` — Observes the `ClientTemplateInterest` rows.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/client/entity/AddressTemplate.kt`
 
 ```kotlin
 data class AddressTemplate(
 ```
-_No KDoc at source._
+Server template for an address: the options its form offers.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/addaddress/ClientAddAddressScreen.kt:130</code></summary>
 
@@ -624,18 +624,17 @@ internal fun ClientAddAddressContent(
 ```kotlin
 data class AddressConfiguration(
 ```
-_No KDoc at source._
+An address configuration.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientRepository.kt:106</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/ClientRepository.kt:107</code></summary>
 
 ```kotlin
      * validation made client creation impossible on such a tenant.
      */
     fun addressConfigurationStream(scope: CoroutineScope): ScreenDataStream<AddressConfiguration>
 
+    /** The address template: address types and the fields each one takes. */
     fun addressTemplateStream(scope: CoroutineScope): ScreenDataStream<AddressTemplate>
-
-    /** Where the officer has recorded this client — the pinpoint map/list. */
 ```
 
 </details>
@@ -645,7 +644,7 @@ _No KDoc at source._
 ```kotlin
 data class ClientAccounts(
 ```
-_No KDoc at source._
+The loan and savings accounts of a client.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/general/ClientGeneralViewModel.kt:124</code></summary>
 
@@ -666,7 +665,7 @@ internal fun performanceHistory(accounts: ClientAccounts): PerformanceHistory {
 ```kotlin
 data class ClientAddressEntity(
 ```
-_No KDoc at source._
+Room row for a client address.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/address/ClientAddressScreen.kt:129</code></summary>
 
@@ -689,16 +688,16 @@ data class ClientClassificationEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:28</code></summary>
 
 ```kotlin
-class ClientOptionsTypeConverters {
+    /** Stores a `ClientClassificationEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromClientClassificationEntity(clientClassification: ClientClassificationEntity?): String? {
         return clientClassification?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ClientClassificationEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -708,18 +707,17 @@ class ClientOptionsTypeConverters {
 ```kotlin
 data class ClientDateEntity(
 ```
-_No KDoc at source._
+Room row for a client date.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/entity/ChargesEntity.kt:65</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/charge/entity/ChargesEntity.kt:70</code></summary>
 
 ```kotlin
-    val chargeTimeType: ChargeTimeTypeEntity? = null,
 
+    /** The date the charge is due. */
     val chargeDueDate: ClientDateEntity? = null,
 
+    /** The date the amount is due. */
     val dueDate: List<Int>? = null,
-
-    val chargeCalculationType: ChargeCalculationTypeEntity? = null,
 ```
 
 </details>
@@ -729,18 +727,18 @@ _No KDoc at source._
 ```kotlin
 data class ClientEntity(
 ```
-_No KDoc at source._
+Room row for a client.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:34</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:36</code></summary>
 
 ```kotlin
-    ClientPayloadDao,
     ClientAddressIdentifierDao {
+    /** Saves `client`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientEntity::class)
     suspend fun insertClient(client: ClientEntity)
 
+    /** Observes the `Client` rows. */
     @Query("SELECT * FROM Client")
-    fun getAllClients(): Flow<List<ClientEntity>>
 ```
 
 </details>
@@ -752,16 +750,16 @@ data class ClientGenderEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientTypeConverters.kt:66</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientTypeConverters.kt:76</code></summary>
 
 ```kotlin
-
+    /** Stores a `ClientGenderEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromClientGenderEntity(gender: ClientGenderEntity?): String? {
         return gender?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ClientGenderEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -771,18 +769,18 @@ A COLUMN, not a table. This is embedded in its parent entity and persisted by a 
 ```kotlin
 data class ClientIdentifierEntity(
 ```
-_No KDoc at source._
+Room row for a client identifier.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientAddressIdentifierDao.kt:53</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientAddressIdentifierDao.kt:60</code></summary>
 
 ```kotlin
-    fun searchAddressesByQuery(query: String): Flow<List<ClientAddressEntity>>
 
+    /** Saves `identifiers`, replacing rows with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientIdentifierEntity::class)
     suspend fun insertIdentifiers(identifiers: List<ClientIdentifierEntity>)
 
+    /** Observes the `ClientIdentifier` rows whose `clientId` is `clientId`. */
     @Query("SELECT * FROM ClientIdentifier WHERE clientId = :clientId")
-    fun getIdentifiersByClientId(clientId: Int): Flow<List<ClientIdentifierEntity>>
 ```
 
 </details>
@@ -792,18 +790,18 @@ _No KDoc at source._
 ```kotlin
 data class ClientPayloadEntity(
 ```
-_No KDoc at source._
+Room row for a client payload.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientPayloadDao.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientPayloadDao.kt:24</code></summary>
 
 ```kotlin
-/** Offline client payload queue. */
 interface ClientPayloadDao {
+    /** Saves `clientPayload`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientPayloadEntity::class)
     suspend fun insertClientPayload(clientPayload: ClientPayloadEntity)
 
+    /** Saves `dataTablePayloads`, replacing any row with the same key. */
     @Insert(entity = DataTablePayload::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDataTablePayload(dataTablePayloads: DataTablePayload)
 ```
 
 </details>
@@ -815,16 +813,15 @@ data class ClientStatusEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterEntity.kt:55</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterEntity.kt:66</code></summary>
 
 ```kotlin
-    val hierarchy: String? = null,
 
+    /** The record's Fineract status. */
     val status: ClientStatusEntity? = null,
 
+    /** True when the record is active. */
     val active: Boolean? = null,
-
-    val centerDate: CenterDateEntity? = null,
 ```
 
 </details>
@@ -836,16 +833,16 @@ data class ClientTypeEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientTypeConverters.kt:76</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientTypeConverters.kt:88</code></summary>
 
 ```kotlin
-
+    /** Stores a `ClientTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromClientTypeEntity(clientType: ClientTypeEntity?): String? {
         return clientType?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ClientTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -855,9 +852,9 @@ A COLUMN, not a table. This is embedded in its parent entity and persisted by a 
 ```kotlin
 data class ClientsTemplateEntity(
 ```
-_No KDoc at source._
+Room row for the new-client template.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:127</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDao.kt:142</code></summary>
 
 ```kotlin
      */
@@ -876,18 +873,18 @@ _No KDoc at source._
 ```kotlin
 data class InterestTypeEntity(
 ```
-_No KDoc at source._
+Room row for an interest type.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:66</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:76</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<InterestTypeEntity>` in a JSON column. */
     @ColumnTypeConverter
     fun fromListInterestType(date: List<InterestTypeEntity>): String {
         return date.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<InterestTypeEntity>` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -897,18 +894,18 @@ _No KDoc at source._
 ```kotlin
 data class OfficeOptionsEntity(
 ```
-_No KDoc at source._
+Room row for an office offered by the client template.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:36</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:40</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<OfficeOptionsEntity>` in a JSON column. */
     @ColumnTypeConverter
     fun fromListOfficeOptions(date: List<OfficeOptionsEntity>): String {
         return date.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<OfficeOptionsEntity>` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -918,18 +915,18 @@ _No KDoc at source._
 ```kotlin
 data class OptionsEntity(
 ```
-_No KDoc at source._
+Room row for one client-template option.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:56</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:64</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<OptionsEntity>` in a JSON column. */
     @ColumnTypeConverter
     fun fromListOptions(date: List<OptionsEntity>): String {
         return date.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<OptionsEntity>` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -946,18 +943,18 @@ Created by ishankhanna on 09/02/14.
 ```kotlin
 data class SavingProductOptionsEntity(
 ```
-_No KDoc at source._
+Room row for a savings product offered by the client template.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:76</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:88</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<SavingProductOptionsEntity>` in a JSON column. */
     @ColumnTypeConverter
     fun fromListSavingProductOptions(date: List<SavingProductOptionsEntity>): String {
         return date.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<SavingProductOptionsEntity>` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -967,18 +964,18 @@ _No KDoc at source._
 ```kotlin
 data class StaffOptionsEntity(
 ```
-_No KDoc at source._
+Room row for a staff member offered by the client template.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/converter/ClientOptionsTypeConverters.kt:52</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<StaffOptionsEntity>` in a JSON column. */
     @ColumnTypeConverter
     fun fromListStaffOptions(date: List<StaffOptionsEntity>): String {
         return date.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<StaffOptionsEntity>` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -988,16 +985,16 @@ _No KDoc at source._
 ```kotlin
 class CollectionSheetTypeConverters
 ```
-_No KDoc at source._
+Room column converters for collection sheet fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/dao/CollectionSheetDao.kt`
 
 ```kotlin
 interface CollectionSheetDao
 ```
-_No KDoc at source._
+Room queries for collection sheet rows.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/collectionsheet/CollectionSheetStore.kt:35</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/collectionsheet/CollectionSheetStore.kt:36</code></summary>
 
 ```kotlin
 fun provideCollectionSheetStore(
@@ -1011,12 +1008,12 @@ fun provideCollectionSheetStore(
 
 </details>
 
-- `fun observeAll(): Flow<List<CenterDetailEntity>>`
+- `fun observeAll(): Flow<List<CenterDetailEntity>>` — Observes the `collection_sheet_center_details` rows, ordered by `staffName`.
 - `fun observeForStaff(staffId: Int): Flow<CenterDetailEntity?>` — The roster is read per staff member — that is the only access path the UI has.
-- `suspend fun getForStaff(staffId: Int): CenterDetailEntity?`
-- `suspend fun upsertAll(details: List<CenterDetailEntity>)`
-- `suspend fun deleteForStaff(staffId: Int)`
-- `suspend fun deleteAll()`
+- `suspend fun getForStaff(staffId: Int): CenterDetailEntity?` — Reads the `collection_sheet_center_details` row whose `staffId` is `staffId`.
+- `suspend fun upsertAll(details: List<CenterDetailEntity>)` — Inserts `details`, or replaces rows with the same key.
+- `suspend fun deleteForStaff(staffId: Int)` — Deletes the `collection_sheet_center_details` rows whose `staffId` is `staffId`.
+- `suspend fun deleteAll()` — Deletes every `collection_sheet_center_details` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CenterDetail.kt`
 
@@ -1025,7 +1022,7 @@ data class CenterDetail(
 ```
 Created by Tarun on 25-07-2017.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:33</code></summary>
 
 ```kotlin
         meetingDate: String,
@@ -1046,10 +1043,10 @@ data class CenterDetailEntity(
 ```
 A staff member's centre-meeting roster — the ONE cacheable read on the collection-sheet API.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/dao/CollectionSheetDao.kt:24</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/dao/CollectionSheetDao.kt:26</code></summary>
 
 ```kotlin
-
+    /** Observes the `collection_sheet_center_details` rows, ordered by `staffName`. */
     @Query("SELECT * FROM collection_sheet_center_details ORDER BY staffName ASC")
     fun observeAll(): Flow<List<CenterDetailEntity>>
 
@@ -1088,13 +1085,14 @@ data class CollectionSheetResponse(
 ```
 Created by Tarun on 25-07-2017.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/CollectionSheetRepository.kt:55</code></summary>
 
 ```kotlin
-    suspend fun individualCollectionSheet(request: RequestCollectionSheetPayload): IndividualCollectionSheet?
 
+    /** Generates a centre's productive collection sheet, or null when there is none. */
     suspend fun productiveSheet(centerId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 
+    /** Generates a group's collection sheet, or null when there is none. */
     suspend fun groupCollectionSheet(groupId: Int, request: CollectionSheetRequestPayload): CollectionSheetResponse?
 }
 ```
@@ -1108,16 +1106,15 @@ data class GroupCollectionSheet(
 ```
 Created by Tarun on 25-07-2017.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:29</code></summary>
 
 ```kotlin
-    var dueDate: IntArray? = null,
 
+    /** The groups. */
     var groups: List<GroupCollectionSheet> = ArrayList(),
 
+    /** The loan products the sheet covers. */
     var loanProducts: List<kpt.core.model.objects.organisations.LoanProducts> = ArrayList(),
-
-    var paymentTypeOptions: List<PaymentTypeOptionEntity> = ArrayList(),
 ```
 
 </details>
@@ -1150,16 +1147,16 @@ data class MeetingFallCalendar(
 ```
 Created by Tarun on 25-07-2017. `@Serializable` because it is both the wire shape of `GET centers?meetingDate=` and the JSON the `meetingFallCenters` column holds.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/converter/CollectionSheetTypeConverters.kt:21</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/converter/CollectionSheetTypeConverters.kt:23</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<MeetingFallCalendar>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromMeetingFallCalendarList(meetings: List<MeetingFallCalendar>?): String =
         Json.encodeToString(meetings ?: emptyList())
 
+    /** Reads a `List<MeetingFallCalendar>` back from the JSON column it is stored in. */
     @ColumnTypeConverter
-    fun toMeetingFallCalendarList(json: String): List<MeetingFallCalendar> =
 ```
 
 </details>
@@ -1171,11 +1168,11 @@ data class SavingsCollectionSheet(
 ```
 Created by Tarun on 31-07-17.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/ClientCollectionSheet.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/ClientCollectionSheet.kt:32</code></summary>
 
 ```kotlin
-    var attendanceType: AttendanceTypeOption? = null,
 
+    /** The savings accounts. */
     var savings: ArrayList<SavingsCollectionSheet> = ArrayList(),
 )
 ```
@@ -1187,12 +1184,12 @@ Created by Tarun on 31-07-17.
 ```kotlin
 fun CenterDetailEntity.toDomain(): CenterDetail = CenterDetail(
 ```
-_No KDoc at source._
+Maps the stored row to its domain model.
 
 ```kotlin
 fun CenterDetail.toEntity(): CenterDetailEntity = CenterDetailEntity(
 ```
-_No KDoc at source._
+Maps the domain model to its stored row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/config/DatabaseConfig.kt`
 
@@ -1239,58 +1236,58 @@ The fork's Room schema version. `owner: fork` — PRESERVED across `/kmp-project
 
 </details>
 
-- `const val VERSION = 20`
+- `const val VERSION = 20` — The Room schema version of the fork's database.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/converter/DueDateConverter.kt`
 
 ```kotlin
 class DueDateConverter
 ```
-_No KDoc at source._
+Room column converter for due dates.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/converter/ListTypeConverters.kt`
 
 ```kotlin
 class ListTypeConverters
 ```
-_No KDoc at source._
+Room column converters for list and map fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/converter/ServerTypesConverters.kt`
 
 ```kotlin
 class ServerTypesConverters
 ```
-_No KDoc at source._
+Room column converters for server-type enums.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/datatable/converter/DataTableTypeConverters.kt`
 
 ```kotlin
 object DataTableTypeConverters
 ```
-_No KDoc at source._
+Room column converters for data table fields.
 
-- `fun fromDataTable(date: DataTableEntity?): String?`
-- `fun toDataTable(json: String?): DataTableEntity?`
-- `fun fromListDataTable(date: List<DataTableEntity>): String`
-- `fun toListDataTable(json: String): List<DataTableEntity>`
-- `fun fromListColumnValue(date: List<ColumnValue>): String`
-- `fun toListColumnValue(json: String?): List<ColumnValue>`
-- `fun fromListColumnHeader(date: List<ColumnHeader>): String`
-- `fun toListColumnHeader(json: String?): List<ColumnHeader>`
-- `fun fromListDataTablePayload(date: List<DataTablePayload>): String`
-- `fun toListDataTablePayload(json: String?): List<DataTablePayload>`
+- `fun fromDataTable(date: DataTableEntity?): String?` — Stores a `DataTableEntity?` in a JSON column.
+- `fun toDataTable(json: String?): DataTableEntity?` — Reads a `DataTableEntity?` back from the JSON column it is stored in.
+- `fun fromListDataTable(date: List<DataTableEntity>): String` — Stores a `List<DataTableEntity>` in a JSON column.
+- `fun toListDataTable(json: String): List<DataTableEntity>` — Reads a `List<DataTableEntity>` back from the JSON column it is stored in.
+- `fun fromListColumnValue(date: List<ColumnValue>): String` — Stores a `List<ColumnValue>` in a JSON column.
+- `fun toListColumnValue(json: String?): List<ColumnValue>` — Reads a `List<ColumnValue>` back from the JSON column it is stored in.
+- `fun fromListColumnHeader(date: List<ColumnHeader>): String` — Stores a `List<ColumnHeader>` in a JSON column.
+- `fun toListColumnHeader(json: String?): List<ColumnHeader>` — Reads a `List<ColumnHeader>` back from the JSON column it is stored in.
+- `fun fromListDataTablePayload(date: List<DataTablePayload>): String` — Stores a `List<DataTablePayload>` in a JSON column.
+- `fun toListDataTablePayload(json: String?): List<DataTablePayload>` — Reads a `List<DataTablePayload>` back from the JSON column it is stored in.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/datatable/dao/ColumnValueDao.kt`
 
 ```kotlin
 interface ColumnValueDao
 ```
-_No KDoc at source._
+Room queries for column value rows.
 
-- `suspend fun insert(columnValue: ColumnValue)`
-- `suspend fun update(columnValue: ColumnValue)`
-- `suspend fun delete(columnValue: ColumnValue)`
-- `suspend fun getColumnValue(id: Int): ColumnValue?`
+- `suspend fun insert(columnValue: ColumnValue)` — Saves `columnValue`, replacing any row with the same key.
+- `suspend fun update(columnValue: ColumnValue)` — Updates the stored row of `columnValue`.
+- `suspend fun delete(columnValue: ColumnValue)` — Deletes the stored row of `columnValue`.
+- `suspend fun getColumnValue(id: Int): ColumnValue?` — Reads the `ColumnValue` row whose `id` is `id`.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/datatable/dao/DataTableDao.kt`
 
@@ -1313,18 +1310,18 @@ fun provideDataTableStore(
 
 </details>
 
-- `fun observeForAppTable(appTable: String): Flow<List<DataTableEntity>>`
-- `suspend fun deleteForAppTable(appTable: String)`
-- `suspend fun insertAll(tables: List<DataTableEntity>)`
+- `fun observeForAppTable(appTable: String): Flow<List<DataTableEntity>>` — Observes the data tables registered against `appTable`, by registered name.
+- `suspend fun deleteForAppTable(appTable: String)` — Deletes the `DataTable` rows whose `applicationTableName` is `appTable`.
+- `suspend fun insertAll(tables: List<DataTableEntity>)` — Saves `tables`, replacing rows with the same key.
 - `suspend fun replaceForAppTable(appTable: String, tables: List<DataTableEntity>)` — Replace rather than upsert: the primary key is auto-generated, so re-inserting a fetched list would append a second copy of every row instead of refreshing it.
-- `suspend fun deleteAll()`
+- `suspend fun deleteAll()` — Deletes every `DataTable` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/datatable/entity/ColumnHeader.kt`
 
 ```kotlin
 data class ColumnHeader(
 ```
-_No KDoc at source._
+One column of a data table.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/ClientDataTableFields.kt:83</code></summary>
 
@@ -1345,7 +1342,7 @@ private fun DataTableFieldInput(
 ```kotlin
 data class ColumnValue(
 ```
-_No KDoc at source._
+One allowed value of a data-table column.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/ClientDataTableSectionsPreview.kt:36</code></summary>
 
@@ -1365,15 +1362,16 @@ _No KDoc at source._
 ```kotlin
 data class DataTableEntity(
 ```
-_No KDoc at source._
+Room row for a data table.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDataTableDao.kt:38</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/client/dao/ClientDataTableDao.kt:44</code></summary>
 
 ```kotlin
-
+    /** Observes the `DataTable` rows whose `applicationTableName` is `tableName`. */
     @Query("SELECT * FROM DataTable where applicationTableName = :tableName")
     fun getDatatableByTableName(tableName: String): Flow<List<DataTableEntity>>
 
+    /** Observes the `ColumnHeader` rows whose `registeredTableName` is `tableName`. */
     @Query("SELECT * FROM ColumnHeader WHERE registeredTableName = :tableName")
     fun getColumnHeadersByTableName(tableName: String): Flow<List<ColumnHeader>>
 ```
@@ -1385,7 +1383,7 @@ _No KDoc at source._
 ```kotlin
 data class DataTablePayload(
 ```
-_No KDoc at source._
+Request body for a data-table row.
 
 <details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/createnew/ClientDataTables.kt:106</code></summary>
 
@@ -1447,9 +1445,9 @@ single { MyBackupScheduler(get<AppDatabase>()) }
 ```kotlin
 interface DocumentContentDao
 ```
-_No KDoc at source._
+Room queries for document content rows.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/document/DocumentStore.kt:86</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/document/DocumentStore.kt:104</code></summary>
 
 ```kotlin
 fun provideDocumentContentStore(
@@ -1463,19 +1461,19 @@ fun provideDocumentContentStore(
 
 </details>
 
-- `fun observe(entityType: String, entityId: Int, documentId: Int): Flow<DocumentContentEntity?>`
-- `suspend fun upsert(content: DocumentContentEntity)`
-- `suspend fun delete(entityType: String, entityId: Int, documentId: Int)`
-- `suspend fun deleteAll()`
+- `fun observe(entityType: String, entityId: Int, documentId: Int): Flow<DocumentContentEntity?>` — Observes the cached content of one document.
+- `suspend fun upsert(content: DocumentContentEntity)` — Inserts `content`, or replaces the row with the same key.
+- `suspend fun delete(entityType: String, entityId: Int, documentId: Int)` — Deletes the cached content of one document.
+- `suspend fun deleteAll()` — Deletes every `document_contents` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/document/dao/DocumentDao.kt`
 
 ```kotlin
 interface DocumentDao
 ```
-_No KDoc at source._
+Room queries for document rows.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/document/DocumentStore.kt:46</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/document/DocumentStore.kt:64</code></summary>
 
 ```kotlin
 fun provideDocumentStore(
@@ -1490,12 +1488,12 @@ fun provideDocumentStore(
 </details>
 
 - `fun observeForEntity(entityType: String, entityId: Int): Flow<List<DocumentEntity>>` — Observe the documents attached to one resource — the scoping every read uses.
-- `fun observeById(id: Int): Flow<DocumentEntity?>`
-- `suspend fun getById(id: Int): DocumentEntity?`
-- `suspend fun upsertAll(documents: List<DocumentEntity>)`
-- `suspend fun deleteById(id: Int)`
-- `suspend fun deleteForEntity(entityType: String, entityId: Int)`
-- `suspend fun deleteAll()`
+- `fun observeById(id: Int): Flow<DocumentEntity?>` — Observes the `documents` row whose `id` is `id`.
+- `suspend fun getById(id: Int): DocumentEntity?` — Reads the `documents` row whose `id` is `id`.
+- `suspend fun upsertAll(documents: List<DocumentEntity>)` — Inserts `documents`, or replaces rows with the same key.
+- `suspend fun deleteById(id: Int)` — Deletes the `documents` rows whose `id` is `id`.
+- `suspend fun deleteForEntity(entityType: String, entityId: Int)` — Deletes the `documents` rows whose `parentEntityType` is `entityType` and `parentEntityId` is `entityId`.
+- `suspend fun deleteAll()` — Deletes every `documents` row.
 - `suspend fun replaceForEntity(entityType: String, entityId: Int, documents: List<DocumentEntity>)` — Make the entity's rows EXACTLY the server's list. The store's writer used `upsertAll` alone, so a document deleted on the server (or through this app) stayed in the table forever and kept showing in the list after its own delete.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/document/entity/DocumentContentEntity.kt`
@@ -1505,13 +1503,14 @@ class DocumentContentEntity(
 ```
 One document's FILE — the bytes behind a `DocumentEntity` row — as the local source of truth for the `documentContent` store.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/document/dao/DocumentContentDao.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/document/dao/DocumentContentDao.kt:29</code></summary>
 
 ```kotlin
             "AND documentId = :documentId LIMIT 1",
     )
     fun observe(entityType: String, entityId: Int, documentId: Int): Flow<DocumentContentEntity?>
 
+    /** Inserts `content`, or replaces the row with the same key. */
     @Upsert
     suspend fun upsert(content: DocumentContentEntity)
 ```
@@ -1525,13 +1524,14 @@ data class DocumentEntity(
 ```
 Document METADATA attached to a Fineract resource (client, loan, group…).
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/document/dao/DocumentDao.kt:28</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/document/dao/DocumentDao.kt:29</code></summary>
 
 ```kotlin
         "SELECT * FROM documents WHERE parentEntityType = :entityType AND parentEntityId = :entityId ORDER BY name ASC",
     )
     fun observeForEntity(entityType: String, entityId: Int): Flow<List<DocumentEntity>>
 
+    /** Observes the `documents` row whose `id` is `id`. */
     @Query("SELECT * FROM documents WHERE id = :id LIMIT 1")
     fun observeById(id: Int): Flow<DocumentEntity?>
 ```
@@ -1543,7 +1543,7 @@ Document METADATA attached to a Fineract resource (client, loan, group…).
 ```kotlin
 fun DocumentEntity.toDomain(): Document = Document(
 ```
-_No KDoc at source._
+Maps the stored row to its domain model.
 
 ```kotlin
 fun Document.toEntity(parentEntityType: String, parentEntityId: Int): DocumentEntity = DocumentEntity(
@@ -1570,18 +1570,17 @@ Offline group payload queue.
 @Dao
 interface GroupsDao :
     GroupPayloadDao {
+    /** Saves `group`, replacing any row with the same key. */
     @Insert(entity = GroupEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroup(group: GroupEntity)
-
-    @Insert(entity = LoanAccountEntity::class, onConflict = OnConflictStrategy.REPLACE)
 ```
 
 </details>
 
-- `suspend fun insertGroupPayload(groupPayload: GroupPayloadEntity)`
-- `suspend fun updateGroupPayload(payload: GroupPayloadEntity)`
-- `suspend fun deleteGroupPayloadById(groupId: Int)`
-- `fun getAllGroupPayloads(): Flow<List<GroupPayloadEntity>>`
+- `suspend fun insertGroupPayload(groupPayload: GroupPayloadEntity)` — Saves `groupPayload`, replacing any row with the same key.
+- `suspend fun updateGroupPayload(payload: GroupPayloadEntity)` — Updates the stored row of `payload`.
+- `suspend fun deleteGroupPayloadById(groupId: Int)` — Deletes the `GroupPayload` rows whose `id` is `groupId`.
+- `fun getAllGroupPayloads(): Flow<List<GroupPayloadEntity>>` — Observes the `GroupPayload` rows.
 - `fun observeGroupPayload(id: Int): Flow<GroupPayloadEntity?>` — One queued offline group, for the write store's source of truth.
 - `suspend fun deleteAllGroupPayloads()` — The logout purge for the offline group queue.
 
@@ -1606,14 +1605,14 @@ fun provideGroupStore(
 
 </details>
 
-- `suspend fun insertGroup(group: GroupEntity)`
-- `suspend fun insertLoanAccount(loanAccount: LoanAccountEntity)`
-- `suspend fun insertSavingsAccount(savingsAccount: SavingsAccountEntity)`
-- `fun getAllGroups(): Flow<List<GroupEntity>>`
-- `suspend fun getAllGroups(offset: Int, limit: Int): List<GroupEntity>`
-- `fun getGroupById(groupId: Int): Flow<GroupEntity>`
-- `fun getLoanAccountsByGroupId(groupId: Int): Flow<List<LoanAccountEntity>>`
-- `fun getSavingsAccountsByGroupId(groupId: Int): Flow<List<SavingsAccountEntity>>`
+- `suspend fun insertGroup(group: GroupEntity)` — Saves `group`, replacing any row with the same key.
+- `suspend fun insertLoanAccount(loanAccount: LoanAccountEntity)` — Saves `loanAccount`, replacing any row with the same key.
+- `suspend fun insertSavingsAccount(savingsAccount: SavingsAccountEntity)` — Saves `savingsAccount`, replacing any row with the same key.
+- `fun getAllGroups(): Flow<List<GroupEntity>>` — Observes the `GroupTable` rows.
+- `suspend fun getAllGroups(offset: Int, limit: Int): List<GroupEntity>` — Reads one page of groups.
+- `fun getGroupById(groupId: Int): Flow<GroupEntity>` — Observes the `GroupTable` row whose `id` is `groupId`.
+- `fun getLoanAccountsByGroupId(groupId: Int): Flow<List<LoanAccountEntity>>` — Observes the `LoanAccountEntity` rows whose `groupId` is `groupId`.
+- `fun getSavingsAccountsByGroupId(groupId: Int): Flow<List<SavingsAccountEntity>>` — Observes the `SavingsAccount` rows whose `groupId` is `groupId`.
 - `suspend fun saveGroupWithDate(group: GroupEntity)` — Persist a group, deriving its split date columns. Was `GroupsDaoHelper.saveGroup`.
 - `val id = group.id`
 - `val date = if (group.activationDate.size >= 3 && id != null)`
@@ -1627,7 +1626,7 @@ fun provideGroupStore(
 ```kotlin
 data class GroupAccounts(
 ```
-_No KDoc at source._
+The loan and savings accounts of a group.
 
 <details><summary>Used in the template — <code>feature/center/src/commonTest/kotlin/kpt/feature/center/testing/FakeCenterRepositories.kt:83</code></summary>
 
@@ -1647,18 +1646,18 @@ _No KDoc at source._
 ```kotlin
 data class GroupDateEntity(
 ```
-_No KDoc at source._
+Room row for a group date.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/group/converter/GroupTypeConverters.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/group/converter/GroupTypeConverters.kt:28</code></summary>
 
 ```kotlin
-
+    /** Stores a `GroupDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromGroupDate(date: GroupDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `GroupDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -1668,12 +1667,12 @@ _No KDoc at source._
 ```kotlin
 data class GroupEntity(
 ```
-_No KDoc at source._
+Room row for a group.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:60</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:71</code></summary>
 
 ```kotlin
-
+    /** Observes the `GroupTable` rows whose `centerId` is `centerId`. */
     @Query("SELECT * FROM GroupTable WHERE centerId = :centerId")
     fun getCenterAssociateGroups(centerId: Int): Flow<List<GroupEntity>>
 
@@ -1689,18 +1688,18 @@ _No KDoc at source._
 ```kotlin
 data class GroupPayloadEntity(
 ```
-_No KDoc at source._
+Room row for a group payload.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/group/dao/GroupPayloadDao.kt:21</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/group/dao/GroupPayloadDao.kt:22</code></summary>
 
 ```kotlin
-/** Offline group payload queue. */
 interface GroupPayloadDao {
+    /** Saves `groupPayload`, replacing any row with the same key. */
     @Insert(entity = GroupPayloadEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroupPayload(groupPayload: GroupPayloadEntity)
 
+    /** Updates the stored row of `payload`. */
     @Update(entity = GroupPayloadEntity::class, onConflict = OnConflictStrategy.NONE)
-    suspend fun updateGroupPayload(payload: GroupPayloadEntity)
 ```
 
 </details>
@@ -1731,14 +1730,14 @@ Created by ishankhanna on 29/06/14.
 ```kotlin
 class LoanScheduleTypeConverters
 ```
-_No KDoc at source._
+Room column converters for loan schedule fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTermTypeConverters.kt`
 
 ```kotlin
 class LoanTermTypeConverters
 ```
-_No KDoc at source._
+Room column converters for loan term fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt`
 
@@ -1752,7 +1751,7 @@ _No KDoc at source._
 ```kotlin
 interface LoanDao :
 ```
-_No KDoc at source._
+Room queries for loan rows.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/loan/LoanStore.kt:35</code></summary>
 
@@ -1768,8 +1767,8 @@ fun provideLoanStore(
 
 </details>
 
-- `suspend fun saveLoanWithAssociations(loanWithAssociations: LoanWithAssociationsEntity)`
-- `fun getLoanById(loanId: Int): Flow<LoanWithAssociationsEntity?>`
+- `suspend fun saveLoanWithAssociations(loanWithAssociations: LoanWithAssociationsEntity)` — Saves `loanWithAssociations`, replacing any row with the same key.
+- `fun getLoanById(loanId: Int): Flow<LoanWithAssociationsEntity?>` — Observes the `LoanWithAssociations` row whose `id` is `loanId`.
 - `suspend fun deleteLoanById(loanId: Int)` — Per-key clear for the `loans` store (`Store.clear(loanId)`).
 - `suspend fun deleteAllLoans()` — What the logout purge reaches through the `loans` store's `deleteAll`.
 - `suspend fun saveLoanWithAssociationsShaped(loan: LoanWithAssociationsEntity)` — Persist a loan, stamping its id onto the summary and timeline rows and splitting the timeline's `actualDisbursementDate` into columns. Was `LoanDaoHelper.saveLoanById`.
@@ -1782,29 +1781,30 @@ interface LoanRepaymentDao
 ```
 Repayment queue, repayment template and payment-type options.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanDao.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanDao.kt:27</code></summary>
 
 ```kotlin
 @Dao
 interface LoanDao :
     LoanRepaymentDao,
     LoanTemplateCacheDao {
+    /** Saves `loanWithAssociations`, replacing any row with the same key. */
     @Insert(entity = LoanWithAssociationsEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveLoanWithAssociations(loanWithAssociations: LoanWithAssociationsEntity)
 ```
 
 </details>
 
-- `suspend fun insertLoanRepaymentTransaction(request: LoanRepaymentRequestEntity)`
-- `suspend fun insertPaymentTypeOption(paymentTypeOption: PaymentTypeOptionEntity)`
-- `fun getPaymentTypeOptions(): Flow<List<PaymentTypeOptionEntity>>`
-- `suspend fun getLoanRepaymentRequest(loanId: Int): LoanRepaymentRequestEntity?`
-- `suspend fun updateLoanRepaymentRequest(loanRepaymentRequest: LoanRepaymentRequestEntity)`
-- `fun readAllLoanRepaymentTransaction(): Flow<List<LoanRepaymentRequestEntity>>`
-- `suspend fun insertLoanRepaymentTemplate(template: LoanRepaymentTemplateEntity)`
-- `suspend fun getLoanRepaymentTemplate(loanId: Int): LoanRepaymentTemplateEntity?`
-- `suspend fun deleteLoanRepaymentByLoanId(loanId: Int)`
-- `suspend fun deleteAllLoanRepaymentTemplates()`
+- `suspend fun insertLoanRepaymentTransaction(request: LoanRepaymentRequestEntity)` — Saves `request`, replacing any row with the same key.
+- `suspend fun insertPaymentTypeOption(paymentTypeOption: PaymentTypeOptionEntity)` — Saves `paymentTypeOption`, replacing any row with the same key.
+- `fun getPaymentTypeOptions(): Flow<List<PaymentTypeOptionEntity>>` — Observes the `PaymentTypeOption` rows.
+- `suspend fun getLoanRepaymentRequest(loanId: Int): LoanRepaymentRequestEntity?` — Reads the `LoanRepaymentRequestEntity` row whose `loanId` is `loanId`.
+- `suspend fun updateLoanRepaymentRequest(loanRepaymentRequest: LoanRepaymentRequestEntity)` — Updates the stored row of `loanRepaymentRequest`.
+- `fun readAllLoanRepaymentTransaction(): Flow<List<LoanRepaymentRequestEntity>>` — Observes the `LoanRepaymentRequestEntity` rows, ordered by `timeStamp`.
+- `suspend fun insertLoanRepaymentTemplate(template: LoanRepaymentTemplateEntity)` — Saves `template`, replacing any row with the same key.
+- `suspend fun getLoanRepaymentTemplate(loanId: Int): LoanRepaymentTemplateEntity?` — Reads the `LoanRepaymentTemplate` row whose `loanId` is `loanId`.
+- `suspend fun deleteLoanRepaymentByLoanId(loanId: Int)` — Deletes the `LoanRepaymentTemplate` rows whose `loanId` is `loanId`.
+- `suspend fun deleteAllLoanRepaymentTemplates()` — Deletes every `LoanRepaymentTemplate` row.
 - `suspend fun saveLoanRepaymentTransaction(loanId: Int, request: LoanRepaymentRequestEntity)` — Queue an offline repayment, stamping the loan and the submission time (seconds, which is what the sync payload expects). Was `LoanDaoHelper.saveLoanRepaymentTransaction`.
 - `suspend fun saveLoanRepaymentTemplateFor(` — Persist a repayment template with its payment-type options. Was `LoanDaoHelper.saveLoanRepaymentTemplate` — now atomic, so the template cannot land without the options a repayment form needs to render.
 - `val stamped = template.copy(loanId = loanId)`
@@ -1818,46 +1818,45 @@ interface LoanTemplateCacheDao
 ```
 Application + disbursement template caches (payload-blob rows).
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanDao.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanDao.kt:28</code></summary>
 
 ```kotlin
 interface LoanDao :
     LoanRepaymentDao,
     LoanTemplateCacheDao {
+    /** Saves `loanWithAssociations`, replacing any row with the same key. */
     @Insert(entity = LoanWithAssociationsEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveLoanWithAssociations(loanWithAssociations: LoanWithAssociationsEntity)
-
-    @Query("SELECT * FROM LoanWithAssociations WHERE id = :loanId LIMIT 1")
 ```
 
 </details>
 
-- `fun observeLoanTemplate(clientId: Int, productId: Int): Flow<LoanTemplateCacheEntity?>`
-- `suspend fun upsertLoanTemplate(template: LoanTemplateCacheEntity)`
-- `fun observeLoanDisburseTemplate(loanId: Int): Flow<LoanDisburseTemplateCacheEntity?>`
-- `suspend fun upsertLoanDisburseTemplate(template: LoanDisburseTemplateCacheEntity)`
-- `suspend fun deleteLoanTemplate(clientId: Int, productId: Int)`
-- `suspend fun deleteAllLoanTemplates()`
-- `suspend fun deleteLoanDisburseTemplate(loanId: Int)`
-- `suspend fun deleteAllLoanDisburseTemplates()`
+- `fun observeLoanTemplate(clientId: Int, productId: Int): Flow<LoanTemplateCacheEntity?>` — Observes the cached loan template for a client and product.
+- `suspend fun upsertLoanTemplate(template: LoanTemplateCacheEntity)` — Inserts `template`, or replaces the row with the same key.
+- `fun observeLoanDisburseTemplate(loanId: Int): Flow<LoanDisburseTemplateCacheEntity?>` — Observes the `loan_disburse_templates` row whose `loanId` is `loanId`.
+- `suspend fun upsertLoanDisburseTemplate(template: LoanDisburseTemplateCacheEntity)` — Inserts `template`, or replaces the row with the same key.
+- `suspend fun deleteLoanTemplate(clientId: Int, productId: Int)` — Deletes the `loan_application_templates` rows whose `clientId` is `clientId` and `productId` is `productId`.
+- `suspend fun deleteAllLoanTemplates()` — Deletes every `loan_application_templates` row.
+- `suspend fun deleteLoanDisburseTemplate(loanId: Int)` — Deletes the `loan_disburse_templates` rows whose `loanId` is `loanId`.
+- `suspend fun deleteAllLoanDisburseTemplates()` — Deletes every `loan_disburse_templates` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/ActualDisbursementDateEntity.kt`
 
 ```kotlin
 data class ActualDisbursementDateEntity(
 ```
-_No KDoc at source._
+Room row for an actual disbursement date.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanScheduleTypeConverters.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanScheduleTypeConverters.kt:44</code></summary>
 
 ```kotlin
-
+    /** Stores a `ActualDisbursementDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromActualDisbursementDate(date: ActualDisbursementDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `ActualDisbursementDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -1867,7 +1866,7 @@ _No KDoc at source._
 ```kotlin
 data class Loan(
 ```
-_No KDoc at source._
+A loan.
 
 <details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/list/CenterListScreenPreview.kt:92</code></summary>
 
@@ -1888,18 +1887,18 @@ _No KDoc at source._
 ```kotlin
 data class LoanAccountEntity(
 ```
-_No KDoc at source._
+Room row for a loan account.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:35</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:38</code></summary>
 
 ```kotlin
-    suspend fun saveCenter(center: CenterEntity)
 
+    /** Saves `loanAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = LoanAccountEntity::class)
     suspend fun saveLoanAccount(loanAccount: LoanAccountEntity)
 
+    /** Saves `savingsAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = SavingsAccountEntity::class)
-    suspend fun saveSavingsAccount(savingsAccount: SavingsAccountEntity)
 ```
 
 </details>
@@ -1911,16 +1910,16 @@ data class LoanAccountSummaryEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTermTypeConverters.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTermTypeConverters.kt:28</code></summary>
 
 ```kotlin
-class LoanTermTypeConverters {
+    /** Reads a `LoanAccountSummaryEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toSummary(json: String?): LoanAccountSummaryEntity? {
         return json?.let { Json.decodeFromString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Stores a `AmortizationType?` in a JSON column. */
 ```
 
 </details>
@@ -1930,18 +1929,18 @@ class LoanTermTypeConverters {
 ```kotlin
 data class LoanRepaymentRequestEntity(
 ```
-_No KDoc at source._
+Room row for a loan repayment request.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanRepaymentDao.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanRepaymentDao.kt:27</code></summary>
 
 ```kotlin
-/** Repayment queue, repayment template and payment-type options. */
 interface LoanRepaymentDao {
+    /** Saves `request`, replacing any row with the same key. */
     @Insert(entity = LoanRepaymentRequestEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoanRepaymentTransaction(request: LoanRepaymentRequestEntity)
 
+    /** Saves `paymentTypeOption`, replacing any row with the same key. */
     @Insert(entity = PaymentTypeOptionEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPaymentTypeOption(paymentTypeOption: PaymentTypeOptionEntity)
 ```
 
 </details>
@@ -1951,25 +1950,25 @@ interface LoanRepaymentDao {
 ```kotlin
 data class LoanRepaymentResponseEntity(
 ```
-_No KDoc at source._
+Room row for a loan repayment response.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/loan/entity/LoanRepaymentTemplateEntity.kt`
 
 ```kotlin
 data class LoanRepaymentTemplateEntity(
 ```
-_No KDoc at source._
+Room row for a loan repayment template.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanRepaymentDao.kt:44</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanRepaymentDao.kt:51</code></summary>
 
 ```kotlin
-    fun readAllLoanRepaymentTransaction(): Flow<List<LoanRepaymentRequestEntity>>
 
+    /** Saves `template`, replacing any row with the same key. */
     @Insert(entity = LoanRepaymentTemplateEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoanRepaymentTemplate(template: LoanRepaymentTemplateEntity)
 
+    /** Reads the `LoanRepaymentTemplate` row whose `loanId` is `loanId`. */
     @Query("SELECT * FROM LoanRepaymentTemplate WHERE loanId = :loanId LIMIT 1")
-    suspend fun getLoanRepaymentTemplate(loanId: Int): LoanRepaymentTemplateEntity?
 ```
 
 </details>
@@ -1981,16 +1980,15 @@ data class LoanStatusEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/MeetingFallCalendar.kt:47</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/MeetingFallCalendar.kt:59</code></summary>
 
 ```kotlin
-    val staffName: String? = null,
 
+    /** The record's Fineract status. */
     val status: LoanStatusEntity? = null,
 
+    /** The amount collected at the meeting. */
     val totalCollected: Int = 0,
-
-    val totalOverdue: Int = 0,
 ```
 
 </details>
@@ -2023,13 +2021,14 @@ data class LoanTemplateCacheEntity(
 ```
 The loan-application template, cached so an officer can start a loan application out of signal.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanTemplateCacheDao.kt:28</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanTemplateCacheDao.kt:29</code></summary>
 
 ```kotlin
             "WHERE clientId = :clientId AND productId = :productId LIMIT 1",
     )
     fun observeLoanTemplate(clientId: Int, productId: Int): Flow<LoanTemplateCacheEntity?>
 
+    /** Inserts `template`, or replaces the row with the same key. */
     @Upsert
     suspend fun upsertLoanTemplate(template: LoanTemplateCacheEntity)
 ```
@@ -2041,13 +2040,14 @@ data class LoanDisburseTemplateCacheEntity(
 ```
 The disbursement template for one loan — what the disburse form needs (expected amounts, payment types, dates). Cached so a disbursement can be prepared offline and queued.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanTemplateCacheDao.kt:34</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanTemplateCacheDao.kt:37</code></summary>
 
 ```kotlin
-
+    /** Observes the `loan_disburse_templates` row whose `loanId` is `loanId`. */
     @Query("SELECT * FROM loan_disburse_templates WHERE loanId = :loanId LIMIT 1")
     fun observeLoanDisburseTemplate(loanId: Int): Flow<LoanDisburseTemplateCacheEntity?>
 
+    /** Inserts `template`, or replaces the row with the same key. */
     @Upsert
     suspend fun upsertLoanDisburseTemplate(template: LoanDisburseTemplateCacheEntity)
 ```
@@ -2059,15 +2059,16 @@ The disbursement template for one loan — what the disburse form needs (expecte
 ```kotlin
 data class LoanTimelineEntity(
 ```
-_No KDoc at source._
+Room row for a loan timeline.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterEntity.kt:63</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/entity/CenterEntity.kt:78</code></summary>
 
 ```kotlin
-    val activationDate: List<Int?> = emptyList(),
 
+    /** The dates and users of the record's lifecycle events (submitted, approved, activated, …). */
     val timeline: LoanTimelineEntity? = null,
 
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
 )
 ```
@@ -2102,16 +2103,16 @@ data class LoanTypeEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:40</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/converter/LoanTypeConverters.kt:43</code></summary>
 
 ```kotlin
-
+    /** Stores a `LoanTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromLoanType(type: LoanTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `LoanTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2121,18 +2122,18 @@ A COLUMN, not a table. This is embedded in its parent entity and persisted by a 
 ```kotlin
 data class LoanWithAssociationsEntity(
 ```
-_No KDoc at source._
+Room row for a loan with associations.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanDao.kt:28</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/loan/dao/LoanDao.kt:30</code></summary>
 
 ```kotlin
-    LoanRepaymentDao,
     LoanTemplateCacheDao {
+    /** Saves `loanWithAssociations`, replacing any row with the same key. */
     @Insert(entity = LoanWithAssociationsEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveLoanWithAssociations(loanWithAssociations: LoanWithAssociationsEntity)
 
+    /** Observes the `LoanWithAssociations` row whose `id` is `loanId`. */
     @Query("SELECT * FROM LoanWithAssociations WHERE id = :loanId LIMIT 1")
-    fun getLoanById(loanId: Int): Flow<LoanWithAssociationsEntity?>
 ```
 
 </details>
@@ -2144,7 +2145,7 @@ interface NoteDao
 ```
 Notes attached to a client (or other Fineract resource). `NoteEntity` shipped without a DAO, so notes had no read path out of Room and the feature was network-only.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/note/NoteStore.kt:44</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/note/NoteStore.kt:50</code></summary>
 
 ```kotlin
 fun provideNoteStore(
@@ -2158,12 +2159,12 @@ fun provideNoteStore(
 
 </details>
 
-- `suspend fun insertNotes(notes: List<NoteEntity>)`
-- `fun getNotesFor(resourceType: String, resourceId: Long): Flow<List<NoteEntity>>`
-- `fun observeById(id: Long): Flow<NoteEntity?>`
-- `suspend fun deleteById(id: Long)`
-- `suspend fun deleteNotesFor(resourceType: String, resourceId: Long)`
-- `suspend fun deleteAll()`
+- `suspend fun insertNotes(notes: List<NoteEntity>)` — Saves `notes`, replacing rows with the same key.
+- `fun getNotesFor(resourceType: String, resourceId: Long): Flow<List<NoteEntity>>` — Observes the `Note` rows whose `resourceType` is `resourceType` and `clientId` is `resourceId`, ordered by `createdOn`.
+- `fun observeById(id: Long): Flow<NoteEntity?>` — Observes the `Note` row whose `id` is `id`.
+- `suspend fun deleteById(id: Long)` — Deletes the `Note` rows whose `id` is `id`.
+- `suspend fun deleteNotesFor(resourceType: String, resourceId: Long)` — Deletes the `Note` rows whose `resourceType` is `resourceType` and `clientId` is `resourceId`.
+- `suspend fun deleteAll()` — Deletes every `Note` row.
 - `suspend fun replaceFor(resourceType: String, resourceId: Long, notes: List<NoteEntity>)` — Make the client's rows EXACTLY the server's list. The store's writer used `insertNotes` alone, so a note deleted on the server (or on another device) stayed in the table forever.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/note/entity/NoteEntity.kt`
@@ -2171,18 +2172,18 @@ fun provideNoteStore(
 ```kotlin
 data class NoteEntity(
 ```
-_No KDoc at source._
+Room row for a note.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/note/dao/NoteDao.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/note/dao/NoteDao.kt:33</code></summary>
 
 ```kotlin
-interface NoteDao {
 
+    /** Saves `notes`, replacing rows with the same key. */
     @Insert(entity = NoteEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNotes(notes: List<NoteEntity>)
 
-    @Query("SELECT * FROM Note WHERE resourceType = :resourceType AND clientId = :resourceId ORDER BY createdOn DESC")
-    fun getNotesFor(resourceType: String, resourceId: Long): Flow<List<NoteEntity>>
+    /**
+     * Observes the `Note` rows whose `resourceType` is `resourceType` and `clientId` is `resourceId`, ordered by
 ```
 
 </details>
@@ -2192,14 +2193,14 @@ interface NoteDao {
 ```kotlin
 class OfficeTypeConverters
 ```
-_No KDoc at source._
+Room column converters for office fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/office/dao/OfficeDao.kt`
 
 ```kotlin
 interface OfficeDao
 ```
-_No KDoc at source._
+Room queries for office rows.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/office/OfficeStore.kt:42</code></summary>
 
@@ -2215,27 +2216,27 @@ fun provideOfficeStore(
 
 </details>
 
-- `suspend fun insertOffices(officeEntity: List<OfficeEntity>)`
-- `fun getAllOffices(): Flow<List<OfficeEntity>>`
-- `suspend fun deleteAll()`
+- `suspend fun insertOffices(officeEntity: List<OfficeEntity>)` — Saves `officeEntity`, replacing rows with the same key.
+- `fun getAllOffices(): Flow<List<OfficeEntity>>` — Observes the `Office` rows.
+- `suspend fun deleteAll()` — Deletes every `Office` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/office/entity/OfficeEntity.kt`
 
 ```kotlin
 data class OfficeEntity(
 ```
-_No KDoc at source._
+Room row for an office.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/office/dao/OfficeDao.kt:24</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/office/dao/OfficeDao.kt:26</code></summary>
 
 ```kotlin
-interface OfficeDao {
 
+    /** Saves `officeEntity`, replacing rows with the same key. */
     @Insert(entity = OfficeEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOffices(officeEntity: List<OfficeEntity>)
 
+    /** Observes the `Office` rows. */
     @Query("SELECT * FROM Office")
-    fun getAllOffices(): Flow<List<OfficeEntity>>
 ```
 
 </details>
@@ -2247,16 +2248,16 @@ data class OfficeOpeningDateEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/office/converter/OfficeTypeConverters.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/office/converter/OfficeTypeConverters.kt:29</code></summary>
 
 ```kotlin
-
+    /** Stores a `OfficeOpeningDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromOfficeOpeningDate(status: OfficeOpeningDateEntity?): String? {
         return status?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `OfficeOpeningDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2266,7 +2267,7 @@ A COLUMN, not a table. This is embedded in its parent entity and persisted by a 
 ```kotlin
 interface OfflineSyncDao
 ```
-_No KDoc at source._
+Room queries for offline sync rows.
 
 <details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:45</code></summary>
 
@@ -2282,19 +2283,19 @@ internal class OfflineSyncRepositoryImpl(
 
 </details>
 
-- `fun observeRecords(userId: Long): Flow<List<OfflineRecordEntity>>`
-- `suspend fun records(userId: Long): List<OfflineRecordEntity>`
-- `suspend fun record(userId: Long, kind: String, id: Int): OfflineRecordEntity?`
-- `suspend fun upsertRecord(record: OfflineRecordEntity)`
-- `suspend fun setStatus(userId: Long, kind: String, id: Int, status: String)`
-- `suspend fun moveStatus(userId: Long, from: String, to: String)`
-- `suspend fun deleteRecord(userId: Long, kind: String, id: Int)`
-- `suspend fun deleteChildren(userId: Long, parentKind: String, parentId: Int)`
-- `suspend fun children(userId: Long, parentKind: String, parentId: Int): List<OfflineRecordEntity>`
-- `fun observeLatestJob(userId: Long): Flow<SyncJobEntity?>`
-- `suspend fun runningJob(userId: Long): SyncJobEntity?`
-- `suspend fun insertJob(job: SyncJobEntity): Long`
-- `suspend fun updateJob(job: SyncJobEntity)`
+- `fun observeRecords(userId: Long): Flow<List<OfflineRecordEntity>>` — Observes the `offline_records` rows whose `userId` is `userId`, ordered by `name COLLATE NOCASE`.
+- `suspend fun records(userId: Long): List<OfflineRecordEntity>` — Reads the `offline_records` rows whose `userId` is `userId`.
+- `suspend fun record(userId: Long, kind: String, id: Int): OfflineRecordEntity?` — Reads the `offline_records` row whose `userId` is `userId` and `kind` is `kind` and `id` is `id`.
+- `suspend fun upsertRecord(record: OfflineRecordEntity)` — Inserts `record`, or replaces the row with the same key.
+- `suspend fun setStatus(userId: Long, kind: String, id: Int, status: String)` — Sets the sync status of one record.
+- `suspend fun moveStatus(userId: Long, from: String, to: String)` — Moves every record of the user in status `from` to status `to`.
+- `suspend fun deleteRecord(userId: Long, kind: String, id: Int)` — Deletes the `offline_records` rows whose `userId` is `userId` and `kind` is `kind` and `id` is `id`.
+- `suspend fun deleteChildren(userId: Long, parentKind: String, parentId: Int)` — Deletes the children of a parent record that the user did not choose.
+- `suspend fun children(userId: Long, parentKind: String, parentId: Int): List<OfflineRecordEntity>` — Reads the `offline_records` rows whose `userId` is `userId` and `parentKind` is `parentKind` and `parentId` is `parentId`.
+- `fun observeLatestJob(userId: Long): Flow<SyncJobEntity?>` — Observes the `sync_jobs` row whose `userId` is `userId`, ordered by `id`.
+- `suspend fun runningJob(userId: Long): SyncJobEntity?` — Reads the user's newest running sync job, if any.
+- `suspend fun insertJob(job: SyncJobEntity): Long` — Saves `job`, replacing any row with the same key.
+- `suspend fun updateJob(job: SyncJobEntity)` — Inserts `job`, or replaces the row with the same key.
 - `suspend fun trimJobs(userId: Long, keep: Int)` — Keep the newest few jobs per user — the screen shows the running or the last one.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/offline/entity/OfflineSyncEntities.kt`
@@ -2342,15 +2343,16 @@ One background download — durable so its progress survives the screen and the 
 ```kotlin
 data class PaymentTypeOptionEntity(
 ```
-_No KDoc at source._
+Room row for a payment type option.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:30</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/CollectionSheetResponse.kt:35</code></summary>
 
 ```kotlin
-    var loanProducts: List<kpt.core.model.objects.organisations.LoanProducts> = ArrayList(),
 
+    /** The payment types the user may choose from. */
     var paymentTypeOptions: List<PaymentTypeOptionEntity> = ArrayList(),
 
+    /** The savings products the sheet covers. */
     var savingsProducts: List<SavingsProduct> = ArrayList(),
 )
 ```
@@ -2362,9 +2364,9 @@ _No KDoc at source._
 ```kotlin
 interface RecentRecordDao
 ```
-_No KDoc at source._
+Room queries for recent record rows.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:36</code></summary>
 
 ```kotlin
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -2378,8 +2380,8 @@ class RecentRecordsRepositoryImpl(
 
 </details>
 
-- `fun observe(userId: Long, limit: Int): Flow<List<RecentRecordEntity>>`
-- `suspend fun upsert(record: RecentRecordEntity)`
+- `fun observe(userId: Long, limit: Int): Flow<List<RecentRecordEntity>>` — Observes the user's most recently opened records, newest first.
+- `suspend fun upsert(record: RecentRecordEntity)` — Saves `record`, replacing any row with the same key.
 - `suspend fun trim(userId: Long, keep: Int)` — Keep the newest `keep` per user — the card shows a handful, the table never grows.
 - `suspend fun record(record: RecentRecordEntity, keep: Int)` — Reopening a record moves it to the top (same key, newer time) rather than duplicating it.
 
@@ -2390,7 +2392,7 @@ data class RecentRecordEntity(
 ```
 A record the signed-in officer opened, for Home's "Recently opened". Keyed by user as well as record, so on a shared field device one officer's history is never shown to the next.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:53</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:56</code></summary>
 
 ```kotlin
 
@@ -2409,9 +2411,9 @@ private fun RecentRecord.toEntity(userId: Long, at: Long) =
 ```kotlin
 interface RecurringDepositDao
 ```
-_No KDoc at source._
+Room queries for recurring deposit rows.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/recurringdeposit/RecurringDepositTemplateStore.kt:42</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/recurringdeposit/RecurringDepositTemplateStore.kt:43</code></summary>
 
 ```kotlin
 fun provideRecurringDepositTemplateStore(
@@ -2426,10 +2428,10 @@ fun provideRecurringDepositTemplateStore(
 </details>
 
 - `fun observeTemplate(clientId: Int): Flow<RecurringDepositTemplateEntity?>` — Observe the cached opening template for one client.
-- `suspend fun getTemplate(clientId: Int): RecurringDepositTemplateEntity?`
-- `suspend fun upsert(template: RecurringDepositTemplateEntity)`
-- `suspend fun deleteForClient(clientId: Int)`
-- `suspend fun deleteAll()`
+- `suspend fun getTemplate(clientId: Int): RecurringDepositTemplateEntity?` — Reads the `recurring_deposit_templates` row whose `clientId` is `clientId`.
+- `suspend fun upsert(template: RecurringDepositTemplateEntity)` — Inserts `template`, or replaces the row with the same key.
+- `suspend fun deleteForClient(clientId: Int)` — Deletes the `recurring_deposit_templates` rows whose `clientId` is `clientId`.
+- `suspend fun deleteAll()` — Deletes every `recurring_deposit_templates` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/recurringdeposit/entity/RecurringDepositTemplateEntity.kt`
 
@@ -2438,13 +2440,14 @@ data class RecurringDepositTemplateEntity(
 ```
 The recurring-deposit account-opening TEMPLATE, cached per client. `RecurringDepositAccountTemplate` is a form-options payload — ~20 nested objects (`accountChart`, `chargeOptions`, `fieldOfficerOptions`, the interest/period enums…).
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/recurringdeposit/dao/RecurringDepositDao.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/recurringdeposit/dao/RecurringDepositDao.kt:26</code></summary>
 
 ```kotlin
     /** Observe the cached opening template for one client. */
     @Query("SELECT * FROM recurring_deposit_templates WHERE clientId = :clientId LIMIT 1")
     fun observeTemplate(clientId: Int): Flow<RecurringDepositTemplateEntity?>
 
+    /** Reads the `recurring_deposit_templates` row whose `clientId` is `clientId`. */
     @Query("SELECT * FROM recurring_deposit_templates WHERE clientId = :clientId LIMIT 1")
     suspend fun getTemplate(clientId: Int): RecurringDepositTemplateEntity?
 ```
@@ -2456,7 +2459,7 @@ The recurring-deposit account-opening TEMPLATE, cached per client. `RecurringDep
 ```kotlin
 interface ReportDao
 ```
-_No KDoc at source._
+Room queries for report rows.
 
 <details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/report/ReportStore.kt:34</code></summary>
 
@@ -2472,12 +2475,12 @@ fun provideReportStore(
 
 </details>
 
-- `fun observeAll(): Flow<List<ReportTypeEntity>>`
+- `fun observeAll(): Flow<List<ReportTypeEntity>>` — Observes the `report_types` rows, ordered by `reportName`.
 - `fun observeByCategory(category: String): Flow<List<ReportTypeEntity>>` — The catalogue is browsed by category, which is why that column is indexed.
-- `fun observeParametersFor(reportId: Int): Flow<List<ReportTypeEntity>>`
-- `suspend fun getById(reportId: Int): ReportTypeEntity?`
-- `suspend fun upsertAll(reports: List<ReportTypeEntity>)`
-- `suspend fun deleteAll()`
+- `fun observeParametersFor(reportId: Int): Flow<List<ReportTypeEntity>>` — Observes the `report_types` rows whose `reportId` is `reportId`.
+- `suspend fun getById(reportId: Int): ReportTypeEntity?` — Reads the `report_types` row whose `reportId` is `reportId`.
+- `suspend fun upsertAll(reports: List<ReportTypeEntity>)` — Inserts `reports`, or replaces rows with the same key.
+- `suspend fun deleteAll()` — Deletes every `report_types` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/report/entity/ReportTypeEntity.kt`
 
@@ -2486,10 +2489,10 @@ data class ReportTypeEntity(
 ```
 A runnable report definition (the CATALOGUE, not a result set). Definitions are slow-changing server reference data, so caching them lets a field officer browse available reports offline.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/report/dao/ReportDao.kt:24</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/report/dao/ReportDao.kt:26</code></summary>
 
 ```kotlin
-
+    /** Observes the `report_types` rows, ordered by `reportName`. */
     @Query("SELECT * FROM report_types ORDER BY reportName ASC")
     fun observeAll(): Flow<List<ReportTypeEntity>>
 
@@ -2505,7 +2508,7 @@ A runnable report definition (the CATALOGUE, not a result set). Definitions are 
 ```kotlin
 fun ReportTypeEntity.toDomain(): ClientReportTypeItem = ClientReportTypeItem(
 ```
-_No KDoc at source._
+Maps the stored row to its domain model.
 
 ```kotlin
 fun ClientReportTypeItem.toEntityOrNull(): ReportTypeEntity?
@@ -2517,23 +2520,23 @@ fun ClientReportTypeItem.toEntityOrNull(): ReportTypeEntity?
 ```kotlin
 class SavingsPeriodTypeConverters
 ```
-_No KDoc at source._
+Room column converters for savings period fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt`
 
 ```kotlin
 class SavingsTypeConverters
 ```
-_No KDoc at source._
+Room column converters for savings fields.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsDao.kt`
 
 ```kotlin
 interface SavingsDao :
 ```
-_No KDoc at source._
+Room queries for savings rows.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/queue/OfflineQueueStores.kt:117</code></summary>
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/queue/OfflineQueueStores.kt:120</code></summary>
 
 ```kotlin
 @CacheKey(fn = "byAccount", key = "savingsTransactionQueue:{accountId}", params = ["accountId:Int"])
@@ -2547,16 +2550,16 @@ fun provideSavingsTransactionQueueStore(
 
 </details>
 
-- `suspend fun insertAllTransactions(transaction: List<SavingsAccountTransactionEntity>)`
-- `suspend fun insertSavingsAccountWithAssociations(`
-- `suspend fun insertAllPaymentTypeOption(paymentTypeOption: List<PaymentTypeOptionEntity>)`
-- `suspend fun insertSavingsAccountTransactionTemplate(transactionTemplate: SavingsAccountTransactionTemplateEntity)`
-- `suspend fun getAllTransactions(savingsAccountId: Int): List<SavingsAccountTransactionEntity>`
-- `fun getSavingsAccountTransactionTemplate(savingsAccountId: Int): Flow<SavingsAccountTransactionTemplateEntity?>`
-- `fun getSavingsAccountWithAssociations(savingsAccountId: Int): Flow<SavingsAccountWithAssociationsEntity?>`
+- `suspend fun insertAllTransactions(transaction: List<SavingsAccountTransactionEntity>)` — Saves `transaction`, replacing rows with the same key.
+- `suspend fun insertSavingsAccountWithAssociations(` — Saves ``, replacing any row with the same key.
+- `suspend fun insertAllPaymentTypeOption(paymentTypeOption: List<PaymentTypeOptionEntity>)` — Saves `paymentTypeOption`, replacing rows with the same key.
+- `suspend fun insertSavingsAccountTransactionTemplate(transactionTemplate: SavingsAccountTransactionTemplateEntity)` — Saves `transactionTemplate`, replacing any row with the same key.
+- `suspend fun getAllTransactions(savingsAccountId: Int): List<SavingsAccountTransactionEntity>` — Reads the `TransactionTable` rows whose `savingsAccountId` is `savingsAccountId`.
+- `fun getSavingsAccountTransactionTemplate(savingsAccountId: Int): Flow<SavingsAccountTransactionTemplateEntity?>` — Observes the `SavingsAccountTransactionTemplate` row whose `accountId` is `savingsAccountId`.
+- `fun getSavingsAccountWithAssociations(savingsAccountId: Int): Flow<SavingsAccountWithAssociationsEntity?>` — Observes the `SavingsAccountWithAssociations` row whose `id` is `savingsAccountId`.
 - `suspend fun deleteSavingsAccountWithAssociations(savingsAccountId: Int)` — Per-key clear for `savingsAccounts`' source of truth (`Store.clear(key)`).
 - `suspend fun deleteAllSavingsAccountsWithAssociations()` — What the logout purge reaches through `savingsAccounts`' `deleteAll`.
-- `fun getAllPaymentTypeOption(): Flow<List<PaymentTypeOptionEntity>>`
+- `fun getAllPaymentTypeOption(): Flow<List<PaymentTypeOptionEntity>>` — Observes the `PaymentTypeOption` rows.
 - `suspend fun saveSavingsAccountWithTransactions(` — Persist a savings account with its transactions, stamping the account onto each transaction and the summary, and splitting each transaction date into columns. Was `SavingsDaoHelper.saveSavingsAccount` — now atomic across both tables.
 - `val transactions = account.transactions.map { transaction ->`
 - `val id = transaction.id ?: return@map transaction`
@@ -2570,26 +2573,25 @@ interface SavingsTransactionRequestDao
 ```
 Offline savings-transaction request queue.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsDao.kt:30</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsDao.kt:31</code></summary>
 
 ```kotlin
 @Dao
 interface SavingsDao :
     SavingsTransactionRequestDao {
+    /** Saves `transaction`, replacing rows with the same key. */
     @Insert(entity = SavingsAccountTransactionEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllTransactions(transaction: List<SavingsAccountTransactionEntity>)
-
-    @Insert(entity = SavingsAccountWithAssociationsEntity::class, onConflict = OnConflictStrategy.REPLACE)
 ```
 
 </details>
 
-- `suspend fun insertSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)`
-- `suspend fun updateSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)`
-- `suspend fun deleteSavingsAccountTransactionRequest(savingsAccountId: Int)`
+- `suspend fun insertSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)` — Saves `transactionRequest`, replacing any row with the same key.
+- `suspend fun updateSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)` — Updates the stored row of `transactionRequest`.
+- `suspend fun deleteSavingsAccountTransactionRequest(savingsAccountId: Int)` — Deletes the `SavingsAccountTransactionRequest` rows whose `savingAccountId` is `savingsAccountId`.
 - `suspend fun deleteAllSavingsAccountTransactionRequests()` — The logout purge for the offline savings-transaction queue.
-- `fun getAllSavingsAccountTransactionRequest(): Flow<List<SavingsAccountTransactionRequestEntity>>`
-- `fun getSavingsAccountTransactionRequest(savingsAccountId: Int): Flow<SavingsAccountTransactionRequestEntity?>`
+- `fun getAllSavingsAccountTransactionRequest(): Flow<List<SavingsAccountTransactionRequestEntity>>` — Observes the `SavingsAccountTransactionRequest` rows.
+- `fun getSavingsAccountTransactionRequest(savingsAccountId: Int): Flow<SavingsAccountTransactionRequestEntity?>` — Observes the `SavingsAccountTransactionRequest` row whose `savingAccountId` is `savingsAccountId`.
 - `suspend fun saveTransactionRequestFor(` — Queue an offline savings transaction, stamping the account, its type and the transaction kind. Was `SavingsDaoHelper.saveSavingsAccountTransaction`.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/savings/entity/Charge.kt`
@@ -2597,7 +2599,7 @@ interface SavingsDao :
 ```kotlin
 data class Charge(
 ```
-_No KDoc at source._
+A charge.
 
 <details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/form/ChargeFormScreen.kt:218</code></summary>
 
@@ -2620,16 +2622,15 @@ data class SavingAccountCurrencyEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/SavingsCollectionSheet.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/collectionsheet/entity/SavingsCollectionSheet.kt:28</code></summary>
 
 ```kotlin
-    val accountStatusId: Int = 0,
 
+    /** The currency the amounts are in. */
     val currency: SavingAccountCurrencyEntity? = null,
 
+    /** The kind of deposit account. */
     val depositAccountType: String? = null,
-
-    val dueAmount: Int = 0,
 ```
 
 </details>
@@ -2641,16 +2642,16 @@ data class SavingAccountDepositTypeEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:37</code></summary>
 
 ```kotlin
-
+    /** Stores a `SavingAccountDepositTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromDepositType(type: SavingAccountDepositTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `SavingAccountDepositTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2681,18 +2682,18 @@ private fun SavingProductsTemplate.defaultSelections(): Map<SavingsField, Saving
 ```kotlin
 data class SavingsAccountEntity(
 ```
-_No KDoc at source._
+Room row for a savings account.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:38</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/dao/CenterDao.kt:42</code></summary>
 
 ```kotlin
-    suspend fun saveLoanAccount(loanAccount: LoanAccountEntity)
 
+    /** Saves `savingsAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = SavingsAccountEntity::class)
     suspend fun saveSavingsAccount(savingsAccount: SavingsAccountEntity)
 
+    /** Saves `loanAccount`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = LoanAccountEntity::class)
-    suspend fun saveMemberLoanAccount(loanAccount: LoanAccountEntity)
 ```
 
 </details>
@@ -2704,16 +2705,16 @@ data class SavingsAccountStatusEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:59</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:67</code></summary>
 
 ```kotlin
-
+    /** Stores a `SavingsAccountStatusEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromSavingAccountStatus(type: SavingsAccountStatusEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `SavingsAccountStatusEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2725,16 +2726,16 @@ data class SavingsAccountSummaryEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:69</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsPeriodTypeConverters.kt:79</code></summary>
 
 ```kotlin
-
+    /** Stores a `SavingsAccountSummaryEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromSavingAccountSummary(type: SavingsAccountSummaryEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `SavingsAccountSummaryEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2744,18 +2745,18 @@ A COLUMN, not a table. This is embedded in its parent entity and persisted by a 
 ```kotlin
 data class SavingsAccountTransactionEntity(
 ```
-_No KDoc at source._
+Room row for a savings account transaction.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/converter/ListTypeConverters.kt:53</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/converter/ListTypeConverters.kt:60</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<SavingsAccountTransactionEntity>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromListOfTransactions(list: List<SavingsAccountTransactionEntity>?): String? {
         return list?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<SavingsAccountTransactionEntity>?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2765,18 +2766,18 @@ _No KDoc at source._
 ```kotlin
 data class SavingsAccountTransactionRequestEntity(
 ```
-_No KDoc at source._
+Room row for a savings account transaction request.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsTransactionRequestDao.kt:21</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsTransactionRequestDao.kt:22</code></summary>
 
 ```kotlin
-/** Offline savings-transaction request queue. */
 interface SavingsTransactionRequestDao {
+    /** Saves `transactionRequest`, replacing any row with the same key. */
     @Insert(entity = SavingsAccountTransactionRequestEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)
 
+    /** Updates the stored row of `transactionRequest`. */
     @Update(entity = SavingsAccountTransactionRequestEntity::class, onConflict = OnConflictStrategy.NONE)
-    suspend fun updateSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)
 ```
 
 </details>
@@ -2786,18 +2787,18 @@ interface SavingsTransactionRequestDao {
 ```kotlin
 data class SavingsAccountTransactionTemplateEntity(
 ```
-_No KDoc at source._
+Room row for a savings account transaction template.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsDao.kt:42</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsDao.kt:47</code></summary>
 
 ```kotlin
-    suspend fun insertAllPaymentTypeOption(paymentTypeOption: List<PaymentTypeOptionEntity>)
 
+    /** Saves `transactionTemplate`, replacing any row with the same key. */
     @Insert(entity = SavingsAccountTransactionTemplateEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSavingsAccountTransactionTemplate(transactionTemplate: SavingsAccountTransactionTemplateEntity)
 
+    /** Reads the `TransactionTable` rows whose `savingsAccountId` is `savingsAccountId`. */
     @Query("SELECT * FROM TransactionTable WHERE savingsAccountId = :savingsAccountId")
-    suspend fun getAllTransactions(savingsAccountId: Int): List<SavingsAccountTransactionEntity>
 ```
 
 </details>
@@ -2807,13 +2808,13 @@ _No KDoc at source._
 ```kotlin
 data class SavingsAccountWithAssociationsEntity(
 ```
-_No KDoc at source._
+Room row for a savings account with associations.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsDao.kt:34</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/dao/SavingsDao.kt:37</code></summary>
 
 ```kotlin
-    suspend fun insertAllTransactions(transaction: List<SavingsAccountTransactionEntity>)
 
+    /** Saves ``, replacing any row with the same key. */
     @Insert(entity = SavingsAccountWithAssociationsEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSavingsAccountWithAssociations(
         savingsAccountWithAssociations: SavingsAccountWithAssociationsEntity,
@@ -2841,18 +2842,18 @@ Created by Pronay Sarker on 15/08/2024 (11:12 PM)
 ```kotlin
 data class SavingsTransactionDateEntity(
 ```
-_No KDoc at source._
+Room row for a savings transaction date.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:36</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:40</code></summary>
 
 ```kotlin
-
+    /** Stores a `SavingsTransactionDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromSavingsTransactionDate(date: SavingsTransactionDateEntity?): String? {
         return date?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `SavingsTransactionDateEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2864,16 +2865,16 @@ data class SavingsTransactionTypeEntity(
 ```
 A COLUMN, not a table. This is embedded in its parent entity and persisted by a `@ColumnTypeConverter` as a JSON string.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/savings/converter/SavingsTypeConverters.kt:28</code></summary>
 
 ```kotlin
-class SavingsTypeConverters {
+    /** Stores a `SavingsTransactionTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromTransactionType(type: SavingsTransactionTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `SavingsTransactionTypeEntity?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -2883,7 +2884,7 @@ class SavingsTypeConverters {
 ```kotlin
 interface ServerInstanceDao
 ```
-_No KDoc at source._
+Room queries for server instance rows.
 
 <details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/serverconfig/ServerInstancesTest.kt:48</code></summary>
 
@@ -2899,9 +2900,9 @@ _No KDoc at source._
 
 </details>
 
-- `fun observeAll(): Flow<List<ServerInstanceEntity>>`
-- `suspend fun insertAll(instances: List<ServerInstanceEntity>)`
-- `suspend fun deleteAll()`
+- `fun observeAll(): Flow<List<ServerInstanceEntity>>` — Observes the `server_instances` rows, ordered by `position`.
+- `suspend fun insertAll(instances: List<ServerInstanceEntity>)` — Saves `instances`, replacing rows with the same key.
+- `suspend fun deleteAll()` — Deletes every `server_instances` row.
 - `suspend fun replaceAll(instances: List<ServerInstanceEntity>)` — The fetched list REPLACES the cached one: an instance removed remotely leaves the picker.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/serverconfig/entity/ServerInstanceEntity.kt`
@@ -2937,14 +2938,14 @@ Model for Observable.zip. This Model used to combine the Client and ClientAccoun
 ```kotlin
 data class ClientListArgs(
 ```
-/* Copyright 2024 Mifos Initiative This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+Navigation arguments for the client list.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/shared/entity/DataTableDataNavigationArg.kt`
 
 ```kotlin
 data class DataTableDataNavigationArg(
 ```
-_No KDoc at source._
+Navigation arguments for a data-table form.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/shared/entity/GroupAndGroupAccounts.kt`
 
@@ -2959,13 +2960,6 @@ Created by Rajan Maurya on 11/09/16.
 class LoanAndLoanRepayment
 ```
 Created by Rajan Maurya on 08/08/16.
-
-### `core/database/src/commonMain/kotlin/kpt/core/database/shared/entity/SavingProductsAndTemplate.kt`
-
-```kotlin
-class SavingProductsAndTemplate(
-```
-Created by Rajan Maurya on 02/09/16.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/shared/entity/SavingsAccountAndTransactionTemplate.kt`
 
@@ -2995,29 +2989,29 @@ fun provideStaffStore(
 
 </details>
 
-- `suspend fun insertStaffs(staffs: List<StaffEntity>)`
-- `suspend fun insertStaff(staff: StaffEntity)`
-- `fun getAllStaff(officeId: Int): Flow<List<StaffEntity>>`
-- `suspend fun deleteForOffice(officeId: Int)`
-- `suspend fun deleteAll()`
+- `suspend fun insertStaffs(staffs: List<StaffEntity>)` — Saves `staffs`, replacing rows with the same key.
+- `suspend fun insertStaff(staff: StaffEntity)` — Saves `staff`, replacing any row with the same key.
+- `fun getAllStaff(officeId: Int): Flow<List<StaffEntity>>` — Observes the `Staff` rows whose `officeId` is `officeId`.
+- `suspend fun deleteForOffice(officeId: Int)` — Deletes the `Staff` rows whose `officeId` is `officeId`.
+- `suspend fun deleteAll()` — Deletes every `Staff` row.
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/staff/entity/StaffEntity.kt`
 
 ```kotlin
 data class StaffEntity(
 ```
-_No KDoc at source._
+Room row for a staff member.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/staff/dao/StaffDao.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/staff/dao/StaffDao.kt:28</code></summary>
 
 ```kotlin
-interface StaffDao {
 
+    /** Saves `staffs`, replacing rows with the same key. */
     @Insert(entity = StaffEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStaffs(staffs: List<StaffEntity>)
 
+    /** Saves `staff`, replacing any row with the same key. */
     @Insert(entity = StaffEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertStaff(staff: StaffEntity)
 ```
 
 </details>
@@ -3050,14 +3044,14 @@ fun provideSurveyStore(
 
 </details>
 
-- `suspend fun insertSurvey(survey: SurveyEntity)`
-- `suspend fun insertQuestionData(questionData: QuestionDatasEntity)`
-- `suspend fun insertResponseData(responseDatas: ResponseDatasEntity)`
-- `fun getAllSurveys(): Flow<List<SurveyEntity>>`
-- `suspend fun deleteAllSurveys()`
+- `suspend fun insertSurvey(survey: SurveyEntity)` — Saves `survey`, replacing any row with the same key.
+- `suspend fun insertQuestionData(questionData: QuestionDatasEntity)` — Saves `questionData`, replacing any row with the same key.
+- `suspend fun insertResponseData(responseDatas: ResponseDatasEntity)` — Saves `responseDatas`, replacing any row with the same key.
+- `fun getAllSurveys(): Flow<List<SurveyEntity>>` — Observes the `Survey` rows.
+- `suspend fun deleteAllSurveys()` — Deletes every `Survey` row.
 - `suspend fun replaceAllSurveys(surveys: List<SurveyEntity>)` — Make the table EXACTLY the server's survey list. The store's writer inserted one by one, so a survey retired on the server stayed offered in the field.
-- `fun getQuestionDatas(surveyId: Int): Flow<List<QuestionDatasEntity>>`
-- `fun getResponseDatas(questionId: Int): Flow<List<ResponseDatasEntity>>`
+- `fun getQuestionDatas(surveyId: Int): Flow<List<QuestionDatasEntity>>` — Observes the `QuestionDatas` rows whose `surveyId` is `surveyId`, ordered by `sequenceNo`.
+- `fun getResponseDatas(questionId: Int): Flow<List<ResponseDatasEntity>>` — Observes the `ResponseDatas` rows whose `id` is `questionId`, ordered by `sequenceNo`.
 - `suspend fun saveQuestionDataFor(surveyId: Int, questionData: QuestionDatasEntity): QuestionDatasEntity` — Stamp the owning survey onto question data before persisting. Was `SurveyDaoHelper`.
 - `val stamped = questionData.copy(surveyId = surveyId)`
 - `suspend fun saveResponseDataFor(questionId: Int, responseData: ResponseDatasEntity): ResponseDatasEntity` — Stamp the owning question onto response data before persisting. Was `SurveyDaoHelper`.
@@ -3068,18 +3062,18 @@ fun provideSurveyStore(
 ```kotlin
 data class ComponentDatasEntity(
 ```
-_No KDoc at source._
+Room row for a survey component.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/converter/SurveyTypeConverters.kt:37</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/converter/SurveyTypeConverters.kt:40</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<ComponentDatasEntity>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromComponentDatasList(componentDatas: List<ComponentDatasEntity>?): String? {
         return componentDatas?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<ComponentDatasEntity>?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -3089,18 +3083,18 @@ _No KDoc at source._
 ```kotlin
 data class QuestionDatasEntity(
 ```
-_No KDoc at source._
+Room row for a survey question.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/converter/SurveyTypeConverters.kt:27</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/converter/SurveyTypeConverters.kt:28</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<QuestionDatasEntity>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromQuestionDatasList(questionDatas: List<QuestionDatasEntity>?): String? {
         return questionDatas?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<QuestionDatasEntity>?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -3110,18 +3104,18 @@ _No KDoc at source._
 ```kotlin
 data class ResponseDatasEntity(
 ```
-_No KDoc at source._
+Room row for a survey answer option.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/converter/SurveyTypeConverters.kt:47</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/converter/SurveyTypeConverters.kt:52</code></summary>
 
 ```kotlin
-
+    /** Stores a `List<ResponseDatasEntity>?` in a JSON column. */
     @ColumnTypeConverter
     fun fromResponseDatasList(responseDatas: List<ResponseDatasEntity>?): String? {
         return responseDatas?.let { Json.encodeToString(it) }
     }
 
-    @ColumnTypeConverter
+    /** Reads a `List<ResponseDatasEntity>?` back from the JSON column it is stored in. */
 ```
 
 </details>
@@ -3131,18 +3125,18 @@ _No KDoc at source._
 ```kotlin
 data class SurveyEntity(
 ```
-_No KDoc at source._
+Room row for a survey.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/dao/SurveyDao.kt:30</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/survey/dao/SurveyDao.kt:31</code></summary>
 
 ```kotlin
-interface SurveyDao {
 
+    /** Saves `survey`, replacing any row with the same key. */
     @Insert(entity = SurveyEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSurvey(survey: SurveyEntity)
 
+    /** Saves `questionData`, replacing any row with the same key. */
     @Insert(entity = QuestionDatasEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertQuestionData(questionData: QuestionDatasEntity)
 ```
 
 </details>
@@ -3150,11 +3144,11 @@ interface SurveyDao {
 ### `core/database/src/commonMain/kotlin/kpt/core/database/utils/GetCurrentTimeInMillis.kt`
 
 ```kotlin
-expect fun getCurrentTimeInMillis(): Long
+fun getCurrentTimeInMillis(): Long = Clock.System.now().toEpochMilliseconds()
 ```
-_No KDoc at source._
+The current wall-clock time, in milliseconds since the Unix epoch.
 
 ---
 
-_150 type(s), 280 function(s)/property(ies); 129 carry KDoc at source; 1 authored example(s); 122 live call site(s)._
+_149 type(s), 280 function(s)/property(ies); 416 carry KDoc at source; 1 authored example(s); 122 live call site(s)._
 <!-- api-docs:end -->

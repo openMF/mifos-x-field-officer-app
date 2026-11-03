@@ -17,6 +17,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 class IdentifierTemplate(
 
+    /** The identity document types that may be added. */
     @Serializable
     var allowedDocumentTypes: List<DocumentType>? = emptyList(),
 

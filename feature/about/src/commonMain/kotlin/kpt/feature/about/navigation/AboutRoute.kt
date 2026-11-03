@@ -16,6 +16,7 @@ import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.feature.about.ui.AboutScreen
 
+/** The About screen: app version, licences and links. */
 @Serializable
 data object AboutRoute
 
@@ -31,4 +32,5 @@ fun NavGraphBuilder.aboutDestination(navController: NavController) {
     }
 }
 
+/** Opens the About screen. */
 fun NavController.navigateToAbout() = navigate(AboutRoute)

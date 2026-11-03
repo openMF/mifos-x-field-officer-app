@@ -17,13 +17,22 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Staff(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The person's first name. */
     val firstname: String? = null,
+    /** The person's last name. */
     val lastname: String? = null,
+    /** The mobile phone number. */
     val mobileNo: String? = null,
+    /** The display name. */
     val displayName: String? = null,
+    /** The server id of the office. */
     val officeId: Int? = null,
+    /** The name of the office. */
     val officeName: String? = null,
+    /** True when the staff member is a loan officer. */
     val isLoanOfficer: Boolean? = null,
+    /** True when the record is active. */
     val isActive: Boolean? = null,
 )

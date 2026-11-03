@@ -11,6 +11,8 @@ package kpt.core.store.charge
 
 /** Addresses one `getChargeTemplate` read. */
 data class GetChargeTemplateKey(
+    /** The resource kind, as Fineract names it in the path (`loans`, `clients`, `savings`). */
     val resourceType: String,
+    /** The id of the resource the records belong to. */
     val resourceId: Int,
 )

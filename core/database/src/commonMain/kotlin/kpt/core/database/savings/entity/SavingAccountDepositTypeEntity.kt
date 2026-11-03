@@ -23,32 +23,56 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingAccountDepositTypeEntity(
+    /** The server id of this record. */
     val id: Int? = null,
 
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     val code: String? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     val value: String? = null,
 ) {
 
+    /** True for a recurring-deposit type. */
     @Ignore
     val isRecurring: Boolean
         get() = ServerTypes.RECURRING.id == id
 
+    /** The API path segment for this deposit type (`savingsaccounts`, `fixeddepositaccounts`, …). */
     @Ignore
     val endpoint: String
         get() = ServerTypes.fromId(id).endpoint
 
+    /** The deposit type as the server names it. */
     @Ignore
     val serverType: ServerTypes
         get() = ServerTypes.fromId(id)
 
+    /**
+     * Server types.
+     *
+     * @property code the Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an
+     *   ISO currency code)
+     * @property endpoint the API path segment for this deposit type (`savingsaccounts`, `fixeddepositaccounts`, …)
+     * @property id the server id of this record
+     */
     enum class ServerTypes(val id: Int, val code: String, val endpoint: String) {
+        /** A savings account. */
         SAVINGS(100, "depositAccountType.savingsDeposit", "savingsaccounts"),
+
+        /** A fixed-deposit account. */
         FIXED(200, "depositAccountType.fixedDeposit", "fixeddepositaccounts"),
+
+        /** A recurring-deposit account. */
         RECURRING(300, "depositAccountType.recurringDeposit", "recurringdepositaccounts"),
         ;
 
+        /** Constants and factories of `ServerTypes`. */
         companion object {
+            /** The type with this server id; `SAVINGS` when no type matches. */
             fun fromId(id: Int?): ServerTypes {
                 for (type in entries) {
                     if (type.id == id) {

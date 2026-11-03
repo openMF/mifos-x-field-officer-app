@@ -56,11 +56,13 @@ actual class PermissionRequester actual constructor(private val context: AppCont
             return null
         }
 
+    /** True when every Android permission behind `permissions` is granted. */
     actual fun isGranted(permissions: List<Permission>): Boolean =
         permissions.flatMap { it.manifestPermissions() }.all { manifest ->
             ContextCompat.checkSelfPermission(context, manifest) == PackageManager.PERMISSION_GRANTED
         }
 
+    /** Asks the user for any of `permissions` not yet granted; Denied when no activity can show the dialog. */
     actual suspend fun request(permissions: List<Permission>): PermissionResult {
         val manifestPermissions = permissions.flatMap { it.manifestPermissions() }.distinct()
         // No activity means no way to show the system dialog. Denied (not DeniedPermanently) —
@@ -96,6 +98,7 @@ actual class PermissionRequester actual constructor(private val context: AppCont
         registered.launch(manifestPermissions.toTypedArray())
     }
 
+    /** Opens this app's page in the system settings. */
     actual fun openAppSettings() {
         val intent = Intent(
             Settings.ACTION_APPLICATION_DETAILS_SETTINGS,

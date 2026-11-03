@@ -11,7 +11,9 @@ package kpt.core.model.objects.clients
 
 import kotlinx.serialization.Serializable
 
+/** Request body for an assign staff. */
 @Serializable
 data class AssignStaffRequest(
+    /** The server id of the staff member (loan officer). */
     val staffId: Int,
 )

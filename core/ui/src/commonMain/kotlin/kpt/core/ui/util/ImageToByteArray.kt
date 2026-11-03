@@ -12,6 +12,7 @@ package kpt.core.ui.util
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
+/** Decodes a base64 image (with or without a `data:` prefix) and resizes it; null when it cannot be decoded. */
 @OptIn(ExperimentalEncodingApi::class)
 fun imageToByteArray(image: String?): ByteArray? {
     if (image.isNullOrBlank()) return null

@@ -28,6 +28,7 @@ import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Card with the app's default shape, elevation and colours; clickable when `onClick` is set. */
 @Composable
 fun AppCard(
     modifier: Modifier = Modifier,

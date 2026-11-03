@@ -25,6 +25,7 @@ import kpt.core.model.objects.noncoreobjects.IdentifierTemplate
 import kpt.core.model.shared.CollateralItem
 import kpt.core.model.shared.CollateralItemResult
 
+/** Reads clients and everything shown on them, from the cache and the server. */
 interface ClientRepository {
     /** The officer's client roster. */
     fun clientsStream(scope: CoroutineScope): ScreenDataStream<List<Client>>
@@ -105,6 +106,7 @@ interface ClientRepository {
      */
     fun addressConfigurationStream(scope: CoroutineScope): ScreenDataStream<AddressConfiguration>
 
+    /** The address template: address types and the fields each one takes. */
     fun addressTemplateStream(scope: CoroutineScope): ScreenDataStream<AddressTemplate>
 
     /** Where the officer has recorded this client — the pinpoint map/list. */

@@ -21,33 +21,43 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class CenterInfo(
+    /** The number of active clients. */
     @SerialName("activeclients")
     var activeClients: Int? = null,
 
+    /** The number of active loans. */
     @SerialName("activeloans")
     var activeLoans: Int? = null,
 
+    /** The number of active client loans. */
     @SerialName("activeclientloans")
     var activeClientLoans: Int? = null,
 
+    /** The number of active group loans. */
     @SerialName("activegrouploans")
     var activeGroupLoans: Int? = null,
 
+    /** The number of active borrowers. */
     @SerialName("activeborrowers")
     var activeBorrowers: Int? = null,
 
+    /** The number of clients with an active loan. */
     @SerialName("activeclientborrowers")
     var activeClientBorrowers: Int? = null,
 
+    /** The number of groups with an active loan. */
     @SerialName("activegroupborrowers")
     var activeGroupBorrowers: Int? = null,
 
+    /** The number of overdue loans. */
     @SerialName("overdueloans")
     var overdueLoans: Int? = null,
 
+    /** The number of overdue client loans. */
     @SerialName("overdueclientloans")
     var overdueClientLoans: Int? = null,
 
+    /** The number of overdue group loans. */
     @SerialName("overduegrouploans")
     var overdueGroupLoans: Int? = null,
 )

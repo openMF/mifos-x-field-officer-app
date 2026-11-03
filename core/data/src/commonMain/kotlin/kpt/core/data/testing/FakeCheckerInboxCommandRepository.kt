@@ -28,6 +28,7 @@ class FakeCheckerInboxCommandRepository(
     },
 ) : CheckerInboxCommandRepository {
 
+    /** The decisions made, as (command, audit id), in order. */
     val decisions = mutableListOf<Pair<String, Int>>()
 
     override suspend fun approveCheckerEntry(auditId: Int) = decide("approve", auditId)

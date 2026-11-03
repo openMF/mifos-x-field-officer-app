@@ -20,10 +20,16 @@ import kpt.core.model.payment.PaymentTypeOption
  */
 @Serializable
 data class CollectionSheetResponse(
+    /** The attendance choices. */
     var attendanceTypeOptions: List<AttendanceTypeOption> = ArrayList(),
+    /** The date the amount is due. */
     var dueDate: IntArray? = null,
+    /** The groups. */
     var groups: List<GroupCollectionSheet> = ArrayList(),
+    /** The loan products the sheet covers. */
     var loanProducts: List<kpt.core.model.objects.organisations.LoanProducts> = ArrayList(),
+    /** The payment types the user may choose from. */
     var paymentTypeOptions: List<PaymentTypeOption> = ArrayList(),
+    /** The savings products the sheet covers. */
     var savingsProducts: List<SavingsProduct> = ArrayList(),
 )

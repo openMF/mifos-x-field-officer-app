@@ -17,11 +17,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class IdentifierPayload(
+    /** The server id of the identity document type. */
     var documentTypeId: Int? = null,
 
+    /** The document type of the identifier. */
     var documentKey: String? = null,
 
+    /** The record's Fineract status. */
     var status: String? = null,
 
+    /** A free-text description. */
     var description: String? = null,
 )

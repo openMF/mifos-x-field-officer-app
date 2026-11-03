@@ -23,6 +23,7 @@ import kpt.core.designsystem.fieldofficer.component.AppTopBar
 import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.DesignToken
 
+/** Dialog for cropping an image at `aspectRatio`. */
 @Composable
 fun AppImageCropperDialog(
     state: CropState,

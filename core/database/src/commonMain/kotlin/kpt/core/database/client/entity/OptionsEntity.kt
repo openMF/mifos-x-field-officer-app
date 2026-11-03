@@ -14,6 +14,7 @@ import androidx.room3.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
+/** Room row for one client-template option. */
 @Serializable
 @DbEntity
 @Entity(
@@ -25,17 +26,23 @@ import kpt.core.base.database.annotation.DbEntity
     tableName = "ClientTemplateOptions",
 )
 data class OptionsEntity(
+    /** The kind of option. */
     val optionType: String? = null,
 
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
+    /** The display name. */
     val name: String = "",
 
+    /** The sort position of this option. */
     val position: Int = 0,
 
+    /** A free-text description. */
     val description: String? = null,
 
+    /** True when the option is active. */
     @SerialName("isActive")
     val activeStatus: Boolean = false,
 )

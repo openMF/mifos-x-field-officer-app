@@ -16,15 +16,21 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class DocumentType(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** True when the record is active. */
     var active: Boolean? = null,
 
+    /** True when this option must be filled in. */
     var mandatory: Boolean? = null,
 
+    /** A free-text description. */
     var description: String? = null,
 
+    /** The sort position of this option. */
     var position: Int? = null,
 )

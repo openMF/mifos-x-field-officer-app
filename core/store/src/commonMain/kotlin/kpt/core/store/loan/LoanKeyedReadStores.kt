@@ -33,34 +33,49 @@ import kpt.core.model.loan.LoanTransactionTemplate as LoanTransactionTemplateMod
 
 /** Addresses one `getGuarantorAccountTemplate` read. */
 data class GetGuarantorAccountTemplateKey(
+    /** The loan's server id. */
     val loanId: Int,
+    /** The client's server id. */
     val clientId: Int,
 )
 
 /** Addresses one `getLoanTransactionTemplate` read. */
 data class GetLoanTransactionTemplateKey(
+    /** The loan's server id. */
     val loanId: Int,
+    /** The Fineract command the template is for. */
     val command: String?,
 )
 
 /** Addresses one `getGroupLoansAccountTemplate` read. */
 data class GetGroupLoansAccountTemplateKey(
+    /** The group's server id. */
     val groupId: Int,
+    /** The product's server id. */
     val productId: Int,
 )
 
 /** Addresses one `getAccountTransferTemplate` read. */
 data class GetAccountTransferTemplateKey(
+    /** The client transferred from. */
     val fromClientId: Int,
+    /** The type of the account transferred from. */
     val fromAccountType: Int,
+    /** The account transferred from. */
     val fromAccountId: Int,
+    /** The office transferred from, once chosen. */
     val fromOfficeId: Int? = null,
+    /** The office transferred to, once chosen. */
     val toOfficeId: Int? = null,
+    /** The client transferred to, once chosen. */
     val toClientId: Int? = null,
+    /** The type of the account transferred to, once chosen. */
     val toAccountType: Int? = null,
+    /** The account transferred to, once chosen. */
     val toAccountId: Int? = null,
 )
 
+/** Store reading the charge off template. */
 @StoreProvider(id = "loanGetChargeOffTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetChargeOffTemplate:{key}", params = ["key:String"])
 fun provideGetChargeOffTemplateStore(
@@ -72,6 +87,7 @@ fun provideGetChargeOffTemplateStore(
     fetch = { key -> loanApi.getChargeOffTemplate(loanId = key) },
 )
 
+/** Store reading the loan repayment schedule. */
 @StoreProvider(id = "loanGetLoanRepaymentSchedule", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetLoanRepaymentSchedule:{key}", params = ["key:String"])
 fun provideGetLoanRepaymentScheduleStore(
@@ -83,6 +99,7 @@ fun provideGetLoanRepaymentScheduleStore(
     fetch = { key -> loanApi.getLoanRepaymentSchedule(loanId = key) },
 )
 
+/** Store reading the loan with transactions. */
 @StoreProvider(id = "loanGetLoanWithTransactions", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetLoanWithTransactions:{key}", params = ["key:String"])
 fun provideGetLoanWithTransactionsStore(
@@ -94,6 +111,7 @@ fun provideGetLoanWithTransactionsStore(
     fetch = { key -> loanApi.getLoanWithTransactions(loanId = key) },
 )
 
+/** Store reading the guarantor template. */
 @StoreProvider(id = "loanGetGuarantorTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetGuarantorTemplate:{key}", params = ["key:String"])
 fun provideGetGuarantorTemplateStore(
@@ -105,6 +123,7 @@ fun provideGetGuarantorTemplateStore(
     fetch = { key -> loanApi.getGuarantorTemplate(loanId = key) },
 )
 
+/** Store reading the guarantor account template. */
 @StoreProvider(id = "loanGetGuarantorAccountTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetGuarantorAccountTemplate:{key}", params = ["key:String"])
 fun provideGetGuarantorAccountTemplateStore(
@@ -116,6 +135,7 @@ fun provideGetGuarantorAccountTemplateStore(
     fetch = { key -> loanApi.getGuarantorAccountTemplate(loanId = key.loanId, clientId = key.clientId) },
 )
 
+/** Store reading the loan transaction template. */
 @StoreProvider(id = "loanGetLoanTransactionTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetLoanTransactionTemplate:{key}", params = ["key:String"])
 fun provideGetLoanTransactionTemplateStore(
@@ -127,6 +147,7 @@ fun provideGetLoanTransactionTemplateStore(
     fetch = { key -> loanApi.getLoanTransactionTemplate(loanId = key.loanId, command = key.command) },
 )
 
+/** Store reading the group loans account template. */
 @StoreProvider(id = "loanGetGroupLoansAccountTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetGroupLoansAccountTemplate:{key}", params = ["key:String"])
 fun provideGetGroupLoansAccountTemplateStore(
@@ -138,6 +159,7 @@ fun provideGetGroupLoansAccountTemplateStore(
     fetch = { key -> loanApi.getGroupLoansAccountTemplate(groupId = key.groupId, productId = key.productId) },
 )
 
+/** Store reading the account transfer template. */
 @StoreProvider(id = "loanGetAccountTransferTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetAccountTransferTemplate:{key}", params = ["key:String"])
 fun provideGetAccountTransferTemplateStore(
@@ -173,6 +195,7 @@ fun provideGetAccountTransferTemplateStore(
     },
 )
 
+/** Store reading the loan reschedules. */
 @StoreProvider(id = "loanGetLoanReschedules", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetLoanReschedules:{key}", params = ["key:String"])
 fun provideGetLoanReschedulesStore(
@@ -184,6 +207,7 @@ fun provideGetLoanReschedulesStore(
     fetch = { key -> loanApi.getLoanReschedules(loanId = key) },
 )
 
+/** Store reading the loan officer template. */
 @StoreProvider(id = "loanGetLoanOfficerTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "loanGetLoanOfficerTemplate:{key}", params = ["key:String"])
 fun provideGetLoanOfficerTemplateStore(

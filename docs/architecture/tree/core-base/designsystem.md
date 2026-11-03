@@ -600,16 +600,16 @@ fun KptShimmerLoadingBox(
 ```
 Animated shimmer placeholder box. **Future migration:** new call sites should prefer `KptProgress(KptProgress.Shimmer(...))` from `kpt.core.base.designsystem.component.progress` — the unified progress family.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:433</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardHeader.kt:219</code></summary>
 
 ```kotlin
-        when (style) {
-            // 01: the avatar shimmers like everything else that hasn't loaded
-            HeaderStyle.Loading -> KptShimmerLoadingBox(
-                Modifier.size(11.tw).border(HAIRLINE, c.surfaceContainerHigh, CircleShape),
-                shape = CircleShape,
-            )
-            // 02: w-11 h-11 primary-container, ring-2 white, shadow-card
+    when (style) {
+        // 01: the avatar shimmers like everything else that hasn't loaded
+        HeaderStyle.Loading -> KptShimmerLoadingBox(
+            Modifier.size(11.tw).border(HAIRLINE, c.surfaceContainerHigh, CircleShape),
+            shape = CircleShape,
+        )
+        // 02: w-11 h-11 primary-container, ring-2 white, shadow-card
 ```
 
 </details>

@@ -16,10 +16,15 @@ import org.jetbrains.skia.ImageInfo
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
 
+/** Image resizing with Skia. */
 actual object ImageUtil {
+    /** Widest an image is scaled to, in pixels. */
     actual val DEFAULT_MAX_WIDTH: Float = 816f
+
+    /** Tallest an image is scaled to, in pixels. */
     actual val DEFAULT_MAX_HEIGHT: Float = 612f
 
+    /** Scales the image down to fit `maxWidth` × `maxHeight` and re-encodes it. */
     actual fun compressImage(
         decodedBytes: ByteArray,
         maxWidth: Float,

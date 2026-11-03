@@ -16,9 +16,14 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class RequestCollectionSheetPayload(
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat: String? = null,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     var locale: String? = null,
+    /** The server id of the office. */
     var officeId: Int? = null,
+    /** The server id of the staff member (loan officer). */
     var staffId: Int? = null,
+    /** The date of the transaction. */
     var transactionDate: String = "",
 )

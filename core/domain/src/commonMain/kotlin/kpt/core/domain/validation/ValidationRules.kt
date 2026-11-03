@@ -21,9 +21,13 @@ package kpt.core.domain.validation
  */
 object CredentialRules {
 
+    /** Fewest characters a username may have. */
     const val MIN_USERNAME_LENGTH: Int = 4
+
+    /** Fewest characters a password may have. */
     const val MIN_PASSWORD_LENGTH: Int = 6
 
+    /** Checks a username: required, at least [MIN_USERNAME_LENGTH] characters. */
     fun username(value: String): ValidationResult = when {
         value.isEmpty() -> ValidationResult.Invalid(ValidationFailure.Required)
         value.length < MIN_USERNAME_LENGTH ->
@@ -31,6 +35,7 @@ object CredentialRules {
         else -> ValidationResult.Valid
     }
 
+    /** Checks a password: required, at least [MIN_PASSWORD_LENGTH] characters. */
     fun password(value: String): ValidationResult = when {
         value.isEmpty() -> ValidationResult.Invalid(ValidationFailure.Required)
         value.length < MIN_PASSWORD_LENGTH ->
@@ -48,6 +53,7 @@ object CredentialRules {
  */
 object ServerConfigRules {
 
+    /** The ports a server may listen on. */
     val PORT_RANGE: IntRange = 1..65535
 
     /**
@@ -75,12 +81,14 @@ object ServerConfigRules {
      */
     private val TENANT = Regex("^[a-zA-Z0-9_-]+$")
 
+    /** Checks a server host name. */
     fun endpoint(value: String): ValidationResult = when {
         value.isBlank() -> ValidationResult.Invalid(ValidationFailure.Required)
         !HOSTNAME.matches(value) -> ValidationResult.Invalid(ValidationFailure.MalformedHostname)
         else -> ValidationResult.Valid
     }
 
+    /** Checks a port: a number within [PORT_RANGE]. */
     fun port(value: String): ValidationResult {
         if (value.isBlank()) return ValidationResult.Invalid(ValidationFailure.Required)
         val parsed = value.toIntOrNull()
@@ -91,12 +99,14 @@ object ServerConfigRules {
         }
     }
 
+    /** Checks a protocol: `http://` or `https://`. */
     fun protocol(value: String): ValidationResult = when {
         value.isBlank() -> ValidationResult.Invalid(ValidationFailure.Required)
         !PROTOCOL.matches(value) -> ValidationResult.Invalid(ValidationFailure.MalformedProtocol)
         else -> ValidationResult.Valid
     }
 
+    /** Checks an API path: it must start and end with `/`. */
     fun apiPath(value: String): ValidationResult = when {
         value.isBlank() -> ValidationResult.Invalid(ValidationFailure.Required)
         !value.startsWith("/") ->
@@ -106,6 +116,7 @@ object ServerConfigRules {
         else -> ValidationResult.Valid
     }
 
+    /** Checks a tenant id: letters, digits, `-` and `_` only. */
     fun tenant(value: String): ValidationResult = when {
         value.isBlank() -> ValidationResult.Invalid(ValidationFailure.Required)
         !TENANT.matches(value) -> ValidationResult.Invalid(ValidationFailure.MalformedTenant)

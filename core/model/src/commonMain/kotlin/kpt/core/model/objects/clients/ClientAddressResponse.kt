@@ -12,19 +12,26 @@ package kpt.core.model.objects.clients
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/** Server response to a client address request. */
 @Serializable
 data class ClientAddressResponse(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The server id of the client. */
     @SerialName("client_id")
     var clientId: Int? = null,
 
+    /** The latitude. */
     var latitude: Double? = null,
 
+    /** The longitude. */
     var longitude: Double? = null,
 
+    /** The address of the picked place. */
     @SerialName("description")
     var placeAddress: String? = null,
 
+    /** The map provider's id of the picked place. */
     var placeId: String? = null,
 )

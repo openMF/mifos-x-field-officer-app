@@ -38,6 +38,7 @@ import kpt.core.ui.generated.resources.core_ui_something_went_wrong
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Error state: no-internet, empty-data or a message, with an optional retry. */
 @Composable
 fun AppErrorComponent(
     modifier: Modifier = Modifier,
@@ -59,6 +60,7 @@ fun AppErrorComponent(
     }
 }
 
+/** No-internet state with an optional retry. */
 @Composable
 fun NoInternetComponent(
     modifier: Modifier = Modifier,
@@ -94,6 +96,7 @@ fun NoInternetComponent(
     }
 }
 
+/** Empty-data or error state with an optional retry. */
 @Composable
 fun EmptyDataComponent(
     modifier: Modifier = Modifier,
@@ -137,6 +140,7 @@ fun EmptyDataComponent(
     }
 }
 
+/** Empty-data state with a custom message and icon. */
 @Composable
 fun EmptyDataComponentWithModifiedMessageAndIcon(
     message: String,

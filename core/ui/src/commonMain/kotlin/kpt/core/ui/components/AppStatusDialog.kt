@@ -38,6 +38,7 @@ import kpt.core.ui.generated.resources.ic_icon_success
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Success or failure result, with a confirm button; inline or as a dialog. */
 @Composable
 fun AppStatusDialog(
     status: ResultStatus,
@@ -159,8 +160,12 @@ fun AppStatusDialog(
     }
 }
 
+/** Outcome shown by an [AppStatusDialog]. */
 enum class ResultStatus {
+    /** The action succeeded. */
     SUCCESS,
+
+    /** The action failed. */
     FAILURE,
 }
 
@@ -180,7 +185,11 @@ private fun AppSuccessStatusDialogPreview() {
     }
 }
 
+/** Test tags of [AppStatusDialog]. */
 object AppStatusDialogTestTags {
+    /** The secondary action under the button. */
     const val SECONDARY = "status-dialog:secondary"
+
+    /** The note under the message. */
     const val NOTE = "status-dialog:note"
 }

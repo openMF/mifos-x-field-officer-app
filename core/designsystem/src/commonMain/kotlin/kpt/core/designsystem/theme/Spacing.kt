@@ -51,6 +51,7 @@ data class Spacing(
     val touchTargetMin: Dp = 48.dp,
 )
 
+/** Provides the current [Spacing]. */
 val LocalSpacing = staticCompositionLocalOf { Spacing() }
 
 /** Resolve the active [Spacing] scale from composition. */

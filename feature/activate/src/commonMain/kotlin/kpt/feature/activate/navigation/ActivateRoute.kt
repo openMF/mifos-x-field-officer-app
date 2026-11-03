@@ -26,16 +26,22 @@ import kpt.feature.activate.ui.ActivateScreen
  * to a closed enum by the ViewModel. Neither field has a default: the original's route defaulted
  * `id` to `-1` and `type` to `""`, so a missing argument produced a screen that would try to
  * activate entity `-1` of no known kind.
+ *
+ * @property id the id of the client, centre or group to activate
+ * @property type which kind of entity [id] is — one of the `Constants.ACTIVATE_*` values
  */
 @Serializable
 data class ActivateRoute(val id: Int, val type: String)
 
+/** Opens the activation screen for client [clientId]. */
 fun NavController.navigateToActivateClient(clientId: Int, navOptions: NavOptions? = null) =
     navigate(ActivateRoute(clientId, Constants.ACTIVATE_CLIENT), navOptions)
 
+/** Opens the activation screen for centre [centerId]. */
 fun NavController.navigateToActivateCenter(centerId: Int, navOptions: NavOptions? = null) =
     navigate(ActivateRoute(centerId, Constants.ACTIVATE_CENTER), navOptions)
 
+/** Opens the activation screen for group [groupId]. */
 fun NavController.navigateToActivateGroup(groupId: Int, navOptions: NavOptions? = null) =
     navigate(ActivateRoute(groupId, Constants.ACTIVATE_GROUP), navOptions)
 

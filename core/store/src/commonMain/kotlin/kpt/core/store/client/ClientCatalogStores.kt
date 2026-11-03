@@ -64,6 +64,7 @@ fun provideClientsTemplateStore(
     fetch = { clientApi.getClientTemplate() },
 )
 
+/** Store reading the address template. */
 @StoreProvider(id = "addressTemplate", ttl = "12h")
 @CacheKey(name = "LIST", key = "addressTemplate")
 fun provideAddressTemplateStore(
@@ -75,6 +76,7 @@ fun provideAddressTemplateStore(
     fetch = { clientApi.getAddressTemplate() },
 )
 
+/** Store reading the client close template. */
 @StoreProvider(id = "clientCloseTemplate", ttl = "12h")
 @CacheKey(name = "LIST", key = "clientCloseTemplate")
 fun provideClientCloseTemplateStore(
@@ -86,6 +88,7 @@ fun provideClientCloseTemplateStore(
     fetch = { clientApi.getClientCloseTemplate() },
 )
 
+/** Store reading the collateral items. */
 @StoreProvider(id = "collateralItems", ttl = "12h")
 @CacheKey(name = "LIST", key = "collateralItems")
 fun provideCollateralItemsStore(

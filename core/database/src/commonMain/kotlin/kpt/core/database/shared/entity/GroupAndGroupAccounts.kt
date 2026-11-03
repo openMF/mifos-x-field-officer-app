@@ -18,6 +18,8 @@ import kpt.core.database.group.entity.GroupEntity
  */
 @Serializable
 data class GroupAndGroupAccounts(
+    /** The group. */
     var group: GroupEntity? = null,
+    /** The group's accounts. */
     var groupAccounts: GroupAccounts? = null,
 )

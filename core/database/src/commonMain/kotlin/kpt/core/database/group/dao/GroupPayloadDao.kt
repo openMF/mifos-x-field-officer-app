@@ -18,15 +18,19 @@ import kpt.core.database.group.entity.GroupPayloadEntity
 
 /** Offline group payload queue. */
 interface GroupPayloadDao {
+    /** Saves `groupPayload`, replacing any row with the same key. */
     @Insert(entity = GroupPayloadEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroupPayload(groupPayload: GroupPayloadEntity)
 
+    /** Updates the stored row of `payload`. */
     @Update(entity = GroupPayloadEntity::class, onConflict = OnConflictStrategy.NONE)
     suspend fun updateGroupPayload(payload: GroupPayloadEntity)
 
+    /** Deletes the `GroupPayload` rows whose `id` is `groupId`. */
     @Query("DELETE FROM GroupPayload where id = :groupId")
     suspend fun deleteGroupPayloadById(groupId: Int)
 
+    /** Observes the `GroupPayload` rows. */
     @Query("SELECT * FROM GroupPayload")
     fun getAllGroupPayloads(): Flow<List<GroupPayloadEntity>>
 

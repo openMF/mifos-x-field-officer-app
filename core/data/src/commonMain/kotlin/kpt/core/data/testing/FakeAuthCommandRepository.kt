@@ -18,6 +18,7 @@ import kpt.core.model.auth.PostAuthenticationResponse
 @ExperimentalDataTestingApi
 class FakeAuthCommandRepository : AuthCommandRepository {
 
+    /** The `signOut` calls, in order. */
     val signOuts = mutableListOf<Boolean>()
 
     /** What [signOut] returns — set a `Failed` to model a purge that could not complete. */

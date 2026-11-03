@@ -24,11 +24,22 @@ data class DownloadProgress(
     val current: String? = null,
     val records: Int = 0,
     val failures: List<DownloadFailure> = emptyList(),
+    /** True once the download has finished. */
     val finished: Boolean = false,
 )
 
-/** One thing that could not be downloaded: what it was, and the server's reason when it gave one. */
+/**
+ * One thing that could not be downloaded: what it was, and the server's reason when it gave one.
+ *
+ * @property item the item being downloaded
+ * @property reason why the download failed
+ */
 data class DownloadFailure(val item: String, val reason: String?)
 
-/** A selected center or group: its id, and the name progress and failures are reported under. */
+/**
+ * A selected center or group: its id, and the name progress and failures are reported under.
+ *
+ * @property id the server id of this record
+ * @property name the display name
+ */
 data class DownloadTarget(val id: Int, val name: String)

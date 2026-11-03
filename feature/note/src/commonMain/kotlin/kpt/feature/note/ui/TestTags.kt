@@ -29,8 +29,13 @@ object TestTags {
 
     /** Tags for [NoteListScreen]. */
     object NoteList {
+        /** The note list screen's root. */
         const val SCREEN: String = "note_list_screen"
+
+        /** The list of notes. */
         const val LIST: String = "note_list"
+
+        /** The note list's back button. */
         const val BACK: String = "note_list_back"
 
         /** FAB that opens the "Add note" screen. Always present regardless of repository state. */
@@ -38,7 +43,11 @@ object TestTags {
 
         /** The expanded action strip on a row — edit + delete. Absent until the row is expanded. */
         const val ROW_ACTIONS: String = "note_list_row_actions"
+
+        /** A note row's edit action. */
         const val ROW_EDIT: String = "note_list_row_edit"
+
+        /** A note row's delete action. */
         const val ROW_DELETE: String = "note_list_row_delete"
 
         /** Delete confirmation. Destructive and irreversible, so it is always confirmed. */
@@ -56,9 +65,16 @@ object TestTags {
 
     /** Tags for [AddEditNoteScreen]. */
     object AddEditNote {
+        /** The add/edit note screen's root. */
         const val SCREEN: String = "note_addedit_screen"
+
+        /** The note text field. */
         const val FIELD: String = "note_addedit_field"
+
+        /** The save button. */
         const val SUBMIT: String = "note_addedit_submit"
+
+        /** The add/edit screen's back button. */
         const val BACK: String = "note_addedit_back"
 
         /** Unsaved-changes warning, shown only when the text actually differs from what loaded. */

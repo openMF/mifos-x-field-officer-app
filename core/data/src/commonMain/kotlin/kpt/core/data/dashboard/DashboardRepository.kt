@@ -31,14 +31,21 @@ interface DashboardRepository {
     /** How many clients of [officeId] are in [status] (`pending`, `active`). */
     fun clientCountStream(officeId: Long, status: String, scope: CoroutineScope): ScreenDataStream<Int>
 
+    /** The officer's savings accounts. */
     fun savingsStream(scope: CoroutineScope): ScreenDataStream<List<DashboardSavings>>
 
     /** Installments of [loanIds] due on [date] (`yyyy-MM-dd`) — Today's collections without the collection sheet. */
     fun dueTodayStream(date: String, loanIds: List<Long>, scope: CoroutineScope): ScreenDataStream<List<DueTodayLoan>>
 
+    /** Fineract loan status codes the dashboard filters on. */
     companion object {
+        /** Submitted, waiting for approval. */
         const val STATUS_SUBMITTED = 100
+
+        /** Approved, waiting for disbursal. */
         const val STATUS_APPROVED = 200
+
+        /** Active. */
         const val STATUS_ACTIVE = 300
     }
 }

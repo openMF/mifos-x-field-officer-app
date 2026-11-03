@@ -9,14 +9,26 @@
  */
 package kpt.feature.settings
 
+/** The platform the app is running on. */
 expect fun getPlatform(): Platform
 
+/** The platforms the app ships on. */
 enum class Platform {
+    /** Android phones and tablets. */
     Android,
+
+    /** The desktop (JVM) app. */
     Desktop,
+
+    /** iOS. */
     IOS,
+
+    /** The Kotlin/JS web app. */
     JS,
+
+    /** The Kotlin/Wasm web app. */
     Wasm,
 }
 
+/** True when the platform can derive the colour scheme from the wallpaper (Material You). */
 expect fun supportsDynamicTheming(): Boolean

@@ -17,12 +17,20 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Survey(
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The key of this survey item. */
     val key: String? = null,
+    /** The display name. */
     val name: String? = null,
+    /** A free-text description. */
     val description: String? = null,
+    /** True when the survey has been synced. */
     val isSync: Boolean = false,
+    /** The country code of the survey. */
     val countryCode: String? = null,
+    /** The survey's questions. */
     val questionDatas: List<QuestionDatas> = emptyList(),
+    /** The survey's components. */
     val componentDatas: List<ComponentDatas> = emptyList(),
 )

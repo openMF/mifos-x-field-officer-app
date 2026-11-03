@@ -17,15 +17,26 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChargeOptions(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The display name. */
     val name: String? = null,
+    /** True when the record is active. */
     val active: Boolean? = null,
+    /** True when this charge is a penalty rather than a fee. */
     val penalty: Boolean? = null,
+    /** The currency the amounts are in. */
     val currency: Currency? = null,
+    /** The amount, in the record's currency. */
     val amount: Double? = null,
+    /** When the charge is applied (disbursement, specified due date, …). */
     val chargeTimeType: ChargeTimeType? = null,
+    /** What the charge applies to (loan, savings, client, …). */
     val chargeAppliesTo: ChargeAppliesTo? = null,
+    /** How the charge amount is calculated (flat, percent of amount, …). */
     val chargeCalculationType: ChargeCalculationType? = null,
+    /** How the charge is paid (regular or from a linked savings account). */
     val chargePaymentMode: ChargePaymentMode? = null,
+    /** The GL account the charge is booked to. */
     val incomeOrLiabilityAccount: IncomeOrLiabilityAccount? = null,
 )

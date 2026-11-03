@@ -16,7 +16,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsTransactionData(
+    /** The savings account with its transactions and charges. */
     val savingsAccountWithAssociations: SavingsAccountWithAssociationsEntity = SavingsAccountWithAssociationsEntity(),
+    /** The deposit product type (savings, fixed deposit or recurring deposit). */
     val depositType: SavingAccountDepositTypeEntity?,
+    /** The transaction type. */
     val transactionType: String,
 )

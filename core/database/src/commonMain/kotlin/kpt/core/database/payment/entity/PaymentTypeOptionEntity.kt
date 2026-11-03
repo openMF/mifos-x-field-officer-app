@@ -14,6 +14,7 @@ import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 
+/** Room row for a payment type option. */
 @DbEntity
 @Entity(
     tableName = "PaymentTypeOption",
@@ -25,11 +26,16 @@ import kpt.core.base.database.annotation.DbEntity
 )
 @Serializable
 data class PaymentTypeOptionEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    /** The display name. */
     val name: String = "",
+    /** A free-text description. */
     val description: String? = null,
+    /** True when the payment type is cash. */
     val isCashPayment: Boolean? = null,
+    /** The sort position of this option. */
     val position: Int? = null,
 )
 //    : Comparable<PaymentTypeOptionEntity> {

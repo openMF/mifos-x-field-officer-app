@@ -197,13 +197,30 @@ class ServerConfigViewModel(
 }
 
 /** The five editable fields, so failures can be attributed to one. */
-enum class ServerConfigField { Protocol, EndPoint, ApiPath, Port, Tenant }
+enum class ServerConfigField {
+    /** `http` or `https`. */
+    Protocol,
 
+    /** The server's host name or address. */
+    EndPoint,
+
+    /** The Fineract API path on the server (`/fineract-provider/api/v1`). */
+    ApiPath,
+
+    /** The TCP port. */
+    Port,
+
+    /** The Fineract tenant identifier. */
+    Tenant,
+}
+
+/** What the server-config screen shows: the fields, their validation, the named servers and the live session. */
 data class ServerConfigState(
     /** What the fields show — set by [ServerConfigViewModel.form]; read it from there. */
     val config: ServerConfig = ServerConfig.LOCALHOST,
     /** The officer's edits; null until a field is changed. */
     val draft: ServerConfig? = null,
+    /** Why each invalid field fails validation; empty when every field is valid. */
     val failures: Map<ServerConfigField, ValidationFailure> = emptyMap(),
     /** The named servers to pick from — set by [ServerConfigViewModel.form]. */
     val instances: List<ServerInstance> = emptyList(),
@@ -214,43 +231,83 @@ data class ServerConfigState(
      * screen).
      */
     val live: ServerConfig? = null,
+    /** Who is signed in to [live]; null when nobody is. */
     val liveUsername: String? = null,
 ) {
     /** The named instance the session runs on, or null for a custom server. */
     val liveInstance: ServerInstance? get() = live?.let { instances.matching(it) }
 
+    /** True when no field fails validation. */
     val isValid: Boolean get() = failures.isEmpty()
 
     /** The instance the fields match exactly, or null when the officer typed a custom server. */
     val selectedInstance: ServerInstance? get() = instances.matching(config)
 }
 
+/** What the officer did on the server-config screen. */
 sealed interface ServerConfigAction {
+    /**
+     * The protocol field changed.
+     *
+     * @property value the new text
+     */
     data class ProtocolChanged(val value: String) : ServerConfigAction
+
+    /**
+     * The end-point (host) field changed.
+     *
+     * @property value the new text
+     */
     data class EndPointChanged(val value: String) : ServerConfigAction
+
+    /**
+     * The API-path field changed.
+     *
+     * @property value the new text
+     */
     data class ApiPathChanged(val value: String) : ServerConfigAction
+
+    /**
+     * The port field changed.
+     *
+     * @property value the new text
+     */
     data class PortChanged(val value: String) : ServerConfigAction
+
+    /**
+     * The tenant field changed.
+     *
+     * @property value the new text
+     */
     data class TenantChanged(val value: String) : ServerConfigAction
 
     /**
      * Fill every field from a named instance. Replaces the original's "Use default config" and the
      * port's "Use localhost" buttons — both are now instances, beside the demo servers.
+     *
+     * @property id the chosen instance's id
      */
     data class InstanceSelected(val id: String) : ServerConfigAction
 
+    /** Save the fields as the server to use. */
     data object Submit : ServerConfigAction
 
     /** The officer confirmed signing out to switch server. */
     data object SwitchConfirmed : ServerConfigAction
 
+    /** The officer kept the current server instead of signing out. */
     data object SwitchCancelled : ServerConfigAction
 
     /** Re-fetch the instance list after a failed load. */
     data object RetryInstances : ServerConfigAction
 }
 
+/** One-off effects of the server-config screen, for the screen to act on. */
 sealed interface ServerConfigEvent {
+    /** The server was saved. */
     data object Saved : ServerConfigEvent
+
+    /** Save was pressed with an invalid field; nothing was written. */
     data object Invalid : ServerConfigEvent
 
     /** The write itself failed. Reported, not swallowed: the screen must not claim it was saved. */

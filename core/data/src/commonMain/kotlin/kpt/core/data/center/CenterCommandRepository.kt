@@ -33,23 +33,28 @@ import kpt.core.model.shared.GenericResponse
  */
 interface CenterCommandRepository {
 
+    /** Runs a Fineract `command` (close, activate, …) on a centre. */
     suspend fun activate2(
         centerId: Long,
         postCentersCenterIdRequest: PostCentersCenterIdRequest,
         command: String? = null,
     ): MutationResult<PostCentersCenterIdResponse>
 
+    /** Saves a centre's collection sheet. */
     suspend fun saveCollectionSheet(
         centerId: Int,
         collectionSheetPayload: CollectionSheetPayload?,
     ): MutationResult<SaveResponse>
 
+    /** Saves a centre's collection sheet through the endpoint that returns the raw response. */
     suspend fun saveCollectionSheetAsync(
         centerId: Int,
         collectionSheetPayload: CollectionSheetPayload?,
     ): MutationResult<SaveResponse>
 
+    /** Creates a centre. */
     suspend fun createCenter(centerPayload: CenterPayload?): MutationResult<SaveResponse>
 
+    /** Activates a centre. */
     suspend fun activateCenter(centerId: Int, activatePayload: ActivatePayload?): MutationResult<GenericResponse>
 }

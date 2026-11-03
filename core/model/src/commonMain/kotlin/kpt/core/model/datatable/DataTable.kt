@@ -17,8 +17,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class DataTable(
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The application table the data table extends (`m_client`, `m_loan`, …). */
     val applicationTableName: String? = null,
+    /** The table's column headers. */
     val columnHeaderData: List<ColumnHeader> = emptyList(),
+    /** The registered name of the data table. */
     val registeredTableName: String? = null,
 )

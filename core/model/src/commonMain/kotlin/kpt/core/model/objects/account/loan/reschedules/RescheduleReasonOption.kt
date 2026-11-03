@@ -11,10 +11,15 @@ package kpt.core.model.objects.account.loan.reschedules
 
 import kotlinx.serialization.Serializable
 
+/** One reschedule reason choice offered by a template. */
 @Serializable
 data class RescheduleReasonOption(
+    /** The server id of this record. */
     val id: Int,
+    /** The display name. */
     val name: String,
+    /** True when the record is active. */
     val active: Boolean? = null,
+    /** True when this option must be filled in. */
     val mandatory: Boolean? = null,
 )

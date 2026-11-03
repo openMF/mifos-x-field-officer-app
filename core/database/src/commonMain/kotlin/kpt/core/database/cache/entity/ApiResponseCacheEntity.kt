@@ -34,6 +34,8 @@ import kpt.core.base.database.annotation.DbEntity
 data class ApiResponseCacheEntity(
     @PrimaryKey
     val cacheKey: String,
+    /** The cached response body, as JSON. */
     val payload: String,
+    /** When this cached copy was fetched, in epoch milliseconds. */
     val fetchedAtMs: Long,
 )

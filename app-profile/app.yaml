@@ -220,6 +220,19 @@ network:
       loggable_host: lwmswhoxvvoagzkqxiyd.supabase.co
       publishable_key_env: SUPABASE_PUBLISHABLE_KEY   # secrets/LAYOUT.yaml#supabase_publishable_key; empty sample → "" → client inert
 
+# ── Module package ownership ────────────────────────────────────────────────────────────────────
+#
+# Each module declares its own packages in `core/<module>/module-packages.yaml`, next to the code it
+# describes, using the three-value vocabulary `demo | template | fork`. They are NOT inlined here.
+#
+# Why not here: this file is `owner: merge` — it carries template AND fork declarations, so a
+# template edit landing beside a fork edit is a 3-way merge waiting to happen. A per-module file is
+# TEMPLATE-ONLY and full-copies, the same split that took Room's `migration-units.yaml` out of this
+# file. The module that gains a package is now the module whose file changes.
+#
+# `module_packages` below is the CONNECTION: the modules whose declarations make up this app. It is
+# what tells a reader (and `/kmp-project-template-sync`) where to look, and it is asserted against
+# what is on disk by G-CORE-PKG, so a module cannot be added here without its file — or the reverse.
 module_packages:
   - core/common/module-packages.yaml
   - core/data/module-packages.yaml
@@ -257,18 +270,26 @@ org:
     community: https://mifos.slack.com/
     product: https://mifos-products.pages.dev/mobile/field-officer/
 
+# Legal entity behind the app — rendered into the generated privacy policy and terms.
+# Required before a store submission; a store rejects a listing whose policy names no entity.
 legal:
   company_name: Mifos Initiative
   jurisdiction: United States
   effective_date: June 6, 2026
   contact_email: team@mifos.org
 
+# Distinguished name baked into a generated Android keystore.
+# Used ONCE, at keystore creation. Changing it afterwards has no effect — the existing
+# keystore keeps the DN it was born with, and replacing the keystore breaks app updates.
 keystore_dn:
   org_unit: Mobile
   city: Arusha
   state: Arusha
   country: TZ
 
+# Store-listing copy: title, descriptions, keywords, category.
+# This fork's own listing. Edit it here, or promote a variant from
+# deployment-layer/store-listing/variants/ — never ship the template's copy to a live store.
 store:
   primary_locale: en-US
   # Store copy taken from the app's own published Play listing on `dev`
@@ -373,6 +394,9 @@ privacy:
   analytics_enabled_by_default: false
   crash_reporting_enabled_by_default: false
 
+# Fork-owned media sources: screenshots, feature graphic, promo video.
+# Paths are relative to app-profile/; a missing file is a skip, not an error, so a fork can add
+# platform media incrementally.
 media:
   root: media
 

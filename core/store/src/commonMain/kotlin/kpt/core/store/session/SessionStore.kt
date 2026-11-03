@@ -21,6 +21,7 @@ import org.mobilenativefoundation.store.store5.Store
 
 /** The read PORT for the stored Fineract session, bound in core/data (as `ServerConfigSource` is). */
 fun interface SessionSource {
+    /** The stored session user, re-emitted on every change. */
     fun observe(): Flow<User>
 }
 

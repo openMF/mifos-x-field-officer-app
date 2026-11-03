@@ -12,7 +12,9 @@ package kpt.core.common.utils
 import java.text.NumberFormat
 import java.util.Currency
 
+/** The desktop money formatter behind [CurrencyFormatter]. */
 actual object CurrencyFormatter {
+    /** Formats [balance] as money in [currencyCode]; see the common declaration for the fallbacks. */
     actual fun format(
         balance: Double?,
         currencyCode: String?,

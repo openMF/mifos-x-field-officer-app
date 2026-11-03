@@ -59,8 +59,11 @@ data class FinanceColors(
     val rateDown: Color,
     /** Rate unchanged. */
     val rateFlat: Color,
+    /** Tinted background behind a rising rate. */
     val rateUpContainer: Color,
+    /** Tinted background behind a falling rate. */
     val rateDownContainer: Color,
+    /** Tinted background behind an unchanged rate. */
     val rateFlatContainer: Color,
 
     // ── Freshness semantic — Store5 / data-recency ───────────────────────────

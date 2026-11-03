@@ -18,7 +18,10 @@ import kpt.core.model.objects.account.loan.PaymentTypeOptions
  */
 @Serializable
 data class IndividualCollectionSheet(
+    /** The date the amount is due. */
     var dueDate: String? = null,
+    /** The clients. */
     var clients: ArrayList<ClientCollectionSheet>? = null,
+    /** The payment types the user may choose from. */
     var paymentTypeOptions: ArrayList<PaymentTypeOptions>? = null,
 )

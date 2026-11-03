@@ -11,9 +11,16 @@ package kpt.core.model.recurringdeposit
 
 import kotlinx.serialization.Serializable
 
+/** Kind of an incentive. */
 @Serializable
 data class IncentiveType(
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     val code: String? = null,
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The human-readable label Fineract sends for this value. */
     val value: String? = null,
 )

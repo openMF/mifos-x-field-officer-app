@@ -13,6 +13,7 @@ import androidx.room3.Entity
 import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
+/** One allowed value of a data-table column. */
 @Serializable
 @DbEntity
 @Entity(
@@ -24,9 +25,13 @@ import kpt.core.base.database.annotation.DbEntity
     tableName = "ColumnValue",
 )
 data class ColumnValue(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
+    /** The value stored in this cell. */
     val value: String? = null,
+    /** The score attached to this value. */
     val score: Int? = null,
+    /** The registered name of the data table. */
     val registeredTableName: String? = null,
 )

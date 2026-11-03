@@ -31,7 +31,12 @@ import kpt.core.network.mifos.loan.mapper.toDomain as disburseTemplateToDomain
 
 private val templateJson = Json { ignoreUnknownKeys = true }
 
-/** A loan application template is only valid for one (client, product) pair. */
+/**
+ * A loan application template is only valid for one (client, product) pair.
+ *
+ * @property clientId the client's server id
+ * @property productId the product's server id
+ */
 data class LoanTemplateKey(val clientId: Int, val productId: Int?)
 
 /**

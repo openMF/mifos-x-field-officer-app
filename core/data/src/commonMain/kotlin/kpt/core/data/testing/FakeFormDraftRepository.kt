@@ -21,6 +21,7 @@ import kpt.core.base.store.submit.draft.SavedFormDraft
 @ExperimentalDataTestingApi
 class FakeFormDraftRepository : FormDraftRepository {
 
+    /** The saved drafts. */
     val saved = MutableStateFlow<List<SavedFormDraft>>(emptyList())
     private var nextId = 1L
 

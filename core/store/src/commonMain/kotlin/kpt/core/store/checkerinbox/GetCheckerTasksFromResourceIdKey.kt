@@ -11,7 +11,10 @@ package kpt.core.store.checkerinbox
 
 /** Addresses one `getCheckerTasksFromResourceId` read. */
 data class GetCheckerTasksFromResourceIdKey(
+    /** The action the inbox is filtered on. */
     val actionName: String? = null,
+    /** The entity kind the inbox is filtered on. */
     val entityName: String? = null,
+    /** The id of the resource the records belong to. */
     val resourceId: Int? = null,
 )

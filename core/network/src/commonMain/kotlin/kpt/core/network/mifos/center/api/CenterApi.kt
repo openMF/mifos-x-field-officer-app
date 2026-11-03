@@ -32,6 +32,7 @@ import kpt.core.model.shared.GenericResponse
 import kpt.core.model.shared.Payload
 import kpt.core.network.mifos.center.dto.GetCentersResponse
 
+/** Fineract endpoints for center. */
 @ApiBinding("mifos")
 interface CenterApi {
 
@@ -104,6 +105,7 @@ interface CenterApi {
         @Query("command") command: String? = null,
     ): PostCentersCenterIdResponse
 
+    /** Reads one page of centres. */
     @GET("centers")
     suspend fun getCenters(
         @Query("paged") b: Boolean,
@@ -111,35 +113,42 @@ interface CenterApi {
         @Query("limit") limit: Int,
     ): Page<Center>
 
+    /** Reads a centre's loan and savings accounts. */
     @GET("centers/{centerId}/accounts")
     suspend fun getCenterAccounts(@Path("centerId") centerId: Int): CenterAccounts
 
+    /** Reads a centre with its groups and its collection-meeting calendar. */
     @GET("centers/{centerId}?associations=groupMembers,collectionMeetingCalendar")
     suspend fun getCenterWithGroupMembersAndCollectionMeetingCalendar(
         @Path("centerId") centerId: Int,
     ): CenterWithAssociations
 
+    /** Reads the centres of one office. */
     @GET("centers")
     suspend fun getAllCentersInOffice(
         @Query("officeId") officeId: Int,
         @QueryMap additionalParams: Map<String, String>,
     ): List<Center>
 
+    /** Reads a centre with its groups. */
     @GET("centers/{centerId}?associations=groupMembers")
     suspend fun getAllGroupsForCenter(@Path("centerId") centerId: Int): CenterWithAssociations
 
+    /** Generates the centre's collection sheet for a meeting. */
     @POST("centers/{centerId}?command=generateCollectionSheet")
     suspend fun getCollectionSheet(
         @Path("centerId") centerId: Long,
         @Body payload: Payload?,
     ): CollectionSheet
 
+    /** Saves a centre's collection sheet. */
     @POST("centers/{centerId}?command=saveCollectionSheet")
     suspend fun saveCollectionSheet(
         @Path("centerId") centerId: Int,
         @Body collectionSheetPayload: CollectionSheetPayload?,
     ): SaveResponse
 
+    /** Saves a centre's collection sheet and returns the raw response. */
     @POST("centers/{centerId}?command=saveCollectionSheet")
     suspend fun saveCollectionSheetAsync(
         @Path("centerId") centerId: Int,
@@ -148,9 +157,11 @@ interface CenterApi {
 
     /*@POST("clients")
     void uploadNewClientDetails();*/
+    /** Creates a centre. */
     @POST("centers")
     suspend fun createCenter(@Body centerPayload: CenterPayload?): SaveResponse
 
+    /** Reads the centre list with the given filters. */
     @GET("centers")
     suspend fun getCenterList(
         @Query("dateFormat") dateFormat: String?,

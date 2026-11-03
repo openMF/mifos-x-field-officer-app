@@ -23,6 +23,7 @@ import kpt.core.model.objects.note.NoteRequestDto
 import kpt.core.model.objects.note.UpdateNoteResponseDto
 import kpt.core.network.mifos.note.dto.NoteDto
 
+/** Fineract endpoints for note. */
 @ApiBinding("mifos")
 interface NoteApi {
 
@@ -39,9 +40,6 @@ interface NoteApi {
      */
     @POST("{resourceType}/{resourceId}/notes")
     suspend fun addNewNote(
-        @Path("resourceType") resourceType: String,
-        @Path("resourceId") resourceId: Long,
-        @Body noteRequestDto: NoteRequestDto,
         /**
          * De-duplication token for retried submissions (Fineract command idempotency).
          *
@@ -64,6 +62,9 @@ interface NoteApi {
          * `NoteCommandRepository.submitDraft`. Re-run the pinned-key experiment against any new
          * deployment before relying on the server half.
          */
+        @Path("resourceType") resourceType: String,
+        @Path("resourceId") resourceId: Long,
+        @Body noteRequestDto: NoteRequestDto,
         @Header("Idempotency-Key") idempotencyKey: String,
     ): CreateNoteResponseDto
 

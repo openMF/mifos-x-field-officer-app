@@ -15,6 +15,7 @@ import kpt.core.base.network.annotation.ApiBinding
 import kpt.core.model.office.Office
 import kpt.core.network.mifos.office.dto.GetOfficesResponse
 
+/** Fineract endpoints for office. */
 @ApiBinding("mifos")
 interface OfficeApi {
 

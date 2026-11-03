@@ -43,6 +43,7 @@ import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Modal bottom sheet around caller-supplied content. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBottomSheet(
@@ -87,6 +88,7 @@ fun AppBottomSheet(
     }
 }
 
+/** Bottom-sheet option: an icon on a tinted tile above its label. */
 @Composable
 fun AppBottomSheetOptionItem(
     label: String,
@@ -123,6 +125,7 @@ fun AppBottomSheetOptionItem(
     }
 }
 
+/** Bottom-sheet option: an icon on an elevated tile above its label. */
 @Composable
 fun AppBottomSheetOptionItem(
     label: String,
@@ -158,6 +161,7 @@ fun AppBottomSheetOptionItem(
     }
 }
 
+/** Bottom-sheet option: an icon beside its label, in one row. */
 @Composable
 fun AppBottomSheetOptionItem(
     label: String,

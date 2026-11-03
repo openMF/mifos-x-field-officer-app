@@ -18,6 +18,7 @@ import kpt.core.database.survey.entity.QuestionDatasEntity as QuestionDatasRow
 import kpt.core.database.survey.entity.ResponseDatasEntity as ResponseDatasRow
 import kpt.core.database.survey.entity.SurveyEntity as SurveyRow
 
+/** Maps the stored row to its `Survey` model. */
 fun SurveyRow.toModel(): Survey = Survey(
     id = id,
     key = key,
@@ -29,6 +30,7 @@ fun SurveyRow.toModel(): Survey = Survey(
     componentDatas = componentDatas.map { it.toModel() },
 )
 
+/** Maps the model to its stored `SurveyRow`. */
 fun Survey.toEntity(): SurveyRow = SurveyRow(
     id = id,
     key = key,
@@ -40,6 +42,7 @@ fun Survey.toEntity(): SurveyRow = SurveyRow(
     componentDatas = componentDatas.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `ComponentDatas` model. */
 fun ComponentDatasRow.toModel(): ComponentDatas = ComponentDatas(
     id = id,
     key = key,
@@ -48,6 +51,7 @@ fun ComponentDatasRow.toModel(): ComponentDatas = ComponentDatas(
     sequenceNo = sequenceNo,
 )
 
+/** Maps the model to its stored `ComponentDatasRow`. */
 fun ComponentDatas.toEntity(): ComponentDatasRow = ComponentDatasRow(
     id = id,
     key = key,
@@ -56,6 +60,7 @@ fun ComponentDatas.toEntity(): ComponentDatasRow = ComponentDatasRow(
     sequenceNo = sequenceNo,
 )
 
+/** Maps the stored row to its `QuestionDatas` model. */
 fun QuestionDatasRow.toModel(): QuestionDatas = QuestionDatas(
     id = id,
     surveyId = surveyId,
@@ -67,6 +72,7 @@ fun QuestionDatasRow.toModel(): QuestionDatas = QuestionDatas(
     responseDatas = responseDatas.map { it.toModel() },
 )
 
+/** Maps the model to its stored `QuestionDatasRow`. */
 fun QuestionDatas.toEntity(): QuestionDatasRow = QuestionDatasRow(
     id = id,
     surveyId = surveyId,
@@ -78,6 +84,7 @@ fun QuestionDatas.toEntity(): QuestionDatasRow = QuestionDatasRow(
     responseDatas = responseDatas.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `ResponseDatas` model. */
 fun ResponseDatasRow.toModel(): ResponseDatas = ResponseDatas(
     responseId = responseId,
     id = id,
@@ -86,6 +93,7 @@ fun ResponseDatasRow.toModel(): ResponseDatas = ResponseDatas(
     value = value,
 )
 
+/** Maps the model to its stored `ResponseDatasRow`. */
 fun ResponseDatas.toEntity(): ResponseDatasRow = ResponseDatasRow(
     responseId = responseId,
     id = id,

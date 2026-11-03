@@ -24,6 +24,7 @@ import kpt.core.model.group.GroupWithAssociations
 @ExperimentalDataTestingApi
 class FakeGroupRepository(groups: List<Group> = emptyList()) : GroupRepository {
 
+    /** The groups the stream emits. */
     val groups = MutableStateFlow<ScreenState<List<Group>>>(ScreenState.Content(groups))
 
     override fun groupsStream(scope: CoroutineScope) = screenDataStreamForTesting(groups)

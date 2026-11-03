@@ -17,7 +17,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class AddressTemplate(
+    /** The address types that may be chosen. */
     val addressTypeIdOptions: List<Options> = emptyList(),
+    /** The countries that may be chosen. */
     val countryIdOptions: List<Options> = emptyList(),
+    /** The states or provinces that may be chosen. */
     val stateProvinceIdOptions: List<Options> = emptyList(),
 )

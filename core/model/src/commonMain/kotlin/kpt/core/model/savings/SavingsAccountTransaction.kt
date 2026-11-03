@@ -17,15 +17,26 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsAccountTransaction(
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The server id of the savings account. */
     val savingsAccountId: Int? = null,
+    /** The transaction type. */
     val transactionType: SavingsTransactionType? = null,
+    /** The server id of the account. */
     val accountId: Int? = null,
+    /** The account number Fineract assigned. */
     val accountNo: String? = null,
+    /** The date of the savings transaction. */
     val savingsTransactionDate: SavingsTransactionDate? = null,
+    /** The date. */
     val date: List<Int?> = emptyList(),
+    /** The currency the amounts are in. */
     val currency: SavingAccountCurrency? = null,
+    /** The amount, in the record's currency. */
     val amount: Double? = null,
+    /** The balance after the transaction. */
     val runningBalance: Double? = null,
+    /** True when the transaction was reversed. */
     val reversed: Boolean? = null,
 )

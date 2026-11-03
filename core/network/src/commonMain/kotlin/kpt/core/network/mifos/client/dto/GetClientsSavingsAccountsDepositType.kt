@@ -26,6 +26,7 @@ data class GetClientsSavingsAccountsDepositType(
 
     val id: Long? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     val value: String? = null,
 
 )

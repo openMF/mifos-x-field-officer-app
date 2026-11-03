@@ -40,16 +40,21 @@ import kotlinx.serialization.Serializable
  * [kpt.core.model.utils.ApiDateFormatter].
  */
 data class SavingsApprovalInput(
+    /** The date the record was approved. */
     val approvedOnDate: String,
     val locale: String,
     val dateFormat: String,
+    /** A free-text note. */
     val note: String? = null,
 )
 
 /** Activate an approved savings account. See [SavingsApprovalInput] for the date-pairing rule. */
 data class SavingsActivationInput(
+    /** The date the record was activated. */
     val activatedOnDate: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
 )
 
@@ -61,17 +66,26 @@ data class SavingsActivationInput(
  * keeping the wire type here stops a Double round-trip from changing the value the officer typed.
  */
 data class SavingsTransactionInput(
+    /** The date of the transaction. */
     val transactionDate: String,
     val transactionAmount: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
     /** Null when the tenant configures no payment types, never `0` — `0` names no row. */
     val paymentTypeId: Int? = null,
+    /** A free-text note. */
     val note: String? = null,
+    /** The account number the payment was made from or to. */
     val accountNumber: String? = null,
+    /** The cheque number of the payment. */
     val checkNumber: String? = null,
+    /** The routing code of the payment. */
     val routingCode: String? = null,
+    /** The receipt number of the payment. */
     val receiptNumber: String? = null,
+    /** The bank number of the payment. */
     val bankNumber: String? = null,
 )
 
@@ -91,22 +105,38 @@ data class SavingsTransactionInput(
 data class SavingsApplicationInput(
     val ownerId: Int,
     val isGroup: Boolean,
+    /** The server id of the product. */
     val productId: Int,
+    /** The date the record was submitted. */
     val submittedOnDate: String,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String,
 
+    /** The server id of the field officer. */
     val fieldOfficerId: Int? = null,
+    /** The id an external system uses for this record, if one was set. */
     val externalId: String? = null,
+    /** The minimum balance required to open the account. */
     val minRequiredOpeningBalance: String? = null,
+    /** The minimum balance the account must keep. */
     val minRequiredBalance: String? = null,
+    /** The length of the lock-in period, in [lockinPeriodFrequencyType] units. */
     val lockinPeriodFrequency: Int? = null,
+    /** The unit of the lock-in period. */
     val lockinPeriodFrequencyType: Int? = null,
+    /** How often interest is compounded. */
     val interestCompoundingPeriodType: Int? = null,
+    /** How often interest is posted to the account. */
     val interestPostingPeriodType: Int? = null,
+    /** How interest is calculated on the balance (daily or average daily balance). */
     val interestCalculationType: Int? = null,
+    /** How many days a year has for interest calculation (360, 365, actual). */
     val interestCalculationDaysInYearType: Int? = null,
+    /** True when the account may be overdrawn. */
     val allowOverdraft: Boolean = false,
+    /** True when the minimum balance is enforced. */
     val enforceMinRequiredBalance: Boolean = false,
 
     /**
@@ -119,6 +149,11 @@ data class SavingsApplicationInput(
     val charges: List<SavingsChargeInput> = emptyList(),
 )
 
-/** One charge on a savings application: which charge, and how much. */
+/**
+ * One charge on a savings application: which charge, and how much.
+ *
+ * @property amount the amount, in the record's currency
+ * @property chargeId the server id of the charge
+ */
 @Serializable
 data class SavingsChargeInput(val chargeId: Int, val amount: String)

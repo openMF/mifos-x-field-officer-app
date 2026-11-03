@@ -38,6 +38,7 @@ fun provideGetCenterAccountsStore(
     fetch = { key -> centerApi.getCenterAccounts(centerId = key) },
 )
 
+/** Store reading the center with group members and collection meeting calendar. */
 @StoreProvider(id = "centerGetCenterWithGroupMembersAndCollectionMeetingCalendar", ttl = "12h")
 @CacheKey(
     fn = "forKey",
@@ -53,6 +54,7 @@ fun provideGetCenterWithGroupMembersAndCollectionMeetingCalendarStore(
     fetch = { key -> centerApi.getCenterWithGroupMembersAndCollectionMeetingCalendar(centerId = key) },
 )
 
+/** Store reading all groups for center. */
 @StoreProvider(id = "centerGetAllGroupsForCenter", ttl = "12h")
 @CacheKey(fn = "forKey", key = "centerGetAllGroupsForCenter:{key}", params = ["key:String"])
 fun provideGetAllGroupsForCenterStore(
@@ -66,10 +68,13 @@ fun provideGetAllGroupsForCenterStore(
 
 /** Addresses one `getAllCentersInOffice` read. */
 data class GetAllCentersInOfficeKey(
+    /** The office's server id. */
     val officeId: Int,
+    /** Extra query parameters sent with the request. */
     val additionalParams: Map<String, String>,
 )
 
+/** Store reading all centers in office. */
 @StoreProvider(id = "centerGetAllCentersInOffice", ttl = "12h")
 @CacheKey(fn = "forKey", key = "centerGetAllCentersInOffice:{key}", params = ["key:String"])
 fun provideGetAllCentersInOfficeStore(
@@ -92,12 +97,18 @@ fun provideGetAllCentersInOfficeStore(
  * sheet rather than the previous one served back.
  */
 data class CenterCollectionSheetKey(
+    /** The centre's server id. */
     val centerId: Long,
+    /** The meeting calendar's id. */
     val calendarId: Long,
+    /** Date of the transaction. */
     val transactionDate: String?,
+    /** Pattern the dates are written in. */
     val dateFormat: String,
+    /** Locale the dates and numbers are written in. */
     val locale: String,
 ) {
+    /** Builds keys from a payload. */
     companion object {
         /** The key of the sheet [payload] generates — or, for a save body, the sheet it saved. */
         fun of(centerId: Long, payload: Payload) = CenterCollectionSheetKey(

@@ -26,6 +26,8 @@ package kpt.feature.settings
  * (e.g. `ForkShowcaseRegistry`) import it from here.
  */
 data class DevMenuEntry(
+    /** The entry's label in the developer menu. */
     val label: String,
+    /** What tapping the entry does. */
     val onClick: () -> Unit,
 )

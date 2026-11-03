@@ -11,11 +11,17 @@ package kpt.core.model.objects.searchrecord
 
 import kotlinx.serialization.Serializable
 
+/** One search hit: a client, group, centre or account. */
 @Serializable
 data class GenericSearchRecord(
+    /** The server id of this record. */
     val id: Int = -1,
+    /** The display name. */
     val name: String = "",
+    /** A free-text description. */
     val description: String = "",
+    /** The record's type. */
     val type: String = "",
+    /** Extra fields of the found record, by name. */
     val metadata: Map<String, String> = emptyMap(),
 )

@@ -20,32 +20,47 @@ import kpt.core.model.shared.Timeline
  */
 @Serializable
 data class CenterWithAssociations(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The account number Fineract assigned. */
     var accountNo: String? = null,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** The id an external system uses for this record, if one was set. */
     var externalId: String? = null,
 
+    /** The server id of the office. */
     var officeId: Int? = null,
 
+    /** The name of the office. */
     var officeName: String? = null,
 
+    /** The server id of the staff member (loan officer). */
     var staffId: Int? = null,
 
+    /** The staff member's display name. */
     var staffName: String? = null,
 
+    /** The office hierarchy path (e.g. `.1.2.`). */
     var hierarchy: String? = null,
 
+    /** The record's Fineract status. */
     var status: ClientStatusEntity? = null,
 
+    /** True when the record is active. */
     var active: Boolean? = null,
 
+    /** The date the record was activated. */
     var activationDate: List<Int> = ArrayList(),
 
+    /** The dates and users of the record's lifecycle events (submitted, approved, activated, …). */
     var timeline: Timeline? = null,
 
+    /** The groups in the centre. */
     var groupMembers: List<GroupEntity> = ArrayList(),
+    /** The calendar of the collection meetings. */
     var collectionMeetingCalendar: CollectionMeetingCalendar = CollectionMeetingCalendar(),
 )

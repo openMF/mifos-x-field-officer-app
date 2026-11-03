@@ -16,7 +16,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class UserLatLng(
+    /** The latitude. */
     val lat: Double = 0.0,
+    /** The longitude. */
     val lng: Double = 0.0,
 ) {
     override fun toString(): String {

@@ -30,6 +30,7 @@ import kpt.core.designsystem.theme.AppTypography
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Rounded outlined frame of a general card. */
 @Composable
 fun AppGeneralCardComponentOutline(
     modifier: Modifier = Modifier,
@@ -53,6 +54,7 @@ fun AppGeneralCardComponentOutline(
     }
 }
 
+/** One key/value row of a general card. */
 @Composable
 fun AppGeneralRowItem(
     keyContent: @Composable () -> Unit,
@@ -75,6 +77,7 @@ fun AppGeneralRowItem(
     }
 }
 
+/** Card listing `contentMap` as key/value rows. */
 @Composable
 fun AppGeneralCard(
     contentMap: Map<String, String>,
@@ -100,7 +103,7 @@ fun AppGeneralCard(
 
 @Preview
 @Composable
-fun AppPreviewGeneralCard() {
+private fun AppPreviewGeneralCard() {
     KptTheme {
         AppGeneralCard(
             contentMap = mapOf(

@@ -13,7 +13,9 @@ import platform.Foundation.NSNumber
 import platform.Foundation.NSNumberFormatter
 import platform.Foundation.NSNumberFormatterCurrencyStyle
 
+/** The native money formatter behind [CurrencyFormatter]. */
 actual object CurrencyFormatter {
+    /** Formats [balance] as money in [currencyCode]; see the common declaration for the fallbacks. */
     actual fun format(
         balance: Double?,
         currencyCode: String?,

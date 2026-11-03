@@ -32,6 +32,7 @@ import kpt.core.model.auth.PostAuthenticationResponse
 @ApiBinding("mifos")
 interface AuthApi {
 
+    /** Signs in with a username and password; the response carries the user, their roles and the Basic-auth key. */
     @POST("authentication")
     suspend fun authenticate(
         @Body postAuthenticationRequest: PostAuthenticationRequest,

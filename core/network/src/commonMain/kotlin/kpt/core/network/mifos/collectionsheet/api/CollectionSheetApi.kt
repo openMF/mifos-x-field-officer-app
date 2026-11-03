@@ -31,11 +31,13 @@ import kpt.core.model.shared.GenericResponse
  */
 @ApiBinding("mifos")
 interface CollectionSheetApi {
+    /** Generates an individual collection sheet for the given office, officer and date. */
     @POST("collectionsheet?command=generateCollectionSheet")
     suspend fun getIndividualCollectionSheet(
         @Body payload: RequestCollectionSheetPayload?,
     ): IndividualCollectionSheet
 
+    /** Saves an individual collection sheet. */
     @POST("collectionsheet?command=saveCollectionSheet")
     suspend fun saveIndividualCollectionSheet(
         @Body payload: IndividualCollectionSheetPayload?,
@@ -72,24 +74,28 @@ interface CollectionSheetApi {
         @Body payload: CollectionSheetRequestPayload?,
     ): CollectionSheetResponse
 
+    /** Saves a centre's productive collection sheet. */
     @POST("centers/{centerId}?command=saveCollectionSheet")
     suspend fun submitProductiveSheet(
         @Path("centerId") centerId: Int,
         @Body payload: ProductiveCollectionSheetPayload?,
     ): GenericResponse
 
+    /** Generates a group's collection sheet. */
     @POST("groups/{groupId}?command=generateCollectionSheet")
     suspend fun fetchCollectionSheet(
         @Path("groupId") groupId: Int,
         @Body payload: CollectionSheetRequestPayload?,
     ): CollectionSheetResponse
 
+    /** Saves a group's collection sheet. */
     @POST("groups/{groupId}?command=saveCollectionSheet")
     suspend fun submitCollectionSheet(
         @Path("groupId") groupId: Int,
         @Body payload: CollectionSheetPayload?,
     ): GenericResponse
 
+    /** Reads a centre's groups and its collection-meeting calendar. */
     @GET("centers/{centerId}?associations=groupMembers,collectionMeetingCalendar")
     suspend fun fetchGroupsAssociatedWithCenter(
         @Path("centerId") centerId: Int,

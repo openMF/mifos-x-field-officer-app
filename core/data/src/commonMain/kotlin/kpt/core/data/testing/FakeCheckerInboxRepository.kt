@@ -31,7 +31,10 @@ class FakeCheckerInboxRepository(
     private val template: CheckerInboxSearchTemplate? = CheckerInboxSearchTemplate(),
 ) : CheckerInboxRepository {
 
+    /** The checker tasks the stream emits. */
     val tasks = MutableStateFlow<ScreenState<List<CheckerTask>>>(ScreenState.Content(tasks))
+
+    /** The reschedule requests the stream emits. */
     val reschedules = MutableStateFlow<ScreenState<List<RescheduleLoansTask>>>(ScreenState.Content(reschedules))
 
     override fun checkerTasksStream(scope: CoroutineScope) = screenDataStreamForTesting(tasks)

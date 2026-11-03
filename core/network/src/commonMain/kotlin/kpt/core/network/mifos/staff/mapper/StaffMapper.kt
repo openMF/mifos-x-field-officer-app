@@ -13,6 +13,7 @@ import kpt.core.model.shared.RetrieveOneResponse
 import kpt.core.model.staff.Staff
 import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps staff between its network, stored and domain shapes. */
 object StaffMapper : AbstractMapper<RetrieveOneResponse, Staff>() {
     override fun mapFromEntity(entity: RetrieveOneResponse): Staff {
         return Staff(

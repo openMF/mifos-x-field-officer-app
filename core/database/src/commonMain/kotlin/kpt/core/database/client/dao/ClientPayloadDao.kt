@@ -20,24 +20,31 @@ import kpt.core.database.datatable.entity.DataTablePayload
 
 /** Offline client payload queue. */
 interface ClientPayloadDao {
+    /** Saves `clientPayload`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ClientPayloadEntity::class)
     suspend fun insertClientPayload(clientPayload: ClientPayloadEntity)
 
+    /** Saves `dataTablePayloads`, replacing any row with the same key. */
     @Insert(entity = DataTablePayload::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDataTablePayload(dataTablePayloads: DataTablePayload)
 
+    /** Observes the `ClientPayload` rows. */
     @Query("SELECT * FROM ClientPayload")
     fun getAllClientPayload(): Flow<List<ClientPayloadEntity>>
 
+    /** Observes the `DataTablePayload` rows whose `clientCreationTime` is `clientCreationTime`. */
     @Query("SELECT * FROM DataTablePayload WHERE clientCreationTime = :clientCreationTime")
     fun getDataTablePayloadByCreationTime(clientCreationTime: Long): Flow<List<DataTablePayload>>
 
+    /** Deletes the `ClientPayload` rows whose `id` is `id`. */
     @Query("DELETE FROM ClientPayload WHERE id = :id")
     suspend fun deleteClientPayloadById(id: Int)
 
+    /** Deletes the `DataTablePayload` rows whose `clientCreationTime` is `clientCreationTime`. */
     @Query("DELETE FROM DataTablePayload WHERE clientCreationTime = :clientCreationTime")
     suspend fun deleteDataTablePayloadByCreationTime(clientCreationTime: Long)
 
+    /** Updates the stored row of `clientPayload`. */
     @Update(entity = ClientPayloadEntity::class, onConflict = OnConflictStrategy.NONE)
     suspend fun updateDatabaseClientPayload(clientPayload: ClientPayloadEntity)
 

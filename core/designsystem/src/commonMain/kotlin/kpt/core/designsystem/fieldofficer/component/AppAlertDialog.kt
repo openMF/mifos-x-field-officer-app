@@ -36,6 +36,7 @@ import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Confirm/dismiss dialog with an optional text message, shown while `showDialogState` is true. */
 @Composable
 fun AppDialogBox(
     title: String,
@@ -75,6 +76,7 @@ fun AppDialogBox(
     }
 }
 
+/** Confirm/dismiss dialog whose message is composable content, shown while `showDialogState` is true. */
 @Composable
 fun AppDialogBox(
     title: String,
@@ -110,6 +112,7 @@ fun AppDialogBox(
     }
 }
 
+/** Dialog listing `items` as radio buttons, with `selectedItem` checked. */
 @Composable
 fun AppRadioButtonDialog(
     title: String,
@@ -159,6 +162,7 @@ fun AppRadioButtonDialog(
     }
 }
 
+/** Bare dialog around caller-supplied content. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppCustomDialog(

@@ -34,6 +34,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Title and description on one line. */
 @Composable
 fun AppTextTitleDescSingleLine(
     title: String,
@@ -59,6 +60,7 @@ fun AppTextTitleDescSingleLine(
     }
 }
 
+/** Title above its description. */
 @Composable
 fun AppTextTitleDescDoubleLine(
     title: String,
@@ -82,6 +84,7 @@ fun AppTextTitleDescDoubleLine(
     }
 }
 
+/** Title and description on one line, with a clickable image. */
 @Composable
 fun AppTextTitleDescDrawableSingleLine(
     title: String,
@@ -119,6 +122,7 @@ fun AppTextTitleDescDrawableSingleLine(
     }
 }
 
+/** Title and description on one line, each taking half the width. */
 @Composable
 fun AppTitleDescSingleLineEqual(
     title: String,

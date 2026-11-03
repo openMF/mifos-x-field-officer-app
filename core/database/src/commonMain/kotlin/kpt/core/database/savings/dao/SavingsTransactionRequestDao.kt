@@ -18,12 +18,15 @@ import kpt.core.database.savings.entity.SavingsAccountTransactionRequestEntity
 
 /** Offline savings-transaction request queue. */
 interface SavingsTransactionRequestDao {
+    /** Saves `transactionRequest`, replacing any row with the same key. */
     @Insert(entity = SavingsAccountTransactionRequestEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)
 
+    /** Updates the stored row of `transactionRequest`. */
     @Update(entity = SavingsAccountTransactionRequestEntity::class, onConflict = OnConflictStrategy.NONE)
     suspend fun updateSavingsAccountTransactionRequest(transactionRequest: SavingsAccountTransactionRequestEntity)
 
+    /** Deletes the `SavingsAccountTransactionRequest` rows whose `savingAccountId` is `savingsAccountId`. */
     @Query("DELETE FROM SavingsAccountTransactionRequest where savingAccountId = :savingsAccountId")
     suspend fun deleteSavingsAccountTransactionRequest(savingsAccountId: Int)
 
@@ -31,9 +34,11 @@ interface SavingsTransactionRequestDao {
     @Query("DELETE FROM SavingsAccountTransactionRequest")
     suspend fun deleteAllSavingsAccountTransactionRequests()
 
+    /** Observes the `SavingsAccountTransactionRequest` rows. */
     @Query("SELECT * FROM SavingsAccountTransactionRequest")
     fun getAllSavingsAccountTransactionRequest(): Flow<List<SavingsAccountTransactionRequestEntity>>
 
+    /** Observes the `SavingsAccountTransactionRequest` row whose `savingAccountId` is `savingsAccountId`. */
     @Query("SELECT * FROM SavingsAccountTransactionRequest where savingAccountId = :savingsAccountId")
     fun getSavingsAccountTransactionRequest(savingsAccountId: Int): Flow<SavingsAccountTransactionRequestEntity?>
 

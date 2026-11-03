@@ -171,10 +171,16 @@ internal class ClientDepositAccountsViewModel(
  * differed between them.
  */
 enum class DepositAccountKind(
+    /** The deposit type the accounts are filtered on. */
     val serverType: SavingAccountDepositType.ServerTypes,
 ) {
+    /** Plain savings accounts. */
     SAVINGS(SavingAccountDepositType.ServerTypes.SAVINGS),
+
+    /** Fixed-deposit accounts. */
     FIXED(SavingAccountDepositType.ServerTypes.FIXED),
+
+    /** Recurring-deposit accounts. */
     RECURRING(SavingAccountDepositType.ServerTypes.RECURRING),
 }
 

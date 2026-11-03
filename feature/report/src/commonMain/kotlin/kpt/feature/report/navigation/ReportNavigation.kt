@@ -21,10 +21,15 @@ import kpt.feature.report.ui.run.ReportRunScreen
 @Serializable
 data object ReportListRoute
 
-/** One report, by name: its parameter form, then its result. */
+/**
+ * One report, by name: its parameter form, then its result.
+ *
+ * @property reportName the Fineract report to run
+ */
 @Serializable
 data class ReportRunRoute(val reportName: String)
 
+/** Registers the report list and the run-report screen in the nav graph. */
 @FeatureDestination
 fun NavGraphBuilder.reportDestinations(navController: NavController) {
     composableWithPushTransitions<ReportListRoute> {
@@ -38,4 +43,5 @@ fun NavGraphBuilder.reportDestinations(navController: NavController) {
     }
 }
 
+/** Opens the report list. */
 fun NavController.navigateToReports() = navigate(ReportListRoute)

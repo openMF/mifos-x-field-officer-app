@@ -26,15 +26,18 @@ import kpt.core.database.datatable.entity.DataTableEntity
 @Dao
 interface DataTableDao {
 
+    /** Observes the data tables registered against `appTable`, by registered name. */
     @Query(
         "SELECT * FROM DataTable WHERE applicationTableName = :appTable " +
             "ORDER BY registeredTableName ASC",
     )
     fun observeForAppTable(appTable: String): Flow<List<DataTableEntity>>
 
+    /** Deletes the `DataTable` rows whose `applicationTableName` is `appTable`. */
     @Query("DELETE FROM DataTable WHERE applicationTableName = :appTable")
     suspend fun deleteForAppTable(appTable: String)
 
+    /** Saves `tables`, replacing rows with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(tables: List<DataTableEntity>)
 
@@ -48,6 +51,7 @@ interface DataTableDao {
         insertAll(tables)
     }
 
+    /** Deletes every `DataTable` row. */
     @Query("DELETE FROM DataTable")
     suspend fun deleteAll()
 }

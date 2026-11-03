@@ -45,6 +45,7 @@ fun provideRetrieveAssociatedAccountsStore(
     fetch = { key -> clientApi.retrieveAssociatedAccounts(clientId = key) },
 )
 
+/** Store reading the client. */
 @StoreProvider(id = "clientGetClient", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClient:{key}", params = ["key:String"])
 fun provideGetClientStore(
@@ -56,6 +57,7 @@ fun provideGetClientStore(
     fetch = { key -> clientApi.getClient(clientId = key) },
 )
 
+/** Store reading the client pinpoint locations. */
 @StoreProvider(id = "clientGetClientPinpointLocations", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientPinpointLocations:{key}", params = ["key:String"])
 fun provideGetClientPinpointLocationsStore(
@@ -67,6 +69,7 @@ fun provideGetClientPinpointLocationsStore(
     fetch = { key -> clientApi.getClientPinpointLocations(clientId = key) },
 )
 
+/** Store reading the client template. */
 @StoreProvider(id = "clientGetClientTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientTemplate:{key}", params = ["key:String"])
 fun provideGetClientTemplateStore(
@@ -93,6 +96,7 @@ fun provideGetClientTemplateStore(
     },
 )
 
+/** Store reading the client collateral items. */
 @StoreProvider(id = "clientGetClientCollateralItems", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientCollateralItems:{key}", params = ["key:String"])
 fun provideGetClientCollateralItemsStore(
@@ -104,6 +108,7 @@ fun provideGetClientCollateralItemsStore(
     fetch = { key -> clientApi.getClientCollateralItems(clientId = key) },
 )
 
+/** Store reading the client list identifiers. */
 @StoreProvider(id = "clientGetClientListIdentifiers", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientListIdentifiers:{key}", params = ["key:String"])
 fun provideGetClientListIdentifiersStore(
@@ -115,6 +120,7 @@ fun provideGetClientListIdentifiersStore(
     fetch = { key -> clientIdentifierApi.getClientListIdentifiers(clientId = key) },
 )
 
+/** Store reading the client identifiers. */
 @StoreProvider(id = "clientGetClientIdentifiers", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientIdentifiers:{key}", params = ["key:String"])
 fun provideGetClientIdentifiersStore(
@@ -131,6 +137,7 @@ fun provideGetClientIdentifiersStore(
     },
 )
 
+/** Store reading the client identifier template. */
 @StoreProvider(id = "clientGetClientIdentifierTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientIdentifierTemplate:{key}", params = ["key:String"])
 fun provideGetClientIdentifierTemplateStore(
@@ -142,6 +149,7 @@ fun provideGetClientIdentifierTemplateStore(
     fetch = { key -> clientIdentifierApi.getClientIdentifierTemplate(clientId = key) },
 )
 
+/** Store reading all accounts of client. */
 @StoreProvider(id = "clientGetAllAccountsOfClient", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetAllAccountsOfClient:{key}", params = ["key:String"])
 fun provideGetAllAccountsOfClientStore(
@@ -153,6 +161,7 @@ fun provideGetAllAccountsOfClientStore(
     fetch = { key -> clientAccountsApi.getAllAccountsOfClient(clientId = key) },
 )
 
+/** Store reading the client accounts. */
 @StoreProvider(id = "clientGetClientAccounts", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientAccounts:{key}", params = ["key:String"])
 fun provideGetClientAccountsStore(
@@ -164,6 +173,7 @@ fun provideGetClientAccountsStore(
     fetch = { key -> clientApi.getClientAccounts(clientId = key) },
 )
 
+/** Store reading the client addresses. */
 @StoreProvider(id = "clientGetClientAddresses", ttl = "12h")
 @CacheKey(fn = "forKey", key = "clientGetClientAddresses:{key}", params = ["key:String"])
 fun provideGetClientAddressesStore(

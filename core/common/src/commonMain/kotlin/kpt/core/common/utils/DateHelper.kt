@@ -19,26 +19,24 @@ import kotlinx.datetime.format.FormatStringsInDatetimeFormats
 import kotlinx.datetime.format.byUnicodePattern
 import kotlinx.datetime.number
 import kotlinx.datetime.toLocalDateTime
-import kpt.core.common.utils.FileUtils.Companion.logger
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
+/** Date conversions between Fineract's `[year, month, day]` arrays, display strings and epoch millis. */
 @OptIn(FormatStringsInDatetimeFormats::class)
 object DateHelper {
-    /*
+    /**
      * This is the full month format for the date picker.
      * "dd MM yyyy" is the format of the date picker.
      */
     const val FULL_MONTH = "dd MM yyyy"
 
-    /*
+    /**
      * This is the short month format for the date picker.
      * "dd-MM-yyyy" is the format of the date picker.
      */
     const val SHORT_MONTH = "dd-MM-yyyy"
-
-    const val MONTH_FORMAT = "dd MMMM"
 
     private val fullMonthFormat = LocalDateTime.Format {
         byUnicodePattern(FULL_MONTH)
@@ -55,7 +53,6 @@ object DateHelper {
      * @return date in the format day month year (ex 14 Apr 2016)
      */
     fun getDateAsString(integersOfDate: List<Int>): String {
-        logger.d { "ktorClient $integersOfDate" }
         val stringBuilder = StringBuilder()
         stringBuilder.append(integersOfDate[2])
             .append(' ')
@@ -68,6 +65,7 @@ object DateHelper {
         return stringBuilder.toString()
     }
 
+    /** Formats a Fineract `[year, month, day]` date (as longs) with [pattern]. */
     fun getDateAsString(integersOfDate: List<Long>, pattern: String): String {
         return getFormatConverter(
             currentFormat = FULL_MONTH,
@@ -91,12 +89,12 @@ object DateHelper {
         "Sep" to 9, "Oct" to 10, "Nov" to 11, "Dec" to 12,
     )
 
-    fun getMonthNumber(monthName: String): Int {
+    private fun getMonthNumber(monthName: String): Int {
         return monthMap[monthName]
             ?: throw IllegalArgumentException("Invalid month name: $monthName")
     }
 
-    fun getDateAsList(date: String): List<Int> {
+    private fun getDateAsList(date: String): List<Int> {
         val dateList = date.split(" ")
 
         val day = dateList[0].toInt()
@@ -145,7 +143,7 @@ object DateHelper {
         return localDate.format(pattern)
     }
 
-    // Extension function to format LocalDate
+    /** Formats this date with a `yyyy` / `MM` / `dd` [pattern]; other letters are copied as they are. */
     fun LocalDate.format(pattern: String): String {
         val year = this.year.toString().padStart(4, '0')
         val month = this.month.toString().padStart(2, '0')
@@ -363,7 +361,7 @@ object DateHelper {
     }
 
     @OptIn(ExperimentalTime::class)
-    val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    private val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
     /**
      * This is the full date format for the date picker.
@@ -376,11 +374,6 @@ object DateHelper {
      * "dd-MM-yyyy" is the format of the date picker.
      */
     val formattedShortDate = currentDate.format(shortMonthFormat)
-
-    fun getMonth(month: Int): String {
-        require(month in 1..12) { "Month should be between 1 and 12" }
-        return Month.entries[month - 1].name.lowercase().replaceFirstChar { it.uppercase() }
-    }
 
     /**
      * This method is used to Convert IOS string date into dd MM yyyy formate
@@ -403,6 +396,10 @@ object DateHelper {
         return "$day $monthName $year"
     }
 
+    /**
+     * Converts a Fineract `[year, month, day]` date to epoch millis at UTC midnight; null when absent or
+     * unparseable.
+     */
     @OptIn(ExperimentalTime::class)
     fun getDateAsLongFromList(integersOfDate: List<Int>?): Long? {
         if (integersOfDate == null) return null

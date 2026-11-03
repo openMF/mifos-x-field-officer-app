@@ -59,6 +59,7 @@ interface DashboardApi {
         @Query("enclosingTransaction") enclosingTransaction: Boolean = false,
     ): List<BatchResponseDto>
 
+    /** Reads one page of savings accounts. */
     @GET("savingsaccounts")
     suspend fun getSavingsAccounts(
         @Query("offset") offset: Int,

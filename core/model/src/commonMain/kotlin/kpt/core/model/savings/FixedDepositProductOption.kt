@@ -12,14 +12,18 @@ package kpt.core.model.savings
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/** One fixed deposit product choice offered by a template. */
 @Serializable
 data class FixedDepositProductOption(
+    /** The server id of this record. */
     @SerialName("id")
     val id: Int? = null,
 
+    /** The display name. */
     @SerialName("name")
     val name: String? = null,
 
+    /** True when tax is withheld on interest. */
     @SerialName("withHoldTax")
     val withHoldTax: Boolean? = null,
 )

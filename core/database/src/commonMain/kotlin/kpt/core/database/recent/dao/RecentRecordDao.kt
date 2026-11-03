@@ -18,13 +18,16 @@ import kotlinx.coroutines.flow.Flow
 import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.recent.entity.RecentRecordEntity
 
+/** Room queries for recent record rows. */
 @DbDao
 @Dao
 interface RecentRecordDao {
 
+    /** Observes the user's most recently opened records, newest first. */
     @Query("SELECT * FROM recent_records WHERE userId = :userId ORDER BY openedAtMs DESC LIMIT :limit")
     fun observe(userId: Long, limit: Int): Flow<List<RecentRecordEntity>>
 
+    /** Saves `record`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(record: RecentRecordEntity)
 

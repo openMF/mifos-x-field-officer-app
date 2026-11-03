@@ -18,6 +18,7 @@ import kpt.core.database.datatable.entity.ColumnValue as ColumnValueRow
 import kpt.core.database.datatable.entity.DataTableEntity as DataTableRow
 import kpt.core.database.datatable.entity.DataTablePayload as DataTablePayloadRow
 
+/** Maps the stored row to its `ColumnHeader` model. */
 fun ColumnHeaderRow.toModel(): ColumnHeader = ColumnHeader(
     id = id,
     columnCode = columnCode,
@@ -31,6 +32,7 @@ fun ColumnHeaderRow.toModel(): ColumnHeader = ColumnHeader(
     columnValues = columnValues.map { it.toModel() },
 )
 
+/** Maps the model to its stored `ColumnHeaderRow`. */
 fun ColumnHeader.toEntity(): ColumnHeaderRow = ColumnHeaderRow(
     id = id,
     columnCode = columnCode,
@@ -44,6 +46,7 @@ fun ColumnHeader.toEntity(): ColumnHeaderRow = ColumnHeaderRow(
     columnValues = columnValues.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `ColumnValue` model. */
 fun ColumnValueRow.toModel(): ColumnValue = ColumnValue(
     id = id,
     value = value,
@@ -51,6 +54,7 @@ fun ColumnValueRow.toModel(): ColumnValue = ColumnValue(
     registeredTableName = registeredTableName,
 )
 
+/** Maps the model to its stored `ColumnValueRow`. */
 fun ColumnValue.toEntity(): ColumnValueRow = ColumnValueRow(
     id = id,
     value = value,
@@ -58,6 +62,7 @@ fun ColumnValue.toEntity(): ColumnValueRow = ColumnValueRow(
     registeredTableName = registeredTableName,
 )
 
+/** Maps the stored row to its `DataTable` model. */
 fun DataTableRow.toModel(): DataTable = DataTable(
     id = id,
     applicationTableName = applicationTableName,
@@ -65,6 +70,7 @@ fun DataTableRow.toModel(): DataTable = DataTable(
     registeredTableName = registeredTableName,
 )
 
+/** Maps the model to its stored `DataTableRow`. */
 fun DataTable.toEntity(): DataTableRow = DataTableRow(
     id = id,
     applicationTableName = applicationTableName,
@@ -72,6 +78,7 @@ fun DataTable.toEntity(): DataTableRow = DataTableRow(
     registeredTableName = registeredTableName,
 )
 
+/** Maps the stored row to its `DataTablePayload` model. */
 fun DataTablePayloadRow.toModel(): DataTablePayload = DataTablePayload(
     id = id,
     clientCreationTime = clientCreationTime,
@@ -80,6 +87,7 @@ fun DataTablePayloadRow.toModel(): DataTablePayload = DataTablePayload(
     data = data,
 )
 
+/** Maps the model to its stored `DataTablePayloadRow`. */
 fun DataTablePayload.toEntity(): DataTablePayloadRow = DataTablePayloadRow(
     id = id,
     clientCreationTime = clientCreationTime,

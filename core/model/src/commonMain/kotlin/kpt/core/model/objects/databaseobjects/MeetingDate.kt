@@ -9,10 +9,14 @@
  */
 package kpt.core.model.objects.databaseobjects
 
+/** A meeting date. */
 data class MeetingDate(
+    /** The year. */
     var year: Int = 0,
 
+    /** The month (1–12). */
     var month: Int = 0,
 
+    /** The day of the month. */
     var day: Int = 0,
 )

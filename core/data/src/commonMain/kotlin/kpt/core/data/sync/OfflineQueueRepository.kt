@@ -31,18 +31,36 @@ import kpt.core.model.savings.SavingsAccountTransactionRequest
  */
 interface OfflineQueueRepository {
 
+    /** The client creations waiting to be sent. */
     fun pendingClientsStream(scope: CoroutineScope): ScreenDataStream<List<ClientPayload>>
+
+    /** The centre creations waiting to be sent. */
     fun pendingCentersStream(scope: CoroutineScope): ScreenDataStream<List<CenterPayload>>
+
+    /** The group creations waiting to be sent. */
     fun pendingGroupsStream(scope: CoroutineScope): ScreenDataStream<List<GroupPayload>>
+
+    /** The loan repayments waiting to be sent. */
     fun pendingLoanRepaymentsStream(scope: CoroutineScope): ScreenDataStream<List<LoanRepaymentRequest>>
+
+    /** The savings transactions waiting to be sent. */
     fun pendingSavingsTransactionsStream(
         scope: CoroutineScope,
     ): ScreenDataStream<List<SavingsAccountTransactionRequest>>
 
+    /** Queues a client creation to send when online. */
     suspend fun enqueueClient(id: Int, payload: ClientPayload): MutationResult<ClientPayload>
+
+    /** Queues a centre creation to send when online. */
     suspend fun enqueueCenter(id: Int, payload: CenterPayload): MutationResult<CenterPayload>
+
+    /** Queues a group creation to send when online. */
     suspend fun enqueueGroup(id: Int, payload: GroupPayload): MutationResult<GroupPayload>
+
+    /** Queues a loan repayment to send when online. */
     suspend fun enqueueLoanRepayment(loanId: Int, request: LoanRepaymentRequest): MutationResult<LoanRepaymentRequest>
+
+    /** Queues a savings transaction to send when online. */
     suspend fun enqueueSavingsTransaction(
         accountId: Int,
         request: SavingsAccountTransactionRequest,
@@ -50,8 +68,16 @@ interface OfflineQueueRepository {
 
     /** Drop a queued row — the sync accepted it, or the officer discarded it. */
     suspend fun discardClient(id: Int)
+
+    /** Drops a queued centre creation. */
     suspend fun discardCenter(id: Int)
+
+    /** Drops a queued group creation. */
     suspend fun discardGroup(id: Int)
+
+    /** Drops a queued loan repayment. */
     suspend fun discardLoanRepayment(loanId: Int)
+
+    /** Drops a queued savings transaction. */
     suspend fun discardSavingsTransaction(accountId: Int)
 }

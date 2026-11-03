@@ -35,6 +35,7 @@ fun provideRescheduleLoanTasksStore(
     fetch = { checkerInboxApi.getRescheduleLoansTaskList() },
 )
 
+/** Store reading the checker search template. */
 @StoreProvider(id = "checkerSearchTemplate", ttl = "12h")
 @CacheKey(name = "LIST", key = "checkerSearchTemplate")
 fun provideCheckerSearchTemplateStore(

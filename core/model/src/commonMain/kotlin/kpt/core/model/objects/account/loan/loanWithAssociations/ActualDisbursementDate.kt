@@ -9,9 +9,14 @@
  */
 package kpt.core.model.objects.account.loan.loanWithAssociations
 
+/** An actual disbursement date. */
 data class ActualDisbursementDate(
+    /** The server id of the loan. */
     val loanId: Int? = null,
+    /** The year. */
     val year: Int? = null,
+    /** The month (1–12). */
     val month: Int? = null,
+    /** The day of the month. */
     val date: Int? = null,
 )

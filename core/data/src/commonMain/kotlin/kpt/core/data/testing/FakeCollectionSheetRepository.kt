@@ -32,7 +32,10 @@ class FakeCollectionSheetRepository(
     initial: ScreenState<IndividualCollectionSheet> = ScreenState.Loading,
 ) : CollectionSheetRepository {
 
+    /** The collection sheet the stream emits. */
     val sheet = MutableStateFlow(initial)
+
+    /** The sheet requests, in order. */
     val requested = mutableListOf<RequestCollectionSheetPayload>()
 
     override fun individualCollectionSheetStream(request: RequestCollectionSheetPayload, scope: CoroutineScope) =

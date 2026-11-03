@@ -15,6 +15,7 @@ import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 import kpt.core.model.objects.Changes
 
+/** Room row for a loan repayment response. */
 @Serializable
 @DbEntity
 @Entity(
@@ -26,11 +27,17 @@ import kpt.core.model.objects.Changes
     ignoredColumns = [],
 )
 data class LoanRepaymentResponseEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    /** The server id of the office. */
     val officeId: Int? = null,
+    /** The server id of the client. */
     val clientId: Int? = null,
+    /** The server id of the loan. */
     val loanId: Int? = null,
+    /** The server id of the resource the request created or changed. */
     val resourceId: Int? = null,
+    /** The fields the request changed, as Fineract reports them. */
     val changes: Changes? = null,
 )

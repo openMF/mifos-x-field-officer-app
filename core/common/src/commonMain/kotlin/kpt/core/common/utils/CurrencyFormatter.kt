@@ -35,9 +35,9 @@ package kpt.core.common.utils
  * logged in CAPABILITY_GAPS as `currency-formatter-unimplemented-on-web`.
  */
 expect object CurrencyFormatter {
+    /**
+     * Formats [balance] as money in [currencyCode] with at most [maximumFractionDigits] decimals; a null balance
+     * formats as zero and an unusable code falls back to the locale's currency.
+     */
     fun format(balance: Double?, currencyCode: String?, maximumFractionDigits: Int?): String
-}
-
-fun <T> List<T>.toArrayList(): ArrayList<T> {
-    return ArrayList(this)
 }

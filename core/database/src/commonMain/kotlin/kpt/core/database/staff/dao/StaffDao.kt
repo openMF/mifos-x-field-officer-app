@@ -24,18 +24,23 @@ import kpt.core.database.staff.entity.StaffEntity
 @Dao
 interface StaffDao {
 
+    /** Saves `staffs`, replacing rows with the same key. */
     @Insert(entity = StaffEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStaffs(staffs: List<StaffEntity>)
 
+    /** Saves `staff`, replacing any row with the same key. */
     @Insert(entity = StaffEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStaff(staff: StaffEntity)
 
+    /** Observes the `Staff` rows whose `officeId` is `officeId`. */
     @Query("SELECT * FROM Staff WHERE officeId = :officeId")
     fun getAllStaff(officeId: Int): Flow<List<StaffEntity>>
 
+    /** Deletes the `Staff` rows whose `officeId` is `officeId`. */
     @Query("DELETE FROM Staff WHERE officeId = :officeId")
     suspend fun deleteForOffice(officeId: Int)
 
+    /** Deletes every `Staff` row. */
     @Query("DELETE FROM Staff")
     suspend fun deleteAll()
 }

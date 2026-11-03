@@ -16,9 +16,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Role(
+    /** The server id of this record. */
     var id: Int = 0,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** A free-text description. */
     var description: String? = null,
 )

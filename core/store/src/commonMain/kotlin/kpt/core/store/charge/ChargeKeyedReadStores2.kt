@@ -26,25 +26,35 @@ import org.mobilenativefoundation.store.store5.Store
 
 /** Addresses one `getListOfPagingCharges` read. */
 data class GetListOfPagingChargesKey(
+    /** The resource kind, as Fineract names it in the path (`loans`, `clients`, `savings`). */
     val resourceType: String,
+    /** The id of the resource the records belong to. */
     val resourceId: Int,
+    /** Index of the first record of the page. */
     val offset: Int,
+    /** Most records the page holds. */
     val limit: Int,
 )
 
 /** Addresses one `getListOfOtherAccountCharge` read. */
 data class GetListOfOtherAccountChargeKey(
+    /** The resource kind, as Fineract names it in the path (`loans`, `clients`, `savings`). */
     val resourceType: String,
+    /** The id of the resource the records belong to. */
     val resourceId: Int,
 )
 
 /** Addresses one `getCharge` read. */
 data class GetChargeKey(
+    /** The resource kind, as Fineract names it in the path (`loans`, `clients`, `savings`). */
     val resourceType: String,
+    /** The id of the resource the records belong to. */
     val resourceId: Int,
+    /** The charge's server id. */
     val chargeId: Int,
 )
 
+/** Store reading the list of paging charges. */
 @StoreProvider(id = "chargeGetListOfPagingCharges", ttl = "12h")
 @CacheKey(fn = "forKey", key = "chargeGetListOfPagingCharges:{key}", params = ["key:String"])
 fun provideGetListOfPagingChargesStore(
@@ -67,6 +77,7 @@ fun provideGetListOfPagingChargesStore(
     },
 )
 
+/** Store reading the list of other account charge. */
 @StoreProvider(id = "chargeGetListOfOtherAccountCharge", ttl = "12h")
 @CacheKey(fn = "forKey", key = "chargeGetListOfOtherAccountCharge:{key}", params = ["key:String"])
 fun provideGetListOfOtherAccountChargeStore(
@@ -83,6 +94,7 @@ fun provideGetListOfOtherAccountChargeStore(
     },
 )
 
+/** Store reading the charge. */
 @StoreProvider(id = "chargeGetCharge", ttl = "12h")
 @CacheKey(fn = "forKey", key = "chargeGetCharge:{key}", params = ["key:String"])
 fun provideGetChargeStore(

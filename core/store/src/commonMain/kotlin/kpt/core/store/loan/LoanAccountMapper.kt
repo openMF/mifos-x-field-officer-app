@@ -32,6 +32,7 @@ import kpt.core.model.objects.account.loan.loanWithAssociations.LoanWithAssociat
 import kpt.core.model.objects.account.loan.loanWithAssociations.SavingAccountCurrency
 import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps a stored loan with associations to its domain model. */
 object LoanAccountMapper : AbstractMapper<LoanWithAssociationsEntity, LoanWithAssociations>() {
 
     override fun mapFromEntity(entity: LoanWithAssociationsEntity): LoanWithAssociations {

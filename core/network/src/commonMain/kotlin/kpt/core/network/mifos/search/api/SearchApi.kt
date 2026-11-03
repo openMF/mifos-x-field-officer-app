@@ -20,6 +20,7 @@ import kpt.core.model.objects.SearchedEntity
 @ApiBinding("mifos")
 interface SearchApi {
 
+    /** Searches clients, groups, centres and accounts for a query. */
     @GET("search")
     suspend fun searchResources(
         @Query("query") query: String,

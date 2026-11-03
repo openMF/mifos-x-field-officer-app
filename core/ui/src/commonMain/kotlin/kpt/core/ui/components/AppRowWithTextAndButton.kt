@@ -31,6 +31,7 @@ import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Row with text and a button. */
 @Composable
 fun AppRowWithTextAndButton(
     onBtnClick: () -> Unit,

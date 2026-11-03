@@ -15,6 +15,7 @@ import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 import kpt.core.database.payment.entity.PaymentTypeOptionEntity
 
+/** Room row for a savings account transaction template. */
 @Serializable
 @DbEntity
 @Entity(
@@ -26,18 +27,24 @@ import kpt.core.database.payment.entity.PaymentTypeOptionEntity
     tableName = "SavingsAccountTransactionTemplate",
 )
 data class SavingsAccountTransactionTemplateEntity(
+    /** The server id of the account. */
     @PrimaryKey(autoGenerate = true)
     val accountId: Int? = null,
 
+    /** The account number Fineract assigned. */
     val accountNo: String? = null,
 
+    /** The date. */
     val date: List<Int> = emptyList(),
 
+    /** True when the transaction was reversed. */
     val reversed: Boolean? = null,
 
+    /** The payment types the user may choose from. */
     val paymentTypeOptions: List<PaymentTypeOptionEntity> = emptyList(),
 ) {
 
+    /** True when the transaction was reversed; null when the server did not say. */
     fun isReversed(): Boolean? {
         return reversed
     }

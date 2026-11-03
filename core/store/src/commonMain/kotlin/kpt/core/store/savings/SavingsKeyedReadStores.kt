@@ -30,28 +30,37 @@ import kpt.core.model.savings.SavingProductsTemplate as SavingProductsTemplateMo
 
 /** Addresses one `fixedDepositProductTemplate` read. */
 data class FixedDepositProductTemplateKey(
+    /** The client's server id. */
     val clientId: Int,
+    /** The product's server id. */
     val productId: Int?,
 )
 
 /** Addresses one `getClientSavingsAccountTemplateByProduct` read. */
 data class GetClientSavingsAccountTemplateByProductKey(
+    /** The client's server id. */
     val clientId: Int,
+    /** The product's server id. */
     val productId: Int,
 )
 
 /** Addresses one `getGroupSavingsAccountTemplateByProduct` read. */
 data class GetGroupSavingsAccountTemplateByProductKey(
+    /** The group's server id. */
     val groupId: Int,
+    /** The product's server id. */
     val productId: Int,
 )
 
 /** Addresses one `shareProductTemplate` read. */
 data class ShareProductTemplateKey(
+    /** The client's server id. */
     val clientId: Int,
+    /** The product's server id. */
     val productId: Int?,
 )
 
+/** Store reading the fixed deposit product template. */
 @StoreProvider(id = "savingsFixedDepositProductTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "savingsFixedDepositProductTemplate:{key}", params = ["key:String"])
 fun provideFixedDepositProductTemplateStore(
@@ -63,6 +72,7 @@ fun provideFixedDepositProductTemplateStore(
     fetch = { key -> fixedDepositApi.fixedDepositProductTemplate(clientId = key.clientId, productId = key.productId) },
 )
 
+/** Store reading the client savings account template by product. */
 @StoreProvider(id = "savingsGetClientSavingsAccountTemplateByProduct", ttl = "12h")
 @CacheKey(fn = "forKey", key = "savingsGetClientSavingsAccountTemplateByProduct:{key}", params = ["key:String"])
 fun provideGetClientSavingsAccountTemplateByProductStore(
@@ -81,6 +91,7 @@ fun provideGetClientSavingsAccountTemplateByProductStore(
     },
 )
 
+/** Store reading the group savings account template by product. */
 @StoreProvider(id = "savingsGetGroupSavingsAccountTemplateByProduct", ttl = "12h")
 @CacheKey(fn = "forKey", key = "savingsGetGroupSavingsAccountTemplateByProduct:{key}", params = ["key:String"])
 fun provideGetGroupSavingsAccountTemplateByProductStore(
@@ -99,6 +110,7 @@ fun provideGetGroupSavingsAccountTemplateByProductStore(
     },
 )
 
+/** Store reading the share product template. */
 @StoreProvider(id = "savingsShareProductTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "savingsShareProductTemplate:{key}", params = ["key:String"])
 fun provideShareProductTemplateStore(
@@ -112,11 +124,15 @@ fun provideShareProductTemplateStore(
 
 /** Addresses one `getSavingsAccountTransactionTemplate` read. */
 data class GetSavingsAccountTransactionTemplateKey(
+    /** The savings account kind (`savingsaccounts`, `recurringdepositaccounts`, …). */
     val savingsAccountType: String,
+    /** The savings account's server id. */
     val savingsAccountId: Int,
+    /** The transaction type (`deposit`, `withdrawal`), or null for the generic template. */
     val transactionType: String?,
 )
 
+/** Store reading the savings account transaction template. */
 @StoreProvider(id = "savingsGetSavingsAccountTransactionTemplate", ttl = "12h")
 @CacheKey(fn = "forKey", key = "savingsGetSavingsAccountTransactionTemplate:{key}", params = ["key:String"])
 fun provideGetSavingsAccountTransactionTemplateStore(

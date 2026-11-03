@@ -23,7 +23,10 @@ import kotlin.time.Clock
 
 /** The signed-in officer's recently-opened records — written by the profile screens, read by Home. */
 interface RecentRecordsRepository {
+    /** The user's recently opened records, newest first. */
     val recent: Flow<List<RecentRecord>>
+
+    /** Records that `record` was opened now. */
     suspend fun record(record: RecentRecord)
 }
 

@@ -18,18 +18,23 @@ import androidx.room3.Update
 import kpt.core.base.database.annotation.DbDao
 import kpt.core.database.datatable.entity.ColumnValue
 
+/** Room queries for column value rows. */
 @DbDao
 @Dao
 interface ColumnValueDao {
+    /** Saves `columnValue`, replacing any row with the same key. */
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = ColumnValue::class)
     suspend fun insert(columnValue: ColumnValue)
 
+    /** Updates the stored row of `columnValue`. */
     @Update(entity = ColumnValue::class, onConflict = OnConflictStrategy.NONE)
     suspend fun update(columnValue: ColumnValue)
 
+    /** Deletes the stored row of `columnValue`. */
     @Delete(entity = ColumnValue::class)
     suspend fun delete(columnValue: ColumnValue)
 
+    /** Reads the `ColumnValue` row whose `id` is `id`. */
     @Query("SELECT * FROM ColumnValue WHERE id = :id")
     suspend fun getColumnValue(id: Int): ColumnValue?
 }

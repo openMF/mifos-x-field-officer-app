@@ -20,6 +20,7 @@ import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.designsystem.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Alert dialog with a message, a confirm button and an optional dismiss button. */
 @Composable
 fun AppAlertDialog(
     dialogText: String,

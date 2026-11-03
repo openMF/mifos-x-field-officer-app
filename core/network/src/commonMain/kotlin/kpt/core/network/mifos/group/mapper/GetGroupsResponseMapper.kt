@@ -14,6 +14,7 @@ import kpt.core.model.objects.clients.Page
 import kpt.core.network.mifos.group.dto.GetGroupsResponse
 import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps get groups response between its network, stored and domain shapes. */
 object GetGroupsResponseMapper : AbstractMapper<GetGroupsResponse, Page<Group>>() {
 
     override fun mapFromEntity(entity: GetGroupsResponse): Page<Group> {

@@ -18,6 +18,9 @@ import kpt.core.database.client.entity.ClientEntity
  * Created by Rajan Maurya on 01/07/16.
  */
 class ClientAndClientAccounts {
+    /** The client. */
     var client: ClientEntity? = null
+
+    /** The client's accounts. */
     var clientAccounts: ClientAccounts? = null
 }

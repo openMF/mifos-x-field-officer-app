@@ -30,6 +30,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+/** Share, dial, mail and browser actions through Android intents, started from the provided activity. */
 actual object ShareUtils {
 
     private var activityProvider: () -> Activity = {
@@ -40,10 +41,12 @@ actual object ShareUtils {
         )
     }
 
+    /** Sets where the activity that starts the intents comes from; call it before any action. */
     fun setActivityProvider(provider: () -> Activity) {
         activityProvider = provider
     }
 
+    /** Shares `text` through the Android share sheet. */
     actual fun shareText(text: String) {
         val intent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
@@ -53,6 +56,7 @@ actual object ShareUtils {
         activityProvider.invoke().startActivity(intentChooser)
     }
 
+    /** Saves the image to the cache and shares it through the Android share sheet. */
     actual suspend fun shareImage(title: String, image: ImageBitmap) {
         val context = activityProvider.invoke().application.baseContext
 
@@ -69,6 +73,7 @@ actual object ShareUtils {
         activityProvider.invoke().startActivity(shareIntent)
     }
 
+    /** Saves the image to the cache and shares it through the Android share sheet. */
     @OptIn(ExperimentalResourceApi::class)
     actual suspend fun shareImage(title: String, byte: ByteArray) {
         Log.d("Sharing QR Code", " $title, size: ${byte.size} bytes")
@@ -108,6 +113,7 @@ actual object ShareUtils {
         }
     }
 
+    /** Opens the dialler on the support helpline. */
     actual fun callHelpline() {
         val context = activityProvider.invoke().application.baseContext
         val intent = Intent(Intent.ACTION_DIAL).apply {
@@ -118,6 +124,7 @@ actual object ShareUtils {
         context.startActivity(intent)
     }
 
+    /** Opens a mail draft to support, or shows a toast when no mail app is installed. */
     actual fun mailHelpline() {
         val context = activityProvider.invoke().application.baseContext
 
@@ -138,6 +145,7 @@ actual object ShareUtils {
         }
     }
 
+    /** Opens this app's page in the system settings. */
     actual fun openAppInfo() {
         val context = activityProvider.invoke().application.baseContext
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
@@ -147,6 +155,7 @@ actual object ShareUtils {
         context.startActivity(intent)
     }
 
+    /** Shares this app's Play Store link. */
     actual fun shareApp() {
         val context = activityProvider.invoke().application.baseContext
         val shareText = "Download Self Service app here: https://play.google" +
@@ -160,6 +169,7 @@ actual object ShareUtils {
         activityProvider.invoke().startActivity(shareIntent)
     }
 
+    /** Opens `url` in the browser. */
     actual fun openUrl(url: String) {
         val context = activityProvider.invoke().application.baseContext
         val uri = url.let { Uri.parse(url) } ?: return
@@ -170,6 +180,7 @@ actual object ShareUtils {
         context.startActivity(intent)
     }
 
+    /** Opens the Play services open-source licences screen. */
     actual fun ossLicensesMenuActivity() {
         val context = activityProvider.invoke().application.baseContext
         val intent = Intent(context, OssLicensesMenuActivity::class.java).apply {
@@ -178,6 +189,7 @@ actual object ShareUtils {
         context.startActivity(intent)
     }
 
+    /** Relaunches the app's launcher activity and ends this process. */
     actual fun restartApplication() {
         val context = activityProvider.invoke().applicationContext
         val packageManager = context.packageManager

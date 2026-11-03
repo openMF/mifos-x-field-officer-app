@@ -23,6 +23,7 @@ import kpt.core.model.objects.users.UserLocation
 import kpt.core.model.shared.GenericResponse
 import kpt.core.network.mifos.datatable.dto.GetDataTablesResponse
 
+/** Fineract endpoints for data table. */
 @ApiBinding("mifos")
 interface DataTableApi {
 
@@ -58,9 +59,11 @@ interface DataTableApi {
         @Path("datatableId") datatableId: Long,
     ): DeleteDataTablesDatatableAppTableIdDatatableIdResponse
 
+    /** Reads the data tables registered against an application table. */
     @GET("datatables")
     suspend fun getTableOf(@Query("apptable") table: String?): List<DataTable>
 
+    /** Reads an entity's rows in a data table. */
     @GET("datatables/{dataTableName}/{entityId}/")
     suspend fun getDataOfDataTable(
         @Path("dataTableName") dataTableName: String,
@@ -68,6 +71,7 @@ interface DataTableApi {
     ): JsonArray
 
     // TODO Improve Body Implementation with Payload
+    /** Adds a row for an entity to a data table. */
     @POST("datatables/{dataTableName}/{entityId}/")
     suspend fun createEntryInDataTable(
         @Path("dataTableName") dataTableName: String,
@@ -75,6 +79,7 @@ interface DataTableApi {
         @Body requestPayload: Map<String, String>,
     ): GenericResponse
 
+    /** Deletes one row of a multi-row data table. */
     @DELETE("datatables/{dataTableName}/{entityId}/{dataTableRowId}")
     suspend fun deleteEntryOfDataTableManyToMany(
         @Path("dataTableName") dataTableName: String,
@@ -82,12 +87,14 @@ interface DataTableApi {
         @Path("dataTableRowId") dataTableRowId: Int,
     ): GenericResponse
 
+    /** Records a tracked path for a user. */
     @POST("datatables/m_staff_path_tracking/{userId}")
     suspend fun addUserPathTracking(
         @Path("userId") userId: Int,
         @Body userLocation: UserLocation?,
     ): GenericResponse
 
+    /** Reads the paths tracked for a user. */
     @GET("datatables/m_staff_path_tracking/{userId}")
     suspend fun getUserPathTracking(@Path("userId") userId: Int): List<UserLocation>
 }

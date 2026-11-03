@@ -148,7 +148,11 @@ class FakeLoanCommandRepository(
 
     /** Every reschedule proposed, approved and rejected, in order. */
     val proposedReschedules: MutableList<LoanRescheduleRequest> = mutableListOf()
+
+    /** The approved reschedules, as (loan id, request), in order. */
     val approvedReschedules: MutableList<Pair<Int, LoanRescheduleApprovalRequest>> = mutableListOf()
+
+    /** The rejected reschedules, as (loan id, request), in order. */
     val rejectedReschedules: MutableList<Pair<Int, LoanRescheduleRejectionRequest>> = mutableListOf()
 
     override suspend fun submitLoanReschedule(

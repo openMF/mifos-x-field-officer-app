@@ -18,15 +18,18 @@ import kpt.core.base.network.annotation.ApiBinding
 import kpt.core.model.savings.FixedDepositPayload
 import kpt.core.model.savings.FixedDepositTemplate
 
+/** Fineract endpoints for fixed deposit. */
 @ApiBinding("mifos")
 interface FixedDepositApi {
 
+    /** Reads the fixed-deposit template for a client. */
     @GET("fixeddepositaccounts/template")
     suspend fun fixedDepositProductTemplate(
         @Query("clientId") clientId: Int,
         @Query("productId") productId: Int?,
     ): FixedDepositTemplate
 
+    /** Opens a fixed-deposit account. */
     @POST("fixeddepositaccounts")
     suspend fun createFixedDepositAccount(
         @Body fixedDepositPayload: FixedDepositPayload,

@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.model.survey.Survey
 
+/** Reads surveys. */
 interface SurveyRepository {
     /** Surveys the officer can administer in the field. */
     fun surveysStream(scope: CoroutineScope): ScreenDataStream<List<Survey>>

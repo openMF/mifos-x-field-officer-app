@@ -9,4 +9,7 @@
  */
 package kpt.core.database.utils
 
-expect fun getCurrentTimeInMillis(): Long
+import kotlin.time.Clock
+
+/** The current wall-clock time, in milliseconds since the Unix epoch. */
+fun getCurrentTimeInMillis(): Long = Clock.System.now().toEpochMilliseconds()

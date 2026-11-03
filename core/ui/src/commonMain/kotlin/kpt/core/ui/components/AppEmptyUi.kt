@@ -29,6 +29,7 @@ import kpt.core.designsystem.theme.AppTheme
 import kpt.core.designsystem.theme.DesignToken
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Centred icon and message for an empty screen. */
 @Composable
 fun AppEmptyUi(
     text: String,

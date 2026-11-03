@@ -36,6 +36,7 @@ import kpt.core.network.mifos.client.dto.GetClientsClientIdAccountsResponse
 import kpt.core.network.mifos.client.dto.GetClientsPageItemsResponse
 import kpt.core.network.mifos.client.dto.GetClientsResponse
 
+/** Fineract endpoints for client. */
 @ApiBinding("mifos")
 interface ClientApi : ClientDetailsApi {
 
@@ -153,33 +154,41 @@ interface ClientApi : ClientDetailsApi {
         @Query("limit") limit: Int,
     ): Page<Client>
 
+    /** Reads a client. */
     @GET("clients/{clientId}")
     suspend fun getClient(@Path("clientId") clientId: Int): Client
 
+    /** Uploads the client's photo. */
     @POST("clients/{clientId}/images")
     suspend fun uploadClientImage(
         @Path("clientId") clientId: Int,
         @Body body: MultiPartFormDataContent,
     ): Unit
 
+    /** Deletes the client's photo. */
     @DELETE("clients/{clientId}/images")
     suspend fun deleteClientImage(@Path("clientId") clientId: Int)
 
+    /** Downloads the client's photo. */
     @GET("clients/{clientId}/images")
     suspend fun getClientImage(@Path("clientId") clientId: Int): HttpResponse
 
+    /** Creates a client. */
     @POST("clients")
     suspend fun createClient(@Body clientPayload: ClientPayload?): Client?
 
+    /** Updates a client's details. */
     @PUT("clients/{clientId}")
     suspend fun updateClient(
         @Path("clientId") clientId: Int,
         @Body clientPayload: ClientPayload?,
     ): Client?
 
+    /** Reads the new-client template: offices, staff, genders, types and classifications. */
     @GET("clients/template")
     suspend fun getClientTemplate(): ClientsTemplate
 
+    /** Reads the client's accounts. */
     @GET("clients/{clientId}/accounts")
     suspend fun getClientAccounts(@Path("clientId") clientId: Int): ClientAccounts
 
@@ -197,33 +206,39 @@ interface ClientApi : ClientDetailsApi {
         @Body clientActivate: ActivatePayload?,
     ): GenericResponse
 
+    /** Reads the edit template of a client, with staff from the client's office only. */
     @GET("clients/{clientId}?template=true&staffInSelectedOfficeOnly=true")
     suspend fun getClientTemplate(@Path("clientId") clientId: Int): GetClientsPageItemsResponse
 
+    /** Assigns a loan officer to a client. */
     @POST("clients/{clientId}?command=assignStaff")
     suspend fun assignStaff(
         @Path("clientId") clientId: Int,
         @Body payload: AssignStaffRequest,
     ): HttpResponse
 
+    /** Removes the client's loan officer. */
     @POST("clients/{clientId}?command=unassignStaff")
     suspend fun unassignStaff(
         @Path("clientId") clientId: Int,
         @Body payload: AssignStaffRequest,
     ): HttpResponse
 
+    /** Proposes transferring the client to another office. */
     @POST("clients/{clientId}?command=proposeTransfer")
     suspend fun proposeTransfer(
         @Path("clientId") clientId: Int,
         @Body payload: ProposeTransferRequest,
     ): HttpResponse
 
+    /** Sets the client's default savings account. */
     @POST("clients/{clientId}?command=updateSavingsAccount")
     suspend fun updateSavingsAccount(
         @Path("clientId") clientId: Int,
         @Body payload: UpdateSavingsAccountRequest,
     ): HttpResponse
 
+    /** Closes a client. */
     @POST("clients/{clientId}?command=close")
     suspend fun closeClient(
         @Path("clientId") clientId: Int,

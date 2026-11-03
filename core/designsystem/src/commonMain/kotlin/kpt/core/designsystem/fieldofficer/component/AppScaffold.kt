@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.designsystem.icon.AppIcons
 
+/** Screen scaffold with a titled top bar and back button, optional FAB, snackbar host and pull-to-refresh. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScaffold(
@@ -106,6 +107,7 @@ fun AppScaffold(
     )
 }
 
+/** Screen scaffold over caller-supplied bars, with snackbar host and pull-to-refresh. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScaffold(
@@ -196,18 +198,27 @@ private fun AppDetailTopBar(
     )
 }
 
+/** The floating action button of an [AppScaffold]. */
 data class FloatingActionButtonContent(
+    /** Called when the button is tapped. */
     val onClick: (() -> Unit),
+    /** Colour of the button's content. */
     val contentColor: Color,
+    /** The button's icon or label. */
     val content: (@Composable () -> Unit),
 )
 
+/** Pull-to-refresh state of an [AppScaffold]. */
 data class AppPullToRefreshState(
+    /** True to allow pull-to-refresh. */
     val isEnabled: Boolean,
+    /** True while a refresh is running. */
     val isRefreshing: Boolean,
+    /** Called when the user pulls to refresh. */
     val onRefresh: () -> Unit,
 )
 
+/** Remembers an [AppPullToRefreshState] for these values. */
 @Composable
 fun rememberAppPullToRefreshState(
     isEnabled: Boolean = false,

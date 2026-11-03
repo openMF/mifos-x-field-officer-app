@@ -16,6 +16,7 @@ import kpt.core.model.objects.runreport.client.ClientReportTypeItem
 import kpt.core.model.report.ReportOption
 import kpt.core.model.report.ReportParameter
 
+/** Reads reports, their parameters and their results. */
 interface ReportRepository {
     /** The runnable report catalogue. */
     fun reportTypesStream(scope: CoroutineScope): ScreenDataStream<List<ClientReportTypeItem>>

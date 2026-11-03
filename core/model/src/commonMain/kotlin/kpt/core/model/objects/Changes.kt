@@ -10,25 +10,36 @@
 package kpt.core.model.objects
 
 import kotlinx.serialization.Serializable
+/** The fields a command changed, as the server echoes them. */
 @Serializable
 data class Changes(
+    /** The date of the transaction. */
     val transactionDate: String? = null,
 
+    /** The transaction amount. */
     val transactionAmount: String? = null,
 
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     val locale: String? = null,
 
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     val dateFormat: String? = null,
 
+    /** A free-text note. */
     val note: String? = null,
 
+    /** The account number the payment was made from or to. */
     val accountNumber: String? = null,
 
+    /** The cheque number of the payment. */
     val checkNumber: String? = null,
 
+    /** The routing code of the payment. */
     val routingCode: String? = null,
 
+    /** The receipt number of the payment. */
     val receiptNumber: String? = null,
 
+    /** The bank number of the payment. */
     val bankNumber: String? = null,
 )

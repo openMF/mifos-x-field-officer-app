@@ -9,6 +9,7 @@
  */
 package kpt.core.network.mifos.mapper
 
+/** Base for mappers between a network shape and a domain shape. */
 abstract class AbstractMapper<Entity, DomainModel> : EntityMapper<Entity, DomainModel> {
 
     override fun mapFromEntityList(entities: List<Entity>): List<DomainModel> {

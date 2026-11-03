@@ -16,24 +16,29 @@ import kpt.core.base.database.annotation.DbConverters
 import kpt.core.database.center.entity.CenterDateEntity
 import kpt.core.database.savings.entity.SavingAccountDepositTypeEntity
 
+/** Room column converters for center fields. */
 @DbConverters
 class CenterTypeConverters {
 
+    /** Stores a `CenterDateEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromCenterDate(centerDate: CenterDateEntity?): String? {
         return centerDate?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `CenterDateEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toCenterDate(json: String?): CenterDateEntity? {
         return json?.let { Json.decodeFromString(it) }
     }
 
+    /** Stores a `SavingAccountDepositTypeEntity?` in a JSON column. */
     @ColumnTypeConverter
     fun fromDepositType(type: SavingAccountDepositTypeEntity?): String? {
         return type?.let { Json.encodeToString(it) }
     }
 
+    /** Reads a `SavingAccountDepositTypeEntity?` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun toDepositType(json: String?): SavingAccountDepositTypeEntity? {
         return json?.let { Json.decodeFromString(it) }

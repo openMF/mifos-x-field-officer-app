@@ -16,19 +16,27 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class AccountLinkingOptions(
+    /** The account number Fineract assigned. */
     var accountNo: String? = null,
 
+    /** The server id of the client. */
     var clientId: Int? = null,
 
+    /** The client's display name. */
     var clientName: String? = null,
 
+    /** The currency the amounts are in. */
     var currency: Currency? = null,
 
+    /** The server id of the field officer. */
     var fieldOfficerId: Int? = null,
 
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The server id of the product. */
     var productId: Int? = null,
 
+    /** The name of the product. */
     var productName: String? = null,
 )

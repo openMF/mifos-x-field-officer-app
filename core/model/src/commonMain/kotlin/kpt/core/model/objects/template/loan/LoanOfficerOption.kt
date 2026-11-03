@@ -16,23 +16,33 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class LoanOfficerOption(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The person's first name. */
     var firstname: String? = null,
 
+    /** The person's last name. */
     var lastname: String? = null,
 
+    /** The display name. */
     var displayName: String? = null,
 
+    /** The mobile phone number. */
     var mobileNo: String? = null,
 
+    /** The server id of the office. */
     var officeId: Int? = null,
 
+    /** The name of the office. */
     var officeName: String? = null,
 
+    /** True when the staff member is a loan officer. */
     var isLoanOfficer: Boolean? = null,
 
+    /** True when the record is active. */
     var isActive: Boolean? = null,
 
+    /** The date the staff member joined. */
     var joiningDate: List<Int>? = null,
 )

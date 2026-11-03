@@ -16,11 +16,15 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ProductSavings(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The display name. */
     var name: String? = null,
 
+    /** The product's short name. */
     var shortName: String? = null,
 
+    /** A free-text description. */
     var description: String? = null,
 )

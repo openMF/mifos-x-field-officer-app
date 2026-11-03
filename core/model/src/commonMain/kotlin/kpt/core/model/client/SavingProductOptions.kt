@@ -17,8 +17,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingProductOptions(
+    /** The server id of this record. */
     var id: Int = 0,
+    /** The display name. */
     val name: String = "",
+    /** True when the withdrawal fee also applies to transfers. */
     val withdrawalFeeForTransfers: Boolean = false,
+    /** True when the account may be overdrawn. */
     val allowOverdraft: Boolean = false,
 )

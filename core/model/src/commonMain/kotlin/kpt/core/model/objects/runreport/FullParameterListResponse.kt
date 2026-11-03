@@ -16,6 +16,8 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class FullParameterListResponse(
+    /** The report's column headers. */
     var columnHeaders: List<ColumnHeader> = emptyList(),
+    /** The data. */
     var data: List<DataRow> = emptyList(),
 )

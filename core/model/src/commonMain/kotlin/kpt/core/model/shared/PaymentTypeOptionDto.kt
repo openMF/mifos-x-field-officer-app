@@ -11,13 +11,21 @@ package kpt.core.model.shared
 
 import kotlinx.serialization.Serializable
 
+/** One payment type choice offered by a template. */
 @Serializable
 data class PaymentTypeOptionDto(
+    /** The server id of this record. */
     val id: Int,
+    /** The display name. */
     val name: String,
+    /** A free-text description. */
     val description: String? = null,
+    /** True when the payment type is cash. */
     val isCashPayment: Boolean = false,
+    /** The sort position of this option. */
     val position: Int = 0,
+    /** The name of the code the payment type belongs to. */
     val codeName: String? = null,
+    /** True when the value is built into Fineract. */
     val isSystemDefined: Boolean = false,
 )

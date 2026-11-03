@@ -16,13 +16,18 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Permission(
+    /** The group the permission belongs to. */
     var grouping: String? = null,
 
+    /** The permission's code (e.g. `CREATE_CLIENT`). */
     var code: String? = null,
 
+    /** The entity the task or permission covers (CLIENT, LOAN, …). */
     var entityName: String? = null,
 
+    /** The action the task or permission covers (create, approve, …). */
     var actionName: String? = null,
 
+    /** True when the permission is selected. */
     var isSelected: Boolean = false,
 )

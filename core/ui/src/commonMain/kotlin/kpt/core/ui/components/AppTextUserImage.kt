@@ -30,6 +30,7 @@ import kpt.core.designsystem.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.min
 
+/** Round avatar showing the initial of `text`. */
 @Composable
 fun AppTextUserImage(
     text: String,

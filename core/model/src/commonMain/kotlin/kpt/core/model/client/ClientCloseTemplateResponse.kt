@@ -21,18 +21,28 @@ package kpt.core.model.client
 
 import kotlinx.serialization.Serializable
 
+/** Server response to a client close template request. */
 @Serializable
 data class ClientCloseTemplateResponse(
+    /** True when the closure reasons are for staff. */
     val isStaff: Boolean,
+    /** The closure reasons that may be chosen. */
     val narrations: List<Narration>,
 )
 
+/** A closure reason offered by the close-client template. */
 @Serializable
 data class Narration(
+    /** The server id of this record. */
     val id: Int,
+    /** The display name. */
     val name: String,
+    /** The sort position of this option. */
     val position: Int,
+    /** A free-text description. */
     val description: String,
+    /** True when the record is active. */
     val active: Boolean,
+    /** True when this option must be filled in. */
     val mandatory: Boolean,
 )

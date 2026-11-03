@@ -13,6 +13,7 @@ import androidx.room3.Entity
 import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
+/** Room row for an office offered by the client template. */
 @Serializable
 @DbEntity
 @Entity(
@@ -24,10 +25,13 @@ import kpt.core.base.database.annotation.DbEntity
     tableName = "ClientTemplateOfficeOptions",
 )
 data class OfficeOptionsEntity(
+    /** The server id of this record. */
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
+    /** The display name. */
     val name: String = "",
 
+    /** The office name indented to show its place in the hierarchy. */
     val nameDecorated: String = "",
 )

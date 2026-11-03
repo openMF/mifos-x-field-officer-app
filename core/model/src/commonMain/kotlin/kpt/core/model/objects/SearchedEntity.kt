@@ -18,21 +18,29 @@ import kpt.core.model.objects.commonfiles.InterestType
 @Serializable
 data class SearchedEntity(
 
+    /** The server id of the entity this record belongs to. */
     var entityId: Int = 0,
 
+    /** The account number of the found record. */
     var entityAccountNo: String? = null,
 
+    /** The entity the task or permission covers (CLIENT, LOAN, …). */
     var entityName: String? = null,
 
+    /** The kind of entity this record belongs to (client, group, loan, …). */
     var entityType: String? = null,
 
+    /** The server id of the parent record. */
     var parentId: Int = 0,
 
+    /** The name of the parent record. */
     var parentName: String? = null,
 
+    /** The status of the found record. */
     var entityStatus: InterestType? = null,
 
 ) {
+    /** A free-text description. */
     val description: String
         get() = "#$entityId - $entityName"
 }

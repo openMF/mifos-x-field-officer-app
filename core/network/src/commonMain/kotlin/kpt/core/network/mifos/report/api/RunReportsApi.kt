@@ -61,6 +61,7 @@ interface RunReportsApi {
         @Query("parameterType") parameterType: Boolean,
     ): FullParameterListResponse
 
+    /** Runs a report's office-parameter query. */
     @GET("runreports/{path}")
     suspend fun getReportOffice(
         @Path("path") parameterName: String,
@@ -68,6 +69,7 @@ interface RunReportsApi {
         @Query("parameterType") parameterType: Boolean,
     ): FullParameterListResponse
 
+    /** Runs a report's product-parameter query. */
     @GET("runreports/{path}")
     suspend fun getReportProduct(
         @Path("path") parameterName: String,
@@ -87,6 +89,7 @@ interface RunReportsApi {
         @QueryMap options: Map<String, String>,
     ): FullParameterListResponse
 
+    /** Runs the group-summary report for a centre. */
     @GET("runreports/GroupSummaryCounts")
     suspend fun getCenterSummaryInfo(
         @Query("R_groupId") centerId: Int,

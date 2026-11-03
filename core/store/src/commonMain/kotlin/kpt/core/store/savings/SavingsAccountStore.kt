@@ -22,6 +22,7 @@ import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.SourceOfTruth
 import org.mobilenativefoundation.store.store5.Store
 
+/** Store reading the savings account. */
 @StoreProvider(id = "savingsAccounts", ttl = "15m")
 @CacheKey(
     fn = "forAccount",

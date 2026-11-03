@@ -58,6 +58,10 @@ inline fun <Key : Any, R : Any, reified T : Any> cachedRead(
     crossinline map: (R) -> T,
 ): Store<Key, T> = cachedRead(dao = dao, keyOf = keyOf, fetch = { key: Key -> map(fetch(key)) })
 
+/**
+ * Store that fetches with `fetch`, caches the value as JSON in the response cache under `keyOf(key)`, and serves
+ * the cache offline.
+ */
 inline fun <Key : Any, reified T : Any> cachedRead(
     dao: ApiResponseCacheDao,
     crossinline keyOf: (Key) -> String,

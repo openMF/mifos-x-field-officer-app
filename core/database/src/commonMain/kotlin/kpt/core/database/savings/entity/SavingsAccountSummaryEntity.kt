@@ -22,15 +22,21 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class SavingsAccountSummaryEntity(
+    /** The server id of the savings account. */
     val savingsId: Int? = null,
 
+    /** The currency the amounts are in. */
     val currency: SavingAccountCurrencyEntity? = null,
 
+    /** The total deposited. */
     val totalDeposits: Double? = null,
 
+    /** The account balance. */
     val accountBalance: Double? = null,
 
+    /** The total withdrawn. */
     val totalWithdrawals: Double? = null,
 
+    /** The total interest earned. */
     val totalInterestEarned: Double? = null,
 )

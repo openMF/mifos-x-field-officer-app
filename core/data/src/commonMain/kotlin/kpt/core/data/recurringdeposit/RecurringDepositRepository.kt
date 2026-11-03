@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.model.recurringdeposit.RecurringDepositAccountTemplate
 
+/** Reads the recurring-deposit template. */
 interface RecurringDepositRepository {
     /** The account-creation template for one client. */
     fun templateStream(clientId: Int, scope: CoroutineScope): ScreenDataStream<RecurringDepositAccountTemplate>

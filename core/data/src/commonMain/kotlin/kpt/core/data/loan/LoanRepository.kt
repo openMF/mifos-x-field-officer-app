@@ -21,6 +21,7 @@ import kpt.core.model.objects.account.loan.transfer.AccountTransferTemplate
 import kpt.core.model.objects.organisations.LoanProducts
 import kpt.core.model.objects.template.loan.GroupLoanTemplate
 
+/** Reads loans, their schedules, transactions and templates, from the cache and the server. */
 interface LoanRepository {
     /** One loan with its full associations — summary, timeline, schedule, transactions. */
     fun loanStream(loanId: Int, scope: CoroutineScope): ScreenDataStream<LoanWithAssociations>

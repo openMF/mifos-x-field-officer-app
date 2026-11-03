@@ -12,6 +12,7 @@ package kpt.core.database.report.mapper
 import kpt.core.database.report.entity.ReportTypeEntity
 import kpt.core.model.objects.runreport.client.ClientReportTypeItem
 
+/** Maps the stored row to its domain model. */
 fun ReportTypeEntity.toDomain(): ClientReportTypeItem = ClientReportTypeItem(
     reportId = reportId,
     parameterId = parameterId,

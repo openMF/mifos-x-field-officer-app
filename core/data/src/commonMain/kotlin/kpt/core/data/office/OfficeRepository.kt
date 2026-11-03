@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.model.office.Office
 
+/** Reads the offices. */
 interface OfficeRepository {
     /** Every office in the tenant. Reference data — the officer's whole hierarchy picker depends on it. */
     fun officesStream(scope: CoroutineScope): ScreenDataStream<List<Office>>

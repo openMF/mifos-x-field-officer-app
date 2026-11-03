@@ -26,6 +26,7 @@ fun CheckerTaskEntity.toDomain(): CheckerTask = CheckerTask(
     resourceId = resourceId.orEmpty(),
 )
 
+/** Maps the domain task to its stored row. */
 fun CheckerTask.toEntity(): CheckerTaskEntity = CheckerTaskEntity(
     id = id,
     madeOnDate = madeOnDate,

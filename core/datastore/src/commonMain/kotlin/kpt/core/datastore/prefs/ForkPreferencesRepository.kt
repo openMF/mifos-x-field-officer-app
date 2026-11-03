@@ -42,6 +42,7 @@ interface ForkPreferencesRepository : UserPreferencesRepository {
      */
     val authHeader: String
 
+    /** Stores the signed-in Fineract user. */
     suspend fun updateFineractUser(user: User)
 
     /** Sign out of Fineract, leaving device preferences (theme, language) intact. */

@@ -16,6 +16,7 @@ import kpt.core.base.designsystem.theme.KptTheme
 import kpt.core.designsystem.theme.AppTypography
 import kpt.core.ui.util.TextUtil
 
+/** Text drawn from a [TextUtil]. */
 @Composable
 fun PrintTextUtil(
     item: TextUtil,

@@ -20,6 +20,7 @@ import kpt.core.designsystem.icon.AppIcons
 import kpt.core.designsystem.theme.AppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Floating action button with an icon. */
 @Composable
 fun AppFAB(
     icon: ImageVector,

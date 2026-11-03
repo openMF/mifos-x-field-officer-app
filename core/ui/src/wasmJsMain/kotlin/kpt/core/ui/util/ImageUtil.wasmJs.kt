@@ -9,17 +9,18 @@
  */
 package kpt.core.ui.util
 
+/** Image helpers for the browser, which has no bitmap re-encoder: images pass through unchanged. */
 actual object ImageUtil {
-    actual val DEFAULT_MAX_WIDTH: Float
-        get() = TODO("Not yet implemented")
-    actual val DEFAULT_MAX_HEIGHT: Float
-        get() = TODO("Not yet implemented")
+    /** Widest an image is scaled to, in pixels, where scaling is supported. */
+    actual val DEFAULT_MAX_WIDTH: Float = 816f
 
+    /** Tallest an image is scaled to, in pixels, where scaling is supported. */
+    actual val DEFAULT_MAX_HEIGHT: Float = 612f
+
+    /** Returns [decodedBytes] unchanged: the browser target has no codec to re-encode with. */
     actual fun compressImage(
         decodedBytes: ByteArray,
         maxWidth: Float,
         maxHeight: Float,
-    ): ByteArray {
-        TODO("Not yet implemented")
-    }
+    ): ByteArray = decodedBytes
 }

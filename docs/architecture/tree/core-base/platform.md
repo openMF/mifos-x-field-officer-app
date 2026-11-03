@@ -98,7 +98,7 @@ expect val LocalContext: ProvidableCompositionLocal<AppContext>
 ```
 A composition local that provides the current `AppContext` to the composition tree. This allows composable functions to access the platform-specific context without explicit parameters.
 
-<details><summary>Used in the template — <code>core/designsystem/src/androidMain/kotlin/kpt/core/designsystem/theme/AppTheme.android.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/androidMain/kotlin/kpt/core/designsystem/theme/AppTheme.android.kt:24</code></summary>
 
 ```kotlin
     return when {

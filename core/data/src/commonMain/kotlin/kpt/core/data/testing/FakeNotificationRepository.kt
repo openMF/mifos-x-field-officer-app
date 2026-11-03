@@ -21,10 +21,14 @@ import kpt.core.model.notification.AppNotification
 @ExperimentalDataTestingApi
 class FakeNotificationRepository(
     notifications: List<AppNotification> = emptyList(),
+    /** What `markAllRead` returns. */
     var markAllReadResult: MutationResult<Unit> = MutationResult.Applied(Unit, synced = true),
 ) : NotificationRepository {
 
+    /** The notifications the stream emits. */
     val notifications = MutableStateFlow<ScreenState<List<AppNotification>>>(ScreenState.Content(notifications))
+
+    /** How many times `markAllRead` was called. */
     var markedRead = 0
 
     override fun notificationsStream(scope: CoroutineScope) = screenDataStreamForTesting(notifications)

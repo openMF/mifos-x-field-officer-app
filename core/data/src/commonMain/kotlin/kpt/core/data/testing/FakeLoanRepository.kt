@@ -72,9 +72,11 @@ class FakeLoanRepository(
 
     private val triggers: MutableMap<String, MutableSharedFlow<Unit>> = mutableMapOf()
 
+    /** The refresh signal of one stream, so a test can see it re-read. */
     fun refreshesFor(stream: String): MutableSharedFlow<Unit> =
         triggers.getOrPut(stream) { MutableSharedFlow(extraBufferCapacity = 8) }
 
+    /** Every stream's refresh signal. */
     val refreshes: MutableSharedFlow<Unit>
         get() = triggers.values.singleOrNull()
             ?: error("several streams are wired; use refreshesFor(<stream>) instead (${triggers.keys})")
@@ -164,11 +166,18 @@ class FakeLoanRepository(
 /** One `accountTransferTemplate` call, recorded so a test can assert the cascade's questions. */
 @ExperimentalDataTestingApi
 data class TransferTemplateQuery(
+    /** The client transferred from. */
     val fromClientId: Int,
+    /** The account transferred from. */
     val fromAccountId: Int,
+    /** The type of the account transferred from. */
     val fromAccountType: Int,
+    /** The office transferred from, once chosen. */
     val fromOfficeId: Int?,
+    /** The office transferred to, once chosen. */
     val toOfficeId: Int?,
+    /** The client transferred to, once chosen. */
     val toClientId: Int?,
+    /** The type of the account transferred to, once chosen. */
     val toAccountType: Int?,
 )

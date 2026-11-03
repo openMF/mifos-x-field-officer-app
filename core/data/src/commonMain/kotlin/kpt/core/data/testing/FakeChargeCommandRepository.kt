@@ -27,14 +27,23 @@ class FakeChargeCommandRepository(
 
     /** One recorded write — a test asserts the resource it addressed and what it sent. */
     data class Write(
+        /** The resource kind written to. */
         val resource: ChargeResource,
+        /** The resource id written to. */
         val resourceId: Int,
+        /** The charge written, when the write named one. */
         val chargeId: Int? = null,
+        /** The payload sent, when there was one. */
         val payload: ChargesPayload? = null,
     )
 
+    /** The create calls, in order. */
     val created: MutableList<Write> = mutableListOf()
+
+    /** The update calls, in order. */
     val updated: MutableList<Write> = mutableListOf()
+
+    /** The delete calls, in order. */
     val deleted: MutableList<Write> = mutableListOf()
 
     override suspend fun createCharge(resource: ChargeResource, resourceId: Int, payload: ChargesPayload) =

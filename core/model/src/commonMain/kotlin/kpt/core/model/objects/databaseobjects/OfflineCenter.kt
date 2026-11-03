@@ -9,10 +9,14 @@
  */
 package kpt.core.model.objects.databaseobjects
 
+/** An offline center. */
 data class OfflineCenter(
+    /** The server id of the staff member (loan officer). */
     var staffId: Int = 0,
 
+    /** The staff member's display name. */
     var staffName: String? = null,
 
+    /** The centres whose meetings fall on the date. */
     var meetingFallCenters: Array<MeetingCenter>? = null,
 )

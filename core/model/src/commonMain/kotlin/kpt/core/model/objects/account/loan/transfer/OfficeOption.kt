@@ -10,9 +10,13 @@
 package kpt.core.model.objects.account.loan.transfer
 
 import kotlinx.serialization.Serializable
+/** One office choice offered by a template. */
 @Serializable
 data class OfficeOption(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The display name. */
     val name: String? = null,
+    /** The office name indented to show its place in the hierarchy. */
     val nameDecorated: String? = null,
 )

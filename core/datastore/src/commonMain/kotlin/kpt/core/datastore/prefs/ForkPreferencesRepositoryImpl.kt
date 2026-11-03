@@ -36,9 +36,13 @@ import kpt.core.model.objects.users.User
  */
 @OptIn(ExperimentalSerializationApi::class, ExperimentalSettingsApi::class)
 class ForkPreferencesRepositoryImpl(
+    /** The template's preferences repository this one extends. */
     val delegate: UserPreferencesRepository,
+    /** Plain settings, for non-sensitive values. */
     val plainSettings: Settings,
+    /** Encrypted settings, for credentials. */
     val secureSettings: Settings,
+    /** Dispatchers for settings I/O. */
     val dispatcher: DispatcherManager,
 ) : ForkPreferencesRepository, UserPreferencesRepository by delegate {
 

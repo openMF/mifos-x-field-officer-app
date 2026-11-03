@@ -22,6 +22,7 @@ import kpt.core.model.objects.noncoreobjects.IdentifierPayload
 import kpt.core.model.objects.noncoreobjects.IdentifierTemplate
 import kpt.core.model.shared.GenericResponse
 
+/** Fineract endpoints for client identifier. */
 @ApiBinding("mifos")
 interface ClientIdentifierApi {
 

@@ -17,6 +17,7 @@ import kpt.core.model.objects.databaseobjects.CollectionSheet
 import kpt.core.model.objects.groups.CenterInfo
 import kpt.core.model.shared.Payload
 
+/** Reads centres, their groups and accounts, from the cache and the server. */
 interface CenterRepository {
     /** Centers the officer services. Replaces the legacy CenterList + CenterDetails pair. */
     fun centersStream(scope: CoroutineScope): ScreenDataStream<List<Center>>

@@ -23,10 +23,10 @@ ViewModels: `CreateGroupViewModel`, `GroupsDetailViewModel`, `GroupsListViewMode
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/groups sha=fc5ce0c3ffbf1a3cfc531ec7b50f7d7f5a460cb7 -->
+<!-- api-docs:begin module=feature/groups sha=3c2bf28574b7dc255c86b304eb0c27e63c3ad6df -->
 ## API reference
 
-_Generated from `feature/groups` at tree `fc5ce0c3ffbf` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/groups` at tree `3c2bf28574b7` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -64,7 +64,7 @@ The tab's graph. Mirrors `ClientDestination` — the tab points at the graph, no
 ```kotlin
 data object GroupsListRoute
 ```
-_No KDoc at source._
+The group list.
 
 <details><summary>Used in the template — <code>feature/groups/src/commonMain/kotlin/kpt/feature/groups/navigation/GroupsTab.kt:43</code></summary>
 
@@ -91,22 +91,22 @@ Create a group. Reached from the groups list's FAB.
 ```kotlin
 fun NavController.navigateToGroupsList(navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the group list.
 
 ```kotlin
 fun NavController.navigateToGroups(navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the groups graph (the tab's destination).
 
 ```kotlin
 fun NavController.navigateToGroupsDetail(groupId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens group `groupId`'s details.
 
 ```kotlin
 fun NavController.navigateToCreateGroup(navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the new-group form.
 
 ```kotlin
 fun NavGraphBuilder.groupsListDestination(navController: NavController)
@@ -121,7 +121,7 @@ The group graph for the bottom-nav tab's INNER NavHost.
 ```kotlin
 fun clientProfileRoute(clientId: Int): String = "$CLIENT_PROFILE_ROUTE_NAME/$clientId"
 ```
-_No KDoc at source._
+The string route of client `clientId`'s profile, for navigating there without depending on the client module.
 
 ### `feature/groups/src/commonMain/kotlin/kpt/feature/groups/navigation/GroupsTab.kt`
 
@@ -132,5 +132,5 @@ The Groups bottom-nav tab. Declared here via `@FeatureTab` rather than in `cmp-n
 
 ---
 
-_5 type(s), 8 function(s)/property(ies); 7 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
+_5 type(s), 8 function(s)/property(ies); 13 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
 <!-- api-docs:end -->

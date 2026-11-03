@@ -81,7 +81,6 @@ import kpt.core.ui.generated.resources.core_ui_note_note
 import kpt.core.ui.generated.resources.core_ui_original_loan
 import kpt.core.ui.generated.resources.core_ui_outstanding
 import kpt.core.ui.generated.resources.core_ui_paid
-import kpt.core.ui.generated.resources.core_ui_pay_outstanding_amount
 import kpt.core.ui.generated.resources.core_ui_quantity
 import kpt.core.ui.generated.resources.core_ui_status
 import kpt.core.ui.generated.resources.core_ui_total_collateral_value
@@ -127,6 +126,7 @@ private fun ActionMenuRow(
     }
 }
 
+/** Card frame of an actions listing; the content is clipped while collapsed. */
 @Composable
 fun AppActionsListingComponentOutline(
     modifier: Modifier = Modifier,
@@ -155,6 +155,7 @@ fun AppActionsListingComponentOutline(
     }
 }
 
+/** Identifier card with its actions menu. */
 @Composable
 fun AppActionsIdentifierListingComponent(
     type: String,
@@ -242,6 +243,7 @@ fun AppActionsIdentifierListingComponent(
     }
 }
 
+/** Collateral card with its actions menu. */
 @Composable
 fun AppActionsCollateralDataListingComponent(
     name: String,
@@ -307,6 +309,7 @@ fun AppActionsCollateralDataListingComponent(
     }
 }
 
+/** Client document card with its actions menu. */
 @Composable
 fun AppActionsClientDocumentListingComponent(
     documentName: String,
@@ -380,6 +383,7 @@ fun AppActionsClientDocumentListingComponent(
     }
 }
 
+/** Loan account card with its actions menu. */
 @Composable
 fun AppActionsLoanListingComponent(
     accountNo: String,
@@ -469,6 +473,7 @@ fun AppActionsLoanListingComponent(
     }
 }
 
+/** Share account card with its actions menu. */
 @Composable
 fun AppActionsShareListingComponent(
     accountNo: String,
@@ -543,6 +548,7 @@ fun AppActionsShareListingComponent(
     }
 }
 
+/** Charge card with its actions menu, expandable for the details. */
 @Composable
 fun AppActionsChargeListingComponent(
     chargeTitle: String,
@@ -659,6 +665,7 @@ fun AppActionsChargeListingComponent(
     }
 }
 
+/** Savings account card with its actions menu, expandable for the details. */
 @Composable
 fun AppActionsSavingsListingComponent(
     accountNo: String,
@@ -731,6 +738,7 @@ fun AppActionsSavingsListingComponent(
     }
 }
 
+/** Client fee card with its actions menu. */
 @Composable
 fun AppActionsClientFeeListingComponent(
     name: String,
@@ -811,28 +819,42 @@ fun AppActionsClientFeeListingComponent(
     }
 }
 
+/**
+ * An entry of a listing card's actions menu.
+ *
+ * @property icon the entry's icon
+ * @property text the entry's label
+ */
 sealed class Actions(open val icon: ImageVector, open val text: StringResource) {
+    /** Open the account. */
     data class ViewAccount(override val icon: ImageVector = AppIcons.PiggyBank) :
         Actions(icon, Res.string.core_ui_view_account)
+
+    /** Approve the account. */
     data class ApproveAccount(override val icon: ImageVector = AppIcons.ApproveAccount) :
         Actions(icon, Res.string.core_ui_approve_account)
 
-    data class PayOutstandingAmount(override val icon: ImageVector = AppIcons.MakeRepayment) :
-        Actions(icon, Res.string.core_ui_pay_outstanding_amount)
-
+    /** Make a repayment. */
     data class MakeRepayment(override val icon: ImageVector = AppIcons.MakeRepayment) :
         Actions(icon, Res.string.core_ui_make_repayment)
 
+    /** Open the document. */
     data class ViewDocument(override val icon: ImageVector = AppIcons.DocumentScanner) :
         Actions(icon, Res.string.core_ui_view_document)
 
+    /** Upload the document again. */
     data class UploadAgain(override val icon: ImageVector = AppIcons.FileUpload) :
         Actions(icon, Res.string.core_ui_upload_again)
+
+    /** Delete the document. */
     data class DeleteDocument(override val icon: ImageVector = AppIcons.DeleteDocument) :
         Actions(icon, Res.string.core_ui_delete_document)
 
+    /** Edit the item. */
     data class Edit(override val icon: ImageVector = AppIcons.Edit) :
         Actions(icon, Res.string.core_ui_edit)
+
+    /** Delete the item. */
     data class Delete(override val icon: ImageVector = AppIcons.DeleteDocument) :
         Actions(icon, Res.string.core_ui_delete)
 
@@ -841,6 +863,7 @@ sealed class Actions(open val icon: ImageVector, open val text: StringResource) 
         Actions(icon, Res.string.core_ui_view_details)
 }
 
+/** Note card with its actions menu, expandable for the full text. */
 @Composable
 fun AppActionsNoteListingComponent(
     createdBy: String,

@@ -261,10 +261,17 @@ class SignInViewModel(
     }
 }
 
+/**
+ * What the sign-in screen shows: the typed credentials, the server, lockout progress and the biometric shortcut.
+ */
 data class SignInState(
+    /** The username as typed. */
     val username: String = "",
+    /** The password as typed; never persisted. */
     val password: String = "",
+    /** True while the sign-in request is in flight. */
     val isSubmitting: Boolean = false,
+    /** Why the last attempt failed; null when it has not failed. */
     val error: SignInError? = null,
     /**
      * The instance this sign-in will authenticate against, shown BEFORE the user types.
@@ -279,6 +286,7 @@ data class SignInState(
      * was connecting.
      */
     val instanceHost: String = "",
+    /** The tenant of the server being signed in to. */
     val instanceTenant: String = "",
 
     /**
@@ -293,6 +301,7 @@ data class SignInState(
      * implementation detail.
      */
     val failedAttempts: Int = 0,
+    /** True once the failure limit is reached and sign-in is paused. */
     val isLockedOut: Boolean = false,
 
     /**
@@ -302,6 +311,7 @@ data class SignInState(
     val hasStoredSession: Boolean = false,
     /** The current server's published demo sign-ins, one per role — empty on a real server. */
     val demoAccounts: List<DemoCredentials> = emptyList(),
+    /** True when the device can verify a fingerprint or face. */
     val biometricAvailable: Boolean = false,
 ) {
     /** The accelerator is offered only when it can actually succeed. */
@@ -316,25 +326,60 @@ data class SignInState(
 
 /** Distinct causes, because the officer's next step differs for each. */
 enum class SignInError {
+    /** The username is shorter than the minimum length. */
     UsernameTooShort,
+
+    /** The password is shorter than the minimum length. */
     PasswordTooShort,
+
+    /** The server rejected the credentials. */
     Rejected,
+
+    /** The device has no network. */
     Offline,
+
+    /** The server could not be reached (DNS, timeout, TLS). */
     Unreachable,
+
+    /** Too many failed attempts; sign-in is paused. */
     LockedOut,
+
+    /** The biometric check failed or was cancelled. */
     BiometricFailed,
 }
 
+/** What the officer did on the sign-in screen. */
 sealed interface SignInAction {
+    /**
+     * The username field changed.
+     *
+     * @property value the new text
+     */
     data class UsernameChanged(val value: String) : SignInAction
+
+    /**
+     * The password field changed.
+     *
+     * @property value the new text
+     */
     data class PasswordChanged(val value: String) : SignInAction
+
+    /** Sign in with the typed credentials. */
     data object Submit : SignInAction
+
+    /** Sign in with the stored session, after a biometric check. */
     data object UnlockWithBiometrics : SignInAction
 
-    /** Fill the fields with one of [SignInState.demoAccounts]. */
+    /**
+     * Fill the fields with one of [SignInState.demoAccounts].
+     *
+     * @property account the demo sign-in to fill in
+     */
     data class UseDemoAccount(val account: DemoCredentials) : SignInAction
 }
 
+/** One-off effects of the sign-in screen, for the screen to act on. */
 sealed interface SignInEvent {
+    /** The officer is signed in — the screen moves on. */
     data object LoggedIn : SignInEvent
 }

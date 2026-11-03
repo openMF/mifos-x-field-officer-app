@@ -18,14 +18,17 @@ import kpt.core.base.network.annotation.ApiBinding
 import kpt.core.model.savings.ShareAccountPayload
 import kpt.core.model.savings.ShareTemplate
 
+/** Fineract endpoints for share account. */
 @ApiBinding("mifos")
 interface ShareAccountApi {
+    /** Reads the share-account template for a client. */
     @GET("accounts/share/template")
     suspend fun shareProductTemplate(
         @Query("clientId") clientId: Int,
         @Query("productId") productId: Int?,
     ): ShareTemplate
 
+    /** Opens a share account. */
     @POST("accounts/share")
     suspend fun createShareAccount(
         @Body shareAccountPayload: ShareAccountPayload,

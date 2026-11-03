@@ -11,7 +11,6 @@ package kpt.core.database.charge.entity
 
 import androidx.room3.ColumnInfo
 import kotlinx.serialization.Serializable
-@Serializable
 /**
  * A COLUMN, not a table.
  *
@@ -21,7 +20,9 @@ import kotlinx.serialization.Serializable
  * `onValidateSchema`, which at 85 tables exceeded the JVM 64KB method limit and broke every
  * JVM target.
  */
+@Serializable
 data class ChargeCalculationTypeEntity(
+    /** The server id of this record. */
     @ColumnInfo(
         index = true,
         name = ColumnInfo.INHERIT_FIELD_NAME,
@@ -31,7 +32,12 @@ data class ChargeCalculationTypeEntity(
     )
     val id: Int,
 
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     val code: String? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     val value: String? = null,
 )

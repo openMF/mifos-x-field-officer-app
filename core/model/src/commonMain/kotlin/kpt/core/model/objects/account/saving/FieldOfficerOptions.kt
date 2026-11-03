@@ -16,11 +16,15 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 class FieldOfficerOptions(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The person's first name. */
     var firstname: String? = null,
 
+    /** The person's last name. */
     var lastname: String? = null,
 
+    /** The display name. */
     var displayName: String? = null,
 )

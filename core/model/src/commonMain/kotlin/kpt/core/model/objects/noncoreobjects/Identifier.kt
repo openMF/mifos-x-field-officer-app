@@ -16,15 +16,21 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Identifier(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The server id of the client. */
     var clientId: Int? = null,
 
+    /** The document type of the identifier. */
     var documentKey: String? = null,
 
+    /** The identity document type. */
     var documentType: DocumentType? = null,
 
+    /** A free-text description. */
     var description: String? = null,
 
+    /** The record's Fineract status. */
     var status: String? = null,
 )

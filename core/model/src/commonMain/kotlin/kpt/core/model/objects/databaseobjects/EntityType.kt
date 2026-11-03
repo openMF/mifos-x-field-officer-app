@@ -9,8 +9,14 @@
  */
 package kpt.core.model.objects.databaseobjects
 
+/** Kind of an entity. */
 data class EntityType(
+    /**
+     * The Fineract code that identifies this value (an enum code such as `loanStatusType.active`, or an ISO
+     * currency code).
+     */
     var code: String? = null,
 
+    /** The human-readable label Fineract sends for this value. */
     var value: String? = null,
 )

@@ -17,9 +17,14 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class ComponentDatas(
+    /** The server id of this record. */
     val id: Int? = null,
+    /** The key of this survey item. */
     val key: String? = null,
+    /** The text shown for this item. */
     val text: String? = null,
+    /** A free-text description. */
     val description: String? = null,
+    /** The order this item is shown in. */
     val sequenceNo: Int = 0,
 )

@@ -101,23 +101,44 @@ class SettingsViewModel(
 
 /** Preference-mutation intents accepted by [SettingsViewModel]. */
 sealed interface SettingsAction {
-    /** Change the theme brand (Android / default). */
+    /**
+     * Change the theme brand (Android / default).
+     *
+     * @property themeBrand the brand to apply
+     */
     data class UpdateThemeBrand(val themeBrand: ThemeBrand) : SettingsAction
 
-    /** Change the dark-theme configuration (system / light / dark). */
+    /**
+     * Change the dark-theme configuration (system / light / dark).
+     *
+     * @property darkThemeConfig light, dark, or follow the system
+     */
     data class UpdateDarkThemeConfig(val darkThemeConfig: DarkThemeConfig) : SettingsAction
 
-    /** Toggle Material You dynamic color. */
+    /**
+     * Toggle Material You dynamic color.
+     *
+     * @property useDynamicColor true to take colours from the wallpaper where supported
+     */
     data class UpdateDynamicColor(val useDynamicColor: Boolean) : SettingsAction
 
-    /** Change the app language. */
+    /**
+     * Change the app language.
+     *
+     * @property language the language to switch to
+     */
     data class UpdateLanguage(val language: LanguageConfig) : SettingsAction
 }
 
+/** The settings the user can change, as one snapshot. */
 data class UserEditableSettings(
+    /** The theme brand in use. */
     val brand: ThemeBrand,
+    /** True when colours come from the wallpaper (Android 12+). */
     val useDynamicColor: Boolean,
+    /** Light, dark, or follow the system. */
     val darkThemeConfig: DarkThemeConfig,
+    /** The app's language. */
     val language: LanguageConfig,
 )
 

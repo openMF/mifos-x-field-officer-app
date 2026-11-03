@@ -23,8 +23,10 @@ import kpt.core.model.objects.noncoreobjects.Document
 import kpt.core.model.objects.responses.SaveResponse
 import kpt.core.model.shared.GenericResponse
 
+/** Fineract endpoints for document. */
 @ApiBinding("mifos")
 interface DocumentApi {
+    /** Reads the documents attached to an entity. */
     @GET("{entityType}/{entityId}/documents")
     suspend fun getDocuments(
         @Path("entityType") entityType: String,

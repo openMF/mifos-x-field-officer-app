@@ -23,6 +23,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class OfficeOpeningDateEntity(
+    /** The server id of the office. */
     @ColumnInfo(
         index = true,
         name = ColumnInfo.INHERIT_FIELD_NAME,
@@ -32,9 +33,12 @@ data class OfficeOpeningDateEntity(
     )
     val officeId: Int,
 
+    /** The year. */
     val year: Int? = null,
 
+    /** The month (1–12). */
     val month: Int? = null,
 
+    /** The day of the month. */
     val day: Int? = null,
 )

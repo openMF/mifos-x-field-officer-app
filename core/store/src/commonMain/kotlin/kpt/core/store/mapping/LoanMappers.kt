@@ -24,6 +24,7 @@ import kpt.core.database.loan.entity.LoanStatusEntity as LoanStatusRow
 import kpt.core.database.loan.entity.LoanTimelineEntity as LoanTimelineRow
 import kpt.core.database.loan.entity.LoanTypeEntity as LoanAccountTypeRow
 
+/** Maps the stored row to its `ActualDisbursementDate` model. */
 fun ActualDisbursementDateRow.toModel(): ActualDisbursementDate = ActualDisbursementDate(
     loanId = loanId,
     year = year,
@@ -31,6 +32,7 @@ fun ActualDisbursementDateRow.toModel(): ActualDisbursementDate = ActualDisburse
     date = date,
 )
 
+/** Maps the model to its stored `ActualDisbursementDateRow`. */
 fun ActualDisbursementDate.toEntity(): ActualDisbursementDateRow = ActualDisbursementDateRow(
     loanId = loanId,
     year = year,
@@ -38,6 +40,7 @@ fun ActualDisbursementDate.toEntity(): ActualDisbursementDateRow = ActualDisburs
     date = date,
 )
 
+/** Maps the stored row to its `LoanAccount` model. */
 fun LoanAccountRow.toModel(): LoanAccount = LoanAccount(
     id = id,
     clientId = clientId,
@@ -57,6 +60,7 @@ fun LoanAccountRow.toModel(): LoanAccount = LoanAccount(
     amountPaid = amountPaid,
 )
 
+/** Maps the model to its stored `LoanAccountRow`. */
 fun LoanAccount.toEntity(): LoanAccountRow = LoanAccountRow(
     id = id,
     clientId = clientId,
@@ -76,6 +80,7 @@ fun LoanAccount.toEntity(): LoanAccountRow = LoanAccountRow(
     amountPaid = amountPaid,
 )
 
+/** Maps the stored row to its `LoanStatus` model. */
 fun LoanStatusRow.toModel(): LoanStatus = LoanStatus(
     id = id,
     code = code,
@@ -90,6 +95,7 @@ fun LoanStatusRow.toModel(): LoanStatus = LoanStatus(
     overpaid = overpaid,
 )
 
+/** Maps the model to its stored `LoanStatusRow`. */
 fun LoanStatus.toEntity(): LoanStatusRow = LoanStatusRow(
     id = id,
     code = code,
@@ -104,6 +110,7 @@ fun LoanStatus.toEntity(): LoanStatusRow = LoanStatusRow(
     overpaid = overpaid,
 )
 
+/** Maps the stored row to its `LoanTimeline` model. */
 fun LoanTimelineRow.toModel(): LoanTimeline = LoanTimeline(
     loanId = loanId,
     submittedOnDate = submittedOnDate,
@@ -125,6 +132,7 @@ fun LoanTimelineRow.toModel(): LoanTimeline = LoanTimeline(
     withdrawnOnDate = withdrawnOnDate,
 )
 
+/** Maps the model to its stored `LoanTimelineRow`. */
 fun LoanTimeline.toEntity(): LoanTimelineRow = LoanTimelineRow(
     loanId = loanId,
     submittedOnDate = submittedOnDate,
@@ -146,18 +154,21 @@ fun LoanTimeline.toEntity(): LoanTimelineRow = LoanTimelineRow(
     withdrawnOnDate = withdrawnOnDate,
 )
 
+/** Maps the stored row to its `LoanAccountType` model. */
 fun LoanAccountTypeRow.toModel(): LoanAccountType = LoanAccountType(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the model to its stored `LoanAccountTypeRow`. */
 fun LoanAccountType.toEntity(): LoanAccountTypeRow = LoanAccountTypeRow(
     id = id,
     code = code,
     value = value,
 )
 
+/** Maps the stored row to its `Loan` model. */
 fun LoanRow.toModel(): Loan = Loan(
     id = id,
     accountNo = accountNo,
@@ -201,6 +212,7 @@ fun LoanRow.toModel(): Loan = Loan(
     isNPA = isNPA,
 )
 
+/** Maps the model to its stored `LoanRow`. */
 fun Loan.toEntity(): LoanRow = LoanRow(
     id = id,
     accountNo = accountNo,
@@ -244,6 +256,7 @@ fun Loan.toEntity(): LoanRow = LoanRow(
     isNPA = isNPA,
 )
 
+/** Maps the stored row to its `LoanAccountSummary` model. */
 fun LoanAccountSummaryRow.toModel(): LoanAccountSummary = LoanAccountSummary(
     loanId = loanId,
     currency = currency?.toModel(),
@@ -283,6 +296,7 @@ fun LoanAccountSummaryRow.toModel(): LoanAccountSummary = LoanAccountSummary(
     overdueSinceDate = overdueSinceDate,
 )
 
+/** Maps the model to its stored `LoanAccountSummaryRow`. */
 fun LoanAccountSummary.toEntity(): LoanAccountSummaryRow = LoanAccountSummaryRow(
     loanId = loanId,
     currency = currency?.toEntity(),

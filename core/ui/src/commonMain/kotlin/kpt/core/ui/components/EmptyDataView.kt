@@ -33,6 +33,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Centred icon and error message. */
 @Composable
 fun EmptyDataView(
     error: String,
@@ -61,6 +62,7 @@ fun EmptyDataView(
     }
 }
 
+/** Centred image and error message, from a string resource. */
 @Composable
 fun EmptyDataView(
     error: StringResource,

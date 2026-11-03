@@ -17,6 +17,7 @@ import kpt.core.model.notification.AppNotification
 /** The bell's notifications (unread first, then recent history) and the one write it offers. */
 interface NotificationRepository {
 
+    /** The user's notifications. */
     fun notificationsStream(scope: CoroutineScope): ScreenDataStream<List<AppNotification>>
 
     /** Marks every notification read on the server. Online only — the list it changes is the server's. */

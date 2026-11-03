@@ -10,15 +10,21 @@
 package kpt.core.model.objects.databaseobjects
 
 import kotlinx.serialization.Serializable
+/** A client. */
 @Serializable
 data class Client(
+    /** The server id of the client. */
     var clientId: Int = 0,
 
+    /** The client's display name. */
     var clientName: String? = null,
 
+    /** Whether the client attended the meeting. */
     var attendanceType: AttendanceType? = null,
 
+    /** The group the client belongs to. */
     var mifosGroup: AppGroup? = null,
 
+    /** The loans. */
     val loans: List<Loan> = ArrayList(),
 )

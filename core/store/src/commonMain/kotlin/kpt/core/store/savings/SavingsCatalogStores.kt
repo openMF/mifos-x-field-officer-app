@@ -35,6 +35,7 @@ fun provideSavingsProductsStore(
     fetch = { savingsAccountApi.allSavingsAccounts() },
 )
 
+/** Store reading the savings product template. */
 @StoreProvider(id = "savingsProductTemplate", ttl = "12h")
 @CacheKey(name = "LIST", key = "savingsProductTemplate")
 fun provideSavingsProductTemplateStore(

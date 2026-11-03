@@ -22,48 +22,57 @@ import kpt.core.database.client.entity.ClientGenderEntity as ClientGenderRow
 import kpt.core.database.client.entity.ClientTypeEntity as ClientTypeRow
 import kpt.core.database.client.entity.ClientsTemplateEntity as ClientsTemplateRow
 
+/** Maps the stored row to its `AddressTemplate` model. */
 fun AddressTemplateRow.toModel(): AddressTemplate = AddressTemplate(
     addressTypeIdOptions = addressTypeIdOptions.map { it.toModel() },
     countryIdOptions = countryIdOptions.map { it.toModel() },
     stateProvinceIdOptions = stateProvinceIdOptions.map { it.toModel() },
 )
 
+/** Maps the model to its stored `AddressTemplateRow`. */
 fun AddressTemplate.toEntity(): AddressTemplateRow = AddressTemplateRow(
     addressTypeIdOptions = addressTypeIdOptions.map { it.toEntity() },
     countryIdOptions = countryIdOptions.map { it.toEntity() },
     stateProvinceIdOptions = stateProvinceIdOptions.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `ClientClassification` model. */
 fun ClientClassificationRow.toModel(): ClientClassification = ClientClassification(
     id = id,
     name = name,
 )
 
+/** Maps the model to its stored `ClientClassificationRow`. */
 fun ClientClassification.toEntity(): ClientClassificationRow = ClientClassificationRow(
     id = id,
     name = name,
 )
 
+/** Maps the stored row to its `ClientGender` model. */
 fun ClientGenderRow.toModel(): ClientGender = ClientGender(
     id = id,
     name = name,
 )
 
+/** Maps the model to its stored `ClientGenderRow`. */
 fun ClientGender.toEntity(): ClientGenderRow = ClientGenderRow(
     id = id,
     name = name,
 )
 
+/** Maps the stored row to its `ClientType` model. */
 fun ClientTypeRow.toModel(): ClientType = ClientType(
     id = id,
     name = name,
 )
 
+/** Maps the model to its stored `ClientTypeRow`. */
 fun ClientType.toEntity(): ClientTypeRow = ClientTypeRow(
     id = id,
     name = name,
 )
 
+/** Maps the stored row to its `ClientsTemplate` model. */
 fun ClientsTemplateRow.toModel(): ClientsTemplate = ClientsTemplate(
     activationDate = activationDate,
     officeId = officeId,
@@ -77,6 +86,7 @@ fun ClientsTemplateRow.toModel(): ClientsTemplate = ClientsTemplate(
     dataTables = dataTables?.map { it.toModel() },
 )
 
+/** Maps the model to its stored `ClientsTemplateRow`. */
 fun ClientsTemplate.toEntity(): ClientsTemplateRow = ClientsTemplateRow(
     activationDate = activationDate,
     officeId = officeId,
@@ -90,10 +100,12 @@ fun ClientsTemplate.toEntity(): ClientsTemplateRow = ClientsTemplateRow(
     dataTables = dataTables?.map { it.toEntity() },
 )
 
+/** Maps the stored row to its `AddressConfiguration` model. */
 fun AddressConfigurationRow.toModel(): AddressConfiguration = AddressConfiguration(
     enabled = enabled,
 )
 
+/** Maps the model to its stored `AddressConfigurationRow`. */
 fun AddressConfiguration.toEntity(): AddressConfigurationRow = AddressConfigurationRow(
     enabled = enabled,
 )

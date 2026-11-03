@@ -31,8 +31,10 @@ interface DocumentCommandRepository {
     /** [SaveResponse.resourceId] is the new document's id. */
     suspend fun createDocument(entityType: String, entityId: Int, upload: DocumentUpload): MutationResult<SaveResponse>
 
+    /** Deletes a document of an entity. */
     suspend fun removeDocument(entityType: String, entityId: Int, documentId: Int): MutationResult<GenericResponse>
 
+    /** Replaces a document of an entity. */
     suspend fun updateDocument(
         entityType: String,
         entityId: Int,

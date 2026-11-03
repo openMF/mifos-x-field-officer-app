@@ -27,6 +27,7 @@ import kpt.core.ui.generated.resources.core_ui_no_item_found
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Card shown when a list is empty, with an optional action button. */
 @Composable
 fun AppEmptyCard(
     modifier: Modifier = Modifier,

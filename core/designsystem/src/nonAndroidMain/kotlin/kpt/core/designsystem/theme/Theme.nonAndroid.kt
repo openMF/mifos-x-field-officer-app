@@ -14,6 +14,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
+/** The Material baseline scheme; no dynamic colour off Android. */
 @Composable
 actual fun platformColorScheme(useDarkTheme: Boolean, dynamicColor: Boolean): ColorScheme {
     return when (useDarkTheme) {

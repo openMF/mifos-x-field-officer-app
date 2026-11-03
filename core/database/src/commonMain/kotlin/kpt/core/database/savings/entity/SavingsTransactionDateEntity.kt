@@ -14,6 +14,7 @@ import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kpt.core.base.database.annotation.DbEntity
 
+/** Room row for a savings transaction date. */
 @Serializable
 @DbEntity
 @Entity(
@@ -25,9 +26,13 @@ import kpt.core.base.database.annotation.DbEntity
     tableName = "SavingsTransactionDate",
 )
 data class SavingsTransactionDateEntity(
+    /** The server id of the transaction. */
     @PrimaryKey(autoGenerate = true)
     val transactionId: Int? = null,
+    /** The year. */
     val year: Int? = null,
+    /** The month (1–12). */
     val month: Int? = null,
+    /** The day of the month. */
     val day: Int? = null,
 )

@@ -21,11 +21,18 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChargesPayload(
+    /** The server id of the charge. */
     var chargeId: Int? = null,
+    /** The server id of the client. */
     var clientId: Int? = null,
+    /** The server id of the loan. */
     var loanId: Int? = null,
+    /** The amount, in the record's currency. */
     var amount: String? = null,
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     var locale: String? = null,
+    /** The date the amount is due. */
     var dueDate: String? = null,
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat: String? = null,
 )

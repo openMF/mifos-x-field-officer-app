@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.model.objects.note.Note
 
+/** Reads the notes of a resource. */
 interface NoteRepository {
     /** Notes attached to a client, group or loan. */
     /** One owner's notes — [resourceType] is Fineract's path (`clients`, `groups`). */

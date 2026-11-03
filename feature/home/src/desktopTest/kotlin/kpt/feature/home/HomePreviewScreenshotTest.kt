@@ -9,6 +9,8 @@
  */
 package kpt.feature.home
 
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.runDesktopComposeUiTest
@@ -33,14 +35,20 @@ class HomePreviewScreenshotTest {
 
         assertTrue(previews.isNotEmpty(), "no @Preview found — previews must be internal or public, never private")
         val duplicates = previews.map { it.methodName }.groupingBy { it }.eachCount().filterValues { it > 1 }.keys
-        assertTrue(duplicates.isEmpty(), "Preview names must be unique — goldens are keyed by name. Duplicated: $duplicates")
+        assertTrue(
+            duplicates.isEmpty(),
+            "Preview names must be unique — goldens are keyed by name. Duplicated: $duplicates",
+        )
 
         previews.forEach { preview ->
             runDesktopComposeUiTest(width = PHONE_WIDTH, height = PHONE_TALL) {
-                setContent { preview() }
+                // As the IDE renders a @Preview: inspection mode on, so time-dependent copy holds still.
+                setContent { CompositionLocalProvider(LocalInspectionMode provides true) { preview() } }
                 val roots = onAllNodes(isRoot())
                 for (i in 0 until roots.fetchSemanticsNodes().size) {
-                    roots[i].captureRoboImage("src/desktopTest/resources/screenshots/home/${preview.methodName}${if (i == 0) "" else "-$i"}.png")
+                    roots[i].captureRoboImage(
+                        "src/desktopTest/resources/screenshots/home/${preview.methodName}${frameSuffix(i)}.png",
+                    )
                 }
             }
         }
@@ -51,3 +59,6 @@ class HomePreviewScreenshotTest {
         const val PHONE_TALL = 2200
     }
 }
+
+/** The first root is the screen itself; each popup or dialog root above it gets `-1`, `-2`, … */
+private fun frameSuffix(i: Int): String = if (i == 0) "" else "-$i"

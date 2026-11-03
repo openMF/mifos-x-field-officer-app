@@ -11,17 +11,26 @@ package kpt.core.network.mifos.loan.dto
 
 import kotlinx.serialization.Serializable
 
+/** Server template for a loan charge off: the options its form offers. */
 @Serializable
 data class LoanChargeOffTemplateDto(
+    /** The charge-off reasons that may be chosen. */
     val chargeOffReasonOptions: List<ChargeOffReasonOptionDto> = emptyList(),
 )
 
+/** One charge off reason choice offered by a template. */
 @Serializable
 data class ChargeOffReasonOptionDto(
+    /** The server id of this record. */
     val id: Int,
+    /** The display name. */
     val name: String,
+    /** The sort position of this option. */
     val position: Int,
+    /** A free-text description. */
     val description: String,
+    /** True when the record is active. */
     val active: Boolean,
+    /** True when this option must be filled in. */
     val mandatory: Boolean,
 )

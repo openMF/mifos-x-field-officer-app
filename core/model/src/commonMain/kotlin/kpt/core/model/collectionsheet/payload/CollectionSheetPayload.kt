@@ -15,11 +15,19 @@ import kotlinx.serialization.json.Json
 import kpt.core.model.shared.BulkRepaymentTransactions
 import kpt.core.model.shared.Payload
 
+/** Request body for a collection sheet. */
 @Serializable
 class CollectionSheetPayload : Payload() {
+    /** The date the loan was actually disbursed. */
     var actualDisbursementDate: String? = null
+
+    /** The loan disbursements made at the meeting. */
     var bulkDisbursementTransactions: List<Int> = emptyList()
+
+    /** The loan repayments collected at the meeting. */
     var bulkRepaymentTransactions: List<BulkRepaymentTransactions> = emptyList()
+
+    /** The attendance recorded for each client. */
     var clientsAttendance: List<String> = emptyList()
 
     override fun toString(): String {

@@ -30,9 +30,15 @@ import org.mobilenativefoundation.store.store5.Store
  * optimisation. The DTO→entity map lives in the SourceOfTruth writer per the template's read-path
  * contract, so the store emits the Room type the UI observes.
  */
-/** One owner's notes — Fineract's `{resourceType}/{resourceId}/notes`. */
+/**
+ * One owner's notes — Fineract's `{resourceType}/{resourceId}/notes`.
+ *
+ * @property resourceId the id of the resource the records belong to
+ * @property resourceType the resource kind, as Fineract names it in the path (`loans`, `clients`, `savings`)
+ */
 data class NoteKey(val resourceType: String, val resourceId: Long)
 
+/** Store reading the note. */
 @StoreProvider(id = "notes", ttl = "15m")
 @CacheKey(
     fn = "forOwner",
@@ -72,7 +78,13 @@ fun provideNoteStore(
     ),
 )
 
-/** One note ROW — the owner it hangs off plus the note's id. */
+/**
+ * One note ROW — the owner it hangs off plus the note's id.
+ *
+ * @property noteId the note's server id
+ * @property resourceId the id of the resource the records belong to
+ * @property resourceType the resource kind, as Fineract names it in the path (`loans`, `clients`, `savings`)
+ */
 data class NoteItemKey(val resourceType: String, val resourceId: Long, val noteId: Long)
 
 /**

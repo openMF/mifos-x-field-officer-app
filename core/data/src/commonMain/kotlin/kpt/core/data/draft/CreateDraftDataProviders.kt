@@ -42,6 +42,7 @@ const val CREATE_OUTBOX_QUALIFIER: String = "outbox.create"
  */
 const val CREATE_SYNCER_QUALIFIER: String = "syncer.create"
 
+/** The outbox holding the create forms' unsent submissions. */
 @DataProvider(qualifier = CREATE_OUTBOX_QUALIFIER)
 fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
     RoomSubmitOutbox(dao = dao, serializer = FormDraft.serializer(), ownsFormKey = { it.startsWith(CreateForm.PREFIX) })
@@ -51,6 +52,7 @@ fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
 fun provideCreateDraftRepository(dao: DraftDao): FormDraftRepository =
     RoomFormDraftRepository(dao, CreateForm.entries.map { it.key })
 
+/** Sends a create-form draft through the repository for its form. */
 @DataProvider
 fun provideCreateDraftSubmitter(
     clients: ClientCommandRepository,

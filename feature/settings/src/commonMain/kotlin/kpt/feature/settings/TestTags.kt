@@ -18,7 +18,10 @@ object TestTags {
 
     /** Tags for [SettingsScreen]. */
     object Settings {
+        /** The settings row that opens About. */
         const val ABOUT_ROW: String = "settings_about_row"
+
+        /** The settings row that opens offline sync. */
         const val OFFLINE_SYNC_ROW: String = "settings_offline_sync_row"
 
         /** Root scaffold — always rendered regardless of dialog state. */
@@ -38,6 +41,8 @@ object TestTags {
 
         /** The manual "Prune expired" button (rendered only when there is content). */
         const val PRUNE: String = "sync_and_drafts_prune"
+
+        /** The control that opens the sync and drafts screen. */
         const val OPEN: String = "sync_and_drafts_open"
     }
 }

@@ -40,6 +40,7 @@ interface ChargeCommandRepository {
         payload: ChargesPayload,
     ): MutationResult<Unit>
 
+    /** Deletes one charge of a resource. */
     suspend fun deleteCharge(resource: ChargeResource, resourceId: Int, chargeId: Int): MutationResult<Unit>
 
     /**

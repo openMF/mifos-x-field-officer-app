@@ -38,6 +38,7 @@ import kpt.core.ui.generated.resources.Res
 import kpt.core.ui.util.LottieConstants
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Full-size loading indicator. */
 @Composable
 fun AppProgressIndicator(
     modifier: Modifier = Modifier.fillMaxSize(),
@@ -67,6 +68,7 @@ fun AppProgressIndicator(
     }
 }
 
+/** Loading indicator over the content, blocking touches. */
 @Composable
 fun AppProgressIndicatorOverlay(
     modifier: Modifier = Modifier.fillMaxSize(),
@@ -101,6 +103,7 @@ fun AppProgressIndicatorOverlay(
     }
 }
 
+/** Loading indicator at the end of a paged list. */
 @Composable
 fun AppPagingAppendProgress(modifier: Modifier = Modifier) {
     Box(
@@ -119,6 +122,7 @@ fun AppPagingAppendProgress(modifier: Modifier = Modifier) {
     }
 }
 
+/** Small loading indicator. */
 @Composable
 fun AppProgressIndicatorMini(
     modifier: Modifier = Modifier,

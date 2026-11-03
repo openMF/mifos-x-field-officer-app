@@ -13,11 +13,19 @@ import kotlinx.serialization.Serializable
 import kpt.core.model.utils.ApiDateFormatter
 
 // TODO Remove calendarId and TransactionDate from this Payload class;
+/** Request body for creating an entity. */
 @Serializable
 open class Payload {
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat = ApiDateFormatter.DATE_FORMAT
+
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     var locale = ApiDateFormatter.LOCALE
+
+    /** The server id of the meeting calendar. */
     var calendarId: Long = 0
+
+    /** The date of the transaction. */
     var transactionDate: String? = null
     override fun toString(): String {
         return "{" +

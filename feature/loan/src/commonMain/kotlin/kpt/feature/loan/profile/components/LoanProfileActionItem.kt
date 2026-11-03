@@ -65,82 +65,98 @@ import kpt.core.ui.generated.resources.Res as UiRes
  * recurring-deposit profiles reuse when those slices land.
  */
 sealed class LoanProfileActionItem(
+    /** The row's title. */
     val title: StringResource,
+    /** The line under the title saying what the row opens. */
     val subTitle: StringResource,
+    /** The row's leading icon. */
     val icon: DrawableResource,
 ) {
+    /** The loan's general summary. */
     data object General : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_general_title,
         subTitle = Res.string.feature_loan_profile_item_general_subtitle,
         icon = UiRes.drawable.design_services,
     )
 
+    /** The loan's dashboard: balances and arrears at a glance. */
     data object Dashboard : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_dashboard_title,
         subTitle = Res.string.feature_loan_profile_item_dashboard_subtitle,
         icon = UiRes.drawable.dashboard,
     )
 
+    /** The loan's account details and terms. */
     data object AccountDetails : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_account_details_title,
         subTitle = Res.string.feature_loan_profile_item_account_details_subtitle,
         icon = UiRes.drawable.account_details,
     )
 
+    /** The repayment schedule. */
     data object RepaymentSchedule : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_repayment_schedule_title,
         subTitle = Res.string.feature_loan_profile_item_repayment_schedule_subtitle,
         icon = UiRes.drawable.repayment_schedule,
     )
 
+    /** The loan's transactions. */
     data object Transactions : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_transactions_title,
         subTitle = Res.string.feature_loan_profile_item_transactions_subtitle,
         icon = UiRes.drawable.transaction,
     )
 
+    /** The charges on the loan. */
     data object Charges : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_charges_title,
         subTitle = Res.string.feature_loan_profile_item_charges_subtitle,
         icon = UiRes.drawable.charges,
     )
 
+    /** The loan's originators. */
     data object Originators : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_originators_title,
         subTitle = Res.string.feature_loan_profile_item_originators_subtitle,
         icon = UiRes.drawable.originators,
     )
 
+    /** The collateral held against the loan. */
     data object Collateral : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_collateral_title,
         subTitle = Res.string.feature_loan_profile_item_collateral_subtitle,
         icon = UiRes.drawable.collateral,
     )
 
+    /** The loan's term variations. */
     data object TermVariations : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_term_variations_title,
         subTitle = Res.string.feature_loan_profile_item_term_variations_subtitle,
         icon = UiRes.drawable.term_variations,
     )
 
+    /** Reschedule requests on the loan. */
     data object Reschedules : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_reschedules_title,
         subTitle = Res.string.feature_loan_profile_item_reschedules_subtitle,
         icon = UiRes.drawable.reschedules,
     )
 
+    /** Documents attached to the loan. */
     data object Documents : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_documents_title,
         subTitle = Res.string.feature_loan_profile_item_documents_subtitle,
         icon = UiRes.drawable.documents,
     )
 
+    /** Notes on the loan. */
     data object Notes : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_notes_title,
         subTitle = Res.string.feature_loan_profile_item_notes_subtitle,
         icon = UiRes.drawable.notes,
     )
 
+    /** Standing instructions that pay into the loan. */
     data object StandingInstructions : LoanProfileActionItem(
         title = Res.string.feature_loan_profile_item_standing_instructions_title,
         subTitle = Res.string.feature_loan_profile_item_standing_instructions_subtitle,

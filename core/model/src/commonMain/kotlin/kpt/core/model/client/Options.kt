@@ -18,11 +18,17 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Options(
+    /** The kind of option. */
     val optionType: String? = null,
+    /** The server id of this record. */
     val id: Int = 0,
+    /** The display name. */
     val name: String = "",
+    /** The sort position of this option. */
     val position: Int = 0,
+    /** A free-text description. */
     val description: String? = null,
+    /** True when the option is active. */
     @SerialName("isActive")
     val activeStatus: Boolean = false,
 )

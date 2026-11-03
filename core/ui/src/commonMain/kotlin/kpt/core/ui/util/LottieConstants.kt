@@ -9,6 +9,8 @@
  */
 package kpt.core.ui.util
 
+/** Paths of the bundled Lottie animations. */
 object LottieConstants {
+    /** The loading animation. */
     const val LOADING_ANIMATION = "files/loading_animation.json"
 }

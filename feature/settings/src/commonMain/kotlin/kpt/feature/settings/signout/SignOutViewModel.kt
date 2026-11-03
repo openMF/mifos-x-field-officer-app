@@ -59,22 +59,47 @@ class SignOutViewModel(
  * What sign-out removes. [SessionAndData] is the default: it deletes everything the app stored,
  * unsynced work included. [SessionOnly] keeps cached clients and unsynced work for the next sign-in.
  */
-enum class SignOutMode { SessionOnly, SessionAndData }
+enum class SignOutMode {
+    /** End the session only; cached clients and unsynced work stay for the next sign-in. */
+    SessionOnly,
 
+    /** End the session and delete everything the app stored, unsynced work included. */
+    SessionAndData,
+}
+
+/** What the sign-out flow shows: the confirm sheet, the chosen mode and progress. */
 data class SignOutState(
+    /** True while the confirm sheet is open. */
     val confirming: Boolean = false,
+    /** What sign-out will remove. */
     val mode: SignOutMode = SignOutMode.SessionAndData,
+    /** True while sign-out is running. */
     val isSigningOut: Boolean = false,
+    /** True when the last sign-out did not finish. */
     val failed: Boolean = false,
 )
 
+/** What the officer did in the sign-out flow. */
 sealed interface SignOutAction {
+    /** Sign-out was asked for — open the confirm sheet. */
     data object Requested : SignOutAction
+
+    /** The confirm sheet was dismissed. */
     data object Cancelled : SignOutAction
+
+    /**
+     * A mode was picked in the confirm sheet.
+     *
+     * @property mode the chosen mode
+     */
     data class ModeSelected(val mode: SignOutMode) : SignOutAction
+
+    /** Sign out now, with the chosen mode. */
     data object Confirmed : SignOutAction
 }
 
+/** One-off effects of the sign-out flow, for the screen to act on. */
 sealed interface SignOutEvent {
+    /** The officer is signed out — the app returns to sign-in. */
     data object SignedOut : SignOutEvent
 }

@@ -28,6 +28,7 @@ import kpt.core.ui.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/** Round profile picture from image bytes, or a placeholder. */
 @Composable
 fun AppUserImage(
     bitmap: ByteArray?,

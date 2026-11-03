@@ -27,10 +27,13 @@ import kpt.core.base.database.annotation.DbEntity
 @DbEntity
 @Entity(tableName = "loan_application_templates", primaryKeys = ["clientId", "productId"])
 data class LoanTemplateCacheEntity(
+    /** The server id of the client. */
     val clientId: Int,
     /** `-1` when the caller asked for the product-less template. */
     val productId: Int,
+    /** The cached response body, as JSON. */
     val payload: String,
+    /** When this cached copy was fetched, in epoch milliseconds. */
     val fetchedAtMs: Long,
 )
 
@@ -41,8 +44,11 @@ data class LoanTemplateCacheEntity(
 @DbEntity
 @Entity(tableName = "loan_disburse_templates")
 data class LoanDisburseTemplateCacheEntity(
+    /** The server id of the loan. */
     @PrimaryKey
     val loanId: Int,
+    /** The cached response body, as JSON. */
     val payload: String,
+    /** When this cached copy was fetched, in epoch milliseconds. */
     val fetchedAtMs: Long,
 )

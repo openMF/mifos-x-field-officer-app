@@ -21,6 +21,7 @@ import kpt.core.network.mifos.client.dto.GetClientsPageItemsResponse
 import kpt.core.network.mifos.client.dto.GetGenderOptions
 import kpt.core.network.mifos.mapper.AbstractMapper
 
+/** Maps client between its network, stored and domain shapes. */
 object ClientMapper : AbstractMapper<GetClientsPageItemsResponse, Client>() {
 
     override fun mapFromEntity(entity: GetClientsPageItemsResponse): Client {

@@ -12,9 +12,12 @@ package kpt.core.model.objects.databaseobjects
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
+/** A collection sheet. */
 @Serializable
 data class CollectionSheet(
+    /** The date the amount is due. */
     var dueDate: IntArray,
+    /** The groups. */
     var groups: List<AppGroup>,
 ) {
     override fun toString(): String {

@@ -34,6 +34,7 @@ fun provideAllStaffStore(
     fetch = { key -> staffApi.allStaff() },
 )
 
+/** Store reading the field staff for office. */
 @StoreProvider(id = "staffFieldStaffForOffice", ttl = "12h")
 @CacheKey(fn = "forKey", key = "staffFieldStaffForOffice:{key}", params = ["key:String"])
 fun provideFieldStaffForOfficeStore(

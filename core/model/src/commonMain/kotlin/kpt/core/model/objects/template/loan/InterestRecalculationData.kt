@@ -16,23 +16,33 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class InterestRecalculationData(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The server id of the product. */
     var productId: Int? = null,
 
+    /** What interest recalculation compounds (interest, fees or both). */
     var interestRecalculationCompoundingType: InterestRecalculationCompoundingType? = null,
 
+    /** How the schedule is adjusted when repayments arrive early. */
     var rescheduleStrategyType: RescheduleStrategyType? = null,
 
+    /** The unit of the recalculation rest frequency. */
     var recalculationRestFrequencyType: RecalculationRestFrequencyType? = null,
 
+    /** How many rest-frequency units between recalculations. */
     var recalculationRestFrequencyInterval: Int? = null,
 
+    /** True when arrears are measured against the original schedule. */
     var isArrearsBasedOnOriginalSchedule: Boolean? = null,
 
+    /** True when compounded interest is posted as its own transaction. */
     var isCompoundingToBePostedAsTransaction: Boolean? = null,
 
+    /** How interest is calculated when the loan is closed early. */
     var preClosureInterestCalculationStrategy: PreClosureInterestCalculationStrategy? = null,
 
+    /** True when interest compounds at end of day. */
     var allowCompoundingOnEod: Boolean? = null,
 )

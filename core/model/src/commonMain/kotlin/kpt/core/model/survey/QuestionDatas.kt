@@ -17,16 +17,25 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class QuestionDatas(
+    /** The server id of this record. */
     var id: Int = 0,
+    /** The server id of the survey. */
     val surveyId: Int = 0,
+    /** The key of the component the question belongs to. */
     val componentKey: String? = null,
+    /** The key of this survey item. */
     val key: String? = null,
+    /** The text shown for this item. */
     val text: String? = null,
+    /** A free-text description. */
     val description: String? = null,
+    /** The order this item is shown in. */
     val sequenceNo: Int = 0,
+    /** The question's possible answers. */
     val responseDatas: List<ResponseDatas> = emptyList(),
 ) {
 
+    /** The server id of the question. */
     var questionId: Int
         get() = id
         set(id) {

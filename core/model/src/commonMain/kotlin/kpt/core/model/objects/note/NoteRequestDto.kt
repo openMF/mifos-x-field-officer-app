@@ -11,7 +11,9 @@ package kpt.core.model.objects.note
 
 import kotlinx.serialization.Serializable
 
+/** Request body for a note. */
 @Serializable
 data class NoteRequestDto(
+    /** A free-text note. */
     val note: String? = null,
 )

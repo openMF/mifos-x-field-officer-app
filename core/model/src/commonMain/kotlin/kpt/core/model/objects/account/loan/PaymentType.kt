@@ -10,9 +10,12 @@
 package kpt.core.model.objects.account.loan
 
 import kotlinx.serialization.Serializable
+/** Kind of a payment. */
 @Serializable
 data class PaymentType(
+    /** The server id of this record. */
     var id: Int? = null,
 
+    /** The display name. */
     var name: String? = null,
 )

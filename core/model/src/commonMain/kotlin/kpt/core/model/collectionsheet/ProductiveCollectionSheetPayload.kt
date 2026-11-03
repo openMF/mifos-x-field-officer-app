@@ -18,13 +18,18 @@ import kpt.core.model.utils.ApiDateFormatter
  */
 @Serializable
 data class ProductiveCollectionSheetPayload(
+    /** The loan repayments collected at the meeting. */
     var bulkRepaymentTransactions: MutableList<BulkRepaymentTransactions> = ArrayList(),
 
+    /** The server id of the meeting calendar. */
     var calendarId: Int? = 0,
 
+    /** The pattern Fineract parses this request's dates with (e.g. `dd MMMM yyyy`). */
     var dateFormat: String? = ApiDateFormatter.DATE_FORMAT,
 
+    /** The locale Fineract parses the dates and numbers in this request with (e.g. `en`). */
     var locale: String? = ApiDateFormatter.LOCALE,
 
+    /** The date of the transaction. */
     var transactionDate: String? = null,
 )

@@ -23,10 +23,10 @@ ViewModels: `GroupLoanApplicationViewModel`, `LoanApprovalViewModel`, `LoanDisbu
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/loan sha=838cf5b0405f19e36039e9c469f4c01420f77253 -->
+<!-- api-docs:begin module=feature/loan sha=26f0eea312db419cb478bf801336fcc2f330fb29 -->
 ## API reference
 
-_Generated from `feature/loan` at tree `838cf5b0405f` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/loan` at tree `26f0eea312db` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -56,7 +56,7 @@ The repayment schedule and the transaction history. Both carry only `loanId`: th
 ```kotlin
 data class LoanTransactionsRoute(val loanId: Int)
 ```
-_No KDoc at source._
+A loan's transactions.
 
 ```kotlin
 data class LoanApprovalRoute(val loanId: Int)
@@ -88,7 +88,7 @@ data class LoanReschedulesRoute(val loanId: Int)
 ```
 Every reschedule proposed on a loan, with approve and reject.
 
-<details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/navigation/CheckerInboxRoute.kt:33</code></summary>
+<details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/navigation/CheckerInboxRoute.kt:34</code></summary>
 
 ```kotlin
             onNavigateBack = { navController.popBackStack() },
@@ -114,7 +114,7 @@ Apply for a new INDIVIDUAL loan. Reached from the client's loan-accounts list "a
 ```kotlin
 fun NavController.navigateToNewLoanApplication(clientId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the new-loan application for client `clientId`.
 
 ```kotlin
 data class GroupLoanApplicationRoute(val groupId: Int)
@@ -124,17 +124,17 @@ Apply for a GROUP loan. Reached from group detail's overflow menu — the origin
 ```kotlin
 fun NavController.navigateToGroupLoanApplication(groupId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens the group-loan application for group `groupId`.
 
 ```kotlin
 fun NavController.navigateToLoanProfile(loanId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens loan `loanId`'s profile.
 
 ```kotlin
 fun NavController.navigateToLoanSummary(loanId: Int, navOptions: NavOptions? = null) =
 ```
-_No KDoc at source._
+Opens loan `loanId`'s summary.
 
 ```kotlin
 fun NavController.navigateToLoanRepayment(loanId: Int, navOptions: NavOptions? = null) =
@@ -153,7 +153,7 @@ sealed class LoanProfileActionItem(
 ```
 Ported verbatim from `6b66e8a43:feature/loan/loanAccountProfile/components/LoanAccountProfileActionItem.kt` — all thirteen items, same titles, subtitles and icons.
 
-<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:238</code></summary>
+<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:273</code></summary>
 
 ```kotlin
 }
@@ -169,5 +169,5 @@ private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, l
 
 ---
 
-_13 type(s), 7 function(s)/property(ies); 15 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
+_13 type(s), 7 function(s)/property(ies); 20 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
 <!-- api-docs:end -->

@@ -14,13 +14,16 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kpt.core.base.database.annotation.DbConverters
 
+/** Room column converter for due dates. */
 @DbConverters
 class DueDateConverter {
+    /** Stores a `List<Int>` in a JSON column. */
     @ColumnTypeConverter
     fun fromListToString(dueDate: List<Int>): String {
         return Json.encodeToString(dueDate)
     }
 
+    /** Reads a `List<Int>` back from the JSON column it is stored in. */
     @ColumnTypeConverter
     fun fromStringToList(dueDateString: String): List<Int> {
         return Json.decodeFromString(dueDateString)

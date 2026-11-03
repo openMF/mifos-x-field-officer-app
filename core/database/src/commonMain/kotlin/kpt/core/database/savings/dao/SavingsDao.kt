@@ -24,30 +24,38 @@ import kpt.core.database.savings.entity.SavingsAccountTransactionTemplateEntity
 import kpt.core.database.savings.entity.SavingsAccountWithAssociationsEntity
 import kpt.core.database.savings.entity.SavingsTransactionDateEntity
 
+/** Room queries for savings rows. */
 @DbDao
 @Dao
 interface SavingsDao :
     SavingsTransactionRequestDao {
+    /** Saves `transaction`, replacing rows with the same key. */
     @Insert(entity = SavingsAccountTransactionEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllTransactions(transaction: List<SavingsAccountTransactionEntity>)
 
+    /** Saves ``, replacing any row with the same key. */
     @Insert(entity = SavingsAccountWithAssociationsEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSavingsAccountWithAssociations(
         savingsAccountWithAssociations: SavingsAccountWithAssociationsEntity,
     )
 
+    /** Saves `paymentTypeOption`, replacing rows with the same key. */
     @Insert(entity = PaymentTypeOptionEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllPaymentTypeOption(paymentTypeOption: List<PaymentTypeOptionEntity>)
 
+    /** Saves `transactionTemplate`, replacing any row with the same key. */
     @Insert(entity = SavingsAccountTransactionTemplateEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSavingsAccountTransactionTemplate(transactionTemplate: SavingsAccountTransactionTemplateEntity)
 
+    /** Reads the `TransactionTable` rows whose `savingsAccountId` is `savingsAccountId`. */
     @Query("SELECT * FROM TransactionTable WHERE savingsAccountId = :savingsAccountId")
     suspend fun getAllTransactions(savingsAccountId: Int): List<SavingsAccountTransactionEntity>
 
+    /** Observes the `SavingsAccountTransactionTemplate` row whose `accountId` is `savingsAccountId`. */
     @Query("SELECT * FROM SavingsAccountTransactionTemplate where accountId = :savingsAccountId")
     fun getSavingsAccountTransactionTemplate(savingsAccountId: Int): Flow<SavingsAccountTransactionTemplateEntity?>
 
+    /** Observes the `SavingsAccountWithAssociations` row whose `id` is `savingsAccountId`. */
     @Query("SELECT * FROM SavingsAccountWithAssociations where id = :savingsAccountId")
     fun getSavingsAccountWithAssociations(savingsAccountId: Int): Flow<SavingsAccountWithAssociationsEntity?>
 
@@ -59,6 +67,7 @@ interface SavingsDao :
     @Query("DELETE FROM SavingsAccountWithAssociations")
     suspend fun deleteAllSavingsAccountsWithAssociations()
 
+    /** Observes the `PaymentTypeOption` rows. */
     @Query("SELECT * FROM PaymentTypeOption")
     fun getAllPaymentTypeOption(): Flow<List<PaymentTypeOptionEntity>>
 

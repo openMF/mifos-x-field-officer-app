@@ -28,8 +28,15 @@ class FakeCollectionSheetCommandRepository(
     },
 ) : CollectionSheetCommandRepository {
 
+    /**
+     * One recorded save.
+     *
+     * @property request the sheet the save was for
+     * @property payload what was sent
+     */
     data class Save(val request: RequestCollectionSheetPayload, val payload: IndividualCollectionSheetPayload?)
 
+    /** The saves, in order. */
     val saved = mutableListOf<Save>()
 
     override suspend fun saveIndividualCollectionSheet(

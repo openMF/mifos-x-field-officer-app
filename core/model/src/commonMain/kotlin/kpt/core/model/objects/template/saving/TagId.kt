@@ -10,9 +10,11 @@
 package kpt.core.model.objects.template.saving
 
 import kotlinx.serialization.Serializable
+/** A savings transaction tag. */
 @Serializable
 data class TagId(
 
+    /** The server id of this record. */
     var id: Int? = null,
 
 )

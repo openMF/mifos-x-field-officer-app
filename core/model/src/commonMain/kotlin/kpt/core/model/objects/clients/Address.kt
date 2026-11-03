@@ -16,21 +16,30 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Address(
+    /** The server id of the address type. */
     val addressTypeId: Int? = null,
 
+    /** True when the record is active. */
     val isActive: Boolean = false,
 
+    /** The first address line. */
     val addressLine1: String? = null,
 
+    /** The second address line. */
     val addressLine2: String? = null,
 
+    /** The third address line. */
     val addressLine3: String? = null,
 
+    /** The city. */
     val city: String? = null,
 
+    /** The server id of the state or province. */
     val stateProvinceId: Int? = null,
 
+    /** The server id of the country. */
     val countryId: Int? = null,
 
+    /** The postal code. */
     val postalCode: String? = null,
 )

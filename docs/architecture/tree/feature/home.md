@@ -9,7 +9,7 @@ Screens: `HomeDashboardScreen`, `HomeScreen`
 
 ViewModels: `HomeViewModel`, `SearchViewModel`
 
-**Consumes:** `core/store/center`, `core/store/checkerinbox`, `core/store/collectionsheet`, `core/store/config`, `core/store/dashboard`, `core/store/group`, `core/store/recent`, `core/store/search`, `core/store/serverconfig`, `core/store/session`, `core/store/testing`
+**Consumes:** `core/store/center`, `core/store/checkerinbox`, `core/store/collectionsheet`, `core/store/dashboard`, `core/store/group`, `core/store/recent`, `core/store/search`, `core/store/serverconfig`, `core/store/session`, `core/store/testing`
 
 ### Docs in the tree
 
@@ -29,10 +29,10 @@ It is also a **fork seam**. `HomeDashboard` is public rather than internal becau
 package so `--clean` removes it together with that default. A fork replaces the body without touching
 the shell.
 
-<!-- api-docs:begin module=feature/home sha=f7ba7cffe2bba1408391d5d25879743ea2de1cd7 -->
+<!-- api-docs:begin module=feature/home sha=b5a46e0a2ef9dc3430ca4c1bf1f02111d915e22b -->
 ## API reference
 
-_Generated from `feature/home` at tree `f7ba7cffe2bb` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/home` at tree `b5a46e0a2ef9` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -45,17 +45,17 @@ rather than re-declaring what they already own.
 ```kotlin
 data object HomeDestination
 ```
-_No KDoc at source._
+The home graph's route — what other features navigate to.
 
 ```kotlin
 data object HomeRoute
 ```
-_No KDoc at source._
+The dashboard screen inside the home graph (its start destination).
 
 ```kotlin
 fun NavController.navigateToHome(navOptions: NavOptions? = null)
 ```
-_No KDoc at source._
+Navigates to the home graph.
 
 ```kotlin
 fun NavGraphBuilder.homeGraph(
@@ -69,26 +69,26 @@ data class HomeHeader(
 ```
 The greeting block — rendered from the session at once; date and name fill in as they load.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:359</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardHeader.kt:90</code></summary>
 
 ```kotlin
 
 @Composable
-private fun Header(header: HomeHeader, style: HeaderStyle, onSettings: () -> Unit, onProfile: () -> Unit) {
-    val hour = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).hour
-    val greeting = when {
-        hour < NOON -> Res.string.feature_home_dashboard_greeting_morning
-        hour < EVENING -> Res.string.feature_home_dashboard_greeting_afternoon
+internal fun Header(header: HomeHeader, style: HeaderStyle, onSettings: () -> Unit, onProfile: () -> Unit) {
+    // A preview renders a fixed hour, so its golden does not change with the time of day it was recorded.
+    val hour = if (LocalInspectionMode.current) {
+        PREVIEW_HOUR
+    } else {
 ```
 
 </details>
 
 ```kotlin
-enum class HomeCardId { COLLECTIONS, WORK_QUEUE, MEETINGS, PORTFOLIO }
+enum class HomeCardId
 ```
 Which remote card a slot is — also its retry key and its test tag.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:246</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:67</code></summary>
 
 ```kotlin
 fun HomeDashboardScreenContent(
@@ -107,16 +107,16 @@ sealed interface HomeCard
 ```
 One remote card's payload. Each card owns its own `ScreenState`, so one failure never blanks the rest.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:304</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardCards.kt:112</code></summary>
 
 ```kotlin
-private fun ContentState(
-    state: HomeUiState,
-    states: List<ScreenState<HomeCard>>,
-    onRetry: (HomeCardId) -> Unit,
-    onNavigate: (HomeNavigation) -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(6.tw)) {
+
+@Composable
+internal fun CollectionsBody(data: HomeCard.Collections) = Column(verticalArrangement = Arrangement.spacedBy(3.tw)) {
+    if (data.clientsDue == 0 && data.collectedByCurrency.isEmpty()) {
+        Text(
+            stringResource(Res.string.feature_home_dashboard_collections_empty),
+            style = KptTheme.typography.bodyMedium,
 ```
 
 </details>
@@ -124,18 +124,17 @@ private fun ContentState(
 ```kotlin
 data class Money(val amount: Double, val currencyCode: String, val currencySymbol: String)
 ```
-_No KDoc at source._
+An amount in one currency — the dashboard never adds amounts across currencies.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:39</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:42</code></summary>
 
 ```kotlin
-private val demoQuickActions = QuickAction.entries.toList()
-
-private val demoCollections = HomeCard.Collections(clientsDue = 14, loansDue = 17, dueByCurrency = listOf(Money(18_450.0, "MXN", "$")), collectedByCurrency = listOf(Money(30_250.0, "MXN", "$")), overdueClients = 3)
-
-private val demoQueue = HomeCard.WorkQueue(
-    checkerTasks = 2,
-    awaitingApproval = 4,
+    clientsDue = 14,
+    loansDue = 17,
+    dueByCurrency = listOf(Money(18_450.0, "MXN", "$")),
+    collectedByCurrency = listOf(Money(30_250.0, "MXN", "$")),
+    overdueClients = 3,
+)
 ```
 
 </details>
@@ -145,7 +144,7 @@ data class MeetingToday(val centerId: Int, val name: String, val groups: Int, va
 ```
 A centre meeting due on the business date; `time` is `HH:mm` when the calendar carries one.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:51</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:57</code></summary>
 
 ```kotlin
 private val demoMeetings = HomeCard.Meetings(
@@ -161,33 +160,33 @@ private val demoMeetings = HomeCard.Meetings(
 ```kotlin
 data class HomeCardSlot(val id: HomeCardId, val state: ScreenState<HomeCard>)
 ```
-_No KDoc at source._
+One dashboard card in its own load state.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:488</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:146</code></summary>
 
 ```kotlin
-@Composable
-private fun Section(
-    slot: HomeCardSlot,
-    draftCount: Int,
-    businessDate: String?,
-    onNavigate: (HomeNavigation) -> Unit,
-    onRetry: () -> Unit,
+    header = demoHeader,
+    cards = listOf(
+        HomeCardSlot(HomeCardId.COLLECTIONS, all ?: collections),
+        HomeCardSlot(HomeCardId.WORK_QUEUE, all ?: content(demoQueue)),
+        HomeCardSlot(HomeCardId.MEETINGS, all ?: content(demoMeetings)),
+        HomeCardSlot(HomeCardId.PORTFOLIO, all ?: content(demoPortfolio)),
+    ),
 ```
 
 </details>
 
 ```kotlin
-enum class QuickAction { NEW_CLIENT, NEW_GROUP, NEW_CENTER, COLLECTION_SHEET, RUN_REPORTS, SEARCH, PATH_TRACKER }
+enum class QuickAction
 ```
 Standalone creates and tools only — client-owned account creates start from the client profile.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:976</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardQuickActions.kt:68</code></summary>
 
 ```kotlin
-// ── #quick_actions (02 content · 04 error · 05 offline) ────────────────────────────────────────
+import org.jetbrains.compose.resources.stringResource
 
-private val QuickAction.label: StringResource
+internal val QuickAction.label: StringResource
     get() = when (this) {
         QuickAction.NEW_CLIENT -> Res.string.feature_home_dashboard_qa_new_client
         QuickAction.NEW_GROUP -> Res.string.feature_home_dashboard_qa_new_group
@@ -199,9 +198,9 @@ private val QuickAction.label: StringResource
 ```kotlin
 data class HomeUiState(
 ```
-_No KDoc at source._
+Everything the home dashboard renders, as one immutable snapshot.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:245</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:66</code></summary>
 
 ```kotlin
 @Composable
@@ -218,7 +217,7 @@ fun HomeDashboardScreenContent(
 ```kotlin
 sealed interface HomeAction
 ```
-_No KDoc at source._
+What the user asked the dashboard to do.
 
 <details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeViewModel.kt:81</code></summary>
 
@@ -238,16 +237,16 @@ sealed interface HomeNavigation
 ```
 Where a tap goes; the nav graph owns the destinations.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:228</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardCards.kt:373</code></summary>
 
 ```kotlin
+
 @Composable
-fun HomeDashboardScreen(
-    onNavigate: (HomeNavigation) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = koinViewModel(),
-) {
-    val state by viewModel.stateFlow.collectAsStateWithLifecycle()
+internal fun WorkQueueBody(data: HomeCard.WorkQueue, draftCount: Int, onNavigate: (HomeNavigation) -> Unit) {
+    val c = KptTheme.colorScheme
+    // grid grid-cols-2 gap-2.5 — each tile carries its own Stitch tint
+    Grid(columns = 2, gap = 2.5f.tw) {
+        data.checkerTasks?.let { n ->
 ```
 
 </details>
@@ -262,9 +261,9 @@ The Home tab body, built from the Stitch markup — one composition per state, e
 ```kotlin
 fun HomeDashboardScreenContent(
 ```
-_No KDoc at source._
+The stateless dashboard: header, the four remote cards each in its own load state, quick actions and recent records. Taps go to `onNavigate`; `onRetry` reloads one card and `onRefresh` (pull-to-refresh) reloads them all.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:118</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreenPreview.kt:160</code></summary>
 
 ```kotlin
     // Light, on the app background — the scheme every Stitch render is drawn in.
@@ -285,7 +284,7 @@ class HomeViewModel(
 ```
 The field officer's day — the dashboard fan-out shape (FEATURE_LAYER.md): one `ScreenState` slot per card, each from its own repository stream, so one slow or failing source never blanks the others.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:230</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:47</code></summary>
 
 ```kotlin
     onNavigate: (HomeNavigation) -> Unit,
@@ -309,7 +308,7 @@ The officer's own loans in one Fineract status (100 submitted · 200 approved) �
 ```kotlin
 fun NavController.navigateToLoanQueue(status: Int) = navigate(LoanQueueRoute(status))
 ```
-_No KDoc at source._
+Opens the loan queue for the loans in Fineract `status`.
 
 ```kotlin
 fun NavGraphBuilder.loanQueueDestination(onBack: () -> Unit, onLoanClick: (Long) -> Unit)
@@ -319,9 +318,9 @@ Registered by the fork's nav graph, which owns the loan-profile route the rows o
 ```kotlin
 class LoanQueueViewModel(
 ```
-_No KDoc at source._
+Backs the loan queue: the officer's own loans in the route's status, scoped by the same staff-or-office rule as the dashboard count.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/di/HomeModule.kt:21</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/di/HomeModule.kt:22</code></summary>
 
 ```kotlin
     viewModelOf(::SearchViewModel)
@@ -337,7 +336,7 @@ _No KDoc at source._
 ```kotlin
 val HomeModule = module
 ```
-_No KDoc at source._
+Koin bindings for the home feature's view models: dashboard, search and loan queue.
 
 ### `feature/home/src/commonMain/kotlin/kpt/feature/home/search/SearchBody.kt`
 
@@ -353,10 +352,10 @@ class SearchViewModel(
 ```
 Fineract resource search — the Home tab's content. Ported from `6b66e8a43:feature/search/.../SearchViewModel.kt`.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/di/HomeModule.kt:19</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/di/HomeModule.kt:20</code></summary>
 
 ```kotlin
-
+/** Koin bindings for the home feature's view models: dashboard, search and loan queue. */
 val HomeModule = module {
     viewModelOf(::SearchViewModel)
     viewModelOf(::HomeViewModel)
@@ -371,10 +370,10 @@ enum class SearchFilter(val apiValue: String)
 ```
 A search filter. `apiValue` is a plain constant, NOT a string resource.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/search/SearchBody.kt:133</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/search/SearchBody.kt:135</code></summary>
 
 ```kotlin
-            modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).testTag(TestTags.Home.SEARCH_FILTERS),
+            ).testTag(TestTags.Home.SEARCH_FILTERS),
         ) {
             SearchFilter.entries.forEach { filter ->
                 FilterChip(
@@ -388,7 +387,7 @@ A search filter. `apiValue` is a plain constant, NOT a string resource.
 ```kotlin
 data class SearchState(
 ```
-_No KDoc at source._
+What the search screen shows: the query, the filter and whether to match exactly.
 
 <details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/search/SearchBody.kt:97</code></summary>
 
@@ -407,7 +406,7 @@ internal fun SearchBodyContent(
 ```kotlin
 sealed interface SearchAction
 ```
-_No KDoc at source._
+What the user did on the search screen.
 
 <details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/search/SearchBody.kt:99</code></summary>
 
@@ -426,7 +425,7 @@ _No KDoc at source._
 ```kotlin
 sealed interface SearchEvent
 ```
-_No KDoc at source._
+One-off effects of the search screen, for the screen to act on.
 
 ### `feature/home/src/commonMain/kotlin/kpt/feature/home/ui/TestTags.kt`
 
@@ -452,20 +451,20 @@ Test-tag registry for the home / bottom-nav dashboard. Consumed by: - `HomeScree
 - `const val SCREEN: String = "home.screen"` — Root `Scaffold` surface of `HomeScreen` — always rendered regardless of dashboard loading state. Stable target for Compose UI tests.
 - `const val DASHBOARD_SCROLL: String = "home_dashboard_scroll"` — The vertically-scrollable dashboard `Column`.
 - `const val DASHBOARD: String = "home_dashboard"` — The field officer dashboard — the Home body supplied through ForkBackboneRegistry.homeBody. Values are the `testTag`s declared in `idea-layer/screens/home/ui.yaml`, which the Maestro flows assert against; change one there, change it here.
-- `const val HEADER: String = "home_header"`
-- `const val SCOPE_CHIP: String = "home_scope_chip"`
-- `const val SKELETON: String = "home_skeleton"`
-- `const val COLLECTIONS: String = "home_collections"`
-- `const val COLLECTIONS_HERO: String = "home_collections_hero"`
-- `const val OFFLINE_BANNER: String = "home_offline_banner"`
-- `const val RECENT: String = "home_recent"`
-- `const val RECENT_ROW: String = "home_recent_row"`
-- `const val OPEN_COLLECTION_SHEET: String = "home_open_collection_sheet"`
-- `const val WORK_QUEUE: String = "home_work_queue"`
-- `const val QUEUE_CHECKER: String = "home_queue_checker"`
+- `const val HEADER: String = "home_header"` — The greeting block at the top of the dashboard.
+- `const val SCOPE_CHIP: String = "home_scope_chip"` — The chip saying whose book the figures cover — "My portfolio" or the office.
+- `const val SKELETON: String = "home_skeleton"` — The loading skeleton shown before any card has data.
+- `const val COLLECTIONS: String = "home_collections"` — Today's collections card.
+- `const val COLLECTIONS_HERO: String = "home_collections_hero"` — The collections card's per-currency hero figure.
+- `const val OFFLINE_BANNER: String = "home_offline_banner"` — The banner shown while the device has no network.
+- `const val RECENT: String = "home_recent"` — The recently-opened records card.
+- `const val RECENT_ROW: String = "home_recent_row"` — One row of the recently-opened records card.
+- `const val OPEN_COLLECTION_SHEET: String = "home_open_collection_sheet"` — The collections card's "open collection sheet" link.
+- `const val WORK_QUEUE: String = "home_work_queue"` — The work-queue card.
+- `const val QUEUE_CHECKER: String = "home_queue_checker"` — The work queue's checker-inbox tile.
   _…more members; read the file._
 
 ---
 
-_21 type(s), 22 function(s)/property(ies); 18 carry KDoc at source; 0 authored example(s); 18 live call site(s)._
+_21 type(s), 22 function(s)/property(ies); 43 carry KDoc at source; 0 authored example(s); 18 live call site(s)._
 <!-- api-docs:end -->

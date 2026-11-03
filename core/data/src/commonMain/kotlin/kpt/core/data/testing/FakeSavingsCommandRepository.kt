@@ -49,6 +49,8 @@ class FakeSavingsCommandRepository(
 
     /** Every approval sent, with its account — a test asserts the PAYLOAD, not merely a send. */
     val approvals: MutableList<Pair<Int, SavingsApprovalInput>> = mutableListOf()
+
+    /** The activations, as (account id, input), in order. */
     val activations: MutableList<Pair<Int, SavingsActivationInput>> = mutableListOf()
 
     /** Every transaction sent: `(type, id, command, input)`. */
