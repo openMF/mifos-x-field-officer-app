@@ -25,7 +25,7 @@ TMP="$(mktemp)"; trap 'rm -f "$TMP"' EXIT
 
 # $(SRCROOT)-relative, never absolute: the list is committed and inherited by forks.
 ( cd "$ROOT" && find cmp-shared/src core core-base feature \
-    -name '*.kt' -not -path '*/build/*' 2>/dev/null | sort \
+    -name '*.kt' -not -path '*/build/*' 2>/dev/null | LC_ALL=C sort \
     | sed 's|^|$(SRCROOT)/../|' ) > "$TMP"
 
 if [ -f "$OUT" ] && cmp -s "$TMP" "$OUT"; then
