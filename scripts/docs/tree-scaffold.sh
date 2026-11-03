@@ -43,7 +43,12 @@ MARK = "<!-- tree-scaffold:end -->"
 def git(*a):
     return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True).stdout.splitlines()
 
-FILES = git("ls-files")
+# The tree AS THE NEXT COMMIT WILL HOLD IT: tracked + untracked-not-ignored files that exist on disk.
+# Plain `git ls-files` lists the INDEX, so a refresh run before committing a new file (or after
+# deleting one) wrote pages that went stale the moment the commit landed, and CI then failed the
+# docs check on a tree that had been "refreshed". On a clean checkout this is exactly `git ls-files`.
+FILES = sorted({f for f in git("ls-files", "-co", "--exclude-standard")
+                if os.path.lexists(os.path.join(ROOT, f))})
 
 # Areas with no page, each with the REASON — published on PROJECT_TREE.md rather than left implicit. An
 # area silently missing from the map is indistinguishable from one nobody has considered, which is the

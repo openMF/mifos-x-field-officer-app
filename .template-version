@@ -2,7 +2,7 @@
 # Managed by scripts/white-label/sync-dirs.sh — DO NOT hand-edit.
 # Format: bash-parseable key=value (same convention as gradle/fork.properties).
 template_repo=openMF/kmp-project-template
-template_ref=0cb8cdfb4d1d530b500a508526c9db6c3f096b56
-template_sha=0cb8cdfb4d1d530b500a508526c9db6c3f096b56
+template_ref=28737ca5a0de42a7d180b7fcd0d54c5fd639759b
+template_sha=28737ca5a0de42a7d180b7fcd0d54c5fd639759b
 template_tag=
-synced_at=2026-11-03T08:01:31Z
+synced_at=2026-11-03T15:41:19Z

@@ -2,11 +2,11 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_MODEL.md`
-> **Measured:** 422 Kotlin files, 0 test files
+> **Measured:** 425 Kotlin files, 2 test files
 
 ## Principal types
 
-`Account`, `AccountChart`, `AccountLinkingOptions`, `AccountOption`, `AccountOptions`, `AccountTransferRequest`, `AccountTransferTemplate`, `AccountTypeOption`, `AccountingRule`, `ActivatePayload`, `ActualDisbursementDate`, `Address`, `AddressConfiguration`, `AddressDraftPayload`  …and 353 more
+`Account`, `AccountChart`, `AccountLinkingOptions`, `AccountOption`, `AccountOptions`, `AccountTransferRequest`, `AccountTransferTemplate`, `AccountTypeOption`, `AccountingRule`, `ActivatePayload`, `ActualDisbursementDate`, `Address`, `AddressConfiguration`, `AddressDraftPayload`  …and 354 more
 
 <!-- scaffold:end -->
 
@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/model sha=16acf5fff3c83a22dc67ae3ce714b7d9c4e1d94e -->
+<!-- api-docs:begin module=core/model sha=a774c761f490f323f9186f3a60f77c6e170ab813 -->
 ## API reference
 
-_Generated from `core/model` at tree `16acf5fff3c8` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/model` at tree `a774c761f490` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/auth/ChangePasswordRequest.kt`
@@ -9292,6 +9292,13 @@ The selected colour brand. A fork extends this to offer its own palettes.
 
 </details>
 
+### `core/model/src/commonMain/kotlin/kpt/core/model/user/UnlockType.kt`
+
+```kotlin
+enum class UnlockType
+```
+How the user unlocks the app — passcode or biometric.
+
 ### `core/model/src/commonMain/kotlin/kpt/core/model/user/UserData.kt`
 
 ```kotlin
@@ -9479,5 +9486,5 @@ The instance whose config is exactly `config`, or null for a custom server.
 
 ---
 
-_460 type(s), 45 function(s)/property(ies); 487 carry KDoc at source; 2 authored example(s); 451 live call site(s)._
+_461 type(s), 45 function(s)/property(ies); 488 carry KDoc at source; 2 authored example(s); 451 live call site(s)._
 <!-- api-docs:end -->

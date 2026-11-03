@@ -61,23 +61,32 @@ want() { [ -z "$WANT" ] || [ "$WANT" = "$1" ]; }
 # deliberately malformed, and asking them for docs would be asking a RED fixture to stop being red.
 FIXTURES='^scripts/product-health/tests/|^scripts/docs/tests/|^spotless/'
 
+# The tree AS THE NEXT COMMIT WILL HOLD IT: tracked + untracked-not-ignored files that exist on disk.
+# Plain `git ls-files` lists the INDEX, so a refresh run before committing a new file (or after
+# deleting one) wrote pages that went stale the moment the commit landed, and CI then failed the
+# docs check on a tree that had been "refreshed". On a clean checkout this is exactly `git ls-files`.
+tree_files() {
+  git ls-files -co --exclude-standard -- "$@" | while IFS= read -r f; do [ -e "$f" ] && printf '%s\n' "$f"; done \
+    | LC_ALL=C sort -u
+}
+
 scan_all() {
   if want kotlin; then
-    git ls-files '*.kt' | grep -vE "$FIXTURES" | xargs -n 200 awk -f "$S/kotlin.awk" || FAILED=1
+    tree_files '*.kt' | grep -vE "$FIXTURES" | xargs -n 200 awk -f "$S/kotlin.awk" || FAILED=1
   fi
   if want shell; then
-    git ls-files '*.sh' | grep -vE "$FIXTURES" | while IFS= read -r f; do awk -f "$S/shell.awk" "$f"; done
+    tree_files '*.sh' | grep -vE "$FIXTURES" | while IFS= read -r f; do awk -f "$S/shell.awk" "$f"; done
   fi
   if want ruby; then
-    git ls-files | grep -E '\.rb$|/Fastfile$|/Appfile$' | grep -vE "$FIXTURES" \
+    tree_files | grep -E '\.rb$|/Fastfile$|/Appfile$' | grep -vE "$FIXTURES" \
       | while IFS= read -r f; do awk -f "$S/ruby.awk" "$f" || exit 1; done || FAILED=1
   fi
   if want workflow; then
     # shellcheck disable=SC2046
-    bash "$S/workflow.sh" $(git ls-files '.github/workflows/*.yml' '.github/workflows/*.yaml') || FAILED=1
+    bash "$S/workflow.sh" $(tree_files '.github/workflows/*.yml' '.github/workflows/*.yaml') || FAILED=1
   fi
   if want config; then
-    git ls-files 'app-profile/*.yaml' 'deployment/DEPLOYMENT_MANIFEST.yaml' \
+    tree_files 'app-profile/*.yaml' 'deployment/DEPLOYMENT_MANIFEST.yaml' \
                  'core/store/STORE_ARCHETYPES.yaml' 'customization-surface.yaml' 2>/dev/null \
       | while IFS= read -r f; do awk -f "$S/yamlcfg.awk" "$f" || exit 1; done || FAILED=1
   fi

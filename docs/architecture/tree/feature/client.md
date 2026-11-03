@@ -1,9 +1,9 @@
 # `feature/client/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 155 tracked files — 117× `.kt`, 32× `.xml`, 3× `.png`, 2× `.md`, 1× `.kts`
+> **Measured:** 158 tracked files — 118× `.kt`, 32× `.xml`, 3× `.png`, 2× `.md`, 2× `.js`
 
-**117 Kotlin files** — 27 screen(s), 27 ViewModel(s).
+**118 Kotlin files** — 27 screen(s), 27 ViewModel(s).
 
 Screens: `ClientAddAddressScreen`, `ClientAddDocumentScreen`, `ClientAddIdentifierScreen`, `ClientAddressScreen`, `ClientApplyNewScreen`, `ClientClosureScreen`, `ClientCollateralDetailsScreen`, `ClientCollateralScreen`, `ClientDefaultAccountScreen`, `ClientDepositAccountsScreen`, `ClientDetailsScreen`, `ClientDocumentPreviewScreen`, `ClientDocumentsScreen`, `ClientEditDetailsScreen`, `ClientEditProfileScreen`, `ClientGeneralScreen`, `ClientIdentifiersScreen`, `ClientListScreen`, `ClientLoanAccountsScreen`, `ClientProfileScreen`, `ClientShareAccountsScreen`, `ClientSignatureScreen`, `ClientStaffScreen`, `ClientTransferScreen`, `CreateNewClientScreen`, `FixedDepositApplicationScreen`, `ShareApplicationScreen`
 

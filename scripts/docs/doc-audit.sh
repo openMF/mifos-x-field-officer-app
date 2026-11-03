@@ -29,7 +29,12 @@ python3 - <<'PYEOF' || FAIL=1
 import io, os, re, subprocess, collections, sys
 MARK = "<!-- tree-scaffold:end -->"
 OUT  = "docs/architecture/tree"
-files = subprocess.run(["git","ls-files"],capture_output=True,text=True).stdout.splitlines()
+# The tree AS THE NEXT COMMIT WILL HOLD IT: tracked + untracked-not-ignored files that exist on disk.
+# Plain `git ls-files` lists the INDEX, so a refresh run before committing a new file (or after
+# deleting one) wrote pages that went stale the moment the commit landed, and CI then failed the
+# docs check on a tree that had been "refreshed". On a clean checkout this is exactly `git ls-files`.
+files = sorted({f for f in subprocess.run(["git","ls-files","-co","--exclude-standard"],capture_output=True,
+                  text=True).stdout.splitlines() if os.path.lexists(f)})
 areas = collections.defaultdict(list)
 for f in files:
     p = f.split("/")
@@ -93,7 +98,8 @@ if bash "$D/doc-refs.sh" --strict >/dev/null 2>&1; then say "  ✓ every referen
 say "── A6  internal markdown links ───────────────────────────────────────────────"
 python3 - <<'PYEOF' || FAIL=1
 import os, re, subprocess, sys
-md = subprocess.run(["git","ls-files","*.md"],capture_output=True,text=True).stdout.splitlines()
+md = sorted({f for f in subprocess.run(["git","ls-files","-co","--exclude-standard","*.md"],capture_output=True,
+               text=True).stdout.splitlines() if os.path.lexists(f)})   # the to-be-committed tree, as A1
 for d,_,fs in os.walk("docs"):
     for f in fs:
         if f.endswith(".md"):

@@ -1,13 +1,13 @@
 # `feature/`
 
 > **Kind:** Kotlin Multiplatform module group  
-> **Measured:** 880 tracked files — 474× `.kt`, 172× `.xml`, 164× `.png`, 41× `.md`, 22× `.kts`
+> **Measured:** 883 tracked files — 475× `.kt`, 172× `.xml`, 164× `.png`, 41× `.md`, 22× `.kts`
 
 ## Shape
 
 | Path | Files |
 |---|---:|
-| `feature/client/` | 155 |
+| `feature/client/` | 158 |
 | `feature/loan/` | 93 |
 | `feature/settings/` | 83 |
 | `feature/home/` | 59 |
@@ -40,7 +40,7 @@
 | `feature:center` | 20 Kotlin files — [guide](feature/center.md) |
 | `feature:charge` | 15 Kotlin files — [guide](feature/charge.md) |
 | `feature:checkerinbox` | 7 Kotlin files — [guide](feature/checkerinbox.md) |
-| `feature:client` | 117 Kotlin files — [guide](feature/client.md) |
+| `feature:client` | 118 Kotlin files — [guide](feature/client.md) |
 | `feature:collectionsheet` | 10 Kotlin files — [guide](feature/collectionsheet.md) |
 | `feature:datatable` | 10 Kotlin files — [guide](feature/datatable.md) |
 | `feature:document` | 11 Kotlin files — [guide](feature/document.md) |
@@ -67,7 +67,7 @@
 | `feature/center/` | 34 | [center](feature/center.md) |
 | `feature/charge/` | 29 | [charge](feature/charge.md) |
 | `feature/checkerinbox/` | 18 | [checkerinbox](feature/checkerinbox.md) |
-| `feature/client/` | 155 | [client](feature/client.md) |
+| `feature/client/` | 158 | [client](feature/client.md) |
 | `feature/collectionsheet/` | 19 | [collectionsheet](feature/collectionsheet.md) |
 | `feature/datatable/` | 18 | [datatable](feature/datatable.md) |
 | `feature/document/` | 19 | [document](feature/document.md) |

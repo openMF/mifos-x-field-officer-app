@@ -73,14 +73,40 @@ module_sha() {  # $1 = layer/module → the ONE shared working-tree anchor
   bash "$(dirname "${BASH_SOURCE[0]}")/module-hash.sh" "$1" 2>/dev/null
 }
 
+# ── Summary text transforms, as shell expansions on KS ────────────────────────────────────────────
+# They were a `sed` per documented symbol (~2,700 per `--all`). Each matches the sed expression it
+# names, under the LC_ALL=C pinned above; `refresh.sh --check` byte-compares the result, so a
+# divergence cannot go unnoticed.
+SENTENCE_RE='^(.{0,240}[.!?])([[:space:]].*)?$'    # s/^(.{0,240}[.!?])([[:space:]].*)?$/\1/
+
+# _kd_links — unwraps KDoc links in KS: `s/\[([A-Za-z0-9_.]+)\]/`\1`/g`. The leftmost regex match
+# is always the first literal occurrence of the matched text, so slicing on it is exact.
+_kd_links() {
+  local out="" rest="$KS" re='\[([A-Za-z0-9_.]+)\]' m
+  while [[ "$rest" =~ $re ]]; do
+    m="${BASH_REMATCH[0]}"
+    out+="${rest%%"$m"*}\`${BASH_REMATCH[1]}\`"; rest="${rest#*"$m"}"
+  done
+  KS="$out$rest"
+}
+
+# _kd_squeeze — collapses whitespace runs in KS to one space and trims it:
+# `s/[[:space:]]+/ /g; s/^ //; s/ $//`.
+_kd_squeeze() {
+  KS="${KS//[[:space:]]/ }"
+  while [[ "$KS" == *"  "* ]]; do KS="${KS//  / }"; done
+  KS="${KS# }"; KS="${KS% }"
+}
+
 # ── KDoc summary immediately ABOVE a declaration ─────────────────────────────────────────────────
-# Walks upward from the declaration line while the lines belong to a `/** … */` block, then returns
-# its first sentence. Markdown/KDoc tags (@param, @return, @see) are dropped: the summary is what a
-# generator needs to pick the right call, and the tags are noise at index density.
+# Walks upward from the declaration line while the lines belong to a `/** … */` block, then sets KSUM
+# to its first sentence (status 1 when there is no KDoc). Markdown/KDoc tags (@param, @return, @see)
+# are dropped: the summary is what a generator needs to pick the right call, and the tags are noise
+# at index density.
 kdoc_summary() {  # $1 = file  $2 = declaration line number
   local f="$1" ln="$2" i txt line acc="" _kl=""
   # Shared walk: crosses blank lines, single-line annotations AND multi-line annotation arg lists.
-  i="$(kdoc_close_line "$f" "$ln")"
+  kdoc_close_line_v "$f" "$ln"; i="$KCL"
   # The line must now CLOSE a KDoc block — in either of its two shapes. A single-line
   # `/** Summary. */` closes and opens on the same line, so a test that only accepts a leading `*/`
   # misses it entirely. That is not rare styling: it is how nearly every one-line doc in this
@@ -91,10 +117,9 @@ kdoc_summary() {  # $1 = file  $2 = declaration line number
   case "$_kl" in
     "/**"*"*/")
       # Single-line: the summary is the text between the delimiters — no upward walk needed.
-      printf '%s' "$_kl" \
-        | sed -E 's|^/\*\*[[:space:]]*||; s|[[:space:]]*\*/$||' \
-        | sed -E 's/\[([A-Za-z0-9_.]+)\]/`\1`/g' \
-        | sed -E 's/[[:space:]]+/ /g; s/^ //; s/ $//'
+      KS="${_kl#/\*\*}"; KS="${KS#"${KS%%[![:space:]]*}"}"
+      KS="${KS%\*/}"; KS="${KS%"${KS##*[![:space:]]}"}"
+      _kd_links; _kd_squeeze; KSUM="$KS"
       return 0 ;;
     "*/"|"*/ "*) ;;
     *) return 1 ;;
@@ -115,8 +140,9 @@ kdoc_summary() {  # $1 = file  $2 = declaration line number
   done
   [ -n "$acc" ] || return 1
   # first sentence, collapsed, KDoc links unwrapped
-  printf '%s' "$acc" | sed -E 's/\[([A-Za-z0-9_.]+)\]/`\1`/g; s/^(.{0,240}[.!?])([[:space:]].*)?$/\1/' \
-    | sed -E 's/[[:space:]]+/ /g; s/^ //; s/ $//'
+  KS="$acc"; _kd_links
+  [[ "$KS" =~ $SENTENCE_RE ]] && KS="${BASH_REMATCH[1]}"
+  _kd_squeeze; KSUM="$KS"
 }
 
 
@@ -125,10 +151,11 @@ kdoc_summary() {  # $1 = file  $2 = declaration line number
 # 81 hand-written code fences in this template's KDoc are the most useful thing in it for a model
 # deciding HOW to call an API, and they were being discarded. Emitted verbatim, because a
 # reformatted example is a different example.
-kdoc_example() {  # $1 = file  $2 = declaration line number
+kdoc_example() {  # $1 = file  $2 = declaration line number → KEX (empty = no example)
   local f="$1" ln="$2" start=0 i
+  KEX=""
   # walk up to the `/**` that opens this symbol's KDoc — same shared walk as kdoc_summary
-  i="$(kdoc_close_line "$f" "$ln")"
+  kdoc_close_line_v "$f" "$ln"; i="$KCL"
   [ "$i" -gt 0 ] || return 1
   kdoc_line "$f" "$i"; kdoc_ltrim "$KL"
   case "$KT" in
@@ -142,11 +169,19 @@ kdoc_example() {  # $1 = file  $2 = declaration line number
     i=$((i-1))
   done
   [ "$start" -gt 0 ] || return 1
+  # No fence in the block → no example. Checked on the loaded lines first: 81 KDocs in this template
+  # carry a fence and over a thousand do not, and the pipeline below is four processes per symbol.
+  local k=$start fenced=0
+  while [ "$k" -le "$close" ]; do
+    kdoc_line "$f" "$k"; case "$KL" in *'```'*) fenced=1; break ;; esac
+    k=$((k+1))
+  done
+  [ "$fenced" -eq 1 ] || return 0
   # strip the leading ` * ` gutter, then keep only the fenced region
-  sed -n "${start},${close}p" "$f" \
+  KEX="$(sed -n "${start},${close}p" "$f" \
     | sed -E 's|^[[:space:]]*/?\*+/?[[:space:]]?||' \
     | awk '/^```/{f=!f; next} f' \
-    | sed -E 's/[[:space:]]+$//'
+    | sed -E 's/[[:space:]]+$//')"
 }
 
 # ── call-site index — built ONCE, then looked up per symbol ───────────────────────────────────────
@@ -164,6 +199,11 @@ kdoc_example() {  # $1 = file  $2 = declaration line number
 # rebuilt for EVERY symbol. 914 symbols × a full-tree scan is why `--all` ran past ten minutes.
 # A variable cannot memoise across command substitution; the file has to exist before the loop starts.
 CALLSITE_INDEX="${TMPDIR:-/tmp}/kpt-callsites-$$.idx"
+
+# Declaration kind and declared name, matched with `[[ =~ ]]` (see emit_module). Kept in variables:
+# a regex written inline after `=~` must not be quoted, and these contain spaces and `|`.
+KIND_RE='(annotation class|data class|sealed class|sealed interface|enum class|value class|abstract class|class|interface|object|typealias|fun|val|var)'
+SYM_RE='(fun|val|var|class|interface|object|typealias)[[:space:]]+(<[^>]*>[[:space:]]*)?([A-Za-z0-9_]+(<[^>]*>)?\.)?[A-Za-z0-9_]+'
 build_callsite_index() {
   [ -s "$CALLSITE_INDEX" ] && return 0
   # ONE awk pass over every .kt under feature/ + core/, emitting `identifier|path|line`.
@@ -219,16 +259,20 @@ build_callsite_index() {
   # scan of a few thousand rows.
 }
 
-call_site() {  # $1 = symbol name  $2 = declaring file → "relpath|line"
-  local sym="$1" own="${2#$TMPL/}" hit
-  hit="$(grep -m 40 "^${sym}|" "$CALLSITE_INDEX" 2>/dev/null | grep -v "|${TMPL}/${own}|" | head -1)"
+call_site() {  # $1 = symbol name  $2 = declaring file → KCS="relpath|line" (status 1 = none)
+  local sym="$1" own="${2#$TMPL/}" hit="" row file line rest
+  # One grep reads the index; the own-file filter, first-hit pick and field split are shell work
+  # (they were three more processes per symbol: `grep -v | head -1`, then `cut` twice).
+  while IFS= read -r row; do
+    case "$row" in *"|${TMPL}/${own}|"*) continue ;; esac
+    hit="$row"; break
+  done < <(grep -m 40 "^${sym}|" "$CALLSITE_INDEX" 2>/dev/null)
   [ -n "$hit" ] || return 1
-  local file line
-  file="$(printf '%s' "$hit" | cut -d'|' -f2)"; file="${file#$TMPL/}"
-  line="$(printf '%s' "$hit" | cut -d'|' -f3)"
+  rest="${hit#*|}"; file="${rest%%|*}"; file="${file#$TMPL/}"
+  line="${rest#*|}"; line="${line%%|*}"
   [ "$file" = "$own" ] && return 1
   case "$line" in ''|*[!0-9]*) return 1 ;; esac
-  printf '%s|%s\n' "$file" "$line"
+  KCS="$file|$line"
 }
 
 emit_module() {  # $1 = layer/module
@@ -272,8 +316,12 @@ emit_module() {  # $1 = layer/module
       [ -z "$hit" ] && continue
       ln="${hit%%:*}"
       sig="${hit#*:}"
-      sig="$(printf '%s' "$sig" | sed -E 's/[[:space:]]*\{[[:space:]]*$//; s/[[:space:]]+$//')"
-      kind="$(printf '%s' "$sig" | grep -oE '(annotation class|data class|sealed class|sealed interface|enum class|value class|abstract class|class|interface|object|typealias|fun|val|var)' | head -1)"
+      # Trim a trailing `{` and trailing blanks, then pick the declaration kind — with shell expansion
+      # and `[[ =~ ]]` (POSIX leftmost-longest, the same match `grep -oE | head -1` returned), not three
+      # processes per declaration.
+      sig="${sig%"${sig##*[![:space:]]}"}"
+      case "$sig" in *"{") sig="${sig%\{}"; sig="${sig%"${sig##*[![:space:]]}"}" ;; esac
+      kind=""; [[ "$sig" =~ $KIND_RE ]] && kind="${BASH_REMATCH[1]}"
       case "$kind" in fun|val|var) n_funs=$((n_funs+1)) ;; *) n_types=$((n_types+1)) ;; esac
 
       if [ "$file_emitted" -eq 0 ]; then
@@ -281,7 +329,9 @@ emit_module() {  # $1 = layer/module
         file_emitted=1
       fi
       printf '```kotlin\n%s\n```\n' "$sig"
-      if doc="$(kdoc_summary "$f" "$ln")"; then
+      # Helpers return through KSUM / KEX / KCS, not stdout: a `$( … )` around each forked a subshell
+      # per declaration, three times over.
+      if kdoc_summary "$f" "$ln"; then doc="$KSUM"
         n_doc=$((n_doc+1))
         printf '%s\n\n' "$doc"
       else
@@ -289,18 +339,21 @@ emit_module() {  # $1 = layer/module
       fi
 
       # ── examples, for a reader deciding HOW to call this ──
-      _ex="$(kdoc_example "$f" "$ln")"
+      kdoc_example "$f" "$ln"; _ex="$KEX"
       if [ -n "$_ex" ]; then
         n_ex=$((n_ex+1))
         printf '<details><summary>Example</summary>\n\n```kotlin\n%s\n```\n\n</details>\n\n' "$_ex"
       fi
-      _sym="$(printf '%s' "$sig" | grep -oE '(fun|val|var|class|interface|object|typealias)[[:space:]]+(<[^>]*>[[:space:]]*)?([A-Za-z0-9_]+(<[^>]*>)?\.)?[A-Za-z0-9_]+' | grep -oE '[A-Za-z0-9_]+$' | head -1)"
-      if [ -n "$_sym" ] && _cs="$(call_site "$_sym" "$f")"; then
+      _sym=""
+      if [[ "$sig" =~ $SYM_RE ]]; then
+        _sym="${BASH_REMATCH[0]}"; [[ "$_sym" =~ [A-Za-z0-9_]+$ ]] && _sym="${BASH_REMATCH[0]}"
+      fi
+      if [ -n "$_sym" ] && call_site "$_sym" "$f"; then _cs="$KCS"
         n_cs=$((n_cs+1))
         _csf="${_cs%%|*}"; _csl="${_cs##*|}"
         _from=$(( _csl > 2 ? _csl - 2 : 1 ))
         printf '<details><summary>Used in the template — <code>%s:%s</code></summary>\n\n```kotlin\n%s\n```\n\n</details>\n\n' \
-          "$_csf" "$_csl" "$(sed -n "${_from},$((_csl+4))p" "$TMPL/$_csf" | sed -E 's/[[:space:]]+$//')"
+          "$_csf" "$_csl" "$(sed -E -n "${_from},$((_csl+4)){s/[[:space:]]+$//;p;}" "$TMPL/$_csf")"
       fi
 
       # Container members — what a caller actually invokes. `object StoreFactory` on its own tells a
@@ -312,11 +365,12 @@ emit_module() {  # $1 = layer/module
             [ -z "$mem" ] && continue
             [ "$c" -ge 14 ] && { printf -- "  _…more members; read the file._\n"; break; }
             mln="${mem%%:*}"; msig="${mem#*:}"
-            msig="$(printf '%s' "$msig" | sed -E 's/^[[:space:]]+//; s/[[:space:]]*\{[[:space:]]*$//; s/[[:space:]]+$//')"
+            msig="${msig#"${msig%%[![:space:]]*}"}"; msig="${msig%"${msig##*[![:space:]]}"}"
+            case "$msig" in *"{") msig="${msig%\{}"; msig="${msig%"${msig##*[![:space:]]}"}" ;; esac
             c=$((c+1)); n_funs=$((n_funs+1))
             # `--` is required: a format string starting with `-` is parsed as a printf OPTION.
             printf -- '- `%s`' "$msig"
-            if mdoc="$(kdoc_summary "$f" "$mln")"; then n_doc=$((n_doc+1)); printf ' — %s' "$mdoc"; fi
+            if kdoc_summary "$f" "$mln"; then mdoc="$KSUM" n_doc=$((n_doc+1)); printf ' — %s' "$mdoc"; fi
             printf '\n'
           done < <(
             # Members must be scoped to THIS container's line range, not the whole file. Grepping the
@@ -409,11 +463,27 @@ elif [ "$TARGET" = "--all" ]; then
   # feature modules here are the only worked examples of that in the repo — 254 .kt files that
   # compile, against 11 Kotlin fences in FEATURE_LAYER.md. Leaving them undocumented meant 0 of 17
   # feature pages carried an API block while every core*/ page did.
+  # --write runs the modules in PARALLEL: each page is independent (its own temp files; the call-site
+  # index is built above and only read), so the pages are byte-identical to a sequential run — only
+  # the order of the "✎ page" log lines can vary. Batches of DOCS_JOBS (default: the core count;
+  # DOCS_JOBS=1 restores sequential). A failed module still fails the run. stdout mode stays
+  # sequential, because there the ORDER is the output.
+  jobs_max="${DOCS_JOBS:-$(getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)}"
+  pids=(); fail=0
   for d in "$TMPL"/core-base/*/ "$TMPL"/core/*/ "$TMPL"/feature/*/; do
     [ -d "$d/src" ] || continue
     p="${d%/}"; lm="${p#"$TMPL"/}"
-    if [ "$DO_WRITE" -eq 1 ]; then write_module "$lm"; else emit_module "$lm"; echo; fi
+    if [ "$DO_WRITE" -eq 1 ]; then
+      write_module "$lm" & pids+=("$!")
+      if [ "${#pids[@]}" -ge "$jobs_max" ]; then
+        for pid in "${pids[@]}"; do wait "$pid" || fail=1; done; pids=()
+      fi
+    else
+      emit_module "$lm"; echo
+    fi
   done
+  for pid in "${pids[@]+"${pids[@]}"}"; do wait "$pid" || fail=1; done
+  [ "$fail" -eq 0 ] || { echo "template-api-docs-gen: a module failed to generate — see above" >&2; exit 2; }
 else
   if [ "$DO_WRITE" -eq 1 ]; then write_module "$TARGET"; else emit_module "$TARGET"; fi
 fi

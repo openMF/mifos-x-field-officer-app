@@ -37,7 +37,12 @@ import io, os, re, subprocess, sys, collections
 ROOT, STRICT = sys.argv[1], sys.argv[2] == "1"
 os.chdir(ROOT)
 
-TRACKED = subprocess.run(["git","ls-files"],capture_output=True,text=True).stdout.splitlines()
+# The tree AS THE NEXT COMMIT WILL HOLD IT: tracked + untracked-not-ignored files that exist on disk.
+# Plain `git ls-files` lists the INDEX, so a refresh run before committing a new file (or after
+# deleting one) wrote pages that went stale the moment the commit landed, and CI then failed the
+# docs check on a tree that had been "refreshed". On a clean checkout this is exactly `git ls-files`.
+TRACKED = sorted({f for f in subprocess.run(["git","ls-files","-co","--exclude-standard"],capture_output=True,
+                    text=True).stdout.splitlines() if os.path.lexists(f)})
 EXACT = set(TRACKED)
 SUFFIX = collections.defaultdict(set)
 for t in TRACKED:

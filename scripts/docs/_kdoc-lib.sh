@@ -51,7 +51,12 @@ kdoc_count() { local _x="${1//[^$2]/}"; KC="${#_x}"; }
 # kdoc_close_line <file> <declaration-line-no>
 # Prints the 1-based line number that should hold the end of this declaration's KDoc (whatever is
 # actually there — the caller decides whether it IS a KDoc). Prints 0 when the walk runs off the top.
-kdoc_close_line() {
+kdoc_close_line() { kdoc_close_line_v "$1" "$2"; printf '%s' "$KCL"; }
+
+# kdoc_close_line_v <file> <declaration-line-no> — the same walk, setting KCL instead of printing it.
+# For hot loops: `$(kdoc_close_line …)` forks a subshell per declaration, which across `--all` cost
+# more than the walk itself.
+kdoc_close_line_v() {
   local f="$1" i="$2" t closes opens depth j
   i=$((i - 1))
   while [ "$i" -gt 0 ]; do
@@ -80,5 +85,5 @@ kdoc_close_line() {
       *)    break ;;                          # someone else's parameter list — stop here
     esac
   done
-  printf '%s' "$i"
+  KCL="$i"
 }
