@@ -1,61 +1,28 @@
-# deployment-layer/store-listing/variants/v1/app-content/android/en-US/content-rating.yaml
-# feeds Google Play Console "App content" → "Content rating" (IARC) questionnaire. Folds 1:1
-# into app-profile/platforms/android/app-content/content-rating.yaml on `--sync`.
-#
-# App Toolkit posture: 100% offline, no login, no account, no ads, no tracking, no user-generated
-# content. Loan tracker / EMI calculator / bill reminders / interest-rate viewer only.
+# Discrete content-rating declaration — folds 1:1 into app-profile/platforms/android/app-content/.
+# Split out from app-content.yaml because store-assets-sync.ts reads the per-question files by key.
+schema_version: 1
+platform: android
+locale: en-US
 
-category: Utility  # IARC "reference category" — Utility, Productivity, or Other (non-game)
+category: "Utility, Productivity, Communication, or Other"
+email: "team@mifos.org"
 
-# The IARC questionnaire answers, question by question.
-# Authored here rather than in the Play console so the rating is reviewable in a diff and
-# reproducible on a re-submission.
-questionnaire:
-  violence:
-    realistic_violence: false
-    fantasy_violence: false
-    graphic_violence: false
-    violence_against_children: false
-  sexual_content:
-    nudity: false
-    sexual_content_or_themes: false
-  profanity:
-    crude_humor_or_language: false
-  controlled_substances:
-    references_to_alcohol: false
-    references_to_tobacco: false
-    references_to_drugs: false
-    simulated_gambling: false
-  gambling:
-    real_money_gambling: false
-    simulated_gambling: false
-  user_generated_content:
-    allows_ugc: false
-    allows_user_interaction: false
-    shares_location: false
-    unrestricted_internet_access: false
-    digital_purchases: false
-  fear:
-    horror_or_fear_themes: false
-  discrimination:
-    hate_speech_or_discriminatory_content: false
-  miscellaneous:
-    depicts_illegal_activity: false
+answers:
+  violence: none
+  sexuality_nudity: none
+  profanity_crude_humour: none
+  controlled_substances: none
+  gambling_simulated: none
+  horror_fear: none
+  user_generated_content: false
+  users_interact: false
+  shares_user_location: false
+  digital_purchases: false
+  contains_ads: false
 
-# The ratings the answers should produce, per board (ESRB, PEGI, USK, …).
-# A sanity check: if the returned rating differs, an answer was misread.
-expected_ratings:
-  esrb: Everyone
-  pegi: 3
-  usk: 0
-  classind: L
-  acb: G
-  giac_iarc_generic: 3+
-  playstore_summary: Everyone
-
-# Free-text rationale for an answer a reviewer might question.
-notes: >
-  No content triggers any IARC descriptor. Expected outcome across all
-  territory-specific systems is the lowest ("Everyone" / "3+" / "G") rating.
-  Re-run the Play Console questionnaire whenever a new feature adds
-  ads, UGC, location sharing, or purchases — none are planned.
+outcome:
+  iarc_rating: "Everyone"
+  rationale: >-
+    A business tool for staff of financial institutions: it shows an authorised officer their
+    institution's own client and account records. No content library, no social features, no ads,
+    no purchases — every answer is "no".

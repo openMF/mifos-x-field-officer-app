@@ -9,7 +9,7 @@
 
 identity:
   app_id: com.mifos.mifosxdroid              # SoT for appId (from dev: libs.versions.androidPackageNamespace)
-  app_name: MifosXDroid                      # from dev: cmp-android/src/main/res/values/strings.xml#app_name
+  app_name: MifosXDroid                      # launcher + in-app name. The Play listing title is store.title ("Mifos X Field Officer")
   namespace: com.mifos.mifosxdroid           # mirrors app_id
   # Apex domain the ARCHITECTURE DOCS publish under, as `docs.<this value>`. OPTIONAL and UNSET by
   # default: with no value the docs workflow still deploys, to the Cloudflare Pages `*.pages.dev`
@@ -261,7 +261,7 @@ org:
   copyright: "© 2026 Mifos Initiative. All rights reserved."   # desktop / Mac App Store packaging copyright (org.copyright)
   secrets_namespace: mifos-x   # vault-alias prefix for org-shared secrets (`mifos-x-<suffix>`); per-app ones use projectName
   marketing_url: https://mifos.org
-  privacy_url: https://raw.githubusercontent.com/openMF/kmp-project-template/main/legal/output/privacy-policy.md
+  privacy_url: https://mifos-products.pages.dev/mobile/field-officer/privacy/   # content/legal/field-officer/privacy.md on the Mifos products site
   support_url: https://github.com/openMF/mifos-x-field-officer-app   # this app's repo — About (source/license/contributors) + store support link
   # The fork's own named links, generated into kpt.core.model.config.AppOrgLinks by syncForkConfig
   # (`AppOrgLinks["community"]`). About reads `community` (Community row, the Mifos Slack — #mobile)
@@ -295,45 +295,10 @@ store:
   # Store copy taken from the app's own published Play listing on `dev`
   # (fastlane/metadata/android/en-US/{title,short_description,full_description}.txt and
   # changelogs/6.txt) — authored by Mifos for this app, not the template's demo copy.
-  title: 'MifosX Android Client'                    # app display name (App Store name / Play title)
+  title: 'Mifos X Field Officer'                    # app display name (App Store name / Play title)
   subtitle: 'Field operations on Apache Fineract'
   promotional_text: 'Mobile field operations app for financial inclusion built on Apache Fineract.'
-  description: |-
-    Financial Inclusion is at your fingertips directly in the field. This app gives financial institutions the full power of Mifos X wherever they are by allowing field-based staff to handle all their daily operations from onboarding new clients and accounts to collecting repayments and deposits, and surveying clients in the field. Supervisors can now ensure greater efficiency and transparency with field operations. Offline data synchronization for clients and groups is now available to support opening new clients and doing field collections while in remote regions without connectivity.
-
-    The following field operations are supported:
-
-    <b>Office Management</b>
-    - Create center new groups and centers
-    - Create clients from within parent group
-    - Create new groups from with parent center.
-
-    <b>Client Management</b>
-    - Create new clients individually and within a group
-    - View client details.
-    - Add identifiers and documents to clients.
-    - Take client photo via webcam.
-    - Pinpoint client GPS location
-
-    <b>Account Management</b>
-    - Open, approve, and disburse new loan accounts
-    - Open, approve, and activate new savings accounts
-    - Attach documents to loan and savings accounts.
-    - Support for data tables & adding documents
-    - Input repayments for loans
-    - Input deposits and withdrawals for savings accounts.
-    - Attach charges to accounts.
-    - View full details and transaction history for loan and savings accounts
-
-    <b>Offline Data Collection & Synchronization</b>
-    - Synchronize clients and groups for offline data entry
-    - Enter repayments, deposits, and withdrawals while offline
-    - Create new clients while offline
-    - Create new loan and savings accounts while offline.
-
-    <b>GIS & Location-Based Features</b>
-    - Pinpoint GPS location of a client residence.
-    - Track route of field officer.
+  description: 'Mifos X Field Officer is the mobile app for loan officers and field staff at microfinance institutions, credit unions and banks that run Mifos X / Apache Fineract. Visit clients, open accounts, disburse and collect loans, and record savings deposits from the field, even where there is no network.\n\nBuilt by the Mifos Initiative, a nonprofit working on financial inclusion for the world''s unbanked, it connects to your institution''s own Fineract server. Your institution holds the data; the app is the field officer''s window into it.\n\nWORK OFFLINE, SYNC LATER\n• Choose the centres, groups and clients you will visit, and the app downloads everything you need before you leave the office.\n• Keep working with no connection. Actions you take offline are saved as drafts.\n• When you are back in coverage, Sync & Drafts uploads them to the server.\n\nYOUR DAY ON ONE SCREEN\n• A home dashboard with today''s collections, your work queue, meetings and your portfolio.\n• Every card follows your Fineract permissions, so you only see what you are allowed to act on.\n\nCLIENTS\n• Register new clients with their personal details, identifiers, photo and signature.\n• View, edit and activate clients, and attach documents and notes.\n• Search across clients, groups, centres and accounts.\n\nLOANS\n• Create loan applications and follow them through approval and disbursement.\n• Record repayments and view each loan''s schedule, charges and transactions.\n\nSAVINGS AND RECURRING DEPOSITS\n• Open savings and recurring deposit accounts.\n• Record deposits and withdrawals, and view balances and history.\n\nCENTRES, GROUPS AND COLLECTION SHEETS\n• Manage centres and groups and their members.\n• Run individual and group collection sheets for a meeting in one pass.\n\nREPORTS AND APPROVALS\n• Run your institution''s reports from the device.\n• Work through the checker inbox to approve or reject pending tasks.\n\nSECURE BY DESIGN\n• Sign in with the credentials your institution issues.\n• Data is sent only to your institution''s server, over an encrypted connection.\n• The offline copy on the device is encrypted and cleared when you sign out.\n\nThis app needs a Mifos X / Apache Fineract account from your institution. Mifos X Field Officer is free and open source under the Mozilla Public License 2.0. Source code, issues and contributor guides: github.com/openMF/mifos-x-field-officer-app'
   release_notes: |-
     - Create center new groups & centers
     - Create clients & groups from parent entity
