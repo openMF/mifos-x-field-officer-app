@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Yerel profil</string>
+    <string name="screens_profile_local_message">%1$s tamamen cihaz üzerinde çalışır. Hesap gerekmez.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Profil</string>
+    <string name="feature_profile_back">Geri</string>
+    <string name="feature_profile_offline_banner">Çevrimdışısınız. Bu, oturum açtığınızda kaydedilen hesaptır.</string>
+    <string name="feature_profile_username">Kullanıcı adı</string>
+    <string name="feature_profile_email">E-posta</string>
+    <string name="feature_profile_loan_officer">Kredi görevlisi</string>
+    <string name="feature_profile_staff">Personel</string>
+    <string name="feature_profile_office_label">Şube</string>
+    <string name="feature_profile_name_error">Adınız sunucudan yüklenemedi.</string>
+    <string name="feature_profile_name_error_generic">Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="feature_profile_retry">Yeniden dene</string>
+    <string name="feature_profile_roles_title">Roller</string>
+    <string name="feature_profile_roles_empty">Atanmış rol yok</string>
+    <string name="feature_profile_scope_title">Ana sayfanın gösterdikleri</string>
+    <string name="feature_profile_scope_note">Bir personel kaydına bağlıysanız kendi portföyünüz, aksi halde tüm şubeniz.</string>
+    <string name="feature_profile_scope_my_portfolio">Portföyüm</string>
+    <string name="feature_profile_scope_office">Şube: %1$s</string>
+    <string name="feature_profile_session_title">Oturum açılan sunucu</string>
+    <string name="feature_profile_live">Canlı</string>
+    <string name="feature_profile_server_label">Sunucu</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Sunucu ayarları</string>
+    <string name="feature_profile_change_password">Şifreyi değiştir</string>
+    <string name="feature_profile_change_password_offline">Şifrenizi değiştirmek için internete bağlanın.</string>
+    <string name="feature_profile_password_lead">Değişiklikten sonra bu cihazda oturumunuz açık kalır.</string>
+    <string name="feature_profile_new_password">Yeni şifre</string>
+    <string name="feature_profile_repeat_password">Yeni şifreyi tekrarlayın</string>
+    <string name="feature_profile_password_hint">12 ila 50 karakter; büyük ve küçük harf, bir rakam ve bir sembol içermeli</string>
+    <string name="feature_profile_passwords_differ">Şifreler eşleşmiyor</string>
+    <string name="feature_profile_password_failed">Şifre değiştirilmedi. Tekrar deneyin.</string>
+    <string name="feature_profile_show_password">Şifreyi göster</string>
+    <string name="feature_profile_hide_password">Şifreyi gizle</string>
+    <string name="feature_profile_cancel">İptal</string>
+    <string name="feature_profile_save_password">Şifreyi kaydet</string>
+    <string name="feature_profile_password_changed">Şifre değiştirildi</string>
+    <string name="feature_profile_sign_out">Çıkış yap</string>
+</resources>

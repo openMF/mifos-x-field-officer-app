@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">การแจ้งเตือน</string>
+    <string name="feature_notification_mark_all_read">ทำเครื่องหมายว่าอ่านทั้งหมด</string>
+    <string name="feature_notification_mark_all_read_failed">ทำเครื่องหมายไม่สำเร็จ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="feature_notification_empty_title">อ่านครบแล้ว</string>
+    <string name="feature_notification_empty_body">กิจกรรมของลูกค้า กลุ่ม และสินเชื่อของคุณจะแสดงที่นี่</string>
+    <string name="feature_notification_section_new">ใหม่</string>
+    <string name="feature_notification_section_earlier">ก่อนหน้า</string>
+    <string name="feature_notification_object_loan">สินเชื่อ #%1$s</string>
+    <string name="feature_notification_object_client">ลูกค้า #%1$s</string>
+    <string name="feature_notification_object_group">กลุ่ม #%1$s</string>
+    <string name="feature_notification_object_center">ศูนย์ #%1$s</string>
+    <string name="feature_notification_object_savings">เงินฝาก #%1$s</string>
+    <string name="feature_notification_time_just_now">เมื่อสักครู่</string>
+    <string name="feature_notification_time_minutes_ago">%1$d นาทีที่แล้ว</string>
+    <string name="feature_notification_time_hours_ago">%1$d ชม.ที่แล้ว</string>
+    <string name="feature_notification_time_yesterday">เมื่อวาน</string>
+    <string name="feature_notification_time_days_ago">%1$d วันที่แล้ว</string>
+</resources>

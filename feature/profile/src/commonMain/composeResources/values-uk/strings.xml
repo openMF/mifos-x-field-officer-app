@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Локальний профіль</string>
+    <string name="screens_profile_local_message">%1$s працює повністю на пристрої. Обліковий запис не потрібен.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Профіль</string>
+    <string name="feature_profile_back">Назад</string>
+    <string name="feature_profile_offline_banner">Ви офлайн. Це обліковий запис, збережений під час входу.</string>
+    <string name="feature_profile_username">Ім'я користувача</string>
+    <string name="feature_profile_email">Ел. пошта</string>
+    <string name="feature_profile_loan_officer">Кредитний спеціаліст</string>
+    <string name="feature_profile_staff">Співробітник</string>
+    <string name="feature_profile_office_label">Офіс</string>
+    <string name="feature_profile_name_error">Не вдалося завантажити ваше ім'я із сервера.</string>
+    <string name="feature_profile_name_error_generic">Перевірте підключення та повторіть спробу.</string>
+    <string name="feature_profile_retry">Повторити</string>
+    <string name="feature_profile_roles_title">Ролі</string>
+    <string name="feature_profile_roles_empty">Ролі не призначено</string>
+    <string name="feature_profile_scope_title">Що показує головний екран</string>
+    <string name="feature_profile_scope_note">Ваш особистий портфель, якщо ви пов'язані із записом співробітника, інакше весь ваш офіс.</string>
+    <string name="feature_profile_scope_my_portfolio">Мій портфель</string>
+    <string name="feature_profile_scope_office">Офіс: %1$s</string>
+    <string name="feature_profile_session_title">Виконано вхід до</string>
+    <string name="feature_profile_live">Активний</string>
+    <string name="feature_profile_server_label">Сервер</string>
+    <string name="feature_profile_tenant">Тенант</string>
+    <string name="feature_profile_server_settings">Налаштування сервера</string>
+    <string name="feature_profile_change_password">Змінити пароль</string>
+    <string name="feature_profile_change_password_offline">Підключіться до інтернету, щоб змінити пароль.</string>
+    <string name="feature_profile_password_lead">Після зміни ви залишитеся в системі на цьому пристрої.</string>
+    <string name="feature_profile_new_password">Новий пароль</string>
+    <string name="feature_profile_repeat_password">Повторіть новий пароль</string>
+    <string name="feature_profile_password_hint">Від 12 до 50 символів, з великими й малими літерами, цифрою та символом</string>
+    <string name="feature_profile_passwords_differ">Паролі не збігаються</string>
+    <string name="feature_profile_password_failed">Пароль не змінено. Повторіть спробу.</string>
+    <string name="feature_profile_show_password">Показати пароль</string>
+    <string name="feature_profile_hide_password">Сховати пароль</string>
+    <string name="feature_profile_cancel">Скасувати</string>
+    <string name="feature_profile_save_password">Зберегти пароль</string>
+    <string name="feature_profile_password_changed">Пароль змінено</string>
+    <string name="feature_profile_sign_out">Вийти</string>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">โปรไฟล์ในเครื่อง</string>
+    <string name="screens_profile_local_message">%1$s ทำงานบนอุปกรณ์ทั้งหมด ไม่ต้องใช้บัญชี</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">โปรไฟล์</string>
+    <string name="feature_profile_back">กลับ</string>
+    <string name="feature_profile_offline_banner">คุณออฟไลน์อยู่ นี่คือบัญชีที่บันทึกไว้ตอนลงชื่อเข้าใช้</string>
+    <string name="feature_profile_username">ชื่อผู้ใช้</string>
+    <string name="feature_profile_email">อีเมล</string>
+    <string name="feature_profile_loan_officer">เจ้าหน้าที่สินเชื่อ</string>
+    <string name="feature_profile_staff">พนักงาน</string>
+    <string name="feature_profile_office_label">สำนักงาน</string>
+    <string name="feature_profile_name_error">ไม่สามารถโหลดชื่อของคุณจากเซิร์ฟเวอร์ได้</string>
+    <string name="feature_profile_name_error_generic">ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="feature_profile_retry">ลองอีกครั้ง</string>
+    <string name="feature_profile_roles_title">บทบาท</string>
+    <string name="feature_profile_roles_empty">ไม่มีบทบาทที่กำหนด</string>
+    <string name="feature_profile_scope_title">สิ่งที่หน้าแรกแสดง</string>
+    <string name="feature_profile_scope_note">พอร์ตโฟลิโอของคุณเองหากคุณเชื่อมโยงกับระเบียนพนักงาน มิฉะนั้นจะเป็นทั้งสำนักงานของคุณ</string>
+    <string name="feature_profile_scope_my_portfolio">พอร์ตโฟลิโอของฉัน</string>
+    <string name="feature_profile_scope_office">สำนักงาน: %1$s</string>
+    <string name="feature_profile_session_title">ลงชื่อเข้าใช้ที่</string>
+    <string name="feature_profile_live">ใช้งานอยู่</string>
+    <string name="feature_profile_server_label">เซิร์ฟเวอร์</string>
+    <string name="feature_profile_tenant">เทนแนนต์</string>
+    <string name="feature_profile_server_settings">การตั้งค่าเซิร์ฟเวอร์</string>
+    <string name="feature_profile_change_password">เปลี่ยนรหัสผ่าน</string>
+    <string name="feature_profile_change_password_offline">เชื่อมต่ออินเทอร์เน็ตเพื่อเปลี่ยนรหัสผ่านของคุณ</string>
+    <string name="feature_profile_password_lead">คุณจะยังคงลงชื่อเข้าใช้บนอุปกรณ์นี้หลังจากเปลี่ยน</string>
+    <string name="feature_profile_new_password">รหัสผ่านใหม่</string>
+    <string name="feature_profile_repeat_password">ยืนยันรหัสผ่านใหม่</string>
+    <string name="feature_profile_password_hint">12 ถึง 50 ตัวอักษร ประกอบด้วยตัวพิมพ์ใหญ่และตัวพิมพ์เล็ก ตัวเลข และสัญลักษณ์</string>
+    <string name="feature_profile_passwords_differ">รหัสผ่านไม่ตรงกัน</string>
+    <string name="feature_profile_password_failed">ไม่ได้เปลี่ยนรหัสผ่าน ลองอีกครั้ง</string>
+    <string name="feature_profile_show_password">แสดงรหัสผ่าน</string>
+    <string name="feature_profile_hide_password">ซ่อนรหัสผ่าน</string>
+    <string name="feature_profile_cancel">ยกเลิก</string>
+    <string name="feature_profile_save_password">บันทึกรหัสผ่าน</string>
+    <string name="feature_profile_password_changed">เปลี่ยนรหัสผ่านแล้ว</string>
+    <string name="feature_profile_sign_out">ออกจากระบบ</string>
+</resources>

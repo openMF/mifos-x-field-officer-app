@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_path_tracking_track_my_path">تتبّع مساري</string>
+    <string name="feature_path_tracking_no_path_tracking_found">لم يتم العثور على مسارات</string>
+    <string name="feature_path_tracking_no_path_tracking_body">تظهر هنا المسارات التي تسجلها في الميدان.</string>
+    <string name="feature_path_tracking_route">من %1$s إلى %2$s</string>
+    <string name="feature_path_tracking_when">%1$s من %2$s إلى %3$s</string>
+</resources>

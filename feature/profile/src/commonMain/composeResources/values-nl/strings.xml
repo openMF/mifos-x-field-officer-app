@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Lokaal profiel</string>
+    <string name="screens_profile_local_message">%1$s draait volledig op het apparaat. Geen account nodig.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Profiel</string>
+    <string name="feature_profile_back">Terug</string>
+    <string name="feature_profile_offline_banner">Je bent offline. Dit is het account dat is opgeslagen toen je inlogde.</string>
+    <string name="feature_profile_username">Gebruikersnaam</string>
+    <string name="feature_profile_email">E-mail</string>
+    <string name="feature_profile_loan_officer">Kredietadviseur</string>
+    <string name="feature_profile_staff">Medewerker</string>
+    <string name="feature_profile_office_label">Kantoor</string>
+    <string name="feature_profile_name_error">Je naam kon niet van de server worden geladen.</string>
+    <string name="feature_profile_name_error_generic">Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="feature_profile_retry">Opnieuw proberen</string>
+    <string name="feature_profile_roles_title">Rollen</string>
+    <string name="feature_profile_roles_empty">Geen rollen toegewezen</string>
+    <string name="feature_profile_scope_title">Wat Start toont</string>
+    <string name="feature_profile_scope_note">Je eigen portefeuille als je aan een medewerkersrecord bent gekoppeld, anders je hele kantoor.</string>
+    <string name="feature_profile_scope_my_portfolio">Mijn portefeuille</string>
+    <string name="feature_profile_scope_office">Kantoor: %1$s</string>
+    <string name="feature_profile_session_title">Ingelogd bij</string>
+    <string name="feature_profile_live">Live</string>
+    <string name="feature_profile_server_label">Server</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Serverinstellingen</string>
+    <string name="feature_profile_change_password">Wachtwoord wijzigen</string>
+    <string name="feature_profile_change_password_offline">Maak verbinding met internet om je wachtwoord te wijzigen.</string>
+    <string name="feature_profile_password_lead">Na de wijziging blijf je ingelogd op dit apparaat.</string>
+    <string name="feature_profile_new_password">Nieuw wachtwoord</string>
+    <string name="feature_profile_repeat_password">Herhaal nieuw wachtwoord</string>
+    <string name="feature_profile_password_hint">12 tot 50 tekens, met hoofdletters en kleine letters, een cijfer en een symbool</string>
+    <string name="feature_profile_passwords_differ">Wachtwoorden komen niet overeen</string>
+    <string name="feature_profile_password_failed">Het wachtwoord is niet gewijzigd. Probeer het opnieuw.</string>
+    <string name="feature_profile_show_password">Wachtwoord tonen</string>
+    <string name="feature_profile_hide_password">Wachtwoord verbergen</string>
+    <string name="feature_profile_cancel">Annuleren</string>
+    <string name="feature_profile_save_password">Wachtwoord opslaan</string>
+    <string name="feature_profile_password_changed">Wachtwoord gewijzigd</string>
+    <string name="feature_profile_sign_out">Uitloggen</string>
+</resources>

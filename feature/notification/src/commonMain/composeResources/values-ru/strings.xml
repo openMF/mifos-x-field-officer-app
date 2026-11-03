@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">Уведомления</string>
+    <string name="feature_notification_mark_all_read">Отметить все как прочитанные</string>
+    <string name="feature_notification_mark_all_read_failed">Не удалось отметить. Проверьте подключение и повторите.</string>
+    <string name="feature_notification_empty_title">Новых нет</string>
+    <string name="feature_notification_empty_body">Здесь появляется активность по клиентам, группам и кредитам.</string>
+    <string name="feature_notification_section_new">Новые</string>
+    <string name="feature_notification_section_earlier">Ранее</string>
+    <string name="feature_notification_object_loan">Кредит №%1$s</string>
+    <string name="feature_notification_object_client">Клиент №%1$s</string>
+    <string name="feature_notification_object_group">Группа №%1$s</string>
+    <string name="feature_notification_object_center">Центр №%1$s</string>
+    <string name="feature_notification_object_savings">Сбережения №%1$s</string>
+    <string name="feature_notification_time_just_now">Только что</string>
+    <string name="feature_notification_time_minutes_ago">%1$d мин назад</string>
+    <string name="feature_notification_time_hours_ago">%1$d ч назад</string>
+    <string name="feature_notification_time_yesterday">Вчера</string>
+    <string name="feature_notification_time_days_ago">%1$d дн. назад</string>
+</resources>

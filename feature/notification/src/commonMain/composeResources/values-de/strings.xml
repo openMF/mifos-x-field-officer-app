@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">Benachrichtigungen</string>
+    <string name="feature_notification_mark_all_read">Alle als gelesen markieren</string>
+    <string name="feature_notification_mark_all_read_failed">Markieren fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut.</string>
+    <string name="feature_notification_empty_title">Alles erledigt</string>
+    <string name="feature_notification_empty_body">Aktivitäten zu deinen Kunden, Gruppen und Krediten erscheinen hier.</string>
+    <string name="feature_notification_section_new">Neu</string>
+    <string name="feature_notification_section_earlier">Früher</string>
+    <string name="feature_notification_object_loan">Kredit #%1$s</string>
+    <string name="feature_notification_object_client">Kunde #%1$s</string>
+    <string name="feature_notification_object_group">Gruppe #%1$s</string>
+    <string name="feature_notification_object_center">Zentrum #%1$s</string>
+    <string name="feature_notification_object_savings">Sparkonto #%1$s</string>
+    <string name="feature_notification_time_just_now">Gerade eben</string>
+    <string name="feature_notification_time_minutes_ago">vor %1$d Min.</string>
+    <string name="feature_notification_time_hours_ago">vor %1$d Std.</string>
+    <string name="feature_notification_time_yesterday">Gestern</string>
+    <string name="feature_notification_time_days_ago">vor %1$d T.</string>
+</resources>

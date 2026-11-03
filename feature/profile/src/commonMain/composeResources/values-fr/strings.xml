@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Profil local</string>
+    <string name="screens_profile_local_message">%1$s fonctionne entièrement sur l'appareil. Aucun compte requis.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Profil</string>
+    <string name="feature_profile_back">Retour</string>
+    <string name="feature_profile_offline_banner">Vous êtes hors ligne. Ceci est le compte enregistré lors de votre connexion.</string>
+    <string name="feature_profile_username">Nom d'utilisateur</string>
+    <string name="feature_profile_email">E-mail</string>
+    <string name="feature_profile_loan_officer">Agent de crédit</string>
+    <string name="feature_profile_staff">Personnel</string>
+    <string name="feature_profile_office_label">Agence</string>
+    <string name="feature_profile_name_error">Impossible de charger votre nom depuis le serveur.</string>
+    <string name="feature_profile_name_error_generic">Vérifiez votre connexion et réessayez.</string>
+    <string name="feature_profile_retry">Réessayer</string>
+    <string name="feature_profile_roles_title">Rôles</string>
+    <string name="feature_profile_roles_empty">Aucun rôle attribué</string>
+    <string name="feature_profile_scope_title">Ce qu'affiche l'accueil</string>
+    <string name="feature_profile_scope_note">Votre propre portefeuille si vous êtes lié à une fiche de personnel, sinon toute votre agence.</string>
+    <string name="feature_profile_scope_my_portfolio">Mon portefeuille</string>
+    <string name="feature_profile_scope_office">Agence : %1$s</string>
+    <string name="feature_profile_session_title">Connecté à</string>
+    <string name="feature_profile_live">En direct</string>
+    <string name="feature_profile_server_label">Serveur</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Paramètres du serveur</string>
+    <string name="feature_profile_change_password">Changer le mot de passe</string>
+    <string name="feature_profile_change_password_offline">Connectez-vous à Internet pour changer votre mot de passe.</string>
+    <string name="feature_profile_password_lead">Vous resterez connecté sur cet appareil après le changement.</string>
+    <string name="feature_profile_new_password">Nouveau mot de passe</string>
+    <string name="feature_profile_repeat_password">Répéter le nouveau mot de passe</string>
+    <string name="feature_profile_password_hint">12 à 50 caractères, avec majuscules et minuscules, un chiffre et un symbole</string>
+    <string name="feature_profile_passwords_differ">Les mots de passe ne correspondent pas</string>
+    <string name="feature_profile_password_failed">Le mot de passe n'a pas été modifié. Réessayez.</string>
+    <string name="feature_profile_show_password">Afficher le mot de passe</string>
+    <string name="feature_profile_hide_password">Masquer le mot de passe</string>
+    <string name="feature_profile_cancel">Annuler</string>
+    <string name="feature_profile_save_password">Enregistrer le mot de passe</string>
+    <string name="feature_profile_password_changed">Mot de passe modifié</string>
+    <string name="feature_profile_sign_out">Se déconnecter</string>
+</resources>

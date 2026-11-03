@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Perfil local</string>
+    <string name="screens_profile_local_message">%1$s funciona íntegramente en el dispositivo. No se requiere cuenta.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Perfil</string>
+    <string name="feature_profile_back">Atrás</string>
+    <string name="feature_profile_offline_banner">Estás sin conexión. Esta es la cuenta guardada al iniciar sesión.</string>
+    <string name="feature_profile_username">Nombre de usuario</string>
+    <string name="feature_profile_email">Correo electrónico</string>
+    <string name="feature_profile_loan_officer">Oficial de crédito</string>
+    <string name="feature_profile_staff">Personal</string>
+    <string name="feature_profile_office_label">Oficina</string>
+    <string name="feature_profile_name_error">No se pudo cargar tu nombre desde el servidor.</string>
+    <string name="feature_profile_name_error_generic">Comprueba tu conexión e inténtalo de nuevo.</string>
+    <string name="feature_profile_retry">Reintentar</string>
+    <string name="feature_profile_roles_title">Roles</string>
+    <string name="feature_profile_roles_empty">Sin roles asignados</string>
+    <string name="feature_profile_scope_title">Qué muestra Inicio</string>
+    <string name="feature_profile_scope_note">Tu propia cartera si estás vinculado a un registro de personal; si no, toda tu oficina.</string>
+    <string name="feature_profile_scope_my_portfolio">Mi cartera</string>
+    <string name="feature_profile_scope_office">Oficina: %1$s</string>
+    <string name="feature_profile_session_title">Sesión iniciada en</string>
+    <string name="feature_profile_live">En vivo</string>
+    <string name="feature_profile_server_label">Servidor</string>
+    <string name="feature_profile_tenant">Inquilino</string>
+    <string name="feature_profile_server_settings">Ajustes del servidor</string>
+    <string name="feature_profile_change_password">Cambiar contraseña</string>
+    <string name="feature_profile_change_password_offline">Conéctate a internet para cambiar tu contraseña.</string>
+    <string name="feature_profile_password_lead">Seguirás con la sesión iniciada en este dispositivo después del cambio.</string>
+    <string name="feature_profile_new_password">Nueva contraseña</string>
+    <string name="feature_profile_repeat_password">Repetir nueva contraseña</string>
+    <string name="feature_profile_password_hint">De 12 a 50 caracteres, con mayúsculas y minúsculas, un número y un símbolo</string>
+    <string name="feature_profile_passwords_differ">Las contraseñas no coinciden</string>
+    <string name="feature_profile_password_failed">No se cambió la contraseña. Inténtalo de nuevo.</string>
+    <string name="feature_profile_show_password">Mostrar contraseña</string>
+    <string name="feature_profile_hide_password">Ocultar contraseña</string>
+    <string name="feature_profile_cancel">Cancelar</string>
+    <string name="feature_profile_save_password">Guardar contraseña</string>
+    <string name="feature_profile_password_changed">Contraseña cambiada</string>
+    <string name="feature_profile_sign_out">Cerrar sesión</string>
+</resources>

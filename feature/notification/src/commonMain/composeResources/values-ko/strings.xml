@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">알림</string>
+    <string name="feature_notification_mark_all_read">모두 읽음으로 표시</string>
+    <string name="feature_notification_mark_all_read_failed">읽음으로 표시하지 못했습니다. 연결을 확인한 후 다시 시도하세요.</string>
+    <string name="feature_notification_empty_title">모두 확인했습니다</string>
+    <string name="feature_notification_empty_body">고객, 그룹, 대출 활동이 여기에 표시됩니다.</string>
+    <string name="feature_notification_section_new">새 알림</string>
+    <string name="feature_notification_section_earlier">이전</string>
+    <string name="feature_notification_object_loan">대출 #%1$s</string>
+    <string name="feature_notification_object_client">고객 #%1$s</string>
+    <string name="feature_notification_object_group">그룹 #%1$s</string>
+    <string name="feature_notification_object_center">센터 #%1$s</string>
+    <string name="feature_notification_object_savings">저축 #%1$s</string>
+    <string name="feature_notification_time_just_now">방금</string>
+    <string name="feature_notification_time_minutes_ago">%1$d분 전</string>
+    <string name="feature_notification_time_hours_ago">%1$d시간 전</string>
+    <string name="feature_notification_time_yesterday">어제</string>
+    <string name="feature_notification_time_days_ago">%1$d일 전</string>
+</resources>

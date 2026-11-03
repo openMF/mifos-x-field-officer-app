@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_path_tracking_track_my_path">Отслеживать маршрут</string>
+    <string name="feature_path_tracking_no_path_tracking_found">Маршруты не найдены</string>
+    <string name="feature_path_tracking_no_path_tracking_body">Здесь появляются маршруты, записанные в поле.</string>
+    <string name="feature_path_tracking_route">%1$s — %2$s</string>
+    <string name="feature_path_tracking_when">%1$s с %2$s до %3$s</string>
+</resources>

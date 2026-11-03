@@ -1,0 +1,15 @@
+# app-profile/platforms/android/android.yaml — Android-only (Play Store + Firebase) values.
+# Only values that DIFFER from the common app.yaml live here.
+android:
+  category: 'Finance'                          # store.android.category
+  short_description: 'Mobile field operations app for financial inclusion built on Apache Fineract.'  # store.android.short.description — published Play copy
+  changelog: 'Field officer app rebuilt on the Mifos KMP template: offline sync, a new Home and Profile, and drafts for every create flow.'  # store.android.changelog
+  video_url: ""                              # store.android.video.url (Play Store promo YouTube URL)
+  # play_tracks_by_flavor: "prod=internal,demo=internal"   # android.play.tracks.by_flavor (optional override)
+  firebase:
+    app_id_prod: 1:728434912738:android:ecdb5b96f0e735661a1dbb   # firebase.android.prod.app.id — com.mifos.mifosxdroid (cmp-android/google-services.json)
+    app_id_demo: 1:728434912738:android:53d0930e402622611a1dbb   # firebase.android.demo.app.id — com.mifos.mifosxdroid.demo (cmp-android/google-services.json)
+    groups: mifos-mobile-apps                # firebase.groups (Firebase App Distribution tester group[s], CSV)
+  play_testers:
+    internal_googlegroup: ""                 # play.testers.internal.googlegroup
+    closed_googlegroup: ""                   # play.testers.closed.googlegroup

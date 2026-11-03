@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">本機個人資料</string>
+    <string name="screens_profile_local_message">%1$s 完全在裝置上執行，無需帳戶。</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">個人資料</string>
+    <string name="feature_profile_back">返回</string>
+    <string name="feature_profile_offline_banner">您目前處於離線狀態。這是登入時儲存的帳戶。</string>
+    <string name="feature_profile_username">使用者名稱</string>
+    <string name="feature_profile_email">電子郵件</string>
+    <string name="feature_profile_loan_officer">信貸專員</string>
+    <string name="feature_profile_staff">員工</string>
+    <string name="feature_profile_office_label">分行</string>
+    <string name="feature_profile_name_error">無法從伺服器載入您的姓名。</string>
+    <string name="feature_profile_name_error_generic">請檢查網路連線後再試一次。</string>
+    <string name="feature_profile_retry">重試</string>
+    <string name="feature_profile_roles_title">角色</string>
+    <string name="feature_profile_roles_empty">未指派角色</string>
+    <string name="feature_profile_scope_title">首頁顯示內容</string>
+    <string name="feature_profile_scope_note">若您已連結員工記錄，則顯示您自己的投資組合，否則顯示整個分行。</string>
+    <string name="feature_profile_scope_my_portfolio">我的投資組合</string>
+    <string name="feature_profile_scope_office">分行：%1$s</string>
+    <string name="feature_profile_session_title">已登入至</string>
+    <string name="feature_profile_live">目前</string>
+    <string name="feature_profile_server_label">伺服器</string>
+    <string name="feature_profile_tenant">租戶</string>
+    <string name="feature_profile_server_settings">伺服器設定</string>
+    <string name="feature_profile_change_password">變更密碼</string>
+    <string name="feature_profile_change_password_offline">請連線至網際網路以變更密碼。</string>
+    <string name="feature_profile_password_lead">變更後，您在此裝置上仍保持登入狀態。</string>
+    <string name="feature_profile_new_password">新密碼</string>
+    <string name="feature_profile_repeat_password">再次輸入新密碼</string>
+    <string name="feature_profile_password_hint">12 至 50 個字元，包含大小寫字母、數字和符號</string>
+    <string name="feature_profile_passwords_differ">兩次輸入的密碼不一致</string>
+    <string name="feature_profile_password_failed">密碼未變更。請再試一次。</string>
+    <string name="feature_profile_show_password">顯示密碼</string>
+    <string name="feature_profile_hide_password">隱藏密碼</string>
+    <string name="feature_profile_cancel">取消</string>
+    <string name="feature_profile_save_password">儲存密碼</string>
+    <string name="feature_profile_password_changed">密碼已變更</string>
+    <string name="feature_profile_sign_out">登出</string>
+</resources>

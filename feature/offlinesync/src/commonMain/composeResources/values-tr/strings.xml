@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Çevrimdışı senkronizasyon</string>
+    <string name="feature_offlinesync_online">Çevrimiçi</string>
+    <string name="feature_offlinesync_offline">Çevrimdışı</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d senkronize edilecek</string>
+    <string name="feature_offlinesync_stat_failed">%1$d başarısız</string>
+    <string name="feature_offlinesync_level_label_centres">Merkezler</string>
+    <string name="feature_offlinesync_level_label_groups">Gruplar</string>
+    <string name="feature_offlinesync_level_label_clients">Müşteriler</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Son senkronizasyon %1$s</string>
+    <string name="feature_offlinesync_not_synced">Henüz senkronize edilmedi</string>
+    <string name="feature_offlinesync_next_in_hours">sonraki ~%1$d sa. içinde</string>
+    <string name="feature_offlinesync_sync_now">Şimdi senkronize et</string>
+    <string name="feature_offlinesync_syncing_button">Senkronize ediliyor…</string>
+    <string name="feature_offlinesync_sync_when_online">Çevrimiçiyken senkronize et</string>
+    <string name="feature_offlinesync_offline_banner">Çevrimdışısınız. Bu cihazdaki her şey açılmaya devam eder; tekrar çevrimiçi olduğunuzda senkronizasyon yeniden başlar.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="other">%1$d kayıt indiriliyor</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="other">%2$d içinde %1$d</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="other">%1$d okuma</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">İptal</string>
+    <string name="feature_offlinesync_job_result">Tamam · %1$d senkronize edildi · %2$d başarısız</string>
+    <string name="feature_offlinesync_job_result_body">Diğerleri çevrimdışı açılır</string>
+    <string name="feature_offlinesync_retry_failed">Başarısızları yeniden dene</string>
+    <string name="feature_offlinesync_records_title">Bu cihazda</string>
+    <string name="feature_offlinesync_level_centres">Merkezler %1$d</string>
+    <string name="feature_offlinesync_level_groups">Gruplar %1$d</string>
+    <string name="feature_offlinesync_level_clients">Müşteriler %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="other">Bu cihazda %1$d müşteri ara</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Senkronizasyon bekleniyor</string>
+    <string name="feature_offlinesync_status_syncing">Senkronize ediliyor…</string>
+    <string name="feature_offlinesync_status_synced">Senkronize edildi %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Güncel değil · senkronize edildi %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d başarısız · senkronize edildi %2$s</string>
+    <string name="feature_offlinesync_via_parent">%1$s üzerinden</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="other">%1$d grup</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="other">%1$d müşteri</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="other">%1$d hesap</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="other">%1$d kredi</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="other">%1$d tasarruf</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="other">%1$d belge</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Yenile</string>
+    <string name="feature_offlinesync_remove">Kaldır</string>
+    <string name="feature_offlinesync_remove_confirm">%1$s bu cihazdan kaldırılsın mı? Başka bir indirme için gereken kayıtlar kalır.</string>
+    <string name="feature_offlinesync_expand">Altındakileri göster</string>
+    <string name="feature_offlinesync_collapse">Altındakileri gizle</string>
+    <string name="feature_offlinesync_open">Aç</string>
+    <string name="feature_offlinesync_refresh_title">Senkronizasyon</string>
+    <string name="feature_offlinesync_refresh_manual">Manuel</string>
+    <string name="feature_offlinesync_refresh_automatic">Otomatik</string>
+    <string name="feature_offlinesync_refresh_manual_note">Kayıtlarınız yalnızca Şimdi senkronize et'e dokunduğunuzda senkronize olur. Çıkmadan önce yapın.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Kayıtlarınız yukarıdaki zamanlamaya göre arka planda yeniden senkronize edilir.</string>
+    <string name="feature_offlinesync_refresh_data_note">Senkronizasyon çok miktarda veri indirir. Bu cihaza yalnızca seçtiğiniz kayıtlar gelir.</string>
+    <string name="feature_offlinesync_resync_label">Kayıtlarınızı yeniden senkronize et</string>
+    <string name="feature_offlinesync_every_hours">Her %1$d sa.</string>
+    <string name="feature_offlinesync_wifi_only">Yalnızca Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">Yalnızca şarj sırasında</string>
+    <string name="feature_offlinesync_drafts_note">Çevrimdışı yaptığınız işler taslak olarak kaydedilir.</string>
+    <string name="feature_offlinesync_drafts_link">Senkronizasyon ve taslaklar</string>
+    <string name="feature_offlinesync_empty_title">Bu cihazda henüz hiçbir şey yok</string>
+    <string name="feature_offlinesync_empty_body">Ziyaret edeceğiniz merkezleri, grupları veya müşterileri seçin ve çıkmadan önce senkronize edin. Altlarındaki her şey burada sinyal olmadan açılır.</string>
+    <string name="feature_offlinesync_add_records">Kayıt ekle</string>
+    <string name="feature_offlinesync_picker_title">Bu cihazda tut</string>
+    <string name="feature_offlinesync_picker_empty">Kayıt bulunamadı</string>
+    <string name="feature_offlinesync_picker_error">Liste yüklenemedi.</string>
+    <string name="feature_offlinesync_retry">Yeniden dene</string>
+    <string name="feature_offlinesync_tab_centres">Merkezler</string>
+    <string name="feature_offlinesync_tab_groups">Gruplar</string>
+    <string name="feature_offlinesync_tab_clients">Müşteriler</string>
+    <string name="feature_offlinesync_picker_search">Ad veya hesap numarasıyla ara</string>
+    <string name="feature_offlinesync_picker_hint">Bir merkez gruplarını, onların müşterilerini ve tüm hesaplarını getirir.</string>
+    <string name="feature_offlinesync_on_device">Cihazda</string>
+    <string name="feature_offlinesync_picker_download">%1$d öğeyi çevrimdışı indir</string>
+    <string name="feature_offlinesync_time_just_now">az önce</string>
+    <string name="feature_offlinesync_time_minutes">%1$d dk önce</string>
+    <string name="feature_offlinesync_time_hours">%1$d sa. önce</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="other">%1$d gün önce</item>
+    </plurals>
+</resources>

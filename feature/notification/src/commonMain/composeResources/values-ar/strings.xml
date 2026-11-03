@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">الإشعارات</string>
+    <string name="feature_notification_mark_all_read">تعليم الكل كمقروء</string>
+    <string name="feature_notification_mark_all_read_failed">تعذر التعليم كمقروء. تحقق من الاتصال وحاول مجددًا.</string>
+    <string name="feature_notification_empty_title">لا جديد</string>
+    <string name="feature_notification_empty_body">يظهر هنا نشاط عملائك ومجموعاتك وقروضك.</string>
+    <string name="feature_notification_section_new">جديدة</string>
+    <string name="feature_notification_section_earlier">سابقة</string>
+    <string name="feature_notification_object_loan">قرض رقم %1$s</string>
+    <string name="feature_notification_object_client">عميل رقم %1$s</string>
+    <string name="feature_notification_object_group">مجموعة رقم %1$s</string>
+    <string name="feature_notification_object_center">مركز رقم %1$s</string>
+    <string name="feature_notification_object_savings">ادخار رقم %1$s</string>
+    <string name="feature_notification_time_just_now">الآن</string>
+    <string name="feature_notification_time_minutes_ago">منذ %1$d د</string>
+    <string name="feature_notification_time_hours_ago">منذ %1$d س</string>
+    <string name="feature_notification_time_yesterday">أمس</string>
+    <string name="feature_notification_time_days_ago">منذ %1$d يوم</string>
+</resources>

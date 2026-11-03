@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Perfil local</string>
+    <string name="screens_profile_local_message">O %1$s funciona inteiramente no dispositivo. Nenhuma conta necessária.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Perfil</string>
+    <string name="feature_profile_back">Voltar</string>
+    <string name="feature_profile_offline_banner">Você está offline. Esta é a conta salva quando você entrou.</string>
+    <string name="feature_profile_username">Nome de usuário</string>
+    <string name="feature_profile_email">E-mail</string>
+    <string name="feature_profile_loan_officer">Agente de crédito</string>
+    <string name="feature_profile_staff">Equipe</string>
+    <string name="feature_profile_office_label">Agência</string>
+    <string name="feature_profile_name_error">Não foi possível carregar seu nome do servidor.</string>
+    <string name="feature_profile_name_error_generic">Verifique sua conexão e tente novamente.</string>
+    <string name="feature_profile_retry">Tentar novamente</string>
+    <string name="feature_profile_roles_title">Funções</string>
+    <string name="feature_profile_roles_empty">Nenhuma função atribuída</string>
+    <string name="feature_profile_scope_title">O que o Início mostra</string>
+    <string name="feature_profile_scope_note">Sua própria carteira se você estiver vinculado a um registro de equipe; caso contrário, toda a sua agência.</string>
+    <string name="feature_profile_scope_my_portfolio">Minha carteira</string>
+    <string name="feature_profile_scope_office">Agência: %1$s</string>
+    <string name="feature_profile_session_title">Conectado a</string>
+    <string name="feature_profile_live">Ao vivo</string>
+    <string name="feature_profile_server_label">Servidor</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Configurações do servidor</string>
+    <string name="feature_profile_change_password">Alterar senha</string>
+    <string name="feature_profile_change_password_offline">Conecte-se à internet para alterar sua senha.</string>
+    <string name="feature_profile_password_lead">Você continuará conectado neste dispositivo após a alteração.</string>
+    <string name="feature_profile_new_password">Nova senha</string>
+    <string name="feature_profile_repeat_password">Repita a nova senha</string>
+    <string name="feature_profile_password_hint">12 a 50 caracteres, com letras maiúsculas e minúsculas, um número e um símbolo</string>
+    <string name="feature_profile_passwords_differ">As senhas não coincidem</string>
+    <string name="feature_profile_password_failed">A senha não foi alterada. Tente novamente.</string>
+    <string name="feature_profile_show_password">Mostrar senha</string>
+    <string name="feature_profile_hide_password">Ocultar senha</string>
+    <string name="feature_profile_cancel">Cancelar</string>
+    <string name="feature_profile_save_password">Salvar senha</string>
+    <string name="feature_profile_password_changed">Senha alterada</string>
+    <string name="feature_profile_sign_out">Sair</string>
+</resources>

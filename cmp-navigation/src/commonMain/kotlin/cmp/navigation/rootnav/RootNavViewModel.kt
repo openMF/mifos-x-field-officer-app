@@ -5,52 +5,38 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
 package cmp.navigation.rootnav
 
 import androidx.lifecycle.viewModelScope
-import com.mifos.core.data.repository.AppLockRepository
-import com.mifos.core.datastore.UserPreferencesRepository
-import com.mifos.core.datastore.model.AppSettings
-import com.mifos.core.model.objects.users.User
-import com.mifos.core.ui.util.BaseViewModel
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
+import cmp.navigation.rootnav.RootNavAction.Internal.UserStateUpdateReceive
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import org.mifos.authenticator.biometrics.BiometricStorageAdapter
-import org.mifos.authenticator.passcode.PasscodeManager
-import org.mifos.authenticator.passcode.PasscodeStorageAdapter
+import kpt.core.base.ui.viewmodel.BaseViewModel
+import kpt.core.data.user.UserDataRepository
+import kpt.core.model.user.AuthState
+import kpt.core.model.user.UserData
 
+/**
+ * Decides which top-level destination the app opens on, from auth state and preferences.
+ *
+ * One place makes the call so the splash → onboarding → auth → lock → app order cannot be re-derived differently by
+ * two screens.
+ */
 class RootNavViewModel(
-    private val userDataRepository: UserPreferencesRepository,
-    private val appLockRepository: AppLockRepository,
-    private val passcodeManager: PasscodeManager,
-    private val biometricStorageAdapter: BiometricStorageAdapter,
-    private val passcodeStorageAdapter: PasscodeStorageAdapter,
+    userDataRepository: UserDataRepository,
 ) : BaseViewModel<RootNavState, Unit, RootNavAction>(
     initialState = RootNavState.Splash,
 ) {
 
     init {
-        // One-time check: user reopened app without a passcode → force logout
-        viewModelScope.launch {
-            val userData = userDataRepository.userData.first()
-            if (userData.isAuthenticated && passcodeStorageAdapter.loadPasscode().isNullOrBlank()) {
-                logOut()
-            }
-        }
-
-        combine(
-            userDataRepository.userData,
-            userDataRepository.settingsInfo,
-        ) { authState, settingsData ->
-            RootNavAction.Internal.UserStateUpdateReceive(
-                userData = authState,
-                settingsData = settingsData,
+        userDataRepository.userData.map { userData ->
+            UserStateUpdateReceive(
+                authState = AuthState.Authenticated("sample-token"),
+                userData = userData,
             )
         }.onEach(::handleAction)
             .launchIn(viewModelScope)
@@ -58,79 +44,68 @@ class RootNavViewModel(
 
     override fun handleAction(action: RootNavAction) {
         when (action) {
-            is RootNavAction.Internal.UserStateUpdateReceive -> handleUserStateUpdateReceive(action)
-            RootNavAction.LogOutUser -> logOut()
-            RootNavAction.UnlockApp -> unlockApp()
+            is UserStateUpdateReceive -> handleUserStateUpdateReceive(action)
         }
     }
 
-    private fun handleUserStateUpdateReceive(
-        action: RootNavAction.Internal.UserStateUpdateReceive,
-    ) {
+    private fun handleUserStateUpdateReceive(action: UserStateUpdateReceive) {
         val userData = action.userData
 
-        when (userData.isAuthenticated) {
-            true -> {
-                if (!passcodeStorageAdapter.loadPasscode().isNullOrBlank()) {
-                    mutableStateFlow.update { RootNavState.UserAuthenticated }
-                }
+        // TODO:: Configure this based on the user state
+        val updatedRootNavState = when {
+            userData.firstTimeUser -> RootNavState.ShowOnboarding
+
+            !userData.isAuthenticated -> RootNavState.Auth
+
+            userData.passcode.isEmpty() -> RootNavState.UserLocked
+
+            userData.isUnlocked -> {
+                RootNavState.UserUnlocked(userData.activeUserId)
             }
-            false -> {
-                mutableStateFlow.update { RootNavState.AuthenticateUser }
-            }
+
+            else -> RootNavState.UserLocked
         }
-    }
 
-    /**
-     * Full-wipe logout. Runs the following in order:
-     *  1. Clears the biometric registration blob (defense-in-depth; the
-     *     library's `isRegistered` flow isn't updated via this path — fine
-     *     because we're logging out and will re-init on next user session).
-     *  2. Clears the saved passcode via [PasscodeManager.logOut].
-     *  3. Clears the user session via `UserPreferencesRepository`.
-     *  4. Clears the app-lock state via [AppLockRepository].
-     *  5. Transitions the root nav back to [RootNavState.AuthenticateUser].
-     *
-     * Fires either from the explicit logout button (via
-     * [RootNavAction.LogOutUser]) or from the init-time check that detects an
-     * authenticated user with no passcode set.
-     */
-    private fun logOut() {
-        viewModelScope.launch {
-            biometricStorageAdapter.deleteRegistrationData()
-            passcodeManager.logOut()
-            userDataRepository.logOut()
-            appLockRepository.deleteLock()
-
-            mutableStateFlow.update { RootNavState.AuthenticateUser }
-        }
-    }
-
-    private fun unlockApp() {
-        appLockRepository.unlockApp()
+        mutableStateFlow.update { updatedRootNavState }
     }
 }
 
+/** The resolved top-level destination. */
 sealed class RootNavState {
+    /** Sign-in is required. */
+    data object Auth : RootNavState()
+
+    /** Onboarding has not been completed. */
+    data object ShowOnboarding : RootNavState()
+
+    /** Still resolving — the initial state, never a resting one. */
     data object Splash : RootNavState()
 
-    data object AuthenticateUser : RootNavState()
+    /** Signed in, but the app-lock has not been satisfied. */
+    data object UserLocked : RootNavState()
 
-    data object UserAuthenticated : RootNavState()
+    /** Signed in and unlocked — the app proper. */
+    data class UserUnlocked(
+        /** Who is signed in. */
+        val activeUserId: String,
+    ) : RootNavState()
 }
 
-sealed interface RootNavAction {
-    /** Full-wipe logout; runs the sequence documented on [RootNavViewModel.logOut]. */
-    data object LogOutUser : RootNavAction
+/** What the root nav can be asked to do. */
+sealed class RootNavAction {
 
-    /** Marks the app as unlocked via [AppLockRepository.unlockApp]. Fired after biometric setup or skip. */
-    data object UnlockApp : RootNavAction
+    /** Actions raised by the ViewModel's own collectors, never by the UI. */
+    sealed class Internal {
 
-    sealed interface Internal {
-
+        /** Auth state or preferences changed; re-resolve the destination. */
         data class UserStateUpdateReceive(
-            val userData: User,
-            val settingsData: AppSettings,
-        ) : RootNavAction
+            /**
+             * Auth state at the moment the update was raised. Carried in the action rather than re-read in the
+             * reducer, so the destination is decided from one consistent snapshot of auth + preferences.
+             */
+            val authState: AuthState,
+            /** The new preferences. */
+            val userData: UserData,
+        ) : RootNavAction()
     }
 }

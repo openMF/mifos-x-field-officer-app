@@ -1,0 +1,36 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.core.database.recent.entity
+
+import androidx.room3.Entity
+import kpt.core.base.database.annotation.DbEntity
+
+/**
+ * A record the signed-in officer opened, for Home's "Recently opened". Keyed by user as well as
+ * record, so on a shared field device one officer's history is never shown to the next.
+ */
+@DbEntity
+@Entity(tableName = "recent_records", primaryKeys = ["userId", "kind", "id"])
+data class RecentRecordEntity(
+    /** The server id of the user. */
+    val userId: Long,
+    /** `RecentKind` name — CLIENT, GROUP, CENTER or LOAN. */
+    val kind: String,
+    /** The server id of this record. */
+    val id: Long,
+    /** The title. */
+    val title: String,
+    /** The account number Fineract assigned. */
+    val accountNo: String?,
+    /** The second line shown for the record (account number, office, …). */
+    val detail: String?,
+    /** When the record was last opened, in epoch milliseconds. */
+    val openedAtMs: Long,
+)

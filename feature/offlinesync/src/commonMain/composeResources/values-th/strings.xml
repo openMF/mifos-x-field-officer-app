@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">ซิงค์แบบออฟไลน์</string>
+    <string name="feature_offlinesync_online">ออนไลน์</string>
+    <string name="feature_offlinesync_offline">ออฟไลน์</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d รอซิงค์</string>
+    <string name="feature_offlinesync_stat_failed">%1$d ล้มเหลว</string>
+    <string name="feature_offlinesync_level_label_centres">ศูนย์</string>
+    <string name="feature_offlinesync_level_label_groups">กลุ่ม</string>
+    <string name="feature_offlinesync_level_label_clients">ลูกค้า</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">ซิงค์ล่าสุด %1$s</string>
+    <string name="feature_offlinesync_not_synced">ยังไม่ได้ซิงค์</string>
+    <string name="feature_offlinesync_next_in_hours">ครั้งถัดไปใน ~%1$d ชม.</string>
+    <string name="feature_offlinesync_sync_now">ซิงค์เลย</string>
+    <string name="feature_offlinesync_syncing_button">กำลังซิงค์…</string>
+    <string name="feature_offlinesync_sync_when_online">ซิงค์เมื่อออนไลน์</string>
+    <string name="feature_offlinesync_offline_banner">คุณออฟไลน์อยู่ ทุกอย่างในอุปกรณ์นี้ยังเปิดได้ตามปกติ การซิงค์จะกลับมาเมื่อคุณออนไลน์อีกครั้ง</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="other">กำลังดาวน์โหลด %1$d รายการ</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="other">%1$d จาก %2$d รายการ</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="other">%1$d ครั้งที่อ่าน</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">ยกเลิก</string>
+    <string name="feature_offlinesync_job_result">เสร็จแล้ว · %1$d ซิงค์แล้ว · %2$d ล้มเหลว</string>
+    <string name="feature_offlinesync_job_result_body">อื่น ๆ เปิดได้แบบออฟไลน์</string>
+    <string name="feature_offlinesync_retry_failed">ลองใหม่รายการที่ล้มเหลว</string>
+    <string name="feature_offlinesync_records_title">ในอุปกรณ์นี้</string>
+    <string name="feature_offlinesync_level_centres">ศูนย์ %1$d</string>
+    <string name="feature_offlinesync_level_groups">กลุ่ม %1$d</string>
+    <string name="feature_offlinesync_level_clients">ลูกค้า %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="other">ค้นหา %1$d ลูกค้าในอุปกรณ์นี้</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">รอซิงค์</string>
+    <string name="feature_offlinesync_status_syncing">กำลังซิงค์…</string>
+    <string name="feature_offlinesync_status_synced">ซิงค์แล้ว %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">ข้อมูลเก่า · ซิงค์แล้ว %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d ล้มเหลว · ซิงค์แล้ว %2$s</string>
+    <string name="feature_offlinesync_via_parent">ผ่าน %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="other">%1$d กลุ่ม</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="other">%1$d ลูกค้า</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="other">%1$d บัญชี</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="other">%1$d สินเชื่อ</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="other">%1$d เงินออม</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="other">%1$d เอกสาร</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">รีเฟรช</string>
+    <string name="feature_offlinesync_remove">ลบออก</string>
+    <string name="feature_offlinesync_remove_confirm">ลบ %1$s ออกจากอุปกรณ์นี้? รายการที่ยังต้องใช้สำหรับการดาวน์โหลดอื่นจะยังคงอยู่</string>
+    <string name="feature_offlinesync_expand">แสดงรายการย่อย</string>
+    <string name="feature_offlinesync_collapse">ซ่อนรายการย่อย</string>
+    <string name="feature_offlinesync_open">เปิด</string>
+    <string name="feature_offlinesync_refresh_title">ซิงค์</string>
+    <string name="feature_offlinesync_refresh_manual">ด้วยตนเอง</string>
+    <string name="feature_offlinesync_refresh_automatic">อัตโนมัติ</string>
+    <string name="feature_offlinesync_refresh_manual_note">ข้อมูลของคุณจะซิงค์เฉพาะเมื่อแตะ ซิงค์เลย เท่านั้น ทำก่อนออกเดินทาง</string>
+    <string name="feature_offlinesync_refresh_automatic_note">ข้อมูลของคุณจะซิงค์ใหม่ในเบื้องหลังตามกำหนดเวลาข้างต้น</string>
+    <string name="feature_offlinesync_refresh_data_note">การซิงค์จะดาวน์โหลดข้อมูลจำนวนมาก มีเฉพาะรายการที่คุณเลือกเท่านั้นที่จะมาถึงอุปกรณ์นี้</string>
+    <string name="feature_offlinesync_resync_label">ซิงค์ข้อมูลของคุณใหม่</string>
+    <string name="feature_offlinesync_every_hours">ทุก %1$d ชม.</string>
+    <string name="feature_offlinesync_wifi_only">Wi-Fi เท่านั้น</string>
+    <string name="feature_offlinesync_charging_only">เฉพาะขณะชาร์จ</string>
+    <string name="feature_offlinesync_drafts_note">งานที่ทำแบบออฟไลน์จะถูกบันทึกเป็นฉบับร่าง</string>
+    <string name="feature_offlinesync_drafts_link">การซิงค์และฉบับร่าง</string>
+    <string name="feature_offlinesync_empty_title">ยังไม่มีข้อมูลในอุปกรณ์นี้</string>
+    <string name="feature_offlinesync_empty_body">เลือกศูนย์ กลุ่ม หรือลูกค้าที่คุณจะเยี่ยมชม แล้วซิงค์ก่อนออกเดินทาง ทุกอย่างที่อยู่ด้านล่างจะเปิดได้ที่นี่โดยไม่ต้องมีสัญญาณ</string>
+    <string name="feature_offlinesync_add_records">เพิ่มรายการ</string>
+    <string name="feature_offlinesync_picker_title">เก็บไว้ในอุปกรณ์นี้</string>
+    <string name="feature_offlinesync_picker_empty">ไม่พบรายการ</string>
+    <string name="feature_offlinesync_picker_error">โหลดรายการไม่ได้</string>
+    <string name="feature_offlinesync_retry">ลองใหม่</string>
+    <string name="feature_offlinesync_tab_centres">ศูนย์</string>
+    <string name="feature_offlinesync_tab_groups">กลุ่ม</string>
+    <string name="feature_offlinesync_tab_clients">ลูกค้า</string>
+    <string name="feature_offlinesync_picker_search">ค้นหาด้วยชื่อหรือหมายเลขบัญชี</string>
+    <string name="feature_offlinesync_picker_hint">ศูนย์หนึ่งจะนำกลุ่ม ลูกค้า และบัญชีทั้งหมดของพวกเขามาด้วย</string>
+    <string name="feature_offlinesync_on_device">ในอุปกรณ์</string>
+    <string name="feature_offlinesync_picker_download">ดาวน์โหลด %1$d รายการสำหรับออฟไลน์</string>
+    <string name="feature_offlinesync_time_just_now">เมื่อกี้</string>
+    <string name="feature_offlinesync_time_minutes">%1$d นาทีที่แล้ว</string>
+    <string name="feature_offlinesync_time_hours">%1$d ชม. ที่แล้ว</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="other">%1$d วันที่แล้ว</item>
+    </plurals>
+</resources>

@@ -1,0 +1,37 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.core.data.checkerinbox
+
+import kpt.core.base.store.mutation.MutationResult
+import kpt.core.model.shared.GenericResponse
+
+/**
+ * Every checkerinbox write, as an explicit outcome.
+ *
+ * Each returns [MutationResult] rather than `Unit`: a field officer has to be told whether the
+ * change reached the server, was refused because the device is offline, or failed — a distinction
+ * that cannot be reconstructed above this layer.
+ *
+ * Writes go the same way reads do — network → store → database: the command reaches Fineract, and
+ * the server's acceptance is recorded through the checker-inbox stores, so every checker-inbox stream already shows it
+ * when the call returns. Offline CAPTURE is a different operation with its own explicit queue
+ * ([kpt.core.data.sync.OfflineQueueRepository]); it is never a silent fallback from here.
+ */
+interface CheckerInboxCommandRepository {
+
+    /** Approves a maker-checker entry. */
+    suspend fun approveCheckerEntry(auditId: Int): MutationResult<GenericResponse>
+
+    /** Rejects a maker-checker entry. */
+    suspend fun rejectCheckerEntry(auditId: Int): MutationResult<GenericResponse>
+
+    /** Deletes a maker-checker entry. */
+    suspend fun deleteCheckerEntry(auditId: Int): MutationResult<GenericResponse>
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">Thông báo</string>
+    <string name="feature_notification_mark_all_read">Đánh dấu tất cả đã đọc</string>
+    <string name="feature_notification_mark_all_read_failed">Không thể đánh dấu. Kiểm tra kết nối và thử lại.</string>
+    <string name="feature_notification_empty_title">Bạn đã xem hết</string>
+    <string name="feature_notification_empty_body">Hoạt động của khách hàng, nhóm và khoản vay hiển thị tại đây.</string>
+    <string name="feature_notification_section_new">Mới</string>
+    <string name="feature_notification_section_earlier">Trước đó</string>
+    <string name="feature_notification_object_loan">Khoản vay #%1$s</string>
+    <string name="feature_notification_object_client">Khách hàng #%1$s</string>
+    <string name="feature_notification_object_group">Nhóm #%1$s</string>
+    <string name="feature_notification_object_center">Trung tâm #%1$s</string>
+    <string name="feature_notification_object_savings">Tiết kiệm #%1$s</string>
+    <string name="feature_notification_time_just_now">Vừa xong</string>
+    <string name="feature_notification_time_minutes_ago">%1$d phút trước</string>
+    <string name="feature_notification_time_hours_ago">%1$d giờ trước</string>
+    <string name="feature_notification_time_yesterday">Hôm qua</string>
+    <string name="feature_notification_time_days_ago">%1$d ngày trước</string>
+</resources>

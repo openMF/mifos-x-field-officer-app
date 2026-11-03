@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <!--
+        S5a · the savings account summary. Values verbatim from `6b66e8a43`'s
+        `feature_savings_strings.xml` unless noted.
+    -->
+    <string name="feature_savings_summary_title">Savings Account</string>
+    <string name="feature_savings_account_balance">Account Balance</string>
+    <string name="feature_savings_total_deposits">Total Deposits</string>
+    <string name="feature_savings_total_withdrawals">Total Withdrawals</string>
+    <string name="feature_savings_interest_earned">Interest Earned</string>
+    <string name="feature_savings_transactions">Transactions</string>
+    <string name="feature_savings_no_transactions">No transactions on this account yet.</string>
+    <string name="feature_savings_withdraw">Withdrawal</string>
+    <string name="feature_savings_deposit">Make Deposit</string>
+    <string name="feature_savings_approve">Approve Savings</string>
+    <string name="feature_savings_activate">Activate Savings</string>
+    <string name="feature_savings_closed">Savings account closed</string>
+    <string name="feature_savings_documents">Documents</string>
+    <string name="feature_savings_more_savings_account_info">More savings account info</string>
+    <string name="feature_savings_charges">Charges</string>
+    <string name="feature_savings_transaction_id">Transaction Id</string>
+    <string name="feature_savings_date">Date</string>
+    <string name="feature_savings_transaction_type">Transaction Type</string>
+    <string name="feature_savings_running_balance">Running Balance</string>
+    <string name="feature_savings_amount">Amount</string>
+    <!--
+        Added by the port. The original fell back to the LABEL strings
+        (`feature_savings_client_name` / `_product_name`) when the value was null, so a missing
+        client name rendered the word "Client Name" where the name should be.
+    -->
+    <string name="feature_savings_client_name_unknown">Client name unavailable</string>
+    <string name="feature_savings_product_name_unknown">Product name unavailable</string>
+    <!--
+        Added by the port. A reversed transaction was conveyed by colour alone, which is not
+        accessible and is near-invisible on the dark scheme.
+    -->
+    <string name="feature_savings_reversed">Reversed</string>
+    <!-- Added by the port: the original's detail card had no visible dismiss affordance. -->
+    <string name="feature_savings_transaction_detail">Transaction</string>
+    <string name="feature_savings_close">Close</string>
+    <string name="feature_savings_more_options">More options</string>
+    <!-- S5b · approval + activation. Values verbatim from `6b66e8a43` unless noted. -->
+    <string name="feature_savings_approve_title">Approve Savings</string>
+    <string name="feature_savings_activate_title">Activate Savings</string>
+    <string name="feature_savings_approval_date">Approved On</string>
+    <string name="feature_savings_activation_date">Activated On</string>
+    <string name="feature_savings_reason_for_approval">Reason For Approval</string>
+    <string name="feature_savings_save">Save</string>
+    <string name="feature_savings_cancel">Cancel</string>
+    <string name="feature_savings_select_date">Select Date</string>
+    <!--
+        Added by the port. The original reported success by calling `onBackPressed()` from a
+        `LaunchedEffect` in the composition body with a snackbar alongside, and reported every
+        failure with one generic error that replaced the form.
+    -->
+    <string name="feature_savings_succeeded">Done</string>
+    <string name="feature_savings_approved_message">The savings application was approved.</string>
+    <string name="feature_savings_activated_message">The savings account is now active.</string>
+    <string name="feature_savings_approve_failed">Not Approved</string>
+    <string name="feature_savings_activate_failed">Not Activated</string>
+    <string name="feature_savings_status_change_failed">The change could not be saved.</string>
+    <string name="feature_savings_offline_status_change">No connection — a status change needs the server, so nothing was saved.</string>
+    <!-- S5b · deposit / withdraw. Values verbatim from `6b66e8a43` unless noted. -->
+    <string name="feature_savings_deposit_title">Make Deposit</string>
+    <string name="feature_savings_withdraw_title">Withdrawal</string>
+    <string name="feature_savings_payment_type">Payment Type</string>
+    <string name="feature_savings_note">Note</string>
+    <!--
+        Renamed by the port. The original labelled the REVIEW dialog's confirm button
+        "Review Transaction", so the sheet that was the review asked the officer to review it in
+        order to submit — on the tap that moves money.
+    -->
+    <string name="feature_savings_review">Review</string>
+    <string name="feature_savings_review_title">Review</string>
+    <string name="feature_savings_confirm">Confirm</string>
+    <!--
+        Added by the port. The original showed one of three SNACKBARS for an invalid amount and
+        left the field unmarked, so the officer had to remember which input the message meant.
+    -->
+    <string name="feature_savings_error_amount_required">Enter an amount</string>
+    <string name="feature_savings_error_amount_not_a_number">Enter a valid amount</string>
+    <string name="feature_savings_error_amount_not_positive">Enter an amount greater than zero</string>
+    <!--
+        Added by the port. The payment-type list is a network read; a failure is stated but never
+        blocks recording cash the officer has already taken.
+    -->
+    <string name="feature_savings_payment_types_retry">Payment types could not be loaded — tap to retry. The transaction can still be recorded without one.</string>
+    <string name="feature_savings_transaction_recorded">The transaction was recorded.</string>
+    <string name="feature_savings_transaction_reference">Recorded. Reference %1$d</string>
+    <string name="feature_savings_transaction_failed">The transaction could not be recorded.</string>
+    <string name="feature_savings_deposit_failed">Deposit Not Recorded</string>
+    <string name="feature_savings_withdraw_failed">Withdrawal Not Recorded</string>
+    <string name="feature_savings_offline_transaction">No connection — the transaction was not recorded.</string>
+    <!-- S5c · the savings application wizard. Values verbatim from `6b66e8a43` unless noted. -->
+    <string name="feature_savings_application_title">Savings Application</string>
+    <string name="feature_savings_product">Savings Product</string>
+    <string name="feature_savings_field_officer">Field Officer</string>
+    <string name="feature_savings_submitted_on">Submitted On</string>
+    <string name="feature_savings_external_id">External Id</string>
+    <string name="feature_savings_opening_balance">Minimum Opening Balance</string>
+    <string name="feature_savings_min_balance">Minimum Balance</string>
+    <string name="feature_savings_lockin_period">Lock-in Period</string>
+    <string name="feature_savings_lockin_period_type">Lock-in Period Frequency</string>
+    <string name="feature_savings_compounding_period">Interest Compounding Period</string>
+    <string name="feature_savings_posting_period">Interest Posting Period</string>
+    <string name="feature_savings_interest_calculation_type">Interest Calculated Using</string>
+    <string name="feature_savings_days_in_year">Days In Year</string>
+    <string name="feature_savings_allow_overdraft">Allow overdraft</string>
+    <string name="feature_savings_enforce_min_balance">Enforce minimum balance</string>
+    <string name="feature_savings_charge_select">Charge</string>
+    <string name="feature_savings_charge_amount">Charge Amount</string>
+    <string name="feature_savings_charge_add">Add Charge</string>
+    <string name="feature_savings_charge_remove">Remove charge</string>
+    <string name="feature_savings_next">Next</string>
+    <string name="feature_savings_back">Back</string>
+    <string name="feature_savings_submit">Submit</string>
+    <string name="feature_savings_step_of">Step %1$d of %2$d · %3$s</string>
+    <string name="feature_savings_step_details">Details</string>
+    <string name="feature_savings_step_terms">Terms</string>
+    <string name="feature_savings_step_charges">Charges</string>
+    <string name="feature_savings_step_preview">Preview</string>
+    <!--
+        Added by the port. The original titled the wizard "Savings Account" for a client AND a
+        group, on the screen whose group path silently posted a client id.
+    -->
+    <string name="feature_savings_application_group_title">Group Savings Application</string>
+    <string name="feature_savings_summary_owner_client">Client</string>
+    <string name="feature_savings_summary_owner_group">Group</string>
+    <string name="feature_savings_summary_product">Product</string>
+    <string name="feature_savings_summary_submitted">Submitted on</string>
+    <string name="feature_savings_summary_officer">Field officer</string>
+    <string name="feature_savings_summary_charges">Charges</string>
+    <!--
+        Added by the port. The original had no per-step validation at all, so there were no
+        field-level messages to show.
+    -->
+    <string name="feature_savings_error_non_negative">Enter zero or more, or leave blank</string>
+    <string name="feature_savings_error_pick_an_option">Pick an option</string>
+    <string name="feature_savings_application_template_failed">Could not load this product's terms.</string>
+    <string name="feature_savings_no_charges_added">No charges added. Charges are optional.</string>
+    <string name="feature_savings_application_created">The savings application was created and is awaiting approval.</string>
+    <string name="feature_savings_application_failed">The application could not be submitted.</string>
+    <string name="feature_savings_offline_application">No connection — the application was not submitted.</string>
+    <!-- S5e · the recurring-deposit application. Values verbatim from `6b66e8a43` unless noted. -->
+    <string name="feature_savings_rd_title">Recurring Deposit Application</string>
+    <string name="feature_savings_rd_deposit_amount">Deposit Amount</string>
+    <string name="feature_savings_rd_recurring_frequency">Deposit Every</string>
+    <string name="feature_savings_rd_recurring_frequency_type">Deposit Frequency</string>
+    <string name="feature_savings_rd_deposit_period">Deposit Period</string>
+    <string name="feature_savings_rd_deposit_period_type">Deposit Period Frequency</string>
+    <string name="feature_savings_rd_mandatory">Mandatory deposit</string>
+    <string name="feature_savings_rd_adjust_advance">Adjust advance payments toward future instalments</string>
+    <string name="feature_savings_rd_allow_withdrawal">Allow withdrawals</string>
+    <string name="feature_savings_rd_pre_closure_penalty">Apply penal interest on premature closure</string>
+    <string name="feature_savings_rd_penalty_interest">Penal Interest</string>
+    <string name="feature_savings_rd_penalty_interest_on">Penal Interest On</string>
+    <string name="feature_savings_rd_step_interest">Interest</string>
+    <!--
+        Added by the port. The original reported success with a snackbar fired from the composition
+        body and every failure with one generic error that replaced the five-page form.
+    -->
+    <string name="feature_savings_rd_created">The recurring deposit application was created and is awaiting approval.</string>
+    <string name="feature_savings_rd_failed">The application could not be submitted.</string>
+    <string name="feature_savings_error_positive_number">Enter a number greater than zero</string>
+
+    <!-- Same reasoning as feature_loan_application_no_products — see that string's comment. -->
+    <string name="feature_savings_application_no_products_title">No savings products</string>
+    <string name="feature_savings_application_no_products">This office has no savings products set up yet, so there is nothing to apply for. An administrator has to add one first.</string>
+    <string name="feature_savings_application_retry">Retry</string>
+    <string name="feature_savings_recurring_no_products">No recurring deposit products are set up on this server, so a recurring deposit cannot be opened here.</string>
+</resources>

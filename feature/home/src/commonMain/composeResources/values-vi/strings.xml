@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Cài đặt</string>
+    <string name="screens_home_outstanding_label">Số dư còn nợ</string>
+    <string name="screens_home_no_loans_message">Chưa có khoản vay nào — hãy thêm một khoản.</string>
+    <string name="screens_home_total_outstanding_label">Tổng còn nợ</string>
+    <string name="screens_home_active_loans_singular">%1$d khoản vay đang hoạt động</string>
+    <string name="screens_home_active_loans_plural">%1$d khoản vay đang hoạt động</string>
+    <string name="screens_home_monthly_emi_label">Trả góp hằng tháng</string>
+    <string name="screens_home_loans_label">Khoản vay</string>
+    <string name="screens_home_loans_carousel_title">Khoản vay của bạn · %1$d</string>
+    <string name="screens_home_remaining_label">Còn lại</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Trả góp $%1$s · đã trả %2$d%%</string>
+    <string name="screens_home_section_this_week">Tuần này</string>
+    <string name="screens_home_section_tools">Công cụ</string>
+    <string name="screens_home_section_tools_subtitle">Máy tính, so sánh, chỉ số vĩ mô</string>
+    <string name="screens_home_bills_card_title">Hóa đơn sắp tới</string>
+    <string name="screens_home_bills_total_label">Tổng phải trả (7 ngày tới)</string>
+    <string name="screens_home_bills_day_value">Ngày %1$d</string>
+    <string name="screens_home_bills_empty">Không có hóa đơn đến hạn trong 7 ngày tới.</string>
+    <string name="screens_home_rates_card_title">Lãi suất hôm nay</string>
+    <string name="screens_home_rates_fed_funds_label">Lãi suất Fed</string>
+    <string name="screens_home_rates_mortgage_30y_label">Vay mua nhà 30 năm</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">Tỷ giá USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Xem tất cả</string>
+    <string name="screens_home_tool_emi_title">Máy tính trả góp</string>
+    <string name="screens_home_tool_emi_subtitle">Khoản trả hằng tháng cho mọi khoản vay</string>
+    <string name="screens_home_tool_affordability_title">Khả năng vay</string>
+    <string name="screens_home_tool_affordability_subtitle">Tôi có thể vay bao nhiêu là an toàn?</string>
+    <string name="screens_home_tool_amortization_title">Khấu hao</string>
+    <string name="screens_home_tool_amortization_subtitle">Lịch thanh toán đầy đủ</string>
+    <string name="screens_home_tool_compare_title">So sánh khoản vay</string>
+    <string name="screens_home_tool_compare_subtitle">Tổng chi phí cạnh nhau</string>
+    <string name="screens_home_tool_wizard_title">Trình hướng dẫn vay</string>
+    <string name="screens_home_tool_wizard_subtitle">Công cụ lập kế hoạch từng bước</string>
+    <string name="screens_home_tool_currency_title">Tỷ giá tiền tệ</string>
+    <string name="screens_home_tool_currency_subtitle">Tỷ giá trực tiếp</string>
+    <string name="screens_home_tool_history_title">Lịch sử tỷ giá</string>
+    <string name="screens_home_tool_history_subtitle">Biểu đồ tỷ giá lịch sử</string>
+    <string name="screens_home_tool_macro_title">Vĩ mô theo quốc gia</string>
+    <string name="screens_home_tool_macro_subtitle">GDP, CPI, thất nghiệp</string>
+    <string name="screens_home_tool_crypto_title">Thị trường tiền mã hóa</string>
+    <string name="screens_home_tool_crypto_subtitle">Giá tiền mã hóa trực tiếp và danh sách theo dõi</string>
+    <string name="screens_home_money_zero">$0.00</string>
+    <!-- Home dashboard -->
+    <string name="feature_home_dashboard_greeting_morning">Chào buổi sáng, %1$s</string>
+    <string name="feature_home_dashboard_greeting_afternoon">Chào buổi chiều, %1$s</string>
+    <string name="feature_home_dashboard_greeting_evening">Chào buổi tối, %1$s</string>
+    <string name="feature_home_dashboard_scope_my_portfolio">Danh mục của tôi</string>
+    <string name="feature_home_dashboard_scope_office">Văn phòng: %1$s</string>
+    <string name="feature_home_dashboard_collections_title">Thu nợ hôm nay</string>
+    <string name="feature_home_dashboard_collections_due_clients">Khách hàng đến hạn hôm nay</string>
+    <string name="feature_home_dashboard_collections_due_amount">Đến hạn hôm nay</string>
+    <string name="feature_home_dashboard_collections_empty">Hôm nay không có khoản thu</string>
+    <string name="feature_home_dashboard_collections_open">Mở bảng thu nợ</string>
+    <string name="feature_home_dashboard_queue_title">Hàng đợi công việc</string>
+    <string name="feature_home_dashboard_queue_checker">Tác vụ kiểm duyệt</string>
+    <string name="feature_home_dashboard_queue_approval">Khoản vay chờ duyệt</string>
+    <string name="feature_home_dashboard_queue_disbursal">Đã duyệt, chờ giải ngân</string>
+    <string name="feature_home_dashboard_queue_pending_clients">Khách hàng chờ kích hoạt</string>
+    <string name="feature_home_dashboard_queue_reschedules">Yêu cầu cơ cấu lại đang chờ</string>
+    <string name="feature_home_dashboard_queue_drafts">Bản nháp chưa đồng bộ của tôi</string>
+    <string name="feature_home_dashboard_meetings_title">Cuộc họp hôm nay</string>
+    <string name="feature_home_dashboard_meetings_empty">Hôm nay không có lịch</string>
+    <string name="feature_home_dashboard_meetings_groups">%1$d nhóm</string>
+    <string name="feature_home_dashboard_portfolio_title">Tổng quan danh mục</string>
+    <string name="feature_home_dashboard_tile_active_clients">Khách hàng đang hoạt động</string>
+    <string name="feature_home_dashboard_tile_active_loans">Khoản vay đang hoạt động</string>
+    <string name="feature_home_dashboard_tile_outstanding">Dư nợ</string>
+    <string name="feature_home_dashboard_tile_overdue">Quá hạn</string>
+    <string name="feature_home_dashboard_tile_in_arrears">Khoản vay quá hạn</string>
+    <string name="feature_home_dashboard_tile_par">PAR</string>
+    <string name="feature_home_dashboard_tile_savings">Số dư tiết kiệm</string>
+    <string name="feature_home_dashboard_tile_groups">Nhóm</string>
+    <string name="feature_home_dashboard_tile_centers">Trung tâm</string>
+    <string name="feature_home_dashboard_quick_actions_title">Thao tác nhanh</string>
+    <string name="feature_home_dashboard_qa_new_client">Khách hàng mới</string>
+    <string name="feature_home_dashboard_qa_new_group">Nhóm mới</string>
+    <string name="feature_home_dashboard_qa_new_center">Trung tâm mới</string>
+    <string name="feature_home_dashboard_qa_collection_sheet">Bảng thu nợ</string>
+    <string name="feature_home_dashboard_qa_run_reports">Chạy báo cáo</string>
+    <string name="feature_home_dashboard_qa_search">Tìm kiếm</string>
+    <string name="feature_home_dashboard_qa_path_tracker">Theo dõi lộ trình</string>
+    <string name="feature_home_dashboard_settings">Cài đặt</string>
+    <string name="feature_home_dashboard_profile">Hồ sơ</string>
+    <string name="feature_home_dashboard_loan_queue_empty">Không có khoản vay trong hàng đợi này</string>
+    <string name="feature_home_dashboard_queue_pending_badge">%1$d mục đang chờ</string>
+    <string name="feature_home_dashboard_meetings_summary">%1$d đã lên lịch · %2$s</string>
+    <string name="feature_home_dashboard_summary_active_clients">%1$d khách hàng hoạt động</string>
+    <string name="feature_home_dashboard_summary_active_loans">%1$d khoản vay hoạt động</string>
+    <string name="feature_home_dashboard_summary_outstanding">Dư nợ %1$s</string>
+    <string name="feature_home_dashboard_summary_par">PAR %1$s</string>
+    <string name="feature_home_dashboard_portfolio_total_outstanding">Tổng dư nợ danh mục</string>
+    <string name="feature_home_dashboard_card_error">Không thể tải thẻ này</string>
+    <string name="feature_home_dashboard_retry">Thử lại</string>
+    <string name="feature_home_dashboard_error_title">Không thể tải ngày của bạn</string>
+    <string name="feature_home_dashboard_error_body">Kiểm tra kết nối rồi thử lại. Thao tác nhanh vẫn hoạt động.</string>
+    <string name="feature_home_dashboard_card_error_body">Mục này chưa được làm mới. Các thẻ khác không bị ảnh hưởng.</string>
+    <string name="feature_home_dashboard_retry_sync">Đồng bộ lại</string>
+    <string name="feature_home_dashboard_offline_label">Ngoại tuyến</string>
+    <string name="feature_home_dashboard_offline_body">Kiểm tra kết nối rồi thử lại. Thao tác nhanh và dữ liệu đã lưu trên thiết bị vẫn dùng được khi ngoại tuyến.</string>
+    <string name="feature_home_dashboard_offline_banner_title">Làm việc ngoại tuyến</string>
+    <string name="feature_home_dashboard_offline_banner_body">Mục mới được lưu trên thiết bị và tự đồng bộ khi có kết nối trở lại.</string>
+    <string name="feature_home_dashboard_offline_enabled">Đã bật ngoại tuyến</string>
+    <string name="feature_home_dashboard_collections_loans_due">Khoản vay đến hạn hôm nay</string>
+    <string name="feature_home_dashboard_collections_loans_value">%1$d khoản vay</string>
+    <string name="feature_home_dashboard_collections_hero_meta">%1$d khách hàng · %2$d khoản vay</string>
+    <string name="feature_home_dashboard_recent_title">Mở gần đây</string>
+    <string name="feature_home_dashboard_recent_kind_client">Khách hàng</string>
+    <string name="feature_home_dashboard_recent_kind_group">Nhóm</string>
+    <string name="feature_home_dashboard_recent_kind_center">Trung tâm</string>
+    <string name="feature_home_dashboard_recent_kind_loan">Khoản vay</string>
+    <string name="feature_home_dashboard_time_just_now">Vừa xong</string>
+    <string name="feature_home_dashboard_time_minutes_ago">%1$d phút trước</string>
+    <string name="feature_home_dashboard_time_hours_ago">%1$d giờ trước</string>
+    <string name="feature_home_dashboard_time_yesterday">Hôm qua</string>
+    <string name="feature_home_dashboard_time_days_ago">%1$d ngày trước</string>
+    <string name="feature_home_dashboard_collections_collected_today">Đã thu hôm nay</string>
+    <string name="feature_home_dashboard_collections_goal">Mục tiêu: %1$s</string>
+    <string name="feature_home_dashboard_collections_remains">Còn lại: %1$s</string>
+    <string name="feature_home_dashboard_collections_of_goal">%1$s mục tiêu</string>
+    <string name="feature_home_dashboard_collections_percent_collected">Đã thu %1$s</string>
+    <string name="feature_home_dashboard_collections_collected">Đã thu</string>
+    <string name="feature_home_dashboard_collections_overdue">Khách hàng quá hạn</string>
+    <string name="feature_home_dashboard_collections_overdue_chip">quá hạn</string>
+    <string name="feature_home_dashboard_summary_collected">đã thu %1$s</string>
+    <string name="feature_home_dashboard_summary_overdue">%1$d quá hạn</string>
+    <string name="feature_home_dashboard_queue_view_all">Xem tất cả</string>
+    <string name="feature_home_dashboard_meeting_center_groups">Trung tâm · %1$d nhóm</string>
+    <string name="feature_home_dashboard_meeting_on_schedule">Đúng lịch</string>
+    <string name="feature_home_dashboard_meeting_upcoming">Sắp tới</string>
+    <string name="feature_home_dashboard_meeting_today">Hôm nay</string>
+    <string name="feature_home_dashboard_tile_par_target">mục tiêu &lt; %1$s</string>
+    <string name="feature_home_dashboard_card_cached">Bộ nhớ đệm: %1$s</string>
+    <string name="feature_home_dashboard_recent_cached">Lưu ngoại tuyến · %1$d bản ghi</string>
+    <string name="feature_home_dashboard_quick_actions_available">%1$d khả dụng</string>
+    <string name="feature_home_dashboard_error_kind_forbidden">Bị từ chối truy cập</string>
+    <string name="feature_home_dashboard_error_kind_not_found">Không tìm thấy</string>
+    <string name="feature_home_dashboard_error_kind_rejected">Yêu cầu bị từ chối</string>
+    <string name="feature_home_dashboard_error_kind_server">Lỗi máy chủ</string>
+    <string name="feature_home_dashboard_error_kind_offline">Không có kết nối</string>
+    <string name="feature_home_dashboard_error_kind_timeout">Hết thời gian</string>
+    <string name="feature_home_dashboard_error_kind_signed_out">Đã đăng xuất</string>
+    <string name="feature_home_dashboard_error_kind_busy">Quá nhiều yêu cầu</string>
+    <string name="feature_home_dashboard_error_kind_failed">Đồng bộ thất bại</string>
+    <plurals name="feature_home_dashboard_collections_clients_value">
+        <item quantity="other">%1$d khách hàng</item>
+    </plurals>
+    <plurals name="feature_home_dashboard_collections_summary">
+        <item quantity="other">%1$d khách hàng đến hạn · %2$s đến hạn</item>
+    </plurals>
+</resources>

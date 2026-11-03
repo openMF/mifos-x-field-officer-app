@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">Bildirimler</string>
+    <string name="feature_notification_mark_all_read">Tümünü okundu işaretle</string>
+    <string name="feature_notification_mark_all_read_failed">İşaretlenemedi. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="feature_notification_empty_title">Hepsi okundu</string>
+    <string name="feature_notification_empty_body">Müşteri, grup ve kredi etkinlikleri burada görünür.</string>
+    <string name="feature_notification_section_new">Yeni</string>
+    <string name="feature_notification_section_earlier">Daha önce</string>
+    <string name="feature_notification_object_loan">Kredi #%1$s</string>
+    <string name="feature_notification_object_client">Müşteri #%1$s</string>
+    <string name="feature_notification_object_group">Grup #%1$s</string>
+    <string name="feature_notification_object_center">Merkez #%1$s</string>
+    <string name="feature_notification_object_savings">Birikim #%1$s</string>
+    <string name="feature_notification_time_just_now">Şimdi</string>
+    <string name="feature_notification_time_minutes_ago">%1$d dk önce</string>
+    <string name="feature_notification_time_hours_ago">%1$d sa önce</string>
+    <string name="feature_notification_time_yesterday">Dün</string>
+    <string name="feature_notification_time_days_ago">%1$d g önce</string>
+</resources>

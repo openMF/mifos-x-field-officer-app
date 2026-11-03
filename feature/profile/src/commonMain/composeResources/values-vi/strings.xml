@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Hồ sơ cục bộ</string>
+    <string name="screens_profile_local_message">%1$s chạy hoàn toàn trên thiết bị. Không cần tài khoản.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Hồ sơ</string>
+    <string name="feature_profile_back">Quay lại</string>
+    <string name="feature_profile_offline_banner">Bạn đang ngoại tuyến. Đây là tài khoản đã lưu khi bạn đăng nhập.</string>
+    <string name="feature_profile_username">Tên người dùng</string>
+    <string name="feature_profile_email">Email</string>
+    <string name="feature_profile_loan_officer">Cán bộ tín dụng</string>
+    <string name="feature_profile_staff">Nhân viên</string>
+    <string name="feature_profile_office_label">Chi nhánh</string>
+    <string name="feature_profile_name_error">Không thể tải tên của bạn từ máy chủ.</string>
+    <string name="feature_profile_name_error_generic">Kiểm tra kết nối và thử lại.</string>
+    <string name="feature_profile_retry">Thử lại</string>
+    <string name="feature_profile_roles_title">Vai trò</string>
+    <string name="feature_profile_roles_empty">Chưa được gán vai trò</string>
+    <string name="feature_profile_scope_title">Nội dung Trang chủ hiển thị</string>
+    <string name="feature_profile_scope_note">Danh mục của riêng bạn nếu bạn được liên kết với hồ sơ nhân viên, nếu không là toàn bộ chi nhánh của bạn.</string>
+    <string name="feature_profile_scope_my_portfolio">Danh mục của tôi</string>
+    <string name="feature_profile_scope_office">Chi nhánh: %1$s</string>
+    <string name="feature_profile_session_title">Đã đăng nhập vào</string>
+    <string name="feature_profile_live">Trực tiếp</string>
+    <string name="feature_profile_server_label">Máy chủ</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Cài đặt máy chủ</string>
+    <string name="feature_profile_change_password">Đổi mật khẩu</string>
+    <string name="feature_profile_change_password_offline">Kết nối internet để đổi mật khẩu của bạn.</string>
+    <string name="feature_profile_password_lead">Bạn vẫn đăng nhập trên thiết bị này sau khi đổi.</string>
+    <string name="feature_profile_new_password">Mật khẩu mới</string>
+    <string name="feature_profile_repeat_password">Nhập lại mật khẩu mới</string>
+    <string name="feature_profile_password_hint">Từ 12 đến 50 ký tự, gồm chữ hoa, chữ thường, một chữ số và một ký hiệu</string>
+    <string name="feature_profile_passwords_differ">Mật khẩu không khớp</string>
+    <string name="feature_profile_password_failed">Mật khẩu chưa được đổi. Hãy thử lại.</string>
+    <string name="feature_profile_show_password">Hiện mật khẩu</string>
+    <string name="feature_profile_hide_password">Ẩn mật khẩu</string>
+    <string name="feature_profile_cancel">Hủy</string>
+    <string name="feature_profile_save_password">Lưu mật khẩu</string>
+    <string name="feature_profile_password_changed">Đã đổi mật khẩu</string>
+    <string name="feature_profile_sign_out">Đăng xuất</string>
+</resources>

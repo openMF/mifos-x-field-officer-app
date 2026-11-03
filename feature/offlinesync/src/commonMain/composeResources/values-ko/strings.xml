@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">오프라인 동기화</string>
+    <string name="feature_offlinesync_online">온라인</string>
+    <string name="feature_offlinesync_offline">오프라인</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d개 동기화 대기</string>
+    <string name="feature_offlinesync_stat_failed">%1$d개 실패</string>
+    <string name="feature_offlinesync_level_label_centres">센터</string>
+    <string name="feature_offlinesync_level_label_groups">그룹</string>
+    <string name="feature_offlinesync_level_label_clients">고객</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">마지막 동기화 %1$s</string>
+    <string name="feature_offlinesync_not_synced">아직 동기화되지 않음</string>
+    <string name="feature_offlinesync_next_in_hours">다음 ~%1$d시간 후</string>
+    <string name="feature_offlinesync_sync_now">지금 동기화</string>
+    <string name="feature_offlinesync_syncing_button">동기화 중…</string>
+    <string name="feature_offlinesync_sync_when_online">온라인 시 동기화</string>
+    <string name="feature_offlinesync_offline_banner">오프라인 상태입니다. 기기의 모든 항목은 계속 열 수 있으며, 다시 온라인이 되면 동기화가 재개됩니다.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="other">%1$d개 레코드 다운로드 중</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="other">%2$d개 중 %1$d개</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="other">%1$d회 읽기</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">취소</string>
+    <string name="feature_offlinesync_job_result">완료 · %1$d개 동기화 · %2$d개 실패</string>
+    <string name="feature_offlinesync_job_result_body">나머지는 오프라인에서 열립니다</string>
+    <string name="feature_offlinesync_retry_failed">실패 항목 재시도</string>
+    <string name="feature_offlinesync_records_title">이 기기에</string>
+    <string name="feature_offlinesync_level_centres">센터 %1$d</string>
+    <string name="feature_offlinesync_level_groups">그룹 %1$d</string>
+    <string name="feature_offlinesync_level_clients">고객 %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="other">이 기기에서 고객 %1$d명 검색</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">동기화 대기 중</string>
+    <string name="feature_offlinesync_status_syncing">동기화 중…</string>
+    <string name="feature_offlinesync_status_synced">동기화됨 %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">오래됨 · 동기화됨 %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d개 실패 · 동기화됨 %2$s</string>
+    <string name="feature_offlinesync_via_parent">%1$s 경유</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="other">%1$d개 그룹</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="other">%1$d명 고객</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="other">%1$d개 계좌</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="other">%1$d개 대출</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="other">%1$d개 저축</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="other">%1$d개 문서</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">새로고침</string>
+    <string name="feature_offlinesync_remove">제거</string>
+    <string name="feature_offlinesync_remove_confirm">%1$s을(를) 이 기기에서 제거하시겠습니까? 다른 다운로드에 필요한 레코드는 유지됩니다.</string>
+    <string name="feature_offlinesync_expand">하위 항목 표시</string>
+    <string name="feature_offlinesync_collapse">하위 항목 숨기기</string>
+    <string name="feature_offlinesync_open">열기</string>
+    <string name="feature_offlinesync_refresh_title">동기화</string>
+    <string name="feature_offlinesync_refresh_manual">수동</string>
+    <string name="feature_offlinesync_refresh_automatic">자동</string>
+    <string name="feature_offlinesync_refresh_manual_note">지금 동기화를 탭할 때만 레코드가 동기화됩니다. 외출 전에 실행하세요.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">위 일정에 따라 레코드가 백그라운드에서 재동기화됩니다.</string>
+    <string name="feature_offlinesync_refresh_data_note">동기화하면 많은 데이터가 다운로드됩니다. 선택한 레코드만 이 기기에 저장됩니다.</string>
+    <string name="feature_offlinesync_resync_label">레코드 재동기화</string>
+    <string name="feature_offlinesync_every_hours">%1$d시간마다</string>
+    <string name="feature_offlinesync_wifi_only">Wi-Fi만</string>
+    <string name="feature_offlinesync_charging_only">충전 중에만</string>
+    <string name="feature_offlinesync_drafts_note">오프라인에서 한 작업은 임시 저장됩니다.</string>
+    <string name="feature_offlinesync_drafts_link">동기화 및 임시 저장</string>
+    <string name="feature_offlinesync_empty_title">이 기기에 아직 아무것도 없습니다</string>
+    <string name="feature_offlinesync_empty_body">방문할 센터, 그룹 또는 고객을 선택하고 출발 전에 동기화하세요. 그 아래의 모든 항목은 신호 없이도 여기서 열 수 있습니다.</string>
+    <string name="feature_offlinesync_add_records">레코드 추가</string>
+    <string name="feature_offlinesync_picker_title">이 기기에 저장</string>
+    <string name="feature_offlinesync_picker_empty">레코드를 찾을 수 없음</string>
+    <string name="feature_offlinesync_picker_error">목록을 불러올 수 없습니다.</string>
+    <string name="feature_offlinesync_retry">재시도</string>
+    <string name="feature_offlinesync_tab_centres">센터</string>
+    <string name="feature_offlinesync_tab_groups">그룹</string>
+    <string name="feature_offlinesync_tab_clients">고객</string>
+    <string name="feature_offlinesync_picker_search">이름 또는 계좌 번호로 검색</string>
+    <string name="feature_offlinesync_picker_hint">센터에는 그룹, 고객, 모든 계좌가 포함됩니다.</string>
+    <string name="feature_offlinesync_on_device">기기에 있음</string>
+    <string name="feature_offlinesync_picker_download">%1$d개 오프라인용 다운로드</string>
+    <string name="feature_offlinesync_time_just_now">방금 전</string>
+    <string name="feature_offlinesync_time_minutes">%1$d분 전</string>
+    <string name="feature_offlinesync_time_hours">%1$d시간 전</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="other">%1$d일 전</item>
+    </plurals>
+</resources>

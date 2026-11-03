@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Đồng bộ ngoại tuyến</string>
+    <string name="feature_offlinesync_online">Trực tuyến</string>
+    <string name="feature_offlinesync_offline">Ngoại tuyến</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d chờ đồng bộ</string>
+    <string name="feature_offlinesync_stat_failed">%1$d thất bại</string>
+    <string name="feature_offlinesync_level_label_centres">Trung tâm</string>
+    <string name="feature_offlinesync_level_label_groups">Nhóm</string>
+    <string name="feature_offlinesync_level_label_clients">Khách hàng</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Đồng bộ lần cuối %1$s</string>
+    <string name="feature_offlinesync_not_synced">Chưa được đồng bộ</string>
+    <string name="feature_offlinesync_next_in_hours">lần tới trong ~%1$d giờ</string>
+    <string name="feature_offlinesync_sync_now">Đồng bộ ngay</string>
+    <string name="feature_offlinesync_syncing_button">Đang đồng bộ…</string>
+    <string name="feature_offlinesync_sync_when_online">Đồng bộ khi trực tuyến</string>
+    <string name="feature_offlinesync_offline_banner">Bạn đang ngoại tuyến. Mọi thứ trên thiết bị này vẫn mở được; đồng bộ sẽ tiếp tục khi bạn trực tuyến trở lại.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="other">Đang tải xuống %1$d bản ghi</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="other">%1$d trong %2$d bản ghi</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="other">%1$d lần đọc</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Hủy</string>
+    <string name="feature_offlinesync_job_result">Xong · %1$d đã đồng bộ · %2$d thất bại</string>
+    <string name="feature_offlinesync_job_result_body">Phần còn lại mở được ngoại tuyến</string>
+    <string name="feature_offlinesync_retry_failed">Thử lại những mục thất bại</string>
+    <string name="feature_offlinesync_records_title">Trên thiết bị này</string>
+    <string name="feature_offlinesync_level_centres">Trung tâm %1$d</string>
+    <string name="feature_offlinesync_level_groups">Nhóm %1$d</string>
+    <string name="feature_offlinesync_level_clients">Khách hàng %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="other">Tìm kiếm %1$d khách hàng trên thiết bị này</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Chờ đồng bộ</string>
+    <string name="feature_offlinesync_status_syncing">Đang đồng bộ…</string>
+    <string name="feature_offlinesync_status_synced">Đã đồng bộ %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Lỗi thời · đã đồng bộ %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d thất bại · đã đồng bộ %2$s</string>
+    <string name="feature_offlinesync_via_parent">qua %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="other">%1$d nhóm</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="other">%1$d khách hàng</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="other">%1$d tài khoản</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="other">%1$d khoản vay</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="other">%1$d tiết kiệm</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="other">%1$d tài liệu</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Làm mới</string>
+    <string name="feature_offlinesync_remove">Xóa</string>
+    <string name="feature_offlinesync_remove_confirm">Xóa %1$s khỏi thiết bị này? Các bản ghi còn cần cho lần tải xuống khác sẽ được giữ lại.</string>
+    <string name="feature_offlinesync_expand">Hiển thị mục bên dưới</string>
+    <string name="feature_offlinesync_collapse">Ẩn mục bên dưới</string>
+    <string name="feature_offlinesync_open">Mở</string>
+    <string name="feature_offlinesync_refresh_title">Đồng bộ</string>
+    <string name="feature_offlinesync_refresh_manual">Thủ công</string>
+    <string name="feature_offlinesync_refresh_automatic">Tự động</string>
+    <string name="feature_offlinesync_refresh_manual_note">Bản ghi của bạn chỉ đồng bộ khi bạn nhấn Đồng bộ ngay. Hãy làm điều đó trước khi ra ngoài.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Bản ghi của bạn được đồng bộ lại tự động theo lịch trên.</string>
+    <string name="feature_offlinesync_refresh_data_note">Đồng bộ tải xuống nhiều dữ liệu. Chỉ những bản ghi bạn đã chọn mới đến thiết bị này.</string>
+    <string name="feature_offlinesync_resync_label">Đồng bộ lại bản ghi của bạn</string>
+    <string name="feature_offlinesync_every_hours">Mỗi %1$d giờ</string>
+    <string name="feature_offlinesync_wifi_only">Chỉ Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">Chỉ khi sạc</string>
+    <string name="feature_offlinesync_drafts_note">Công việc thực hiện ngoại tuyến được lưu dưới dạng bản nháp.</string>
+    <string name="feature_offlinesync_drafts_link">Đồng bộ &amp; bản nháp</string>
+    <string name="feature_offlinesync_empty_title">Chưa có gì trên thiết bị này</string>
+    <string name="feature_offlinesync_empty_body">Chọn các trung tâm, nhóm hoặc khách hàng bạn sẽ thăm và đồng bộ trước khi ra ngoài. Mọi thứ bên dưới đều mở được ở đây khi không có tín hiệu.</string>
+    <string name="feature_offlinesync_add_records">Thêm bản ghi</string>
+    <string name="feature_offlinesync_picker_title">Lưu trên thiết bị này</string>
+    <string name="feature_offlinesync_picker_empty">Không tìm thấy bản ghi</string>
+    <string name="feature_offlinesync_picker_error">Không thể tải danh sách.</string>
+    <string name="feature_offlinesync_retry">Thử lại</string>
+    <string name="feature_offlinesync_tab_centres">Trung tâm</string>
+    <string name="feature_offlinesync_tab_groups">Nhóm</string>
+    <string name="feature_offlinesync_tab_clients">Khách hàng</string>
+    <string name="feature_offlinesync_picker_search">Tìm theo tên hoặc số tài khoản</string>
+    <string name="feature_offlinesync_picker_hint">Một trung tâm bao gồm các nhóm, khách hàng và tất cả tài khoản của họ.</string>
+    <string name="feature_offlinesync_on_device">Trên thiết bị</string>
+    <string name="feature_offlinesync_picker_download">Tải xuống %1$d để dùng ngoại tuyến</string>
+    <string name="feature_offlinesync_time_just_now">vừa xong</string>
+    <string name="feature_offlinesync_time_minutes">%1$d phút trước</string>
+    <string name="feature_offlinesync_time_hours">%1$d giờ trước</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="other">%1$d ngày trước</item>
+    </plurals>
+</resources>

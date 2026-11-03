@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Локальный профиль</string>
+    <string name="screens_profile_local_message">%1$s работает полностью на устройстве. Учётная запись не требуется.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Профиль</string>
+    <string name="feature_profile_back">Назад</string>
+    <string name="feature_profile_offline_banner">Вы не в сети. Это учётная запись, сохранённая при входе.</string>
+    <string name="feature_profile_username">Имя пользователя</string>
+    <string name="feature_profile_email">Эл. почта</string>
+    <string name="feature_profile_loan_officer">Кредитный специалист</string>
+    <string name="feature_profile_staff">Сотрудник</string>
+    <string name="feature_profile_office_label">Офис</string>
+    <string name="feature_profile_name_error">Не удалось загрузить ваше имя с сервера.</string>
+    <string name="feature_profile_name_error_generic">Проверьте подключение и повторите попытку.</string>
+    <string name="feature_profile_retry">Повторить</string>
+    <string name="feature_profile_roles_title">Роли</string>
+    <string name="feature_profile_roles_empty">Роли не назначены</string>
+    <string name="feature_profile_scope_title">Что показывает главный экран</string>
+    <string name="feature_profile_scope_note">Ваш личный портфель, если вы связаны с записью сотрудника, иначе весь ваш офис.</string>
+    <string name="feature_profile_scope_my_portfolio">Мой портфель</string>
+    <string name="feature_profile_scope_office">Офис: %1$s</string>
+    <string name="feature_profile_session_title">Выполнен вход в</string>
+    <string name="feature_profile_live">Активен</string>
+    <string name="feature_profile_server_label">Сервер</string>
+    <string name="feature_profile_tenant">Тенант</string>
+    <string name="feature_profile_server_settings">Настройки сервера</string>
+    <string name="feature_profile_change_password">Сменить пароль</string>
+    <string name="feature_profile_change_password_offline">Подключитесь к интернету, чтобы сменить пароль.</string>
+    <string name="feature_profile_password_lead">После смены вы останетесь в системе на этом устройстве.</string>
+    <string name="feature_profile_new_password">Новый пароль</string>
+    <string name="feature_profile_repeat_password">Повторите новый пароль</string>
+    <string name="feature_profile_password_hint">От 12 до 50 символов, с заглавными и строчными буквами, цифрой и символом</string>
+    <string name="feature_profile_passwords_differ">Пароли не совпадают</string>
+    <string name="feature_profile_password_failed">Пароль не был изменён. Повторите попытку.</string>
+    <string name="feature_profile_show_password">Показать пароль</string>
+    <string name="feature_profile_hide_password">Скрыть пароль</string>
+    <string name="feature_profile_cancel">Отмена</string>
+    <string name="feature_profile_save_password">Сохранить пароль</string>
+    <string name="feature_profile_password_changed">Пароль изменён</string>
+    <string name="feature_profile_sign_out">Выйти</string>
+</resources>

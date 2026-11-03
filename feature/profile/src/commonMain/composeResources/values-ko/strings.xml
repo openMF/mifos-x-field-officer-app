@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">로컬 프로필</string>
+    <string name="screens_profile_local_message">%1$s은(는) 전적으로 기기에서 실행됩니다. 계정이 필요하지 않습니다.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">프로필</string>
+    <string name="feature_profile_back">뒤로</string>
+    <string name="feature_profile_offline_banner">오프라인 상태입니다. 로그인 시 저장된 계정입니다.</string>
+    <string name="feature_profile_username">사용자 이름</string>
+    <string name="feature_profile_email">이메일</string>
+    <string name="feature_profile_loan_officer">대출 담당자</string>
+    <string name="feature_profile_staff">직원</string>
+    <string name="feature_profile_office_label">지점</string>
+    <string name="feature_profile_name_error">서버에서 이름을 불러오지 못했습니다.</string>
+    <string name="feature_profile_name_error_generic">연결을 확인하고 다시 시도하세요.</string>
+    <string name="feature_profile_retry">다시 시도</string>
+    <string name="feature_profile_roles_title">역할</string>
+    <string name="feature_profile_roles_empty">할당된 역할이 없습니다</string>
+    <string name="feature_profile_scope_title">홈에 표시되는 내용</string>
+    <string name="feature_profile_scope_note">직원 기록에 연결되어 있으면 본인 포트폴리오, 그렇지 않으면 지점 전체가 표시됩니다.</string>
+    <string name="feature_profile_scope_my_portfolio">내 포트폴리오</string>
+    <string name="feature_profile_scope_office">지점: %1$s</string>
+    <string name="feature_profile_session_title">로그인한 서버</string>
+    <string name="feature_profile_live">연결됨</string>
+    <string name="feature_profile_server_label">서버</string>
+    <string name="feature_profile_tenant">테넌트</string>
+    <string name="feature_profile_server_settings">서버 설정</string>
+    <string name="feature_profile_change_password">비밀번호 변경</string>
+    <string name="feature_profile_change_password_offline">비밀번호를 변경하려면 인터넷에 연결하세요.</string>
+    <string name="feature_profile_password_lead">변경 후에도 이 기기에서는 로그인 상태가 유지됩니다.</string>
+    <string name="feature_profile_new_password">새 비밀번호</string>
+    <string name="feature_profile_repeat_password">새 비밀번호 확인</string>
+    <string name="feature_profile_password_hint">12~50자, 대문자와 소문자, 숫자, 기호 포함</string>
+    <string name="feature_profile_passwords_differ">비밀번호가 일치하지 않습니다</string>
+    <string name="feature_profile_password_failed">비밀번호가 변경되지 않았습니다. 다시 시도하세요.</string>
+    <string name="feature_profile_show_password">비밀번호 표시</string>
+    <string name="feature_profile_hide_password">비밀번호 숨기기</string>
+    <string name="feature_profile_cancel">취소</string>
+    <string name="feature_profile_save_password">비밀번호 저장</string>
+    <string name="feature_profile_password_changed">비밀번호가 변경되었습니다</string>
+    <string name="feature_profile_sign_out">로그아웃</string>
+</resources>

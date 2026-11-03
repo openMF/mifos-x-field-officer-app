@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">Notifikasi</string>
+    <string name="feature_notification_mark_all_read">Tandai semua dibaca</string>
+    <string name="feature_notification_mark_all_read_failed">Gagal menandai. Periksa koneksi lalu coba lagi.</string>
+    <string name="feature_notification_empty_title">Semua sudah dibaca</string>
+    <string name="feature_notification_empty_body">Aktivitas nasabah, kelompok, dan pinjaman Anda muncul di sini.</string>
+    <string name="feature_notification_section_new">Baru</string>
+    <string name="feature_notification_section_earlier">Sebelumnya</string>
+    <string name="feature_notification_object_loan">Pinjaman #%1$s</string>
+    <string name="feature_notification_object_client">Nasabah #%1$s</string>
+    <string name="feature_notification_object_group">Kelompok #%1$s</string>
+    <string name="feature_notification_object_center">Sentra #%1$s</string>
+    <string name="feature_notification_object_savings">Tabungan #%1$s</string>
+    <string name="feature_notification_time_just_now">Baru saja</string>
+    <string name="feature_notification_time_minutes_ago">%1$d mnt lalu</string>
+    <string name="feature_notification_time_hours_ago">%1$d jam lalu</string>
+    <string name="feature_notification_time_yesterday">Kemarin</string>
+    <string name="feature_notification_time_days_ago">%1$d hr lalu</string>
+</resources>

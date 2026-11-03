@@ -2,11 +2,11 @@
 <!--
     Copyright 2024 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
     <string name="core_designsystem_unable_to_load">Sorry we weren't able to load</string>
@@ -16,7 +16,11 @@
     <string name="core_designsystem_enter_tenant">Enter a tenant</string>
     <string name="core_designsystem_cancel">Cancel</string>
     <string name="core_designsystem_dialog_action_ok">Save</string>
-
-    <string name="core_designsystem_app_title">Mifos</string>
-
+    <!--
+        The date field's trailing calendar button is icon-only, and it was the ONLY way to open the
+        picker (the field itself is readOnly with no click handler), so with a null
+        contentDescription the control was unreachable by a screen reader on every date field in
+        the app. Found on device 2026-10-22 on the client Update Details form.
+    -->
+    <string name="core_designsystem_open_date_picker">Open date picker</string>
 </resources>

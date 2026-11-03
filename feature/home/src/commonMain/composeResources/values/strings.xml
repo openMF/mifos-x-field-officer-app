@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <!-- ============================================================
+         RULE-IMPL-NO-HARDCODED-STRING-001 — feature/home i18n surface
+         Naming convention: screens_home_<screen>_<role>
+         (per training-layer/instructions/stream-first/latest/CORE_I18N.md)
+         Authored by W2-6 of plan-layer/active/store5-superbrain-v2/.
+         ============================================================ -->
+
+    <!-- ===== HomeScreen — TopAppBar ===== -->
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Settings</string>
+
+    <!-- ===== HomeScreen — HeroSnapshot ===== -->
+    <string name="screens_home_outstanding_label">Outstanding balance</string>
+    <string name="screens_home_no_loans_message">No active loans — start by adding one.</string>
+    <string name="screens_home_total_outstanding_label">Total outstanding</string>
+    <string name="screens_home_active_loans_singular">%1$d active loan</string>
+    <string name="screens_home_active_loans_plural">%1$d active loans</string>
+    <string name="screens_home_monthly_emi_label">Monthly EMI</string>
+    <string name="screens_home_loans_label">Loans</string>
+
+    <!-- ===== HomeScreen — LoansCarousel ===== -->
+    <string name="screens_home_loans_carousel_title">Your loans · %1$d</string>
+    <string name="screens_home_remaining_label">Remaining</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">EMI $%1$s · %2$d%% paid</string>
+
+    <!-- ===== HomeScreen — Section headers ===== -->
+    <string name="screens_home_section_this_week">This week</string>
+    <string name="screens_home_section_tools">Tools</string>
+    <string name="screens_home_section_tools_subtitle">Calculators, comparisons, macro indicators</string>
+
+    <!-- ===== HomeScreen — BillsQuickCard ===== -->
+    <string name="screens_home_bills_card_title">Upcoming Bills</string>
+    <string name="screens_home_bills_total_label">Total due (next 7d)</string>
+    <string name="screens_home_bills_day_value">Day %1$d</string>
+    <string name="screens_home_bills_empty">No bills due in the next 7 days.</string>
+
+    <!-- ===== HomeScreen — RatesQuickCard ===== -->
+    <string name="screens_home_rates_card_title">Today's Rates</string>
+    <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
+    <string name="screens_home_rates_mortgage_30y_label">30Y Mortgage</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+
+    <!-- ===== HomeScreen — ExchangeRateCard ===== -->
+    <string name="screens_home_exchange_card_title">USD Exchange</string>
+    <string name="screens_home_usd_label">USD</string>
+
+    <!-- ===== HomeScreen — SectionCard ===== -->
+    <string name="screens_home_see_all">See all</string>
+
+    <!-- ===== HomeScreen — FeatureRow tile titles + subtitles ===== -->
+    <string name="screens_home_tool_emi_title">EMI Calculator</string>
+    <string name="screens_home_tool_emi_subtitle">Monthly payment for any loan</string>
+    <string name="screens_home_tool_affordability_title">Affordability</string>
+    <string name="screens_home_tool_affordability_subtitle">How much can I borrow safely?</string>
+    <string name="screens_home_tool_amortization_title">Amortization</string>
+    <string name="screens_home_tool_amortization_subtitle">Full payment schedule</string>
+    <string name="screens_home_tool_compare_title">Compare Loans</string>
+    <string name="screens_home_tool_compare_subtitle">Side-by-side total cost</string>
+    <string name="screens_home_tool_wizard_title">Loan Wizard</string>
+    <string name="screens_home_tool_wizard_subtitle">Step-by-step planner</string>
+    <string name="screens_home_tool_currency_title">Currency Rates</string>
+    <string name="screens_home_tool_currency_subtitle">Live exchange rates</string>
+    <string name="screens_home_tool_history_title">Rate History</string>
+    <string name="screens_home_tool_history_subtitle">Historical FX charts</string>
+    <string name="screens_home_tool_macro_title">Country Macro</string>
+    <string name="screens_home_tool_macro_subtitle">GDP, CPI, unemployment</string>
+    <string name="screens_home_tool_crypto_title">Coin Markets</string>
+    <string name="screens_home_tool_crypto_subtitle">Live crypto prices + watchlist</string>
+
+    <!-- ===== HomeScreen — Empty state ===== -->
+    <string name="screens_home_money_zero">$0.00</string>
+    <!-- Search — the Home body, ported from 6b66e8a43:feature/search (S2). -->
+    <string name="feature_home_search_hint">Search clients, groups, accounts</string>
+    <string name="feature_home_search_blank_query">Enter something to search for</string>
+    <string name="feature_home_search_exact_match">Exact match</string>
+    <string name="feature_home_search_filter_clients">Clients</string>
+    <string name="feature_home_search_filter_groups">Groups</string>
+    <string name="feature_home_search_filter_loans">Loans</string>
+    <string name="feature_home_search_filter_savings">Savings</string>
+    <!-- Home dashboard -->
+    <string name="feature_home_dashboard_greeting_morning">Good morning, %1$s</string>
+    <string name="feature_home_dashboard_greeting_afternoon">Good afternoon, %1$s</string>
+    <string name="feature_home_dashboard_greeting_evening">Good evening, %1$s</string>
+    <string name="feature_home_dashboard_scope_my_portfolio">My portfolio</string>
+    <string name="feature_home_dashboard_scope_office">Office: %1$s</string>
+    <string name="feature_home_dashboard_collections_title">Today's collections</string>
+    <string name="feature_home_dashboard_collections_due_clients">Clients due today</string>
+    <string name="feature_home_dashboard_collections_due_amount">Due today</string>
+    <string name="feature_home_dashboard_collections_empty">No collections due today</string>
+    <string name="feature_home_dashboard_collections_open">Open collection sheet</string>
+    <string name="feature_home_dashboard_queue_title">Work queue</string>
+    <string name="feature_home_dashboard_queue_checker">Checker inbox tasks</string>
+    <string name="feature_home_dashboard_queue_approval">Loans awaiting approval</string>
+    <string name="feature_home_dashboard_queue_disbursal">Approved, awaiting disbursal</string>
+    <string name="feature_home_dashboard_queue_pending_clients">Clients pending activation</string>
+    <string name="feature_home_dashboard_queue_reschedules">Pending reschedule requests</string>
+    <string name="feature_home_dashboard_queue_drafts">My unsynced drafts</string>
+    <string name="feature_home_dashboard_meetings_title">Meetings today</string>
+    <string name="feature_home_dashboard_meetings_empty">Nothing scheduled today</string>
+    <string name="feature_home_dashboard_meetings_groups">%1$d groups</string>
+    <string name="feature_home_dashboard_portfolio_title">Portfolio at a glance</string>
+    <string name="feature_home_dashboard_tile_active_clients">Active clients</string>
+    <string name="feature_home_dashboard_tile_active_loans">Active loans</string>
+    <string name="feature_home_dashboard_tile_outstanding">Outstanding</string>
+    <string name="feature_home_dashboard_tile_overdue">Overdue</string>
+    <string name="feature_home_dashboard_tile_in_arrears">Loans in arrears</string>
+    <string name="feature_home_dashboard_tile_par">PAR</string>
+    <string name="feature_home_dashboard_tile_savings">Savings balance</string>
+    <string name="feature_home_dashboard_tile_groups">Groups</string>
+    <string name="feature_home_dashboard_tile_centers">Centres</string>
+    <string name="feature_home_dashboard_quick_actions_title">Quick actions</string>
+    <string name="feature_home_dashboard_qa_new_client">New client</string>
+    <string name="feature_home_dashboard_qa_new_group">New group</string>
+    <string name="feature_home_dashboard_qa_new_center">New centre</string>
+    <string name="feature_home_dashboard_qa_collection_sheet">Collection sheet</string>
+    <string name="feature_home_dashboard_qa_run_reports">Run reports</string>
+    <string name="feature_home_dashboard_qa_search">Search</string>
+    <string name="feature_home_dashboard_qa_path_tracker">Path Tracker</string>
+    <string name="feature_home_dashboard_settings">Settings</string>
+    <string name="feature_home_dashboard_profile">Profile</string>
+    <string name="feature_home_dashboard_loan_queue_empty">No loans in this queue</string>
+    <string name="feature_home_dashboard_queue_pending_badge">%1$d items pending</string>
+    <string name="feature_home_dashboard_meetings_summary">%1$d scheduled · %2$s</string>
+    <string name="feature_home_dashboard_summary_active_clients">%1$d active clients</string>
+    <string name="feature_home_dashboard_summary_active_loans">%1$d active loans</string>
+    <string name="feature_home_dashboard_summary_outstanding">%1$s outstanding</string>
+    <string name="feature_home_dashboard_summary_par">PAR %1$s</string>
+    <string name="feature_home_dashboard_portfolio_total_outstanding">Total outstanding portfolio</string>
+    <string name="feature_home_dashboard_card_error">Couldn't load this card</string>
+    <string name="feature_home_dashboard_retry">Retry</string>
+    <string name="feature_home_dashboard_error_title">Couldn't load your day</string>
+    <string name="feature_home_dashboard_error_body">Check your connection and try again. Quick actions still work.</string>
+    <string name="feature_home_dashboard_card_error_body">This section didn't refresh. Your other cards are unaffected.</string>
+    <string name="feature_home_dashboard_retry_sync">Retry sync</string>
+    <string name="feature_home_dashboard_offline_label">Offline</string>
+    <string name="feature_home_dashboard_offline_body">Check your connection and try again. Quick actions and records saved on this device are ready to use offline.</string>
+    <string name="feature_home_dashboard_offline_banner_title">Working offline</string>
+    <string name="feature_home_dashboard_offline_banner_body">New entries are kept on this device and sync automatically when you're back online.</string>
+    <string name="feature_home_dashboard_offline_enabled">Offline enabled</string>
+    <string name="feature_home_dashboard_collections_loans_due">Loans due today</string>
+    <string name="feature_home_dashboard_collections_loans_value">%1$d loans</string>
+    <string name="feature_home_dashboard_collections_hero_meta">%1$d clients · %2$d loans</string>
+    <string name="feature_home_dashboard_recent_title">Recently opened</string>
+    <string name="feature_home_dashboard_recent_kind_client">Client</string>
+    <string name="feature_home_dashboard_recent_kind_group">Group</string>
+    <string name="feature_home_dashboard_recent_kind_center">Centre</string>
+    <string name="feature_home_dashboard_recent_kind_loan">Loan</string>
+    <string name="feature_home_dashboard_time_just_now">Just now</string>
+    <string name="feature_home_dashboard_time_minutes_ago">%1$dm ago</string>
+    <string name="feature_home_dashboard_time_hours_ago">%1$dh ago</string>
+    <string name="feature_home_dashboard_time_yesterday">Yesterday</string>
+    <string name="feature_home_dashboard_time_days_ago">%1$dd ago</string>
+    <string name="feature_home_dashboard_collections_collected_today">Collected today</string>
+    <string name="feature_home_dashboard_collections_goal">Goal: %1$s</string>
+    <string name="feature_home_dashboard_collections_remains">Remains: %1$s</string>
+    <string name="feature_home_dashboard_collections_of_goal">%1$s Target</string>
+    <string name="feature_home_dashboard_collections_percent_collected">%1$s collected</string>
+    <string name="feature_home_dashboard_collections_collected">Collected</string>
+    <string name="feature_home_dashboard_collections_overdue">Overdue clients</string>
+    <string name="feature_home_dashboard_collections_overdue_chip">overdue</string>
+    <string name="feature_home_dashboard_summary_collected">%1$s collected</string>
+    <string name="feature_home_dashboard_summary_overdue">%1$d overdue</string>
+    <string name="feature_home_dashboard_queue_view_all">View all</string>
+    <string name="feature_home_dashboard_meeting_center_groups">Centre · %1$d groups</string>
+    <string name="feature_home_dashboard_meeting_on_schedule">On schedule</string>
+    <string name="feature_home_dashboard_meeting_upcoming">Upcoming</string>
+    <string name="feature_home_dashboard_meeting_today">Today</string>
+    <string name="feature_home_dashboard_tile_par_target">target &lt; %1$s</string>
+    <string name="feature_home_dashboard_card_cached">Cached: %1$s</string>
+    <string name="feature_home_dashboard_recent_cached">Offline cached · %1$d records</string>
+    <string name="feature_home_dashboard_quick_actions_available">%1$d available</string>
+    <string name="feature_home_dashboard_error_kind_forbidden">Access denied</string>
+    <string name="feature_home_dashboard_error_kind_not_found">Not found</string>
+    <string name="feature_home_dashboard_error_kind_rejected">Request rejected</string>
+    <string name="feature_home_dashboard_error_kind_server">Server error</string>
+    <string name="feature_home_dashboard_error_kind_offline">No connection</string>
+    <string name="feature_home_dashboard_error_kind_timeout">Timed out</string>
+    <string name="feature_home_dashboard_error_kind_signed_out">Signed out</string>
+    <string name="feature_home_dashboard_error_kind_busy">Too many requests</string>
+    <string name="feature_home_dashboard_error_kind_failed">Sync failed</string>
+    <plurals name="feature_home_dashboard_collections_clients_value">
+        <item quantity="one">%1$d client</item>
+        <item quantity="other">%1$d clients</item>
+    </plurals>
+    <plurals name="feature_home_dashboard_collections_summary">
+        <item quantity="one">%1$d client due · %2$s due</item>
+        <item quantity="other">%1$d clients due · %2$s due</item>
+    </plurals>
+</resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_note_notes">Notes</string>
+    <string name="feature_note_no_item_found">No Item Found</string>
+    <string name="feature_note_add_item">Click on "+" Button to add an Item</string>
+    <string name="feature_note_failed_to_fetch_notes">Failed to fetch notes</string>
+    <string name="feature_note_internet_not_connected">No Internet</string>
+    <string name="feature_note_edit_note">Edit Note</string>
+    <string name="feature_note_delete_note">Delete Note</string>
+    <string name="feature_note_delete">Delete</string>
+    <string name="feature_note_unexpected_error">Unexpected error</string>
+    <string name="feature_note_delete_note_confirmation">Once deleted, this note cannot be recovered. Do you want to continue?</string>
+
+    <string name="feature_note_write_note_label">Write a Note</string>
+    <string name="feature_note_edit_note_label">Edit a Note</string>
+    <string name="feature_note_add_note">Add Note</string>
+    <string name="feature_note_update_note">Update Note</string>
+    <string name="feature_note_button_add">Add</string>
+    <string name="feature_note_button_update">Update</string>
+    <string name="feature_note_button_back">Back</string>
+    <string name="feature_note_button_confirm">Confirm</string>
+    <string name="feature_note_dialog_warning">Warning</string>
+    <string name="feature_note_dialog_warning_message">Discard changes? Unsaved data will be lost.</string>
+
+    <!-- NEW in the port. The original had no offline-vs-failed distinction on a WRITE: every
+         outcome rendered "Unexpected error", so a field officer in a dead spot was told the app
+         broke. MutationResult.Blocked(OFFLINE) is a separate outcome and gets its own words. -->
+    <string name="feature_note_error_offline">No connection. This note was not saved — try again once you have signal.</string>
+    <string name="feature_note_error_delete_offline">No connection. This note was not deleted — try again once you have signal.</string>
+
+    <!-- Content descriptions. The original left the row actions unlabelled. -->
+    <string name="feature_note_cd_back">Back</string>
+    <!-- DISMISS actions, distinct from navigation. The render tier caught these reading as "Back":
+         a button that clears an error banner, and the cancel half of a delete confirmation, both
+         said "Back" and so looked like they would leave the screen. -->
+    <string name="feature_note_button_dismiss">Dismiss</string>
+    <string name="feature_note_button_cancel">Cancel</string>
+    <string name="feature_note_cd_add">Add a note</string>
+    <string name="feature_note_cd_expand">Show actions for this note</string>
+
+    <!--
+        NOT carried over, deliberately:
+
+        feature_note_item ("Item") — the original passed it to AppEmptyCard, which renders
+        'No {x} Found'. The result read "No Item Found" on a NOTES screen. The empty state here
+        names what is actually missing, so the generic key has no caller.
+    -->
+</resources>

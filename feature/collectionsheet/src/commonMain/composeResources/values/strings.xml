@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <!-- Ported from 6b66e8a43:feature/collectionSheet (individual flow). -->
+    <string name="feature_collection_sheet_individual_collection_sheet">Individual Collection Sheet</string>
+    <string name="feature_collection_sheet_generate_new">Generate New</string>
+    <string name="feature_collection_sheet_fill_collection_sheet_message">Please fill in appropriate details to find the collection sheet to generate.</string>
+    <string name="feature_collection_sheet_office">Office</string>
+    <string name="feature_collection_sheet_repayment_date">Repayment Date</string>
+    <string name="feature_collection_sheet_staff">Staff</string>
+    <string name="feature_collection_sheet_staff_optional">Staff (optional)</string>
+    <string name="feature_collection_sheet_generate">Generate</string>
+    <string name="feature_collection_sheet_clear">Clear</string>
+    <string name="feature_collection_sheet_select">Select</string>
+    <string name="feature_collection_sheet_cancel">Cancel</string>
+    <string name="feature_collection_sheet_individual_collection_details">Collection Details</string>
+    <string name="feature_collection_sheet_date">Date:</string>
+    <string name="feature_collection_sheet_member">Member:</string>
+    <string name="feature_collection_sheet_total_due">Total due</string>
+    <string name="feature_collection_sheet_total_charges">Total Charges</string>
+    <string name="feature_collection_sheet_add_payment_detail">Add Payment Detail</string>
+    <string name="feature_collection_sheet_no_payment_added">No Payment Added</string>
+    <string name="feature_collection_sheet_payment_type">Payment Type</string>
+    <string name="feature_collection_sheet_account_number">Account Number</string>
+    <string name="feature_collection_sheet_cheque_number">Cheque Number</string>
+    <string name="feature_collection_sheet_routing_code">Routing Code</string>
+    <string name="feature_collection_sheet_receipt_number">Receipt Number</string>
+    <string name="feature_collection_sheet_bank_number">Bank Number</string>
+    <string name="feature_collection_sheet_save">Save</string>
+    <string name="feature_collection_sheet_failed_to_save_collection_sheet">Failed to Save Collection Sheet</string>
+    <string name="feature_collection_sheet_save_collection_sheet_success">Collection Sheet Saved Successfully</string>
+
+    <!-- New in the port. -->
+    <string name="feature_collection_sheet_amount">Amount collected</string>
+    <string name="feature_collection_sheet_amount_invalid">Enter an amount of 0 or more</string>
+    <string name="feature_collection_sheet_collecting">Collecting %1$s</string>
+    <string name="feature_collection_sheet_payment_added">Payment detail added</string>
+    <string name="feature_collection_sheet_loan_account">%1$s (#%2$s)</string>
+    <string name="feature_collection_sheet_submit">Submit collection sheet</string>
+    <string name="feature_collection_sheet_summary">%1$d loans · %2$d members · total %3$s</string>
+    <string name="feature_collection_sheet_nothing_due">No repayments are due for this office, staff and date.</string>
+    <string name="feature_collection_sheet_offline">You are offline. Connect to submit the collection sheet.</string>
+    <string name="feature_collection_sheet_ok">OK</string>
+</resources>

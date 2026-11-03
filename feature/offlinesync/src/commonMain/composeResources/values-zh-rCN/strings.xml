@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">离线同步</string>
+    <string name="feature_offlinesync_online">在线</string>
+    <string name="feature_offlinesync_offline">离线</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d 待同步</string>
+    <string name="feature_offlinesync_stat_failed">%1$d 失败</string>
+    <string name="feature_offlinesync_level_label_centres">中心</string>
+    <string name="feature_offlinesync_level_label_groups">小组</string>
+    <string name="feature_offlinesync_level_label_clients">客户</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">上次同步 %1$s</string>
+    <string name="feature_offlinesync_not_synced">尚未同步</string>
+    <string name="feature_offlinesync_next_in_hours">下次约 %1$d 小时后</string>
+    <string name="feature_offlinesync_sync_now">立即同步</string>
+    <string name="feature_offlinesync_syncing_button">同步中…</string>
+    <string name="feature_offlinesync_sync_when_online">联网时同步</string>
+    <string name="feature_offlinesync_offline_banner">您当前处于离线状态。此设备上的所有内容仍可打开；重新联网后同步将自动恢复。</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="other">正在下载 %1$d 条记录</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="other">%2$d 条中的 %1$d 条</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="other">%1$d 次读取</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">取消</string>
+    <string name="feature_offlinesync_job_result">完成 · %1$d 已同步 · %2$d 失败</string>
+    <string name="feature_offlinesync_job_result_body">其余内容可离线打开</string>
+    <string name="feature_offlinesync_retry_failed">重试失败项</string>
+    <string name="feature_offlinesync_records_title">此设备上</string>
+    <string name="feature_offlinesync_level_centres">中心 %1$d</string>
+    <string name="feature_offlinesync_level_groups">小组 %1$d</string>
+    <string name="feature_offlinesync_level_clients">客户 %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="other">在此设备上搜索 %1$d 位客户</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">等待同步</string>
+    <string name="feature_offlinesync_status_syncing">同步中…</string>
+    <string name="feature_offlinesync_status_synced">已同步 %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">已过期 · 已同步 %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d 失败 · 已同步 %2$s</string>
+    <string name="feature_offlinesync_via_parent">通过 %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="other">%1$d 个小组</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="other">%1$d 位客户</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="other">%1$d 个账户</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="other">%1$d 笔贷款</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="other">%1$d 笔储蓄</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="other">%1$d 份文件</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">刷新</string>
+    <string name="feature_offlinesync_remove">移除</string>
+    <string name="feature_offlinesync_remove_confirm">从此设备移除 %1$s？其他下载仍需要的记录将保留。</string>
+    <string name="feature_offlinesync_expand">显示下级内容</string>
+    <string name="feature_offlinesync_collapse">隐藏下级内容</string>
+    <string name="feature_offlinesync_open">打开</string>
+    <string name="feature_offlinesync_refresh_title">同步</string>
+    <string name="feature_offlinesync_refresh_manual">手动</string>
+    <string name="feature_offlinesync_refresh_automatic">自动</string>
+    <string name="feature_offlinesync_refresh_manual_note">只有点击立即同步后，你的记录才会同步。出发前请先执行。</string>
+    <string name="feature_offlinesync_refresh_automatic_note">你的记录将按上方计划在后台自动重新同步。</string>
+    <string name="feature_offlinesync_refresh_data_note">同步会下载大量数据。只有你选择的记录才会同步到此设备。</string>
+    <string name="feature_offlinesync_resync_label">重新同步你的记录</string>
+    <string name="feature_offlinesync_every_hours">每 %1$d 小时</string>
+    <string name="feature_offlinesync_wifi_only">仅 Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">仅充电时</string>
+    <string name="feature_offlinesync_drafts_note">离线完成的工作将保存为草稿。</string>
+    <string name="feature_offlinesync_drafts_link">同步与草稿</string>
+    <string name="feature_offlinesync_empty_title">此设备上尚无内容</string>
+    <string name="feature_offlinesync_empty_body">选择您要走访的中心、小组或客户，出发前先进行同步。其下的所有内容无需信号即可在此打开。</string>
+    <string name="feature_offlinesync_add_records">添加记录</string>
+    <string name="feature_offlinesync_picker_title">保存到此设备</string>
+    <string name="feature_offlinesync_picker_empty">未找到记录</string>
+    <string name="feature_offlinesync_picker_error">无法加载列表。</string>
+    <string name="feature_offlinesync_retry">重试</string>
+    <string name="feature_offlinesync_tab_centres">中心</string>
+    <string name="feature_offlinesync_tab_groups">小组</string>
+    <string name="feature_offlinesync_tab_clients">客户</string>
+    <string name="feature_offlinesync_picker_search">按姓名或账户号码搜索</string>
+    <string name="feature_offlinesync_picker_hint">一个中心包含其小组、客户及所有账户。</string>
+    <string name="feature_offlinesync_on_device">已在设备上</string>
+    <string name="feature_offlinesync_picker_download">下载 %1$d 条离线使用</string>
+    <string name="feature_offlinesync_time_just_now">刚刚</string>
+    <string name="feature_offlinesync_time_minutes">%1$d 分钟前</string>
+    <string name="feature_offlinesync_time_hours">%1$d 小时前</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="other">%1$d 天前</item>
+    </plurals>
+</resources>

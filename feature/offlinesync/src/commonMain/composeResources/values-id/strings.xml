@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Sinkronisasi luring</string>
+    <string name="feature_offlinesync_online">Daring</string>
+    <string name="feature_offlinesync_offline">Luring</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d untuk disinkronkan</string>
+    <string name="feature_offlinesync_stat_failed">%1$d gagal</string>
+    <string name="feature_offlinesync_level_label_centres">Pusat</string>
+    <string name="feature_offlinesync_level_label_groups">Kelompok</string>
+    <string name="feature_offlinesync_level_label_clients">Klien</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Terakhir disinkronkan %1$s</string>
+    <string name="feature_offlinesync_not_synced">Belum disinkronkan</string>
+    <string name="feature_offlinesync_next_in_hours">berikutnya dalam ~%1$d j</string>
+    <string name="feature_offlinesync_sync_now">Sinkronkan sekarang</string>
+    <string name="feature_offlinesync_syncing_button">Menyinkronkan…</string>
+    <string name="feature_offlinesync_sync_when_online">Sinkronkan saat daring</string>
+    <string name="feature_offlinesync_offline_banner">Anda sedang luring. Semua yang ada di perangkat ini tetap bisa dibuka; sinkronisasi akan dilanjutkan saat Anda kembali daring.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="other">Mengunduh %1$d data</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="other">%1$d dari %2$d data</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="other">%1$d pembacaan</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Batal</string>
+    <string name="feature_offlinesync_job_result">Selesai · %1$d disinkronkan · %2$d gagal</string>
+    <string name="feature_offlinesync_job_result_body">Sisanya terbuka secara luring</string>
+    <string name="feature_offlinesync_retry_failed">Coba ulang yang gagal</string>
+    <string name="feature_offlinesync_records_title">Di perangkat ini</string>
+    <string name="feature_offlinesync_level_centres">Pusat %1$d</string>
+    <string name="feature_offlinesync_level_groups">Kelompok %1$d</string>
+    <string name="feature_offlinesync_level_clients">Klien %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="other">Cari %1$d klien di perangkat ini</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Menunggu sinkronisasi</string>
+    <string name="feature_offlinesync_status_syncing">Menyinkronkan…</string>
+    <string name="feature_offlinesync_status_synced">Disinkronkan %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Kedaluwarsa · disinkronkan %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d gagal · disinkronkan %2$s</string>
+    <string name="feature_offlinesync_via_parent">via %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="other">%1$d kelompok</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="other">%1$d klien</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="other">%1$d akun</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="other">%1$d pinjaman</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="other">%1$d tabungan</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="other">%1$d dokumen</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Segarkan</string>
+    <string name="feature_offlinesync_remove">Hapus</string>
+    <string name="feature_offlinesync_remove_confirm">Hapus %1$s dari perangkat ini? Data yang masih dibutuhkan unduhan lain akan tetap ada.</string>
+    <string name="feature_offlinesync_expand">Tampilkan yang ada di bawahnya</string>
+    <string name="feature_offlinesync_collapse">Sembunyikan yang ada di bawahnya</string>
+    <string name="feature_offlinesync_open">Buka</string>
+    <string name="feature_offlinesync_refresh_title">Sinkronisasi</string>
+    <string name="feature_offlinesync_refresh_manual">Manual</string>
+    <string name="feature_offlinesync_refresh_automatic">Otomatis</string>
+    <string name="feature_offlinesync_refresh_manual_note">Data Anda hanya disinkronkan saat Anda mengetuk Sinkronkan sekarang. Lakukan sebelum berangkat.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Data Anda disinkronkan ulang di latar belakang sesuai jadwal di atas.</string>
+    <string name="feature_offlinesync_refresh_data_note">Sinkronisasi mengunduh banyak data. Hanya data yang Anda pilih yang datang ke perangkat ini.</string>
+    <string name="feature_offlinesync_resync_label">Sinkronkan ulang data Anda</string>
+    <string name="feature_offlinesync_every_hours">Setiap %1$d j</string>
+    <string name="feature_offlinesync_wifi_only">Wi-Fi saja</string>
+    <string name="feature_offlinesync_charging_only">Hanya saat mengisi daya</string>
+    <string name="feature_offlinesync_drafts_note">Pekerjaan yang dilakukan secara luring disimpan sebagai draf.</string>
+    <string name="feature_offlinesync_drafts_link">Sinkronisasi &amp; draf</string>
+    <string name="feature_offlinesync_empty_title">Belum ada data di perangkat ini</string>
+    <string name="feature_offlinesync_empty_body">Pilih pusat, kelompok, atau klien yang akan dikunjungi dan sinkronkan sebelum berangkat. Semua yang ada di bawahnya bisa dibuka di sini tanpa sinyal.</string>
+    <string name="feature_offlinesync_add_records">Tambah data</string>
+    <string name="feature_offlinesync_picker_title">Simpan di perangkat ini</string>
+    <string name="feature_offlinesync_picker_empty">Tidak ada data ditemukan</string>
+    <string name="feature_offlinesync_picker_error">Daftar tidak dapat dimuat.</string>
+    <string name="feature_offlinesync_retry">Coba lagi</string>
+    <string name="feature_offlinesync_tab_centres">Pusat</string>
+    <string name="feature_offlinesync_tab_groups">Kelompok</string>
+    <string name="feature_offlinesync_tab_clients">Klien</string>
+    <string name="feature_offlinesync_picker_search">Cari berdasarkan nama atau nomor akun</string>
+    <string name="feature_offlinesync_picker_hint">Sebuah pusat membawa kelompok, klien, dan semua akun mereka.</string>
+    <string name="feature_offlinesync_on_device">Di perangkat</string>
+    <string name="feature_offlinesync_picker_download">Unduh %1$d untuk luring</string>
+    <string name="feature_offlinesync_time_just_now">baru saja</string>
+    <string name="feature_offlinesync_time_minutes">%1$d mnt lalu</string>
+    <string name="feature_offlinesync_time_hours">%1$d j lalu</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="other">%1$d hari lalu</item>
+    </plurals>
+</resources>

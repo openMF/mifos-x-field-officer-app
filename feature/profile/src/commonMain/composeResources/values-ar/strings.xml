@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">الملف الشخصي المحلي</string>
+    <string name="screens_profile_local_message">يعمل %1$s بالكامل على الجهاز. لا حاجة إلى حساب.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">الملف الشخصي</string>
+    <string name="feature_profile_back">رجوع</string>
+    <string name="feature_profile_offline_banner">أنت غير متصل. هذا هو الحساب المحفوظ عند تسجيل دخولك.</string>
+    <string name="feature_profile_username">اسم المستخدم</string>
+    <string name="feature_profile_email">البريد الإلكتروني</string>
+    <string name="feature_profile_loan_officer">مسؤول القروض</string>
+    <string name="feature_profile_staff">موظف</string>
+    <string name="feature_profile_office_label">المكتب</string>
+    <string name="feature_profile_name_error">تعذر تحميل اسمك من الخادم.</string>
+    <string name="feature_profile_name_error_generic">تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="feature_profile_retry">إعادة المحاولة</string>
+    <string name="feature_profile_roles_title">الأدوار</string>
+    <string name="feature_profile_roles_empty">لم يتم تعيين أي أدوار</string>
+    <string name="feature_profile_scope_title">ما تعرضه الصفحة الرئيسية</string>
+    <string name="feature_profile_scope_note">محفظتك الخاصة عند ربطك بسجل موظف، وإلا فمكتبك بالكامل.</string>
+    <string name="feature_profile_scope_my_portfolio">محفظتي</string>
+    <string name="feature_profile_scope_office">المكتب: %1$s</string>
+    <string name="feature_profile_session_title">تم تسجيل الدخول إلى</string>
+    <string name="feature_profile_live">مباشر</string>
+    <string name="feature_profile_server_label">الخادم</string>
+    <string name="feature_profile_tenant">المستأجر</string>
+    <string name="feature_profile_server_settings">إعدادات الخادم</string>
+    <string name="feature_profile_change_password">تغيير كلمة المرور</string>
+    <string name="feature_profile_change_password_offline">اتصل بالإنترنت لتغيير كلمة المرور.</string>
+    <string name="feature_profile_password_lead">ستبقى مسجلاً الدخول على هذا الجهاز بعد التغيير.</string>
+    <string name="feature_profile_new_password">كلمة المرور الجديدة</string>
+    <string name="feature_profile_repeat_password">أعد إدخال كلمة المرور الجديدة</string>
+    <string name="feature_profile_password_hint">من 12 إلى 50 حرفًا، مع أحرف كبيرة وصغيرة ورقم ورمز</string>
+    <string name="feature_profile_passwords_differ">كلمتا المرور غير متطابقتين</string>
+    <string name="feature_profile_password_failed">لم يتم تغيير كلمة المرور. حاول مرة أخرى.</string>
+    <string name="feature_profile_show_password">إظهار كلمة المرور</string>
+    <string name="feature_profile_hide_password">إخفاء كلمة المرور</string>
+    <string name="feature_profile_cancel">إلغاء</string>
+    <string name="feature_profile_save_password">حفظ كلمة المرور</string>
+    <string name="feature_profile_password_changed">تم تغيير كلمة المرور</string>
+    <string name="feature_profile_sign_out">تسجيل الخروج</string>
+</resources>

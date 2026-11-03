@@ -1,17 +1,27 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.CanvasBasedWindow
 import androidx.compose.ui.window.ComposeViewport
-import androidx.compose.ui.window.ComposeViewportConfiguration
 import cmp.shared.SharedApp
 import cmp.shared.utils.initKoin
 import kotlinx.browser.document
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kpt.core.base.datastore.SecureSettingsFactory
 import org.jetbrains.compose.resources.configureWebResources
 import org.jetbrains.skiko.wasm.onWasmReady
 
@@ -27,8 +37,21 @@ import org.jetbrains.skiko.wasm.onWasmReady
  * @see CanvasBasedWindow
  * @see SharedApp
  */
-@OptIn(ExperimentalComposeUiApi::class)
+/*
+ * Web secure storage (passcode, auth state) is AES-GCM encrypted under a NON-EXTRACTABLE WebCrypto
+ * key, and decrypting it is asynchronous. Koin builds the `secure` Settings from that store, so the
+ * warm-up must COMPLETE before initKoin() — otherwise the first read races the key load and the
+ * factory throws. See kpt.core.base.datastore.WebSecureStore.
+ */
 fun main() {
+    MainScope().launch {
+        SecureSettingsFactory.warmUp()
+        startApp()
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+private fun startApp() {
     /*
      * Initializes the Koin dependency injection framework.
      * This function sets up the necessary dependencies for the application to function correctly.
@@ -61,10 +84,15 @@ fun main() {
             // Use key() to force complete recomposition when locale changes
             key(localeVersion) {
                 /*
-             * Invokes the root composable of the application.
-             * This function is responsible for setting up the entire UI structure of the app.
-             */
+                 * Invokes the root composable of the application.
+                 * This function is responsible for setting up the entire UI structure of the app.
+                 */
                 SharedApp(
+                    updateScreenCapture = {},
+                    handleRecreate = {
+                        // Reload the page to apply locale changes
+                        window.location.reload()
+                    },
                     handleThemeMode = {},
                     handleAppLocale = { languageTag ->
                         if (languageTag != null) {

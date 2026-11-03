@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <!-- ============================================================
+         RULE-IMPL-NO-HARDCODED-STRING-001 — feature/profile i18n surface
+         Authored by W2-6 of plan-layer/active/store5-superbrain-v2/.
+         ============================================================ -->
+
+    <string name="screens_profile_local_title">Local profile</string>
+    <string name="screens_profile_local_message">%1$s runs entirely on-device. No account required.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Profile</string>
+    <string name="feature_profile_back">Back</string>
+    <string name="feature_profile_offline_banner">You're offline. This is the account saved when you signed in.</string>
+    <string name="feature_profile_username">Username</string>
+    <string name="feature_profile_email">Email</string>
+    <string name="feature_profile_loan_officer">Loan officer</string>
+    <string name="feature_profile_staff">Staff</string>
+    <string name="feature_profile_office_label">Office</string>
+    <string name="feature_profile_name_error">Couldn't load your name from the server.</string>
+    <string name="feature_profile_name_error_generic">Check your connection and try again.</string>
+    <string name="feature_profile_retry">Retry</string>
+    <string name="feature_profile_roles_title">Roles</string>
+    <string name="feature_profile_roles_empty">No roles assigned</string>
+    <string name="feature_profile_scope_title">What Home shows</string>
+    <string name="feature_profile_scope_note">Your own portfolio when you're linked to a staff record, otherwise your whole office.</string>
+    <string name="feature_profile_scope_my_portfolio">My portfolio</string>
+    <string name="feature_profile_scope_office">Office: %1$s</string>
+    <string name="feature_profile_session_title">Signed in to</string>
+    <string name="feature_profile_live">Live</string>
+    <string name="feature_profile_server_label">Server</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Server settings</string>
+    <string name="feature_profile_change_password">Change password</string>
+    <string name="feature_profile_change_password_offline">Connect to the internet to change your password.</string>
+    <string name="feature_profile_password_lead">You stay signed in on this device after the change.</string>
+    <string name="feature_profile_new_password">New password</string>
+    <string name="feature_profile_repeat_password">Repeat new password</string>
+    <string name="feature_profile_password_hint">12 to 50 characters, with upper and lower case, a number and a symbol</string>
+    <string name="feature_profile_passwords_differ">Passwords do not match</string>
+    <string name="feature_profile_password_failed">The password was not changed. Try again.</string>
+    <string name="feature_profile_show_password">Show password</string>
+    <string name="feature_profile_hide_password">Hide password</string>
+    <string name="feature_profile_cancel">Cancel</string>
+    <string name="feature_profile_save_password">Save password</string>
+    <string name="feature_profile_password_changed">Password changed</string>
+    <string name="feature_profile_sign_out">Sign out</string>
+</resources>

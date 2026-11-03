@@ -1,0 +1,29 @@
+/*
+ * Copyright 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.feature.settings.di
+
+import kpt.feature.settings.ConflictInboxViewModel
+import kpt.feature.settings.SettingsViewModel
+import kpt.feature.settings.SyncAndDraftsViewModel
+import kpt.feature.settings.serverconfig.ServerConfigViewModel
+import kpt.feature.settings.signout.SignOutViewModel
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
+
+/** Koin bindings for the settings feature's view models. */
+val SettingsModule = module {
+    viewModelOf(::SettingsViewModel)
+    viewModelOf(::SyncAndDraftsViewModel)
+    // Sync conflicts screen — a live window over the framework ConflictInbox (provided by
+    // core-base StoreModule, included via appStoreModule).
+    viewModelOf(::ConflictInboxViewModel)
+    viewModelOf(::ServerConfigViewModel)
+    viewModelOf(::SignOutViewModel)
+}

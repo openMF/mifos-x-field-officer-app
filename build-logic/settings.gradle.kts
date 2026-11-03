@@ -1,21 +1,48 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2026 Mifos Initiative
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
+pluginManagement {
+    // OPTIONAL composite-include of the upstream kmp-product-flavors build-logic.
+    // Controlled by lib-integrate.properties (kmp-product-flavors.local / .path).
+    // Set .local=false to force Maven Central resolution even when source is present.
+    // When the path doesn't exist (CI, contributor's flat checkout) the plugin
+    // resolves from Maven Central / Gradle Plugin Portal regardless of the flag.
+    val libProps = java.util.Properties().apply {
+        val propsFile = file("../lib-integrate.properties")
+        if (propsFile.exists()) propsFile.inputStream().use { load(it) }
+    }
+    val flavorLocal = libProps.getProperty("kmp-product-flavors.local", "true") == "true"
+    val flavorPath = libProps.getProperty(
+        "kmp-product-flavors.path",
+        "../../../../mbs/kmp-product-flavors/source/kmp-product-flavors/build-logic",
+    )
+    val upstreamFlavorPluginBuildLogic = settingsDir.toPath().resolve(flavorPath).normalize().toFile()
+    if (flavorLocal && upstreamFlavorPluginBuildLogic.isDirectory) {
+        println("⚡ [lib-integrate] kmp-product-flavors → local source ($flavorPath)")
+        includeBuild(upstreamFlavorPluginBuildLogic) {
+            name = "kmp-product-flavors-build-logic"
+        }
+    } else if (!upstreamFlavorPluginBuildLogic.isDirectory) {
+        println("📦 [lib-integrate] kmp-product-flavors → Maven Central (source not found at $flavorPath)")
+    } else {
+        println("📦 [lib-integrate] kmp-product-flavors → Maven Central (local=false)")
+    }
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
 
 dependencyResolutionManagement {
     repositories {
+        mavenLocal()
         google()
         mavenCentral()
         gradlePluginPortal()

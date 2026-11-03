@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">सूचनाएँ</string>
+    <string name="feature_notification_mark_all_read">सभी को पढ़ा हुआ चिह्नित करें</string>
+    <string name="feature_notification_mark_all_read_failed">चिह्नित नहीं हो सका। कनेक्शन जाँचें और फिर कोशिश करें।</string>
+    <string name="feature_notification_empty_title">सब पढ़ लिया</string>
+    <string name="feature_notification_empty_body">आपके ग्राहकों, समूहों और ऋणों की गतिविधि यहाँ दिखती है।</string>
+    <string name="feature_notification_section_new">नई</string>
+    <string name="feature_notification_section_earlier">पहले की</string>
+    <string name="feature_notification_object_loan">ऋण #%1$s</string>
+    <string name="feature_notification_object_client">ग्राहक #%1$s</string>
+    <string name="feature_notification_object_group">समूह #%1$s</string>
+    <string name="feature_notification_object_center">केंद्र #%1$s</string>
+    <string name="feature_notification_object_savings">बचत #%1$s</string>
+    <string name="feature_notification_time_just_now">अभी</string>
+    <string name="feature_notification_time_minutes_ago">%1$d मि पहले</string>
+    <string name="feature_notification_time_hours_ago">%1$d घं पहले</string>
+    <string name="feature_notification_time_yesterday">कल</string>
+    <string name="feature_notification_time_days_ago">%1$d दिन पहले</string>
+</resources>

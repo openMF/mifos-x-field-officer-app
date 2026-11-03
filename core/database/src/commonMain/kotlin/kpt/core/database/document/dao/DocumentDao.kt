@@ -1,0 +1,65 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.core.database.document.dao
+
+import androidx.room3.Dao
+import androidx.room3.Query
+import androidx.room3.Transaction
+import androidx.room3.Upsert
+import kotlinx.coroutines.flow.Flow
+import kpt.core.base.database.annotation.DbDao
+import kpt.core.database.document.entity.DocumentEntity
+
+/** Room queries for document rows. */
+@DbDao
+@Dao
+interface DocumentDao {
+
+    /** Observe the documents attached to one resource — the scoping every read uses. */
+    @Query(
+        "SELECT * FROM documents WHERE parentEntityType = :entityType AND parentEntityId = :entityId ORDER BY name ASC",
+    )
+    fun observeForEntity(entityType: String, entityId: Int): Flow<List<DocumentEntity>>
+
+    /** Observes the `documents` row whose `id` is `id`. */
+    @Query("SELECT * FROM documents WHERE id = :id LIMIT 1")
+    fun observeById(id: Int): Flow<DocumentEntity?>
+
+    /** Reads the `documents` row whose `id` is `id`. */
+    @Query("SELECT * FROM documents WHERE id = :id LIMIT 1")
+    suspend fun getById(id: Int): DocumentEntity?
+
+    /** Inserts `documents`, or replaces rows with the same key. */
+    @Upsert
+    suspend fun upsertAll(documents: List<DocumentEntity>)
+
+    /** Deletes the `documents` rows whose `id` is `id`. */
+    @Query("DELETE FROM documents WHERE id = :id")
+    suspend fun deleteById(id: Int)
+
+    /** Deletes the `documents` rows whose `parentEntityType` is `entityType` and `parentEntityId` is `entityId`. */
+    @Query("DELETE FROM documents WHERE parentEntityType = :entityType AND parentEntityId = :entityId")
+    suspend fun deleteForEntity(entityType: String, entityId: Int)
+
+    /** Deletes every `documents` row. */
+    @Query("DELETE FROM documents")
+    suspend fun deleteAll()
+
+    /**
+     * Make the entity's rows EXACTLY the server's list. The store's writer used [upsertAll] alone,
+     * so a document deleted on the server (or through this app) stayed in the table forever and
+     * kept showing in the list after its own delete.
+     */
+    @Transaction
+    suspend fun replaceForEntity(entityType: String, entityId: Int, documents: List<DocumentEntity>) {
+        deleteForEntity(entityType, entityId)
+        upsertAll(documents)
+    }
+}

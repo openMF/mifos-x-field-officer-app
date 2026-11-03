@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">設定</string>
+    <string name="screens_home_outstanding_label">未返済残高</string>
+    <string name="screens_home_no_loans_message">進行中のローンはありません — まず追加してください。</string>
+    <string name="screens_home_total_outstanding_label">未返済合計</string>
+    <string name="screens_home_active_loans_singular">アクティブなローン %1$d 件</string>
+    <string name="screens_home_active_loans_plural">アクティブなローン %1$d 件</string>
+    <string name="screens_home_monthly_emi_label">月々の返済額</string>
+    <string name="screens_home_loans_label">ローン</string>
+    <string name="screens_home_loans_carousel_title">あなたのローン · %1$d</string>
+    <string name="screens_home_remaining_label">残り</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">返済額 $%1$s · %2$d%% 完済</string>
+    <string name="screens_home_section_this_week">今週</string>
+    <string name="screens_home_section_tools">ツール</string>
+    <string name="screens_home_section_tools_subtitle">計算機・比較・マクロ指標</string>
+    <string name="screens_home_bills_card_title">今後の請求</string>
+    <string name="screens_home_bills_total_label">支払合計（今後7日）</string>
+    <string name="screens_home_bills_day_value">%1$d 日</string>
+    <string name="screens_home_bills_empty">今後7日間に支払期日の請求はありません。</string>
+    <string name="screens_home_rates_card_title">本日の金利</string>
+    <string name="screens_home_rates_fed_funds_label">フェデラルファンド金利</string>
+    <string name="screens_home_rates_mortgage_30y_label">30年住宅ローン</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">米ドル為替</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">すべて表示</string>
+    <string name="screens_home_tool_emi_title">月々の返済額計算</string>
+    <string name="screens_home_tool_emi_subtitle">任意のローンの月々の返済額</string>
+    <string name="screens_home_tool_affordability_title">借入可能額</string>
+    <string name="screens_home_tool_affordability_subtitle">安全に借りられる金額は？</string>
+    <string name="screens_home_tool_amortization_title">返済計画</string>
+    <string name="screens_home_tool_amortization_subtitle">完全な返済スケジュール</string>
+    <string name="screens_home_tool_compare_title">ローン比較</string>
+    <string name="screens_home_tool_compare_subtitle">総コストを並べて比較</string>
+    <string name="screens_home_tool_wizard_title">ローンウィザード</string>
+    <string name="screens_home_tool_wizard_subtitle">ステップ式プランナー</string>
+    <string name="screens_home_tool_currency_title">為替レート</string>
+    <string name="screens_home_tool_currency_subtitle">リアルタイム為替レート</string>
+    <string name="screens_home_tool_history_title">レート履歴</string>
+    <string name="screens_home_tool_history_subtitle">為替の過去チャート</string>
+    <string name="screens_home_tool_macro_title">国別マクロ指標</string>
+    <string name="screens_home_tool_macro_subtitle">GDP・CPI・失業率</string>
+    <string name="screens_home_tool_crypto_title">コイン市場</string>
+    <string name="screens_home_tool_crypto_subtitle">暗号資産のリアルタイム価格とウォッチリスト</string>
+    <string name="screens_home_money_zero">$0.00</string>
+    <!-- Home dashboard -->
+    <string name="feature_home_dashboard_greeting_morning">おはようございます、%1$sさん</string>
+    <string name="feature_home_dashboard_greeting_afternoon">こんにちは、%1$sさん</string>
+    <string name="feature_home_dashboard_greeting_evening">こんばんは、%1$sさん</string>
+    <string name="feature_home_dashboard_scope_my_portfolio">担当ポートフォリオ</string>
+    <string name="feature_home_dashboard_scope_office">支店: %1$s</string>
+    <string name="feature_home_dashboard_collections_title">本日の回収</string>
+    <string name="feature_home_dashboard_collections_due_clients">本日支払期日の顧客</string>
+    <string name="feature_home_dashboard_collections_due_amount">本日期日</string>
+    <string name="feature_home_dashboard_collections_empty">本日の回収はありません</string>
+    <string name="feature_home_dashboard_collections_open">回収シートを開く</string>
+    <string name="feature_home_dashboard_queue_title">作業キュー</string>
+    <string name="feature_home_dashboard_queue_checker">承認待ちタスク</string>
+    <string name="feature_home_dashboard_queue_approval">承認待ちの融資</string>
+    <string name="feature_home_dashboard_queue_disbursal">承認済み・実行待ち</string>
+    <string name="feature_home_dashboard_queue_pending_clients">有効化待ちの顧客</string>
+    <string name="feature_home_dashboard_queue_reschedules">保留中のリスケジュール申請</string>
+    <string name="feature_home_dashboard_queue_drafts">未同期の下書き</string>
+    <string name="feature_home_dashboard_meetings_title">本日の会合</string>
+    <string name="feature_home_dashboard_meetings_empty">本日の予定はありません</string>
+    <string name="feature_home_dashboard_meetings_groups">%1$d グループ</string>
+    <string name="feature_home_dashboard_portfolio_title">ポートフォリオ概要</string>
+    <string name="feature_home_dashboard_tile_active_clients">アクティブな顧客</string>
+    <string name="feature_home_dashboard_tile_active_loans">アクティブな融資</string>
+    <string name="feature_home_dashboard_tile_outstanding">残高</string>
+    <string name="feature_home_dashboard_tile_overdue">延滞額</string>
+    <string name="feature_home_dashboard_tile_in_arrears">延滞中の融資</string>
+    <string name="feature_home_dashboard_tile_par">PAR</string>
+    <string name="feature_home_dashboard_tile_savings">預金残高</string>
+    <string name="feature_home_dashboard_tile_groups">グループ</string>
+    <string name="feature_home_dashboard_tile_centers">センター</string>
+    <string name="feature_home_dashboard_quick_actions_title">クイックアクション</string>
+    <string name="feature_home_dashboard_qa_new_client">新規顧客</string>
+    <string name="feature_home_dashboard_qa_new_group">新規グループ</string>
+    <string name="feature_home_dashboard_qa_new_center">新規センター</string>
+    <string name="feature_home_dashboard_qa_collection_sheet">回収シート</string>
+    <string name="feature_home_dashboard_qa_run_reports">レポートを実行</string>
+    <string name="feature_home_dashboard_qa_search">検索</string>
+    <string name="feature_home_dashboard_qa_path_tracker">経路トラッカー</string>
+    <string name="feature_home_dashboard_settings">設定</string>
+    <string name="feature_home_dashboard_profile">プロフィール</string>
+    <string name="feature_home_dashboard_loan_queue_empty">このキューに融資はありません</string>
+    <string name="feature_home_dashboard_queue_pending_badge">保留中 %1$d 件</string>
+    <string name="feature_home_dashboard_meetings_summary">予定 %1$d 件 · %2$s</string>
+    <string name="feature_home_dashboard_summary_active_clients">アクティブな顧客 %1$d 人</string>
+    <string name="feature_home_dashboard_summary_active_loans">アクティブな融資 %1$d 件</string>
+    <string name="feature_home_dashboard_summary_outstanding">残高 %1$s</string>
+    <string name="feature_home_dashboard_summary_par">PAR %1$s</string>
+    <string name="feature_home_dashboard_portfolio_total_outstanding">ポートフォリオ残高合計</string>
+    <string name="feature_home_dashboard_card_error">このカードを読み込めませんでした</string>
+    <string name="feature_home_dashboard_retry">再試行</string>
+    <string name="feature_home_dashboard_error_title">今日の情報を読み込めませんでした</string>
+    <string name="feature_home_dashboard_error_body">接続を確認して再試行してください。クイックアクションは引き続き使えます。</string>
+    <string name="feature_home_dashboard_card_error_body">このセクションは更新されませんでした。他のカードには影響ありません。</string>
+    <string name="feature_home_dashboard_retry_sync">再同期</string>
+    <string name="feature_home_dashboard_offline_label">オフライン</string>
+    <string name="feature_home_dashboard_offline_body">接続を確認して再試行してください。クイックアクションとこの端末に保存された記録はオフラインで使えます。</string>
+    <string name="feature_home_dashboard_offline_banner_title">オフラインで作業中</string>
+    <string name="feature_home_dashboard_offline_banner_body">新しい入力はこの端末に保存され、オンラインに戻ると自動で同期されます。</string>
+    <string name="feature_home_dashboard_offline_enabled">オフライン対応</string>
+    <string name="feature_home_dashboard_collections_loans_due">本日期日の融資</string>
+    <string name="feature_home_dashboard_collections_loans_value">融資 %1$d 件</string>
+    <string name="feature_home_dashboard_collections_hero_meta">顧客 %1$d 人 · 融資 %2$d 件</string>
+    <string name="feature_home_dashboard_recent_title">最近開いた項目</string>
+    <string name="feature_home_dashboard_recent_kind_client">顧客</string>
+    <string name="feature_home_dashboard_recent_kind_group">グループ</string>
+    <string name="feature_home_dashboard_recent_kind_center">センター</string>
+    <string name="feature_home_dashboard_recent_kind_loan">融資</string>
+    <string name="feature_home_dashboard_time_just_now">たった今</string>
+    <string name="feature_home_dashboard_time_minutes_ago">%1$d分前</string>
+    <string name="feature_home_dashboard_time_hours_ago">%1$d時間前</string>
+    <string name="feature_home_dashboard_time_yesterday">昨日</string>
+    <string name="feature_home_dashboard_time_days_ago">%1$d日前</string>
+    <string name="feature_home_dashboard_collections_collected_today">本日の回収額</string>
+    <string name="feature_home_dashboard_collections_goal">目標: %1$s</string>
+    <string name="feature_home_dashboard_collections_remains">残り: %1$s</string>
+    <string name="feature_home_dashboard_collections_of_goal">目標の%1$s</string>
+    <string name="feature_home_dashboard_collections_percent_collected">%1$s 回収済み</string>
+    <string name="feature_home_dashboard_collections_collected">回収済み</string>
+    <string name="feature_home_dashboard_collections_overdue">延滞顧客</string>
+    <string name="feature_home_dashboard_collections_overdue_chip">延滞</string>
+    <string name="feature_home_dashboard_summary_collected">%1$s 回収済み</string>
+    <string name="feature_home_dashboard_summary_overdue">延滞 %1$d</string>
+    <string name="feature_home_dashboard_queue_view_all">すべて表示</string>
+    <string name="feature_home_dashboard_meeting_center_groups">センター · %1$d グループ</string>
+    <string name="feature_home_dashboard_meeting_on_schedule">予定どおり</string>
+    <string name="feature_home_dashboard_meeting_upcoming">予定</string>
+    <string name="feature_home_dashboard_meeting_today">本日</string>
+    <string name="feature_home_dashboard_tile_par_target">目標 &lt; %1$s</string>
+    <string name="feature_home_dashboard_card_cached">キャッシュ: %1$s</string>
+    <string name="feature_home_dashboard_recent_cached">オフライン保存 · %1$d 件</string>
+    <string name="feature_home_dashboard_quick_actions_available">%1$d 件利用可能</string>
+    <string name="feature_home_dashboard_error_kind_forbidden">アクセス拒否</string>
+    <string name="feature_home_dashboard_error_kind_not_found">見つかりません</string>
+    <string name="feature_home_dashboard_error_kind_rejected">リクエスト拒否</string>
+    <string name="feature_home_dashboard_error_kind_server">サーバーエラー</string>
+    <string name="feature_home_dashboard_error_kind_offline">接続なし</string>
+    <string name="feature_home_dashboard_error_kind_timeout">タイムアウト</string>
+    <string name="feature_home_dashboard_error_kind_signed_out">サインアウト済み</string>
+    <string name="feature_home_dashboard_error_kind_busy">リクエスト過多</string>
+    <string name="feature_home_dashboard_error_kind_failed">同期に失敗</string>
+    <plurals name="feature_home_dashboard_collections_clients_value">
+        <item quantity="other">%1$d 人の顧客</item>
+    </plurals>
+    <plurals name="feature_home_dashboard_collections_summary">
+        <item quantity="other">期日の顧客 %1$d 人 · 期日額 %2$s</item>
+    </plurals>
+</resources>

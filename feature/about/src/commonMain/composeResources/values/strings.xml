@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright 2024 Mifos Initiative
+    Copyright 2026 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
-    <string name="feature_about">About</string>
-    <string name="feature_about_mifos_x_droid">MifosXDroid</string>
-    <string name="feature_about_app">Field Officer Application is an application
-        developed for the Bank staff field officer to keep track of Clients,
-        Centers, Groups, Loan Account, Savings Account, etc.</string>
-    <string name="feature_about_mifos">Developed by Mifos contributors</string>
-    <string name="feature_about_app_version">App Version 1.0.1</string>
-    <string name="feature_about_website">Official Website</string>
-    <string name="feature_about_support_github">Source Code</string>
-    <string name="feature_about_support_twitter">Twitter</string>
-    <string name="feature_about_license_sub">License: MPL-2.0</string>
-    <string name="feature_about_license">©2016–2022 Mifos Initiative.</string>
+    <string name="feature_about_title">About</string>
+    <string name="feature_about_logo_description">%1$s logo</string>
+    <string name="feature_about_tagline">The field officer's companion for clients, groups, centers, loans and savings — online or offline.</string>
+    <string name="feature_about_version">Version %1$s</string>
+    <string name="feature_about_version_hint">Tap for app details</string>
+    <string name="feature_about_developed_by">Developed by %1$s</string>
 
-    <string name="feature_about_failed_to_load">Failed to load</string>
+    <string name="feature_about_section_help">Help &amp; community</string>
+    <string name="feature_about_product_site">Product site</string>
+    <string name="feature_about_product_site_sub">Guides, features and what's new</string>
+    <string name="feature_about_community">Community</string>
+    <string name="feature_about_community_sub">Join Mifos on Slack — ask anything in #mobile</string>
 
+    <string name="feature_about_section_organisation">Organisation</string>
+    <string name="feature_about_website">Website</string>
+    <string name="feature_about_contact">Contact</string>
+
+    <string name="feature_about_section_open_source">Open source</string>
+    <string name="feature_about_source_code">Source code</string>
+    <string name="feature_about_source_code_sub">Built in the open on GitHub</string>
+    <string name="feature_about_contributors">Contributors</string>
+    <string name="feature_about_contributors_sub">The community behind this app</string>
+    <string name="feature_about_license">License</string>
+    <string name="feature_about_license_sub">Mozilla Public License 2.0</string>
+
+    <string name="feature_about_copyright">© %1$d %2$s</string>
 </resources>

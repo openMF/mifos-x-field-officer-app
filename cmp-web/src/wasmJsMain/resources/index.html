@@ -4,14 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;"/>
-    <title>Mifos Mobile</title>
+    <title>@APP_DISPLAY_NAME@</title>
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <link href="styles.css" rel="stylesheet" type="text/css"/>
-    <script src="skiko.js"></script>
-    <script type="application/javascript" src="cmp-wasm.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='description' content='@APP_DESCRIPTION@'>
+
+    <meta name='keywords' content='@APP_KEYWORDS@'>
+    <meta name='subject' content='Web App'>
+    <meta name='copyright' content='@APP_COPYRIGHT@'>
+    <meta name='language' content='EN'>
+    <meta name="author" content="@APP_AUTHOR@">
+    <meta name='robots' content='index,follow'>
+
+    <meta name='apple-touch-fullscreen' content='yes'>
+    <meta name="apple-mobile-web-app-title" content="@APP_DISPLAY_NAME@">
+
+    <meta property='og:type' content='website'>
+    <meta property='og:title' content='@APP_DISPLAY_NAME@'>
+    <meta property='og:url' content='@APP_URL@'>
+    <meta property='og:image' content='@OG_IMAGE@'>
+    <meta property='og:site_name' content='@APP_DISPLAY_NAME@'>
+    <meta property='og:description' content='@APP_DESCRIPTION@'>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@APP_DISPLAY_NAME@">
+    <meta name="twitter:description" content="@APP_DESCRIPTION@">
+    <meta name="twitter:image" content="@OG_IMAGE@">
+
+    <script type="module" src="skiko.mjs"></script>
+    <script type="module" src="cmp-wasm.js"></script>
 </head>
 <body>
 <div id="ComposeTargetContainer">
     <canvas id="ComposeTarget"></canvas>
 </div>
+
 </body>
 </html>

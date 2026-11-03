@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">स्थानीय प्रोफ़ाइल</string>
+    <string name="screens_profile_local_message">%1$s पूरी तरह डिवाइस पर चलता है। किसी खाते की आवश्यकता नहीं।</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">प्रोफ़ाइल</string>
+    <string name="feature_profile_back">वापस</string>
+    <string name="feature_profile_offline_banner">आप ऑफ़लाइन हैं। यह वही खाता है जो साइन इन करते समय सहेजा गया था।</string>
+    <string name="feature_profile_username">उपयोगकर्ता नाम</string>
+    <string name="feature_profile_email">ईमेल</string>
+    <string name="feature_profile_loan_officer">ऋण अधिकारी</string>
+    <string name="feature_profile_staff">स्टाफ़</string>
+    <string name="feature_profile_office_label">कार्यालय</string>
+    <string name="feature_profile_name_error">सर्वर से आपका नाम लोड नहीं हो सका।</string>
+    <string name="feature_profile_name_error_generic">अपना कनेक्शन जाँचें और फिर कोशिश करें।</string>
+    <string name="feature_profile_retry">पुनः प्रयास करें</string>
+    <string name="feature_profile_roles_title">भूमिकाएँ</string>
+    <string name="feature_profile_roles_empty">कोई भूमिका असाइन नहीं की गई</string>
+    <string name="feature_profile_scope_title">होम क्या दिखाता है</string>
+    <string name="feature_profile_scope_note">यदि आप किसी स्टाफ़ रिकॉर्ड से जुड़े हैं तो आपका अपना पोर्टफ़ोलियो, अन्यथा आपका पूरा कार्यालय।</string>
+    <string name="feature_profile_scope_my_portfolio">मेरा पोर्टफ़ोलियो</string>
+    <string name="feature_profile_scope_office">कार्यालय: %1$s</string>
+    <string name="feature_profile_session_title">इसमें साइन इन किया है</string>
+    <string name="feature_profile_live">लाइव</string>
+    <string name="feature_profile_server_label">सर्वर</string>
+    <string name="feature_profile_tenant">टेनेंट</string>
+    <string name="feature_profile_server_settings">सर्वर सेटिंग</string>
+    <string name="feature_profile_change_password">पासवर्ड बदलें</string>
+    <string name="feature_profile_change_password_offline">पासवर्ड बदलने के लिए इंटरनेट से कनेक्ट करें।</string>
+    <string name="feature_profile_password_lead">बदलाव के बाद भी आप इस डिवाइस पर साइन इन रहेंगे।</string>
+    <string name="feature_profile_new_password">नया पासवर्ड</string>
+    <string name="feature_profile_repeat_password">नया पासवर्ड दोहराएँ</string>
+    <string name="feature_profile_password_hint">12 से 50 अक्षर, जिनमें बड़े और छोटे अक्षर, एक संख्या और एक चिह्न हो</string>
+    <string name="feature_profile_passwords_differ">पासवर्ड मेल नहीं खाते</string>
+    <string name="feature_profile_password_failed">पासवर्ड नहीं बदला गया। फिर कोशिश करें।</string>
+    <string name="feature_profile_show_password">पासवर्ड दिखाएँ</string>
+    <string name="feature_profile_hide_password">पासवर्ड छिपाएँ</string>
+    <string name="feature_profile_cancel">रद्द करें</string>
+    <string name="feature_profile_save_password">पासवर्ड सहेजें</string>
+    <string name="feature_profile_password_changed">पासवर्ड बदल दिया गया</string>
+    <string name="feature_profile_sign_out">साइन आउट करें</string>
+</resources>

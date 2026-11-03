@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Offline synchronisatie</string>
+    <string name="feature_offlinesync_online">Online</string>
+    <string name="feature_offlinesync_offline">Offline</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d te synchroniseren</string>
+    <string name="feature_offlinesync_stat_failed">%1$d mislukt</string>
+    <string name="feature_offlinesync_level_label_centres">Centra</string>
+    <string name="feature_offlinesync_level_label_groups">Groepen</string>
+    <string name="feature_offlinesync_level_label_clients">Klanten</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Laatste sync %1$s</string>
+    <string name="feature_offlinesync_not_synced">Nog niet gesynchroniseerd</string>
+    <string name="feature_offlinesync_next_in_hours">volgende over ~%1$d u</string>
+    <string name="feature_offlinesync_sync_now">Nu synchroniseren</string>
+    <string name="feature_offlinesync_syncing_button">Synchroniseren…</string>
+    <string name="feature_offlinesync_sync_when_online">Synchroniseren als online</string>
+    <string name="feature_offlinesync_offline_banner">Je bent offline. Alles op dit apparaat kan nog steeds worden geopend; synchronisatie hervat zodra je weer online bent.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="one">%1$d record downloaden</item>
+        <item quantity="other">%1$d records downloaden</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="one">%1$d van %2$d record</item>
+        <item quantity="other">%1$d van %2$d records</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="one">%1$d leesbewerking</item>
+        <item quantity="other">%1$d leesbewerkingen</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Annuleren</string>
+    <string name="feature_offlinesync_job_result">Klaar · %1$d gesynchroniseerd · %2$d mislukt</string>
+    <string name="feature_offlinesync_job_result_body">Al het andere opent offline</string>
+    <string name="feature_offlinesync_retry_failed">Mislukte opnieuw proberen</string>
+    <string name="feature_offlinesync_records_title">Op dit apparaat</string>
+    <string name="feature_offlinesync_level_centres">Centra %1$d</string>
+    <string name="feature_offlinesync_level_groups">Groepen %1$d</string>
+    <string name="feature_offlinesync_level_clients">Klanten %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="one">%1$d klant zoeken op dit apparaat</item>
+        <item quantity="other">%1$d klanten zoeken op dit apparaat</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Wachten op sync</string>
+    <string name="feature_offlinesync_status_syncing">Synchroniseren…</string>
+    <string name="feature_offlinesync_status_synced">Gesynchroniseerd %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Verouderd · gesynchroniseerd %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d mislukt · gesynchroniseerd %2$s</string>
+    <string name="feature_offlinesync_via_parent">via %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="one">%1$d groep</item>
+        <item quantity="other">%1$d groepen</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="one">%1$d klant</item>
+        <item quantity="other">%1$d klanten</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="one">%1$d rekening</item>
+        <item quantity="other">%1$d rekeningen</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="one">%1$d lening</item>
+        <item quantity="other">%1$d leningen</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="one">%1$d spaartegoed</item>
+        <item quantity="other">%1$d spaartegoed</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="one">%1$d document</item>
+        <item quantity="other">%1$d documenten</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Vernieuwen</string>
+    <string name="feature_offlinesync_remove">Verwijderen</string>
+    <string name="feature_offlinesync_remove_confirm">%1$s van dit apparaat verwijderen? Records die nog nodig zijn voor een andere download blijven staan.</string>
+    <string name="feature_offlinesync_expand">Toon wat eronder zit</string>
+    <string name="feature_offlinesync_collapse">Verberg wat eronder zit</string>
+    <string name="feature_offlinesync_open">Openen</string>
+    <string name="feature_offlinesync_refresh_title">Synchronisatie</string>
+    <string name="feature_offlinesync_refresh_manual">Handmatig</string>
+    <string name="feature_offlinesync_refresh_automatic">Automatisch</string>
+    <string name="feature_offlinesync_refresh_manual_note">Je records worden alleen gesynchroniseerd als je op Nu synchroniseren tikt. Doe dit voor je vertrekt.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Je records worden op de bovenstaande planning opnieuw gesynchroniseerd op de achtergrond.</string>
+    <string name="feature_offlinesync_refresh_data_note">Synchroniseren downloadt veel gegevens. Alleen de records die jij hebt gekozen komen naar dit apparaat.</string>
+    <string name="feature_offlinesync_resync_label">Je records opnieuw synchroniseren</string>
+    <string name="feature_offlinesync_every_hours">Elke %1$d u</string>
+    <string name="feature_offlinesync_wifi_only">Alleen Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">Alleen tijdens opladen</string>
+    <string name="feature_offlinesync_drafts_note">Werk dat je offline doet wordt opgeslagen als concepten.</string>
+    <string name="feature_offlinesync_drafts_link">Synchronisatie &amp; concepten</string>
+    <string name="feature_offlinesync_empty_title">Nog niets op dit apparaat</string>
+    <string name="feature_offlinesync_empty_body">Kies de centra, groepen of klanten die je gaat bezoeken en synchroniseer ze voor je vertrekt. Alles eronder opent hier zonder signaal.</string>
+    <string name="feature_offlinesync_add_records">Records toevoegen</string>
+    <string name="feature_offlinesync_picker_title">Op dit apparaat bewaren</string>
+    <string name="feature_offlinesync_picker_empty">Geen records gevonden</string>
+    <string name="feature_offlinesync_picker_error">De lijst kon niet worden geladen.</string>
+    <string name="feature_offlinesync_retry">Opnieuw proberen</string>
+    <string name="feature_offlinesync_tab_centres">Centra</string>
+    <string name="feature_offlinesync_tab_groups">Groepen</string>
+    <string name="feature_offlinesync_tab_clients">Klanten</string>
+    <string name="feature_offlinesync_picker_search">Zoek op naam of rekeningnummer</string>
+    <string name="feature_offlinesync_picker_hint">Een centrum brengt zijn groepen, hun klanten en al hun rekeningen mee.</string>
+    <string name="feature_offlinesync_on_device">Op apparaat</string>
+    <string name="feature_offlinesync_picker_download">%1$d offline downloaden</string>
+    <string name="feature_offlinesync_time_just_now">zojuist</string>
+    <string name="feature_offlinesync_time_minutes">%1$d min geleden</string>
+    <string name="feature_offlinesync_time_hours">%1$d u geleden</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="one">%1$d dag geleden</item>
+        <item quantity="other">%1$d dagen geleden</item>
+    </plurals>
+</resources>

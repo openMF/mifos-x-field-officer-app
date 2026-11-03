@@ -1,0 +1,103 @@
+/*
+ * Copyright 2024 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.core.network.mifos.collectionsheet.api
+
+import de.jensklingenberg.ktorfit.http.Body
+import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.POST
+import de.jensklingenberg.ktorfit.http.Path
+import de.jensklingenberg.ktorfit.http.Query
+import kpt.core.base.network.annotation.ApiBinding
+import kpt.core.model.center.CenterWithAssociations
+import kpt.core.model.collectionsheet.CenterDetail
+import kpt.core.model.collectionsheet.CollectionSheetPayload
+import kpt.core.model.collectionsheet.CollectionSheetResponse
+import kpt.core.model.collectionsheet.IndividualCollectionSheet
+import kpt.core.model.collectionsheet.IndividualCollectionSheetPayload
+import kpt.core.model.collectionsheet.ProductiveCollectionSheetPayload
+import kpt.core.model.collectionsheet.RequestCollectionSheetPayload
+import kpt.core.model.objects.collectionsheets.CollectionSheetRequestPayload
+import kpt.core.model.shared.GenericResponse
+
+/**
+ * Created by Tarun on 06-07-2017.
+ */
+@ApiBinding("mifos")
+interface CollectionSheetApi {
+    /** Generates an individual collection sheet for the given office, officer and date. */
+    @POST("collectionsheet?command=generateCollectionSheet")
+    suspend fun getIndividualCollectionSheet(
+        @Body payload: RequestCollectionSheetPayload?,
+    ): IndividualCollectionSheet
+
+    /** Saves an individual collection sheet. */
+    @POST("collectionsheet?command=saveCollectionSheet")
+    suspend fun saveIndividualCollectionSheet(
+        @Body payload: IndividualCollectionSheetPayload?,
+    ): GenericResponse
+    // Productive CollectionSheet Endpoints
+
+    /**
+     * Endpoint to fetch Productive CollectionSheet
+     * @param format "dd MMMM yyyy"
+     * @param locale "en"
+     * @param meetingDate Meeting Date for the center
+     * @param officeId Office Id
+     * @param staffId Staff Id
+     * @return List of CenterDetail
+     */
+    @GET("centers")
+    suspend fun fetchCenterDetails(
+        @Query("dateFormat") format: String?,
+        @Query("locale") locale: String?,
+        @Query("meetingDate") meetingDate: String?,
+        @Query("officeId") officeId: Int,
+        @Query("staffId") staffId: Int,
+    ): List<CenterDetail>
+
+    /**
+     * Request Endpoint to fetch Productive CollectionSheet
+     * @param centerId Center Id
+     * @param payload CollectionSheetRequestPayload
+     * @return CollectionSheetResponse
+     */
+    @POST("centers/{centerId}?command=generateCollectionSheet")
+    suspend fun fetchProductiveSheet(
+        @Path("centerId") centerId: Int,
+        @Body payload: CollectionSheetRequestPayload?,
+    ): CollectionSheetResponse
+
+    /** Saves a centre's productive collection sheet. */
+    @POST("centers/{centerId}?command=saveCollectionSheet")
+    suspend fun submitProductiveSheet(
+        @Path("centerId") centerId: Int,
+        @Body payload: ProductiveCollectionSheetPayload?,
+    ): GenericResponse
+
+    /** Generates a group's collection sheet. */
+    @POST("groups/{groupId}?command=generateCollectionSheet")
+    suspend fun fetchCollectionSheet(
+        @Path("groupId") groupId: Int,
+        @Body payload: CollectionSheetRequestPayload?,
+    ): CollectionSheetResponse
+
+    /** Saves a group's collection sheet. */
+    @POST("groups/{groupId}?command=saveCollectionSheet")
+    suspend fun submitCollectionSheet(
+        @Path("groupId") groupId: Int,
+        @Body payload: CollectionSheetPayload?,
+    ): GenericResponse
+
+    /** Reads a centre's groups and its collection-meeting calendar. */
+    @GET("centers/{centerId}?associations=groupMembers,collectionMeetingCalendar")
+    suspend fun fetchGroupsAssociatedWithCenter(
+        @Path("centerId") centerId: Int,
+    ): CenterWithAssociations
+}

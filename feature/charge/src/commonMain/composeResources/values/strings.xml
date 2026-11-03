@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <!-- Values verbatim from `6b66e8a43` (feature/client charges + feature/loan loanCharge /
+         loanChargeForm) unless noted. Consolidated here when the three owners' charge screens
+         became one module. -->
+
+    <!-- List -->
+    <string name="feature_charge_charges">Charges</string>
+    <string name="feature_charge_add_charge">Add Charge</string>
+    <!-- New: the original's client list had no empty state; the loan one read "No Loan Charges
+         Available for this client" on a LOAN screen. Neutral across owners. -->
+    <string name="feature_charge_no_charges">No charges on this account</string>
+    <string name="feature_charge_outstanding">Outstanding %1$s</string>
+    <string name="feature_charge_no_due_date">No Due Date</string>
+    <string name="feature_charge_delete_title">Delete Charge</string>
+    <string name="feature_charge_delete_confirmation">Delete this charge? This cannot be undone.</string>
+    <string name="feature_charge_delete">Delete</string>
+    <string name="feature_charge_cancel">Cancel</string>
+    <string name="feature_charge_dismiss">Dismiss</string>
+    <string name="feature_charge_error_offline">No connection — the charge was not changed.</string>
+    <string name="feature_charge_error_failed">Could not change this charge.</string>
+
+    <!-- Detail -->
+    <string name="feature_charge_details">Charge Details</string>
+    <string name="feature_charge_edit">Edit</string>
+    <string name="feature_charge_id">Charge ID</string>
+    <string name="feature_charge_name">Charge Name</string>
+    <string name="feature_charge_time">Charge Time</string>
+    <string name="feature_charge_calculation">Charge Calculation</string>
+    <string name="feature_charge_due_date">Due Date</string>
+    <string name="feature_charge_amount">Amount</string>
+    <string name="feature_charge_amount_paid">Amount Paid</string>
+    <string name="feature_charge_amount_waived">Amount Waived</string>
+    <string name="feature_charge_amount_outstanding">Amount Outstanding</string>
+    <string name="feature_charge_penalty">Penalty</string>
+    <string name="feature_charge_yes">Yes</string>
+    <string name="feature_charge_no">No</string>
+    <string name="feature_charge_not_found">This charge is no longer on the account.</string>
+
+    <!-- Form -->
+    <string name="feature_charge_edit_charge">Edit Charge</string>
+    <string name="feature_charge_choose_charge">Choose Charge</string>
+    <string name="feature_charge_select">Select</string>
+    <string name="feature_charge_add">Add</string>
+    <string name="feature_charge_update">Update</string>
+    <string name="feature_charge_required">Select a charge</string>
+    <string name="feature_charge_amount_invalid">Enter an amount greater than zero</string>
+    <string name="feature_charge_types_failed">Could not load the charge types.</string>
+    <string name="feature_charge_none_available">No chargeable type is configured for this account.</string>
+    <string name="feature_charge_dialog_continue">Continue</string>
+    <string name="feature_charge_created_success_title">Charge Added Successfully</string>
+    <string name="feature_charge_created_success_message">The charge was added.</string>
+    <string name="feature_charge_created_failure_title">Charge Creation Failed</string>
+    <string name="feature_charge_updated_success_title">Charge Updated</string>
+    <string name="feature_charge_updated_success_message">The charge was updated.</string>
+    <string name="feature_charge_updated_failure_title">Charge Not Updated</string>
+    <string name="feature_charge_failed_offline">No connection — the charge was not saved.</string>
+    <string name="feature_charge_failed_generic">Could not save this charge.</string>
+</resources>

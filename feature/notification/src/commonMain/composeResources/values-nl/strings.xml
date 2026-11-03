@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">Meldingen</string>
+    <string name="feature_notification_mark_all_read">Alles als gelezen markeren</string>
+    <string name="feature_notification_mark_all_read_failed">Markeren mislukt. Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="feature_notification_empty_title">Je bent bij</string>
+    <string name="feature_notification_empty_body">Activiteit van je klanten, groepen en leningen verschijnt hier.</string>
+    <string name="feature_notification_section_new">Nieuw</string>
+    <string name="feature_notification_section_earlier">Eerder</string>
+    <string name="feature_notification_object_loan">Lening #%1$s</string>
+    <string name="feature_notification_object_client">Klant #%1$s</string>
+    <string name="feature_notification_object_group">Groep #%1$s</string>
+    <string name="feature_notification_object_center">Centrum #%1$s</string>
+    <string name="feature_notification_object_savings">Spaarrekening #%1$s</string>
+    <string name="feature_notification_time_just_now">Zojuist</string>
+    <string name="feature_notification_time_minutes_ago">%1$d min geleden</string>
+    <string name="feature_notification_time_hours_ago">%1$d u geleden</string>
+    <string name="feature_notification_time_yesterday">Gisteren</string>
+    <string name="feature_notification_time_days_ago">%1$d d geleden</string>
+</resources>

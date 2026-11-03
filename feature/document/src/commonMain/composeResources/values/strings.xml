@@ -2,11 +2,11 @@
 <!--
     Copyright 2024 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
     <string name="feature_document_title">Documents</string>
@@ -32,4 +32,9 @@
     <string name="feature_document_browse">BROWSE</string>
     <string name="feature_document_permission_granted">Permission to read document granted!!</string>
     <string name="feature_document_permission_denied">Permission to read document denied!!</string>
+    <!-- Added by the port: the original reported "download successful" unconditionally and had
+         no offline case, because its error path could not tell "rejected" from "never sent". -->
+    <string name="feature_document_offline">No connection — the change was not sent.</string>
+    <string name="feature_document_header_name">Name</string>
+    <string name="feature_document_header_description">Description</string>
 </resources>

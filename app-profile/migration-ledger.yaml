@@ -1,0 +1,84 @@
+# migration-ledger.yaml — the FORK's Room schema state. owner: fork, never synced.
+#
+# WHY THIS FILE EXISTS
+# Room's schema version is ONE monotonic integer and migrations are edges between consecutive
+# values, so two independent authors incrementing it will collide. The previous scheme
+# (`VERSION = TEMPLATE_BASE_VERSION + VERSION_OFFSET`) did not separate them — it relabelled a
+# shared counter. Concretely: a fork at base 13 + offset 1 ships v14; the template then adds its own
+# migration and bumps base to 14; the fork computes 15 while installed devices sit at 14, and Room
+# finds no 14 -> 15 edge. It only ever worked while exactly one side migrated.
+#
+# THE SPLIT
+#   app.yaml#migration_units[]   TEMPLATE-owned. WHAT the template can add, with a stable id and NO
+#                                version numbers. Full-copies on sync.
+#   this file                    FORK-owned. WHERE each unit landed in THIS fork's sequence.
+#
+# The two sides write to different files, so a template schema change is an append here, never a
+# merge conflict — the same separation that makes `feature-deps.gradle.kts` work.
+#
+# APPEND-ONLY. `./gradlew syncForkConfig` adds a row for any unit not already in `baseline_units` or
+# `migrations`, at this fork's next free version. It MUST NOT renumber an existing row: a shipped
+# `from`/`to` edge is a contract with every installed device, and renumbering strands them.
+
+# Effective Room schema version. Owned outright by this fork — the template does not contribute to it.
+#
+# 13 -> 14 (2026-10-02): dropped six inverted FOREIGN KEY constraints (Client, Center, Group,
+# SavingsAccountTransaction, LoanTimeline, LoanWithAssociations). Each named its own embedded detail
+# table as the PARENT of its id, so SQLite refused every insert with `787 FOREIGN KEY constraint
+# failed` and the offline cache could never be written. Columns are unchanged; only the constraints
+# differ, which Room still treats as a schema change (its identity hash covers constraints).
+#
+# This row also closes a DRIFT that predates it: this file read `version: 1` while the generated
+# `ForkDatabaseConfig.VERSION` read 13. `syncForkConfig` only rewrites `version:` when it APPENDS a
+# template migration unit, so with no unit pending the two never reconciled, and the number here
+# described nothing. 14 is the real next version for both.
+#
+# 14 -> 15 (2026-10-23): added `document_contents` — a document's FILE bytes as the local source of
+# truth for the `documentContent` store, so the download follows network -> database -> store ->
+# data like every other API. Purely additive, so it is a plain AutoMigration (no spec): the
+# destructive fallback must not fire, because it would also drop pending offline drafts.
+#
+# 15 -> 16 (2026-10-23): `Charges` re-keyed from `id` to `(resourceType, resourceId, id)`. Client,
+# loan and savings charges are different Fineract tables with overlapping ids, so on the old key a
+# loan charge overwrote the client charge sharing its id. A primary-key change is a table recreate,
+# which Room's AutoMigration performs itself (no spec): it copies the shared columns and the two new
+# ones take their declared defaults ('' / 0). Copied rows therefore belong to no resource — no reader
+# addresses them, every list refetches on open, and the logout purge removes them. A spec to delete
+# them would need `execSQL`, which commonMain cannot reach while core/database targets web. The
+# destructive fallback must still not fire: it would drop pending offline drafts with the cache.
+#
+# 16 -> 17 (2026-10-25): added `server_instances` — the server picker's instance list (Supabase
+# `app_server_config`, this app's rows) as the local source of truth for the `serverInstances` store,
+# so it follows network -> database -> store -> data like every other read and works offline on
+# sign-in. Purely additive: a plain AutoMigration (no spec).
+#
+# 17 -> 18 (2026-10-25): `Note.resourceType` (default 'clients') — notes for any owner (groups as
+# well as clients), keyed (resourceType, owner id) in the `notes` store. Purely additive: every
+# existing row is a client note, which the default records. A plain AutoMigration (no spec).
+#
+# 19 -> 20 (2026-10-27): added `offline_records` + `sync_jobs` — Settings → Offline sync. The officer's
+# chosen centres / groups / clients (and everything brought in under them) with a per-record sync
+# status, and the durable background job whose progress the dashboard renders live. Both keyed by
+# user. Purely additive: two new tables, a plain AutoMigration (no spec).
+version: 20
+
+# Units already folded into this fork's INITIAL schema. A fresh fork is created with the framework
+# tables in their current shape, so it needs no migration for them — it records them here instead.
+# `remove-demo.sh` sets this to every declared unit id when it resets a clean fork to v1.
+#
+# Comma-separated, one id per entry. This line once read
+# `[framework-fetched-at,framework-submit-drafts drafts-unique-key,framework-write-conflicts drafts-attempt-count]`
+# — two ids fused by a SPACE — so `syncForkConfig` parsed `framework-submit-drafts drafts-unique-key`
+# as one unknown id and treated four baseline units as unapplied. It stayed latent only because
+# `migrations:` was empty (the reconcile bails out with no rows); the first real row made it
+# append four migrations for tables this fork already has (2026-10-23).
+baseline_units: [framework-fetched-at, framework-submit-drafts, drafts-unique-key, framework-write-conflicts, drafts-attempt-count]
+
+# The applied sequence. `unit:` ties a row to its declaration; `from`/`to` are this fork's numbering.
+migrations:
+  - { unit: fork-document-contents, from: 14, to: 15 }
+  - { unit: fork-charges-composite-key, from: 15, to: 16 }
+  - { unit: fork-server-instances, from: 16, to: 17 }
+  - { unit: fork-note-resource-type, from: 17, to: 18 }
+  - { unit: fork-recent-records, from: 18, to: 19 }
+  - { unit: fork-offline-sync, from: 19, to: 20 }

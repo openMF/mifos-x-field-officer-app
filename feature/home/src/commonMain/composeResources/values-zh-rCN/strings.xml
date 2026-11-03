@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">设置</string>
+    <string name="screens_home_outstanding_label">未还余额</string>
+    <string name="screens_home_no_loans_message">暂无进行中的贷款 — 先添加一笔。</string>
+    <string name="screens_home_total_outstanding_label">未还总额</string>
+    <string name="screens_home_active_loans_singular">%1$d 笔进行中的贷款</string>
+    <string name="screens_home_active_loans_plural">%1$d 笔进行中的贷款</string>
+    <string name="screens_home_monthly_emi_label">每月还款额</string>
+    <string name="screens_home_loans_label">贷款</string>
+    <string name="screens_home_loans_carousel_title">您的贷款 · %1$d</string>
+    <string name="screens_home_remaining_label">剩余</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">月供 $%1$s · 已还 %2$d%%</string>
+    <string name="screens_home_section_this_week">本周</string>
+    <string name="screens_home_section_tools">工具</string>
+    <string name="screens_home_section_tools_subtitle">计算器、对比、宏观指标</string>
+    <string name="screens_home_bills_card_title">即将到期的账单</string>
+    <string name="screens_home_bills_total_label">应付总额（未来 7 天）</string>
+    <string name="screens_home_bills_day_value">%1$d 日</string>
+    <string name="screens_home_bills_empty">未来 7 天没有到期账单。</string>
+    <string name="screens_home_rates_card_title">今日利率</string>
+    <string name="screens_home_rates_fed_funds_label">联邦基金利率</string>
+    <string name="screens_home_rates_mortgage_30y_label">30 年期房贷</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">美元汇率</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">查看全部</string>
+    <string name="screens_home_tool_emi_title">等额本息计算器</string>
+    <string name="screens_home_tool_emi_subtitle">任意贷款的月还款额</string>
+    <string name="screens_home_tool_affordability_title">可负担额度</string>
+    <string name="screens_home_tool_affordability_subtitle">我能安全借多少？</string>
+    <string name="screens_home_tool_amortization_title">摊还计划</string>
+    <string name="screens_home_tool_amortization_subtitle">完整还款计划</string>
+    <string name="screens_home_tool_compare_title">贷款对比</string>
+    <string name="screens_home_tool_compare_subtitle">并排比较总成本</string>
+    <string name="screens_home_tool_wizard_title">贷款向导</string>
+    <string name="screens_home_tool_wizard_subtitle">分步规划</string>
+    <string name="screens_home_tool_currency_title">汇率</string>
+    <string name="screens_home_tool_currency_subtitle">实时汇率</string>
+    <string name="screens_home_tool_history_title">汇率历史</string>
+    <string name="screens_home_tool_history_subtitle">历史外汇图表</string>
+    <string name="screens_home_tool_macro_title">国家宏观数据</string>
+    <string name="screens_home_tool_macro_subtitle">GDP、CPI、失业率</string>
+    <string name="screens_home_tool_crypto_title">币种行情</string>
+    <string name="screens_home_tool_crypto_subtitle">实时加密货币价格与自选</string>
+    <string name="screens_home_money_zero">$0.00</string>
+    <!-- Home dashboard -->
+    <string name="feature_home_dashboard_greeting_morning">早上好，%1$s</string>
+    <string name="feature_home_dashboard_greeting_afternoon">下午好，%1$s</string>
+    <string name="feature_home_dashboard_greeting_evening">晚上好，%1$s</string>
+    <string name="feature_home_dashboard_scope_my_portfolio">我的客户组合</string>
+    <string name="feature_home_dashboard_scope_office">网点：%1$s</string>
+    <string name="feature_home_dashboard_collections_title">今日收款</string>
+    <string name="feature_home_dashboard_collections_due_clients">今日到期客户</string>
+    <string name="feature_home_dashboard_collections_due_amount">今日到期</string>
+    <string name="feature_home_dashboard_collections_empty">今日无收款</string>
+    <string name="feature_home_dashboard_collections_open">打开收款表</string>
+    <string name="feature_home_dashboard_queue_title">工作队列</string>
+    <string name="feature_home_dashboard_queue_checker">待复核任务</string>
+    <string name="feature_home_dashboard_queue_approval">待审批贷款</string>
+    <string name="feature_home_dashboard_queue_disbursal">已审批，待放款</string>
+    <string name="feature_home_dashboard_queue_pending_clients">待激活客户</string>
+    <string name="feature_home_dashboard_queue_reschedules">待处理的重新安排申请</string>
+    <string name="feature_home_dashboard_queue_drafts">我的未同步草稿</string>
+    <string name="feature_home_dashboard_meetings_title">今日会议</string>
+    <string name="feature_home_dashboard_meetings_empty">今日无安排</string>
+    <string name="feature_home_dashboard_meetings_groups">%1$d 个小组</string>
+    <string name="feature_home_dashboard_portfolio_title">客户组合概览</string>
+    <string name="feature_home_dashboard_tile_active_clients">活跃客户</string>
+    <string name="feature_home_dashboard_tile_active_loans">活跃贷款</string>
+    <string name="feature_home_dashboard_tile_outstanding">未偿余额</string>
+    <string name="feature_home_dashboard_tile_overdue">逾期</string>
+    <string name="feature_home_dashboard_tile_in_arrears">拖欠贷款</string>
+    <string name="feature_home_dashboard_tile_par">PAR</string>
+    <string name="feature_home_dashboard_tile_savings">储蓄余额</string>
+    <string name="feature_home_dashboard_tile_groups">小组</string>
+    <string name="feature_home_dashboard_tile_centers">中心</string>
+    <string name="feature_home_dashboard_quick_actions_title">快捷操作</string>
+    <string name="feature_home_dashboard_qa_new_client">新建客户</string>
+    <string name="feature_home_dashboard_qa_new_group">新建小组</string>
+    <string name="feature_home_dashboard_qa_new_center">新建中心</string>
+    <string name="feature_home_dashboard_qa_collection_sheet">收款表</string>
+    <string name="feature_home_dashboard_qa_run_reports">运行报表</string>
+    <string name="feature_home_dashboard_qa_search">搜索</string>
+    <string name="feature_home_dashboard_qa_path_tracker">路径追踪</string>
+    <string name="feature_home_dashboard_settings">设置</string>
+    <string name="feature_home_dashboard_profile">个人资料</string>
+    <string name="feature_home_dashboard_loan_queue_empty">此队列中没有贷款</string>
+    <string name="feature_home_dashboard_queue_pending_badge">%1$d 项待处理</string>
+    <string name="feature_home_dashboard_meetings_summary">已安排 %1$d 项 · %2$s</string>
+    <string name="feature_home_dashboard_summary_active_clients">%1$d 位活跃客户</string>
+    <string name="feature_home_dashboard_summary_active_loans">%1$d 笔活跃贷款</string>
+    <string name="feature_home_dashboard_summary_outstanding">未偿 %1$s</string>
+    <string name="feature_home_dashboard_summary_par">PAR %1$s</string>
+    <string name="feature_home_dashboard_portfolio_total_outstanding">客户组合未偿总额</string>
+    <string name="feature_home_dashboard_card_error">无法加载此卡片</string>
+    <string name="feature_home_dashboard_retry">重试</string>
+    <string name="feature_home_dashboard_error_title">无法加载今日信息</string>
+    <string name="feature_home_dashboard_error_body">请检查网络连接后重试。快捷操作仍可使用。</string>
+    <string name="feature_home_dashboard_card_error_body">此部分未能刷新，其他卡片不受影响。</string>
+    <string name="feature_home_dashboard_retry_sync">重新同步</string>
+    <string name="feature_home_dashboard_offline_label">离线</string>
+    <string name="feature_home_dashboard_offline_body">请检查网络连接后重试。快捷操作和本设备上保存的记录可离线使用。</string>
+    <string name="feature_home_dashboard_offline_banner_title">离线工作中</string>
+    <string name="feature_home_dashboard_offline_banner_body">新录入会保存在本设备上，恢复联网后自动同步。</string>
+    <string name="feature_home_dashboard_offline_enabled">支持离线</string>
+    <string name="feature_home_dashboard_collections_loans_due">今日到期贷款</string>
+    <string name="feature_home_dashboard_collections_loans_value">%1$d 笔贷款</string>
+    <string name="feature_home_dashboard_collections_hero_meta">%1$d 位客户 · %2$d 笔贷款</string>
+    <string name="feature_home_dashboard_recent_title">最近打开</string>
+    <string name="feature_home_dashboard_recent_kind_client">客户</string>
+    <string name="feature_home_dashboard_recent_kind_group">小组</string>
+    <string name="feature_home_dashboard_recent_kind_center">中心</string>
+    <string name="feature_home_dashboard_recent_kind_loan">贷款</string>
+    <string name="feature_home_dashboard_time_just_now">刚刚</string>
+    <string name="feature_home_dashboard_time_minutes_ago">%1$d 分钟前</string>
+    <string name="feature_home_dashboard_time_hours_ago">%1$d 小时前</string>
+    <string name="feature_home_dashboard_time_yesterday">昨天</string>
+    <string name="feature_home_dashboard_time_days_ago">%1$d 天前</string>
+    <string name="feature_home_dashboard_collections_collected_today">今日已收</string>
+    <string name="feature_home_dashboard_collections_goal">目标：%1$s</string>
+    <string name="feature_home_dashboard_collections_remains">剩余：%1$s</string>
+    <string name="feature_home_dashboard_collections_of_goal">完成目标 %1$s</string>
+    <string name="feature_home_dashboard_collections_percent_collected">已收 %1$s</string>
+    <string name="feature_home_dashboard_collections_collected">已收</string>
+    <string name="feature_home_dashboard_collections_overdue">逾期客户</string>
+    <string name="feature_home_dashboard_collections_overdue_chip">逾期</string>
+    <string name="feature_home_dashboard_summary_collected">已收 %1$s</string>
+    <string name="feature_home_dashboard_summary_overdue">逾期 %1$d</string>
+    <string name="feature_home_dashboard_queue_view_all">查看全部</string>
+    <string name="feature_home_dashboard_meeting_center_groups">中心 · %1$d 个小组</string>
+    <string name="feature_home_dashboard_meeting_on_schedule">按计划</string>
+    <string name="feature_home_dashboard_meeting_upcoming">即将开始</string>
+    <string name="feature_home_dashboard_meeting_today">今天</string>
+    <string name="feature_home_dashboard_tile_par_target">目标 &lt; %1$s</string>
+    <string name="feature_home_dashboard_card_cached">缓存：%1$s</string>
+    <string name="feature_home_dashboard_recent_cached">离线缓存 · %1$d 条记录</string>
+    <string name="feature_home_dashboard_quick_actions_available">%1$d 项可用</string>
+    <string name="feature_home_dashboard_error_kind_forbidden">拒绝访问</string>
+    <string name="feature_home_dashboard_error_kind_not_found">未找到</string>
+    <string name="feature_home_dashboard_error_kind_rejected">请求被拒绝</string>
+    <string name="feature_home_dashboard_error_kind_server">服务器错误</string>
+    <string name="feature_home_dashboard_error_kind_offline">无网络连接</string>
+    <string name="feature_home_dashboard_error_kind_timeout">超时</string>
+    <string name="feature_home_dashboard_error_kind_signed_out">已退出登录</string>
+    <string name="feature_home_dashboard_error_kind_busy">请求过多</string>
+    <string name="feature_home_dashboard_error_kind_failed">同步失败</string>
+    <plurals name="feature_home_dashboard_collections_clients_value">
+        <item quantity="other">%1$d 位客户</item>
+    </plurals>
+    <plurals name="feature_home_dashboard_collections_summary">
+        <item quantity="other">%1$d 位客户到期 · 到期 %2$s</item>
+    </plurals>
+</resources>

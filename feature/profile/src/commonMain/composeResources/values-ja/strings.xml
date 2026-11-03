@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">ローカルプロフィール</string>
+    <string name="screens_profile_local_message">%1$s はすべて端末上で動作します。アカウントは不要です。</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">プロフィール</string>
+    <string name="feature_profile_back">戻る</string>
+    <string name="feature_profile_offline_banner">オフラインです。サインイン時に保存されたアカウントを表示しています。</string>
+    <string name="feature_profile_username">ユーザー名</string>
+    <string name="feature_profile_email">メール</string>
+    <string name="feature_profile_loan_officer">融資担当者</string>
+    <string name="feature_profile_staff">スタッフ</string>
+    <string name="feature_profile_office_label">営業所</string>
+    <string name="feature_profile_name_error">サーバーから名前を読み込めませんでした。</string>
+    <string name="feature_profile_name_error_generic">接続を確認してもう一度お試しください。</string>
+    <string name="feature_profile_retry">再試行</string>
+    <string name="feature_profile_roles_title">ロール</string>
+    <string name="feature_profile_roles_empty">ロールが割り当てられていません</string>
+    <string name="feature_profile_scope_title">ホームの表示対象</string>
+    <string name="feature_profile_scope_note">スタッフレコードに紐づいている場合は自分のポートフォリオ、そうでない場合は営業所全体です。</string>
+    <string name="feature_profile_scope_my_portfolio">自分のポートフォリオ</string>
+    <string name="feature_profile_scope_office">営業所: %1$s</string>
+    <string name="feature_profile_session_title">サインイン先</string>
+    <string name="feature_profile_live">接続中</string>
+    <string name="feature_profile_server_label">サーバー</string>
+    <string name="feature_profile_tenant">テナント</string>
+    <string name="feature_profile_server_settings">サーバー設定</string>
+    <string name="feature_profile_change_password">パスワードを変更</string>
+    <string name="feature_profile_change_password_offline">パスワードを変更するにはインターネットに接続してください。</string>
+    <string name="feature_profile_password_lead">変更後もこの端末ではサインインしたままです。</string>
+    <string name="feature_profile_new_password">新しいパスワード</string>
+    <string name="feature_profile_repeat_password">新しいパスワードを再入力</string>
+    <string name="feature_profile_password_hint">12～50文字。大文字、小文字、数字、記号を含めてください</string>
+    <string name="feature_profile_passwords_differ">パスワードが一致しません</string>
+    <string name="feature_profile_password_failed">パスワードは変更されませんでした。もう一度お試しください。</string>
+    <string name="feature_profile_show_password">パスワードを表示</string>
+    <string name="feature_profile_hide_password">パスワードを非表示</string>
+    <string name="feature_profile_cancel">キャンセル</string>
+    <string name="feature_profile_save_password">パスワードを保存</string>
+    <string name="feature_profile_password_changed">パスワードを変更しました</string>
+    <string name="feature_profile_sign_out">サインアウト</string>
+</resources>

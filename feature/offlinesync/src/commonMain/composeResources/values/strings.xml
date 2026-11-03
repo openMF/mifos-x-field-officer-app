@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Offline sync</string>
+    <string name="feature_offlinesync_online">Online</string>
+    <string name="feature_offlinesync_offline">Offline</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d to sync</string>
+    <string name="feature_offlinesync_stat_failed">%1$d failed</string>
+    <string name="feature_offlinesync_level_label_centres">Centres</string>
+    <string name="feature_offlinesync_level_label_groups">Groups</string>
+    <string name="feature_offlinesync_level_label_clients">Clients</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Last synced %1$s</string>
+    <string name="feature_offlinesync_not_synced">Not synced yet</string>
+    <string name="feature_offlinesync_next_in_hours">next in ~%1$d h</string>
+    <string name="feature_offlinesync_sync_now">Sync now</string>
+    <string name="feature_offlinesync_syncing_button">Syncing…</string>
+    <string name="feature_offlinesync_sync_when_online">Sync when online</string>
+    <string name="feature_offlinesync_offline_banner">You're offline. Everything on this device still opens; syncing resumes when you're back online.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="one">Downloading %1$d record</item>
+        <item quantity="other">Downloading %1$d records</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="one">%1$d of %2$d record</item>
+        <item quantity="other">%1$d of %2$d records</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="one">%1$d read</item>
+        <item quantity="other">%1$d reads</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Cancel</string>
+    <string name="feature_offlinesync_job_result">Done · %1$d synced · %2$d failed</string>
+    <string name="feature_offlinesync_job_result_body">Everything else opens offline</string>
+    <string name="feature_offlinesync_retry_failed">Retry failed</string>
+    <string name="feature_offlinesync_records_title">On this device</string>
+    <string name="feature_offlinesync_level_centres">Centres %1$d</string>
+    <string name="feature_offlinesync_level_groups">Groups %1$d</string>
+    <string name="feature_offlinesync_level_clients">Clients %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="one">Search %1$d client on this device</item>
+        <item quantity="other">Search %1$d clients on this device</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Waiting to sync</string>
+    <string name="feature_offlinesync_status_syncing">Syncing…</string>
+    <string name="feature_offlinesync_status_synced">Synced %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Out of date · synced %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d failed · synced %2$s</string>
+    <string name="feature_offlinesync_via_parent">via %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="one">%1$d group</item>
+        <item quantity="other">%1$d groups</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="one">%1$d client</item>
+        <item quantity="other">%1$d clients</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="one">%1$d account</item>
+        <item quantity="other">%1$d accounts</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="one">%1$d loan</item>
+        <item quantity="other">%1$d loans</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="one">%1$d savings</item>
+        <item quantity="other">%1$d savings</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="one">%1$d document</item>
+        <item quantity="other">%1$d documents</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Refresh</string>
+    <string name="feature_offlinesync_remove">Remove</string>
+    <string name="feature_offlinesync_remove_confirm">Remove %1$s from this device? Records still needed by another download stay.</string>
+    <string name="feature_offlinesync_expand">Show what is under it</string>
+    <string name="feature_offlinesync_collapse">Hide what is under it</string>
+    <string name="feature_offlinesync_open">Open</string>
+    <string name="feature_offlinesync_refresh_title">Sync</string>
+    <string name="feature_offlinesync_refresh_manual">Manual</string>
+    <string name="feature_offlinesync_refresh_automatic">Automatic</string>
+    <string name="feature_offlinesync_refresh_manual_note">Your records sync only when you tap Sync now. Do it before you head out.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Your records re-sync in the background on the schedule above.</string>
+    <string name="feature_offlinesync_refresh_data_note">Syncing downloads a lot of data. Only the records you chose come to this device.</string>
+    <string name="feature_offlinesync_resync_label">Re-sync your records</string>
+    <string name="feature_offlinesync_every_hours">Every %1$d h</string>
+    <string name="feature_offlinesync_wifi_only">Wi-Fi only</string>
+    <string name="feature_offlinesync_charging_only">Only while charging</string>
+    <string name="feature_offlinesync_drafts_note">Work you do offline is saved as drafts.</string>
+    <string name="feature_offlinesync_drafts_link">Sync &amp; Drafts</string>
+    <string name="feature_offlinesync_empty_title">Nothing on this device yet</string>
+    <string name="feature_offlinesync_empty_body">Choose the centres, groups or clients you'll visit and sync them before you head out. Everything under them opens here without signal.</string>
+    <string name="feature_offlinesync_add_records">Add records</string>
+    <string name="feature_offlinesync_picker_title">Keep on this device</string>
+    <string name="feature_offlinesync_picker_empty">No records found</string>
+    <string name="feature_offlinesync_picker_error">Couldn't load the list.</string>
+    <string name="feature_offlinesync_retry">Retry</string>
+    <string name="feature_offlinesync_tab_centres">Centres</string>
+    <string name="feature_offlinesync_tab_groups">Groups</string>
+    <string name="feature_offlinesync_tab_clients">Clients</string>
+    <string name="feature_offlinesync_picker_search">Search by name or account number</string>
+    <string name="feature_offlinesync_picker_hint">A centre brings its groups, their clients and all their accounts.</string>
+    <string name="feature_offlinesync_on_device">On device</string>
+    <string name="feature_offlinesync_picker_download">Download %1$d for offline</string>
+    <string name="feature_offlinesync_time_just_now">just now</string>
+    <string name="feature_offlinesync_time_minutes">%1$d min ago</string>
+    <string name="feature_offlinesync_time_hours">%1$d h ago</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="one">%1$d day ago</item>
+        <item quantity="other">%1$d days ago</item>
+    </plurals>
+</resources>

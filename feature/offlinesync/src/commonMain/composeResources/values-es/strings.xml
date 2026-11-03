@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Sincronización sin conexión</string>
+    <string name="feature_offlinesync_online">En línea</string>
+    <string name="feature_offlinesync_offline">Sin conexión</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d por sincronizar</string>
+    <string name="feature_offlinesync_stat_failed">%1$d fallido</string>
+    <string name="feature_offlinesync_level_label_centres">Centros</string>
+    <string name="feature_offlinesync_level_label_groups">Grupos</string>
+    <string name="feature_offlinesync_level_label_clients">Clientes</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Última sincronización %1$s</string>
+    <string name="feature_offlinesync_not_synced">Aún no sincronizado</string>
+    <string name="feature_offlinesync_next_in_hours">próxima en ~%1$d h</string>
+    <string name="feature_offlinesync_sync_now">Sincronizar ahora</string>
+    <string name="feature_offlinesync_syncing_button">Sincronizando…</string>
+    <string name="feature_offlinesync_sync_when_online">Sincronizar al conectar</string>
+    <string name="feature_offlinesync_offline_banner">Estás sin conexión. Todo en este dispositivo sigue abriéndose; la sincronización se reanuda cuando vuelves a conectarte.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="one">Descargando %1$d registro</item>
+        <item quantity="other">Descargando %1$d registros</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="one">%1$d de %2$d registro</item>
+        <item quantity="other">%1$d de %2$d registros</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="one">%1$d lectura</item>
+        <item quantity="other">%1$d lecturas</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Cancelar</string>
+    <string name="feature_offlinesync_job_result">Listo · %1$d sincronizados · %2$d fallidos</string>
+    <string name="feature_offlinesync_job_result_body">Todo lo demás se abre sin conexión</string>
+    <string name="feature_offlinesync_retry_failed">Reintentar fallidos</string>
+    <string name="feature_offlinesync_records_title">En este dispositivo</string>
+    <string name="feature_offlinesync_level_centres">Centros %1$d</string>
+    <string name="feature_offlinesync_level_groups">Grupos %1$d</string>
+    <string name="feature_offlinesync_level_clients">Clientes %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="one">Buscar %1$d cliente en este dispositivo</item>
+        <item quantity="other">Buscar %1$d clientes en este dispositivo</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Esperando sincronización</string>
+    <string name="feature_offlinesync_status_syncing">Sincronizando…</string>
+    <string name="feature_offlinesync_status_synced">Sincronizado %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Desactualizado · sincronizado %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d fallido · sincronizado %2$s</string>
+    <string name="feature_offlinesync_via_parent">vía %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="one">%1$d grupo</item>
+        <item quantity="other">%1$d grupos</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="one">%1$d cliente</item>
+        <item quantity="other">%1$d clientes</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="one">%1$d cuenta</item>
+        <item quantity="other">%1$d cuentas</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="one">%1$d préstamo</item>
+        <item quantity="other">%1$d préstamos</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="one">%1$d ahorro</item>
+        <item quantity="other">%1$d ahorros</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="one">%1$d documento</item>
+        <item quantity="other">%1$d documentos</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Actualizar</string>
+    <string name="feature_offlinesync_remove">Eliminar</string>
+    <string name="feature_offlinesync_remove_confirm">¿Eliminar %1$s de este dispositivo? Los registros que aún necesite otra descarga se conservan.</string>
+    <string name="feature_offlinesync_expand">Mostrar lo que hay debajo</string>
+    <string name="feature_offlinesync_collapse">Ocultar lo que hay debajo</string>
+    <string name="feature_offlinesync_open">Abrir</string>
+    <string name="feature_offlinesync_refresh_title">Sincronización</string>
+    <string name="feature_offlinesync_refresh_manual">Manual</string>
+    <string name="feature_offlinesync_refresh_automatic">Automático</string>
+    <string name="feature_offlinesync_refresh_manual_note">Tus registros se sincronizan solo cuando pulsas Sincronizar ahora. Hazlo antes de salir.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Tus registros se vuelven a sincronizar en segundo plano según el horario indicado.</string>
+    <string name="feature_offlinesync_refresh_data_note">La sincronización descarga muchos datos. Solo llegan a este dispositivo los registros que elegiste.</string>
+    <string name="feature_offlinesync_resync_label">Volver a sincronizar tus registros</string>
+    <string name="feature_offlinesync_every_hours">Cada %1$d h</string>
+    <string name="feature_offlinesync_wifi_only">Solo Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">Solo al cargar</string>
+    <string name="feature_offlinesync_drafts_note">El trabajo que haces sin conexión se guarda como borradores.</string>
+    <string name="feature_offlinesync_drafts_link">Sincronización y borradores</string>
+    <string name="feature_offlinesync_empty_title">Nada en este dispositivo todavía</string>
+    <string name="feature_offlinesync_empty_body">Elige los centros, grupos o clientes que vas a visitar y sincronízalos antes de salir. Todo lo que hay debajo se abre aquí sin señal.</string>
+    <string name="feature_offlinesync_add_records">Añadir registros</string>
+    <string name="feature_offlinesync_picker_title">Guardar en este dispositivo</string>
+    <string name="feature_offlinesync_picker_empty">No se encontraron registros</string>
+    <string name="feature_offlinesync_picker_error">No se pudo cargar la lista.</string>
+    <string name="feature_offlinesync_retry">Reintentar</string>
+    <string name="feature_offlinesync_tab_centres">Centros</string>
+    <string name="feature_offlinesync_tab_groups">Grupos</string>
+    <string name="feature_offlinesync_tab_clients">Clientes</string>
+    <string name="feature_offlinesync_picker_search">Buscar por nombre o número de cuenta</string>
+    <string name="feature_offlinesync_picker_hint">Un centro trae sus grupos, sus clientes y todas sus cuentas.</string>
+    <string name="feature_offlinesync_on_device">En el dispositivo</string>
+    <string name="feature_offlinesync_picker_download">Descargar %1$d sin conexión</string>
+    <string name="feature_offlinesync_time_just_now">ahora mismo</string>
+    <string name="feature_offlinesync_time_minutes">hace %1$d min</string>
+    <string name="feature_offlinesync_time_hours">hace %1$d h</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="one">hace %1$d día</item>
+        <item quantity="other">hace %1$d días</item>
+    </plurals>
+</resources>

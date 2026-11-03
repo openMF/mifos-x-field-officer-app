@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">ऑफ़लाइन सिंक</string>
+    <string name="feature_offlinesync_online">ऑनलाइन</string>
+    <string name="feature_offlinesync_offline">ऑफ़लाइन</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d सिंक करने के लिए</string>
+    <string name="feature_offlinesync_stat_failed">%1$d विफल</string>
+    <string name="feature_offlinesync_level_label_centres">केंद्र</string>
+    <string name="feature_offlinesync_level_label_groups">समूह</string>
+    <string name="feature_offlinesync_level_label_clients">ग्राहक</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">अंतिम सिंक %1$s</string>
+    <string name="feature_offlinesync_not_synced">अभी तक सिंक नहीं हुआ</string>
+    <string name="feature_offlinesync_next_in_hours">अगली ~%1$d घं में</string>
+    <string name="feature_offlinesync_sync_now">अभी सिंक करें</string>
+    <string name="feature_offlinesync_syncing_button">सिंक हो रहा है…</string>
+    <string name="feature_offlinesync_sync_when_online">ऑनलाइन होने पर सिंक करें</string>
+    <string name="feature_offlinesync_offline_banner">आप ऑफ़लाइन हैं। इस डिवाइस पर सब कुछ अभी भी खुलता है; ऑनलाइन होने पर सिंक फिर से शुरू हो जाएगा।</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="one">%1$d रिकॉर्ड डाउनलोड हो रहा है</item>
+        <item quantity="other">%1$d रिकॉर्ड डाउनलोड हो रहे हैं</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="one">%2$d में से %1$d रिकॉर्ड</item>
+        <item quantity="other">%2$d में से %1$d रिकॉर्ड</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="one">%1$d रीड</item>
+        <item quantity="other">%1$d रीड</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">रद्द करें</string>
+    <string name="feature_offlinesync_job_result">हो गया · %1$d सिंक · %2$d विफल</string>
+    <string name="feature_offlinesync_job_result_body">बाकी सब ऑफ़लाइन खुलता है</string>
+    <string name="feature_offlinesync_retry_failed">विफल को पुनः प्रयास करें</string>
+    <string name="feature_offlinesync_records_title">इस डिवाइस पर</string>
+    <string name="feature_offlinesync_level_centres">केंद्र %1$d</string>
+    <string name="feature_offlinesync_level_groups">समूह %1$d</string>
+    <string name="feature_offlinesync_level_clients">ग्राहक %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="one">इस डिवाइस पर %1$d ग्राहक खोजें</item>
+        <item quantity="other">इस डिवाइस पर %1$d ग्राहक खोजें</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">सिंक की प्रतीक्षा में</string>
+    <string name="feature_offlinesync_status_syncing">सिंक हो रहा है…</string>
+    <string name="feature_offlinesync_status_synced">सिंक हुआ %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">पुराना · सिंक हुआ %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d विफल · सिंक हुआ %2$s</string>
+    <string name="feature_offlinesync_via_parent">%1$s के ज़रिए</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="one">%1$d समूह</item>
+        <item quantity="other">%1$d समूह</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="one">%1$d ग्राहक</item>
+        <item quantity="other">%1$d ग्राहक</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="one">%1$d खाता</item>
+        <item quantity="other">%1$d खाते</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="one">%1$d ऋण</item>
+        <item quantity="other">%1$d ऋण</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="one">%1$d बचत</item>
+        <item quantity="other">%1$d बचत</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="one">%1$d दस्तावेज़</item>
+        <item quantity="other">%1$d दस्तावेज़</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">रीफ़्रेश करें</string>
+    <string name="feature_offlinesync_remove">हटाएँ</string>
+    <string name="feature_offlinesync_remove_confirm">%1$s को इस डिवाइस से हटाएँ? किसी अन्य डाउनलोड के लिए ज़रूरी रिकॉर्ड रहेंगे।</string>
+    <string name="feature_offlinesync_expand">नीचे क्या है दिखाएँ</string>
+    <string name="feature_offlinesync_collapse">नीचे क्या है छुपाएँ</string>
+    <string name="feature_offlinesync_open">खोलें</string>
+    <string name="feature_offlinesync_refresh_title">सिंक</string>
+    <string name="feature_offlinesync_refresh_manual">मैन्युअल</string>
+    <string name="feature_offlinesync_refresh_automatic">स्वचालित</string>
+    <string name="feature_offlinesync_refresh_manual_note">आपके रिकॉर्ड तभी सिंक होते हैं जब आप अभी सिंक करें पर टैप करते हैं। निकलने से पहले करें।</string>
+    <string name="feature_offlinesync_refresh_automatic_note">आपके रिकॉर्ड ऊपर दिए शेड्यूल के अनुसार बैकग्राउंड में फिर से सिंक होते हैं।</string>
+    <string name="feature_offlinesync_refresh_data_note">सिंक करने से बहुत डेटा डाउनलोड होता है। केवल आपके चुने हुए रिकॉर्ड इस डिवाइस पर आते हैं।</string>
+    <string name="feature_offlinesync_resync_label">अपने रिकॉर्ड फिर से सिंक करें</string>
+    <string name="feature_offlinesync_every_hours">हर %1$d घं</string>
+    <string name="feature_offlinesync_wifi_only">केवल Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">केवल चार्जिंग के दौरान</string>
+    <string name="feature_offlinesync_drafts_note">ऑफ़लाइन किया गया काम ड्राफ़्ट के रूप में सहेजा जाता है।</string>
+    <string name="feature_offlinesync_drafts_link">सिंक और ड्राफ़्ट</string>
+    <string name="feature_offlinesync_empty_title">इस डिवाइस पर अभी कुछ नहीं</string>
+    <string name="feature_offlinesync_empty_body">जिन केंद्रों, समूहों या ग्राहकों से मिलना है उन्हें चुनें और निकलने से पहले सिंक करें। उनके नीचे सब कुछ यहाँ बिना सिग्नल के खुलता है।</string>
+    <string name="feature_offlinesync_add_records">रिकॉर्ड जोड़ें</string>
+    <string name="feature_offlinesync_picker_title">इस डिवाइस पर रखें</string>
+    <string name="feature_offlinesync_picker_empty">कोई रिकॉर्ड नहीं मिला</string>
+    <string name="feature_offlinesync_picker_error">सूची लोड नहीं हो सकी।</string>
+    <string name="feature_offlinesync_retry">पुनः प्रयास करें</string>
+    <string name="feature_offlinesync_tab_centres">केंद्र</string>
+    <string name="feature_offlinesync_tab_groups">समूह</string>
+    <string name="feature_offlinesync_tab_clients">ग्राहक</string>
+    <string name="feature_offlinesync_picker_search">नाम या खाता नंबर से खोजें</string>
+    <string name="feature_offlinesync_picker_hint">एक केंद्र अपने समूह, उनके ग्राहक और उनके सभी खाते लाता है।</string>
+    <string name="feature_offlinesync_on_device">डिवाइस पर</string>
+    <string name="feature_offlinesync_picker_download">%1$d ऑफ़लाइन के लिए डाउनलोड करें</string>
+    <string name="feature_offlinesync_time_just_now">अभी-अभी</string>
+    <string name="feature_offlinesync_time_minutes">%1$d मिनट पहले</string>
+    <string name="feature_offlinesync_time_hours">%1$d घं पहले</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="one">%1$d दिन पहले</item>
+        <item quantity="other">%1$d दिन पहले</item>
+    </plurals>
+</resources>

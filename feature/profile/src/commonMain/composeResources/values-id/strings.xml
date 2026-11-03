@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Profil lokal</string>
+    <string name="screens_profile_local_message">%1$s berjalan sepenuhnya di perangkat. Tidak perlu akun.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Profil</string>
+    <string name="feature_profile_back">Kembali</string>
+    <string name="feature_profile_offline_banner">Anda sedang offline. Ini adalah akun yang tersimpan saat Anda masuk.</string>
+    <string name="feature_profile_username">Nama pengguna</string>
+    <string name="feature_profile_email">Email</string>
+    <string name="feature_profile_loan_officer">Petugas pinjaman</string>
+    <string name="feature_profile_staff">Staf</string>
+    <string name="feature_profile_office_label">Kantor</string>
+    <string name="feature_profile_name_error">Tidak dapat memuat nama Anda dari server.</string>
+    <string name="feature_profile_name_error_generic">Periksa koneksi Anda lalu coba lagi.</string>
+    <string name="feature_profile_retry">Coba lagi</string>
+    <string name="feature_profile_roles_title">Peran</string>
+    <string name="feature_profile_roles_empty">Tidak ada peran yang ditetapkan</string>
+    <string name="feature_profile_scope_title">Yang ditampilkan Beranda</string>
+    <string name="feature_profile_scope_note">Portofolio Anda sendiri jika Anda terhubung ke data staf, jika tidak seluruh kantor Anda.</string>
+    <string name="feature_profile_scope_my_portfolio">Portofolio saya</string>
+    <string name="feature_profile_scope_office">Kantor: %1$s</string>
+    <string name="feature_profile_session_title">Masuk ke</string>
+    <string name="feature_profile_live">Aktif</string>
+    <string name="feature_profile_server_label">Server</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Pengaturan server</string>
+    <string name="feature_profile_change_password">Ubah kata sandi</string>
+    <string name="feature_profile_change_password_offline">Hubungkan ke internet untuk mengubah kata sandi Anda.</string>
+    <string name="feature_profile_password_lead">Anda tetap masuk di perangkat ini setelah perubahan.</string>
+    <string name="feature_profile_new_password">Kata sandi baru</string>
+    <string name="feature_profile_repeat_password">Ulangi kata sandi baru</string>
+    <string name="feature_profile_password_hint">12 hingga 50 karakter, dengan huruf besar dan kecil, angka, dan simbol</string>
+    <string name="feature_profile_passwords_differ">Kata sandi tidak cocok</string>
+    <string name="feature_profile_password_failed">Kata sandi tidak diubah. Coba lagi.</string>
+    <string name="feature_profile_show_password">Tampilkan kata sandi</string>
+    <string name="feature_profile_hide_password">Sembunyikan kata sandi</string>
+    <string name="feature_profile_cancel">Batal</string>
+    <string name="feature_profile_save_password">Simpan kata sandi</string>
+    <string name="feature_profile_password_changed">Kata sandi diubah</string>
+    <string name="feature_profile_sign_out">Keluar</string>
+</resources>

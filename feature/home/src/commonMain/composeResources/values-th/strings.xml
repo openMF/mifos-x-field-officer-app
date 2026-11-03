@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">การตั้งค่า</string>
+    <string name="screens_home_outstanding_label">ยอดคงค้าง</string>
+    <string name="screens_home_no_loans_message">ไม่มีสินเชื่อที่ใช้งานอยู่ — เริ่มด้วยการเพิ่มสักรายการ</string>
+    <string name="screens_home_total_outstanding_label">ยอดคงค้างรวม</string>
+    <string name="screens_home_active_loans_singular">สินเชื่อที่ใช้งานอยู่ %1$d รายการ</string>
+    <string name="screens_home_active_loans_plural">สินเชื่อที่ใช้งานอยู่ %1$d รายการ</string>
+    <string name="screens_home_monthly_emi_label">ค่างวดรายเดือน</string>
+    <string name="screens_home_loans_label">สินเชื่อ</string>
+    <string name="screens_home_loans_carousel_title">สินเชื่อของคุณ · %1$d</string>
+    <string name="screens_home_remaining_label">คงเหลือ</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">ค่างวด $%1$s · ชำระแล้ว %2$d%%</string>
+    <string name="screens_home_section_this_week">สัปดาห์นี้</string>
+    <string name="screens_home_section_tools">เครื่องมือ</string>
+    <string name="screens_home_section_tools_subtitle">เครื่องคำนวณ การเปรียบเทียบ ตัวชี้วัดมหภาค</string>
+    <string name="screens_home_bills_card_title">บิลที่ใกล้ครบกำหนด</string>
+    <string name="screens_home_bills_total_label">ยอดครบกำหนดรวม (7 วันข้างหน้า)</string>
+    <string name="screens_home_bills_day_value">วันที่ %1$d</string>
+    <string name="screens_home_bills_empty">ไม่มีบิลครบกำหนดใน 7 วันข้างหน้า</string>
+    <string name="screens_home_rates_card_title">อัตราวันนี้</string>
+    <string name="screens_home_rates_fed_funds_label">อัตราดอกเบี้ยเฟด</string>
+    <string name="screens_home_rates_mortgage_30y_label">สินเชื่อบ้าน 30 ปี</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">อัตราแลกเปลี่ยน USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">ดูทั้งหมด</string>
+    <string name="screens_home_tool_emi_title">เครื่องคำนวณค่างวด</string>
+    <string name="screens_home_tool_emi_subtitle">ค่างวดรายเดือนของสินเชื่อใด ๆ</string>
+    <string name="screens_home_tool_affordability_title">ความสามารถในการกู้</string>
+    <string name="screens_home_tool_affordability_subtitle">ฉันกู้ได้เท่าไรอย่างปลอดภัย</string>
+    <string name="screens_home_tool_amortization_title">การผ่อนชำระ</string>
+    <string name="screens_home_tool_amortization_subtitle">ตารางการชำระเงินฉบับเต็ม</string>
+    <string name="screens_home_tool_compare_title">เปรียบเทียบสินเชื่อ</string>
+    <string name="screens_home_tool_compare_subtitle">ต้นทุนรวมแบบเทียบกัน</string>
+    <string name="screens_home_tool_wizard_title">ตัวช่วยสินเชื่อ</string>
+    <string name="screens_home_tool_wizard_subtitle">ตัววางแผนทีละขั้น</string>
+    <string name="screens_home_tool_currency_title">อัตราแลกเปลี่ยน</string>
+    <string name="screens_home_tool_currency_subtitle">อัตราแลกเปลี่ยนสด</string>
+    <string name="screens_home_tool_history_title">ประวัติอัตรา</string>
+    <string name="screens_home_tool_history_subtitle">กราฟอัตราแลกเปลี่ยนย้อนหลัง</string>
+    <string name="screens_home_tool_macro_title">ข้อมูลมหภาครายประเทศ</string>
+    <string name="screens_home_tool_macro_subtitle">GDP, CPI, การว่างงาน</string>
+    <string name="screens_home_tool_crypto_title">ตลาดเหรียญ</string>
+    <string name="screens_home_tool_crypto_subtitle">ราคาคริปโตสดและรายการติดตาม</string>
+    <string name="screens_home_money_zero">$0.00</string>
+    <!-- Home dashboard -->
+    <string name="feature_home_dashboard_greeting_morning">อรุณสวัสดิ์ %1$s</string>
+    <string name="feature_home_dashboard_greeting_afternoon">สวัสดีตอนบ่าย %1$s</string>
+    <string name="feature_home_dashboard_greeting_evening">สวัสดีตอนเย็น %1$s</string>
+    <string name="feature_home_dashboard_scope_my_portfolio">พอร์ตของฉัน</string>
+    <string name="feature_home_dashboard_scope_office">สาขา: %1$s</string>
+    <string name="feature_home_dashboard_collections_title">การเก็บเงินวันนี้</string>
+    <string name="feature_home_dashboard_collections_due_clients">ลูกค้าที่ครบกำหนดวันนี้</string>
+    <string name="feature_home_dashboard_collections_due_amount">ครบกำหนดวันนี้</string>
+    <string name="feature_home_dashboard_collections_empty">วันนี้ไม่มีการเก็บเงิน</string>
+    <string name="feature_home_dashboard_collections_open">เปิดใบเก็บเงิน</string>
+    <string name="feature_home_dashboard_queue_title">คิวงาน</string>
+    <string name="feature_home_dashboard_queue_checker">งานรอตรวจสอบ</string>
+    <string name="feature_home_dashboard_queue_approval">สินเชื่อรออนุมัติ</string>
+    <string name="feature_home_dashboard_queue_disbursal">อนุมัติแล้ว รอเบิกจ่าย</string>
+    <string name="feature_home_dashboard_queue_pending_clients">ลูกค้ารอเปิดใช้งาน</string>
+    <string name="feature_home_dashboard_queue_reschedules">คำขอปรับตารางที่รอดำเนินการ</string>
+    <string name="feature_home_dashboard_queue_drafts">ฉบับร่างที่ยังไม่ซิงค์ของฉัน</string>
+    <string name="feature_home_dashboard_meetings_title">การประชุมวันนี้</string>
+    <string name="feature_home_dashboard_meetings_empty">วันนี้ไม่มีนัดหมาย</string>
+    <string name="feature_home_dashboard_meetings_groups">%1$d กลุ่ม</string>
+    <string name="feature_home_dashboard_portfolio_title">ภาพรวมพอร์ต</string>
+    <string name="feature_home_dashboard_tile_active_clients">ลูกค้าที่ใช้งานอยู่</string>
+    <string name="feature_home_dashboard_tile_active_loans">สินเชื่อที่ใช้งานอยู่</string>
+    <string name="feature_home_dashboard_tile_outstanding">ยอดคงค้าง</string>
+    <string name="feature_home_dashboard_tile_overdue">ค้างชำระ</string>
+    <string name="feature_home_dashboard_tile_in_arrears">สินเชื่อค้างชำระ</string>
+    <string name="feature_home_dashboard_tile_par">PAR</string>
+    <string name="feature_home_dashboard_tile_savings">ยอดเงินออม</string>
+    <string name="feature_home_dashboard_tile_groups">กลุ่ม</string>
+    <string name="feature_home_dashboard_tile_centers">ศูนย์</string>
+    <string name="feature_home_dashboard_quick_actions_title">การทำงานด่วน</string>
+    <string name="feature_home_dashboard_qa_new_client">ลูกค้าใหม่</string>
+    <string name="feature_home_dashboard_qa_new_group">กลุ่มใหม่</string>
+    <string name="feature_home_dashboard_qa_new_center">ศูนย์ใหม่</string>
+    <string name="feature_home_dashboard_qa_collection_sheet">ใบเก็บเงิน</string>
+    <string name="feature_home_dashboard_qa_run_reports">เรียกใช้รายงาน</string>
+    <string name="feature_home_dashboard_qa_search">ค้นหา</string>
+    <string name="feature_home_dashboard_qa_path_tracker">ติดตามเส้นทาง</string>
+    <string name="feature_home_dashboard_settings">การตั้งค่า</string>
+    <string name="feature_home_dashboard_profile">โปรไฟล์</string>
+    <string name="feature_home_dashboard_loan_queue_empty">ไม่มีสินเชื่อในคิวนี้</string>
+    <string name="feature_home_dashboard_queue_pending_badge">รอดำเนินการ %1$d รายการ</string>
+    <string name="feature_home_dashboard_meetings_summary">นัดหมาย %1$d รายการ · %2$s</string>
+    <string name="feature_home_dashboard_summary_active_clients">ลูกค้าที่ใช้งานอยู่ %1$d ราย</string>
+    <string name="feature_home_dashboard_summary_active_loans">สินเชื่อที่ใช้งานอยู่ %1$d รายการ</string>
+    <string name="feature_home_dashboard_summary_outstanding">ยอดคงค้าง %1$s</string>
+    <string name="feature_home_dashboard_summary_par">PAR %1$s</string>
+    <string name="feature_home_dashboard_portfolio_total_outstanding">ยอดคงค้างรวมของพอร์ต</string>
+    <string name="feature_home_dashboard_card_error">โหลดการ์ดนี้ไม่ได้</string>
+    <string name="feature_home_dashboard_retry">ลองอีกครั้ง</string>
+    <string name="feature_home_dashboard_error_title">โหลดข้อมูลวันนี้ไม่ได้</string>
+    <string name="feature_home_dashboard_error_body">ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง การทำงานด่วนยังใช้งานได้</string>
+    <string name="feature_home_dashboard_card_error_body">ส่วนนี้รีเฟรชไม่สำเร็จ การ์ดอื่นไม่ได้รับผลกระทบ</string>
+    <string name="feature_home_dashboard_retry_sync">ซิงค์อีกครั้ง</string>
+    <string name="feature_home_dashboard_offline_label">ออฟไลน์</string>
+    <string name="feature_home_dashboard_offline_body">ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง การทำงานด่วนและข้อมูลที่บันทึกในอุปกรณ์นี้ใช้งานออฟไลน์ได้</string>
+    <string name="feature_home_dashboard_offline_banner_title">ทำงานแบบออฟไลน์</string>
+    <string name="feature_home_dashboard_offline_banner_body">รายการใหม่จะเก็บไว้ในอุปกรณ์นี้และซิงค์อัตโนมัติเมื่อกลับมาออนไลน์</string>
+    <string name="feature_home_dashboard_offline_enabled">เปิดใช้ออฟไลน์</string>
+    <string name="feature_home_dashboard_collections_loans_due">สินเชื่อครบกำหนดวันนี้</string>
+    <string name="feature_home_dashboard_collections_loans_value">สินเชื่อ %1$d รายการ</string>
+    <string name="feature_home_dashboard_collections_hero_meta">ลูกค้า %1$d ราย · สินเชื่อ %2$d รายการ</string>
+    <string name="feature_home_dashboard_recent_title">เปิดล่าสุด</string>
+    <string name="feature_home_dashboard_recent_kind_client">ลูกค้า</string>
+    <string name="feature_home_dashboard_recent_kind_group">กลุ่ม</string>
+    <string name="feature_home_dashboard_recent_kind_center">ศูนย์</string>
+    <string name="feature_home_dashboard_recent_kind_loan">สินเชื่อ</string>
+    <string name="feature_home_dashboard_time_just_now">เมื่อสักครู่</string>
+    <string name="feature_home_dashboard_time_minutes_ago">%1$d นาทีที่แล้ว</string>
+    <string name="feature_home_dashboard_time_hours_ago">%1$d ชม.ที่แล้ว</string>
+    <string name="feature_home_dashboard_time_yesterday">เมื่อวาน</string>
+    <string name="feature_home_dashboard_time_days_ago">%1$d วันที่แล้ว</string>
+    <string name="feature_home_dashboard_collections_collected_today">เก็บได้วันนี้</string>
+    <string name="feature_home_dashboard_collections_goal">เป้าหมาย: %1$s</string>
+    <string name="feature_home_dashboard_collections_remains">คงเหลือ: %1$s</string>
+    <string name="feature_home_dashboard_collections_of_goal">%1$s ของเป้าหมาย</string>
+    <string name="feature_home_dashboard_collections_percent_collected">เก็บแล้ว %1$s</string>
+    <string name="feature_home_dashboard_collections_collected">เก็บแล้ว</string>
+    <string name="feature_home_dashboard_collections_overdue">ลูกค้าค้างชำระ</string>
+    <string name="feature_home_dashboard_collections_overdue_chip">ค้างชำระ</string>
+    <string name="feature_home_dashboard_summary_collected">เก็บแล้ว %1$s</string>
+    <string name="feature_home_dashboard_summary_overdue">ค้างชำระ %1$d</string>
+    <string name="feature_home_dashboard_queue_view_all">ดูทั้งหมด</string>
+    <string name="feature_home_dashboard_meeting_center_groups">ศูนย์ · %1$d กลุ่ม</string>
+    <string name="feature_home_dashboard_meeting_on_schedule">ตามกำหนด</string>
+    <string name="feature_home_dashboard_meeting_upcoming">กำลังจะถึง</string>
+    <string name="feature_home_dashboard_meeting_today">วันนี้</string>
+    <string name="feature_home_dashboard_tile_par_target">เป้า &lt; %1$s</string>
+    <string name="feature_home_dashboard_card_cached">แคช: %1$s</string>
+    <string name="feature_home_dashboard_recent_cached">แคชออฟไลน์ · %1$d รายการ</string>
+    <string name="feature_home_dashboard_quick_actions_available">ใช้ได้ %1$d รายการ</string>
+    <string name="feature_home_dashboard_error_kind_forbidden">ถูกปฏิเสธการเข้าถึง</string>
+    <string name="feature_home_dashboard_error_kind_not_found">ไม่พบ</string>
+    <string name="feature_home_dashboard_error_kind_rejected">คำขอถูกปฏิเสธ</string>
+    <string name="feature_home_dashboard_error_kind_server">ข้อผิดพลาดของเซิร์ฟเวอร์</string>
+    <string name="feature_home_dashboard_error_kind_offline">ไม่มีการเชื่อมต่อ</string>
+    <string name="feature_home_dashboard_error_kind_timeout">หมดเวลา</string>
+    <string name="feature_home_dashboard_error_kind_signed_out">ออกจากระบบแล้ว</string>
+    <string name="feature_home_dashboard_error_kind_busy">คำขอมากเกินไป</string>
+    <string name="feature_home_dashboard_error_kind_failed">ซิงค์ล้มเหลว</string>
+    <plurals name="feature_home_dashboard_collections_clients_value">
+        <item quantity="other">ลูกค้า %1$d ราย</item>
+    </plurals>
+    <plurals name="feature_home_dashboard_collections_summary">
+        <item quantity="other">ลูกค้าครบกำหนด %1$d ราย · ครบกำหนด %2$s</item>
+    </plurals>
+</resources>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">설정</string>
+    <string name="screens_home_outstanding_label">미상환 잔액</string>
+    <string name="screens_home_no_loans_message">진행 중인 대출이 없습니다 — 먼저 하나 추가하세요.</string>
+    <string name="screens_home_total_outstanding_label">총 미상환액</string>
+    <string name="screens_home_active_loans_singular">진행 중인 대출 %1$d건</string>
+    <string name="screens_home_active_loans_plural">진행 중인 대출 %1$d건</string>
+    <string name="screens_home_monthly_emi_label">월 상환금</string>
+    <string name="screens_home_loans_label">대출</string>
+    <string name="screens_home_loans_carousel_title">내 대출 · %1$d</string>
+    <string name="screens_home_remaining_label">남음</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">상환금 $%1$s · %2$d%% 상환</string>
+    <string name="screens_home_section_this_week">이번 주</string>
+    <string name="screens_home_section_tools">도구</string>
+    <string name="screens_home_section_tools_subtitle">계산기, 비교, 거시지표</string>
+    <string name="screens_home_bills_card_title">다가오는 청구</string>
+    <string name="screens_home_bills_total_label">총 납부액 (향후 7일)</string>
+    <string name="screens_home_bills_day_value">%1$d일</string>
+    <string name="screens_home_bills_empty">향후 7일 내 납부할 청구가 없습니다.</string>
+    <string name="screens_home_rates_card_title">오늘의 금리</string>
+    <string name="screens_home_rates_fed_funds_label">연방기금금리</string>
+    <string name="screens_home_rates_mortgage_30y_label">30년 주택담보대출</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">USD 환율</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">전체 보기</string>
+    <string name="screens_home_tool_emi_title">월 상환금 계산기</string>
+    <string name="screens_home_tool_emi_subtitle">모든 대출의 월 상환금</string>
+    <string name="screens_home_tool_affordability_title">대출 여력</string>
+    <string name="screens_home_tool_affordability_subtitle">안전하게 얼마나 빌릴 수 있나요?</string>
+    <string name="screens_home_tool_amortization_title">상환 계획</string>
+    <string name="screens_home_tool_amortization_subtitle">전체 상환 일정</string>
+    <string name="screens_home_tool_compare_title">대출 비교</string>
+    <string name="screens_home_tool_compare_subtitle">총비용 나란히 비교</string>
+    <string name="screens_home_tool_wizard_title">대출 마법사</string>
+    <string name="screens_home_tool_wizard_subtitle">단계별 플래너</string>
+    <string name="screens_home_tool_currency_title">환율</string>
+    <string name="screens_home_tool_currency_subtitle">실시간 환율</string>
+    <string name="screens_home_tool_history_title">환율 기록</string>
+    <string name="screens_home_tool_history_subtitle">과거 환율 차트</string>
+    <string name="screens_home_tool_macro_title">국가 거시지표</string>
+    <string name="screens_home_tool_macro_subtitle">GDP, CPI, 실업률</string>
+    <string name="screens_home_tool_crypto_title">코인 시장</string>
+    <string name="screens_home_tool_crypto_subtitle">실시간 암호화폐 시세와 관심 목록</string>
+    <string name="screens_home_money_zero">$0.00</string>
+    <!-- Home dashboard -->
+    <string name="feature_home_dashboard_greeting_morning">좋은 아침입니다, %1$s님</string>
+    <string name="feature_home_dashboard_greeting_afternoon">좋은 오후입니다, %1$s님</string>
+    <string name="feature_home_dashboard_greeting_evening">좋은 저녁입니다, %1$s님</string>
+    <string name="feature_home_dashboard_scope_my_portfolio">내 포트폴리오</string>
+    <string name="feature_home_dashboard_scope_office">지점: %1$s</string>
+    <string name="feature_home_dashboard_collections_title">오늘의 수금</string>
+    <string name="feature_home_dashboard_collections_due_clients">오늘 납부 예정 고객</string>
+    <string name="feature_home_dashboard_collections_due_amount">오늘 납부액</string>
+    <string name="feature_home_dashboard_collections_empty">오늘 수금 없음</string>
+    <string name="feature_home_dashboard_collections_open">수금표 열기</string>
+    <string name="feature_home_dashboard_queue_title">작업 대기열</string>
+    <string name="feature_home_dashboard_queue_checker">검토 대기 작업</string>
+    <string name="feature_home_dashboard_queue_approval">승인 대기 대출</string>
+    <string name="feature_home_dashboard_queue_disbursal">승인됨, 지급 대기</string>
+    <string name="feature_home_dashboard_queue_pending_clients">활성화 대기 고객</string>
+    <string name="feature_home_dashboard_queue_reschedules">대기 중인 재조정 요청</string>
+    <string name="feature_home_dashboard_queue_drafts">동기화되지 않은 내 임시 저장</string>
+    <string name="feature_home_dashboard_meetings_title">오늘의 모임</string>
+    <string name="feature_home_dashboard_meetings_empty">오늘 예정된 일정 없음</string>
+    <string name="feature_home_dashboard_meetings_groups">%1$d개 그룹</string>
+    <string name="feature_home_dashboard_portfolio_title">포트폴리오 한눈에 보기</string>
+    <string name="feature_home_dashboard_tile_active_clients">활성 고객</string>
+    <string name="feature_home_dashboard_tile_active_loans">활성 대출</string>
+    <string name="feature_home_dashboard_tile_outstanding">미상환 잔액</string>
+    <string name="feature_home_dashboard_tile_overdue">연체</string>
+    <string name="feature_home_dashboard_tile_in_arrears">연체 대출</string>
+    <string name="feature_home_dashboard_tile_par">PAR</string>
+    <string name="feature_home_dashboard_tile_savings">저축 잔액</string>
+    <string name="feature_home_dashboard_tile_groups">그룹</string>
+    <string name="feature_home_dashboard_tile_centers">센터</string>
+    <string name="feature_home_dashboard_quick_actions_title">빠른 작업</string>
+    <string name="feature_home_dashboard_qa_new_client">새 고객</string>
+    <string name="feature_home_dashboard_qa_new_group">새 그룹</string>
+    <string name="feature_home_dashboard_qa_new_center">새 센터</string>
+    <string name="feature_home_dashboard_qa_collection_sheet">수금표</string>
+    <string name="feature_home_dashboard_qa_run_reports">보고서 실행</string>
+    <string name="feature_home_dashboard_qa_search">검색</string>
+    <string name="feature_home_dashboard_qa_path_tracker">경로 추적</string>
+    <string name="feature_home_dashboard_settings">설정</string>
+    <string name="feature_home_dashboard_profile">프로필</string>
+    <string name="feature_home_dashboard_loan_queue_empty">이 대기열에 대출이 없습니다</string>
+    <string name="feature_home_dashboard_queue_pending_badge">대기 중 %1$d건</string>
+    <string name="feature_home_dashboard_meetings_summary">예정 %1$d건 · %2$s</string>
+    <string name="feature_home_dashboard_summary_active_clients">활성 고객 %1$d명</string>
+    <string name="feature_home_dashboard_summary_active_loans">활성 대출 %1$d건</string>
+    <string name="feature_home_dashboard_summary_outstanding">미상환 %1$s</string>
+    <string name="feature_home_dashboard_summary_par">PAR %1$s</string>
+    <string name="feature_home_dashboard_portfolio_total_outstanding">전체 미상환 포트폴리오</string>
+    <string name="feature_home_dashboard_card_error">이 카드를 불러오지 못했습니다</string>
+    <string name="feature_home_dashboard_retry">다시 시도</string>
+    <string name="feature_home_dashboard_error_title">오늘의 정보를 불러오지 못했습니다</string>
+    <string name="feature_home_dashboard_error_body">연결을 확인하고 다시 시도하세요. 빠른 작업은 계속 사용할 수 있습니다.</string>
+    <string name="feature_home_dashboard_card_error_body">이 섹션을 새로 고치지 못했습니다. 다른 카드는 영향을 받지 않습니다.</string>
+    <string name="feature_home_dashboard_retry_sync">다시 동기화</string>
+    <string name="feature_home_dashboard_offline_label">오프라인</string>
+    <string name="feature_home_dashboard_offline_body">연결을 확인하고 다시 시도하세요. 빠른 작업과 이 기기에 저장된 기록은 오프라인에서도 사용할 수 있습니다.</string>
+    <string name="feature_home_dashboard_offline_banner_title">오프라인 작업 중</string>
+    <string name="feature_home_dashboard_offline_banner_body">새 입력은 이 기기에 보관되며 다시 연결되면 자동으로 동기화됩니다.</string>
+    <string name="feature_home_dashboard_offline_enabled">오프라인 사용 가능</string>
+    <string name="feature_home_dashboard_collections_loans_due">오늘 납부 예정 대출</string>
+    <string name="feature_home_dashboard_collections_loans_value">대출 %1$d건</string>
+    <string name="feature_home_dashboard_collections_hero_meta">고객 %1$d명 · 대출 %2$d건</string>
+    <string name="feature_home_dashboard_recent_title">최근에 연 항목</string>
+    <string name="feature_home_dashboard_recent_kind_client">고객</string>
+    <string name="feature_home_dashboard_recent_kind_group">그룹</string>
+    <string name="feature_home_dashboard_recent_kind_center">센터</string>
+    <string name="feature_home_dashboard_recent_kind_loan">대출</string>
+    <string name="feature_home_dashboard_time_just_now">방금</string>
+    <string name="feature_home_dashboard_time_minutes_ago">%1$d분 전</string>
+    <string name="feature_home_dashboard_time_hours_ago">%1$d시간 전</string>
+    <string name="feature_home_dashboard_time_yesterday">어제</string>
+    <string name="feature_home_dashboard_time_days_ago">%1$d일 전</string>
+    <string name="feature_home_dashboard_collections_collected_today">오늘 수금액</string>
+    <string name="feature_home_dashboard_collections_goal">목표: %1$s</string>
+    <string name="feature_home_dashboard_collections_remains">남은 금액: %1$s</string>
+    <string name="feature_home_dashboard_collections_of_goal">목표의 %1$s</string>
+    <string name="feature_home_dashboard_collections_percent_collected">%1$s 수금</string>
+    <string name="feature_home_dashboard_collections_collected">수금액</string>
+    <string name="feature_home_dashboard_collections_overdue">연체 고객</string>
+    <string name="feature_home_dashboard_collections_overdue_chip">연체</string>
+    <string name="feature_home_dashboard_summary_collected">%1$s 수금</string>
+    <string name="feature_home_dashboard_summary_overdue">연체 %1$d</string>
+    <string name="feature_home_dashboard_queue_view_all">모두 보기</string>
+    <string name="feature_home_dashboard_meeting_center_groups">센터 · %1$d개 그룹</string>
+    <string name="feature_home_dashboard_meeting_on_schedule">예정대로</string>
+    <string name="feature_home_dashboard_meeting_upcoming">예정</string>
+    <string name="feature_home_dashboard_meeting_today">오늘</string>
+    <string name="feature_home_dashboard_tile_par_target">목표 &lt; %1$s</string>
+    <string name="feature_home_dashboard_card_cached">캐시: %1$s</string>
+    <string name="feature_home_dashboard_recent_cached">오프라인 캐시 · %1$d건</string>
+    <string name="feature_home_dashboard_quick_actions_available">%1$d개 사용 가능</string>
+    <string name="feature_home_dashboard_error_kind_forbidden">접근 거부</string>
+    <string name="feature_home_dashboard_error_kind_not_found">찾을 수 없음</string>
+    <string name="feature_home_dashboard_error_kind_rejected">요청 거부</string>
+    <string name="feature_home_dashboard_error_kind_server">서버 오류</string>
+    <string name="feature_home_dashboard_error_kind_offline">연결 없음</string>
+    <string name="feature_home_dashboard_error_kind_timeout">시간 초과</string>
+    <string name="feature_home_dashboard_error_kind_signed_out">로그아웃됨</string>
+    <string name="feature_home_dashboard_error_kind_busy">요청이 너무 많음</string>
+    <string name="feature_home_dashboard_error_kind_failed">동기화 실패</string>
+    <plurals name="feature_home_dashboard_collections_clients_value">
+        <item quantity="other">고객 %1$d명</item>
+    </plurals>
+    <plurals name="feature_home_dashboard_collections_summary">
+        <item quantity="other">납부 예정 고객 %1$d명 · 납부액 %2$s</item>
+    </plurals>
+</resources>

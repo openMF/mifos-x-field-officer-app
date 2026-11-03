@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Lokales Profil</string>
+    <string name="screens_profile_local_message">%1$s läuft vollständig auf dem Gerät. Kein Konto erforderlich.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Profil</string>
+    <string name="feature_profile_back">Zurück</string>
+    <string name="feature_profile_offline_banner">Sie sind offline. Dies ist das beim Anmelden gespeicherte Konto.</string>
+    <string name="feature_profile_username">Benutzername</string>
+    <string name="feature_profile_email">E-Mail</string>
+    <string name="feature_profile_loan_officer">Kreditberater</string>
+    <string name="feature_profile_staff">Mitarbeiter</string>
+    <string name="feature_profile_office_label">Filiale</string>
+    <string name="feature_profile_name_error">Ihr Name konnte nicht vom Server geladen werden.</string>
+    <string name="feature_profile_name_error_generic">Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.</string>
+    <string name="feature_profile_retry">Erneut versuchen</string>
+    <string name="feature_profile_roles_title">Rollen</string>
+    <string name="feature_profile_roles_empty">Keine Rollen zugewiesen</string>
+    <string name="feature_profile_scope_title">Was Start anzeigt</string>
+    <string name="feature_profile_scope_note">Ihr eigenes Portfolio, wenn Sie mit einem Mitarbeitereintrag verknüpft sind, sonst Ihre gesamte Filiale.</string>
+    <string name="feature_profile_scope_my_portfolio">Mein Portfolio</string>
+    <string name="feature_profile_scope_office">Filiale: %1$s</string>
+    <string name="feature_profile_session_title">Angemeldet bei</string>
+    <string name="feature_profile_live">Live</string>
+    <string name="feature_profile_server_label">Server</string>
+    <string name="feature_profile_tenant">Mandant</string>
+    <string name="feature_profile_server_settings">Servereinstellungen</string>
+    <string name="feature_profile_change_password">Passwort ändern</string>
+    <string name="feature_profile_change_password_offline">Stellen Sie eine Internetverbindung her, um Ihr Passwort zu ändern.</string>
+    <string name="feature_profile_password_lead">Nach der Änderung bleiben Sie auf diesem Gerät angemeldet.</string>
+    <string name="feature_profile_new_password">Neues Passwort</string>
+    <string name="feature_profile_repeat_password">Neues Passwort wiederholen</string>
+    <string name="feature_profile_password_hint">12 bis 50 Zeichen mit Groß- und Kleinbuchstaben, einer Zahl und einem Sonderzeichen</string>
+    <string name="feature_profile_passwords_differ">Passwörter stimmen nicht überein</string>
+    <string name="feature_profile_password_failed">Das Passwort wurde nicht geändert. Versuchen Sie es erneut.</string>
+    <string name="feature_profile_show_password">Passwort anzeigen</string>
+    <string name="feature_profile_hide_password">Passwort ausblenden</string>
+    <string name="feature_profile_cancel">Abbrechen</string>
+    <string name="feature_profile_save_password">Passwort speichern</string>
+    <string name="feature_profile_password_changed">Passwort geändert</string>
+    <string name="feature_profile_sign_out">Abmelden</string>
+</resources>

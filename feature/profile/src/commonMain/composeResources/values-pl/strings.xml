@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">Profil lokalny</string>
+    <string name="screens_profile_local_message">%1$s działa w całości na urządzeniu. Konto nie jest wymagane.</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">Profil</string>
+    <string name="feature_profile_back">Wstecz</string>
+    <string name="feature_profile_offline_banner">Jesteś offline. To konto zapisane podczas logowania.</string>
+    <string name="feature_profile_username">Nazwa użytkownika</string>
+    <string name="feature_profile_email">E-mail</string>
+    <string name="feature_profile_loan_officer">Doradca kredytowy</string>
+    <string name="feature_profile_staff">Pracownik</string>
+    <string name="feature_profile_office_label">Oddział</string>
+    <string name="feature_profile_name_error">Nie udało się wczytać Twojego imienia i nazwiska z serwera.</string>
+    <string name="feature_profile_name_error_generic">Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="feature_profile_retry">Ponów</string>
+    <string name="feature_profile_roles_title">Role</string>
+    <string name="feature_profile_roles_empty">Brak przypisanych ról</string>
+    <string name="feature_profile_scope_title">Co pokazuje Ekran główny</string>
+    <string name="feature_profile_scope_note">Twój własny portfel, jeśli jesteś powiązany z rekordem pracownika, w przeciwnym razie cały oddział.</string>
+    <string name="feature_profile_scope_my_portfolio">Mój portfel</string>
+    <string name="feature_profile_scope_office">Oddział: %1$s</string>
+    <string name="feature_profile_session_title">Zalogowano do</string>
+    <string name="feature_profile_live">Aktywny</string>
+    <string name="feature_profile_server_label">Serwer</string>
+    <string name="feature_profile_tenant">Tenant</string>
+    <string name="feature_profile_server_settings">Ustawienia serwera</string>
+    <string name="feature_profile_change_password">Zmień hasło</string>
+    <string name="feature_profile_change_password_offline">Połącz się z internetem, aby zmienić hasło.</string>
+    <string name="feature_profile_password_lead">Po zmianie pozostaniesz zalogowany na tym urządzeniu.</string>
+    <string name="feature_profile_new_password">Nowe hasło</string>
+    <string name="feature_profile_repeat_password">Powtórz nowe hasło</string>
+    <string name="feature_profile_password_hint">12 do 50 znaków, z wielkimi i małymi literami, cyfrą i symbolem</string>
+    <string name="feature_profile_passwords_differ">Hasła nie są zgodne</string>
+    <string name="feature_profile_password_failed">Hasło nie zostało zmienione. Spróbuj ponownie.</string>
+    <string name="feature_profile_show_password">Pokaż hasło</string>
+    <string name="feature_profile_hide_password">Ukryj hasło</string>
+    <string name="feature_profile_cancel">Anuluj</string>
+    <string name="feature_profile_save_password">Zapisz hasło</string>
+    <string name="feature_profile_password_changed">Hasło zostało zmienione</string>
+    <string name="feature_profile_sign_out">Wyloguj się</string>
+</resources>

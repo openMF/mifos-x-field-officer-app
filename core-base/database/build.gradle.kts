@@ -5,43 +5,61 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * See https://github.com/openMF/android-client/blob/master/LICENSE.md
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
-import org.jetbrains.compose.compose
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
-/*
- * Copyright 2025 Mifos Initiative
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- *
- * See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
- */
 plugins {
     alias(libs.plugins.kmp.core.base.library.convention)
 }
 
-android {
-    namespace = "template.core.base.database"
-}
-
 kotlin {
+    js {
+        useEsModules()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        useEsModules()
+    }
+
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.androidx.room.runtime)
+        commonMain.dependencies {
+            api(libs.androidx.room.runtime)
+            // Koin + coroutines: the template-owned platformDatabaseModule<T> builder lives here so a
+            // fork's core/database never re-authors the platform driver/dispatcher/fallback boilerplate.
+            api(libs.koin.core)
+            implementation(libs.kotlinx.coroutines.core)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
         }
 
         desktopMain.dependencies {
-            implementation(libs.androidx.room.runtime)
+            api(libs.androidx.sqlite.bundled)
         }
-
         nativeMain.dependencies {
-            implementation(libs.androidx.room.runtime)
+            api(libs.androidx.sqlite.bundled)
+        }
+        androidMain.dependencies {
+            api(libs.androidx.sqlite.bundled)
+            // platformDatabaseModule (android) resolves the Application via androidApplication().
+            implementation(libs.koin.android)
         }
 
-        nonJsCommonMain.dependencies {
-            implementation(libs.androidx.room.runtime)
+        jsMain.dependencies {
+            api(libs.androidx.sqlite.web)
+            implementation(npm("sqlite-wasm-worker", layout.projectDirectory.dir("sqlite-wasm-worker").asFile))
+            implementation(npm("sql-js-worker", layout.projectDirectory.dir("sql-js-worker").asFile))
+        }
+        wasmJsMain.dependencies {
+            api(libs.androidx.sqlite.web)
+            api(libs.kotlinx.browser)
+            implementation(npm("sqlite-wasm-worker", layout.projectDirectory.dir("sqlite-wasm-worker").asFile))
+            implementation(npm("sql-js-worker", layout.projectDirectory.dir("sql-js-worker").asFile))
         }
     }
 }

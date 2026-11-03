@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">通知</string>
+    <string name="feature_notification_mark_all_read">すべて既読にする</string>
+    <string name="feature_notification_mark_all_read_failed">既読にできませんでした。接続を確認してもう一度お試しください。</string>
+    <string name="feature_notification_empty_title">新しい通知はありません</string>
+    <string name="feature_notification_empty_body">顧客・グループ・ローンの動きがここに表示されます。</string>
+    <string name="feature_notification_section_new">新着</string>
+    <string name="feature_notification_section_earlier">以前</string>
+    <string name="feature_notification_object_loan">ローン #%1$s</string>
+    <string name="feature_notification_object_client">顧客 #%1$s</string>
+    <string name="feature_notification_object_group">グループ #%1$s</string>
+    <string name="feature_notification_object_center">センター #%1$s</string>
+    <string name="feature_notification_object_savings">貯蓄 #%1$s</string>
+    <string name="feature_notification_time_just_now">たった今</string>
+    <string name="feature_notification_time_minutes_ago">%1$d分前</string>
+    <string name="feature_notification_time_hours_ago">%1$d時間前</string>
+    <string name="feature_notification_time_yesterday">昨日</string>
+    <string name="feature_notification_time_days_ago">%1$d日前</string>
+</resources>

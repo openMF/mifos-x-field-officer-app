@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Synchronizacja offline</string>
+    <string name="feature_offlinesync_online">Online</string>
+    <string name="feature_offlinesync_offline">Offline</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d do synchronizacji</string>
+    <string name="feature_offlinesync_stat_failed">%1$d nieudane</string>
+    <string name="feature_offlinesync_level_label_centres">Centra</string>
+    <string name="feature_offlinesync_level_label_groups">Grupy</string>
+    <string name="feature_offlinesync_level_label_clients">Klienci</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Ostatnia synchronizacja %1$s</string>
+    <string name="feature_offlinesync_not_synced">Jeszcze nie zsynchronizowano</string>
+    <string name="feature_offlinesync_next_in_hours">następna za ~%1$d godz.</string>
+    <string name="feature_offlinesync_sync_now">Synchronizuj teraz</string>
+    <string name="feature_offlinesync_syncing_button">Synchronizacja…</string>
+    <string name="feature_offlinesync_sync_when_online">Synchronizuj po połączeniu</string>
+    <string name="feature_offlinesync_offline_banner">Jesteś offline. Wszystko na tym urządzeniu wciąż otwiera się normalnie; synchronizacja wznowi się, gdy wrócisz online.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="one">Pobieranie %1$d rekordu</item>
+        <item quantity="few">Pobieranie %1$d rekordów</item>
+        <item quantity="many">Pobieranie %1$d rekordów</item>
+        <item quantity="other">Pobieranie %1$d rekordu</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="one">%1$d z %2$d rekordu</item>
+        <item quantity="few">%1$d z %2$d rekordów</item>
+        <item quantity="many">%1$d z %2$d rekordów</item>
+        <item quantity="other">%1$d z %2$d rekordu</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="one">%1$d odczyt</item>
+        <item quantity="few">%1$d odczyty</item>
+        <item quantity="many">%1$d odczytów</item>
+        <item quantity="other">%1$d odczytu</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Anuluj</string>
+    <string name="feature_offlinesync_job_result">Gotowe · %1$d zsynchronizowanych · %2$d nieudanych</string>
+    <string name="feature_offlinesync_job_result_body">Reszta otwiera się offline</string>
+    <string name="feature_offlinesync_retry_failed">Ponów nieudane</string>
+    <string name="feature_offlinesync_records_title">Na tym urządzeniu</string>
+    <string name="feature_offlinesync_level_centres">Centra %1$d</string>
+    <string name="feature_offlinesync_level_groups">Grupy %1$d</string>
+    <string name="feature_offlinesync_level_clients">Klienci %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="one">Szukaj %1$d klienta na tym urządzeniu</item>
+        <item quantity="few">Szukaj %1$d klientów na tym urządzeniu</item>
+        <item quantity="many">Szukaj %1$d klientów na tym urządzeniu</item>
+        <item quantity="other">Szukaj %1$d klienta na tym urządzeniu</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Oczekuje na synchronizację</string>
+    <string name="feature_offlinesync_status_syncing">Synchronizacja…</string>
+    <string name="feature_offlinesync_status_synced">Zsynchronizowano %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Nieaktualne · zsynchronizowano %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d nieudanych · zsynchronizowano %2$s</string>
+    <string name="feature_offlinesync_via_parent">przez %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="one">%1$d grupa</item>
+        <item quantity="few">%1$d grupy</item>
+        <item quantity="many">%1$d grup</item>
+        <item quantity="other">%1$d grupy</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="one">%1$d klient</item>
+        <item quantity="few">%1$d klientów</item>
+        <item quantity="many">%1$d klientów</item>
+        <item quantity="other">%1$d klienta</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="one">%1$d konto</item>
+        <item quantity="few">%1$d konta</item>
+        <item quantity="many">%1$d kont</item>
+        <item quantity="other">%1$d konta</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="one">%1$d pożyczka</item>
+        <item quantity="few">%1$d pożyczki</item>
+        <item quantity="many">%1$d pożyczek</item>
+        <item quantity="other">%1$d pożyczki</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="one">%1$d oszczędności</item>
+        <item quantity="few">%1$d oszczędności</item>
+        <item quantity="many">%1$d oszczędności</item>
+        <item quantity="other">%1$d oszczędności</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="one">%1$d dokument</item>
+        <item quantity="few">%1$d dokumenty</item>
+        <item quantity="many">%1$d dokumentów</item>
+        <item quantity="other">%1$d dokumentu</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Odśwież</string>
+    <string name="feature_offlinesync_remove">Usuń</string>
+    <string name="feature_offlinesync_remove_confirm">Usunąć %1$s z tego urządzenia? Rekordy wciąż potrzebne do innego pobierania pozostaną.</string>
+    <string name="feature_offlinesync_expand">Pokaż co jest poniżej</string>
+    <string name="feature_offlinesync_collapse">Ukryj co jest poniżej</string>
+    <string name="feature_offlinesync_open">Otwórz</string>
+    <string name="feature_offlinesync_refresh_title">Synchronizacja</string>
+    <string name="feature_offlinesync_refresh_manual">Ręcznie</string>
+    <string name="feature_offlinesync_refresh_automatic">Automatycznie</string>
+    <string name="feature_offlinesync_refresh_manual_note">Twoje rekordy synchronizują się tylko po kliknięciu Synchronizuj teraz. Zrób to przed wyjściem.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Twoje rekordy są ponownie synchronizowane w tle zgodnie z powyższym harmonogramem.</string>
+    <string name="feature_offlinesync_refresh_data_note">Synchronizacja pobiera dużo danych. Na to urządzenie trafiają tylko wybrane przez ciebie rekordy.</string>
+    <string name="feature_offlinesync_resync_label">Ponownie zsynchronizuj rekordy</string>
+    <string name="feature_offlinesync_every_hours">Co %1$d godz.</string>
+    <string name="feature_offlinesync_wifi_only">Tylko Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">Tylko podczas ładowania</string>
+    <string name="feature_offlinesync_drafts_note">Praca wykonana offline jest zapisywana jako wersje robocze.</string>
+    <string name="feature_offlinesync_drafts_link">Synchronizacja i wersje robocze</string>
+    <string name="feature_offlinesync_empty_title">Nic jeszcze na tym urządzeniu</string>
+    <string name="feature_offlinesync_empty_body">Wybierz centra, grupy lub klientów, których odwiedzisz i zsynchronizuj je przed wyjściem. Wszystko pod nimi otwiera się tutaj bez zasięgu.</string>
+    <string name="feature_offlinesync_add_records">Dodaj rekordy</string>
+    <string name="feature_offlinesync_picker_title">Zachowaj na tym urządzeniu</string>
+    <string name="feature_offlinesync_picker_empty">Nie znaleziono rekordów</string>
+    <string name="feature_offlinesync_picker_error">Nie udało się załadować listy.</string>
+    <string name="feature_offlinesync_retry">Ponów</string>
+    <string name="feature_offlinesync_tab_centres">Centra</string>
+    <string name="feature_offlinesync_tab_groups">Grupy</string>
+    <string name="feature_offlinesync_tab_clients">Klienci</string>
+    <string name="feature_offlinesync_picker_search">Szukaj po nazwie lub numerze konta</string>
+    <string name="feature_offlinesync_picker_hint">Centrum wnosi swoje grupy, ich klientów i wszystkie ich konta.</string>
+    <string name="feature_offlinesync_on_device">Na urządzeniu</string>
+    <string name="feature_offlinesync_picker_download">Pobierz %1$d offline</string>
+    <string name="feature_offlinesync_time_just_now">przed chwilą</string>
+    <string name="feature_offlinesync_time_minutes">%1$d min temu</string>
+    <string name="feature_offlinesync_time_hours">%1$d godz. temu</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="one">%1$d dzień temu</item>
+        <item quantity="few">%1$d dni temu</item>
+        <item quantity="many">%1$d dni temu</item>
+        <item quantity="other">%1$d dnia temu</item>
+    </plurals>
+</resources>

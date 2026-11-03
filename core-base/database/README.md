@@ -4,7 +4,7 @@ A comprehensive Kotlin Multiplatform library providing cross-platform database a
 
 ## Overview
 
-This module serves as the foundational database layer for Mifos Initiative applications, enabling consistent database operations across Android, Desktop (JVM), and Native (iOS/macOS) platforms. By leveraging the Room persistence library and Kotlin Multiplatform's expect/actual pattern, the module delivers a unified database API that works seamlessly across all supported platforms while respecting platform-specific implementation details.
+This module serves as the foundational database layer for apps built on this template, enabling consistent database operations across Android, Desktop (JVM), and Native (iOS/macOS) platforms. By leveraging the Room persistence library and Kotlin Multiplatform's expect/actual pattern, the module delivers a unified database API that works seamlessly across all supported platforms while respecting platform-specific implementation details.
 
 ## Architecture
 
@@ -37,10 +37,11 @@ Provides actual implementations for Android, Desktop, and Native platforms throu
 #### Desktop Implementation (`desktopMain`)
 
 - **AppDatabaseFactory**: Desktop-specific factory with platform-aware directory selection
-- Creates databases in platform-appropriate directories:
-    - **Windows**: `%APPDATA%/MifosDatabase`
-    - **macOS**: `~/Library/Application Support/MifosDatabase`
-    - **Linux**: `~/.local/share/MifosDatabase`
+- Creates databases in platform-appropriate directories, using the fork's `{databaseDirName}`
+  (resolved from `app-profile` naming — e.g. `App Toolkit`), not a hardcoded name:
+  - **Windows**: `%APPDATA%/{databaseDirName}`
+  - **macOS**: `~/Library/Application Support/{databaseDirName}`
+  - **Linux**: `~/.local/share/{databaseDirName}`
 - Uses inline reified generics for type-safe database instantiation
 - Automatically creates storage directories when required
 
@@ -505,9 +506,9 @@ The module relies on the following dependencies:
 - **androidx.room.runtime** (2.8.4+): Core Room database functionality
 - **Kotlin Multiplatform**: Cross-platform code sharing infrastructure
 - **Platform APIs**:
-    - Android: Context for database creation
-    - Desktop: File system APIs for storage management
-    - Native: Foundation framework (NSFileManager, NSDocumentDirectory)
+  - Android: Context for database creation
+  - Desktop: File system APIs for storage management
+  - Native: Foundation framework (NSFileManager, NSDocumentDirectory)
 
 ## Gradle Configuration
 
@@ -543,9 +544,9 @@ kotlin {
 - Supports full Room functionality on JVM platforms
 - Automatic directory creation with proper permissions
 - Platform-specific storage conventions:
-    - Windows follows APPDATA guidelines
-    - macOS uses Application Support directory
-    - Linux adheres to XDG Base Directory specification
+  - Windows follows APPDATA guidelines
+  - macOS uses Application Support directory
+  - Linux adheres to XDG Base Directory specification
 
 ### Native (iOS/macOS)
 
@@ -612,4 +613,4 @@ When contributing to this module:
 
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md for complete license details.
+See https://github.com/openMF/kmp-project-template/blob/main/LICENSE for complete license details.

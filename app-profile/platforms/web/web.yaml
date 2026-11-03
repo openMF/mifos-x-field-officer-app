@@ -1,0 +1,6 @@
+# app-profile/platforms/web/web.yaml — Web deploy (Cloudflare Pages / hosting) values.
+web:
+  cloudflare_project: your-app-web           # PLACEHOLDER — web.cloudflare.project (Cloudflare Pages project name)
+  base_url: https://example.com              # PLACEHOLDER — public site base (from org.support_url / marketing_url)
+  custom_domain: ""                          # web.custom.domain (optional — Cloudflare Pages custom domain)
+  env: {}                                    # web.env (map of build-time env vars — unmapped, read direct)

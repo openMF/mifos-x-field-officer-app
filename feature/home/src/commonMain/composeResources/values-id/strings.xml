@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_home_app_title">App Toolkit</string>
+    <string name="screens_home_settings_cd">Pengaturan</string>
+    <string name="screens_home_outstanding_label">Sisa saldo</string>
+    <string name="screens_home_no_loans_message">Tidak ada pinjaman aktif — mulai dengan menambahkan satu.</string>
+    <string name="screens_home_total_outstanding_label">Total sisa</string>
+    <string name="screens_home_active_loans_singular">%1$d pinjaman aktif</string>
+    <string name="screens_home_active_loans_plural">%1$d pinjaman aktif</string>
+    <string name="screens_home_monthly_emi_label">Angsuran bulanan</string>
+    <string name="screens_home_loans_label">Pinjaman</string>
+    <string name="screens_home_loans_carousel_title">Pinjaman Anda · %1$d</string>
+    <string name="screens_home_remaining_label">Sisa</string>
+    <string name="screens_home_money_value">$%1$s</string>
+    <string name="screens_home_loan_tile_footer">Angsuran $%1$s · %2$d%% lunas</string>
+    <string name="screens_home_section_this_week">Minggu ini</string>
+    <string name="screens_home_section_tools">Alat</string>
+    <string name="screens_home_section_tools_subtitle">Kalkulator, perbandingan, indikator makro</string>
+    <string name="screens_home_bills_card_title">Tagihan mendatang</string>
+    <string name="screens_home_bills_total_label">Total jatuh tempo (7 hari ke depan)</string>
+    <string name="screens_home_bills_day_value">Tanggal %1$d</string>
+    <string name="screens_home_bills_empty">Tidak ada tagihan jatuh tempo dalam 7 hari ke depan.</string>
+    <string name="screens_home_rates_card_title">Suku bunga hari ini</string>
+    <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
+    <string name="screens_home_rates_mortgage_30y_label">KPR 30 tahun</string>
+    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_delta_flat">—</string>
+    <string name="screens_home_rates_delta_mortgage">+0.05</string>
+    <string name="screens_home_exchange_card_title">Kurs USD</string>
+    <string name="screens_home_usd_label">USD</string>
+    <string name="screens_home_see_all">Lihat semua</string>
+    <string name="screens_home_tool_emi_title">Kalkulator angsuran</string>
+    <string name="screens_home_tool_emi_subtitle">Angsuran bulanan untuk pinjaman apa pun</string>
+    <string name="screens_home_tool_affordability_title">Kemampuan bayar</string>
+    <string name="screens_home_tool_affordability_subtitle">Berapa banyak yang aman saya pinjam?</string>
+    <string name="screens_home_tool_amortization_title">Amortisasi</string>
+    <string name="screens_home_tool_amortization_subtitle">Jadwal pembayaran lengkap</string>
+    <string name="screens_home_tool_compare_title">Bandingkan pinjaman</string>
+    <string name="screens_home_tool_compare_subtitle">Total biaya berdampingan</string>
+    <string name="screens_home_tool_wizard_title">Wizard pinjaman</string>
+    <string name="screens_home_tool_wizard_subtitle">Perencana langkah demi langkah</string>
+    <string name="screens_home_tool_currency_title">Kurs mata uang</string>
+    <string name="screens_home_tool_currency_subtitle">Kurs langsung</string>
+    <string name="screens_home_tool_history_title">Riwayat kurs</string>
+    <string name="screens_home_tool_history_subtitle">Grafik kurs historis</string>
+    <string name="screens_home_tool_macro_title">Makro negara</string>
+    <string name="screens_home_tool_macro_subtitle">PDB, IHK, pengangguran</string>
+    <string name="screens_home_tool_crypto_title">Pasar koin</string>
+    <string name="screens_home_tool_crypto_subtitle">Harga kripto langsung dan daftar pantau</string>
+    <string name="screens_home_money_zero">$0.00</string>
+    <!-- Home dashboard -->
+    <string name="feature_home_dashboard_greeting_morning">Selamat pagi, %1$s</string>
+    <string name="feature_home_dashboard_greeting_afternoon">Selamat siang, %1$s</string>
+    <string name="feature_home_dashboard_greeting_evening">Selamat malam, %1$s</string>
+    <string name="feature_home_dashboard_scope_my_portfolio">Portofolio saya</string>
+    <string name="feature_home_dashboard_scope_office">Kantor: %1$s</string>
+    <string name="feature_home_dashboard_collections_title">Penagihan hari ini</string>
+    <string name="feature_home_dashboard_collections_due_clients">Nasabah jatuh tempo hari ini</string>
+    <string name="feature_home_dashboard_collections_due_amount">Jatuh tempo hari ini</string>
+    <string name="feature_home_dashboard_collections_empty">Tidak ada penagihan hari ini</string>
+    <string name="feature_home_dashboard_collections_open">Buka lembar penagihan</string>
+    <string name="feature_home_dashboard_queue_title">Antrean kerja</string>
+    <string name="feature_home_dashboard_queue_checker">Tugas pemeriksa</string>
+    <string name="feature_home_dashboard_queue_approval">Pinjaman menunggu persetujuan</string>
+    <string name="feature_home_dashboard_queue_disbursal">Disetujui, menunggu pencairan</string>
+    <string name="feature_home_dashboard_queue_pending_clients">Nasabah menunggu aktivasi</string>
+    <string name="feature_home_dashboard_queue_reschedules">Permintaan penjadwalan ulang</string>
+    <string name="feature_home_dashboard_queue_drafts">Draf saya yang belum disinkronkan</string>
+    <string name="feature_home_dashboard_meetings_title">Pertemuan hari ini</string>
+    <string name="feature_home_dashboard_meetings_empty">Tidak ada jadwal hari ini</string>
+    <string name="feature_home_dashboard_meetings_groups">%1$d kelompok</string>
+    <string name="feature_home_dashboard_portfolio_title">Ringkasan portofolio</string>
+    <string name="feature_home_dashboard_tile_active_clients">Nasabah aktif</string>
+    <string name="feature_home_dashboard_tile_active_loans">Pinjaman aktif</string>
+    <string name="feature_home_dashboard_tile_outstanding">Saldo terutang</string>
+    <string name="feature_home_dashboard_tile_overdue">Tunggakan</string>
+    <string name="feature_home_dashboard_tile_in_arrears">Pinjaman menunggak</string>
+    <string name="feature_home_dashboard_tile_par">PAR</string>
+    <string name="feature_home_dashboard_tile_savings">Saldo tabungan</string>
+    <string name="feature_home_dashboard_tile_groups">Kelompok</string>
+    <string name="feature_home_dashboard_tile_centers">Sentra</string>
+    <string name="feature_home_dashboard_quick_actions_title">Tindakan cepat</string>
+    <string name="feature_home_dashboard_qa_new_client">Nasabah baru</string>
+    <string name="feature_home_dashboard_qa_new_group">Kelompok baru</string>
+    <string name="feature_home_dashboard_qa_new_center">Sentra baru</string>
+    <string name="feature_home_dashboard_qa_collection_sheet">Lembar penagihan</string>
+    <string name="feature_home_dashboard_qa_run_reports">Jalankan laporan</string>
+    <string name="feature_home_dashboard_qa_search">Cari</string>
+    <string name="feature_home_dashboard_qa_path_tracker">Pelacak Rute</string>
+    <string name="feature_home_dashboard_settings">Pengaturan</string>
+    <string name="feature_home_dashboard_profile">Profil</string>
+    <string name="feature_home_dashboard_loan_queue_empty">Tidak ada pinjaman di antrean ini</string>
+    <string name="feature_home_dashboard_queue_pending_badge">%1$d tertunda</string>
+    <string name="feature_home_dashboard_meetings_summary">%1$d terjadwal · %2$s</string>
+    <string name="feature_home_dashboard_summary_active_clients">%1$d nasabah aktif</string>
+    <string name="feature_home_dashboard_summary_active_loans">%1$d pinjaman aktif</string>
+    <string name="feature_home_dashboard_summary_outstanding">%1$s terutang</string>
+    <string name="feature_home_dashboard_summary_par">PAR %1$s</string>
+    <string name="feature_home_dashboard_portfolio_total_outstanding">Total portofolio terutang</string>
+    <string name="feature_home_dashboard_card_error">Kartu ini tidak dapat dimuat</string>
+    <string name="feature_home_dashboard_retry">Coba lagi</string>
+    <string name="feature_home_dashboard_error_title">Hari Anda tidak dapat dimuat</string>
+    <string name="feature_home_dashboard_error_body">Periksa koneksi Anda dan coba lagi. Tindakan cepat tetap berfungsi.</string>
+    <string name="feature_home_dashboard_card_error_body">Bagian ini tidak diperbarui. Kartu lainnya tidak terpengaruh.</string>
+    <string name="feature_home_dashboard_retry_sync">Coba sinkronkan lagi</string>
+    <string name="feature_home_dashboard_offline_label">Offline</string>
+    <string name="feature_home_dashboard_offline_body">Periksa koneksi Anda dan coba lagi. Tindakan cepat dan data di perangkat ini tetap bisa dipakai offline.</string>
+    <string name="feature_home_dashboard_offline_banner_title">Bekerja offline</string>
+    <string name="feature_home_dashboard_offline_banner_body">Entri baru disimpan di perangkat ini dan disinkronkan otomatis saat online kembali.</string>
+    <string name="feature_home_dashboard_offline_enabled">Offline aktif</string>
+    <string name="feature_home_dashboard_collections_loans_due">Pinjaman jatuh tempo hari ini</string>
+    <string name="feature_home_dashboard_collections_loans_value">%1$d pinjaman</string>
+    <string name="feature_home_dashboard_collections_hero_meta">%1$d nasabah · %2$d pinjaman</string>
+    <string name="feature_home_dashboard_recent_title">Baru dibuka</string>
+    <string name="feature_home_dashboard_recent_kind_client">Nasabah</string>
+    <string name="feature_home_dashboard_recent_kind_group">Kelompok</string>
+    <string name="feature_home_dashboard_recent_kind_center">Sentra</string>
+    <string name="feature_home_dashboard_recent_kind_loan">Pinjaman</string>
+    <string name="feature_home_dashboard_time_just_now">Baru saja</string>
+    <string name="feature_home_dashboard_time_minutes_ago">%1$d mnt lalu</string>
+    <string name="feature_home_dashboard_time_hours_ago">%1$d j lalu</string>
+    <string name="feature_home_dashboard_time_yesterday">Kemarin</string>
+    <string name="feature_home_dashboard_time_days_ago">%1$d h lalu</string>
+    <string name="feature_home_dashboard_collections_collected_today">Tertagih hari ini</string>
+    <string name="feature_home_dashboard_collections_goal">Target: %1$s</string>
+    <string name="feature_home_dashboard_collections_remains">Sisa: %1$s</string>
+    <string name="feature_home_dashboard_collections_of_goal">%1$s dari target</string>
+    <string name="feature_home_dashboard_collections_percent_collected">%1$s tertagih</string>
+    <string name="feature_home_dashboard_collections_collected">Tertagih</string>
+    <string name="feature_home_dashboard_collections_overdue">Nasabah menunggak</string>
+    <string name="feature_home_dashboard_collections_overdue_chip">menunggak</string>
+    <string name="feature_home_dashboard_summary_collected">%1$s tertagih</string>
+    <string name="feature_home_dashboard_summary_overdue">%1$d menunggak</string>
+    <string name="feature_home_dashboard_queue_view_all">Lihat semua</string>
+    <string name="feature_home_dashboard_meeting_center_groups">Sentra · %1$d kelompok</string>
+    <string name="feature_home_dashboard_meeting_on_schedule">Sesuai jadwal</string>
+    <string name="feature_home_dashboard_meeting_upcoming">Mendatang</string>
+    <string name="feature_home_dashboard_meeting_today">Hari ini</string>
+    <string name="feature_home_dashboard_tile_par_target">target &lt; %1$s</string>
+    <string name="feature_home_dashboard_card_cached">Tersimpan: %1$s</string>
+    <string name="feature_home_dashboard_recent_cached">Tersimpan offline · %1$d catatan</string>
+    <string name="feature_home_dashboard_quick_actions_available">%1$d tersedia</string>
+    <string name="feature_home_dashboard_error_kind_forbidden">Akses ditolak</string>
+    <string name="feature_home_dashboard_error_kind_not_found">Tidak ditemukan</string>
+    <string name="feature_home_dashboard_error_kind_rejected">Permintaan ditolak</string>
+    <string name="feature_home_dashboard_error_kind_server">Kesalahan server</string>
+    <string name="feature_home_dashboard_error_kind_offline">Tidak ada koneksi</string>
+    <string name="feature_home_dashboard_error_kind_timeout">Waktu habis</string>
+    <string name="feature_home_dashboard_error_kind_signed_out">Keluar</string>
+    <string name="feature_home_dashboard_error_kind_busy">Terlalu banyak permintaan</string>
+    <string name="feature_home_dashboard_error_kind_failed">Sinkronisasi gagal</string>
+    <plurals name="feature_home_dashboard_collections_clients_value">
+        <item quantity="other">%1$d nasabah</item>
+    </plurals>
+    <plurals name="feature_home_dashboard_collections_summary">
+        <item quantity="other">%1$d nasabah jatuh tempo · %2$s jatuh tempo</item>
+    </plurals>
+</resources>

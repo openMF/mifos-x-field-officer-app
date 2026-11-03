@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_notification_title">通知</string>
+    <string name="feature_notification_mark_all_read">全部標為已讀</string>
+    <string name="feature_notification_mark_all_read_failed">無法標為已讀。請檢查網路後重試。</string>
+    <string name="feature_notification_empty_title">已全部查看</string>
+    <string name="feature_notification_empty_body">您的客戶、小組和貸款動態會顯示在這裡。</string>
+    <string name="feature_notification_section_new">新通知</string>
+    <string name="feature_notification_section_earlier">更早</string>
+    <string name="feature_notification_object_loan">貸款 #%1$s</string>
+    <string name="feature_notification_object_client">客戶 #%1$s</string>
+    <string name="feature_notification_object_group">小組 #%1$s</string>
+    <string name="feature_notification_object_center">中心 #%1$s</string>
+    <string name="feature_notification_object_savings">儲蓄 #%1$s</string>
+    <string name="feature_notification_time_just_now">剛剛</string>
+    <string name="feature_notification_time_minutes_ago">%1$d 分鐘前</string>
+    <string name="feature_notification_time_hours_ago">%1$d 小時前</string>
+    <string name="feature_notification_time_yesterday">昨天</string>
+    <string name="feature_notification_time_days_ago">%1$d 天前</string>
+</resources>

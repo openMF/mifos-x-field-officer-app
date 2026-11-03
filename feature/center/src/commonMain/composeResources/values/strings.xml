@@ -1,83 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright 2024 Mifos Initiative
+    Copyright 2026 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
-    <string name="feature_center_error_loading_centers">Failed to load Centers</string>
-    <string name="feature_center_failed_to_load_db_centers">Failed to load Database Centers</string>
-    <string name="feature_center_no_more_centers">No More Centers Available !</string>
-
-    <string name="feature_center_add_savings_account">Add Savings Account</string>
-    <string name="feature_center_group_list">Group List</string>
-    <string name="feature_center_center">Center</string>
-    <string name="feature_center_center_details">Center Details</string>
-
-    <string name="feature_center_activation_date">Activation Date</string>
-    <string name="feature_center_next_meeting_on">Next Meeting On</string>
-    <string name="feature_center_meeting_frequency">Meeting Frequency</string>
-    <string name="feature_center_staff_name">Staff Name</string>
-    <string name="feature_center_active_client">Active Clients</string>
-    <string name="feature_center_active_group_loan">Active Group Loans</string>
-    <string name="feature_center_active_client_loans">Active Client Loans</string>
-    <string name="feature_center_active_group_borrowers">Active Group Borrowers</string>
-    <string name="feature_center_active_client_borrowers">Active Client Borrowers</string>
-    <string name="feature_center_active_overdue_group_loans">Active Overdue Group Loans</string>
-    <string name="feature_center_active_overdue_client_loans">Active Overdue Client Loans</string>
-
-    <string name="feature_center_unassigned">Unassigned</string>
-    <string name="feature_center_no_staff">No Staff</string>
-    <string name="feature_center_summary_info">Summary Info</string>
-    <string name="feature_center_activate_center">Activate Center</string>
-
-    <string name="feature_center_sync">Sync</string>
-
-    <string name="feature_center_failed_to_load_offices">Failed to load Offices</string>
-    <string name="feature_center_failed_to_create_center">Failed to Create Center</string>
-
-    <string name="feature_center_create_new_center">Create New Center</string>
-    <string name="feature_center_center_name">Name</string>
+    <string name="feature_center_tab">Centers</string>
+    <string name="feature_center_title">Centers</string>
+    <string name="feature_center_search_hint">Search centers</string>
+    <string name="feature_center_filter">Filter centers</string>
+    <string name="feature_center_filter_clear">Clear filters</string>
+    <string name="feature_center_empty">No centers found</string>
+    <string name="feature_center_detail_title">Center</string>
+    <string name="feature_center_back">Navigate back</string>
+    <string name="feature_center_groups">Groups in this center</string>
     <string name="feature_center_office">Office</string>
+    <string name="feature_center_staff">Staff</string>
+    <string name="feature_center_account_no">Account no.</string>
+    <string name="feature_center_external_id">External ID</string>
+    <string name="feature_center_status_active">Active</string>
+    <string name="feature_center_status_inactive">Inactive</string>
+    <string name="feature_center_sort_name">Name</string>
+    <string name="feature_center_sort_account">Account no.</string>
+    <string name="feature_center_unnamed">Unnamed center</string>
+    <string name="feature_center_synced">Synced</string>
+    <string name="feature_center_activate">Activate centre</string>
+    <!-- Create center — ported from 6b66e8a43:feature/center/createCenter. -->
+    <string name="feature_center_create_new_center">Create New Center</string>
+    <string name="feature_center_center_name">Center Name *</string>
+    <string name="feature_center_office_required">Office *</string>
+    <string name="feature_center_activation_date">Activation Date</string>
+    <string name="feature_center_submit">Submit</string>
     <string name="feature_center_select">Select</string>
     <string name="feature_center_cancel">Cancel</string>
-    <string name="feature_center_create">Create</string>
-    <string name="feature_center_center_name_empty">Center Name can\'t be empty</string>
-    <string name="feature_center_center_name_should_be_more_than_4_characters">Center Name should be more than 4 characters</string>
-    <string name="feature_center_center_name_should_not_contains_special_characters_or_numbers">Center Name should not contains any special characters or numbers</string>
-    <string name="feature_center_select_office">Select Office</string>
-    <string name="feature_center_activate">Activate</string>
-    <string name="feature_center_center_created_successfully">Center Created Successfully</string>
-
-    <string name="feature_center_failed_to_load_group_list">Failed to load Group List</string>
-    <string name="feature_center_active">Active</string>
-    <string name="feature_center_inactive">InActive</string>
-    <string name="feature_center_groups">Groups</string>
-    <string name="feature_center_no_group_list_to_show">No Group List to Show</string>
-    <string name="feature_center_sync_centers_payloads">Sync Centers Payloads</string>
-    <string name="feature_center_sync_centers">Centers</string>
-    <string name="feature_center_name">Name</string>
-    <string name="feature_center_office_id">Office Id</string>
-    <string name="feature_center_click_to_refresh">\n Click to Refresh</string>
-    <string name="feature_center_no_center_payload_to_sync">There is No Center Payload to Sync</string>
-    <string name="feature_center_error_not_connected_internet">Not connected to Network</string>
-
-    <string name="feature_center_something_went_wrong">Something went wrong</string>
-    <string name="feature_center_sync_centers_full_information">Sync Centers All Information</string>
-    <string name="feature_center_total">Total</string>
-    <string name="feature_center_space" translatable="false">" "</string>
-    <string name="feature_center_feature_center_center">Center</string>
-    <string name="feature_center_syncing_center">Syncing Center</string>
-    <string name="feature_center_syncing_group">Syncing Group</string>
-    <string name="feature_center_total_sync_progress">Total Sync Progress</string>
-    <string name="feature_center_failed_sync">Sync Failed</string>
-    <string name="feature_center_dialog_action_ok">OK</string>
-    <string name="feature_center_hide">Hide</string>
-    <string name="feature_center_error_network_not_available">Network is not Available</string>
-    <string name="feature_center_slash" translatable="false">/</string>
-    <string name="feature_center_syncing_client">Syncing Client</string>
+    <string name="feature_center_ok">OK</string>
+    <string name="feature_center_center_name_empty">Center name is required</string>
+    <string name="feature_center_center_name_should_be_more_than_4_characters">Center name should be at least 4 characters</string>
+    <string name="feature_center_center_name_should_not_contains_special_characters_or_numbers">Center name should not contain special characters or numbers</string>
+    <string name="feature_center_select_office">Select an office</string>
+    <string name="feature_center_center_created_successfully">Center created successfully</string>
+    <string name="feature_center_failed_to_create_center">Failed to create center</string>
+    <string name="feature_center_create_offline">You are offline. Connect to create a center.</string>
+    <string name="feature_center_more_options">More options</string>
+    <string name="feature_center_add_savings_account">Add savings account</string>
+    <string name="feature_center_summary_info">Summary info</string>
+    <string name="feature_center_next_meeting_on">Next meeting on</string>
+    <string name="feature_center_unassigned">Unassigned</string>
+    <string name="feature_center_meeting_frequency">Meeting frequency</string>
+    <string name="feature_center_active_client">Active clients</string>
+    <string name="feature_center_active_group_loan">Active group loans</string>
+    <string name="feature_center_active_client_loans">Active client loans</string>
+    <string name="feature_center_active_group_borrowers">Active group borrowers</string>
+    <string name="feature_center_active_client_borrowers">Active client borrowers</string>
+    <string name="feature_center_overdue_group_loans">Overdue group loans</string>
+    <string name="feature_center_overdue_client_loans">Overdue client loans</string>
 </resources>

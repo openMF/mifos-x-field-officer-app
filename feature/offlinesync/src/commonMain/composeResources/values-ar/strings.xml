@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">المزامنة دون اتصال</string>
+    <string name="feature_offlinesync_online">متصل</string>
+    <string name="feature_offlinesync_offline">غير متصل</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d للمزامنة</string>
+    <string name="feature_offlinesync_stat_failed">%1$d فشل</string>
+    <string name="feature_offlinesync_level_label_centres">المراكز</string>
+    <string name="feature_offlinesync_level_label_groups">المجموعات</string>
+    <string name="feature_offlinesync_level_label_clients">العملاء</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">آخر مزامنة %1$s</string>
+    <string name="feature_offlinesync_not_synced">لم تتم المزامنة بعد</string>
+    <string name="feature_offlinesync_next_in_hours">التالية خلال ~%1$d س</string>
+    <string name="feature_offlinesync_sync_now">مزامنة الآن</string>
+    <string name="feature_offlinesync_syncing_button">جارٍ المزامنة…</string>
+    <string name="feature_offlinesync_sync_when_online">مزامنة عند الاتصال</string>
+    <string name="feature_offlinesync_offline_banner">أنت غير متصل. كل شيء على هذا الجهاز لا يزال يُفتح؛ تستأنف المزامنة عند عودتك إلى الاتصال.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="zero">جارٍ تنزيل %1$d سجل</item>
+        <item quantity="one">جارٍ تنزيل %1$d سجل</item>
+        <item quantity="two">جارٍ تنزيل %1$d سجلين</item>
+        <item quantity="few">جارٍ تنزيل %1$d سجلات</item>
+        <item quantity="many">جارٍ تنزيل %1$d سجلاً</item>
+        <item quantity="other">جارٍ تنزيل %1$d سجل</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="zero">%1$d من %2$d سجل</item>
+        <item quantity="one">%1$d من %2$d سجل</item>
+        <item quantity="two">%1$d من %2$d سجلين</item>
+        <item quantity="few">%1$d من %2$d سجلات</item>
+        <item quantity="many">%1$d من %2$d سجلاً</item>
+        <item quantity="other">%1$d من %2$d سجل</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="zero">%1$d قراءة</item>
+        <item quantity="one">%1$d قراءة</item>
+        <item quantity="two">%1$d قراءتان</item>
+        <item quantity="few">%1$d قراءات</item>
+        <item quantity="many">%1$d قراءة</item>
+        <item quantity="other">%1$d قراءة</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">إلغاء</string>
+    <string name="feature_offlinesync_job_result">تم · %1$d مزامنة · %2$d فشل</string>
+    <string name="feature_offlinesync_job_result_body">كل شيء آخر يُفتح دون اتصال</string>
+    <string name="feature_offlinesync_retry_failed">إعادة المحاولة</string>
+    <string name="feature_offlinesync_records_title">على هذا الجهاز</string>
+    <string name="feature_offlinesync_level_centres">المراكز %1$d</string>
+    <string name="feature_offlinesync_level_groups">المجموعات %1$d</string>
+    <string name="feature_offlinesync_level_clients">العملاء %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="zero">ابحث عن %1$d عميل على هذا الجهاز</item>
+        <item quantity="one">ابحث عن %1$d عميل على هذا الجهاز</item>
+        <item quantity="two">ابحث عن %1$d عميلين على هذا الجهاز</item>
+        <item quantity="few">ابحث عن %1$d عملاء على هذا الجهاز</item>
+        <item quantity="many">ابحث عن %1$d عميلاً على هذا الجهاز</item>
+        <item quantity="other">ابحث عن %1$d عميل على هذا الجهاز</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">في انتظار المزامنة</string>
+    <string name="feature_offlinesync_status_syncing">جارٍ المزامنة…</string>
+    <string name="feature_offlinesync_status_synced">مُزامَن %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">قديم · مُزامَن %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d فشل · مُزامَن %2$s</string>
+    <string name="feature_offlinesync_via_parent">عبر %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="zero">%1$d مجموعة</item>
+        <item quantity="one">%1$d مجموعة</item>
+        <item quantity="two">%1$d مجموعتان</item>
+        <item quantity="few">%1$d مجموعات</item>
+        <item quantity="many">%1$d مجموعة</item>
+        <item quantity="other">%1$d مجموعة</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="zero">%1$d عميل</item>
+        <item quantity="one">%1$d عميل</item>
+        <item quantity="two">%1$d عميلان</item>
+        <item quantity="few">%1$d عملاء</item>
+        <item quantity="many">%1$d عميلاً</item>
+        <item quantity="other">%1$d عميل</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="zero">%1$d حساب</item>
+        <item quantity="one">%1$d حساب</item>
+        <item quantity="two">%1$d حسابان</item>
+        <item quantity="few">%1$d حسابات</item>
+        <item quantity="many">%1$d حساباً</item>
+        <item quantity="other">%1$d حساب</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="zero">%1$d قرض</item>
+        <item quantity="one">%1$d قرض</item>
+        <item quantity="two">%1$d قرضان</item>
+        <item quantity="few">%1$d قروض</item>
+        <item quantity="many">%1$d قرضاً</item>
+        <item quantity="other">%1$d قرض</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="zero">%1$d مدخرات</item>
+        <item quantity="one">%1$d مدخرات</item>
+        <item quantity="two">%1$d مدخرات</item>
+        <item quantity="few">%1$d مدخرات</item>
+        <item quantity="many">%1$d مدخرات</item>
+        <item quantity="other">%1$d مدخرات</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="zero">%1$d مستند</item>
+        <item quantity="one">%1$d مستند</item>
+        <item quantity="two">%1$d مستندان</item>
+        <item quantity="few">%1$d مستندات</item>
+        <item quantity="many">%1$d مستنداً</item>
+        <item quantity="other">%1$d مستند</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">تحديث</string>
+    <string name="feature_offlinesync_remove">إزالة</string>
+    <string name="feature_offlinesync_remove_confirm">هل تريد إزالة %1$s من هذا الجهاز؟ السجلات التي يحتاجها تنزيل آخر ستبقى.</string>
+    <string name="feature_offlinesync_expand">عرض ما تحته</string>
+    <string name="feature_offlinesync_collapse">إخفاء ما تحته</string>
+    <string name="feature_offlinesync_open">فتح</string>
+    <string name="feature_offlinesync_refresh_title">مزامنة</string>
+    <string name="feature_offlinesync_refresh_manual">يدوي</string>
+    <string name="feature_offlinesync_refresh_automatic">تلقائي</string>
+    <string name="feature_offlinesync_refresh_manual_note">تتم مزامنة سجلاتك فقط عند النقر على مزامنة الآن. افعل ذلك قبل خروجك.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">تتم إعادة مزامنة سجلاتك في الخلفية وفق الجدول أعلاه.</string>
+    <string name="feature_offlinesync_refresh_data_note">المزامنة تنزّل الكثير من البيانات. تأتي إلى هذا الجهاز فقط السجلات التي اخترتها.</string>
+    <string name="feature_offlinesync_resync_label">إعادة مزامنة سجلاتك</string>
+    <string name="feature_offlinesync_every_hours">كل %1$d س</string>
+    <string name="feature_offlinesync_wifi_only">Wi-Fi فقط</string>
+    <string name="feature_offlinesync_charging_only">أثناء الشحن فقط</string>
+    <string name="feature_offlinesync_drafts_note">العمل الذي تقوم به دون اتصال يُحفظ كمسودات.</string>
+    <string name="feature_offlinesync_drafts_link">المزامنة والمسودات</string>
+    <string name="feature_offlinesync_empty_title">لا يوجد شيء على هذا الجهاز بعد</string>
+    <string name="feature_offlinesync_empty_body">اختر المراكز أو المجموعات أو العملاء الذين ستزورهم وقم بمزامنتهم قبل خروجك. كل شيء تحتهم يُفتح هنا بدون إشارة.</string>
+    <string name="feature_offlinesync_add_records">إضافة سجلات</string>
+    <string name="feature_offlinesync_picker_title">الاحتفاظ على هذا الجهاز</string>
+    <string name="feature_offlinesync_picker_empty">لم يُعثر على سجلات</string>
+    <string name="feature_offlinesync_picker_error">تعذّر تحميل القائمة.</string>
+    <string name="feature_offlinesync_retry">إعادة المحاولة</string>
+    <string name="feature_offlinesync_tab_centres">المراكز</string>
+    <string name="feature_offlinesync_tab_groups">المجموعات</string>
+    <string name="feature_offlinesync_tab_clients">العملاء</string>
+    <string name="feature_offlinesync_picker_search">ابحث بالاسم أو رقم الحساب</string>
+    <string name="feature_offlinesync_picker_hint">يجلب المركز مجموعاته وعملاءها وجميع حساباتهم.</string>
+    <string name="feature_offlinesync_on_device">على الجهاز</string>
+    <string name="feature_offlinesync_picker_download">تنزيل %1$d للاستخدام دون اتصال</string>
+    <string name="feature_offlinesync_time_just_now">الآن</string>
+    <string name="feature_offlinesync_time_minutes">منذ %1$d دقيقة</string>
+    <string name="feature_offlinesync_time_hours">منذ %1$d س</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="zero">منذ %1$d يوم</item>
+        <item quantity="one">منذ %1$d يوم</item>
+        <item quantity="two">منذ %1$d يومين</item>
+        <item quantity="few">منذ %1$d أيام</item>
+        <item quantity="many">منذ %1$d يوماً</item>
+        <item quantity="other">منذ %1$d يوم</item>
+    </plurals>
+</resources>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Офлайн-синхронізація</string>
+    <string name="feature_offlinesync_online">Онлайн</string>
+    <string name="feature_offlinesync_offline">Офлайн</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d для синхронізації</string>
+    <string name="feature_offlinesync_stat_failed">%1$d з помилкою</string>
+    <string name="feature_offlinesync_level_label_centres">Центри</string>
+    <string name="feature_offlinesync_level_label_groups">Групи</string>
+    <string name="feature_offlinesync_level_label_clients">Клієнти</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Остання синхронізація %1$s</string>
+    <string name="feature_offlinesync_not_synced">Ще не синхронізовано</string>
+    <string name="feature_offlinesync_next_in_hours">наступна через ~%1$d год</string>
+    <string name="feature_offlinesync_sync_now">Синхронізувати</string>
+    <string name="feature_offlinesync_syncing_button">Синхронізація…</string>
+    <string name="feature_offlinesync_sync_when_online">Синхронізувати при підключенні</string>
+    <string name="feature_offlinesync_offline_banner">Ви офлайн. Усе на цьому пристрої відкривається як і раніше; синхронізація відновиться, щойно ви знову вийдете в мережу.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="one">Завантаження %1$d запису</item>
+        <item quantity="few">Завантаження %1$d записів</item>
+        <item quantity="many">Завантаження %1$d записів</item>
+        <item quantity="other">Завантаження %1$d запису</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="one">%1$d з %2$d запису</item>
+        <item quantity="few">%1$d з %2$d записів</item>
+        <item quantity="many">%1$d з %2$d записів</item>
+        <item quantity="other">%1$d з %2$d запису</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="one">%1$d читання</item>
+        <item quantity="few">%1$d читання</item>
+        <item quantity="many">%1$d читань</item>
+        <item quantity="other">%1$d читання</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Скасувати</string>
+    <string name="feature_offlinesync_job_result">Готово · %1$d синхронізовано · %2$d з помилкою</string>
+    <string name="feature_offlinesync_job_result_body">Все інше відкривається офлайн</string>
+    <string name="feature_offlinesync_retry_failed">Повторити невдалі</string>
+    <string name="feature_offlinesync_records_title">На цьому пристрої</string>
+    <string name="feature_offlinesync_level_centres">Центри %1$d</string>
+    <string name="feature_offlinesync_level_groups">Групи %1$d</string>
+    <string name="feature_offlinesync_level_clients">Клієнти %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="one">Знайти %1$d клієнта на цьому пристрої</item>
+        <item quantity="few">Знайти %1$d клієнтів на цьому пристрої</item>
+        <item quantity="many">Знайти %1$d клієнтів на цьому пристрої</item>
+        <item quantity="other">Знайти %1$d клієнта на цьому пристрої</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Очікування синхронізації</string>
+    <string name="feature_offlinesync_status_syncing">Синхронізація…</string>
+    <string name="feature_offlinesync_status_synced">Синхронізовано %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Застаріло · синхронізовано %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d з помилкою · синхронізовано %2$s</string>
+    <string name="feature_offlinesync_via_parent">через %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="one">%1$d група</item>
+        <item quantity="few">%1$d групи</item>
+        <item quantity="many">%1$d груп</item>
+        <item quantity="other">%1$d групи</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="one">%1$d клієнт</item>
+        <item quantity="few">%1$d клієнти</item>
+        <item quantity="many">%1$d клієнтів</item>
+        <item quantity="other">%1$d клієнта</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="one">%1$d рахунок</item>
+        <item quantity="few">%1$d рахунки</item>
+        <item quantity="many">%1$d рахунків</item>
+        <item quantity="other">%1$d рахунку</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="one">%1$d кредит</item>
+        <item quantity="few">%1$d кредити</item>
+        <item quantity="many">%1$d кредитів</item>
+        <item quantity="other">%1$d кредиту</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="one">%1$d заощадження</item>
+        <item quantity="few">%1$d заощадження</item>
+        <item quantity="many">%1$d заощаджень</item>
+        <item quantity="other">%1$d заощадження</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="one">%1$d документ</item>
+        <item quantity="few">%1$d документи</item>
+        <item quantity="many">%1$d документів</item>
+        <item quantity="other">%1$d документа</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Оновити</string>
+    <string name="feature_offlinesync_remove">Видалити</string>
+    <string name="feature_offlinesync_remove_confirm">Видалити %1$s з цього пристрою? Записи, що ще потрібні для іншого завантаження, залишаться.</string>
+    <string name="feature_offlinesync_expand">Показати вміст</string>
+    <string name="feature_offlinesync_collapse">Приховати вміст</string>
+    <string name="feature_offlinesync_open">Відкрити</string>
+    <string name="feature_offlinesync_refresh_title">Синхронізація</string>
+    <string name="feature_offlinesync_refresh_manual">Вручну</string>
+    <string name="feature_offlinesync_refresh_automatic">Автоматично</string>
+    <string name="feature_offlinesync_refresh_manual_note">Ваші записи синхронізуються лише при натисканні «Синхронізувати». Зробіть це перед виходом.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Ваші записи повторно синхронізуються у фоновому режимі за розкладом вище.</string>
+    <string name="feature_offlinesync_refresh_data_note">Синхронізація завантажує багато даних. На цей пристрій потрапляють лише вибрані вами записи.</string>
+    <string name="feature_offlinesync_resync_label">Повторна синхронізація записів</string>
+    <string name="feature_offlinesync_every_hours">Кожні %1$d год</string>
+    <string name="feature_offlinesync_wifi_only">Лише Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">Лише під час заряджання</string>
+    <string name="feature_offlinesync_drafts_note">Робота, виконана офлайн, зберігається як чернетки.</string>
+    <string name="feature_offlinesync_drafts_link">Синхронізація та чернетки</string>
+    <string name="feature_offlinesync_empty_title">На цьому пристрої ще нічого немає</string>
+    <string name="feature_offlinesync_empty_body">Виберіть центри, групи або клієнтів, яких ви відвідаєте, і синхронізуйте їх перед виходом. Усе під ними відкривається тут без мережі.</string>
+    <string name="feature_offlinesync_add_records">Додати записи</string>
+    <string name="feature_offlinesync_picker_title">Зберегти на пристрої</string>
+    <string name="feature_offlinesync_picker_empty">Записів не знайдено</string>
+    <string name="feature_offlinesync_picker_error">Не вдалося завантажити список.</string>
+    <string name="feature_offlinesync_retry">Повторити</string>
+    <string name="feature_offlinesync_tab_centres">Центри</string>
+    <string name="feature_offlinesync_tab_groups">Групи</string>
+    <string name="feature_offlinesync_tab_clients">Клієнти</string>
+    <string name="feature_offlinesync_picker_search">Пошук за іменем або номером рахунку</string>
+    <string name="feature_offlinesync_picker_hint">Центр включає свої групи, їхніх клієнтів і всі їхні рахунки.</string>
+    <string name="feature_offlinesync_on_device">На пристрої</string>
+    <string name="feature_offlinesync_picker_download">Завантажити %1$d офлайн</string>
+    <string name="feature_offlinesync_time_just_now">щойно</string>
+    <string name="feature_offlinesync_time_minutes">%1$d хв тому</string>
+    <string name="feature_offlinesync_time_hours">%1$d год тому</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="one">%1$d день тому</item>
+        <item quantity="few">%1$d дні тому</item>
+        <item quantity="many">%1$d днів тому</item>
+        <item quantity="other">%1$d дня тому</item>
+    </plurals>
+</resources>

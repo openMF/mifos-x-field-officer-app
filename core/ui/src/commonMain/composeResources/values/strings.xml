@@ -2,11 +2,11 @@
 <!--
     Copyright 2025 Mifos Initiative
 
-    This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-    If a copy of the MPL was not distributed with this file,
-    You can obtain one at https://mozilla.org/MPL/2.0/.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-    See https://github.com/openMF/mifos-x-field-officer-app/blob/master/LICENSE.md
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
 <resources>
     <string name="core_ui_no_internet">No Internet</string>
@@ -16,7 +16,7 @@
     <string name="core_ui_core_common_working">Core Common Working</string>
     <string name="core_ui_click_to_add_new">Click to add new</string>
 
-    <!-- Mifos Client Fee -->
+    <!-- Client Fee -->
     <string name="core_ui_name">Name</string>
     <string name="core_ui_due_as_of">Due as of</string>
     <string name="core_ui_due">Due</string>
@@ -24,7 +24,7 @@
     <string name="core_ui_waived">Waived</string>
     <string name="core_ui_outstanding">Outstanding</string>
 
-    <!-- Mifos Loan -->
+    <!-- Loan -->
     <string name="core_ui_account_no">Account No</string>
     <string name="core_ui_loan_product">Loan Product</string>
     <string name="core_ui_original_loan">Original Loan</string>
@@ -32,21 +32,17 @@
     <string name="core_ui_loan_balance">Loan Balance</string>
     <string name="core_ui_type">Type</string>
 
-    <!-- Mifos Loan PDF export Strings -->
-    <string name="feature_pdf_generation_date">Generation Date</string>
-    <string name="powered_by">Powered By</string>
-
-    <!-- Mifos Savings -->
+    <!-- Savings -->
     <string name="core_ui_savings_product">Savings Product</string>
     <string name="core_ui_last_active">Last Active</string>
     <string name="core_ui_balance">Balance</string>
 
-    <!-- Mifos Collateral -->
+    <!-- Collateral -->
     <string name="core_ui_quantity">Quantity</string>
     <string name="core_ui_total_value">Total Value</string>
     <string name="core_ui_total_collateral_value">Total Collateral Value</string>
 
-    <!-- Mifos Identifier -->
+    <!-- Identifier -->
     <string name="core_ui_document_type">Document Type</string>
     <string name="core_ui_document_id">Document ID</string>
     <string name="core_ui_document_key">Document Key</string>
@@ -54,18 +50,18 @@
     <string name="core_ui_description">Description</string>
     <string name="core_ui_identify_documents">Identify Documents</string>
 
-    <!-- Mifos Delinquency -->
+    <!-- Delinquency -->
     <string name="core_ui_action">Action</string>
     <string name="core_ui_pause">Pause</string>
     <string name="core_ui_resume">Resume</string>
     <string name="core_ui_start_date">Start Date</string>
     <string name="core_ui_end_date">End Date</string>
 
-    <!-- Mifos Charges -->
+    <!-- Charges -->
     <string name="core_ui_calculation_type">Calculation Type</string>
     <string name="core_ui_title_processing_fee">Processing Fee</string>
 
-    <!-- Mifos Sell Loan -->
+    <!-- Sell Loan -->
     <string name="core_ui_cancelled">Cancelled</string>
     <string name="core_ui_completed">Completed</string>
     <string name="core_ui_pending">Pending</string>
@@ -90,22 +86,22 @@
     <string name="core_ui_pay_outstanding_amount">Pay Outstanding Amount</string>
     <string name="core_ui_edit">Edit</string>
     <string name="core_ui_delete">Delete</string>
-    <string name="core_ui_transfer_fund">Transfer Fund</string>
+    <string name="core_ui_view_details">View Details</string>
 
-    <!-- Mifos Note -->
+    <!-- Note -->
     <string name="core_ui_note_createdBy">Created By:</string>
     <string name="core_ui_note_date">Date</string>
     <string name="core_ui_note_note">Note</string>
 
-    <!-- MifosActionsIdentifierListingComponent -->
+    <!-- AppActionsIdentifierListingComponent -->
     <string name="listing_component_identifier_not_available">Not Available</string>
 
-    <!-- Mifos Client Documents-->
+    <!-- Client Documents-->
     <string name="client_documents_component_header_title">Document Name</string>
     <string name="client_documents_component_header_subtitle_description">Description</string>
     <string name="client_documents_component_header_subtitle_file_name">File Name</string>
 
-    <!-- MifosFilePickerBottomSheet -->
+    <!-- AppFilePickerBottomSheet -->
     <string name="file_picker_bottom_sheet_gallery">Gallery</string>
     <string name="file_picker_bottom_sheet_files">Files</string>
     <string name="file_picker_bottom_sheet_more">More</string>
@@ -127,4 +123,23 @@
     <string name="client_share_accounts_share_product">Share Product</string>
     <string name="client_share_accounts_pending_for_approval_shares">Pending For Approval Shares</string>
     <string name="client_share_accounts_approved_shares">Approved Shares</string>
+
+    <string name="core_ui_document_viewer_open_failed">This PDF could not be opened.</string>
+    <string name="core_ui_document_viewer_unsupported">This file type cannot be previewed. Use Share to open it in another app.</string>
+    <string name="core_ui_document_viewer_image_description">Document image</string>
+    <!-- Offline download — shared by the center and group lists (OfflineDownload.kt). -->
+    <string name="core_ui_offline_selected">%1$d selected</string>
+    <string name="core_ui_offline_download">Download for offline use</string>
+    <string name="core_ui_offline_clear_selection">Clear selection</string>
+    <string name="core_ui_offline_downloading">Downloading for offline use</string>
+    <string name="core_ui_offline_downloaded">Download complete</string>
+    <string name="core_ui_offline_progress">%1$d of %2$d · %3$d records</string>
+    <string name="core_ui_offline_current">Now: %1$s</string>
+    <string name="core_ui_offline_failures">%1$d could not be downloaded:</string>
+    <string name="core_ui_offline_cancel">Cancel</string>
+    <string name="core_ui_offline_done">Done</string>
+    <string name="core_ui_fab_create">Create new</string>
+    <string name="core_ui_fab_create_client">Create client</string>
+    <string name="core_ui_fab_create_center">Create centre</string>
+    <string name="core_ui_fab_create_group">Create group</string>
 </resources>

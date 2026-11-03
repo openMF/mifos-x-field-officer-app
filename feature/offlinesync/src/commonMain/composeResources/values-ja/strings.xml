@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">オフライン同期</string>
+    <string name="feature_offlinesync_online">オンライン</string>
+    <string name="feature_offlinesync_offline">オフライン</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d 件同期待ち</string>
+    <string name="feature_offlinesync_stat_failed">%1$d 件失敗</string>
+    <string name="feature_offlinesync_level_label_centres">センター</string>
+    <string name="feature_offlinesync_level_label_groups">グループ</string>
+    <string name="feature_offlinesync_level_label_clients">クライアント</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">最終同期 %1$s</string>
+    <string name="feature_offlinesync_not_synced">まだ同期していません</string>
+    <string name="feature_offlinesync_next_in_hours">次回 ~%1$d 時間後</string>
+    <string name="feature_offlinesync_sync_now">今すぐ同期</string>
+    <string name="feature_offlinesync_syncing_button">同期中…</string>
+    <string name="feature_offlinesync_sync_when_online">オンライン時に同期</string>
+    <string name="feature_offlinesync_offline_banner">オフラインです。このデバイス上のすべてのデータは引き続き開けます。オンラインに戻ると同期が再開されます。</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="other">%1$d 件のレコードをダウンロード中</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="other">%2$d 件中 %1$d 件</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="other">%1$d 件読み込み</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">キャンセル</string>
+    <string name="feature_offlinesync_job_result">完了 · %1$d 件同期 · %2$d 件失敗</string>
+    <string name="feature_offlinesync_job_result_body">他はすべてオフラインで開けます</string>
+    <string name="feature_offlinesync_retry_failed">失敗した項目を再試行</string>
+    <string name="feature_offlinesync_records_title">このデバイス上</string>
+    <string name="feature_offlinesync_level_centres">センター %1$d</string>
+    <string name="feature_offlinesync_level_groups">グループ %1$d</string>
+    <string name="feature_offlinesync_level_clients">クライアント %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="other">このデバイスで %1$d 件のクライアントを検索</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">同期待ち</string>
+    <string name="feature_offlinesync_status_syncing">同期中…</string>
+    <string name="feature_offlinesync_status_synced">同期済み %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">更新あり · 同期済み %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d 件失敗 · 同期済み %2$s</string>
+    <string name="feature_offlinesync_via_parent">%1$s 経由</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="other">%1$d グループ</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="other">%1$d クライアント</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="other">%1$d 口座</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="other">%1$d 件のローン</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="other">%1$d 件の貯蓄</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="other">%1$d 件の書類</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">更新</string>
+    <string name="feature_offlinesync_remove">削除</string>
+    <string name="feature_offlinesync_remove_confirm">%1$s をこのデバイスから削除しますか？別のダウンロードで必要なレコードは残ります。</string>
+    <string name="feature_offlinesync_expand">下の内容を表示</string>
+    <string name="feature_offlinesync_collapse">下の内容を非表示</string>
+    <string name="feature_offlinesync_open">開く</string>
+    <string name="feature_offlinesync_refresh_title">同期</string>
+    <string name="feature_offlinesync_refresh_manual">手動</string>
+    <string name="feature_offlinesync_refresh_automatic">自動</string>
+    <string name="feature_offlinesync_refresh_manual_note">「今すぐ同期」をタップしたときのみレコードが同期されます。外出前に実行してください。</string>
+    <string name="feature_offlinesync_refresh_automatic_note">上のスケジュールに従い、バックグラウンドでレコードが再同期されます。</string>
+    <string name="feature_offlinesync_refresh_data_note">同期では大量のデータをダウンロードします。このデバイスには選択したレコードのみが保存されます。</string>
+    <string name="feature_offlinesync_resync_label">レコードを再同期</string>
+    <string name="feature_offlinesync_every_hours">%1$d 時間ごと</string>
+    <string name="feature_offlinesync_wifi_only">Wi-Fi のみ</string>
+    <string name="feature_offlinesync_charging_only">充電中のみ</string>
+    <string name="feature_offlinesync_drafts_note">オフラインでの作業は下書きとして保存されます。</string>
+    <string name="feature_offlinesync_drafts_link">同期と下書き</string>
+    <string name="feature_offlinesync_empty_title">まだデバイスに何もありません</string>
+    <string name="feature_offlinesync_empty_body">訪問するセンター・グループ・クライアントを選んで出発前に同期してください。それ以下のすべてが電波なしでここで開けます。</string>
+    <string name="feature_offlinesync_add_records">レコードを追加</string>
+    <string name="feature_offlinesync_picker_title">このデバイスに保存</string>
+    <string name="feature_offlinesync_picker_empty">レコードが見つかりません</string>
+    <string name="feature_offlinesync_picker_error">リストを読み込めませんでした。</string>
+    <string name="feature_offlinesync_retry">再試行</string>
+    <string name="feature_offlinesync_tab_centres">センター</string>
+    <string name="feature_offlinesync_tab_groups">グループ</string>
+    <string name="feature_offlinesync_tab_clients">クライアント</string>
+    <string name="feature_offlinesync_picker_search">名前または口座番号で検索</string>
+    <string name="feature_offlinesync_picker_hint">センターにはそのグループ・顧客・すべての口座が含まれます。</string>
+    <string name="feature_offlinesync_on_device">デバイス上</string>
+    <string name="feature_offlinesync_picker_download">%1$d 件をオフライン用にダウンロード</string>
+    <string name="feature_offlinesync_time_just_now">たった今</string>
+    <string name="feature_offlinesync_time_minutes">%1$d 分前</string>
+    <string name="feature_offlinesync_time_hours">%1$d 時間前</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="other">%1$d 日前</item>
+    </plurals>
+</resources>

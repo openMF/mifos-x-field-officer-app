@@ -1,0 +1,198 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.core.model.dashboard
+
+import kotlinx.serialization.Serializable
+import kpt.core.model.objects.users.User
+
+/**
+ * Whose book the dashboard shows. A user linked to a staff record sees their own portfolio; an
+ * unlinked user (the gateway demo user) sees their office, and "own" loans fall back to the ones
+ * they submitted.
+ *
+ * @property officeId the server id of the office
+ * @property staffId the server id of the staff member (loan officer)
+ * @property username the username
+ */
+data class DashboardScope(val officeId: Long, val staffId: Long?, val username: String)
+
+/** The signed-in user's own Fineract record — the fields the dashboard and Profile read. */
+@Serializable
+data class DashboardUser(
+    /** The server id of this record. */
+    val id: Long = 0,
+    /** The person's first name. */
+    val firstname: String? = null,
+    /** The person's last name. */
+    val lastname: String? = null,
+    /** The server id of the office. */
+    val officeId: Long = 0,
+    /** The name of the office. */
+    val officeName: String? = null,
+    /** The server id of the staff member (loan officer). */
+    val staffId: Long? = null,
+    /** The staff member's display name. */
+    val staffName: String? = null,
+    /** The email address. */
+    val email: String? = null,
+    /** `selectedRoles[].name` — the session saved at sign-in does not carry roles. */
+    val roles: List<String> = emptyList(),
+)
+
+/** One loan as the dashboard needs it: ownership, arrears and the summary sums. */
+@Serializable
+data class DashboardLoan(
+    /** The server id of this record. */
+    val id: Long,
+    /** The account number Fineract assigned. */
+    val accountNo: String,
+    /** The client's display name. */
+    val clientName: String,
+    /** The server id of the loan officer. */
+    val loanOfficerId: Long?,
+    /** The username of whoever submitted the record. */
+    val submittedByUsername: String?,
+    /** True when an installment is overdue. */
+    val inArrears: Boolean,
+    /** The principal still outstanding. */
+    val principalOutstanding: Double,
+    /** The principal overdue. */
+    val principalOverdue: Double,
+    /** The total amount outstanding. */
+    val totalOutstanding: Double,
+    /** The total amount overdue. */
+    val totalOverdue: Double,
+    /** The ISO 4217 code of the currency. */
+    val currencyCode: String,
+    /** The symbol of the currency. */
+    val currencySymbol: String,
+    /** The name of the product. */
+    val productName: String? = null,
+    /** The server id of the client. */
+    val clientId: Long? = null,
+    /** Requested (or approved) principal — the amount a not-yet-disbursed loan is for. */
+    val principal: Double = 0.0,
+)
+
+/** One savings account's balance, for the portfolio total. */
+@Serializable
+data class DashboardSavings(
+    /** The server id of the field officer. */
+    val fieldOfficerId: Long?,
+    /** The balance. */
+    val balance: Double,
+    /** The ISO 4217 code of the currency. */
+    val currencyCode: String,
+    /** The symbol of the currency. */
+    val currencySymbol: String,
+)
+
+/** Money sums for one currency — never mixed across currencies. */
+data class CurrencyTotals(
+    /** The ISO 4217 code of the currency. */
+    val currencyCode: String,
+    /** The symbol of the currency. */
+    val currencySymbol: String,
+    /** The amount outstanding. */
+    val outstanding: Double,
+    /** The amount overdue. */
+    val overdue: Double,
+    /** The principal still outstanding. */
+    val principalOutstanding: Double,
+    /** The principal overdue. */
+    val principalOverdue: Double,
+) {
+    /** Portfolio at risk: overdue principal over outstanding principal. Null when nothing is outstanding. */
+    val par: Double? get() = if (principalOutstanding > 0.0) principalOverdue / principalOutstanding else null
+}
+
+/**
+ * The officer's loan portfolio totals.
+ *
+ * @property activeLoans the number of active loans
+ * @property byCurrency the totals per currency
+ * @property inArrears true when an installment is overdue
+ */
+data class LoanPortfolio(val activeLoans: Int, val inArrears: Int, val byCurrency: List<CurrencyTotals>)
+
+/**
+ * A loan's installment due on the business date, read from its repayment schedule: [due] is what is
+ * still outstanding on it, [paid] what has already been paid against it.
+ */
+@Serializable
+data class DueTodayLoan(
+    /** The server id of the loan. */
+    val loanId: Long,
+    /** The server id of the client. */
+    val clientId: Long?,
+    /** The ISO 4217 code of the currency. */
+    val currencyCode: String,
+    /** The symbol of the currency. */
+    val currencySymbol: String,
+    /** The amount due today. */
+    val due: Double,
+    /** The amount already paid against today's installment. */
+    val paid: Double,
+)
+
+/** Loans that belong to [scope]: by loan officer when staff-linked, else by who submitted them. */
+fun List<DashboardLoan>.ownedBy(scope: DashboardScope): List<DashboardLoan> =
+    if (scope.staffId != null) {
+        filter { it.loanOfficerId == scope.staffId }
+    } else {
+        filter { it.submittedByUsername == scope.username }
+    }
+
+/**
+ * Computed from the active-loan list, not from a stretchy report: the Portfolio at Risk / Active
+ * Loans reports fail on some Fineract databases (BadSqlGrammar on the PostgreSQL sandbox).
+ */
+fun portfolioOf(activeLoans: List<DashboardLoan>): LoanPortfolio = LoanPortfolio(
+    activeLoans = activeLoans.size,
+    inArrears = activeLoans.count { it.inArrears },
+    byCurrency = activeLoans.groupBy { it.currencyCode }.map { (code, loans) ->
+        CurrencyTotals(
+            currencyCode = code,
+            currencySymbol = loans.first().currencySymbol,
+            outstanding = loans.sumOf { it.totalOutstanding },
+            overdue = loans.sumOf { it.totalOverdue },
+            principalOutstanding = loans.sumOf { it.principalOutstanding },
+            principalOverdue = loans.sumOf { it.principalOverdue },
+        )
+    },
+)
+
+// ── Permissions ──────────────────────────────────────────────────────────────────────────────
+// One predicate for every gated affordance: a card or action the user cannot use is not shown, so a
+// 403 is prevented at the affordance instead of discovered after the tap.
+
+private const val ALL_FUNCTIONS = "ALL_FUNCTIONS"
+private const val ALL_FUNCTIONS_READ = "ALL_FUNCTIONS_READ"
+private const val CHECKER_SUPER_USER = "CHECKER_SUPER_USER"
+private const val REPORTING_SUPER_USER = "REPORTING_SUPER_USER"
+
+/** True when the user holds permission `code`, directly or through a covering super-permission. */
+fun User.can(code: String): Boolean =
+    code in permissions ||
+        ALL_FUNCTIONS in permissions ||
+        (code.startsWith("READ_") && ALL_FUNCTIONS_READ in permissions) ||
+        (code.endsWith("_CHECKER") && CHECKER_SUPER_USER in permissions)
+
+/** Any maker-checker approval right. */
+fun User.canAnyChecker(): Boolean =
+    ALL_FUNCTIONS in permissions || CHECKER_SUPER_USER in permissions || permissions.any { it.endsWith("_CHECKER") }
+
+/** Running reports needs READ_REPORT plus at least one report read (or the reporting super user). */
+fun User.canRunReports(): Boolean =
+    can("READ_REPORT") && (
+        ALL_FUNCTIONS in permissions ||
+            REPORTING_SUPER_USER in permissions ||
+            permissions.any { it.startsWith("READ_") && it.contains(' ') }
+        )

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <!-- Ported from 6b66e8a43:feature/checker-inbox-task. -->
+    <string name="feature_checkerinbox_title">Checker Inbox &amp; Tasks</string>
+    <string name="feature_checkerinbox_create_by">Created by</string>
+    <string name="feature_checkerinbox_search_by_user">Search by user</string>
+    <string name="feature_checkerinbox_confirm_approve">Approve %1$d task(s)?</string>
+    <string name="feature_checkerinbox_confirm_reject">Reject %1$d task(s)?</string>
+    <string name="feature_checkerinbox_confirm_delete">Delete %1$d task(s)? The maker’s change is discarded.</string>
+    <string name="feature_checkerinbox_yes">Yes</string>
+    <string name="feature_checkerinbox_no">No</string>
+    <string name="feature_checkerinbox_filter">Filter</string>
+    <string name="feature_checkerinbox_resource_id">Resource Id</string>
+    <string name="feature_checkerinbox_clear_filter">Clear</string>
+    <string name="feature_checkerinbox_apply_filter">Apply</string>
+    <string name="feature_checkerinbox_from_date">From</string>
+    <string name="feature_checkerinbox_to_date">To</string>
+    <string name="feature_checkerinbox_action">Action</string>
+    <string name="feature_checkerinbox_entity">Entity</string>
+    <string name="feature_checkerinbox_select">Select</string>
+    <string name="feature_checkerinbox_cancel">Cancel</string>
+    <string name="feature_checkerinbox_all">All</string>
+    <string name="feature_checkerinbox_invalid_date_range">From is after To</string>
+
+    <!-- New in the port. -->
+    <string name="feature_checkerinbox_tab_approvals">Approvals (%1$d)</string>
+    <string name="feature_checkerinbox_tab_reschedules">Reschedules (%1$d)</string>
+    <string name="feature_checkerinbox_approve">Approve</string>
+    <string name="feature_checkerinbox_reject">Reject</string>
+    <string name="feature_checkerinbox_delete">Delete</string>
+    <string name="feature_checkerinbox_selected">%1$d selected</string>
+    <string name="feature_checkerinbox_clear_selection">Clear selection</string>
+    <string name="feature_checkerinbox_nothing_pending">Nothing is waiting for your approval.</string>
+    <string name="feature_checkerinbox_no_match">No task matches the search or filter.</string>
+    <string name="feature_checkerinbox_no_reschedules">No reschedule requests are pending.</string>
+    <string name="feature_checkerinbox_done">%1$d done</string>
+    <string name="feature_checkerinbox_offline">You are offline — connect to decide tasks.</string>
+    <string name="feature_checkerinbox_failures">%1$d could not be decided:</string>
+    <string name="feature_checkerinbox_ok">OK</string>
+    <string name="feature_checkerinbox_reschedule_from">From %1$s</string>
+    <string name="feature_checkerinbox_resource">Resource %1$s</string>
+</resources>

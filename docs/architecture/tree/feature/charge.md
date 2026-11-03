@@ -1,0 +1,116 @@
+# `feature/charge/`
+
+> Part of [`feature/`](../feature.md)  
+> **Measured:** 29 tracked files — 15× `.kt`, 10× `.png`, 2× `.md`, 1× `.kts`, 1× `.xml`
+
+**15 Kotlin files** — 3 screen(s), 3 ViewModel(s).
+
+Screens: `ChargeDetailScreen`, `ChargeFormScreen`, `ChargeListScreen`
+
+ViewModels: `ChargeDetailViewModel`, `ChargeFormViewModel`, `ChargeListViewModel`
+
+**Consumes:** `core/store/charge`, `core/store/testing`
+
+### Docs in the tree
+
+| Path | |
+|---|---|
+| `feature/charge/MIGRATION.md` | feature/charge — migration ledger |
+| `feature/charge/README.md` | feature/charge |
+
+<!-- tree-scaffold:end -->
+## Significance
+
+_Authored below this marker; regeneration never touches it._
+
+<!-- api-docs:begin module=feature/charge sha=4362afd3bc6dfb3ffeac70fa753f9d73fe8dd338 -->
+## API reference
+
+_Generated from `feature/charge` at tree `4362afd3bc6d` by `scripts/docs/api-docs-gen.sh`._
+_Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
+
+This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
+here as a WORKED EXAMPLE: this is the shape a generator should produce for a new feature,
+with its real Screen / ViewModel / Route wiring. Call into `core/**` and `core-base/**`
+rather than re-declaring what they already own.
+
+### `feature/charge/src/commonMain/kotlin/kpt/feature/charge/di/ChargeModule.kt`
+
+```kotlin
+val ChargeModule = module
+```
+Collected into `GeneratedFeatureKoinBindings` by `:cmp-navigation:generateFeatureKoinBindings`, which scans each feature module's `di` package — no registry edit (spec §4).
+
+### `feature/charge/src/commonMain/kotlin/kpt/feature/charge/navigation/ChargeNavigation.kt`
+
+```kotlin
+data class ChargeListRoute(val resourceType: String, val resourceId: Int)
+```
+The charges levied on ONE resource.
+
+```kotlin
+data class ChargeDetailRoute(val resourceType: String, val resourceId: Int, val chargeId: Int)
+```
+One charge, read from the table the list fills.
+
+```kotlin
+data class ChargeFormRoute(
+```
+The add / edit form. `chargeId` is `-1` for a CREATE: a nav argument cannot be absent, so the sentinel is how "no charge yet" reaches the screen, and the ViewModel narrows it to `null`.
+
+```kotlin
+fun NavController.navigateToCharges(
+```
+Opens the charges of one resource.
+
+```kotlin
+fun NavController.navigateToAddCharge(
+```
+Straight to the add form — the client details screen's "Add Charge" opens this.
+
+```kotlin
+fun NavGraphBuilder.chargeDestinations(navController: NavController)
+```
+`@FeatureDestination`, so the generator registers these ONCE on the authenticated graph — the same reasoning as `documentDestinations`: client, loan and savings all open it, so there is no single parent graph to nest it under.
+
+### `feature/charge/src/commonMain/kotlin/kpt/feature/charge/ui/TestTags.kt`
+
+```kotlin
+object TestTags
+```
+Append-only test-tag registry for the charge feature — Compose UI tests and Maestro flows (`assertVisible: { id: "..." }`) resolve these.
+
+<details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:104</code></summary>
+
+```kotlin
+        title = stringResource(Res.string.feature_charge_details),
+        onBackPressed = { onAction(ChargeDetailAction.NavigateBack) },
+        modifier = modifier.testTag(TestTags.ChargeDetail.SCREEN),
+        actions = {
+            // Only with something to edit, and only where Fineract can update it.
+            if (canEdit && charge is ScreenState.Content) {
+                IconButton(
+```
+
+</details>
+
+- `const val SCREEN: String = "charge_list_screen"` — The charge list screen's root.
+- `const val CONTENT: String = "charge_list_content"` — The charge list's loaded content.
+- `const val LIST: String = "charge_list"` — The list of charges.
+- `const val EMPTY: String = "charge_list_empty"` — The empty state shown when the account has no charges.
+- `const val ADD: String = "charge_list_add"` — The "add charge" button.
+- `const val DELETE_DIALOG: String = "charge_list_delete_dialog"` — The confirm dialog for deleting a charge.
+- `const val WRITE_ERROR: String = "charge_list_write_error"` — A failed write renders ABOVE the list, never instead of it.
+- `fun row(id: Int): String = "charge_list_row_$id"` — One charge row, keyed by the charge id.
+- `const val DELETING: String = "charge_list_deleting"` — Progress overlay while a delete is in flight.
+- `const val SCREEN: String = "charge_detail_screen"` — The charge detail screen's root.
+- `const val CONTENT: String = "charge_detail_content"` — The charge detail's loaded content.
+- `const val EDIT: String = "charge_detail_edit"` — The "edit charge" action.
+- `const val NOT_FOUND: String = "charge_detail_not_found"` — The state shown when the charge no longer exists.
+- `const val SCREEN: String = "charge_form_screen"` — The charge form's root.
+  _…more members; read the file._
+
+---
+
+_4 type(s), 18 function(s)/property(ies); 22 carry KDoc at source; 0 authored example(s); 1 live call site(s)._
+<!-- api-docs:end -->

@@ -68,66 +68,50 @@ comments:
   KDocReferencesNonPublicProperty:
     active: false
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
   OutdatedDocumentation:
     active: false
     matchTypeParameters: true
     matchDeclarationsOrder: true
     allowParamOnConstructorProperties: false
   UndocumentedPublicClass:
-    active: false
+    active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true
     searchInInnerInterface: true
     searchInProtectedClass: false
   UndocumentedPublicFunction:
-    active: false
+    active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     searchProtectedFunction: false
   UndocumentedPublicProperty:
-    active: false
+    active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     searchProtectedProperty: false
 
 complexity:
@@ -137,7 +121,7 @@ complexity:
     threshold: 15
   ComplexCondition:
     active: true
-    threshold: 5
+    threshold: 4
   ComplexInterface:
     active: false
     threshold: 10
@@ -146,7 +130,7 @@ complexity:
     ignoreOverloaded: false
   CyclomaticComplexMethod:
     active: true
-    threshold: 30
+    threshold: 15
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
     ignoreNestingFunctions: false
@@ -168,11 +152,11 @@ complexity:
     threshold: 600
   LongMethod:
     active: true
-    threshold: 400 #360 #180 #60
+    threshold: 150 #60
   LongParameterList:
     active: true
     # Updating Common values based on current scenario
-    functionThreshold: 30 #6
+    functionThreshold: 20 #6
     constructorThreshold: 30 #7
     ignoreDefaultParameters: false
     ignoreDataClasses: true
@@ -186,7 +170,7 @@ complexity:
     ignoreArgumentsMatchingNames: false
   NestedBlockDepth:
     active: true
-    threshold: 6
+    threshold: 4
   NestedScopeFunctions:
     active: false
     threshold: 1
@@ -201,16 +185,12 @@ complexity:
   StringLiteralDuplication:
     active: false
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     threshold: 3
     ignoreAnnotation: true
     excludeStringsWithLessThan5Characters: true
@@ -218,25 +198,26 @@ complexity:
   TooManyFunctions:
     active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     # Modifying default values 11 to 20
     thresholdInFiles: 20
-    thresholdInClasses: 45
-    thresholdInInterfaces: 40
+    thresholdInClasses: 20
+    thresholdInInterfaces: 20
     thresholdInObjects: 20
     thresholdInEnums: 20
     ignoreDeprecated: false
     ignorePrivate: false
-    ignoreOverridden: false
+    # An override count is set by the interface being implemented, not by the class's own design.
+    # CachedSecureSettings is 22 functions because multiplatform-settings' Settings contract is
+    # put/get/getOrNull across six primitive types plus clear/remove/hasKey — every one an override.
+    # Counting them reports a class for honouring an interface it does not control. Functions the
+    # class actually declares itself are still counted.
+    ignoreOverridden: true
 
 coroutines:
   active: true
@@ -306,16 +287,12 @@ exceptions:
   InstanceOfCheckForException:
     active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
   NotImplementedDeclaration:
     active: false
   ObjectExtendsThrowable:
@@ -323,7 +300,7 @@ exceptions:
   PrintStackTrace:
     active: true
   RethrowCaughtException:
-    active:  false
+    active: true
   ReturnFromFinally:
     active: true
     ignoreLabeled: false
@@ -342,16 +319,12 @@ exceptions:
   ThrowingExceptionsWithoutMessageOrCause:
     active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     exceptions:
       - "ArrayIndexOutOfBoundsException"
       - "Exception"
@@ -367,16 +340,12 @@ exceptions:
   TooGenericExceptionCaught:
     active: false
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     exceptionNames:
       - "ArrayIndexOutOfBoundsException"
       - "Error"
@@ -423,17 +392,12 @@ naming:
   FunctionNaming:
     active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-        "**/generated/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     functionPattern: "[a-z][a-zA-Z0-9]*"
     excludeClassPattern: "$^"
     ignoreAnnotated: ["Composable"]
@@ -508,23 +472,24 @@ performance:
   ForEachOnRange:
     active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
   SpreadOperator:
     active: true
     excludes:
       [
+        "**/tools/*-ksp/**",
         "**/test/**",
         "**/androidTest/**",
         "**/commonTest/**",
+        "**/desktopTest/**",
+        "**/jsCommonTest/**",
+        "**/nativeTest/**",
+        "**/wasmJsTest/**",
         "**/jvmTest/**",
         "**/androidUnitTest/**",
         "**/androidInstrumentedTest/**",
@@ -604,16 +569,12 @@ potential-bugs:
   LateinitUsage:
     active: false
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
     ignoreOnClassesPattern: ""
   MapGetWithNotNullAssertionOperator:
     active: true
@@ -641,16 +602,12 @@ potential-bugs:
   UnsafeCallOnNullableType:
     active: true
     excludes:
-      [
-        "**/test/**",
-        "**/androidTest/**",
-        "**/commonTest/**",
-        "**/jvmTest/**",
-        "**/androidUnitTest/**",
-        "**/androidInstrumentedTest/**",
-        "**/jsTest/**",
-        "**/iosTest/**",
-      ]
+      # Any KMP test source set — `<module>/src/<name>Test/**`. Written as a PATTERN, not an
+      # enumeration: the previous hand-listed set named 5 source sets this tree does not have
+      # and missed the two it does (`nonWebTest`, `androidHostTest`), so 45 test files were
+      # being asked for KDoc the rule never meant to require. `**/test/**` keeps plain
+      # java-layout modules (build-logic) covered.
+      ["**/src/*Test/**", "**/test/**"]
   UnsafeCast:
     active: true
   UnusedUnaryOperator:
@@ -690,7 +647,7 @@ style:
     active: false
   DestructuringDeclarationWithTooManyEntries:
     active: true
-    maxDestructuringEntries: 4
+    maxDestructuringEntries: 3
   DoubleNegativeLambda:
     active: false
     negativeFunctions:
@@ -772,6 +729,10 @@ style:
         "**/test/**",
         "**/androidTest/**",
         "**/commonTest/**",
+        "**/desktopTest/**",
+        "**/jsCommonTest/**",
+        "**/nativeTest/**",
+        "**/wasmJsTest/**",
         "**/jvmTest/**",
         "**/androidUnitTest/**",
         "**/androidInstrumentedTest/**",
@@ -801,7 +762,7 @@ style:
     maxChainedCalls: 5
   MaxLineLength:
     active: true
-    maxLineLength: 250
+    maxLineLength: 120
     excludePackageStatements: true
     excludeImportStatements: true
     excludeCommentStatements: false
@@ -844,7 +805,7 @@ style:
     active: false
   ReturnCount:
     active: true
-    max: 5
+    max: 2
     excludedFunctions:
       - "equals"
     excludeLabeled: false
@@ -908,7 +869,7 @@ style:
   UnusedPrivateMember:
     active: true
     allowedNames: ""
-    ignoreAnnotated: ['Preview', 'DevicePreview']
+    ignoreAnnotated: ['Preview', 'DevicePreviews']
   UnusedPrivateProperty:
     active: true
     allowedNames: "_|ignored|expected|serialVersionUID"

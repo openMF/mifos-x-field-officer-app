@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_offlinesync_title">Офлайн-синхронизация</string>
+    <string name="feature_offlinesync_online">Онлайн</string>
+    <string name="feature_offlinesync_offline">Офлайн</string>
+    <string name="feature_offlinesync_stat_to_sync">%1$d для синхронизации</string>
+    <string name="feature_offlinesync_stat_failed">%1$d с ошибкой</string>
+    <string name="feature_offlinesync_level_label_centres">Центры</string>
+    <string name="feature_offlinesync_level_label_groups">Группы</string>
+    <string name="feature_offlinesync_level_label_clients">Клиенты</string>
+    <string name="feature_offlinesync_header_subtitle">%1$s · %2$s</string>
+    <string name="feature_offlinesync_last_synced">Последняя синхронизация %1$s</string>
+    <string name="feature_offlinesync_not_synced">Ещё не синхронизировано</string>
+    <string name="feature_offlinesync_next_in_hours">следующая через ~%1$d ч</string>
+    <string name="feature_offlinesync_sync_now">Синхронизировать</string>
+    <string name="feature_offlinesync_syncing_button">Синхронизация…</string>
+    <string name="feature_offlinesync_sync_when_online">Синхронизировать при подключении</string>
+    <string name="feature_offlinesync_offline_banner">Вы офлайн. Всё на этом устройстве по-прежнему открывается; синхронизация возобновится, как только вы снова будете онлайн.</string>
+    <plurals name="feature_offlinesync_job_downloading">
+        <item quantity="one">Загрузка %1$d записи</item>
+        <item quantity="few">Загрузка %1$d записей</item>
+        <item quantity="many">Загрузка %1$d записей</item>
+        <item quantity="other">Загрузка %1$d записи</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_records">
+        <item quantity="one">%1$d из %2$d записи</item>
+        <item quantity="few">%1$d из %2$d записей</item>
+        <item quantity="many">%1$d из %2$d записей</item>
+        <item quantity="other">%1$d из %2$d записи</item>
+    </plurals>
+    <plurals name="feature_offlinesync_job_reads">
+        <item quantity="one">%1$d чтение</item>
+        <item quantity="few">%1$d чтения</item>
+        <item quantity="many">%1$d чтений</item>
+        <item quantity="other">%1$d чтения</item>
+    </plurals>
+    <string name="feature_offlinesync_cancel">Отмена</string>
+    <string name="feature_offlinesync_job_result">Готово · %1$d синхронизировано · %2$d с ошибкой</string>
+    <string name="feature_offlinesync_job_result_body">Всё остальное открывается офлайн</string>
+    <string name="feature_offlinesync_retry_failed">Повторить неудавшиеся</string>
+    <string name="feature_offlinesync_records_title">На этом устройстве</string>
+    <string name="feature_offlinesync_level_centres">Центры %1$d</string>
+    <string name="feature_offlinesync_level_groups">Группы %1$d</string>
+    <string name="feature_offlinesync_level_clients">Клиенты %1$d</string>
+    <plurals name="feature_offlinesync_search_local">
+        <item quantity="one">Найти %1$d клиента на этом устройстве</item>
+        <item quantity="few">Найти %1$d клиентов на этом устройстве</item>
+        <item quantity="many">Найти %1$d клиентов на этом устройстве</item>
+        <item quantity="other">Найти %1$d клиента на этом устройстве</item>
+    </plurals>
+    <string name="feature_offlinesync_status_waiting">Ожидание синхронизации</string>
+    <string name="feature_offlinesync_status_syncing">Синхронизация…</string>
+    <string name="feature_offlinesync_status_synced">Синхронизировано %1$s</string>
+    <string name="feature_offlinesync_status_out_of_date">Устарело · синхронизировано %1$s</string>
+    <string name="feature_offlinesync_status_failed">%1$d с ошибкой · синхронизировано %2$s</string>
+    <string name="feature_offlinesync_via_parent">через %1$s</string>
+    <plurals name="feature_offlinesync_count_groups">
+        <item quantity="one">%1$d группа</item>
+        <item quantity="few">%1$d группы</item>
+        <item quantity="many">%1$d групп</item>
+        <item quantity="other">%1$d группы</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_clients">
+        <item quantity="one">%1$d клиент</item>
+        <item quantity="few">%1$d клиента</item>
+        <item quantity="many">%1$d клиентов</item>
+        <item quantity="other">%1$d клиента</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_accounts">
+        <item quantity="one">%1$d счёт</item>
+        <item quantity="few">%1$d счёта</item>
+        <item quantity="many">%1$d счетов</item>
+        <item quantity="other">%1$d счёта</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_loans">
+        <item quantity="one">%1$d кредит</item>
+        <item quantity="few">%1$d кредита</item>
+        <item quantity="many">%1$d кредитов</item>
+        <item quantity="other">%1$d кредита</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_savings">
+        <item quantity="one">%1$d сбережение</item>
+        <item quantity="few">%1$d сбережения</item>
+        <item quantity="many">%1$d сбережений</item>
+        <item quantity="other">%1$d сбережения</item>
+    </plurals>
+    <plurals name="feature_offlinesync_count_documents">
+        <item quantity="one">%1$d документ</item>
+        <item quantity="few">%1$d документа</item>
+        <item quantity="many">%1$d документов</item>
+        <item quantity="other">%1$d документа</item>
+    </plurals>
+    <string name="feature_offlinesync_refresh">Обновить</string>
+    <string name="feature_offlinesync_remove">Удалить</string>
+    <string name="feature_offlinesync_remove_confirm">Удалить %1$s с этого устройства? Записи, ещё нужные другой загрузке, останутся.</string>
+    <string name="feature_offlinesync_expand">Показать вложенное</string>
+    <string name="feature_offlinesync_collapse">Скрыть вложенное</string>
+    <string name="feature_offlinesync_open">Открыть</string>
+    <string name="feature_offlinesync_refresh_title">Синхронизация</string>
+    <string name="feature_offlinesync_refresh_manual">Вручную</string>
+    <string name="feature_offlinesync_refresh_automatic">Автоматически</string>
+    <string name="feature_offlinesync_refresh_manual_note">Ваши записи синхронизируются только при нажатии кнопки «Синхронизировать». Сделайте это перед выходом.</string>
+    <string name="feature_offlinesync_refresh_automatic_note">Ваши записи повторно синхронизируются в фоновом режиме по расписанию выше.</string>
+    <string name="feature_offlinesync_refresh_data_note">При синхронизации загружается много данных. На это устройство попадают только выбранные вами записи.</string>
+    <string name="feature_offlinesync_resync_label">Повторная синхронизация записей</string>
+    <string name="feature_offlinesync_every_hours">Каждые %1$d ч</string>
+    <string name="feature_offlinesync_wifi_only">Только Wi-Fi</string>
+    <string name="feature_offlinesync_charging_only">Только при зарядке</string>
+    <string name="feature_offlinesync_drafts_note">Работа, выполненная офлайн, сохраняется как черновики.</string>
+    <string name="feature_offlinesync_drafts_link">Синхронизация и черновики</string>
+    <string name="feature_offlinesync_empty_title">На этом устройстве ещё ничего нет</string>
+    <string name="feature_offlinesync_empty_body">Выберите центры, группы или клиентов, которых вы посетите, и синхронизируйте их перед выходом. Всё под ними открывается здесь без сети.</string>
+    <string name="feature_offlinesync_add_records">Добавить записи</string>
+    <string name="feature_offlinesync_picker_title">Сохранить на устройстве</string>
+    <string name="feature_offlinesync_picker_empty">Записей не найдено</string>
+    <string name="feature_offlinesync_picker_error">Не удалось загрузить список.</string>
+    <string name="feature_offlinesync_retry">Повторить</string>
+    <string name="feature_offlinesync_tab_centres">Центры</string>
+    <string name="feature_offlinesync_tab_groups">Группы</string>
+    <string name="feature_offlinesync_tab_clients">Клиенты</string>
+    <string name="feature_offlinesync_picker_search">Поиск по имени или номеру счёта</string>
+    <string name="feature_offlinesync_picker_hint">Центр включает свои группы, их клиентов и все их счета.</string>
+    <string name="feature_offlinesync_on_device">На устройстве</string>
+    <string name="feature_offlinesync_picker_download">Загрузить %1$d офлайн</string>
+    <string name="feature_offlinesync_time_just_now">только что</string>
+    <string name="feature_offlinesync_time_minutes">%1$d мин назад</string>
+    <string name="feature_offlinesync_time_hours">%1$d ч назад</string>
+    <plurals name="feature_offlinesync_time_days">
+        <item quantity="one">%1$d день назад</item>
+        <item quantity="few">%1$d дня назад</item>
+        <item quantity="many">%1$d дней назад</item>
+        <item quantity="other">%1$d дня назад</item>
+    </plurals>
+</resources>

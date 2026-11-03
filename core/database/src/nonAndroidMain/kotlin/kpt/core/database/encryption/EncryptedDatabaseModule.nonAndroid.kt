@@ -1,0 +1,17 @@
+/*
+ * Copyright 2026 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+ */
+package kpt.core.database.encryption
+
+import org.koin.core.module.Module
+import org.koin.dsl.module
+
+// NOT encrypted on iOS, desktop or web — the template's plaintext driver stays bound. Why: see the
+// Android actual (EncryptedDatabaseModule.android.kt).
+internal actual val encryptedDatabaseModule: Module = module { }

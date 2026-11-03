@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="screens_profile_local_title">本地资料</string>
+    <string name="screens_profile_local_message">%1$s 完全在设备上运行，无需账户。</string>
+    <!-- Profile (screens/profile, approved 2026-10-27). Opened from the Home avatar. -->
+    <string name="feature_profile_title">资料</string>
+    <string name="feature_profile_back">返回</string>
+    <string name="feature_profile_offline_banner">您处于离线状态。这是登录时保存的账户。</string>
+    <string name="feature_profile_username">用户名</string>
+    <string name="feature_profile_email">电子邮件</string>
+    <string name="feature_profile_loan_officer">信贷员</string>
+    <string name="feature_profile_staff">员工</string>
+    <string name="feature_profile_office_label">网点</string>
+    <string name="feature_profile_name_error">无法从服务器加载您的姓名。</string>
+    <string name="feature_profile_name_error_generic">请检查网络连接后重试。</string>
+    <string name="feature_profile_retry">重试</string>
+    <string name="feature_profile_roles_title">角色</string>
+    <string name="feature_profile_roles_empty">未分配角色</string>
+    <string name="feature_profile_scope_title">首页显示内容</string>
+    <string name="feature_profile_scope_note">若您已关联员工记录，则显示您自己的投资组合，否则显示整个网点。</string>
+    <string name="feature_profile_scope_my_portfolio">我的投资组合</string>
+    <string name="feature_profile_scope_office">网点：%1$s</string>
+    <string name="feature_profile_session_title">已登录到</string>
+    <string name="feature_profile_live">当前</string>
+    <string name="feature_profile_server_label">服务器</string>
+    <string name="feature_profile_tenant">租户</string>
+    <string name="feature_profile_server_settings">服务器设置</string>
+    <string name="feature_profile_change_password">修改密码</string>
+    <string name="feature_profile_change_password_offline">请连接互联网以修改密码。</string>
+    <string name="feature_profile_password_lead">修改后，您在此设备上仍保持登录状态。</string>
+    <string name="feature_profile_new_password">新密码</string>
+    <string name="feature_profile_repeat_password">重复新密码</string>
+    <string name="feature_profile_password_hint">12 至 50 个字符，包含大小写字母、数字和符号</string>
+    <string name="feature_profile_passwords_differ">两次输入的密码不一致</string>
+    <string name="feature_profile_password_failed">密码未修改。请重试。</string>
+    <string name="feature_profile_show_password">显示密码</string>
+    <string name="feature_profile_hide_password">隐藏密码</string>
+    <string name="feature_profile_cancel">取消</string>
+    <string name="feature_profile_save_password">保存密码</string>
+    <string name="feature_profile_password_changed">密码已修改</string>
+    <string name="feature_profile_sign_out">退出登录</string>
+</resources>
