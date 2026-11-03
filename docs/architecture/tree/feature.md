@@ -1,74 +1,89 @@
 # `feature/`
 
 > **Kind:** Kotlin Multiplatform module group  
-> **Measured:** 658 tracked files — 342× `.xml`, 255× `.kt`, 21× `.png`, 17× `.kts`, 16× `.md`
+> **Measured:** 872 tracked files — 466× `.kt`, 172× `.xml`, 164× `.png`, 41× `.md`, 22× `.kts`
 
 ## Shape
 
 | Path | Files |
 |---|---:|
-| `feature/settings/` | 76 |
-| `feature/calculators/` | 49 |
-| `feature/loans/` | 48 |
-| `feature/macro/` | 44 |
-| `feature/bills/` | 42 |
-| `feature/rates/` | 38 |
-| `feature/currency-rates/` | 37 |
-| `feature/crypto/` | 36 |
-| `feature/home/` | 36 |
-| `feature/alerts/` | 35 |
-| `feature/profile/` | 35 |
-| `feature/amortization/` | 31 |
-| `feature/emi-calculator/` | 31 |
-| `feature/showcase/` | 31 |
-| `feature/watchlist/` | 31 |
-| `feature/cloudtodo/` | 30 |
-| `feature/add-to-watchlist/` | 27 |
+| `feature/client/` | 155 |
+| `feature/loan/` | 93 |
+| `feature/settings/` | 83 |
+| `feature/home/` | 51 |
+| `feature/profile/` | 49 |
+| `feature/savings/` | 43 |
+| `feature/offlinesync/` | 39 |
+| `feature/center/` | 34 |
+| `feature/notification/` | 33 |
+| `feature/groups/` | 32 |
+| `feature/pathtracking/` | 32 |
+| `feature/charge/` | 29 |
+| `feature/note/` | 29 |
+| `feature/report/` | 27 |
+| `feature/collectionsheet/` | 19 |
+| `feature/document/` | 19 |
+| `feature/signin/` | 19 |
+| `feature/checkerinbox/` | 18 |
+| `feature/datatable/` | 18 |
+| `feature/searchrecord/` | 17 |
+| `feature/about/` | 16 |
+| `feature/activate/` | 16 |
 | (files at the root) | 1 |
 
 ## Modules
 
 | | |
 |---|---|
-| `feature:add-to-watchlist` | 5 Kotlin files — [guide](feature/add-to-watchlist.md) |
-| `feature:alerts` | 13 Kotlin files — [guide](feature/alerts.md) |
-| `feature:amortization` | 9 Kotlin files — [guide](feature/amortization.md) |
-| `feature:bills` | 20 Kotlin files — [guide](feature/bills.md) |
-| `feature:calculators` | 27 Kotlin files — [guide](feature/calculators.md) |
-| `feature:cloudtodo` | 9 Kotlin files — [guide](feature/cloudtodo.md) |
-| `feature:crypto` | 14 Kotlin files — [guide](feature/crypto.md) |
-| `feature:currency-rates` | 15 Kotlin files — [guide](feature/currency-rates.md) |
-| `feature:emi-calculator` | 9 Kotlin files — [guide](feature/emi-calculator.md) |
-| `feature:home` | 11 Kotlin files — [guide](feature/home.md) |
-| `feature:loans` | 26 Kotlin files — [guide](feature/loans.md) |
-| `feature:macro` | 22 Kotlin files — [guide](feature/macro.md) |
-| `feature:profile` | 10 Kotlin files — [guide](feature/profile.md) |
-| `feature:rates` | 16 Kotlin files — [guide](feature/rates.md) |
-| `feature:settings` | 31 Kotlin files — [guide](feature/settings.md) |
-| `feature:showcase` | 9 Kotlin files — [guide](feature/showcase.md) |
-| `feature:watchlist` | 9 Kotlin files — [guide](feature/watchlist.md) |
+| `feature:about` | 7 Kotlin files — [guide](feature/about.md) |
+| `feature:activate` | 8 Kotlin files — [guide](feature/activate.md) |
+| `feature:center` | 20 Kotlin files — [guide](feature/center.md) |
+| `feature:charge` | 15 Kotlin files — [guide](feature/charge.md) |
+| `feature:checkerinbox` | 7 Kotlin files — [guide](feature/checkerinbox.md) |
+| `feature:client` | 117 Kotlin files — [guide](feature/client.md) |
+| `feature:collectionsheet` | 10 Kotlin files — [guide](feature/collectionsheet.md) |
+| `feature:datatable` | 10 Kotlin files — [guide](feature/datatable.md) |
+| `feature:document` | 11 Kotlin files — [guide](feature/document.md) |
+| `feature:groups` | 22 Kotlin files — [guide](feature/groups.md) |
+| `feature:home` | 18 Kotlin files — [guide](feature/home.md) |
+| `feature:loan` | 66 Kotlin files — [guide](feature/loan.md) |
+| `feature:note` | 16 Kotlin files — [guide](feature/note.md) |
+| `feature:notification` | 7 Kotlin files — [guide](feature/notification.md) |
+| `feature:offlinesync` | 10 Kotlin files — [guide](feature/offlinesync.md) |
+| `feature:pathtracking` | 7 Kotlin files — [guide](feature/pathtracking.md) |
+| `feature:profile` | 14 Kotlin files — [guide](feature/profile.md) |
+| `feature:report` | 17 Kotlin files — [guide](feature/report.md) |
+| `feature:savings` | 29 Kotlin files — [guide](feature/savings.md) |
+| `feature:searchrecord` | 8 Kotlin files — [guide](feature/searchrecord.md) |
+| `feature:settings` | 38 Kotlin files — [guide](feature/settings.md) |
+| `feature:signin` | 9 Kotlin files — [guide](feature/signin.md) |
 
 ## Subsections
 
 | Unit | Files | Page |
 |---|---:|---|
-| `feature/add-to-watchlist/` | 27 | [add-to-watchlist](feature/add-to-watchlist.md) |
-| `feature/alerts/` | 35 | [alerts](feature/alerts.md) |
-| `feature/amortization/` | 31 | [amortization](feature/amortization.md) |
-| `feature/bills/` | 42 | [bills](feature/bills.md) |
-| `feature/calculators/` | 49 | [calculators](feature/calculators.md) |
-| `feature/cloudtodo/` | 30 | [cloudtodo](feature/cloudtodo.md) |
-| `feature/crypto/` | 36 | [crypto](feature/crypto.md) |
-| `feature/currency-rates/` | 37 | [currency-rates](feature/currency-rates.md) |
-| `feature/emi-calculator/` | 31 | [emi-calculator](feature/emi-calculator.md) |
-| `feature/home/` | 36 | [home](feature/home.md) |
-| `feature/loans/` | 48 | [loans](feature/loans.md) |
-| `feature/macro/` | 44 | [macro](feature/macro.md) |
-| `feature/profile/` | 35 | [profile](feature/profile.md) |
-| `feature/rates/` | 38 | [rates](feature/rates.md) |
-| `feature/settings/` | 76 | [settings](feature/settings.md) |
-| `feature/showcase/` | 31 | [showcase](feature/showcase.md) |
-| `feature/watchlist/` | 31 | [watchlist](feature/watchlist.md) |
+| `feature/about/` | 16 | [about](feature/about.md) |
+| `feature/activate/` | 16 | [activate](feature/activate.md) |
+| `feature/center/` | 34 | [center](feature/center.md) |
+| `feature/charge/` | 29 | [charge](feature/charge.md) |
+| `feature/checkerinbox/` | 18 | [checkerinbox](feature/checkerinbox.md) |
+| `feature/client/` | 155 | [client](feature/client.md) |
+| `feature/collectionsheet/` | 19 | [collectionsheet](feature/collectionsheet.md) |
+| `feature/datatable/` | 18 | [datatable](feature/datatable.md) |
+| `feature/document/` | 19 | [document](feature/document.md) |
+| `feature/groups/` | 32 | [groups](feature/groups.md) |
+| `feature/home/` | 51 | [home](feature/home.md) |
+| `feature/loan/` | 93 | [loan](feature/loan.md) |
+| `feature/note/` | 29 | [note](feature/note.md) |
+| `feature/notification/` | 33 | [notification](feature/notification.md) |
+| `feature/offlinesync/` | 39 | [offlinesync](feature/offlinesync.md) |
+| `feature/pathtracking/` | 32 | [pathtracking](feature/pathtracking.md) |
+| `feature/profile/` | 49 | [profile](feature/profile.md) |
+| `feature/report/` | 27 | [report](feature/report.md) |
+| `feature/savings/` | 43 | [savings](feature/savings.md) |
+| `feature/searchrecord/` | 17 | [searchrecord](feature/searchrecord.md) |
+| `feature/settings/` | 83 | [settings](feature/settings.md) |
+| `feature/signin/` | 19 | [signin](feature/signin.md) |
 
 ## Docs in the tree
 
@@ -76,22 +91,66 @@ _Authored beside the code, where the module's own consumers read them._
 
 | Path | |
 |---|---|
-| `feature/add-to-watchlist/README.md` | :feature:add-to-watchlist |
-| `feature/alerts/README.md` | :feature:alerts |
-| `feature/amortization/README.md` | :feature:amortization |
-| `feature/bills/README.md` | :feature:bills |
-| `feature/calculators/README.md` | :feature:calculators |
-| `feature/crypto/README.md` | :feature:crypto |
-| `feature/currency-rates/README.md` | :feature:currency-rates |
-| `feature/emi-calculator/README.md` | :feature:emi-calculator |
+| `feature/about/MIGRATION.md` | feature/about — migration ledger |
+| `feature/about/README.md` | :feature:about |
+| `feature/activate/MIGRATION.md` | feature/activate — migration ledger |
+| `feature/activate/README.md` | :feature:activate |
+| `feature/center/MIGRATION.md` | feature/center — migration ledger |
+| `feature/center/README.md` | :feature:center |
+| `feature/charge/MIGRATION.md` | feature/charge — migration ledger |
+| `feature/charge/README.md` | feature/charge |
+| `feature/checkerinbox/MIGRATION.md` | feature/checkerinbox — migration ledger |
+| `feature/checkerinbox/README.md` | :feature:checkerinbox |
+| `feature/client/MIGRATION.md` | feature/client — migration ledger |
+| `feature/client/README.md` | :feature:client |
+| `feature/collectionsheet/MIGRATION.md` | feature/collectionsheet — migration ledger |
+| `feature/collectionsheet/README.md` | :feature:collectionsheet |
+| `feature/datatable/MIGRATION.md` | feature/datatable — migration ledger |
+| `feature/datatable/README.md` | :feature:datatable |
+| `feature/document/MIGRATION.md` | feature/document — migration ledger |
+| `feature/document/README.md` | :feature:document |
+| `feature/groups/MIGRATION.md` | feature/groups — migration ledger |
+| `feature/groups/README.md` | :feature:groups |
+| `feature/home/MIGRATION.md` | feature/home — migration ledger |
 | `feature/home/README.md` | :feature:home |
-| `feature/loans/README.md` | :feature:loans |
-| `feature/macro/README.md` | :feature:macro |
+| `feature/loan/MIGRATION.md` | feature/loan — migration ledger |
+| `feature/loan/README.md` | :feature:loan |
+| `feature/note/MIGRATION.md` | feature/note — migration ledger |
+| `feature/note/README.md` | :feature:note |
+| `feature/notification/MIGRATION.md` | feature/notification — ledger |
+| `feature/offlinesync/MIGRATION.md` | feature/offlinesync — migration notes |
+| `feature/pathtracking/MIGRATION.md` | feature/pathtracking — migration ledger |
+| `feature/profile/MIGRATION.md` | feature/profile — migration ledger |
 | `feature/profile/README.md` | :feature:profile |
-| `feature/rates/README.md` | :feature:rates |
+| `feature/report/MIGRATION.md` | feature/report — migration ledger |
+| `feature/report/README.md` | :feature:report |
+| `feature/savings/MIGRATION.md` | `feature/savings` — migration notes |
+| `feature/savings/README.md` | :feature:savings |
+| `feature/searchrecord/MIGRATION.md` | feature/searchrecord — migration ledger |
+| `feature/searchrecord/README.md` | :feature:searchrecord |
+| `feature/settings/MIGRATION.md` | feature/settings — migration ledger |
 | `feature/settings/README.md` | :feature:settings |
-| `feature/showcase/README.md` | :feature:showcase |
-| `feature/watchlist/README.md` | :feature:watchlist |
+| `feature/signin/MIGRATION.md` | feature/signin — migration ledger (module was `feature/auth` until 2026-10-02) |
+| `feature/signin/README.md` | :feature:signin |
+
+## Guides
+
+_Authored in depth, living in this area's own directory._
+
+- [feature/add-to-watchlist/](feature/add-to-watchlist.md)
+- [feature/alerts/](feature/alerts.md)
+- [feature/amortization/](feature/amortization.md)
+- [feature/bills/](feature/bills.md)
+- [feature/calculators/](feature/calculators.md)
+- [feature/cloudtodo/](feature/cloudtodo.md)
+- [feature/crypto/](feature/crypto.md)
+- [feature/currency-rates/](feature/currency-rates.md)
+- [feature/emi-calculator/](feature/emi-calculator.md)
+- [feature/loans/](feature/loans.md)
+- [feature/macro/](feature/macro.md)
+- [feature/rates/](feature/rates.md)
+- [feature/showcase/](feature/showcase.md)
+- [feature/watchlist/](feature/watchlist.md)
 
 ## Deeper reading
 

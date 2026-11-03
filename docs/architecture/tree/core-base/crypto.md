@@ -32,16 +32,16 @@ expect class FieldEncryptor
 ```
 Platform-specific AES-256-GCM field encryption for sensitive data. Encrypts individual fields BEFORE they are stored in Room or Settings.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/currency/converter/ChargeTypeConverters.kt:38</code></summary>
+<details><summary>Used in the template — <code>core-base/crypto/src/androidMain/kotlin/kpt/core/base/crypto/FieldEncryptor.kt:22</code></summary>
 
 ```kotlin
-    companion object {
-        @kotlin.concurrent.Volatile
-        private var encryptor: FieldEncryptor? = null
 
-        /**
-         * Install a [FieldEncryptor] for all converter instances.
-         * Call once during app initialization, before any database access.
+/** Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
+actual class FieldEncryptor(private val keyProvider: SecureKeyProvider) {
+
+    /** `encrypt` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
+    actual fun encrypt(plaintext: String): String {
+        val encrypted = encrypt(plaintext.encodeToByteArray())
 ```
 
 </details>
@@ -74,16 +74,16 @@ expect class SecureRandom
 ```
 Platform-specific cryptographically secure random number generator.
 
-<details><summary>Used in the template — <code>core-base/crypto/src/androidMain/kotlin/kpt/core/base/crypto/SecureRandom.kt:13</code></summary>
+<details><summary>Used in the template — <code>core/database/src/androidMain/kotlin/kpt/core/database/encryption/EncryptedDatabaseModule.android.kt:61</code></summary>
 
 ```kotlin
-
-/** Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
-actual class SecureRandom {
-    private val random = java.security.SecureRandom()
-
-    /** `nextBytes` on this target. Android — AES/GCM via `javax.crypto`, keyed from the AndroidKeyStore. */
-    actual fun nextBytes(size: Int): ByteArray {
+            databaseKeyHex(
+                stored = get<Settings>(named("secure")).getStringOrNull(DB_KEY_PREF),
+                randomBytes = { n -> ByteArray(n).also(SecureRandom()::nextBytes) },
+                persist = { get<Settings>(named("secure")).putString(DB_KEY_PREF, it) },
+            ),
+        )
+        SQLCipherLoader.load()
 ```
 
 </details>

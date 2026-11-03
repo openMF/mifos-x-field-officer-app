@@ -1,14 +1,14 @@
 # `app-profile/`
 
 > **Kind:** Fork-owned configuration source of truth  
-> **Measured:** 163 tracked files — 107× `.png`, 24× `.yaml`, 12× `.gitkeep`, 5× `.md`, 5× `.webp`
+> **Measured:** 168 tracked files — 107× `.png`, 24× `.yaml`, 12× `.gitkeep`, 10× `.webp`, 5× `.md`
 
 ## Shape
 
 | Path | Files |
 |---|---:|
 | `app-profile/platforms/` | 143 |
-| `app-profile/icons/` | 14 |
+| `app-profile/icons/` | 19 |
 | (files at the root) | 6 |
 
 ## Declared configuration

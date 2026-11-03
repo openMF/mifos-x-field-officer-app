@@ -144,16 +144,16 @@ KptTheme {
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreenPreview.kt:39</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:125</code></summary>
 
 ```kotlin
-    hasResumableDraft: Boolean = false,
-) {
-    KptTheme {
-        AlertCreateScreenContent(
-            form = form,
-            screenState = ScreenState.Content(previewAlert()),
-            submitState = submitState,
+                .padding(padding)
+                .testTag(AboutTestTags.SCREEN),
+            verticalArrangement = Arrangement.spacedBy(KptTheme.spacing.md),
+        ) {
+            item { BrandHeader(state = state, onAction = onAction) }
+
+            AboutSection.entries.forEach { section ->
 ```
 
 </details>
@@ -416,16 +416,16 @@ fun AppCard(
 ```
 Material 3 elevated card for grouping related content (loan rows, form sections, dashboard tiles).
 
-<details><summary>Used in the template — <code>feature/bills/src/commonMain/kotlin/kpt/feature/bills/ui/AddOrEditBillReminderScreen.kt:282</code></summary>
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/profile/components/ProfileCard.kt:61</code></summary>
 
 ```kotlin
+    onGroupClick: () -> Unit = {},
 ) {
-    val sp = MaterialTheme.spacing
-    AppCard {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(sp.md),
+    AppCard(
+        modifier = modifier.clickable { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = KptTheme.colorScheme.primary,
+            contentColor = KptTheme.colorScheme.onPrimary,
 ```
 
 </details>
@@ -454,16 +454,16 @@ fun HeroCard(
 ```
 Hero card — the dashboard's first impression.
 
-<details><summary>Used in the template — <code>feature/bills/src/commonMain/kotlin/kpt/feature/bills/ui/BillRemindersListScreen.kt:163</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/NotificationScreen.kt:56</code></summary>
 
 ```kotlin
-@Composable
-internal fun UpcomingSummaryHero(totalAmount: Double, upcomingCount: Int) {
-    HeroCard {
-        AmountDisplay(
-            amountText = formatCurrency(totalAmount),
-            label = stringResource(Res.string.screens_bills_list_summary_label),
-            supporting = {
+            verticalArrangement = Arrangement.Center,
+        ) {
+            HeroCard {
+                Column(
+                    modifier = Modifier.padding(sp.md),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(sp.sm),
 ```
 
 </details>
@@ -600,16 +600,16 @@ fun KptShimmerLoadingBox(
 ```
 Animated shimmer placeholder box. **Future migration:** new call sites should prefer `KptProgress(KptProgress.Shimmer(...))` from `kpt.core.base.designsystem.component.progress` — the unified progress family.
 
-<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/component/state/CardLoadingSkeleton.kt:36</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:433</code></summary>
 
 ```kotlin
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            KptShimmerLoadingBox(
-                modifier = Modifier.fillMaxWidth().height(20.dp),
-                shape = RoundedCornerShape(4.dp),
+        when (style) {
+            // 01: the avatar shimmers like everything else that hasn't loaded
+            HeaderStyle.Loading -> KptShimmerLoadingBox(
+                Modifier.size(11.tw).border(HAIRLINE, c.surfaceContainerHigh, CircleShape),
+                shape = CircleShape,
             )
-            KptShimmerLoadingBox(
+            // 02: w-11 h-11 primary-container, ring-2 white, shadow-card
 ```
 
 </details>
@@ -855,16 +855,15 @@ enum class SlideDirection
 ```
 Direction a `KptSlideTransition` enters from.
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/util/Transition.kt:301</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:289</code></summary>
 
 ```kotlin
-            fun slideUp(motion: Motion): EnterTransitionProvider = {
-                slideIntoContainer(
-                    towards = AnimatedContentTransitionScope.SlideDirection.Up,
-                    animationSpec = tween(motion.durationLong1, easing = motion.easingEmphasized),
-                ).takeIf { isSameGraphNavigation }
-            }
-            // "stay" holds 0.99 alpha so Compose doesn't optimize it away — duration must
+        val slideUp: NonNullEnterTransitionProvider = {
+            slideIntoContainer(
+                towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                animationSpec = tween(DEFAULT_SLIDE_TRANSITION_TIME_MS),
+            )
+        }
 ```
 
 </details>
@@ -998,16 +997,16 @@ interface Clickable
 ```
 Mixed into components that respond to a tap. `interactionSource` is exposed so a caller can hoist ripple/press state — a component that owns it privately cannot participate in a parent's interaction handling.
 
-<details><summary>Used in the template — <code>feature/loans/src/commonMain/kotlin/kpt/feature/loans/ui/LoanRowCard.kt:59</code></summary>
+<details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/detail/CenterDetailScreen.kt:113</code></summary>
 
 ```kotlin
-
-    AppCard(
-        modifier = modifier.combinedClickable(onClick = onClick, onLongClick = onLongPress),
-        accentColor = loanKindAccent(loan.kind),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
+        // The button needs BOTH an inactive centre and somewhere to send it.
+        canActivate = canActivate && onActivate != null,
+        groupsClickable = onGroupClick != null,
+        meeting = meeting,
+        summary = summary,
+        canAddSavingsAccount = onAddSavingsAccount != null,
+        modifier = modifier,
 ```
 
 </details>
@@ -1975,16 +1974,16 @@ object KptTheme
 ```
 Composition-local accessor for the active design language — `KptTheme.colors`, `.typography`, `.shapes`, `.spacing`, `.elevation`. The read side of the theme; `kptTheme` is the write side.
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreenPreview.kt:39</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:125</code></summary>
 
 ```kotlin
-    hasResumableDraft: Boolean = false,
-) {
-    KptTheme {
-        AlertCreateScreenContent(
-            form = form,
-            screenState = ScreenState.Content(previewAlert()),
-            submitState = submitState,
+                .padding(padding)
+                .testTag(AboutTestTags.SCREEN),
+            verticalArrangement = Arrangement.spacedBy(KptTheme.spacing.md),
+        ) {
+            item { BrandHeader(state = state, onAction = onAction) }
+
+            AboutSection.entries.forEach { section ->
 ```
 
 </details>

@@ -2,11 +2,11 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_DATASTORE.md`
-> **Measured:** 9 Kotlin files, 2 test files
+> **Measured:** 11 Kotlin files, 3 test files
 
 ## Principal types
 
-`AppReviewPromptState`, `AppReviewPromptStore`, `ForkPreferencesRepository`, `ForkPreferencesRepositoryImpl`, `SettingsAppReviewPromptStore`, `UserPreferencesRepository`, `UserPreferencesRepositoryImpl`
+`AppReviewPromptState`, `AppReviewPromptStore`, `ForkPreferencesRepository`, `ForkPreferencesRepositoryImpl`, `OfflineSyncSettingsStore`, `SettingsAppReviewPromptStore`, `SettingsOfflineSyncSettingsStore`, `UserPreferencesRepository`, `UserPreferencesRepositoryImpl`
 
 <!-- scaffold:end -->
 
@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/datastore sha=3294924c84475b0114d48b6dd8ca35d0fa5aad63 -->
+<!-- api-docs:begin module=core/datastore sha=82e8d52a876afd04cf6728810f0199a9b101a9ab -->
 ## API reference
 
-_Generated from `core/datastore` at tree `3294924c8447` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/datastore` at tree `82e8d52a876a` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/DatastoreModule.kt`
@@ -47,6 +47,47 @@ val DataModule = module {
 val ForkDatastoreModule = module
 ```
 THE FORK'S datastore DI seam. Empty on the neutral template — this is yours to fill. `DatastoreModule` beside it is `owner: template` and FULL-COPIES on a sync, so a binding added there is replaced on the next adopt.
+
+### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/offline/OfflineSyncSettingsStore.kt`
+
+```kotlin
+interface OfflineSyncSettingsStore
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:48</code></summary>
+
+```kotlin
+    private val engine: OfflineSyncEngine,
+    private val scheduler: OfflineSyncScheduler,
+    private val settingsStore: OfflineSyncSettingsStore,
+    private val preferences: ForkPreferencesRepository,
+    private val nowMs: () -> Long,
+) : OfflineSyncRepository {
+```
+
+</details>
+
+- `val settings: StateFlow<RefreshSettings>`
+- `fun update(settings: RefreshSettings)`
+
+```kotlin
+class SettingsOfflineSyncSettingsStore(private val plainSettings: Settings) : OfflineSyncSettingsStore
+```
+`Settings`-backed, on the same plain store as the other device preferences.
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/offline/OfflineSyncRepositoryTest.kt:156</code></summary>
+
+```kotlin
+        engine = engine,
+        scheduler = scheduler,
+        settingsStore = SettingsOfflineSyncSettingsStore(MapSettings()),
+        preferences = preferences,
+        nowMs = { NOW },
+    )
+```
+
+</details>
 
 ### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/prefs/AppReviewPromptStore.kt`
 
@@ -101,71 +142,44 @@ class SettingsAppReviewPromptStore(
 ```kotlin
 interface ForkPreferencesRepository : UserPreferencesRepository
 ```
-THE FORK'S preferences. Extends the framework's — this is yours to fill.
+The fork's preference surface: everything the framework has no concept of. Inheritance is the contract — a framework preference cannot be dropped without a compile error, and anything declared here is additive.
 
-<details><summary>Example</summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:50</code></summary>
 
 ```kotlin
-interface ForkPreferencesRepository : UserPreferencesRepository {
-    val observeMyFlag: Flow<Boolean>
-    suspend fun setMyFlag(enabled: Boolean)
-}
-override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-    analytics.log("theme_changed")
-    delegate.setDarkThemeConfig(darkThemeConfig)
-}
+@OptIn(ExperimentalCoroutinesApi::class)
+class ProfileViewModel(
+    project: ForkPreferencesRepository,
+    serverConfigs: ServerConfigRepository,
+    dashboard: DashboardRepository,
+    staff: StaffRepository,
+    network: NetworkMonitor,
 ```
 
 </details>
 
-<details><summary>Used in the template — <code>core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ForkDatastoreModule.kt:31</code></summary>
-
-```kotlin
- */
-val ForkDatastoreModule = module {
-    single<ForkPreferencesRepository> {
-        ForkPreferencesRepositoryImpl(
-            delegate = get<UserPreferencesRepository>(),
-            // The SAME instances the framework's impl uses — an ownership boundary, not a second
-            // store. Namespace fork keys so they cannot collide with a future framework preference.
-```
-
-</details>
+- `val fineractUser: StateFlow<User>` — The signed-in Fineract user. Distinct from `userData`, which is the framework's device-level preference record — this is the server's account object (office, staff, roles, permissions).
+- `val authHeader: String` — `Basic <key>` for the current `fineractUser`, or empty when signed out. Derived rather than stored: Fineract returns the encoded key as part of authentication, so a second copy in preferences could disagree with the user record it came from.
+- `suspend fun updateFineractUser(user: User)`
+- `suspend fun clearFineractUser()` — Sign out of Fineract, leaving device preferences (theme, language) intact.
 
 ### `core/datastore/src/commonMain/kotlin/kpt/core/datastore/prefs/ForkPreferencesRepositoryImpl.kt`
 
 ```kotlin
 class ForkPreferencesRepositoryImpl(
 ```
-Fork implementation of `ForkPreferencesRepository`. `owner: fork` — never synced.
+Fork preferences, delegating every framework preference to the template's implementation. The keys are namespaced `fineract.*` per the seam's contract, so a future framework preference cannot collide with one of these.
 
-<details><summary>Example</summary>
-
-```kotlin
-override val observeMyFlag: Flow<Boolean> =
-    MutableStateFlow(plainSettings.getBoolean(KEY_MY_FLAG, false))
-
-override suspend fun setMyFlag(enabled: Boolean) = withContext(dispatcher.io) {
-    plainSettings.putBoolean(KEY_MY_FLAG, enabled)
-}
-override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-    analytics.log("theme_changed")
-    delegate.setDarkThemeConfig(darkThemeConfig)
-}
-```
-
-</details>
-
-<details><summary>Used in the template — <code>core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/ForkDatastoreModule.kt:32</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:103</code></summary>
 
 ```kotlin
-val ForkDatastoreModule = module {
-    single<ForkPreferencesRepository> {
+        val plain = MapSettings()
+        val secure = MapSettings()
         ForkPreferencesRepositoryImpl(
-            delegate = get<UserPreferencesRepository>(),
-            // The SAME instances the framework's impl uses — an ownership boundary, not a second
-            // store. Namespace fork keys so they cannot collide with a future framework preference.
-            plainSettings = get<Settings>(named("plain")),
+            delegate = UserPreferencesRepositoryImpl(plain, secure, dispatchers),
+            plainSettings = plain,
+            secureSettings = secure,
+            dispatcher = dispatchers,
 ```
 
 </details>
@@ -214,21 +228,21 @@ class UserPreferencesRepositoryImpl(
 ```
 Splits user data storage between plain (UI preferences) and secure (credentials/auth state) Settings backends.
 
-<details><summary>Used in the template — <code>core/datastore/src/commonMain/kotlin/kpt/core/datastore/di/DatastoreModule.kt:36</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:104</code></summary>
 
 ```kotlin
-
-    single {
-        UserPreferencesRepositoryImpl(
-            plainSettings = get<Settings>(named("plain")),
-            secureSettings = get<Settings>(named("secure")),
-            dispatcher = get(),
-        )
+        val secure = MapSettings()
+        ForkPreferencesRepositoryImpl(
+            delegate = UserPreferencesRepositoryImpl(plain, secure, dispatchers),
+            plainSettings = plain,
+            secureSettings = secure,
+            dispatcher = dispatchers,
+        ).also { it.updateFineractUser(session) }
 ```
 
 </details>
 
 ---
 
-_7 type(s), 18 function(s)/property(ies); 25 carry KDoc at source; 2 authored example(s); 7 live call site(s)._
+_9 type(s), 24 function(s)/property(ies); 29 carry KDoc at source; 0 authored example(s); 9 live call site(s)._
 <!-- api-docs:end -->

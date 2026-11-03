@@ -2,7 +2,7 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_NETWORK.md`
-> **Measured:** 42 Kotlin files, 18 test files
+> **Measured:** 112 Kotlin files, 19 test files
 
 ## Codegen contracts owned here
 
@@ -14,7 +14,7 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 ## Principal types
 
-`AppAccessPoints`, `AppMultiUrlConfigProvider`, `AppUrlTypes`, `CloudTodoDto`, `CoinDetailDto`, `CoinGeckoApi`, `CoinImageDto`, `CoinMarketDto`, `DescriptionDto`, `ExchangeRatesDto`, `FineractApi`, `FineractAuthResponseDto`, `FineractOfficeDto`, `FrankfurterApi`  …and 18 more
+`AbstractMapper`, `AppAccessPoints`, `AppMultiUrlConfigProvider`, `AppServerConfig`, `AppUrlTypes`, `AppUserDto`, `AuthApi`, `BatchRequestDto`, `BatchResponseDto`, `BundledInstanceConfigLoader`, `BusinessDateDto`, `CenterApi`, `CenterMapper`, `ChargeApi`  …and 118 more
 
 <!-- scaffold:end -->
 
@@ -22,117 +22,11 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/network sha=437a799eaf9b1ee0073f367fac8ab5c0ead51bb3 -->
+<!-- api-docs:begin module=core/network sha=3ba6187bda15ee7be3b51f7c6f0665b097effc28 -->
 ## API reference
 
-_Generated from `core/network` at tree `437a799eaf9b` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/network` at tree `3ba6187bda15` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/coingecko/api/CoinGeckoApi.kt`
-
-```kotlin
-interface CoinGeckoApi
-```
-CoinGecko public API v3. Base URL: `BASE_URL`.
-
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/crypto/impl/CoinDetailStore.kt:36</code></summary>
-
-```kotlin
-@CacheKey(fn = "item", key = "crypto:coinDetail:{coinId}", params = ["coinId:String"])
-fun provideCoinDetailStore(
-    api: CoinGeckoApi,
-    networkMonitor: NetworkMonitor,
-    dao: CoinDetailDao,
-): Store<String, CoinDetail> {
-    val validator = DefaultValidator.withTtl<CoinDetail>(AppStoreRegistry.Ttl.COIN_DETAIL)
-```
-
-</details>
-
-- `suspend fun getMarkets(` — One page of the market list, ordered by market cap descending by default.
-- `suspend fun getCoinDetail(` — Full detail for one coin. The four `false` defaults switch off payload sections the detail screen does not render — CoinGecko returns them by default and they dominate the response size.
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/coingecko/dto/CoinDetailDto.kt`
-
-```kotlin
-data class CoinDetailDto(
-```
-Wire shape of CoinGecko's `/coins/{id}` response. Mapped to the domain model in the Store's `SourceOfTruth`; nothing outside `core/network` should see this type.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/coingecko/api/CoinGeckoApi.kt:54</code></summary>
-
-```kotlin
-        @Query("community_data") communityData: Boolean = false,
-        @Query("developer_data") developerData: Boolean = false,
-    ): CoinDetailDto
-}
-```
-
-</details>
-
-```kotlin
-data class DescriptionDto(val en: String? = null)
-```
-Localised description block; only `en` is consumed.
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/coingecko/dto/CoinMarketDto.kt`
-
-```kotlin
-data class CoinMarketDto(
-```
-One row of CoinGecko's `/coins/markets` response — the paged market list.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/coingecko/api/CoinGeckoApi.kt:37</code></summary>
-
-```kotlin
-        @Query("per_page") perPage: Int,
-        @Query("page") page: Int,
-    ): List<CoinMarketDto>
-
-    /**
-     * Full detail for one coin.
-     *
-```
-
-</details>
-
-```kotlin
-data class CoinImageDto(val large: String? = null)
-```
-Image URL set for a coin; only the large variant is used.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/coingecko/dto/CoinDetailDto.kt:29</code></summary>
-
-```kotlin
-    val symbol: String,
-    /** Image URL set, or null when CoinGecko omits it. */
-    val image: CoinImageDto? = null,
-    /**
-     * Price and market figures. Nullable because the endpoint can omit the block; [toDomain] substitutes zeroes rather
-     * than failing the whole response.
-     */
-```
-
-</details>
-
-```kotlin
-data class MarketDataDto(
-```
-Nested market figures (price, market cap, 24h change) inside a coin detail response.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/coingecko/dto/CoinDetailDto.kt:34</code></summary>
-
-```kotlin
-     * than failing the whole response.
-     */
-    @SerialName("market_data") val marketData: MarketDataDto? = null,
-    /** Localised descriptions, of which only `en` is consumed. */
-    val description: DescriptionDto? = null,
-) {
-    /**
-```
-
-</details>
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt`
 
@@ -186,15 +80,8 @@ object AppUrlTypes
 ```
 Project-level catalogue of named API endpoints for runtime base-URL switching (see `kpt.core.base.network.MultiUrlConfigProvider` / `kpt.core.base.network.DynamicBaseUrlPlugin`).
 
-- `val MAIN: UrlType = UrlType.MAIN` — `main` — REST access point.
-- `val STAGING: UrlType = UrlType("STAGING")` — `staging` — REST access point.
+- `val MIFOS: UrlType = UrlType("MIFOS")` — `mifos` — REST access point.
 - `val LWMSWHOXVVOAGZKQXIYD: UrlType = UrlType("LWMSWHOXVVOAGZKQXIYD")` — `lwmswhoxvvoagzkqxiyd` — Supabase access point.
-- `val JSONPLACEHOLDER: UrlType = UrlType("JSONPLACEHOLDER")` — `jsonplaceholder` — REST access point.
-- `val FRANKFURTER: UrlType = UrlType("FRANKFURTER")` — `frankfurter` — REST access point.
-- `val COINGECKO: UrlType = UrlType("COINGECKO")` — `coingecko` — REST access point.
-- `val FRED: UrlType = UrlType("FRED")` — `fred` — REST access point.
-- `val FINERACT: UrlType = UrlType("FINERACT")` — `fineract` — REST access point.
-- `val WORLDBANK: UrlType = UrlType("WORLDBANK")` — `worldbank` — REST access point.
 - `val all: List<UrlType> = listOf(` — Every declared endpoint type, in app-profile order.
 
 ### `core/network/src/commonMain/kotlin/kpt/core/network/config/KptNetworkHeaders.kt`
@@ -248,11 +135,12 @@ single<MyApiConfig> { MyApiConfig(apiKey = BuildKonfig.MY_API_KEY.takeIf { it.is
 single<SupabaseExtrasProvider> {
     SupabaseExtrasProvider { id ->
         when (id) {
-            // Social sign-in: kmp-supabase-auth (io.github.mobilebytelabs:cmp-supabase-auth[-compose])
-            // installs Auth + native Google/Apple onto this client. Never hand-write install(Auth).
-            // libs.cmp.supabase.auth.compose (0.3.3). secureStorage keeps the session + PKCE verifier
-            // in the encrypted named("secure") Settings instead of supabase-kt's plain default.
-            "<your-project-ref>" -> kmpSupabaseAuthInstall(authConfig) { secureStorage(get(named("secure"))) }
+            "<your-project-ref>" -> {
+                {
+                    install(Auth) { /* scheme/host for the OAuth redirect */ }
+                    install(ComposeAuth) { /* native Google/Apple sign-in */ }
+                }
+            }
             // Several projects sharing a module — one branch, no repetition.
             "<project-b>", "<project-c>" -> {
                 { install(Realtime) }
@@ -263,7 +151,6 @@ single<SupabaseExtrasProvider> {
         }
     }
 }
-includes(kmpSupabaseAuthNetwork(authConfig) { get<SupabaseClientFactory>().requireClientFor("<ref>").client })
 ```
 
 </details>
@@ -289,256 +176,6 @@ val DataModule = module {
 
 </details>
 
-### `core/network/src/commonMain/kotlin/kpt/core/network/fineract/api/FineractApi.kt`
-
-```kotlin
-interface FineractApi
-```
-Mifos Fineract sandbox — the showcase for DECLARED, RUNTIME-VALUED headers.
-
-- `suspend fun authenticate(@Body request: Map<String, String>): FineractAuthResponseDto` — Sign in. The `Authorization` header is NOT required for this call — it is what produces it: the returned `base64EncodedAuthenticationKey` becomes `Basic <key>` in the runtime store.
-- `suspend fun offices(): List<FineractOfficeDto>` — The smallest authenticated read. Useful as a proof that the runtime header reached the server: it answers 401 before sign-in and 200 after, with no client rebuild in between.
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/fineract/dto/FineractDto.kt`
-
-```kotlin
-data class FineractAuthResponseDto(
-```
-`POST /authentication` response — the Fineract sandbox's sign-in. The showcase for a RUNTIME header: nothing here is known at build time, and every subsequent call needs the credential this returns.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/fineract/api/FineractApi.kt:44</code></summary>
-
-```kotlin
-     */
-    @POST("authentication")
-    suspend fun authenticate(@Body request: Map<String, String>): FineractAuthResponseDto
-
-    /**
-     * The smallest authenticated read. Useful as a proof that the runtime header reached the server:
-     * it answers 401 before sign-in and 200 after, with no client rebuild in between.
-```
-
-</details>
-
-```kotlin
-data class FineractOfficeDto(
-```
-`GET /offices` row — the smallest authenticated read that proves the header reached the server.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/fineract/api/FineractApi.kt:51</code></summary>
-
-```kotlin
-     */
-    @GET("offices")
-    suspend fun offices(): List<FineractOfficeDto>
-}
-```
-
-</details>
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/frankfurter/api/FrankfurterApi.kt`
-
-```kotlin
-interface FrankfurterApi
-```
-Frankfurter open-source exchange rate API. Base URL: `BASE_URL`.
-
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/currency/impl/ExchangeRatesStore.kt:37</code></summary>
-
-```kotlin
-@CacheKey(fn = "of", key = "currency:exchangeRates:{baseCurrency}", params = ["baseCurrency:String"])
-fun provideExchangeRatesStore(
-    api: FrankfurterApi,
-    networkMonitor: NetworkMonitor,
-    dao: ExchangeRatesDao,
-): Store<String, ExchangeRates> {
-    val validator = DefaultValidator.withTtl<ExchangeRates>(AppStoreRegistry.Ttl.EXCHANGE_RATES)
-```
-
-</details>
-
-- `suspend fun getLatestRates(@Query("from") from: String): ExchangeRatesDto` — Latest rates for one base currency.
-- `suspend fun getHistoricalRates(` — Rates for one pair over a date range.
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/frankfurter/dto/ExchangeRatesDto.kt`
-
-```kotlin
-data class ExchangeRatesDto(
-```
-Wire shape of the Frankfurter `/latest` response — base currency plus a rate map.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/frankfurter/api/FrankfurterApi.kt:29</code></summary>
-
-```kotlin
-     */
-    @GET("v1/latest")
-    suspend fun getLatestRates(@Query("from") from: String): ExchangeRatesDto
-
-    /**
-     * Rates for one pair over a date range.
-     *
-```
-
-</details>
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/frankfurter/dto/RateHistoryDto.kt`
-
-```kotlin
-data class RateHistoryDto(
-```
-Wire shape of the Frankfurter time-series response — a date-keyed map of rate maps.
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/frankfurter/api/FrankfurterApi.kt:45</code></summary>
-
-```kotlin
-        @Query("from") from: String,
-        @Query("to") to: String,
-    ): RateHistoryDto
-}
-```
-
-</details>
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/fred/api/FredApi.kt`
-
-```kotlin
-interface FredApi
-```
-FRED (Federal Reserve Economic Data) public API v0. Base URL: `BASE_URL`. Requires a free developer API key — sign up at https://fred.stlouisfed.org/docs/api/api_key.html.
-
-<details><summary>Used in the template — <code>core/network/src/commonTest/kotlin/kpt/core/network/fred/api/FredApiTest.kt:41</code></summary>
-
-```kotlin
-    fun seriesObservationsBuildsCorrectRequestUrl() = runTest {
-        val capturedUrls = mutableListOf<String>()
-        val api = buildFredApi { request ->
-            capturedUrls.add(request.url.toString())
-            respondJson(FRED_SAMPLE_RESPONSE)
-        }
-```
-
-</details>
-
-- `suspend fun seriesObservations(` — Fetch observations for a single FRED series in the closed date interval `[observationStart, observationEnd]`.
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/fred/config/FredApiConfig.kt`
-
-```kotlin
-data class FredApiConfig(
-```
-Runtime configuration for `kpt.core.network.fred.api.FredApi`.
-
-<details><summary>Example</summary>
-
-```kotlin
-// BuildKonfig (preferred)
-single { FredApiConfig(apiKey = BuildKonfig.FRED_API_KEY) }
-
-// System env / Gradle property
-single { FredApiConfig(apiKey = System.getenv("FRED_API_KEY")) }
-
-// Hardcoded for local dev (NEVER commit)
-single { FredApiConfig(apiKey = "deadbeef...") }
-```
-
-</details>
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/di/ForkNetworkModule.kt:114</code></summary>
-
-```kotlin
-    // derived from the access-point declaration the way a base URL or a publishable key can. Fenced, so
-    // `remove-demo.sh` drops it together with the `fred` package and its access point.
-    single<kpt.core.network.fred.config.FredApiConfig> {
-        kpt.core.network.fred.config.FredApiConfig(
-            apiKey = BuildKonfig.FRED_API_KEY.takeIf { it.isNotBlank() },
-        )
-    }
-```
-
-</details>
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/fred/dto/FredObservationsDto.kt`
-
-```kotlin
-data class FredObservationsDto(
-```
-Wire-format response from FRED's `fred/series/observations` endpoint. FRED publishes daily observations; missing values are encoded as the string `"."` (an explicit no-data marker, not absence of the field).
-
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/fred/api/FredApi.kt:53</code></summary>
-
-```kotlin
-        @Query("observation_start") observationStart: String,
-        @Query("observation_end") observationEnd: String,
-    ): FredObservationsDto
-}
-```
-
-</details>
-
-```kotlin
-data class FredObservationDto(
-```
-Single observation row from FRED. `value` arrives as a string because FRED uses `"."` to mark missing data on otherwise-daily series.
-
-<details><summary>Used in the template — <code>core/network/src/commonTest/kotlin/kpt/core/network/fred/dto/FredObservationsDtoTest.kt:61</code></summary>
-
-```kotlin
-        val dto = FredObservationsDto(
-            observations = listOf(
-                FredObservationDto(date = "2026-05-20", value = "4.33"),
-                FredObservationDto(date = "2026-05-21", value = "."),
-                FredObservationDto(date = "2026-05-22", value = "4.35"),
-            ),
-        )
-```
-
-</details>
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/jsonplaceholder/api/JsonPlaceholderApi.kt`
-
-```kotlin
-interface JsonPlaceholderApi
-```
-jsonplaceholder `/todos` — a free WRITABLE demo REST API (POST/PUT accepted, echoed back).
-
-<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/cloudtodo/CloudTodoRepositoryTest.kt:90</code></summary>
-
-```kotlin
-}
-
-private class FakeJsonPlaceholderApi : JsonPlaceholderApi {
-    var updateCalled = false
-    override suspend fun getTodo(id: Int): CloudTodoDto =
-        CloudTodoDto(id = id, title = "todo-$id", completed = false)
-    override suspend fun updateTodo(id: Int, todo: CloudTodoDto): CloudTodoDto {
-```
-
-</details>
-
-- `suspend fun getTodo(@Path("id") id: Int): CloudTodoDto` — One todo by id.
-- `suspend fun updateTodo(@Path("id") id: Int, @Body todo: CloudTodoDto): CloudTodoDto` — Write-back (`PUT /todos/{id}`) — jsonplaceholder echoes the body as if persisted.
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/jsonplaceholder/dto/CloudTodoDto.kt`
-
-```kotlin
-data class CloudTodoDto(
-```
-Wire shape for jsonplaceholder `/todos`.
-
-<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/cloudtodo/CloudTodoRepositoryTest.kt:92</code></summary>
-
-```kotlin
-private class FakeJsonPlaceholderApi : JsonPlaceholderApi {
-    var updateCalled = false
-    override suspend fun getTodo(id: Int): CloudTodoDto =
-        CloudTodoDto(id = id, title = "todo-$id", completed = false)
-    override suspend fun updateTodo(id: Int, todo: CloudTodoDto): CloudTodoDto {
-        updateCalled = true
-        return todo // the server echoes the write back
-```
-
-</details>
-
 ### `core/network/src/commonMain/kotlin/kpt/core/network/lwmswhoxvvoagzkqxiyd/appserverconfig/api/ServerInstanceApi.kt`
 
 ```kotlin
@@ -546,16 +183,16 @@ interface ServerInstanceApi
 ```
 The `app_server_config` table's API — one row per server instance. The CONTRACT, no Supabase types: a consumer is tested with a plain fake; `impl.ServerInstanceApiImpl` is the only Supabase-aware part.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/lwmswhoxvvoagzkqxiyd/appserverconfig/api/impl/ServerInstanceApiImpl.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/serverconfig/ServerInstancesTest.kt:39</code></summary>
 
 ```kotlin
-class ServerInstanceApiImpl(
-    private val supabase: SupabaseConfigClient,
-) : ServerInstanceApi {
-
-    override val isConfigured: Boolean get() = supabase.isConfigured
-
-    override suspend fun fetchInstances(app: String): List<RemoteServerInstanceDto> {
+        override val isConfigured: Boolean = true,
+        private val failure: Throwable? = null,
+    ) : ServerInstanceApi {
+        val asked = mutableListOf<String>()
+        override suspend fun fetchInstances(app: String): List<RemoteServerInstanceDto> {
+            asked += app
+            failure?.let { throw it }
 ```
 
 </details>
@@ -591,13 +228,16 @@ data class RemoteServerInstanceDto(
 ```
 One row of `public.app_server_config` — the Mifos server list, ONE ROW PER INSTANCE. It replaces the deprecated `app_config` table (a single row holding an `instances` blob).
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/lwmswhoxvvoagzkqxiyd/appserverconfig/api/ServerInstanceApi.kt:26</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/serverconfig/ServerInstancesTest.kt:36</code></summary>
 
 ```kotlin
-     * SERVER, so one app never downloads another's servers. Empty when unconfigured.
-     */
-    suspend fun fetchInstances(app: String): List<RemoteServerInstanceDto>
-}
+
+    private class FakeServerInstanceApi(
+        private val rows: List<RemoteServerInstanceDto>,
+        override val isConfigured: Boolean = true,
+        private val failure: Throwable? = null,
+    ) : ServerInstanceApi {
+        val asked = mutableListOf<String>()
 ```
 
 </details>
@@ -607,79 +247,2305 @@ data class RemoteDemoAccountDto(val role: String, val username: String, val pass
 ```
 A PUBLISHED demo sign-in of a public demo instance — public by design, not a credential to protect.
 
-### `core/network/src/commonMain/kotlin/kpt/core/network/worldbank/api/WorldBankApi.kt`
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/serverconfig/ServerInstancesTest.kt:68</code></summary>
 
 ```kotlin
-interface WorldBankApi
-```
-World Bank Open Data API v2. Base URL: `BASE_URL`.
-
-<details><summary>Used in the template — <code>core/network/src/commonTest/kotlin/kpt/core/network/worldbank/api/WorldBankApiTest.kt:42</code></summary>
-
-```kotlin
-    fun indicatorBuildsCorrectRequestUrl() = runTest {
-        val capturedUrls = mutableListOf<String>()
-        val api = buildWorldBankApi { request ->
-            capturedUrls.add(request.url.toString())
-            respondJson(WORLD_BANK_GDP_RESPONSE)
-        }
+            platformTenantId = "t",
+            supportedApps = listOf("field-officer"),
+            demoAccounts = listOf(RemoteDemoAccountDto("Officer", "u", "p")),
+        ),
+        RemoteServerInstanceDto(
+            label = "Second",
+            protocol = "http://",
 ```
 
 </details>
 
-- `suspend fun indicator(` — Fetch annual observations of a single indicator for a single country.
-
-### `core/network/src/commonMain/kotlin/kpt/core/network/worldbank/dto/WorldBankResponseDto.kt`
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/auth/api/AuthApi.kt`
 
 ```kotlin
-data class WorldBankResponseDto(
+interface AuthApi
 ```
-Top-level response from World Bank's `v2/country/{c}/indicator/{i}` endpoint. **Wire-format quirk:** the API returns a 2-element JSON *array* — `[metadata, observations]` — not a regular object.
+Fineract authentication.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/worldbank/api/WorldBankApi.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/auth/impl/AuthCommandRepositoryImpl.kt:36</code></summary>
 
 ```kotlin
-        @Query("per_page") perPage: Int = 50,
-        @Query("date") dateRange: String,
-    ): WorldBankResponseDto
+@RepositoryBinding(binds = AuthCommandRepository::class)
+internal class AuthCommandRepositoryImpl(
+    private val authApi: AuthApi,
+    private val gateway: MutationGateway,
+    private val preferences: ForkPreferencesRepository,
+    private val storeCacheManager: StoreCacheManager,
+) : AuthCommandRepository {
+```
+
+</details>
+
+- `suspend fun authenticate(`
+- `suspend fun changePassword(` — The signed-in user's own password. A validation refusal (policy, mismatch) is a 400 whose `errors[]` carry the reasons; the success body (a command result) is not read.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/api/CenterApi.kt`
+
+```kotlin
+interface CenterApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/center/impl/CenterCommandRepositoryImpl.kt:54</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = CenterCommandRepository::class)
+internal class CenterCommandRepositoryImpl(
+    private val centerApi: CenterApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.CenterGetCenterWithGroupMembersAndCollectionMeetingCalendar)
+    private val centerStore: Store<Int, CenterWithAssociations>,
+    @FromStore(AppStoreIds.CenterItem) private val itemStore: MutableStore<Int, Center>,
+```
+
+</details>
+
+- `suspend fun retrieveAll23(` — List Centers The default implementation supports pagination and sorting with the default pagination size set to 200 records. The parameter limit with description -1 will return all entries.
+- `suspend fun activate2(` — Activate a Center | Generate Collection Sheet | Save Collection Sheet | Close a Center | Associate Groups | Disassociate Groups Activate a Center: Centers can be created in a Pending state. This API exists to enable center activation.
+- `suspend fun getCenters(`
+- `suspend fun getCenterAccounts(@Path("centerId") centerId: Int): CenterAccounts`
+- `suspend fun getCenterWithGroupMembersAndCollectionMeetingCalendar(`
+- `suspend fun getAllCentersInOffice(`
+- `suspend fun getAllGroupsForCenter(@Path("centerId") centerId: Int): CenterWithAssociations`
+- `suspend fun getCollectionSheet(`
+- `suspend fun saveCollectionSheet(`
+- `suspend fun saveCollectionSheetAsync(`
+- `suspend fun createCenter(@Body centerPayload: CenterPayload?): SaveResponse`
+- `suspend fun getCenterList(`
+- `suspend fun activateCenter(` — This is the service to activate the center REST ENT POINT https://demo.openmf.org/fineract-provider/api/v1/centers/{centerId}?command=activate
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/dto/GetCentersPageItems.kt`
+
+```kotlin
+data class GetCentersPageItems(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/dto/GetCentersResponse.kt:24</code></summary>
+
+```kotlin
+data class GetCentersResponse(
+
+    val pageItems: Set<GetCentersPageItems>? = null,
+
+    val totalFilteredRecords: Int? = null,
+
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/dto/GetCentersResponse.kt`
+
+```kotlin
+data class GetCentersResponse(
+```
+GetCentersResponse
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/api/CenterApi.kt:77</code></summary>
+
+```kotlin
+        @Query("dateFormat") dateFormat: String? = null,
+        @Query("locale") locale: String? = null,
+    ): GetCentersResponse
+
+    /**
+     * Activate a Center | Generate Collection Sheet | Save Collection Sheet | Close a Center | Associate Groups |
+     * Disassociate Groups
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/dto/GetCentersStatus.kt`
+
+```kotlin
+data class GetCentersStatus(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/dto/GetCentersPageItems.kt:41</code></summary>
+
+```kotlin
+    val officeName: String? = null,
+
+    val status: GetCentersStatus? = null,
+
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/CenterMapper.kt`
+
+```kotlin
+object CenterMapper : AbstractMapper<GetCentersPageItems, Center>()
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/GetCentersResponseMapper.kt:22</code></summary>
+
+```kotlin
+        return Page<Center>().apply {
+            totalFilteredRecords = entity.totalFilteredRecords!!
+            pageItems = CenterMapper.mapFromEntityList(entity.pageItems!!.toList())
+        }
+    }
+
+    override fun mapToEntity(domainModel: Page<Center>): GetCentersResponse {
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/GetCentersResponseMapper.kt`
+
+```kotlin
+object GetCentersResponseMapper : AbstractMapper<GetCentersResponse, Page<Center>>()
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/charge/api/ChargeApi.kt`
+
+```kotlin
+interface ChargeApi
+```
+Service interface that defines all API endpoints related to charges. This includes fetching charge templates, listing charges for different resource types (clients, loans, savings accounts, etc.), creating, updating, and deleting charges.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/charge/impl/ChargeCommandRepositoryImpl.kt:47</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = ChargeCommandRepository::class)
+internal class ChargeCommandRepositoryImpl(
+    private val chargeApi: ChargeApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.Charges) private val charges: Store<ChargeKey, List<Charges>>,
+    @FromStore(AppStoreIds.ChargeItem) private val chargeItem: MutableStore<ChargeItemKey, Charges>,
+) : ChargeCommandRepository {
+```
+
+</details>
+
+- `suspend fun listAllCharges(): HttpResponse` — Retrieves a list of all available charges in the system.
+- `suspend fun getChargeTemplate(` — Retrieves a charge template for a specific resource type and ID.
+- `suspend fun getListOfPagingCharges(` — Retrieves a paginated list of charges for a given resource type and ID.
+- `suspend fun getListOfClientCharges(` — Retrieves all client-specific charges.
+- `suspend fun getListOfOtherAccountCharge(` — Retrieves charges for other account types (e.g. loans, savings).
+- `suspend fun getCharge(` — Retrieves a single charge by its ID.
+- `suspend fun createCharges(` — Creates a new charge for the given resource type and ID.
+- `suspend fun deleteCharge(` — Deletes an existing charge.
+- `suspend fun updateCharge(` — Updates an existing charge.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/checkerinbox/api/CheckerInboxApi.kt`
+
+```kotlin
+interface CheckerInboxApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/checkerinbox/impl/CheckerInboxCommandRepositoryImpl.kt:40</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = CheckerInboxCommandRepository::class)
+internal class CheckerInboxCommandRepositoryImpl(
+    private val checkerInboxApi: CheckerInboxApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.CheckerTask) private val taskStore: MutableStore<Int, CheckerTask>,
+) : CheckerInboxCommandRepository {
+```
+
+</details>
+
+- `suspend fun getCheckerList(`
+- `suspend fun approveCheckerEntry(@Path("auditId") auditId: Int): GenericResponse`
+- `suspend fun rejectCheckerEntry(@Path("auditId") auditId: Int): GenericResponse`
+- `suspend fun deleteCheckerEntry(@Path("auditId") auditId: Int): GenericResponse`
+- `suspend fun getRescheduleLoansTaskList(): List<RescheduleLoansTask>`
+- `suspend fun getCheckerInboxSearchTemplate(): CheckerInboxSearchTemplate`
+- `suspend fun getCheckerTasksFromResourceId(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/checkerinbox/dto/GetMakerCheckerResponse.kt`
+
+```kotlin
+data class GetMakerCheckerResponse(
+```
+GetMakerCheckerResponse
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientAccountsApi.kt`
+
+```kotlin
+interface ClientAccountsApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/client/ClientKeyedReadStores.kt:148</code></summary>
+
+```kotlin
+@CacheKey(fn = "forKey", key = "clientGetAllAccountsOfClient:{key}", params = ["key:String"])
+fun provideGetAllAccountsOfClientStore(
+    clientAccountsApi: ClientAccountsApi,
+    cache: ApiResponseCacheDao,
+): Store<Int, ClientAccountsModel> = cachedRead(
+    dao = cache,
+    keyOf = { key -> AppCacheKeys.ClientGetAllAccountsOfClient.forKey(key.toString()) },
+```
+
+</details>
+
+- `suspend fun getAllAccountsOfClient(@Path("clientId") clientId: Int): ClientAccounts`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt`
+
+```kotlin
+interface ClientApi : ClientDetailsApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/impl/ClientCommandRepositoryImpl.kt:75</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = ClientCommandRepository::class)
+internal class ClientCommandRepositoryImpl(
+    private val clientApi: ClientApi,
+    private val clientIdentifierApi: ClientIdentifierApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.ClientGetClient) private val clientStore: Store<Int, Client>,
+    @FromStore(AppStoreIds.ClientLocal) private val clientLocalStore: MutableStore<Int, Client>,
+```
+
+</details>
+
+- `suspend fun activate1(` — Activate a Client | Close a Client | Reject a Client | Withdraw a Client | Reactivate a Client | UndoReject a Client | UndoWithdraw a Client | Assign a Staff | Unassign a Staff | Update Default Savings Account | Propose a Client Transfer | Withdraw a Client Transfer | Reject a Client Transfer | Accept a Client Transfer | Propose and Accept a Client Transfer Activate a Client: Clients can be created in a Pending state. This API exists to enable client activation (for when a client becomes an approved member of the financial Institution). If the client happens to be already active this API will result in an error. Close a Client: Clients can be closed if they do not have any non-closed loans/savingsAccount. This API exists to close a client . If the client have any active loans/savingsAccount this API will result in an error. Reject a Client: Clients can be rejected when client is in pending for activation status. If the client is any other status, this API throws an error. Mandatory Fields: rejectionDate, rejectionReasonId Withdraw a Client: Client applications can be withdrawn when client is in a pending for activation status. If the client is any other status, this API throws an error. Mandatory Fields: withdrawalDate, withdrawalReasonId Reactivate a Client: Clients can be reactivated after they have been closed. Trying to reactivate a client in any other state throws an error. Mandatory Fields: reactivationDate UndoReject a Client: Clients can be reactivated after they have been rejected. Trying to reactivate a client in any other state throws an error. Mandatory Fields: reopenedDateUndoWithdraw a Client: Clients can be reactivated after they have been withdrawn. Trying to reactivate a client in any other state throws an error. Mandatory Fields: reopenedDate Assign a Staff: Allows you to assign a Staff for existed Client. The selected Staff should belong to the same office (or an officer higher up in the hierarchy) as the Client he manages. Unassign a Staff: Allows you to unassign the Staff assigned to a Client. Update Default Savings Account: Allows you to modify or assign a default savings account for an existing Client. The selected savings account should be one among the existing savings account for a particular customer. Propose a Client Transfer: Allows you to propose the transfer of a Client to a different Office. Withdraw a Client Transfer: Allows you to withdraw the proposed transfer of a Client to a different Office. Withdrawal can happen only if the destination Branch (to which the transfer was proposed) has not already accepted the transfer proposal Reject a Client Transfer: Allows the Destination Branch to reject the proposed Client Transfer. Accept a Client Transfer: Allows the Destination Branch to accept the proposed Client Transfer. The destination branch may also choose to link this client to a group (in which case, any existing active JLG loan of the client is rescheduled to match the meeting frequency of the group) and loan Officer at the time of accepting the transfer Propose and Accept a Client Transfer: Abstraction over the Propose and Accept Client Transfer API&#39;s which enable a user with Data Scope over both the Target and Destination Branches to directly transfer a Client to the destination Office. Showing request/response for &#39;Reject a Client Transfer&#39; Responses: - 200: OK
+- `suspend fun retrieveAll21(` — List Clients The list capability of clients can support pagination and sorting.
+- `suspend fun retrieveAssociatedAccounts(@Path("clientId") clientId: Long): GetClientsClientIdAccountsResponse` — Retrieve client accounts overview An example of how a loan portfolio summary can be provided. This is requested in a specific use case of the community application.
+- `suspend fun getAllClients(`
+- `suspend fun getClient(@Path("clientId") clientId: Int): Client`
+- `suspend fun uploadClientImage(`
+- `suspend fun deleteClientImage(@Path("clientId") clientId: Int)`
+- `suspend fun getClientImage(@Path("clientId") clientId: Int): HttpResponse`
+- `suspend fun createClient(@Body clientPayload: ClientPayload?): Client?`
+- `suspend fun updateClient(`
+- `suspend fun getClientTemplate(): ClientsTemplate`
+- `suspend fun getClientAccounts(@Path("clientId") clientId: Int): ClientAccounts`
+- `suspend fun activateClient(` — This is the service to activate the client REST ENT POINT https://demo.openmf.org/fineract-provider/api/v1/clients/{clientId}?command=activate
+- `suspend fun getClientTemplate(@Path("clientId") clientId: Int): GetClientsPageItemsResponse`
+  _…more members; read the file._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientDetailsApi.kt`
+
+```kotlin
+interface ClientDetailsApi
+```
+Pinpoint locations, addresses and collateral of a client — split from `ClientApi`, which extends it.
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:40</code></summary>
+
+```kotlin
+
+@ApiBinding("mifos")
+interface ClientApi : ClientDetailsApi {
+
+    /**
+     * Activate a Client | Close a Client | Reject a Client | Withdraw a Client | Reactivate a Client | UndoReject a
+     * Client | UndoWithdraw a Client | Assign a Staff | Unassign a Staff | Update Default Savings Account | Propose a
+```
+
+</details>
+
+- `suspend fun getClientPinpointLocations(` — This is the service for fetching the client pinpoint locations from the dataTable "client_pinpoint_location". This DataTable entries are 1. Place Id 2. Place Address 3. latitude 4.
+- `suspend fun addClientPinpointLocation(` — This is the service for adding the new Client Pinpoint Location in dataTable "client_pinpoint_location".
+- `suspend fun deleteClientPinpointLocation(` — This is the service for deleting the pinpoint location from the DataTable "client_pinpoint_location".
+- `suspend fun updateClientPinpointLocation(` — This is the service for updating the pinpoint location from DataTable "client_pinpoint_location" REST ENT POINT: https://demo.openmf.org/fineract-provider/api/v1/datatables/client_pinpoint_location /{appTableId}/{datatableId}
+- `suspend fun getAddressConfiguration(): AddressConfiguration` — Retrieves address configuration from Global Configuration.
+- `suspend fun getAddressTemplate(): AddressTemplate` — Retrieves an address template. This template can be used to pre-fill address forms or guide users in providing address information.
+- `suspend fun getClientAddresses(@Path("clientId") clientId: Int): List<ClientAddressEntity>`
+- `suspend fun createClientAddress(`
+- `suspend fun getClientCloseTemplate(): ClientCloseTemplateResponse`
+- `suspend fun getCollateralItems(): List<CollateralItem>`
+- `suspend fun getClientCollateralItems(@Path("clientId") clientId: Int): List<CollateralItemResult>`
+- `suspend fun createCollateral(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientIdentifierApi.kt`
+
+```kotlin
+interface ClientIdentifierApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/client/impl/ClientCommandRepositoryImpl.kt:76</code></summary>
+
+```kotlin
+internal class ClientCommandRepositoryImpl(
+    private val clientApi: ClientApi,
+    private val clientIdentifierApi: ClientIdentifierApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.ClientGetClient) private val clientStore: Store<Int, Client>,
+    @FromStore(AppStoreIds.ClientLocal) private val clientLocalStore: MutableStore<Int, Client>,
+    @FromStore(AppStoreIds.ClientRow) private val clientRowStore: MutableStore<Int, Client>,
+```
+
+</details>
+
+- `suspend fun getClientListIdentifiers(@Path("clientId") clientId: Long): List<Identifier>` — Fetches the list of identifiers for a given client.
+- `suspend fun getClientIdentifiers(` — Retrieves a specific client identifier.
+- `suspend fun getClientIdentifierTemplate(@Path("clientId") clientId: Long): IdentifierTemplate` — Fetches the client identifier template for a given client.
+- `suspend fun deleteClientIdentifier(` — Deletes a client identifier for a given client.
+- `suspend fun createClientIdentifier(` — Creates a new identifier for a given client.
+- `suspend fun updateClientIdentifier(` — Updates an existing client identifier for a given client.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientClassificationOptions.kt`
+
+```kotlin
+data class GetClientClassificationOptions(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:72</code></summary>
+
+```kotlin
+    val clientType: GetClientTypeOptions? = null,
+
+    val clientClassification: GetClientClassificationOptions? = null,
+
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientStatus.kt`
+
+```kotlin
+data class GetClientStatus(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:54</code></summary>
+
+```kotlin
+    val groupName: String? = null,
+
+    val status: GetClientStatus? = null,
+
+    val externalId: String? = null,
+
+    val legalForm: GetClientStatus? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientTypeOptions.kt`
+
+```kotlin
+data class GetClientTypeOptions(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:70</code></summary>
+
+```kotlin
+    val gender: GetGenderOptions? = null,
+
+    val clientType: GetClientTypeOptions? = null,
+
+    val clientClassification: GetClientClassificationOptions? = null,
+
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsAllowedDocumentTypes.kt`
+
+```kotlin
+data class GetClientsAllowedDocumentTypes(
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsClientIdAccountsResponse.kt`
+
+```kotlin
+data class GetClientsClientIdAccountsResponse(
+```
+GetClientsClientIdAccountsResponse
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:141</code></summary>
+
+```kotlin
+     */
+    @GET("clients/{clientId}/accounts")
+    suspend fun retrieveAssociatedAccounts(@Path("clientId") clientId: Long): GetClientsClientIdAccountsResponse
+
+    /**
+     * @param b      True Enabling the Pagination of the API
+     * @param offset Value give from which position Fetch ClientList
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsDocumentType.kt`
+
+```kotlin
+data class GetClientsDocumentType(
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsLoanAccounts.kt`
+
+```kotlin
+data class GetClientsLoanAccounts(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsClientIdAccountsResponse.kt:25</code></summary>
+
+```kotlin
+data class GetClientsClientIdAccountsResponse(
+
+    val loanAccounts: Set<GetClientsLoanAccounts>? = null,
+
+    val savingsAccounts: Set<GetClientsSavingsAccounts>? = null,
+
+    val shareAccounts: Set<ShareAccountResponse>? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsLoanAccountsStatus.kt`
+
+```kotlin
+data class GetClientsLoanAccountsStatus(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsLoanAccounts.kt:44</code></summary>
+
+```kotlin
+    val productName: String? = null,
+
+    val status: GetClientsLoanAccountsStatus? = null,
+
+    val originalLoan: Double? = null,
+
+    val loanBalance: Double? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsLoanAccountsType.kt`
+
+```kotlin
+data class GetClientsLoanAccountsType(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsLoanAccounts.kt:38</code></summary>
+
+```kotlin
+    val loanCycle: Int? = null,
+
+    val loanType: GetClientsLoanAccountsType? = null,
+
+    val productId: Long? = null,
+
+    val productName: String? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt`
+
+```kotlin
+data class GetClientsPageItemsResponse(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:201</code></summary>
+
+```kotlin
+
+    @GET("clients/{clientId}?template=true&staffInSelectedOfficeOnly=true")
+    suspend fun getClientTemplate(@Path("clientId") clientId: Int): GetClientsPageItemsResponse
+
+    @POST("clients/{clientId}?command=assignStaff")
+    suspend fun assignStaff(
+        @Path("clientId") clientId: Int,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsResponse.kt`
+
+```kotlin
+data class GetClientsResponse(
+```
+GetClientsResponse
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/api/ClientApi.kt:126</code></summary>
+
+```kotlin
+        @Query("sortOrder") sortOrder: String? = null,
+        @Query("orphansOnly") orphansOnly: Boolean? = null,
+    ): GetClientsResponse
+
+    /**
+     * Retrieve client accounts overview
+     * An example of how a loan portfolio summary can be provided. This is requested in a specific use case of the
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt`
+
+```kotlin
+data class GetClientsSavingsAccounts(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsClientIdAccountsResponse.kt:27</code></summary>
+
+```kotlin
+    val loanAccounts: Set<GetClientsLoanAccounts>? = null,
+
+    val savingsAccounts: Set<GetClientsSavingsAccounts>? = null,
+
+    val shareAccounts: Set<ShareAccountResponse>? = null,
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccountsCurrency.kt`
+
+```kotlin
+data class GetClientsSavingsAccountsCurrency(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:34</code></summary>
+
+```kotlin
+    val accountBalance: Double? = null,
+
+    val currency: GetClientsSavingsAccountsCurrency? = null,
+
+    val depositType: GetClientsSavingsAccountsDepositType? = null,
+
+    val id: Long? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccountsDepositType.kt`
+
+```kotlin
+data class GetClientsSavingsAccountsDepositType(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:36</code></summary>
+
+```kotlin
+    val currency: GetClientsSavingsAccountsCurrency? = null,
+
+    val depositType: GetClientsSavingsAccountsDepositType? = null,
+
+    val id: Long? = null,
+
+    val productId: Long? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccountsStatus.kt`
+
+```kotlin
+data class GetClientsSavingsAccountsStatus(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsSavingsAccounts.kt:46</code></summary>
+
+```kotlin
+    val shortProductName: String? = null,
+
+    val status: GetClientsSavingsAccountsStatus? = null,
+
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetGenderOptions.kt`
+
+```kotlin
+data class GetGenderOptions(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsPageItemsResponse.kt:68</code></summary>
+
+```kotlin
+    val shareAccounts: List<ShareAccounts> = emptyList(),
+
+    val gender: GetGenderOptions? = null,
+
+    val clientType: GetClientTypeOptions? = null,
+
+    val clientClassification: GetClientClassificationOptions? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/mapper/ClientMapper.kt`
+
+```kotlin
+object ClientMapper : AbstractMapper<GetClientsPageItemsResponse, Client>()
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/mapper/GetClientResponseMapper.kt:22</code></summary>
+
+```kotlin
+        return Page<Client>().apply {
+            totalFilteredRecords = entity.totalFilteredRecords!!
+            pageItems = ClientMapper.mapFromEntityList(entity.pageItems!!.toList())
+        }
+    }
+
+    override fun mapToEntity(domainModel: Page<Client>): GetClientsResponse {
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/mapper/GetClientResponseMapper.kt`
+
+```kotlin
+object GetClientResponseMapper : AbstractMapper<GetClientsResponse, Page<Client>>()
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/mapper/GetClientsClientIdAccountMapper.kt`
+
+```kotlin
+object GetClientsClientIdAccountMapper :
+```
+Created by Aditya Gupta on 30/08/23.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/collectionsheet/api/CollectionSheetApi.kt`
+
+```kotlin
+interface CollectionSheetApi
+```
+Created by Tarun on 06-07-2017.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/collectionsheet/impl/CollectionSheetCommandRepositoryImpl.kt:48</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = CollectionSheetCommandRepository::class)
+internal class CollectionSheetCommandRepositoryImpl(
+    private val collectionSheetApi: CollectionSheetApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.CollectionsheetIndividual)
+    private val individualStore: Store<RequestCollectionSheetPayload, IndividualCollectionSheet>,
+    @FromStore(AppStoreIds.CollectionsheetProductive)
+```
+
+</details>
+
+- `suspend fun getIndividualCollectionSheet(`
+- `suspend fun saveIndividualCollectionSheet(`
+- `suspend fun fetchCenterDetails(` — Endpoint to fetch Productive CollectionSheet
+- `suspend fun fetchProductiveSheet(` — Request Endpoint to fetch Productive CollectionSheet
+- `suspend fun submitProductiveSheet(`
+- `suspend fun fetchCollectionSheet(`
+- `suspend fun submitCollectionSheet(`
+- `suspend fun fetchGroupsAssociatedWithCenter(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt`
+
+```kotlin
+interface DashboardApi
+```
+Reads behind the home dashboard that no other feature needed. Every figure is computed from these, never from a report.
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:54</code></summary>
+
+```kotlin
+@CacheKey(fn = "forKey", key = "dashboardUser:{key}", params = ["key:String"])
+fun provideDashboardUserStore(
+    dashboardApi: DashboardApi,
+    cache: ApiResponseCacheDao,
+): Store<Long, DashboardUser> = cachedRead(
+    dao = cache,
+    keyOf = { userId -> AppCacheKeys.DashboardUser.forKey("$userId") },
+```
+
+</details>
+
+- `suspend fun getUser(@Path("userId") userId: Long): AppUserDto` — A user may always read their own record — it carries the staff link that scopes the dashboard.
+- `suspend fun getBusinessDate(): BusinessDateDto` — The date every "today" on the dashboard means — never the device clock.
+- `suspend fun getLoans(` — Loans by status (100 pending approval, 200 approved, 300 active). No officer filter exists on this endpoint.
+- `suspend fun batch(` — Fineract's batch API: many reads in ONE round-trip, each answered independently (`enclosingTransaction=false`).
+- `suspend fun getSavingsAccounts(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/dto/DashboardDtos.kt`
+
+```kotlin
+data class AppUserDto(
+```
+`GET users/{userId}` — the signed-in user's own record; `staff` is the link that scopes their book.
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:34</code></summary>
+
+```kotlin
+    /** A user may always read their own record — it carries the staff link that scopes the dashboard. */
+    @GET("users/{userId}")
+    suspend fun getUser(@Path("userId") userId: Long): AppUserDto
+
+    /** The date every "today" on the dashboard means — never the device clock. */
+    @GET("businessdate/BUSINESS_DATE")
+    suspend fun getBusinessDate(): BusinessDateDto
+```
+
+</details>
+
+```kotlin
+data class RoleRefDto(val id: Long = 0, val name: String? = null)
+```
+_No KDoc at source._
+
+```kotlin
+data class StaffRefDto(val id: Long = 0, val displayName: String? = null)
+```
+_No KDoc at source._
+
+```kotlin
+data class BusinessDateDto(val type: String? = null, val date: List<Int> = emptyList())
+```
+`GET businessdate/BUSINESS_DATE` — `date` is Fineract's `[year, month, day]` array.
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:38</code></summary>
+
+```kotlin
+    /** The date every "today" on the dashboard means — never the device clock. */
+    @GET("businessdate/BUSINESS_DATE")
+    suspend fun getBusinessDate(): BusinessDateDto
+
+    /** Loans by status (100 pending approval, 200 approved, 300 active). No officer filter exists on this endpoint. */
+    @GET("loans")
+    suspend fun getLoans(
+```
+
+</details>
+
+```kotlin
+data class CurrencyRefDto(val code: String? = null, val displaySymbol: String? = null)
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/store/src/commonTest/kotlin/kpt/core/store/dashboard/DueTodayTest.kt:26</code></summary>
+
+```kotlin
+        id = 7,
+        clientId = 42,
+        currency = CurrencyRefDto(code = "MXN", displaySymbol = "$"),
+        repaymentSchedule = RepaymentScheduleDto(periods.toList()),
+    )
+
+    @Test
+```
+
+</details>
+
+```kotlin
+data class LoanSummaryRefDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanTimelineRefDto(val submittedByUsername: String? = null)
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanListItemDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:103</code></summary>
+
+```kotlin
+            do {
+                val page = dashboardApi.getLoans(status = status, offset = offset, limit = PAGE)
+                addAll(page.pageItems.map(LoanListItemDto::toDashboardLoan))
+                offset += PAGE
+            } while (offset < page.totalFilteredRecords && offset < MAX_ROWS && page.pageItems.isNotEmpty())
+        }
+    },
+```
+
+</details>
+
+```kotlin
+data class GroupRefDto(val id: Long = 0, val name: String? = null)
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanListPageDto(val totalFilteredRecords: Int = 0, val pageItems: List<LoanListItemDto> = emptyList())
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:48</code></summary>
+
+```kotlin
+        @Query("orderBy") orderBy: String = "id",
+        @Query("sortOrder") sortOrder: String = "DESC",
+    ): LoanListPageDto
+
+    /**
+     * Fineract's batch API: many reads in ONE round-trip, each answered independently
+     * (`enclosingTransaction=false`). Used for the loans' repayment schedules behind Today's collections
+```
+
+</details>
+
+```kotlin
+data class SavingsSummaryRefDto(val accountBalance: Double = 0.0)
+```
+_No KDoc at source._
+
+```kotlin
+data class SavingsListItemDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class SavingsListPageDto(val totalFilteredRecords: Int = 0, val pageItems: List<SavingsListItemDto> = emptyList())
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:66</code></summary>
+
+```kotlin
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
+    ): SavingsListPageDto
 }
 ```
 
 </details>
 
 ```kotlin
-data class WorldBankMetadataDto(
+data class LoanScheduleDto(
 ```
-First-array element — pagination + record-count metadata. The toolkit only needs `total` to know whether the World Bank returned any data, but the full shape is retained for forward-compat with screens that may want pagination later.
+`GET loans/{id}?associations=repaymentSchedule` — only what Today's collections reads.
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/dashboard/DashboardStores.kt:154</code></summary>
 
 ```kotlin
-data class WorldBankObservationDto(
+            error("Client request(POST batches) invalid: ${first.statusCode}. Text: \"${first.body.orEmpty()}\"")
+        }
+        ok.mapNotNull { batchJson.decodeFromString(LoanScheduleDto.serializer(), it.body!!).dueOn(key.date) }
+    },
+)
+
+/** The installment(s) of this loan falling due on [date] (`yyyy-MM-dd`), or null when none does. */
 ```
-One observation row from the World Bank's second-array element. `value` is nullable — many `(country, indicator, year)` triples have no reported data; the World Bank emits explicit JSON `null` rather than omitting the row.
+
+</details>
 
 ```kotlin
-data class WorldBankIdValueDto(
+data class RepaymentScheduleDto(val periods: List<SchedulePeriodDto> = emptyList())
 ```
-Generic `{ "id": "USA", "value": "United States" }` shape used by the World Bank for both `country` and `indicator` fields on every observation row.
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/store/src/commonTest/kotlin/kpt/core/store/dashboard/DueTodayTest.kt:27</code></summary>
 
 ```kotlin
-object WorldBankResponseSerializer : KSerializer<WorldBankResponseDto>
-```
-Custom serializer that destructures the World Bank's `[metadata, observations[]]` two-element JSON array into a normal Kotlin data class. Read-only — the toolkit never sends WorldBank-shaped payloads.
+        clientId = 42,
+        currency = CurrencyRefDto(code = "MXN", displaySymbol = "$"),
+        repaymentSchedule = RepaymentScheduleDto(periods.toList()),
+    )
 
-- `val jsonDecoder = decoder as? JsonDecoder`
-- `val root = jsonDecoder.decodeJsonElement()`
-- `val array = (root as? JsonArray) ?: return WorldBankResponseDto(`
-- `val metadataElement = array.getOrNull(0)`
-- `val observationsElement = array.getOrNull(1)`
-- `val metadata = metadataElement`
-- `val observations = observationsElement`
-- `val data = element.jsonObject["data"]`
-- `val jsonEncoder = encoder as? JsonEncoder`
-- `val metadataJson = value.metadata?.let`
-- `val observationsJson = jsonEncoder.json.encodeToJsonElement(`
+    @Test
+    fun theInstallmentDueOnTheDateIsWhatIsOwedAndPaidToday() {
+```
+
+</details>
+
+```kotlin
+data class SchedulePeriodDto(
+```
+One installment; `period` is null on the disbursement row. `dueDate` is Fineract's `[y, m, d]`.
+
+<details><summary>Used in the template — <code>core/store/src/commonTest/kotlin/kpt/core/store/dashboard/DueTodayTest.kt:23</code></summary>
+
+```kotlin
+class DueTodayTest {
+
+    private fun loan(vararg periods: SchedulePeriodDto) = LoanScheduleDto(
+        id = 7,
+        clientId = 42,
+        currency = CurrencyRefDto(code = "MXN", displaySymbol = "$"),
+        repaymentSchedule = RepaymentScheduleDto(periods.toList()),
+```
+
+</details>
+
+```kotlin
+data class BatchRequestDto(val requestId: Long, val relativeUrl: String, val method: String = "GET")
+```
+One request inside `POST batches`; `relativeUrl` is relative to the API root (`loans/7?…`).
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:58</code></summary>
+
+```kotlin
+    @POST("batches")
+    suspend fun batch(
+        @Body requests: List<BatchRequestDto>,
+        @Query("enclosingTransaction") enclosingTransaction: Boolean = false,
+    ): List<BatchResponseDto>
+
+    @GET("savingsaccounts")
+```
+
+</details>
+
+```kotlin
+data class BatchResponseDto(val requestId: Long = 0, val statusCode: Int = 0, val body: String? = null)
+```
+Its answer: `body` is the JSON the single request would have returned, as a string.
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/dashboard/api/DashboardApi.kt:60</code></summary>
+
+```kotlin
+        @Body requests: List<BatchRequestDto>,
+        @Query("enclosingTransaction") enclosingTransaction: Boolean = false,
+    ): List<BatchResponseDto>
+
+    @GET("savingsaccounts")
+    suspend fun getSavingsAccounts(
+        @Query("offset") offset: Int,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/datatable/api/DataTableApi.kt`
+
+```kotlin
+interface DataTableApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/datatable/impl/DataTableCommandRepositoryImpl.kt:46</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = DataTableCommandRepository::class)
+internal class DataTableCommandRepositoryImpl(
+    private val dataTableApi: DataTableApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.DatatableGetDataOfDataTable)
+    private val rowsStore: Store<DataTableDataKey, JsonArray>,
+    @FromStore(AppStoreIds.DatatableGetUserPathTracking)
+```
+
+</details>
+
+- `suspend fun getDatatables(@Query("apptable") apptable: String? = null): List<GetDataTablesResponse>` — List Data Tables Lists registered data tables and the Apache Fineract Core application table they are registered to. ARGUMENTS apptable - optional The Apache Fineract core application table.
+- `suspend fun deleteDatatableEntry(` — Delete Entry in Datatable (One to Many) Deletes the entry (if it exists) for data tables that are one to many with the application table.
+- `suspend fun getTableOf(@Query("apptable") table: String?): List<DataTable>`
+- `suspend fun getDataOfDataTable(`
+- `suspend fun createEntryInDataTable(`
+- `suspend fun deleteEntryOfDataTableManyToMany(`
+- `suspend fun addUserPathTracking(`
+- `suspend fun getUserPathTracking(@Path("userId") userId: Int): List<UserLocation>`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/datatable/dto/GetDataTablesResponse.kt`
+
+```kotlin
+data class GetDataTablesResponse(
+```
+GetDataTablesResponse
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/datatable/DataTableRepositoryTest.kt:74</code></summary>
+
+```kotlin
+
+    private val api = object : DataTableApi {
+        override suspend fun getDatatables(apptable: String?): List<GetDataTablesResponse> = error("not used")
+        override suspend fun getTableOf(table: String?): List<DataTable> = error("not used")
+        override suspend fun getDataOfDataTable(dataTableName: String, entityId: Int): JsonArray =
+            error("reads go through the store")
+        override suspend fun getUserPathTracking(userId: Int): List<UserLocation> = error("reads go through the store")
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/datatable/mapper/GetDataTablesResponseMapper.kt`
+
+```kotlin
+object GetDataTablesResponseMapper : AbstractMapper<GetDataTablesResponse, DataTable>()
+```
+Created by Aditya Gupta on 31/08/23.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/document/DocumentUploadMultipart.kt`
+
+```kotlin
+fun DocumentUpload.toMultipart(): MultiPartFormDataContent = MultiPartFormDataContent(
+```
+The wire encoding of a `DocumentUpload` for Fineract's `POST|PUT {entity}/{id}/documents`.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/document/api/DocumentApi.kt`
+
+```kotlin
+interface DocumentApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/document/impl/DocumentCommandRepositoryImpl.kt:46</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = DocumentCommandRepository::class)
+internal class DocumentCommandRepositoryImpl(
+    private val documentApi: DocumentApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.DocumentItem) private val itemStore: MutableStore<DocumentItemKey, Document>,
+    @FromStore(AppStoreIds.DocumentContentLocal) private val contentStore: MutableStore<DocumentContentKey, ByteArray>,
+) : DocumentCommandRepository {
+```
+
+</details>
+
+- `suspend fun getDocuments(`
+- `suspend fun createDocument(`
+- `suspend fun downloadDocument(` — This Service is for downloading the Document with EntityType and EntityId and Document Id Rest End Point : https://demo.openmf.org/fineract-provider/api/v1/{entityType}/{entityId}/documents/ {documentId}/attachment
+- `suspend fun removeDocument(` — This Service is for Deleting the Document with EntityType and EntityId and Document Id.
+- `suspend fun updateDocument(` — This Service for Updating the Document with EntityType and EntityId and Document Id.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/api/GroupApi.kt`
+
+```kotlin
+interface GroupApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/group/impl/GroupCommandRepositoryImpl.kt:46</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = GroupCommandRepository::class)
+internal class GroupCommandRepositoryImpl(
+    private val groupApi: GroupApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.GroupGetGroup) private val groupStore: Store<Int, Group>,
+    @FromStore(AppStoreIds.GroupItem) private val itemStore: MutableStore<Int, Group>,
+) : GroupCommandRepository {
+```
+
+</details>
+
+- `suspend fun retrieveAll24(` — List Groups The default implementation of listing Groups returns 200 entries with support for pagination and sorting. Using the parameter limit with description -1 returns all entries.
+- `suspend fun getGroups(`
+- `suspend fun getGroupWithAssociations(@Path("groupId") groupId: Int): GroupWithAssociations`
+- `suspend fun getAllGroupsInOffice(`
+- `suspend fun createGroup(@Body groupPayload: GroupPayload?): SaveResponse`
+- `suspend fun getGroup(@Path("groupId") groupId: Int): Group`
+- `suspend fun getGroupAccounts(@Path("groupId") groupId: Int): GroupAccounts`
+- `suspend fun activateGroup(` — This is the service to activate the Group REST ENT POINT https://demo.openmf.org/fineract-provider/api/v1/groups/{groupId}?command=activate
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/dto/GetGroupsPageItems.kt`
+
+```kotlin
+data class GetGroupsPageItems(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/dto/GetGroupsResponse.kt:24</code></summary>
+
+```kotlin
+data class GetGroupsResponse(
+
+    val pageItems: Set<GetGroupsPageItems>? = null,
+
+    val totalFilteredRecords: Int? = null,
+
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/dto/GetGroupsResponse.kt`
+
+```kotlin
+data class GetGroupsResponse(
+```
+GetGroupsResponse
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/api/GroupApi.kt:67</code></summary>
+
+```kotlin
+        @Query("sortOrder") sortOrder: String? = null,
+        @Query("orphansOnly") orphansOnly: Boolean? = null,
+    ): GetGroupsResponse
+
+    @GET("groups")
+    suspend fun getGroups(
+        @Query("paged") b: Boolean,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/dto/GetGroupsStatus.kt`
+
+```kotlin
+data class GetGroupsStatus(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/dto/GetGroupsPageItems.kt:41</code></summary>
+
+```kotlin
+    val officeName: String? = null,
+
+    val status: GetGroupsStatus? = null,
+
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/mapper/GetGroupsResponseMapper.kt`
+
+```kotlin
+object GetGroupsResponseMapper : AbstractMapper<GetGroupsResponse, Page<Group>>()
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/mapper/GroupMapper.kt`
+
+```kotlin
+object GroupMapper : AbstractMapper<GetGroupsPageItems, Group>()
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/group/mapper/GetGroupsResponseMapper.kt:22</code></summary>
+
+```kotlin
+        return Page<Group>().apply {
+            totalFilteredRecords = entity.totalFilteredRecords!!
+            pageItems = GroupMapper.mapFromEntityList(entity.pageItems!!.toList())
+        }
+    }
+
+    override fun mapToEntity(domainModel: Page<Group>): GetGroupsResponse {
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/api/LoanApi.kt`
+
+```kotlin
+interface LoanApi : LoanServicingApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/impl/LoanCommandRepositoryImpl.kt:61</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = LoanCommandRepository::class)
+internal class LoanCommandRepositoryImpl(
+    private val api: LoanApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.Loans) private val loanStore: Store<Int, LoanWithAssociations>,
+    @FromStore(AppStoreIds.LoanGetLoanReschedules)
+    private val reschedulesStore: Store<Int, List<LoanRescheduleResponse>>,
+```
+
+</details>
+
+- `suspend fun getLoanByIdWithAllAssociations(@Path("loanId") loanId: Int): LoanWithAssociationsDto`
+- `suspend fun getLoanRepaymentTemplate(@Path("loanId") loanId: Int): LoanRepaymentTemplate`
+- `suspend fun approveLoanApplication(`
+- `suspend fun submitPayment(`
+- `suspend fun rejectLoan(`
+- `suspend fun getLoanRepaymentSchedule(@Path("loanId") loanId: Int): LoanWithAssociationsDto`
+- `suspend fun getLoanWithTransactions(@Path("loanId") loanId: Int): LoanWithAssociationsDto`
+- `suspend fun getAllLoans(): List<LoanProducts>`
+- `suspend fun createLoansAccount(@Body loansPayload: LoansPayload?): SaveResponse` — Typed as `SaveResponse`, not `HttpResponse`: Fineract answers `{"loanId": N, "resourceId": N, ...}`, and the new id is what the command repository ingests the created loan by.
+- `suspend fun calculateLoanSchedule(@Body loansPayload: LoansPayload?): RepaymentSchedule` — Calculate loan repayment schedule without creating the loan. Used to preview the schedule before submitting the loan application.
+- `suspend fun getLoansAccountTemplate(`
+- `suspend fun getLoanTransactionTemplate(` — For fetching any type of loan template. Example: 1. repayment 2. disburse 3. waiver 4. refundbycash 5.
+- `suspend fun createGroupLoansAccount(@Body loansPayload: GroupLoanPayload?): SaveResponse` — `SaveResponse`, not `Loan`: the body is Fineract's command result, whose new id is `resourceId`. Decoded as a `Loan` it had no `id` key, so the created loan's id was always null.
+- `suspend fun getGroupLoansAccountTemplate(`
+  _…more members; read the file._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/api/LoanServicingApi.kt`
+
+```kotlin
+interface LoanServicingApi
+```
+Guarantors, reschedules, officer assignment, disbursement and charge-off — split from `LoanApi`, which extends it.
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/api/LoanApi.kt:44</code></summary>
+
+```kotlin
+ */
+@ApiBinding("mifos")
+interface LoanApi : LoanServicingApi {
+
+    @GET("loans/{loanId}?associations=all&exclude=guarantors,futureSchedule")
+    suspend fun getLoanByIdWithAllAssociations(@Path("loanId") loanId: Int): LoanWithAssociationsDto
+```
+
+</details>
+
+- `suspend fun getChargeOffTemplate(`
+- `suspend fun chargeOff(`
+- `suspend fun getGuarantorTemplate(@Path("loanId") loanId: Int): GuarantorTemplateDto`
+- `suspend fun createGuarantor(`
+- `suspend fun getGuarantorAccountTemplate(`
+- `suspend fun getLoanReschedules(`
+- `suspend fun getLoanRescheduleTemplate(): LoanRescheduleTemplate`
+- `suspend fun submitLoanReschedule(`
+- `suspend fun approveLoanReschedule(`
+- `suspend fun rejectLoanReschedule(`
+- `suspend fun getLoanOfficerTemplate(`
+- `suspend fun assignLoanOfficer(`
+- `suspend fun getDisburseTemplate(`
+- `suspend fun disburse(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/GuarantorTemplateDto.kt`
+
+```kotlin
+data class GuarantorTemplateDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:180</code></summary>
+
+```kotlin
+        override suspend fun getLoanRepaymentSchedule(loanId: Int): LoanWithAssociationsDto = unused()
+        override suspend fun getLoanWithTransactions(loanId: Int): LoanWithAssociationsDto = unused()
+        override suspend fun getGuarantorTemplate(loanId: Int): GuarantorTemplateDto = unused()
+        override suspend fun createGuarantor(
+            loanId: Int,
+            request: GuarantorRequestDto,
+        ): CreateGuarantorResponseDto = unused()
+```
+
+</details>
+
+```kotlin
+data class GuarantorRelationshipOptionDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class GuarantorAccountTemplateDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:188</code></summary>
+
+```kotlin
+            loanId: Int,
+            clientId: Int,
+        ): GuarantorAccountTemplateDto = unused()
+        override suspend fun getAllLoans(): List<LoanProducts> = unused()
+        override suspend fun calculateLoanSchedule(loansPayload: LoansPayload?): RepaymentSchedule = unused()
+        override suspend fun getLoansAccountTemplate(clientId: Int, productId: Int): LoanTemplate = unused()
+        override suspend fun getLoanTransactionTemplate(
+```
+
+</details>
+
+```kotlin
+data class GuarantorTypeDto(
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanChargeOffTemplateDto.kt`
+
+```kotlin
+data class LoanChargeOffTemplateDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:172</code></summary>
+
+```kotlin
+        override suspend fun getLoanByIdWithAllAssociations(loanId: Int): LoanWithAssociationsDto = unused()
+        override suspend fun getLoanRepaymentTemplate(loanId: Int): LoanRepaymentTemplate = unused()
+        override suspend fun getChargeOffTemplate(loanId: Int): LoanChargeOffTemplateDto = unused()
+        override suspend fun chargeOff(
+            loanId: Int,
+            loanChargeOffRequest: LoanChargeOffRequestDto,
+        ): LoanChargeOffResponseDto = unused()
+```
+
+</details>
+
+```kotlin
+data class ChargeOffReasonOptionDto(
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseRequestDto.kt`
+
+```kotlin
+data class LoanDisburseRequestDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/impl/LoanCommandRepositoryImpl.kt:226</code></summary>
+
+```kotlin
+
+/** The one place the disbursement's domain input becomes a wire payload. */
+private fun LoanDisburseInput.toDto() = LoanDisburseRequestDto(
+    actualDisbursementDate = actualDisbursementDate,
+    transactionAmount = transactionAmount,
+    paymentTypeId = paymentTypeId,
+    note = note,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseResponseDto.kt`
+
+```kotlin
+data class LoanDisburseResponseDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:124</code></summary>
+
+```kotlin
+            loanId: Int,
+            loanDisburseRequest: LoanDisburseRequestDto,
+        ): LoanDisburseResponseDto {
+            sent += "disburse"
+            serverLoans[loanId] = serverLoans.getValue(loanId).copy(loanOfficerName = "disbursed")
+            return LoanDisburseResponseDto(1, 1, loanId.toLong(), 50, 0)
+        }
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanDisburseTemplateDto.kt`
+
+```kotlin
+data class LoanDisburseTemplateDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:227</code></summary>
+
+```kotlin
+            request: AssignLoanOfficerRequestDto,
+        ): AssignLoanOfficerResponseDto = unused()
+        override suspend fun getDisburseTemplate(loanId: Int): LoanDisburseTemplateDto = unused()
+
+        private fun unused(): Nothing = error("not exercised; reads go through the stores")
+    }
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanOfficerOptionsTemplateDto.kt`
+
+```kotlin
+data class LoanOfficerOptionsTemplateDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:221</code></summary>
+
+```kotlin
+            staffInSelectedOfficeOnly: Boolean,
+            template: Boolean,
+        ): LoanOfficerOptionsTemplateDto = unused()
+        override suspend fun assignLoanOfficer(
+            loanId: Int,
+            command: String,
+            request: AssignLoanOfficerRequestDto,
+```
+
+</details>
+
+```kotlin
+data class LoanOfficerOptionDto(
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoanWithAssociationsDto.kt`
+
+```kotlin
+data class LoanWithAssociationsDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/loan/LoanCommandRepositoryTest.kt:170</code></summary>
+
+```kotlin
+        }
+
+        override suspend fun getLoanByIdWithAllAssociations(loanId: Int): LoanWithAssociationsDto = unused()
+        override suspend fun getLoanRepaymentTemplate(loanId: Int): LoanRepaymentTemplate = unused()
+        override suspend fun getChargeOffTemplate(loanId: Int): LoanChargeOffTemplateDto = unused()
+        override suspend fun chargeOff(
+            loanId: Int,
+```
+
+</details>
+
+```kotlin
+data class LoanStatusDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:78</code></summary>
+
+```kotlin
+)
+
+fun LoanStatusDto.toDomain() = LoanStatus(
+    id = this.id,
+    code = this.code,
+    value = this.value,
+    pendingApproval = this.pendingApproval,
+```
+
+</details>
+
+```kotlin
+data class LoanTypeDto(val id: Int, val code: String? = null, val value: String? = null)
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:92</code></summary>
+
+```kotlin
+)
+
+fun LoanTypeDto.toDomain() = LoanType(
+    id = this.id,
+    code = this.code,
+    value = this.value,
+)
+```
+
+</details>
+
+```kotlin
+data class LoanCurrencyDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:98</code></summary>
+
+```kotlin
+)
+
+fun LoanCurrencyDto.toDomain() = SavingAccountCurrency(
+    code = this.code,
+    name = this.name,
+    decimalPlaces = this.decimalPlaces,
+    displaySymbol = this.displaySymbol,
+```
+
+</details>
+
+```kotlin
+data class LoanTimelineDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:106</code></summary>
+
+```kotlin
+)
+
+fun LoanTimelineDto.toDomain() = LoanTimeline(
+    submittedOnDate = this.submittedOnDate,
+    approvedOnDate = this.approvedOnDate,
+    expectedDisbursementDate = this.expectedDisbursementDate,
+    actualDisbursementDate = this.actualDisbursementDate,
+```
+
+</details>
+
+```kotlin
+data class LoanSummaryDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:116</code></summary>
+
+```kotlin
+)
+
+fun LoanSummaryDto.toDomain() = LoanAccountSummary(
+    loanId = this.loanId,
+    currency = this.currency?.toDomain(),
+    principalDisbursed = this.principalDisbursed,
+    principalPaid = this.principalPaid,
+```
+
+</details>
+
+```kotlin
+data class LoanRepaymentScheduleDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:155</code></summary>
+
+```kotlin
+)
+
+fun LoanRepaymentScheduleDto.toDomain() = RepaymentSchedule(
+    loanTermInDays = this.loanTermInDays,
+    totalPrincipalDisbursed = this.totalPrincipalDisbursed,
+    totalOutstanding = this.totalOutstanding,
+    periods = this.periods?.map {
+```
+
+</details>
+
+```kotlin
+data class LoanPeriodDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanTransactionDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt:174</code></summary>
+
+```kotlin
+)
+
+fun LoanTransactionDto.toDomain() = Transaction(
+    id = this.id.toInt(),
+    officeId = this.officeId?.toInt(),
+    officeName = this.officeName,
+    date = this.date?.let { ArrayList(it) } ?: ArrayList(),
+```
+
+</details>
+
+```kotlin
+data class LoanTransactionTypeDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class PaymentDetailDataDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class PaymentTypeDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanChargeDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanNoteDto(val id: Long, val note: String? = null, val createdOn: String? = null)
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanDelinquentDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class NoteDto(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/note/NoteDraftReplayTest.kt:42</code></summary>
+
+```kotlin
+        var created: Int = 0
+        var updated: Int = 0
+        val notes = existing.mapIndexed { i, t -> NoteDto(id = i.toLong(), note = t) }.toMutableList()
+
+        override suspend fun retrieveListNotes(resourceType: String, resourceId: Long) = notes.toList()
+
+        override suspend fun addNewNote(
+```
+
+</details>
+
+```kotlin
+data class DelinquentDto(
+```
+_No KDoc at source._
+
+```kotlin
+data class LoanGroupDto(val id: Long? = null, val name: String? = null)
+```
+The owner of a group loan, as `loans/{id}` returns it.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/dto/LoansPayload.kt`
+
+```kotlin
+data class LoansPayload(
+```
+Created by nellyk on 2/20/2016.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/loan/impl/LoanCommandRepositoryImpl.kt:248</code></summary>
+
+```kotlin
+ * them, and the original's `addLoanAccountScreen` left its datatable callback commented out.
+ */
+private fun LoanApplicationInput.toPayload() = LoansPayload(
+    clientId = clientId,
+    productId = productId,
+    loanType = loanType,
+    submittedOnDate = submittedOnDate,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanDisburseTemplateMapper.kt`
+
+```kotlin
+fun LoanDisburseTemplateDto.toDomain(): LoanDisburseTemplate = LoanDisburseTemplate(
+```
+Wire → domain for the disbursement template.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/loan/mapper/LoanWithAssociationsMapper.kt`
+
+```kotlin
+fun LoanWithAssociationsDto.toDomain(): LoanWithAssociations = LoanWithAssociations(
+```
+_No KDoc at source._
+
+```kotlin
+fun LoanStatusDto.toDomain() = LoanStatus(
+```
+_No KDoc at source._
+
+```kotlin
+fun LoanTypeDto.toDomain() = LoanType(
+```
+_No KDoc at source._
+
+```kotlin
+fun LoanCurrencyDto.toDomain() = SavingAccountCurrency(
+```
+_No KDoc at source._
+
+```kotlin
+fun LoanTimelineDto.toDomain() = LoanTimeline(
+```
+_No KDoc at source._
+
+```kotlin
+fun LoanSummaryDto.toDomain() = LoanAccountSummary(
+```
+_No KDoc at source._
+
+```kotlin
+fun LoanRepaymentScheduleDto.toDomain() = RepaymentSchedule(
+```
+_No KDoc at source._
+
+```kotlin
+fun LoanTransactionDto.toDomain() = Transaction(
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/mapper/AbstractMapper.kt`
+
+```kotlin
+abstract class AbstractMapper<Entity, DomainModel> : EntityMapper<Entity, DomainModel>
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/center/mapper/CenterMapper.kt:18</code></summary>
+
+```kotlin
+import kpt.core.network.mifos.mapper.AbstractMapper
+
+object CenterMapper : AbstractMapper<GetCentersPageItems, Center>() {
+
+    override fun mapFromEntity(entity: GetCentersPageItems): Center {
+        return Center(
+            id = entity.id?.toInt(),
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/mapper/EntityMapper.kt`
+
+```kotlin
+interface EntityMapper<Entity, DomainModel>
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/mapper/AbstractMapper.kt:12</code></summary>
+
+```kotlin
+package kpt.core.network.mifos.mapper
+
+abstract class AbstractMapper<Entity, DomainModel> : EntityMapper<Entity, DomainModel> {
+
+    override fun mapFromEntityList(entities: List<Entity>): List<DomainModel> {
+        return entities.map { mapFromEntity(it) }
+    }
+```
+
+</details>
+
+- `fun mapFromEntity(entity: Entity): DomainModel`
+- `fun mapToEntity(domainModel: DomainModel): Entity`
+- `fun mapFromEntityList(entities: List<Entity>): List<DomainModel>`
+- `fun mapToEntityList(domainModels: List<DomainModel>): List<Entity>`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/note/api/NoteApi.kt`
+
+```kotlin
+interface NoteApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/note/impl/NoteCommandRepositoryImpl.kt:55</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = NoteCommandRepository::class)
+internal class NoteCommandRepositoryImpl(
+    private val noteApi: NoteApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.Notes) private val notesStore: Store<NoteKey, List<Note>>,
+    @FromStore(AppStoreIds.NoteItem) private val itemStore: MutableStore<NoteItemKey, Note>,
+) : NoteCommandRepository {
+```
+
+</details>
+
+- `suspend fun addNewNote(` — Add a Resource Note Adds a new note to a supported resource.
+- `suspend fun deleteNote(` — Delete a Resource Note Deletes a Resource Note Responses: - 200: OK
+- `suspend fun retrieveNote(` — Retrieve a single Note Responses: - 200: OK
+- `suspend fun retrieveListNotes(` — Retrieve List of notes Note: Notes are returned in descending createOn order.
+- `suspend fun updateNote(` — Update a Note Responses: - 200: OK
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/note/dto/NoteDto.kt`
+
+```kotlin
+data class NoteDto(
+```
+Data Transfer Object (DTO) representing a Note returned by the API. This model is used in the network layer to deserialize note-related responses. It may represent a single note or be part of a list of notes.
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/note/NoteDraftReplayTest.kt:42</code></summary>
+
+```kotlin
+        var created: Int = 0
+        var updated: Int = 0
+        val notes = existing.mapIndexed { i, t -> NoteDto(id = i.toLong(), note = t) }.toMutableList()
+
+        override suspend fun retrieveListNotes(resourceType: String, resourceId: Long) = notes.toList()
+
+        override suspend fun addNewNote(
+```
+
+</details>
+
+```kotlin
+data class NoteTypeDto(
+```
+DTO representing the type/category of a Note. Typically nested inside `NoteDto` and provides metadata about the note type.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/note/mapper/NoteMapper.kt`
+
+```kotlin
+fun NoteDto.toModel(): Note = Note(
+```
+Wire → model. `NoteDto.note` is the body text; `Note` names the same column `noteContent`, which is the one field whose name differs across the boundary. `noteType` is dropped: it is Fineract classification metadata the app never reads.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/notification/api/NotificationApi.kt`
+
+```kotlin
+interface NotificationApi
+```
+Fineract's in-app notifications — what the top bar's bell opens. No original: the app being ported had none.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/notification/impl/NotificationRepositoryImpl.kt:32</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = NotificationRepository::class)
+internal class NotificationRepositoryImpl(
+    private val notificationApi: NotificationApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.Notifications) private val store: Store<Unit, List<AppNotification>>,
+) : NotificationRepository {
+```
+
+</details>
+
+- `suspend fun getNotifications(` — Unread only by default; pass `isRead` `true` for the read history. Newest first.
+- `suspend fun markAllRead()` — Marks every notification of the signed-in user read. Fineract answers with an empty body.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/notification/dto/NotificationDtos.kt`
+
+```kotlin
+data class NotificationPageDto(val totalFilteredRecords: Int = 0, val pageItems: List<NotificationDto> = emptyList())
+```
+`GET notifications` — one page; Fineract returns only unread rows unless `isRead=true`.
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/notification/api/NotificationApi.kt:30</code></summary>
+
+```kotlin
+        @Query("orderBy") orderBy: String = "id",
+        @Query("sortOrder") sortOrder: String = "DESC",
+    ): NotificationPageDto
+
+    /** Marks every notification of the signed-in user read. Fineract answers with an empty body. */
+    @PUT("notifications")
+    suspend fun markAllRead()
+```
+
+</details>
+
+```kotlin
+data class NotificationDto(
+```
+A Fineract notification: `objectType` / `objectId` name the record it is about (`loan` 1439).
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/notification/NotificationStores.kt:41</code></summary>
+
+```kotlin
+        val unread = notificationApi.getNotifications(isRead = false, limit = UNREAD_CAP).pageItems
+        val read = notificationApi.getNotifications(isRead = true, limit = READ_HISTORY).pageItems
+        (unread + read).distinctBy { it.id }.map(NotificationDto::toModel)
+    },
+)
+
+internal fun NotificationDto.toModel() = AppNotification(
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/office/api/OfficeApi.kt`
+
+```kotlin
+interface OfficeApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/office/OfficeKeyedReadStores.kt:29</code></summary>
+
+```kotlin
+@CacheKey(fn = "forKey", key = "officeRetrieveOffices:{key}", params = ["key:String"])
+fun provideRetrieveOfficesStore(
+    officeApi: OfficeApi,
+    cache: ApiResponseCacheDao,
+): Store<RetrieveOfficesKey, List<GetOfficesResponse>> = cachedRead(
+    dao = cache,
+    keyOf = { key ->
+```
+
+</details>
+
+- `suspend fun retrieveOffices(` — List Offices Example Requests: offices offices?fields&#x3D;id,name,openingDate Responses: - 200: OK
+- `suspend fun allOffices(): List<Office>` — Fetches List of All the Offices
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/office/dto/GetOfficesResponse.kt`
+
+```kotlin
+data class GetOfficesResponse(
+```
+GetOfficesResponse
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/office/api/OfficeApi.kt:37</code></summary>
+
+```kotlin
+        @Query("orderBy") orderBy: String? = null,
+        @Query("sortOrder") sortOrder: String? = null,
+    ): List<GetOfficesResponse>
+
+    /**
+     * Fetches List of All the Offices
+     *
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/office/mapper/GetOfficeResponseMapper.kt`
+
+```kotlin
+object GetOfficeResponseMapper : AbstractMapper<GetOfficesResponse, Office>()
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/recurringdeposit/api/RecurringAccountApi.kt`
+
+```kotlin
+interface RecurringAccountApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recurringdeposit/impl/RecurringDepositCommandRepositoryImpl.kt:42</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = RecurringDepositCommandRepository::class)
+internal class RecurringDepositCommandRepositoryImpl(
+    private val recurringAccountApi: RecurringAccountApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.ClientGetClientAccounts)
+    private val clientAccountsStore: Store<Int, ClientAccounts>,
+) : RecurringDepositCommandRepository {
+```
+
+</details>
+
+- `suspend fun createRecurringDepositAccount(`
+- `suspend fun getRecurringDepositAccountTemplate(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/report/api/RunReportsApi.kt`
+
+```kotlin
+interface RunReportsApi
+```
+Created by Rajan Maurya on 05/02/17.
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/report/ReportKeyedReadStores.kt:69</code></summary>
+
+```kotlin
+@CacheKey(fn = "forKey", key = "reportGetReportFullParameterList:{key}", params = ["key:String"])
+fun provideGetReportFullParameterListStore(
+    runReportsApi: RunReportsApi,
+    cache: ApiResponseCacheDao,
+): Store<GetReportFullParameterListKey, FullParameterListResponse> = cachedRead(
+    dao = cache,
+    keyOf = { key -> AppCacheKeys.ReportGetReportFullParameterList.forKey("${key.reportName}:${key.parameterType}") },
+```
+
+</details>
+
+- `suspend fun getReportCategories(` — Endpoint to fetch Categories of the reports
+- `suspend fun getReportFullParameterList(` — Endpoint to fetch FullParameter list after fetching the categories.
+- `suspend fun getReportParameterDetails(` — Endpoint to fetch the details for a particular parameter.
+- `suspend fun getReportOffice(`
+- `suspend fun getReportProduct(`
+- `suspend fun getRunReportWithQuery(` — Endpoint to retrieve final Report based on the parameters.
+- `suspend fun getCenterSummaryInfo(`
+- `suspend fun getSavingsAccountTransactionReceipt(` — Fetches the savings account transaction receipt from the server. This endpoint generates a receipt for the given transaction and returns it in the requested output format (default: PDF).
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/api/FixedDepositApi.kt`
+
+```kotlin
+interface FixedDepositApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/impl/SavingsCommandRepositoryImpl.kt:61</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = SavingsCommandRepository::class)
+internal class SavingsCommandRepositoryImpl(
+    private val fixedDepositApi: FixedDepositApi,
+    private val savingsAccountApi: SavingsAccountApi,
+    private val shareAccountApi: ShareAccountApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.SavingsAccounts)
+```
+
+</details>
+
+- `suspend fun fixedDepositProductTemplate(`
+- `suspend fun createFixedDepositAccount(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/api/SavingsAccountApi.kt`
+
+```kotlin
+interface SavingsAccountApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/impl/SavingsCommandRepositoryImpl.kt:62</code></summary>
+
+```kotlin
+internal class SavingsCommandRepositoryImpl(
+    private val fixedDepositApi: FixedDepositApi,
+    private val savingsAccountApi: SavingsAccountApi,
+    private val shareAccountApi: ShareAccountApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.SavingsAccounts)
+    private val accountStore: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+```
+
+</details>
+
+- `suspend fun getSavingsAccountWithAssociations(` — This Service Retrieve a savings application/account.
+- `suspend fun getSavingsAccountTransactionTemplate(` — This Method for Retrieving Savings Account Transaction Template from REST API https://demo.openmf.org/fineract-provider/api/v1/{savingsAccountType}/{savingsAccountId} /transactions/template.
+- `suspend fun processTransaction(` — This Service making POST Request to the REST API : https://demo.openmf.org/fineract-provider/api/v1/{savingsAccountType}/ {savingsAccountId}/transactions?command={transactionType}
+- `suspend fun activateSavings(`
+- `suspend fun approveSavingsApplication(`
+- `suspend fun allSavingsAccounts(): List<ProductSavings>`
+- `suspend fun createSavingsAccount(@Body savingsPayload: SavingsPayload?): HttpResponse`
+- `suspend fun savingsAccountTemplate(): SavingProductsTemplate`
+- `suspend fun getClientSavingsAccountTemplateByProduct(`
+- `suspend fun getGroupSavingsAccountTemplateByProduct(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/api/ShareAccountApi.kt`
+
+```kotlin
+interface ShareAccountApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/impl/SavingsCommandRepositoryImpl.kt:63</code></summary>
+
+```kotlin
+    private val fixedDepositApi: FixedDepositApi,
+    private val savingsAccountApi: SavingsAccountApi,
+    private val shareAccountApi: ShareAccountApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.SavingsAccounts)
+    private val accountStore: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+    @FromStore(AppStoreIds.ClientGetClientAccounts)
+```
+
+</details>
+
+- `suspend fun shareProductTemplate(`
+- `suspend fun createShareAccount(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/dto/SavingAccountOption.kt`
+
+```kotlin
+data class SavingAccountOption(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/defaultaccount/ClientDefaultAccountScreen.kt:139</code></summary>
+
+```kotlin
+internal fun ClientDefaultAccountContent(
+    state: ClientDefaultAccountState,
+    accounts: ScreenState<List<SavingAccountOption>>,
+    onAction: (ClientDefaultAccountAction) -> Unit,
+    modifier: Modifier = Modifier,
+    /** The client's CURRENT default, pre-selected until the officer picks something else. */
+    defaultAccountId: Long? = null,
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/dto/ShareAccountResponse.kt`
+
+```kotlin
+data class ShareAccountResponse(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/client/dto/GetClientsClientIdAccountsResponse.kt:29</code></summary>
+
+```kotlin
+    val savingsAccounts: Set<GetClientsSavingsAccounts>? = null,
+
+    val shareAccounts: Set<ShareAccountResponse>? = null,
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/dto/ShareAccountsStatusResponse.kt`
+
+```kotlin
+data class ShareAccountsStatusResponse(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/savings/dto/ShareAccountResponse.kt:27</code></summary>
+
+```kotlin
+    val productId: Int? = null,
+    val productName: String? = null,
+    val status: ShareAccountsStatusResponse? = null,
+    val timeline: Timeline? = null,
+    val currency: Currency? = null,
+)
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/search/api/SearchApi.kt`
+
+```kotlin
+interface SearchApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/search/SearchKeyedReadStores.kt:30</code></summary>
+
+```kotlin
+@CacheKey(fn = "forKey", key = "searchSearchResources:{key}", params = ["key:String"])
+fun provideSearchResourcesStore(
+    searchApi: SearchApi,
+    cache: ApiResponseCacheDao,
+): Store<SearchResourcesKey, List<SearchedEntity>> = cachedRead(
+    dao = cache,
+    keyOf = { key -> AppCacheKeys.SearchSearchResources.forKey("${key.query}:${key.resource}:${key.exactMatch}") },
+```
+
+</details>
+
+- `suspend fun searchResources(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/server/AppServerConfig.kt`
+
+```kotlin
+object AppServerConfig
+```
+The server the app ships pointed at, as the server-config SCREEN describes one — DERIVED from the generated `mifos` access point, never written a second time.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/serverconfig/impl/ServerConfigRepositoryImpl.kt:38</code></summary>
+
+```kotlin
+) : ServerConfigRepository {
+
+    override val defaultConfig: ServerConfig = AppServerConfig.DEFAULT
+
+    // Store-backed like every other read: cached instances render at once, the remote list refreshes
+    // behind them, and with nothing cached the screen shows its loading state until the fetch lands.
+    override fun instancesStream(scope: CoroutineScope): ScreenDataStream<List<ServerInstance>> =
+```
+
+</details>
+
+- `const val ACCESS_POINT = "mifos"` — The access point the field officer signs in to.
+- `const val TENANT_HEADER = "Fineract-Platform-TenantId"` — The header that carries Fineract's tenant on `ACCESS_POINT`.
+- `val DEFAULT: ServerConfig =` — The shipped server as the screen shows it — the declared main access point's config.
+- `const val APP_ID = "field-officer"` — This app's id in the shared `app_config` instance list's `supportedApps` (see `InstanceConfigLoader`).
+
+```kotlin
+fun NetworkConfig.toServerConfig(): ServerConfig = requireNotNull(
+```
+A runtime network config as the screen's five fields: its URL split into protocol / host / port / API path, and the tenant from its `AppServerConfig.TENANT_HEADER` value.
+
+```kotlin
+fun ServerConfig.networkHeaders(): Map<String, String> = mapOf(AppServerConfig.TENANT_HEADER to tenant.trim())
+```
+The header values a `ServerConfig` sets on its network config — the tenant.
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/server/InstancesConfig.kt`
+
+```kotlin
+fun parseInstances(config: String, app: String = AppServerConfig.APP_ID): List<ServerInstance> =
+```
+`config` parsed and filtered to the instances that list `app` in `supportedApps`.
+
+```kotlin
+fun instancesConfigJson(rows: List<RemoteServerInstanceDto>): String = json.encodeToString(
+```
+`app_server_config` rows as the `{"instances": `...`}` document `parseInstances` reads — so the Supabase list, its device cache and the bundled list all go through ONE parser.
+
+```kotlin
+fun interface InstanceConfigLoader
+```
+Where the instance list comes from when nothing better is available.
+
+```kotlin
+object BundledInstanceConfigLoader : InstanceConfigLoader
+```
+The list that ships in the app — also the fallback a remote loader must use.
+
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/serverconfig/ServerInstancesTest.kt:109</code></summary>
+
+```kotlin
+    @Test
+    fun noKeyOrNoRowsForThisAppUsesTheListShippedInTheApp() = runTest {
+        val bundled = BundledInstanceConfigLoader.load()
+        assertEquals(
+            bundled,
+            provideServerInstancesStore(
+                FakeServerInstanceApi(remoteRows, isConfigured = false),
+```
+
+</details>
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/staff/api/StaffApi.kt`
+
+```kotlin
+interface StaffApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/staff/StaffKeyedReadStores2.kt:29</code></summary>
+
+```kotlin
+@CacheKey(fn = "forKey", key = "staffAllStaff:{key}", params = ["key:String"])
+fun provideAllStaffStore(
+    staffApi: StaffApi,
+    cache: ApiResponseCacheDao,
+): Store<Unit, List<Staff>> = cachedRead(
+    dao = cache,
+    keyOf = { key -> AppCacheKeys.StaffAllStaff.forKey("all") },
+```
+
+</details>
+
+- `suspend fun retrieveAll16(` — Retrieve Staff Returns the list of staff members. Example Requests: staff Retrieve a Staff by status Returns the details of a Staff based on status. By default it Returns all the ACTIVE Staff.
+- `suspend fun getStaffForOffice(@Query("officeId") officeId: Int): List<Staff>`
+- `suspend fun allStaff(): List<Staff>`
+- `suspend fun fieldStaffForOffice(): List<Staff>`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/staff/mapper/StaffMapper.kt`
+
+```kotlin
+object StaffMapper : AbstractMapper<RetrieveOneResponse, Staff>()
+```
+_No KDoc at source._
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/survey/api/SurveyApi.kt`
+
+```kotlin
+interface SurveyApi
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/survey/impl/SurveyCommandRepositoryImpl.kt:23</code></summary>
+
+```kotlin
+@RepositoryBinding(binds = SurveyCommandRepository::class)
+internal class SurveyCommandRepositoryImpl(
+    private val surveyApi: SurveyApi,
+    private val gateway: MutationGateway,
+) : SurveyCommandRepository {
+
+    /**
+```
+
+</details>
+
+- `suspend fun allSurveys(): List<Survey>`
+- `suspend fun getSurvey(@Path("surveyId") surveyId: Int): Survey`
+- `suspend fun submitScore(`
+
+### `core/network/src/commonMain/kotlin/kpt/core/network/mifos/survey/dto/ScorecardPayload.kt`
+
+```kotlin
+data class ScorecardPayload
+```
+Created by Nasim Banu on 28,January,2016.
 
 ---
 
-_32 type(s), 37 function(s)/property(ies); 58 carry KDoc at source; 3 authored example(s); 25 live call site(s)._
+_129 type(s), 200 function(s)/property(ies); 125 carry KDoc at source; 2 authored example(s); 97 live call site(s)._
 <!-- api-docs:end -->

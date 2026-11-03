@@ -209,15 +209,16 @@ interface DispatcherManager
 ```
 Injectable access to the app's coroutine dispatchers.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/user/impl/UserLogoutManagerImpl.kt:35</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:64</code></summary>
 
 ```kotlin
-    private val repository: UserPreferencesRepository,
-    private val storeCacheManager: StoreCacheManager,
-    dispatcherManager: DispatcherManager,
-) : UserLogoutManager {
+    @AfterTest fun tearDown() = Dispatchers.resetMain()
 
-    private val scope = CoroutineScope(dispatcherManager.unconfined)
+    private val dispatchers = object : DispatcherManager {
+        override val default: CoroutineDispatcher = Dispatchers.Unconfined
+        override val main: MainCoroutineDispatcher = Dispatchers.Main
+        override val io: CoroutineDispatcher = Dispatchers.Unconfined
+        override val unconfined: CoroutineDispatcher = Dispatchers.Unconfined
 ```
 
 </details>

@@ -47,20 +47,6 @@ val LocalUrlLauncher: ProvidableCompositionLocal<UrlLauncher> =
 ```
 Opens URLs, email, maps, phone and SMS. Provided by `LocalManagerProvider`.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/PrivacySheet.kt:71</code></summary>
-
-```kotlin
-fun PrivacySheet(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinViewModel()) {
-    val settingsState by viewModel.settingsState.collectAsStateWithLifecycle()
-    val urlLauncher = LocalUrlLauncher.current
-    PrivacySheet(
-        settingsState = settingsState,
-        onDismiss = onDismiss,
-        onRetry = viewModel::onRetry,
-```
-
-</details>
-
 ```kotlin
 val LocalShareManager: ProvidableCompositionLocal<ShareManager> =
 ```
@@ -93,16 +79,16 @@ expect abstract class AppContext
 ```
 Represents an abstract context for the application that provides platform-specific functionality. This class must be implemented in each platform-specific source set.
 
-<details><summary>Used in the template — <code>core-base/platform/src/androidMain/kotlin/kpt/core/base/platform/context/AppContext.android.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/platform/src/androidMain/kotlin/kpt/core/platform/permission/PermissionRequester.android.kt:38</code></summary>
 
 ```kotlin
- * and other platform functionality.
+ * a screen that asks repeatedly does not leak a registration per attempt.
  */
-actual typealias AppContext = android.content.Context
+actual class PermissionRequester actual constructor(private val context: AppContext) {
 
-/**
- * Android-specific implementation of LocalContext.
- *
+    /**
+     * The hosting activity, or null when this context has none.
+     *
 ```
 
 </details>
@@ -112,7 +98,7 @@ expect val LocalContext: ProvidableCompositionLocal<AppContext>
 ```
 A composition local that provides the current `AppContext` to the composition tree. This allows composable functions to access the platform-specific context without explicit parameters.
 
-<details><summary>Used in the template — <code>core/designsystem/src/androidMain/kotlin/kpt/core/designsystem/theme/Theme.android.kt:29</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/androidMain/kotlin/kpt/core/designsystem/theme/AppTheme.android.kt:23</code></summary>
 
 ```kotlin
     return when {
@@ -461,5 +447,5 @@ The one `UrlLauncher`, for every target. `cmp-open-url` carries the per-target `
 
 ---
 
-_15 type(s), 32 function(s)/property(ies); 47 carry KDoc at source; 0 authored example(s); 17 live call site(s)._
+_15 type(s), 32 function(s)/property(ies); 47 carry KDoc at source; 0 authored example(s); 16 live call site(s)._
 <!-- api-docs:end -->

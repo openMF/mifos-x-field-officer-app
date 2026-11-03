@@ -65,6 +65,13 @@ AppProfile::MAP.keys.sort.each do |k|
   resolved[k] = s
 end
 
+# project.name has no app-profile key: syncForkConfig reads the tracked catalog's `projectName` first,
+# so the bridge carries that value too. Without it a derive-only checkout (CI derives, it never runs
+# Gradle) fell back to secrets/LAYOUT.yaml's namespace and named the fork after the template.
+catalog = File.join(REPO_ROOT, "gradle", "libs.versions.toml")
+project_name = File.file?(catalog) && File.read(catalog)[/^projectName\s*=\s*"([^"]+)"/, 1]
+resolved["project.name"] = project_name if project_name && !project_name.strip.empty?
+
 if check_mode
   puts "# derived gradle/fork.properties (from app-profile SoT) — #{resolved.size} keys"
   resolved.each { |k, v| puts "#{k}=#{v}" }

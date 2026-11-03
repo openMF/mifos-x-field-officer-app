@@ -78,12 +78,12 @@ Transport kind of a declared network access point.
 
 ```kotlin
         AccessPoint(
-            id = "main",
+            id = "mifos",
             kind = AccessPointKind.REST,
-            baseUrl = "https://api.example.com/",
-            loggableHost = "api.example.com",
-            isMain = true,
-        ),
+            baseUrl = "https://apis.mifos.community/",
+            basePath = "1.0/field/v1/",
+            loggableHost = "apis.mifos.community",
+            auth = AuthScheme.BASIC,
 ```
 
 </details>
@@ -100,9 +100,9 @@ One declared network access point — a named endpoint the app talks to.
     /** This project's declared access points, in app-profile order. */
     val points: List<AccessPoint> = listOf(
         AccessPoint(
-            id = "main",
+            id = "mifos",
             kind = AccessPointKind.REST,
-            baseUrl = "https://api.example.com/",
+            baseUrl = "https://apis.mifos.community/",
 ```
 
 </details>
@@ -380,13 +380,13 @@ data class HeaderSpec(
 ```
 A header an access point sends on every request, declared in `app-profile/app.yaml#network.access_points[].headers[]`. Two kinds, because they have different lifetimes: - **static** (`value` set) — known at build time.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt:92</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt:46</code></summary>
 
 ```kotlin
-            auth = AuthScheme.BASIC,
+            isMain = true,
             headers = listOf(
-                HeaderSpec(name = "Fineract-Platform-TenantId", value = "default"),
-                HeaderSpec(name = "Authorization", runtimeKey = "fineract.auth"),
+                HeaderSpec(name = "Fineract-Platform-TenantId", value = "mifos-bank-1"),
+                HeaderSpec(name = "Authorization", runtimeKey = "mifos.auth"),
             ),
         ),
         AccessPoint(
@@ -467,16 +467,16 @@ data class NetworkConfig(
 ```
 One network config as the app runs it — a declared access point (`app-profile/app.yaml`) with any runtime changes applied, or a config added at runtime. `baseUrl` is the full URL requests resolve against (origin + API path).
 
-<details><summary>Used in the template — <code>core/network/src/commonTest/kotlin/kpt/core/network/config/NetworkConfigRepositoryTest.kt:105</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/server/AppServerConfig.kt:41</code></summary>
 
 ```kotlin
-        val r = repo()
-        r.add(
-            NetworkConfig(
-                id = "custom",
-                kind = AccessPointKind.REST,
-                baseUrl = "http://10.0.2.2:8080/fineract-provider/api/v1/",
-            ),
+    /** The shipped server as the screen shows it — the declared main access point's config. */
+    val DEFAULT: ServerConfig =
+        AppAccessPoints.points.single { it.id == ACCESS_POINT }.toNetworkConfig().toServerConfig()
+
+    /** This app's id in the shared `app_config` instance list's `supportedApps` (see [InstanceConfigLoader]). */
+    const val APP_ID = "field-officer"
+}
 ```
 
 </details>
@@ -551,16 +551,16 @@ class NetworkConfigRepository(
 ```
 The app's network configs at runtime: every access point app-profile declares, changeable, plus any added at runtime — with one of them MAIN. **Main.** App-profile marks one access point `main: true`.
 
-<details><summary>Used in the template — <code>core/network/src/commonTest/kotlin/kpt/core/network/config/NetworkConfigRepositoryTest.kt:61</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:52</code></summary>
 
 ```kotlin
-
-    private fun repo(store: InMemoryNetworkConfigStore = InMemoryNetworkConfigStore()) =
-        NetworkConfigRepository(registry, store)
-
-    @Test
-    fun withNoChangesEveryPointUsesWhatAppProfileDeclares() {
-        val r = repo()
+    // server-config screen's five fields. One persisted source for the screen and the HTTP client.
+    single<ServerConfigSource> {
+        val networkConfigs = get<NetworkConfigRepository>()
+        ServerConfigSource {
+            networkConfigs.configs.map {
+                requireNotNull(networkConfigs.mainConfig()) { "app-profile marks no main access point" }
+                    .toServerConfig()
 ```
 
 </details>
@@ -589,16 +589,16 @@ enum class NetworkError
 ```
 Represents standardized error types for remote or network operations. This enum is typically used with the `NetworkResult.Error` variant to describe what kind of failure occurred.
 
-<details><summary>Used in the template — <code>feature/currency-rates/src/commonMain/kotlin/kpt/feature/currencyrates/ui/CurrencyRatesScreenPreview.kt:64</code></summary>
+<details><summary>Used in the template — <code>core-base/network/src/commonMain/kotlin/kpt/core/base/network/NetworkResult.kt:22</code></summary>
 
 ```kotlin
-            amount = "100",
-            targetCode = "EUR",
-            spotState = ScreenState.Error(IllegalStateException("offline"), isNetworkError = true),
-            onAmountChange = {},
-            onTargetChange = {},
-            onRetry = {},
-        )
+ * @param E The type of error returned on failure, constrained to [NetworkError].
+ */
+sealed interface NetworkResult<out D, out E : NetworkError> {
+
+    /**
+     * Represents a successful result.
+     *
 ```
 
 </details>
@@ -610,16 +610,16 @@ enum class HttpLogDetail(internal val level: LogLevel)
 ```
 How much of an HTTP exchange may be written to the device log. Ordered least to most revealing.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt:106</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt:63</code></summary>
 
 ```kotlin
     /** Network privacy policy — app-profile `network.logging` / `network.web_cors_proxy`. */
     val policy: NetworkPolicy = NetworkPolicy(
         releaseLogging = HttpLogDetail.NONE,
         debugLogging = HttpLogDetail.BODY,
-        webCorsProxy = "https://corsproxy.io",
     )
     // syncForkConfig:access-points:end
+}
 ```
 
 </details>
@@ -629,7 +629,7 @@ data class NetworkPolicy(
 ```
 App-wide network privacy policy — GENERATED from `app-profile/app.yaml#network` (`logging`, `web_cors_proxy`) onto `AppAccessPoints.policy` by `syncForkConfig`.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt:105</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/config/AppAccessPoints.kt:62</code></summary>
 
 ```kotlin
 
@@ -637,8 +637,8 @@ App-wide network privacy policy — GENERATED from `app-profile/app.yaml#network
     val policy: NetworkPolicy = NetworkPolicy(
         releaseLogging = HttpLogDetail.NONE,
         debugLogging = HttpLogDetail.BODY,
-        webCorsProxy = "https://corsproxy.io",
     )
+    // syncForkConfig:access-points:end
 ```
 
 </details>
@@ -746,7 +746,7 @@ A Supabase access point's client config — GENERATED onto `AccessPoint.supabase
                 publishableKey = kpt.core.network.BuildKonfig.SUPABASE_PUBLISHABLE_KEY,
             ),
         ),
-        AccessPoint(
+    )
 ```
 
 </details>
@@ -838,16 +838,15 @@ interface CoinGeckoApi { ... }
 
 </details>
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/coingecko/api/CoinGeckoApi.kt:20</code></summary>
+<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/lwmswhoxvvoagzkqxiyd/appserverconfig/api/impl/ServerInstanceApiImpl.kt:23</code></summary>
 
 ```kotlin
-
-/** CoinGecko public API v3. Base URL: [BASE_URL]. */
-@ApiBinding("coingecko")
-interface CoinGeckoApi {
-
-    /**
-     * One page of the market list, ordered by market cap descending by default.
+ * Inert without a key: returns empty, never builds a client on an empty URL.
+ */
+@ApiBinding("lwmswhoxvvoagzkqxiyd")
+class ServerInstanceApiImpl(
+    private val supabase: SupabaseConfigClient,
+) : ServerInstanceApi {
 ```
 
 </details>

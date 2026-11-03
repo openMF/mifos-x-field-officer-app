@@ -34,16 +34,15 @@ object AppInfo
 ```
 The SINGLE common-code accessor for the app's user-facing display name.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/HomeScreen.kt:61</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:97</code></summary>
 
 ```kotlin
-                        // App title from the common AppInfo.appDisplayName accessor (BuildKonfig →
-                        // fork.properties#app.display.name), never a hardcoded brand string.
-                        text = AppInfo.appDisplayName,
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.SemiBold,
-                        ),
-                    )
+        when (event) {
+            AboutEvent.NavigateBack -> onNavigateBack()
+            AboutEvent.OpenAppInfo -> ShareUtils.openAppInfo()
+            is AboutEvent.OpenUrl -> ShareUtils.openUrl(event.url)
+        }
+    }
 ```
 
 </details>
@@ -177,16 +176,16 @@ IndependentCardLayout(states = cards, onRetry = vm::onRetryCard) { i, content ->
 
 </details>
 
-<details><summary>Used in the template — <code>feature/add-to-watchlist/src/commonTest/kotlin/kpt/feature/addtowatchlist/ui/AddToWatchlistViewModelTest.kt:106</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:90</code></summary>
 
 ```kotlin
-    val removeCalls = mutableListOf<String>()
+    viewModel: AboutViewModel = koinViewModel(),
+) {
+    val state by viewModel.stateFlow.collectAsStateWithLifecycle()
 
-    override fun contains(coinId: String): Flow<Boolean> = tracked.map { coinId in it }
-
-    override suspend fun add(coinId: String) {
-        addCalls += coinId
-        tracked.update { it + coinId }
+    // core-BASE's ShareUtils — the one MainActivity wires with `setActivityProvider`. core/ui has a
+    // look-alike copy that nothing wires; calling it threw on the first tap (device, 2026-10-24).
+    EventsEffect(viewModel.eventFlow) { event ->
 ```
 
 </details>
@@ -196,14 +195,16 @@ fun List<ScreenState<*>>.toDashboardProgressState(): DashboardProgressState =
 ```
 Pure conversion from a list of per-card states to a single `DashboardProgressState`. Exposed so tests + non-Flow call sites can re-use the aggregation contract.
 
-<details><summary>Used in the template — <code>feature/add-to-watchlist/src/commonTest/kotlin/kpt/feature/addtowatchlist/ui/AddToWatchlistViewModelTest.kt:118</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:217</code></summary>
 
 ```kotlin
-    }
 
-    override fun watchlistStream(scope: CoroutineScope): ScreenDataStream<List<WatchlistItem>> =
-        error("watchlistStream is the read-side feature's concern; not used by AddToWatchlistViewModel")
-}
+@Composable
+private fun LinkSection(title: String, links: List<AboutLink>, onAction: (AboutAction) -> Unit) {
+    Column(modifier = Modifier.padding(horizontal = KptTheme.spacing.md)) {
+        Text(
+            text = title,
+            style = KptTheme.typography.titleSmall,
 ```
 
 </details>
@@ -215,20 +216,6 @@ fun DashboardProgressBar(
 ```
 Top-of-dashboard **freshness** strip: shows *when* the data was last loaded — "Updated 5m ago" — NOT a "2 of 4 loaded" count.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/demo/HomeDashboard.kt:184</code></summary>
-
-```kotlin
-        // It shows a subtle "Loading…" bar until the first card has data and hides once
-        // there is nothing to surface — the per-card independence + retry below is untouched.
-        DashboardProgressBar(
-            state = listOf(
-                state.loans,
-                state.bills,
-                state.rates,
-```
-
-</details>
-
 ### `core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/dashboard/DashboardProgressState.kt`
 
 ```kotlin
@@ -236,16 +223,15 @@ data class DashboardProgressState(
 ```
 Aggregate progress snapshot for a multi-card dashboard.
 
-<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/demo/HomeDashboard.kt:190</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:252</code></summary>
 
 ```kotlin
-                state.rates,
-                state.exchangeRate,
-            ).toDashboardProgressState(),
-        )
-
-        // ── Hero: at-a-glance financial snapshot ─────────────────────────
-        HeroSnapshot(state.loans)
+) {
+    val states = state.cards.map { it.state }
+    val progress = states.toDashboardProgressState()
+    val allLoading = states.isNotEmpty() && states.all { it == ScreenState.Loading }
+    val allFailed = states.isNotEmpty() && states.all { it is ScreenState.Error || it is ScreenState.NoNetwork }
+    val offline = states.any { it is ScreenState.NoNetwork }
 ```
 
 </details>
@@ -257,16 +243,16 @@ fun <T> IndependentCardLayout(
 ```
 Renders a vertical stack of cards where each card carries its OWN `ScreenState` — so a slow card can still spin while a fast one shows content, and a single failed fetch only ruins one card instead of blanking the whole dashboard.
 
-<details><summary>Used in the template — <code>feature/macro/src/commonMain/kotlin/kpt/feature/macro/ui/CountryMacroScreen.kt:191</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:310</code></summary>
 
 ```kotlin
-            )
-
+    Column(verticalArrangement = Arrangement.spacedBy(6.tw)) {
+        if (states.isNotEmpty()) {
             IndependentCardLayout(
-                states = macroStates,
-                onRetry = onRetryIndicator,
+                states = states,
+                onRetry = { index -> onRetry(state.cards[index].id) },
                 cardChrome = { index, card ->
-                    MacroIndicatorCardChrome(
+                    Section(state.cards[index], state.draftCount, state.header.businessDate, onNavigate, { onRetry(state.cards[index].id) }, card)
 ```
 
 </details>
@@ -286,16 +272,16 @@ IndependentCardLayout(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/macro/src/commonMain/kotlin/kpt/feature/macro/ui/CountryMacroScreen.kt:191</code></summary>
+<details><summary>Used in the template — <code>feature/home/src/commonMain/kotlin/kpt/feature/home/dashboard/HomeDashboardScreen.kt:310</code></summary>
 
 ```kotlin
-            )
-
+    Column(verticalArrangement = Arrangement.spacedBy(6.tw)) {
+        if (states.isNotEmpty()) {
             IndependentCardLayout(
-                states = macroStates,
-                onRetry = onRetryIndicator,
+                states = states,
+                onRetry = { index -> onRetry(state.cards[index].id) },
                 cardChrome = { index, card ->
-                    MacroIndicatorCardChrome(
+                    Section(state.cards[index], state.draftCount, state.header.businessDate, onNavigate, { onRetry(state.cards[index].id) }, card)
 ```
 
 </details>
@@ -349,20 +335,6 @@ fun DraftResolutionPrompt(
 ```
 The **three-case** draft-resolution prompt shown when a user re-opens a form that already has a saved draft.
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreen.kt:119</code></summary>
-
-```kotlin
-    // resume it, discard it, or start fresh (the draft stays recoverable in Settings → Sync & Drafts).
-    if (hasResumableDraft) {
-        DraftResolutionPrompt(
-            onResume = onResume,
-            onDiscard = onDiscardSavedDraft,
-            onStartFresh = onStartFresh,
-            onDismiss = onStartFresh,
-```
-
-</details>
-
 ### `core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/effects/EventsEffect.kt`
 
 ```kotlin
@@ -370,10 +342,38 @@ fun <E> EventsEffect(
 ```
 Convenience method for observing event flow from `BaseViewModel`. By default, events will only be consumed when the associated screen is resumed, to avoid bugs like duplicate navigation calls.
 
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:94</code></summary>
+
+```kotlin
+    // core-BASE's ShareUtils — the one MainActivity wires with `setActivityProvider`. core/ui has a
+    // look-alike copy that nothing wires; calling it threw on the first tap (device, 2026-10-24).
+    EventsEffect(viewModel.eventFlow) { event ->
+        when (event) {
+            AboutEvent.NavigateBack -> onNavigateBack()
+            AboutEvent.OpenAppInfo -> ShareUtils.openAppInfo()
+            is AboutEvent.OpenUrl -> ShareUtils.openUrl(event.url)
+```
+
+</details>
+
 ```kotlin
 fun <E> EventsEffect(
 ```
 Convenience method for observing event flow from `BaseViewModel`. By default, events will only be consumed when the associated screen is resumed, to avoid bugs like duplicate navigation calls.
+
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:94</code></summary>
+
+```kotlin
+    // core-BASE's ShareUtils — the one MainActivity wires with `setActivityProvider`. core/ui has a
+    // look-alike copy that nothing wires; calling it threw on the first tap (device, 2026-10-24).
+    EventsEffect(viewModel.eventFlow) { event ->
+        when (event) {
+            AboutEvent.NavigateBack -> onNavigateBack()
+            AboutEvent.OpenAppInfo -> ShareUtils.openAppInfo()
+            is AboutEvent.OpenUrl -> ShareUtils.openUrl(event.url)
+```
+
+</details>
 
 ### `core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/effects/LifecycleEventEffect.kt`
 
@@ -420,16 +420,16 @@ fun FreshnessIndicator(
 ```
 Per-card freshness indicator: a small Material 3 info / clock / warning icon anchored to a `TooltipBox`.
 
-<details><summary>Used in the template — <code>feature/crypto/src/commonMain/kotlin/kpt/feature/crypto/ui/CoinDetailScreen.kt:90</code></summary>
+<details><summary>Used in the template — <code>core-base/ui/src/commonTest/kotlin/kpt/core/base/ui/freshness/FreshnessIndicatorTest.kt:60</code></summary>
 
 ```kotlin
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(coinId)
-                        FreshnessIndicator(
-                            signal = freshness,
-                            onRefresh = viewModel::onRefresh,
-                            modifier = Modifier.padding(start = 4.dp),
-                        )
+
+    @Test
+    fun `Initial band maps to Neutral but FreshnessIndicator returns early on Initial`() {
+        // Defensive mapping — composable returns early before using this value,
+        // but the pure helper still resolves it to a sensible neutral default.
+        val v = freshnessVisualFor(FreshnessBand.Initial, errorCategory = null)
+        assertEquals(FreshnessTint.Neutral, v.tint)
 ```
 
 </details>
@@ -544,16 +544,16 @@ public annotation class FeatureDestination
 ```
 Marks a `NavGraphBuilder` extension as a TOP-LEVEL feature destination — one the app shell registers directly on the authenticated graph.
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/navigation/AlertsNavigation.kt:48</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/navigation/AboutRoute.kt:27</code></summary>
 
 ```kotlin
- * into the top-level RootNavGraph by calling [alertsGraph] inside its own `NavHost { ... }`.
+ * this module.
  */
 @FeatureDestination
-fun NavGraphBuilder.alertsGraph(navController: NavController) {
-    navigation<AlertsGraphRoute>(startDestination = AlertsListRoute) {
-        composableWithPushTransitions<AlertsListRoute> {
-            AlertsListScreen(
+fun NavGraphBuilder.aboutDestination(navController: NavController) {
+    composableWithPushTransitions<AboutRoute> {
+        AboutScreen(onNavigateBack = { navController.popBackStack() })
+    }
 ```
 
 </details>
@@ -671,20 +671,6 @@ PagingScreenContent(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/crypto/src/commonMain/kotlin/kpt/feature/crypto/ui/CoinMarketsScreen.kt:96</code></summary>
-
-```kotlin
-        containerColor = MaterialTheme.colorScheme.background,
-    ) { padding ->
-        PagingScreenContent(
-            pagingStream = viewModel.pagingStream,
-            onRetry = viewModel::retry,
-            modifier = Modifier
-                .fillMaxSize()
-```
-
-</details>
-
 ```kotlin
 fun <T : Any> PagingScreenContent(
 ```
@@ -703,20 +689,6 @@ PagingScreenContent(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/crypto/src/commonMain/kotlin/kpt/feature/crypto/ui/CoinMarketsScreen.kt:96</code></summary>
-
-```kotlin
-        containerColor = MaterialTheme.colorScheme.background,
-    ) { padding ->
-        PagingScreenContent(
-            pagingStream = viewModel.pagingStream,
-            onRetry = viewModel::retry,
-            modifier = Modifier
-                .fillMaxSize()
-```
-
-</details>
-
 ```kotlin
 fun <T : Any> PagingScreenContent(
 ```
@@ -728,20 +700,6 @@ Non-stream (Store5-optional) `PagingScreenContent` overload — a caller with an
 PagingScreenContent(items = uiState.coins) { coins ->
     items(coins) { coin -> CoinItem(coin = coin) }
 }
-```
-
-</details>
-
-<details><summary>Used in the template — <code>feature/crypto/src/commonMain/kotlin/kpt/feature/crypto/ui/CoinMarketsScreen.kt:96</code></summary>
-
-```kotlin
-        containerColor = MaterialTheme.colorScheme.background,
-    ) { padding ->
-        PagingScreenContent(
-            pagingStream = viewModel.pagingStream,
-            onRetry = viewModel::retry,
-            modifier = Modifier
-                .fillMaxSize()
 ```
 
 </details>
@@ -839,16 +797,16 @@ RefreshableScreenContent(stream = viewModel.rates) { rates, _ -> RatesList(rates
 
 </details>
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonTest/kotlin/kpt/core/base/ui/screen/RefreshableScreenContentUiTest.kt:45</code></summary>
+<details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:117</code></summary>
 
 ```kotlin
-    fun aCallersEmptySlotIsRendered() = runComposeUiTest {
-        setContent {
-            RefreshableScreenContent(
-                state = ScreenState.Empty,
-                onRefresh = {},
-                empty = { Text("none yet", modifier = Modifier.testTag(CUSTOM)) },
-                content = content,
+        },
+    ) { padding ->
+        RefreshableScreenContent(
+            state = charge,
+            onRefresh = { onAction(ChargeDetailAction.OnRefresh) },
+            modifier = Modifier.fillMaxSize().padding(padding),
+            // Deleted elsewhere, or a link to a charge the account no longer carries.
 ```
 
 </details>
@@ -866,16 +824,16 @@ RefreshableScreenContent(state = uiState, onRefresh = viewModel::onRefresh) { da
 
 </details>
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonTest/kotlin/kpt/core/base/ui/screen/RefreshableScreenContentUiTest.kt:45</code></summary>
+<details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:117</code></summary>
 
 ```kotlin
-    fun aCallersEmptySlotIsRendered() = runComposeUiTest {
-        setContent {
-            RefreshableScreenContent(
-                state = ScreenState.Empty,
-                onRefresh = {},
-                empty = { Text("none yet", modifier = Modifier.testTag(CUSTOM)) },
-                content = content,
+        },
+    ) { padding ->
+        RefreshableScreenContent(
+            state = charge,
+            onRefresh = { onAction(ChargeDetailAction.OnRefresh) },
+            modifier = Modifier.fillMaxSize().padding(padding),
+            // Deleted elsewhere, or a link to a charge the account no longer carries.
 ```
 
 </details>
@@ -901,16 +859,16 @@ fun SavingsScreen(vm: SavingsViewModel) {
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertsListScreen.kt:87</code></summary>
+<details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:117</code></summary>
 
 ```kotlin
-        },
+        modifier = modifier,
     ) { padding ->
         ScreenContent(
-            stream = viewModel.alerts,
-            modifier = Modifier.fillMaxSize().padding(padding),
-        ) { alerts, _ ->
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
+            state = offices,
+            onRetry = onRetry,
+            modifier = Modifier.fillMaxSize().padding(padding).testTag(CreateCenterTestTags.SCREEN),
+        ) { officeList, _ ->
 ```
 
 </details>
@@ -929,16 +887,16 @@ ScreenContent(stream = viewModel.alerts) { alerts, _ -> LazyColumn { … } }
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertsListScreen.kt:87</code></summary>
+<details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:117</code></summary>
 
 ```kotlin
-        },
+        modifier = modifier,
     ) { padding ->
         ScreenContent(
-            stream = viewModel.alerts,
-            modifier = Modifier.fillMaxSize().padding(padding),
-        ) { alerts, _ ->
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
+            state = offices,
+            onRetry = onRetry,
+            modifier = Modifier.fillMaxSize().padding(padding).testTag(CreateCenterTestTags.SCREEN),
+        ) { officeList, _ ->
 ```
 
 </details>
@@ -967,16 +925,16 @@ fun DefaultEmptyContent(
 ```
 The framework's empty rendering — for a successful read that returned nothing. Distinct from error on purpose: "no results" is a valid outcome, and showing a retry affordance for it invites the user to retry something that already worked.
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/dashboard/IndependentCardLayout.kt:103</code></summary>
+<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/grouploan/GroupLoanApplicationScreen.kt:175</code></summary>
 
 ```kotlin
-                        { empty(index) }
-                    } else {
-                        { DefaultEmptyContent() }
-                    },
-                    noNetwork = if (noNetwork != null) {
-                        { captive -> noNetwork(index, captive) }
-                    } else {
+            // cause and offers no next step on a form the officer just opened.
+            empty = {
+                DefaultEmptyContent(
+                    config = ScreenStateEmpty(
+                        title = stringResource(Res.string.feature_loan_application_no_products_title),
+                        message = stringResource(Res.string.feature_loan_application_no_products),
+                        cta = ScreenStateCta(
 ```
 
 </details>
@@ -986,16 +944,16 @@ fun DefaultNoNetworkContent(
 ```
 The framework's offline rendering, shown when the failure was connectivity rather than the request.
 
-<details><summary>Used in the template — <code>feature/showcase/src/commonMain/kotlin/kpt/feature/showcase/stategallery/StateGalleryScreen.kt:191</code></summary>
+<details><summary>Used in the template — <code>core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/dashboard/IndependentCardLayout.kt:109</code></summary>
 
 ```kotlin
-
-            PreviewBox(label = stringResource(Res.string.screens_showcase_state_gallery_preview_nonet_captive)) {
-                DefaultNoNetworkContent(
-                    onRetry = {},
-                    isCaptivePortal = true,
-                    modifier = Modifier.fillMaxWidth().height(320.dp),
-                )
+                    } else {
+                        { captive ->
+                            DefaultNoNetworkContent(
+                                onRetry = { onRetry(index) },
+                                isCaptivePortal = captive,
+                                onDismiss = cardDismiss,
+                            )
 ```
 
 </details>
@@ -1005,16 +963,16 @@ fun DefaultErrorContent(
 ```
 The framework's error rendering, with the retry affordance wired to the screen's stream.
 
-<details><summary>Used in the template — <code>feature/showcase/src/commonMain/kotlin/kpt/feature/showcase/stategallery/StateGalleryScreen.kt:183</code></summary>
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/list/ClientListScreen.kt:199</code></summary>
 
 ```kotlin
-
-            PreviewBox(label = stringResource(Res.string.screens_showcase_state_gallery_preview_error)) {
-                DefaultErrorContent(
-                    error = RuntimeException("Demo error: server unreachable"),
-                    onRetry = {},
-                    modifier = Modifier.fillMaxWidth().height(280.dp),
-                )
+                state = rows,
+                onRefresh = { onAction(ClientListAction.Refresh) },
+                error = { DefaultErrorContent(it, retry) },
+                modifier = Modifier.fillMaxSize().testTag(ClientListTestTags.REFRESH),
+            ) { clients, _ ->
+                LazyColumn(modifier = Modifier.testTag(ClientListTestTags.LIST)) {
+                    items(clients) { client ->
 ```
 
 </details>
@@ -1071,16 +1029,16 @@ data class ScreenStateEmpty(
 ```
 Configuration for the empty state.
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/config/KptScreenStateDefaults.kt:85</code></summary>
+<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/grouploan/GroupLoanApplicationScreen.kt:176</code></summary>
 
 ```kotlin
-        ScreenStateDefaults(
-            loading = ScreenStateLoading.Skeleton(rowCount = 5),
-            empty = ScreenStateEmpty(
-                visual = ScreenStateVisual.Lottie(spec = DefaultLottieAnimations.empty),
-                title = emptyTitle,
-                message = emptyMessage,
-            ),
+            empty = {
+                DefaultEmptyContent(
+                    config = ScreenStateEmpty(
+                        title = stringResource(Res.string.feature_loan_application_no_products_title),
+                        message = stringResource(Res.string.feature_loan_application_no_products),
+                        cta = ScreenStateCta(
+                            label = stringResource(Res.string.feature_loan_retry),
 ```
 
 </details>
@@ -1138,15 +1096,16 @@ data class ScreenStateCta(
 ```
 A primary call-to-action shown alongside an empty/error state.
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonTest/kotlin/kpt/core/base/ui/screen/ScreenStateDefaultsTest.kt:88</code></summary>
+<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/grouploan/GroupLoanApplicationScreen.kt:179</code></summary>
 
 ```kotlin
-    @Test
-    fun screenStateEmpty_ctaIsNullByDefaultButCarriesData() {
-        val cta = ScreenStateCta(label = "Add new") { /* no-op */ }
-        val cfg = ScreenStateEmpty(cta = cta)
-        assertEquals("Add new", cfg.cta?.label)
-    }
+                        title = stringResource(Res.string.feature_loan_application_no_products_title),
+                        message = stringResource(Res.string.feature_loan_application_no_products),
+                        cta = ScreenStateCta(
+                            label = stringResource(Res.string.feature_loan_retry),
+                            onClick = { onAction(GroupLoanApplicationAction.OnRetryProducts) },
+                        ),
+                    ),
 ```
 
 </details>
@@ -1202,16 +1161,16 @@ CompositionLocalProvider(LocalScreenStateDefaults provides myDefaults) { App() }
 
 </details>
 
-<details><summary>Used in the template — <code>feature/showcase/src/commonMain/kotlin/kpt/feature/showcase/stategallery/StateGalleryScreen.kt:70</code></summary>
+<details><summary>Used in the template — <code>core/designsystem/src/commonMain/kotlin/kpt/core/designsystem/theme/KptTheme.kt:78</code></summary>
 
 ```kotlin
-fun StateGalleryScreen(onBackClick: () -> Unit, modifier: Modifier = Modifier) {
-    val sp = MaterialTheme.spacing
-    val defaults = LocalScreenStateDefaults.current
-    KptScaffold(
-        onNavigationIconClick = onBackClick,
-        title = "State Gallery (dev)",
-        modifier = modifier.testTag(TestTags.StateGallery.SCREEN),
+            LocalSpacing provides Spacing(),
+            LocalElevation provides Elevation(),
+            LocalScreenStateDefaults provides screenStateDefaults,
+        ) {
+            content()
+        }
+    }
 ```
 
 </details>
@@ -1316,15 +1275,57 @@ fun FormDraftBanner(
 ```
 "You have a saved draft" with Resume / Discard — shown when a create form opens on a slot that holds one.
 
+<details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:127</code></summary>
+
+```kotlin
+            ) {
+                offeredDraft?.let {
+                    FormDraftBanner(
+                        failureReason = it.errorMessage,
+                        onResume = { onAction(CreateCenterAction.ResumeDraft) },
+                        onDiscard = { onAction(CreateCenterAction.DiscardDraft) },
+                    )
+```
+
+</details>
+
 ```kotlin
 fun FormDraftFailure(
 ```
 Under a create that did not land: what went wrong, the server's own reason, and then either the note that it was kept as a draft (`draftSaved`) or a "Save as draft" button.
 
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/addaddress/ClientAddAddressScreen.kt:255</code></summary>
+
+```kotlin
+        state.writeError?.let { error ->
+            Spacer(Modifier.height(KptTheme.spacing.sm))
+            FormDraftFailure(
+                message = stringResource(error.message),
+                serverReason = state.failureReason,
+                draftSaved = state.draftSaved,
+                offline = error == AddAddressError.Offline,
+```
+
+</details>
+
 ```kotlin
 object FormDraftTestTags
 ```
 Test tags for `FormDraftBanner` and `FormDraftFailure`.
+
+<details><summary>Used in the template — <code>feature/center/src/commonMain/kotlin/kpt/feature/center/create/CreateCenterScreen.kt:238</code></summary>
+
+```kotlin
+                TextButton(
+                    onClick = { onAction(CreateCenterAction.SaveDraft) },
+                    modifier = Modifier.testTag(FormDraftTestTags.SAVE),
+                ) { Text(stringResource(BaseRes.string.draft_save)) }
+            }
+        } else {
+            null
+```
+
+</details>
 
 - `const val SAVE = "form-draft:save"` — The "Save draft" button under a failed create.
 - `const val SAVED = "form-draft:saved"` — The "Draft saved" confirmation that replaces it.
@@ -1355,16 +1356,16 @@ MutationScreenContent(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreen.kt:148</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteScreen.kt:60</code></summary>
 
 ```kotlin
-        },
-    ) { padding ->
-        MutationScreenContent(
-            screenState = screenState,
-            submitState = submitState,
-            onRetry = onRetry,
-            onSubmitted = { onSubmitted() },
+    val form by viewModel.formState.collectAsStateWithLifecycle()
+
+    MutationScreenContent(
+        state = mutation,
+        onRetry = viewModel::onRetry,
+        // Reached on a real server ACK and on a draft saved offline alike — in both cases the note
+        // is safe (sent, or durable and queued), so leaving the editor is correct either way.
 ```
 
 </details>
@@ -1388,16 +1389,16 @@ MutationScreenContent(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreen.kt:148</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteScreen.kt:60</code></summary>
 
 ```kotlin
-        },
-    ) { padding ->
-        MutationScreenContent(
-            screenState = screenState,
-            submitState = submitState,
-            onRetry = onRetry,
-            onSubmitted = { onSubmitted() },
+    val form by viewModel.formState.collectAsStateWithLifecycle()
+
+    MutationScreenContent(
+        state = mutation,
+        onRetry = viewModel::onRetry,
+        // Reached on a real server ACK and on a draft saved offline alike — in both cases the note
+        // is safe (sent, or durable and queued), so leaving the editor is correct either way.
 ```
 
 </details>
@@ -1421,16 +1422,16 @@ MutationScreenContent(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreen.kt:148</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteScreen.kt:60</code></summary>
 
 ```kotlin
-        },
-    ) { padding ->
-        MutationScreenContent(
-            screenState = screenState,
-            submitState = submitState,
-            onRetry = onRetry,
-            onSubmitted = { onSubmitted() },
+    val form by viewModel.formState.collectAsStateWithLifecycle()
+
+    MutationScreenContent(
+        state = mutation,
+        onRetry = viewModel::onRetry,
+        // Reached on a real server ACK and on a draft saved offline alike — in both cases the note
+        // is safe (sent, or durable and queued), so leaving the editor is correct either way.
 ```
 
 </details>
@@ -1458,16 +1459,16 @@ MutationScreenContent(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreen.kt:148</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteScreen.kt:60</code></summary>
 
 ```kotlin
-        },
-    ) { padding ->
-        MutationScreenContent(
-            screenState = screenState,
-            submitState = submitState,
-            onRetry = onRetry,
-            onSubmitted = { onSubmitted() },
+    val form by viewModel.formState.collectAsStateWithLifecycle()
+
+    MutationScreenContent(
+        state = mutation,
+        onRetry = viewModel::onRetry,
+        // Reached on a real server ACK and on a draft saved offline alike — in both cases the note
+        // is safe (sent, or durable and queued), so leaving the editor is correct either way.
 ```
 
 </details>
@@ -1477,16 +1478,16 @@ fun <T, R> MutationScreenContent(
 ```
 `MutationUiState`-typed draft-aware overload. Combines read state, write state, and draft resume into a single call.
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateScreen.kt:148</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteScreen.kt:60</code></summary>
 
 ```kotlin
-        },
-    ) { padding ->
-        MutationScreenContent(
-            screenState = screenState,
-            submitState = submitState,
-            onRetry = onRetry,
-            onSubmitted = { onSubmitted() },
+    val form by viewModel.formState.collectAsStateWithLifecycle()
+
+    MutationScreenContent(
+        state = mutation,
+        onRetry = viewModel::onRetry,
+        // Reached on a real server ACK and on a draft saved offline alike — in both cases the note
+        // is safe (sent, or durable and queued), so leaving the editor is correct either way.
 ```
 
 </details>
@@ -1660,16 +1661,15 @@ expect object ShareUtils
 ```
 Platform-specific utility for sharing content with other applications. This expect class requires platform-specific implementations.
 
-<details><summary>Used in the template — <code>core-base/ui/src/androidMain/kotlin/kpt/core/base/ui/util/ShareUtils.android.kt:35</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutScreen.kt:97</code></summary>
 
 ```kotlin
-
-/** Android implementation of `ShareUtils`. */
-actual object ShareUtils {
-
-    private var activityProvider: () -> Activity = {
-        throw IllegalArgumentException(
-            "You need to implement the 'activityProvider' to provide the required Activity. " +
+        when (event) {
+            AboutEvent.NavigateBack -> onNavigateBack()
+            AboutEvent.OpenAppInfo -> ShareUtils.openAppInfo()
+            is AboutEvent.OpenUrl -> ShareUtils.openUrl(event.url)
+        }
+    }
 ```
 
 </details>
@@ -1711,25 +1711,95 @@ typealias EnterTransitionProvider =
 ```
 Function type for providing nullable enter transitions in navigation. Used with `AnimatedContentTransitionScope` to define how a destination enters the screen.
 
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:27</code></summary>
+
+```kotlin
+ * Used with [AnimatedContentTransitionScope] to define how a destination enters the screen.
+ */
+typealias EnterTransitionProvider =
+    (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)
+
+/**
+ * Function type for providing nullable exit transitions in navigation.
+```
+
+</details>
+
 ```kotlin
 typealias ExitTransitionProvider =
 ```
 Function type for providing nullable exit transitions in navigation. Used with `AnimatedContentTransitionScope` to define how a destination exits the screen.
+
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:34</code></summary>
+
+```kotlin
+ * Used with [AnimatedContentTransitionScope] to define how a destination exits the screen.
+ */
+typealias ExitTransitionProvider =
+    (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)
+
+/**
+ * Function type for providing non-null enter transitions in navigation.
+```
+
+</details>
 
 ```kotlin
 typealias NonNullEnterTransitionProvider =
 ```
 Function type for providing non-null enter transitions in navigation. Used with `AnimatedContentTransitionScope` to define how a destination enters the screen.
 
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:41</code></summary>
+
+```kotlin
+ * Used with [AnimatedContentTransitionScope] to define how a destination enters the screen.
+ */
+typealias NonNullEnterTransitionProvider =
+    (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition)
+
+/**
+ * Function type for providing non-null exit transitions in navigation.
+```
+
+</details>
+
 ```kotlin
 typealias NonNullExitTransitionProvider =
 ```
 Function type for providing non-null exit transitions in navigation. Used with `AnimatedContentTransitionScope` to define how a destination exits the screen.
 
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:48</code></summary>
+
+```kotlin
+ * Used with [AnimatedContentTransitionScope] to define how a destination exits the screen.
+ */
+typealias NonNullExitTransitionProvider =
+    (@JvmSuppressWildcards AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition)
+
+/**
+ * The default transition time (in milliseconds) for all fade transitions in the
+```
+
+</details>
+
 ```kotlin
 val DEFAULT_STAY_TRANSITION_TIME_MS: Int =
 ```
 The default transition time (in milliseconds) for all "stay"/no-op transitions in the `TransitionProviders`. This should be at least as large as any other transition that might also be happening during a navigation.
+
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:76</code></summary>
+
+```kotlin
+ * navigation.
+ */
+val DEFAULT_STAY_TRANSITION_TIME_MS: Int =
+    maxOf(
+        DEFAULT_FADE_TRANSITION_TIME_MS,
+        DEFAULT_SLIDE_TRANSITION_TIME_MS,
+        DEFAULT_PUSH_TRANSITION_TIME_MS,
+```
+
+</details>
 
 ```kotlin
 val AnimatedContentTransitionScope<NavBackStackEntry>.isSameGraphNavigation: Boolean
@@ -1740,6 +1810,20 @@ Checks if the parent of the destination before and after the navigation is the s
 object TransitionProviders
 ```
 Contains standard "transition providers" that may be used to specify the `EnterTransition` and `ExitTransition` used when building a typical composable destination.
+
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:96</code></summary>
+
+```kotlin
+ * components higher up in the graph.
+ */
+object TransitionProviders {
+    /**
+     * The standard set of "enter" transition providers.
+     */
+    object Enter {
+```
+
+</details>
 
 - `val fadeIn: EnterTransitionProvider =` — Fades the new screen in. Note that this represents a `null` transition when navigating between different nested navigation graphs.
 - `val pushLeft: EnterTransitionProvider =` — Slides the new screen in from the left of the screen.
@@ -1762,16 +1846,15 @@ object RootTransitionProviders
 ```
 Contains standard "transition providers" that may be used to specify the `EnterTransition` and `ExitTransition` used when building a root `NavHost`, which requires a non-null value.
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/nav/NavGraphBuilderExtensions.kt:53</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/Transition.kt:108</code></summary>
 
 ```kotlin
-        typeMap = typeMap,
-        deepLinks = deepLinks,
-        enterTransition = RootTransitionProviders.Kpt.Enter.slideUp(motion),
-        exitTransition = RootTransitionProviders.Kpt.Exit.stay(motion),
-        popEnterTransition = RootTransitionProviders.Kpt.Enter.stay(motion),
-        popExitTransition = RootTransitionProviders.Kpt.Exit.slideDown(motion),
-        sizeTransform = null,
+         */
+        val fadeIn: EnterTransitionProvider = {
+            RootTransitionProviders.Enter
+                .fadeIn(this)
+                .takeIf { isSameGraphNavigation }
+        }
 ```
 
 </details>
@@ -1799,16 +1882,12 @@ interface BackgroundEvent
 ```
 Almost all the events in the app involve navigation or toasts. To prevent accidentally navigating to the same view twice, by default, events are ignored if the view is not currently resumed.
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/effects/EventsEffect.kt:39</code></summary>
+<details><summary>Used in the template — <code>core/ui/src/commonMain/kotlin/kpt/core/ui/util/BackgroundEvent.kt:17</code></summary>
 
 ```kotlin
-        viewModel.eventFlow
-            .filter {
-                it is BackgroundEvent ||
-                    lifecycleOwner.currentState.isAtLeast(Lifecycle.State.RESUMED)
-            }
-            .onEach { handler.invoke(it) }
-            .launchIn(this)
+ * resumed. To avoid that restriction, specific events can implement [BackgroundEvent].
+ */
+interface BackgroundEvent
 ```
 
 </details>
@@ -1849,16 +1928,16 @@ class EditEntityViewModel(
 
 </details>
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateViewModel.kt:45</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteViewModel.kt:67</code></summary>
 
 ```kotlin
-    outbox: SubmitOutbox<PriceAlert>,
-    private val clock: Clock = Clock.System,
-) : BaseMutationViewModel<PriceAlert, PriceAlert>(
+    outbox: SubmitOutbox<NoteDraft>,
+    savedStateHandle: SavedStateHandle,
+) : BaseMutationViewModel<NoteDraft, Unit>(
     MutationMode.Draft(
         outbox = outbox,
-        formKey = FORM_KEY,
-        uniqueKey = FORM_KEY,
+        formKey = NOTE_FORM_KEY,
+        uniqueKey = savedStateHandle.uniqueKey(),
 ```
 
 </details>
@@ -1881,16 +1960,16 @@ abstract class BaseViewModel<S, E, A>(
 ```
 A base `ViewModel` that helps enforce the unidirectional data flow pattern and associated responsibilities of a typical ViewModel: - Maintaining and emitting a current state (of type `S`) with the given `initialState`.
 
-<details><summary>Used in the template — <code>feature/add-to-watchlist/src/commonMain/kotlin/kpt/feature/addtowatchlist/ui/AddToWatchlistViewModel.kt:43</code></summary>
+<details><summary>Used in the template — <code>feature/about/src/commonMain/kotlin/kpt/feature/about/ui/AboutViewModel.kt:36</code></summary>
 
 ```kotlin
-    private val repository: WatchlistRepository,
-    private val coinId: String,
-) : BaseViewModel<Unit, Nothing, AddToWatchlistAction>(Unit) {
+internal class AboutViewModel(
+    config: AboutConfig = AboutConfig.fromBuild(),
+) : BaseViewModel<AboutState, AboutEvent, AboutAction>(AboutState.of(config)) {
 
-    private val toggleSubmitHandler = viewModelScope.submitHandler<Unit>()
-
-    /** Read side — filled/outline. Seeded `false` until `contains()` first emits. */
+    override fun handleAction(action: AboutAction) {
+        when (action) {
+            AboutAction.NavigateBack -> sendEvent(AboutEvent.NavigateBack)
 ```
 
 </details>
@@ -1928,15 +2007,15 @@ sealed interface MutationMode<out T>
 ```
 How a `BaseMutationViewModel` handles its submit — the single knob that replaces the old `BaseSubmitMutationViewModel` / `BaseDraftMutationViewModel` class split.
 
-<details><summary>Used in the template — <code>feature/alerts/src/commonMain/kotlin/kpt/feature/alerts/ui/AlertCreateViewModel.kt:46</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonMain/kotlin/kpt/feature/note/ui/AddEditNoteViewModel.kt:68</code></summary>
 
 ```kotlin
-    private val clock: Clock = Clock.System,
-) : BaseMutationViewModel<PriceAlert, PriceAlert>(
+    savedStateHandle: SavedStateHandle,
+) : BaseMutationViewModel<NoteDraft, Unit>(
     MutationMode.Draft(
         outbox = outbox,
-        formKey = FORM_KEY,
-        uniqueKey = FORM_KEY,
+        formKey = NOTE_FORM_KEY,
+        uniqueKey = savedStateHandle.uniqueKey(),
         autoSaveDraft = true,
 ```
 
@@ -1944,5 +2023,5 @@ How a `BaseMutationViewModel` handles its submit — the single knob that replac
 
 ---
 
-_27 type(s), 147 function(s)/property(ies); 169 carry KDoc at source; 32 authored example(s); 57 live call site(s)._
+_27 type(s), 147 function(s)/property(ies); 169 carry KDoc at source; 32 authored example(s); 63 live call site(s)._
 <!-- api-docs:end -->

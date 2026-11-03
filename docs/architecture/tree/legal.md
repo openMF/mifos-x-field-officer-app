@@ -19,8 +19,8 @@ _Authored beside the code, where the module's own consumers read them._
 
 | Path | |
 |---|---|
-| `legal/output/privacy-policy.md` | Privacy Policy — Money Toolkit |
-| `legal/output/terms.md` | Terms of Service — Money Toolkit |
+| `legal/output/privacy-policy.md` | Privacy Policy — MifosXDroid |
+| `legal/output/terms.md` | Terms of Service — MifosXDroid |
 | `legal/privacy-policy/template.md` | Privacy Policy — ${APP_NAME} |
 | `legal/terms/template.md` | Terms of Service — ${APP_NAME} |
 

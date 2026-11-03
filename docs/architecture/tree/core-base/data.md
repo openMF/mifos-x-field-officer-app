@@ -47,16 +47,16 @@ internal class LoanRepositoryImpl(
 
 </details>
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/alerts/impl/AlertsRepositoryImpl.kt:33</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/auth/impl/AuthCommandRepositoryImpl.kt:34</code></summary>
 
 ```kotlin
- * device-local (no backend), so there is no gateway online/command path here.
+ * ([CommandSpec.localApply]), so the session exists the moment `Applied` comes back.
  */
-@RepositoryBinding(binds = AlertsRepository::class)
-internal class AlertsRepositoryImpl(
-    @FromStore(AppStoreIds.Alerts) private val alertsStore: Store<Unit, List<PriceAlert>>,
-    @FromStore(AppStoreIds.AlertsMutable) private val alertsWriteStore: MutableStore<String, PriceAlert>,
-) : AlertsRepository {
+@RepositoryBinding(binds = AuthCommandRepository::class)
+internal class AuthCommandRepositoryImpl(
+    private val authApi: AuthApi,
+    private val gateway: MutationGateway,
+    private val preferences: ForkPreferencesRepository,
 ```
 
 </details>
@@ -66,16 +66,16 @@ annotation class FromStore(val id: String)
 ```
 Resolves this parameter from the store registry rather than by bare type.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/alerts/impl/AlertsRepositoryImpl.kt:35</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/center/impl/CenterCommandRepositoryImpl.kt:56</code></summary>
 
 ```kotlin
-@RepositoryBinding(binds = AlertsRepository::class)
-internal class AlertsRepositoryImpl(
-    @FromStore(AppStoreIds.Alerts) private val alertsStore: Store<Unit, List<PriceAlert>>,
-    @FromStore(AppStoreIds.AlertsMutable) private val alertsWriteStore: MutableStore<String, PriceAlert>,
-) : AlertsRepository {
-
-    // Read-path contract: the repository builds the ScreenDataStream (offline-local → CACHE_ONLY);
+    private val centerApi: CenterApi,
+    private val gateway: MutationGateway,
+    @FromStore(AppStoreIds.CenterGetCenterWithGroupMembersAndCollectionMeetingCalendar)
+    private val centerStore: Store<Int, CenterWithAssociations>,
+    @FromStore(AppStoreIds.CenterItem) private val itemStore: MutableStore<Int, Center>,
+    @FromStore(AppStoreIds.CenterCollectionSheet)
+    private val sheetStore: Store<CenterCollectionSheetKey, CollectionSheet>,
 ```
 
 </details>
@@ -95,16 +95,16 @@ fun provideLoanOutbox(dao: DraftDao): SubmitOutbox<Loan> =
 
 </details>
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/alerts/AlertsDataProviders.kt:23</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:45</code></summary>
 
 ```kotlin
+const val CREATE_SYNCER_QUALIFIER: String = "syncer.create"
 
-/** Outbox for PriceAlert payloads — RoomSubmitOutbox writes to `framework_submit_drafts`. */
-@DataProvider(qualifier = "outbox.priceAlert")
-fun providePriceAlertOutbox(dao: DraftDao): SubmitOutbox<PriceAlert> =
-    RoomSubmitOutbox(dao = dao, serializer = PriceAlert.serializer())
+@DataProvider(qualifier = CREATE_OUTBOX_QUALIFIER)
+fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
+    RoomSubmitOutbox(dao = dao, serializer = FormDraft.serializer(), ownsFormKey = { it.startsWith(CreateForm.PREFIX) })
 
-/**
+/** The create forms' drafts — what each create form's `FormDraftSlot` and Sync & Drafts read. */
 ```
 
 </details>
@@ -114,16 +114,16 @@ annotation class FromQualifier(val name: String)
 ```
 Resolves this parameter from a NAMED qualifier rather than by bare type. The counterpart to `FromStore` for bindings the data layer itself qualifies — chiefly a `SubmitOutbox<T>`, whose erased type is shared by every outbox in the graph.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/alerts/AlertsDataProviders.kt:37</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:72</code></summary>
 
 ```kotlin
-fun providePriceAlertSubmitSyncer(
+fun provideCreateDraftSyncer(
     scope: CoroutineScope,
-    @FromQualifier("outbox.priceAlert") outbox: SubmitOutbox<PriceAlert>,
+    @FromQualifier(CREATE_OUTBOX_QUALIFIER) outbox: SubmitOutbox<FormDraft>,
     networkMonitor: NetworkMonitor,
-    repository: AlertsRepository,
-): OfflineSubmitSyncer<PriceAlert, PriceAlert> = OfflineSubmitSyncer<PriceAlert, PriceAlert>(
-    scope = scope,
+    userPreferences: UserPreferencesRepository,
+    submitter: CreateDraftSubmitter,
+): OfflineSubmitSyncer<FormDraft, Unit> = OfflineSubmitSyncer<FormDraft, Unit>(
 ```
 
 </details>
@@ -135,16 +135,16 @@ typealias NetworkMonitor = io.github.mobilebytelabs.kmptoolkit.networkmonitor.Ne
 ```
 Backward-compatible typealias — existing consumers keep their import. Delegates to cmp-network-monitor's full-featured NetworkMonitor interface.
 
-<details><summary>Used in the template — <code>feature/crypto/src/commonTest/kotlin/kpt/feature/crypto/ui/FakeCryptoRepository.kt:125</code></summary>
+<details><summary>Used in the template — <code>feature/offlinesync/src/commonMain/kotlin/kpt/feature/offlinesync/ui/OfflineSyncViewModel.kt:56</code></summary>
 
 ```kotlin
- * [NetworkStatus.Available] connection. No network I/O is performed.
- */
-private object AlwaysOnlineNetworkMonitor : NetworkMonitor {
+    private val groups: GroupRepository,
+    private val clients: ClientRepository,
+    networkMonitor: NetworkMonitor,
+    private val nowMs: () -> Long = { Clock.System.now().toEpochMilliseconds() },
+) : BaseViewModel<OfflineSyncState, OfflineSyncEvent, OfflineSyncAction>(OfflineSyncState()) {
 
-    private val _status = MutableStateFlow<NetworkStatus>(
-        NetworkStatus.Available(NetworkInfo()),
-    )
+    init {
 ```
 
 </details>
@@ -191,16 +191,16 @@ interface Synchronizer
 ```
 Synchronization contract — ports Now in Android's `core/data/SyncUtilities.kt`.
 
-<details><summary>Used in the template — <code>feature/currency-rates/src/commonTest/kotlin/kpt/feature/currencyrates/ui/FakeCurrencyRepository.kt:36</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/infra/SnapshotSyncTest.kt:28</code></summary>
 
 ```kotlin
-@OptIn(ExperimentalScreenDataStreamTestingApi::class)
-internal class FakeCurrencyRepository : CurrencyRepository {
-    override suspend fun syncWith(synchronizer: Synchronizer): Boolean = true
 
-    val exchangeRatesState: MutableStateFlow<ScreenState<ExchangeRates>> =
-        MutableStateFlow(ScreenState.Loading)
-    val exchangeRatesRefresh: MutableSharedFlow<Unit> =
+    /** Minimal in-memory [Synchronizer] — no DataStore, no persistence. */
+    private class InMemorySynchronizer : Synchronizer {
+        var stored = ChangeListVersions()
+            private set
+
+        override suspend fun getChangeListVersions(): ChangeListVersions = stored
 ```
 
 </details>
@@ -236,20 +236,6 @@ Identified network record. Used by `changeListSync` to partition deletes from up
 interface Syncable
 ```
 Adopter contract. A `Syncable` knows how to bring its slice of local state up to date with the network. At v1 the contract is intentionally minimal (no payload arg) — the worker enqueues all-pinned-keys per adopter at fixed defaults.
-
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/currency/CurrencyRepository.kt:29</code></summary>
-
-```kotlin
- * or from a pull-to-refresh gesture.
- */
-interface CurrencyRepository : Syncable {
-    /**
-     * Stream of exchange rates for [baseCurrency].
-     *
-     * @param fetchPolicy Controls network vs. cache strategy. Defaults to
-```
-
-</details>
 
 - `suspend fun syncWith(synchronizer: Synchronizer): Boolean` — Syncs this entity using `synchronizer`. Returns false if the sync could not complete, so the caller leaves the stored version untouched and retries.
 
@@ -292,5 +278,5 @@ Singleton NetworkMonitor backed by cmp-network-monitor. Auto-initializes on firs
 
 ---
 
-_12 type(s), 15 function(s)/property(ies); 27 carry KDoc at source; 2 authored example(s); 10 live call site(s)._
+_12 type(s), 15 function(s)/property(ies); 27 carry KDoc at source; 2 authored example(s); 9 live call site(s)._
 <!-- api-docs:end -->

@@ -1,41 +1,41 @@
 # `core/`
 
 > **Kind:** Kotlin Multiplatform module group  
-> **Measured:** 454 tracked files — 305× `.kt`, 40× `.md`, 29× `.xml`, 24× `.kts`, 14× `.yaml`
+> **Measured:** 1421 tracked files — 1238× `.kt`, 54× `.xml`, 33× `.md`, 27× `.ttf`, 24× `.kts`
 
 ## Shape
 
 | Path | Files |
 |---|---:|
-| `core/database/` | 74 |
-| `core/data/` | 71 |
-| `core/store/` | 62 |
-| `core/network/` | 59 |
-| `core/designsystem/` | 56 |
-| `core/model/` | 38 |
-| `core/ui/` | 23 |
-| `core/firebase/` | 19 |
-| `core/datastore/` | 18 |
-| `core/domain/` | 14 |
-| `core/common/` | 12 |
-| `core/platform/` | 8 |
+| `core/model/` | 474 |
+| `core/database/` | 199 |
+| `core/data/` | 174 |
+| `core/ui/` | 124 |
+| `core/network/` | 122 |
+| `core/store/` | 113 |
+| `core/designsystem/` | 109 |
+| `core/common/` | 49 |
+| `core/datastore/` | 20 |
+| `core/firebase/` | 14 |
+| `core/domain/` | 12 |
+| `core/platform/` | 11 |
 
 ## Modules
 
 | | |
 |---|---|
-| `core:common` | 3 Kotlin files — [guide](core/common.md) |
-| `core:data` | 62 Kotlin files — [guide](core/data.md) |
-| `core:database` | 54 Kotlin files — [guide](core/database.md) |
-| `core:datastore` | 9 Kotlin files — [guide](core/datastore.md) |
-| `core:designsystem` | 38 Kotlin files — [guide](core/designsystem.md) |
-| `core:domain` | 5 Kotlin files — [guide](core/domain.md) |
-| `core:firebase` | 11 Kotlin files — [guide](core/firebase.md) |
-| `core:model` | 29 Kotlin files — [guide](core/model.md) |
-| `core:network` | 42 Kotlin files — [guide](core/network.md) |
-| `core:platform` | 2 Kotlin files — [guide](core/platform.md) |
-| `core:store` | 36 Kotlin files — [guide](core/store.md) |
-| `core:ui` | 14 Kotlin files — [guide](core/ui.md) |
+| `core:common` | 40 Kotlin files — [guide](core/common.md) |
+| `core:data` | 165 Kotlin files — [guide](core/data.md) |
+| `core:database` | 183 Kotlin files — [guide](core/database.md) |
+| `core:datastore` | 11 Kotlin files — [guide](core/datastore.md) |
+| `core:designsystem` | 70 Kotlin files — [guide](core/designsystem.md) |
+| `core:domain` | 3 Kotlin files — [guide](core/domain.md) |
+| `core:firebase` | 6 Kotlin files — [guide](core/firebase.md) |
+| `core:model` | 465 Kotlin files — [guide](core/model.md) |
+| `core:network` | 112 Kotlin files — [guide](core/network.md) |
+| `core:platform` | 5 Kotlin files — [guide](core/platform.md) |
+| `core:store` | 86 Kotlin files — [guide](core/store.md) |
+| `core:ui` | 92 Kotlin files — [guide](core/ui.md) |
 
 ## Docs in the tree
 

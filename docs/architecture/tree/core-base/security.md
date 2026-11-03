@@ -32,16 +32,16 @@ expect class BiometricAuthenticator()
 ```
 Platform-agnostic biometric authentication interface.
 
-<details><summary>Used in the template — <code>core-base/security/src/androidMain/kotlin/kpt/core/base/security/BiometricAuthenticator.kt:19</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInViewModel.kt:52</code></summary>
 
 ```kotlin
- * contract — consumer apps wire it with their Activity in the app module.
- */
-actual class BiometricAuthenticator actual constructor() {
+    private val session: SessionRepository,
+    private val serverConfig: ServerConfigRepository,
+    private val biometrics: BiometricAuthenticator,
+) : BaseViewModel<SignInState, SignInEvent, SignInAction>(SignInState()) {
 
-    /** `isAvailable` on Android. */
-    actual fun isAvailable(): Boolean {
-        // Requires PackageManager.FEATURE_FINGERPRINT or BiometricManager check.
+    init {
+        // Biometric unlock is offered ONLY when there is a stored session to unlock INTO and the
 ```
 
 </details>
@@ -51,16 +51,16 @@ sealed class BiometricResult
 ```
 The outcome of one biometric prompt.
 
-<details><summary>Used in the template — <code>core-base/security/src/androidMain/kotlin/kpt/core/base/security/BiometricAuthenticator.kt:34</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInViewModel.kt:176</code></summary>
 
 ```kotlin
-     * log line.
-     */
-    actual suspend fun authenticate(reason: String): BiometricResult {
-        // Consumer apps override with BiometricPrompt integration.
-        return BiometricResult.Unavailable
-    }
-}
+        viewModelScope.launch {
+            when (biometrics.authenticate(BIOMETRIC_REASON)) {
+                is BiometricResult.Success -> {
+                    // Re-affirming `isAuthenticated` is what also sets `isUnlocked` downstream.
+                    // Without it the root state machine sends an authenticated-but-locked user
+                    // straight back here, which is the bounce observed on device 2026-10-02.
+                    auth.resumeStoredSession()
 ```
 
 </details>

@@ -7,24 +7,24 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `cmp-android/` | 33 | [`cmp-android/`](tree/cmp-android.md) |
+| `cmp-android/` | 57 | [`cmp-android/`](tree/cmp-android.md) |
 | `cmp-ios/` | 45 | [`cmp-ios/`](tree/cmp-ios.md) |
 | `cmp-desktop/` | 12 | [`cmp-desktop/`](tree/cmp-desktop.md) |
 | `cmp-web/` | 17 | [`cmp-web/`](tree/cmp-web.md) |
 | `cmp-shared/` | 8 | [`cmp-shared/`](tree/cmp-shared.md) |
-| `cmp-navigation/` | 56 | [`cmp-navigation/`](tree/cmp-navigation.md) |
+| `cmp-navigation/` | 63 | [`cmp-navigation/`](tree/cmp-navigation.md) |
 
 ## Features
 
 | Area | Files | Page |
 |---|---:|---|
-| `feature/` | 658 | [`feature/`](tree/feature.md) |
+| `feature/` | 872 | [`feature/`](tree/feature.md) |
 
 ## Core layers
 
 | Area | Files | Page |
 |---|---:|---|
-| `core/` | 454 | [`core/`](tree/core.md) |
+| `core/` | 1421 | [`core/`](tree/core.md) |
 | `core-base/` | 499 | [`core-base/`](tree/core-base.md) |
 
 ## Codegen
@@ -38,7 +38,7 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `app-profile/` | 163 | [`app-profile/`](tree/app-profile.md) |
+| `app-profile/` | 168 | [`app-profile/`](tree/app-profile.md) |
 | `gradle/` | 5 | [`gradle/`](tree/gradle.md) |
 | `secrets/` | 55 | [`secrets/`](tree/secrets.md) |
 
@@ -56,7 +56,7 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `scripts/` | 475 | [`scripts/`](tree/scripts.md) |
+| `scripts/` | 477 | [`scripts/`](tree/scripts.md) |
 | `sync/` | 16 | [`sync/`](tree/sync.md) |
 | `tests/` | 21 | [`tests/`](tree/tests.md) |
 

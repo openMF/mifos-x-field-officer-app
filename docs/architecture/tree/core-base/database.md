@@ -61,16 +61,16 @@ data class LoanEntity(...)
 
 </details>
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/alerts/AlertEntity.kt:29</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/cache/entity/ApiResponseCacheEntity.kt:32</code></summary>
 
 ```kotlin
- * @property createdAt Creation timestamp in epoch-milliseconds.
+ * that identifies its row — there is no second keying scheme to keep in step.
  */
 @DbEntity
-@Entity(tableName = "alerts")
-data class AlertEntity(
-    @PrimaryKey val id: String,
-    val symbol: String,
+@Entity(tableName = "api_response_cache")
+data class ApiResponseCacheEntity(
+    @PrimaryKey
+    val cacheKey: String,
 ```
 
 </details>
@@ -90,16 +90,16 @@ interface LoanDao { ... }
 
 </details>
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/alerts/AlertDao.kt:25</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/cache/dao/ApiResponseCacheDao.kt:19</code></summary>
 
 ```kotlin
- * Natural sort order is newest-first ([AlertEntity.createdAt] descending).
- */
+import kpt.core.database.cache.entity.ApiResponseCacheEntity
+
 @DbDao
 @Dao
-interface AlertDao {
+interface ApiResponseCacheDao {
 
-    /** Observe all alerts, ordered newest-first. */
+    @Query("SELECT * FROM api_response_cache WHERE cacheKey = :cacheKey LIMIT 1")
 ```
 
 </details>
@@ -109,15 +109,16 @@ annotation class DbConverters
 ```
 Marks a class holding Room `@TypeConverter` functions. Collected into the generated `@ColumnTypeConverters(...)` annotation on `AppDatabase`. Same declare-once contract as `DbEntity`: the converter class is the only place it is named.
 
-<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/banking/converter/BankingTypeConverters.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/database/src/commonMain/kotlin/kpt/core/database/center/converter/CenterTypeConverters.kt:19</code></summary>
 
 ```kotlin
- * Registered on [kpt.core.database.AppDatabase] via `@ColumnTypeConverters`.
- */
-@DbConverters
-class BankingTypeConverters {
+import kpt.core.database.savings.entity.SavingAccountDepositTypeEntity
 
-    // --- LoanKind ---
+@DbConverters
+class CenterTypeConverters {
+
+    @ColumnTypeConverter
+    fun fromCenterDate(centerDate: CenterDateEntity?): String? {
 ```
 
 </details>
@@ -129,16 +130,16 @@ interface BookkeeperDao
 ```
 DAO for `BookkeeperEntity`. Provides persistent sync-failure tracking for `org.mobilenativefoundation.store.store5.Bookkeeper` implementations.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/cloudtodo/CloudTodoDataProviders.kt:33</code></summary>
+<details><summary>Used in the template — <code>core-base/store/src/commonMain/kotlin/kpt/core/base/store/infra/impl/RoomBookkeeper.kt:27</code></summary>
 
 ```kotlin
  */
-@DataProvider
-fun provideCloudTodoBookkeeper(dao: BookkeeperDao): Bookkeeper<CloudTodoKey> =
-    RoomBookkeeper(dao = dao, keySerializer = { "$CLOUD_TODO_KEY_PREFIX${it.id}" })
+class RoomBookkeeper<Key : Any>(
+    private val dao: BookkeeperDao,
+    private val keySerializer: (Key) -> String,
+) : Bookkeeper<Key> {
 
-/**
- * Eager: drains the cloud-todo write backlog on the offline -> online edge.
+    override suspend fun getLastFailedSync(key: Key): Long? = dao.getLastFailedSync(keySerializer(key))
 ```
 
 </details>
@@ -182,16 +183,16 @@ interface DraftDao
 ```
 DAO for the framework-owned `framework_submit_drafts` table. Consumed by `kpt.core.data.store.RoomSubmitOutbox`. The framework uses this table to persist form payloads that failed to reach the server so users can resume or retry later.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/alerts/AlertsDataProviders.kt:24</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/draft/CreateDraftDataProviders.kt:46</code></summary>
 
 ```kotlin
-/** Outbox for PriceAlert payloads — RoomSubmitOutbox writes to `framework_submit_drafts`. */
-@DataProvider(qualifier = "outbox.priceAlert")
-fun providePriceAlertOutbox(dao: DraftDao): SubmitOutbox<PriceAlert> =
-    RoomSubmitOutbox(dao = dao, serializer = PriceAlert.serializer())
 
-/**
- * Eager: starts watching online events at Koin start and retries pending alerts on reconnect.
+@DataProvider(qualifier = CREATE_OUTBOX_QUALIFIER)
+fun provideCreateDraftOutbox(dao: DraftDao): SubmitOutbox<FormDraft> =
+    RoomSubmitOutbox(dao = dao, serializer = FormDraft.serializer(), ownsFormKey = { it.startsWith(CreateForm.PREFIX) })
+
+/** The create forms' drafts — what each create form's `FormDraftSlot` and Sync & Drafts read. */
+@DataProvider
 ```
 
 </details>

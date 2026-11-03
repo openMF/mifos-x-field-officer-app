@@ -1,20 +1,21 @@
 # `feature/settings/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 76 tracked files — 31× `.kt`, 21× `.png`, 20× `.xml`, 1× `.gitignore`, 1× `.md`
+> **Measured:** 83 tracked files — 38× `.kt`, 20× `.xml`, 20× `.png`, 2× `.md`, 1× `.gitignore`
 
-**31 Kotlin files** — 3 screen(s), 3 ViewModel(s).
+**38 Kotlin files** — 4 screen(s), 5 ViewModel(s).
 
-Screens: `NotificationScreen`, `SettingsScreen`, `SyncAndDraftsScreen`
+Screens: `NotificationScreen`, `ServerConfigScreen`, `SettingsScreen`, `SyncAndDraftsScreen`
 
-ViewModels: `ConflictInboxViewModel`, `SettingsViewModel`, `SyncAndDraftsViewModel`
+ViewModels: `ConflictInboxViewModel`, `ServerConfigViewModel`, `SettingsViewModel`, `SignOutViewModel`, `SyncAndDraftsViewModel`
 
-**Consumes:** `core/store/user`
+**Consumes:** `core/store/auth`, `core/store/serverconfig`, `core/store/session`, `core/store/testing`, `core/store/user`
 
 ### Docs in the tree
 
 | Path | |
 |---|---|
+| `feature/settings/MIGRATION.md` | feature/settings — migration ledger |
 | `feature/settings/README.md` | :feature:settings |
 
 <!-- tree-scaffold:end -->
@@ -31,10 +32,10 @@ The **sync-and-drafts** screen makes the offline write queue visible, which is t
 `UserEditableSettings` is deliberately narrower than `UserData`, so a settings screen cannot write a
 session or lock field it has no business touching.
 
-<!-- api-docs:begin module=feature/settings sha=eb64d6ee14bb9a2d9b6b8c834e91113d75c77507 -->
+<!-- api-docs:begin module=feature/settings sha=f40ea3911ea84ee25946e1c33b5d53be0fe93ff9 -->
 ## API reference
 
-_Generated from `feature/settings` at tree `eb64d6ee14bb` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/settings` at tree `f40ea3911ea8` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -94,37 +95,23 @@ data class DevMenuEntry(
 ```
 DevMenuEntry — a generic row in the Settings screen's "Developer" section.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt:55</code></summary>
-
-```kotlin
-    onSyncAndDraftsClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    devMenuEntries: List<DevMenuEntry> = emptyList(),
-    onRateAppClick: (() -> Unit)? = null,
-) {
-    val analyticsHelper = rememberAnalyticsHelper()
-    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
-```
-
-</details>
-
 ### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt`
 
 ```kotlin
 fun LanguageDialog(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinViewModel())
 ```
-Language picker, resolving its own ViewModel. The entry point a screen calls.
+_No KDoc at source._
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt:60</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:70</code></summary>
 
 ```kotlin
-    val analyticsHelper = rememberAnalyticsHelper()
-    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
+) {
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
-    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
-    var showDevMenu by rememberSaveable { mutableStateOf(false) }
 
-    if (showSettingsDialog) {
+    SettingsScreenContent(
+        onBackClick = onBackClick,
+        onThemeCardClick = { showThemeDialog = true },
 ```
 
 </details>
@@ -132,18 +119,18 @@ Language picker, resolving its own ViewModel. The entry point a screen calls.
 ```kotlin
 fun LanguageDialog(
 ```
-Language picker over explicit state — the testable overload, and what the stateful one delegates to.
+_No KDoc at source._
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt:60</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:70</code></summary>
 
 ```kotlin
-    val analyticsHelper = rememberAnalyticsHelper()
-    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
+) {
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
-    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
-    var showDevMenu by rememberSaveable { mutableStateOf(false) }
 
-    if (showSettingsDialog) {
+    SettingsScreenContent(
+        onBackClick = onBackClick,
+        onThemeCardClick = { showThemeDialog = true },
 ```
 
 </details>
@@ -151,30 +138,30 @@ Language picker over explicit state — the testable overload, and what the stat
 ```kotlin
 fun LanguageChooserRow(text: String, selected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier)
 ```
-One selectable language row.
+_No KDoc at source._
 
 ### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/Platform.kt`
 
 ```kotlin
 expect fun getPlatform(): Platform
 ```
-Which platform the app is running on, for the About screen and for a platform-conditional branch that cannot be expressed as an `expect`/`actual` of its own.
+_No KDoc at source._
 
 ```kotlin
 enum class Platform
 ```
-The targets this template builds for.
+_No KDoc at source._
 
-<details><summary>Used in the template — <code>feature/settings/src/androidMain/kotlin/kpt/feature/settings/Platform.android.kt:16</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/androidMain/kotlin/kpt/feature/settings/Platform.android.kt:15</code></summary>
 
 ```kotlin
+import androidx.annotation.ChecksSdkIntAtLeast
 
-/** Identifies this target as Android, with its version where the platform exposes one. */
 actual fun getPlatform(): Platform {
     return Platform.Android
 }
 
-/** Whether a system-derived palette is available. True on API 31+, where Material You exposes wallpaper colours. */
+@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
 ```
 
 </details>
@@ -182,64 +169,32 @@ actual fun getPlatform(): Platform {
 ```kotlin
 expect fun supportsDynamicTheming(): Boolean
 ```
-Whether the platform exposes a system-derived palette, so the settings screen can hide the dynamic-colour toggle where it would do nothing.
+_No KDoc at source._
 
-### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/PrivacySheet.kt`
-
-```kotlin
-fun PrivacySheet(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinViewModel())
-```
-Settings → Privacy, as a bottom sheet: the user's consent to usage analytics and crash reporting, each one switch, plus the link to the hosted privacy policy.
-
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt:61</code></summary>
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt`
 
 ```kotlin
-    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
-    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
-    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
-    var showDevMenu by rememberSaveable { mutableStateOf(false) }
-
-    if (showSettingsDialog) {
-        SettingsDialog(
+fun SettingsBody(
 ```
-
-</details>
-
-```kotlin
-fun PrivacySheet(
-```
-Privacy sheet over explicit state — the testable overload.
-
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt:61</code></summary>
-
-```kotlin
-    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
-    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
-    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
-    var showDevMenu by rememberSaveable { mutableStateOf(false) }
-
-    if (showSettingsDialog) {
-        SettingsDialog(
-```
-
-</details>
+The STATEFUL settings body — the fork's replacement for the template's `kpt.feature.settings.demo.SettingsDemoBody`, which `customizer --clean` strips.
 
 ### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsDialog.kt`
 
 ```kotlin
 fun SettingsDialog(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinViewModel())
 ```
-Settings dialog, resolving its own ViewModel. The entry point a screen calls.
+_No KDoc at source._
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt:59</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:85</code></summary>
 
 ```kotlin
-) {
-    val analyticsHelper = rememberAnalyticsHelper()
-    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
-    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
-    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
-    var showDevMenu by rememberSaveable { mutableStateOf(false) }
+
+    if (showThemeDialog) {
+        SettingsDialog(onDismiss = { showThemeDialog = false })
+    }
+    if (showLanguageDialog) {
+        LanguageDialog(onDismiss = { showLanguageDialog = false })
+    }
 ```
 
 </details>
@@ -247,17 +202,18 @@ Settings dialog, resolving its own ViewModel. The entry point a screen calls.
 ```kotlin
 fun SettingsDialog(
 ```
-Settings dialog over explicit state — the testable overload.
+_No KDoc at source._
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt:59</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:85</code></summary>
 
 ```kotlin
-) {
-    val analyticsHelper = rememberAnalyticsHelper()
-    var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
-    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
-    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
-    var showDevMenu by rememberSaveable { mutableStateOf(false) }
+
+    if (showThemeDialog) {
+        SettingsDialog(onDismiss = { showThemeDialog = false })
+    }
+    if (showLanguageDialog) {
+        LanguageDialog(onDismiss = { showLanguageDialog = false })
+    }
 ```
 
 </details>
@@ -265,39 +221,39 @@ Settings dialog over explicit state — the testable overload.
 ```kotlin
 fun SettingsDialogThemeChooserRow(
 ```
-One selectable theme row.
+_No KDoc at source._
 
 ### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsRoute.kt`
 
 ```kotlin
 data object SettingsRoute
 ```
-Route for the settings screen.
+_No KDoc at source._
 
 ```kotlin
 data object NotificationRoute
 ```
-Route for notification settings.
+_No KDoc at source._
 
 ```kotlin
 data object SyncAndDraftsRoute
 ```
-Route for the sync-and-drafts screen — pending writes and saved drafts.
+_No KDoc at source._
 
 ```kotlin
 fun NavController.navigateToSettings(navOptions: NavOptions? = null) = navigate(SettingsRoute, navOptions)
 ```
-Navigates to settings.
+_No KDoc at source._
 
 ```kotlin
 fun NavController.navigateToNotification(navOptions: NavOptions? = null) = navigate(NotificationRoute, navOptions)
 ```
-Navigates to notification settings.
+_No KDoc at source._
 
 ```kotlin
 fun NavController.navigateToSyncAndDrafts(navOptions: NavOptions? = null) = navigate(SyncAndDraftsRoute, navOptions)
 ```
-Navigates to the sync-and-drafts screen.
+_No KDoc at source._
 
 ```kotlin
 fun NavGraphBuilder.settingsDestination(settingsBody: @Composable () -> Unit = {})
@@ -307,7 +263,7 @@ The settings backbone destination.
 ```kotlin
 fun NavGraphBuilder.notificationDestination(onBackClick: () -> Unit)
 ```
-Registers the notification-settings destination.
+_No KDoc at source._
 
 ```kotlin
 fun NavGraphBuilder.syncAndDraftsDestination(
@@ -321,10 +277,10 @@ class SettingsViewModel(
 ```
 Settings ViewModel — the toolkit's `local_only_prefs` demo, on the MVI `BaseViewModel` idiom (typed actions) with a Store5 read path.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:48</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:47</code></summary>
 
 ```kotlin
-/** Language picker, resolving its own ViewModel. The entry point a screen calls. */
+
 @Composable
 fun LanguageDialog(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinViewModel()) {
     val settingsState by viewModel.settingsState.collectAsStateWithLifecycle()
@@ -343,9 +299,9 @@ Preference-mutation intents accepted by `SettingsViewModel`.
 ```kotlin
 data class UserEditableSettings(
 ```
-The subset of preferences this screen owns — deliberately narrower than `UserData`, so a settings screen cannot write a lock or session field.
+_No KDoc at source._
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:61</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/LanguageDialog.kt:59</code></summary>
 
 ```kotlin
 @Composable
@@ -366,7 +322,7 @@ data class DraftRowExtras(
 ```
 What an app adds to one draft row: a readable `title` / `subtitle` in place of the raw form key, and `onOpen` — reopen the form the draft came from, so it can be resumed.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsRoute.kt:89</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsRoute.kt:61</code></summary>
 
 ```kotlin
 fun NavGraphBuilder.syncAndDraftsDestination(
@@ -432,60 +388,332 @@ object TestTags
 ```
 Append-only test-tag registry for the settings feature. Consumed by Compose UI tests in `feature/settings/src/commonTest/`. APPEND-ONLY contract (RULE-KMP-COMPOSE-UITEST-001 CU-5).
 
-<details><summary>Used in the template — <code>feature/add-to-watchlist/src/commonMain/kotlin/kpt/feature/addtowatchlist/ui/AddToWatchlistStar.kt:51</code></summary>
+<details><summary>Used in the template — <code>feature/charge/src/commonMain/kotlin/kpt/feature/charge/detail/ChargeDetailScreen.kt:104</code></summary>
 
 ```kotlin
-    IconButton(
-        onClick = viewModel::onToggle,
-        modifier = modifier.testTag(TestTags.AddToWatchlist.STAR_PREFIX + coinId),
-    ) {
-        Icon(
-            imageVector = if (isTracked) Icons.Filled.Star else Icons.Outlined.StarBorder,
-            contentDescription = stringResource(
+        title = stringResource(Res.string.feature_charge_details),
+        onBackPressed = { onAction(ChargeDetailAction.NavigateBack) },
+        modifier = modifier.testTag(TestTags.ChargeDetail.SCREEN),
+        actions = {
+            // Only with something to edit, and only where Fineract can update it.
+            if (canEdit && charge is ScreenState.Content) {
+                IconButton(
 ```
 
 </details>
 
+- `const val ABOUT_ROW: String = "settings_about_row"`
+- `const val OFFLINE_SYNC_ROW: String = "settings_offline_sync_row"`
 - `const val SCREEN: String = "settings_screen"` — Root scaffold — always rendered regardless of dialog state.
-- `const val PRIVACY_ROW: String = "settings_privacy_row"` — The Privacy row that opens `PrivacySheet`.
-- `const val SHEET: String = "privacy_sheet"` — The bottom sheet itself.
-- `const val ANALYTICS_SWITCH: String = "privacy_analytics_switch"` — The usage-analytics consent switch row.
-- `const val CRASH_REPORTS_SWITCH: String = "privacy_crash_reports_switch"` — The crash-reporting consent switch row.
-- `const val POLICY_LINK: String = "privacy_policy_link"` — The link that opens the privacy policy in the in-app browser.
 - `const val SCREEN: String = "notification_screen"` — Root scaffold — always rendered regardless of content state.
 - `const val SCREEN: String = "sync_and_drafts_screen"` — Root scaffold — always rendered regardless of content state.
 - `const val PRUNE: String = "sync_and_drafts_prune"` — The manual "Prune expired" button (rendered only when there is content).
-- `const val OPEN: String = "sync_and_drafts_open"` — A draft row's "Open" button, which resumes the draft in its form.
-
-### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/demo/SettingsDemoBody.kt`
-
-```kotlin
-fun SettingsDemoBody(
-```
-The settings tab's fork-owned INNER content (the default demo body).
-
-<details><summary>Used in the template — <code>feature/settings/src/commonTest/kotlin/kpt/feature/settings/SettingsScreenUiTest.kt:37</code></summary>
-
-```kotlin
-            KptTheme {
-                // In production cmp-navigation's ForkBackboneRegistry.settingsBody supplies this body.
-                SettingsDemoBody(
-                    onBackClick = {},
-                    onSyncAndDraftsClick = {},
-                )
-            }
-```
-
-</details>
+- `const val OPEN: String = "sync_and_drafts_open"`
 
 ### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/di/SettingsModule.kt`
 
 ```kotlin
 val SettingsModule = module
 ```
-Koin bindings for the settings feature.
+_No KDoc at source._
+
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigRoute.kt`
+
+```kotlin
+data object ServerConfigRoute
+```
+_No KDoc at source._
+
+```kotlin
+fun NavController.navigateToServerConfig(navOptions: NavOptions? = null) =
+```
+_No KDoc at source._
+
+```kotlin
+fun NavGraphBuilder.serverConfigDestination(onBackClick: () -> Unit)
+```
+Server-config destination, installed on the **ROOT** graph — deliberately NOT annotated `@FeatureDestination`.
+
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigScreen.kt`
+
+```kotlin
+fun ServerConfigScreen(
+```
+Edits the Fineract server configuration — protocol, host, API path, port, tenant. Ported from `6b66e8a43:feature/settings/.../updateServer/UpdateServerConfigScreen.kt`.
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigRoute.kt:42</code></summary>
+
+```kotlin
+fun NavGraphBuilder.serverConfigDestination(onBackClick: () -> Unit) {
+    composableWithPushTransitions<ServerConfigRoute> {
+        ServerConfigScreen(onBackClick = onBackClick)
+    }
+}
+```
+
+</details>
+
+```kotlin
+object ServerConfigTestTags
+```
+Stable handles for the server-config screen — asserted by UI tests, never shown to a user.
+
+- `const val SCREEN = "server-config:screen"`
+- `const val LIVE = "server-config:live"`
+- `const val LIVE_BADGE = "server-config:live-badge"`
+- `const val BACK = "server-config:back"`
+- `const val PROTOCOL = "server-config:protocol"`
+- `const val ENDPOINT = "server-config:endpoint"`
+- `const val API_PATH = "server-config:api-path"`
+- `const val PORT = "server-config:port"`
+- `const val TENANT = "server-config:tenant"`
+- `const val INSTANCE_PREFIX = "server-config:instance:"`
+- `const val DEMO_HINT = "server-config:demo-hint"`
+- `const val INSTANCES = "server-config:instances"`
+- `const val SWITCH_CONFIRM = "server-config:switch-confirm"`
+- `const val SAVE = "server-config:save"`
+
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigViewModel.kt`
+
+```kotlin
+class ServerConfigViewModel(
+```
+Editor for the Fineract server configuration. Ported from `6b66e8a43:feature/settings/.../updateServer/UpdateServerConfigViewModel.kt`.
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/di/SettingsModule.kt:26</code></summary>
+
+```kotlin
+    // core-base StoreModule, included via appStoreModule).
+    viewModelOf(::ConflictInboxViewModel)
+    viewModelOf(::ServerConfigViewModel)
+    viewModelOf(::SignOutViewModel)
+}
+```
+
+</details>
+
+```kotlin
+enum class ServerConfigField { Protocol, EndPoint, ApiPath, Port, Tenant }
+```
+The five editable fields, so failures can be attributed to one.
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigScreen.kt:210</code></summary>
+
+```kotlin
+                onChange = { viewModel.actionChannel.trySend(ServerConfigAction.ProtocolChanged(it)) },
+                label = stringResource(Res.string.feature_settings_server_protocol),
+                failure = state.failures[ServerConfigField.Protocol],
+                tag = ServerConfigTestTags.PROTOCOL,
+            )
+            Field(
+                value = state.config.endPoint,
+```
+
+</details>
+
+```kotlin
+data class ServerConfigState(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigScreen.kt:277</code></summary>
+
+```kotlin
+ */
+@Composable
+private fun InstancePicker(state: ServerConfigState, onSelect: (String) -> Unit) {
+    val selected = state.selectedInstance
+    Column(modifier = Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        state.instances.forEach { instance ->
+            InstanceRow(
+```
+
+</details>
+
+```kotlin
+sealed interface ServerConfigAction
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigScreen.kt:145</code></summary>
+
+```kotlin
+            Surface(tonalElevation = 3.dp, shadowElevation = 3.dp) {
+                Button(
+                    onClick = { viewModel.actionChannel.trySend(ServerConfigAction.Submit) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .navigationBarsPadding()
+                        .imePadding()
+```
+
+</details>
+
+```kotlin
+sealed interface ServerConfigEvent
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/serverconfig/ServerConfigScreen.kt:127</code></summary>
+
+```kotlin
+                // Confirm, then leave — the original popped back with no confirmation, so a user
+                // could not tell a successful save from a dismissed screen.
+                ServerConfigEvent.Saved -> {
+                    snackbarHostState.showSnackbar(savedMessage)
+                    onBackClick()
+                }
+                ServerConfigEvent.Invalid -> snackbarHostState.showSnackbar(invalidMessage)
+```
+
+</details>
+
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/signout/SignOutDialog.kt`
+
+```kotlin
+fun SignOutDialog(state: SignOutState, onAction: (SignOutAction) -> Unit)
+```
+The sign-out choice, shown while `SignOutState.confirming`. Stateless — `SignOutViewModel` owns it.
+
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:122</code></summary>
+
+```kotlin
+    )
+    if (signOut.confirming) {
+        SignOutDialog(state = signOut, onAction = signOutViewModel::trySendAction)
+    }
+}
+
+/** Stateless half — previews and UI tests drive it directly. */
+```
+
+</details>
+
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/signout/SignOutTestTags.kt`
+
+```kotlin
+object SignOutTestTags
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsScreen.kt:155</code></summary>
+
+```kotlin
+                    accentColor = MaterialTheme.colorScheme.error,
+                    onClick = it,
+                    modifier = Modifier.testTag(SignOutTestTags.ROW),
+                )
+            }
+            Spacer(modifier = Modifier.fillMaxWidth().padding(sp.sm))
+            VersionLabel(onLongClick = onFooterLongClick)
+```
+
+</details>
+
+- `const val ROW = "settings.sign_out"`
+- `const val CONFIRM = "settings.sign_out.confirm"`
+- `const val KEEP_DATA = "settings.sign_out.keep_data"`
+- `const val CLEAR_DATA = "settings.sign_out.clear_data"`
+- `const val FAILED = "settings.sign_out.failed"`
+
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/signout/SignOutViewModel.kt`
+
+```kotlin
+class SignOutViewModel(
+```
+Sign-out, at the bottom of Settings (moved from the Profile tab, 2026-10-25). Local only, so it works offline — a field officer who cannot sign out without signal is stranded.
+
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:101</code></summary>
+
+```kotlin
+    modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel = koinViewModel(),
+    signOutViewModel: SignOutViewModel = koinViewModel(),
+) {
+    val state by viewModel.profile.collectAsStateWithLifecycle()
+    val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
+    val snackbar = remember { SnackbarHostState() }
+```
+
+</details>
+
+```kotlin
+enum class SignOutMode { SessionOnly, SessionAndData }
+```
+What sign-out removes. `SessionAndData` is the default: it deletes everything the app stored, unsynced work included. `SessionOnly` keeps cached clients and unsynced work for the next sign-in.
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/signout/SignOutDialog.kt:59</code></summary>
+
+```kotlin
+                    Text(
+                        stringResource(
+                            if (state.mode == SignOutMode.SessionAndData) {
+                                Res.string.feature_settings_sign_out_confirm_clear
+                            } else {
+                                Res.string.feature_settings_sign_out_confirm
+                            },
+```
+
+</details>
+
+```kotlin
+data class SignOutState(
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/signout/SignOutDialog.kt:45</code></summary>
+
+```kotlin
+/** The sign-out choice, shown while [SignOutState.confirming]. Stateless — [SignOutViewModel] owns it. */
+@Composable
+fun SignOutDialog(state: SignOutState, onAction: (SignOutAction) -> Unit) {
+    if (state.confirming) {
+        AlertDialog(
+            onDismissRequest = { onAction(SignOutAction.Cancelled) },
+            title = { Text(stringResource(Res.string.feature_settings_sign_out)) },
+```
+
+</details>
+
+```kotlin
+sealed interface SignOutAction
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:117</code></summary>
+
+```kotlin
+        onBack = onBack,
+        onServerSettings = onServerSettings,
+        onSignOut = { signOutViewModel.trySendAction(SignOutAction.Requested) },
+        snackbarHostState = snackbar,
+        modifier = modifier,
+    )
+    if (signOut.confirming) {
+```
+
+</details>
+
+```kotlin
+sealed interface SignOutEvent
+```
+_No KDoc at source._
+
+<details><summary>Used in the template — <code>feature/settings/src/commonTest/kotlin/kpt/feature/settings/signout/SignOutViewModelTest.kt:59</code></summary>
+
+```kotlin
+        assertEquals(SignOutMode.SessionAndData, vm.stateFlow.value.mode)
+        vm.trySendAction(SignOutAction.Confirmed)
+        assertEquals(SignOutEvent.SignedOut, vm.eventFlow.first())
+        assertEquals(listOf(true), auth.signOuts)
+    }
+
+    @Test
+```
+
+</details>
 
 ---
 
-_16 type(s), 28 function(s)/property(ies); 44 carry KDoc at source; 0 authored example(s); 17 live call site(s)._
+_29 type(s), 46 function(s)/property(ies); 26 carry KDoc at source; 0 authored example(s); 26 live call site(s)._
 <!-- api-docs:end -->

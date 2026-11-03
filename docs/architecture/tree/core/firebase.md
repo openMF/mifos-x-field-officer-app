@@ -2,11 +2,11 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_FIREBASE.md`
-> **Measured:** 11 Kotlin files, 0 test files
+> **Measured:** 6 Kotlin files, 0 test files
 
 ## Principal types
 
-`KptAnalyticsTracker`, `KptCrashKeys`, `KptEventTypes`, `KptParamKeys`, `KptParamValues`, `LoansAnalyticsTracker`, `LoansCrashKeys`, `LoansEventTypes`, `LoansParamKeys`, `LoansParamValues`
+`KptAnalyticsTracker`, `KptCrashKeys`, `KptEventTypes`, `KptParamKeys`, `KptParamValues`
 
 <!-- scaffold:end -->
 
@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/firebase sha=4c4830b57216abe615adf55db0896641735f84de -->
+<!-- api-docs:begin module=core/firebase sha=7b52cc099d92fdb35620670797b391953385cab5 -->
 ## API reference
 
-_Generated from `core/firebase` at tree `4c4830b57216` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/firebase` at tree `7b52cc099d92` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/firebase/src/commonMain/kotlin/kpt/core/firebase/config/analytics/KptAnalyticsEvents.kt`
@@ -241,176 +241,7 @@ val coreFirebaseModule: Module = module
 ```
 Project-layer Koin module — the toolkit **default** analytics binding.
 
-### `core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansAnalyticsEvents.kt`
-
-```kotlin
-object LoansEventTypes
-```
-`loans` feature analytics keys — DEMO-SHOWCASE, deleted by `--clean` with the loans feature. A fork's equivalent for its own feature is fork-owned and needs no declaration.
-
-<details><summary>Used in the template — <code>core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansAnalyticsExtensions.kt:33</code></summary>
-
-```kotlin
-    logEvent(
-        AnalyticsEvent(
-            if (completed) LoansEventTypes.LOAN_FORM_OPENED else LoansEventTypes.LOAN_FORM_ABANDONED,
-            listOf(
-                Param(LoansParamKeys.FORM_STEP, step),
-                Param(ParamKeys.SUCCESS, completed.toString()),
-            ),
-```
-
-</details>
-
-- `const val LOANS_LIST_VIEWED = "loans_list_viewed"` — The loan list was opened.
-- `const val LOAN_DETAIL_VIEWED = "loan_detail_viewed"` — A loan's detail screen was opened. Carries `LOAN_KIND` and the principal BAND, never the loan's id or amount.
-- `const val LOAN_AMORTIZATION_VIEWED = "loan_amortization_viewed"` — The amortization schedule was opened.
-- `const val LOAN_FORM_OPENED = "loan_form_opened"` — The add/edit form was opened. Paired with `LOAN_FORM_ABANDONED` this gives the form's drop-off rate.
-- `const val LOAN_FORM_ABANDONED = "loan_form_abandoned"` — The form was left without submitting — paired with `LOAN_FORM_OPENED` this gives the drop-off rate.
-- `const val LOAN_CREATED = "loan_created"` — A loan was committed for the first time. Fires on the local commit, so it counts even for a fork whose submit never reaches a server.
-- `const val LOAN_UPDATED = "loan_updated"` — An existing loan was committed again. Distinct from `LOAN_CREATED` so edit frequency is measurable on its own.
-- `const val LOAN_DELETED = "loan_deleted"` — A loan was deleted. Carries only `LOAN_KIND` — a deleted loan's figures have no analytic use.
-- `const val LOAN_REMINDER_SCHEDULED = "loan_reminder_scheduled"` — A payment reminder was registered with the platform scheduler.
-- `const val LOAN_REMINDER_CANCELLED = "loan_reminder_cancelled"` — A payment reminder was withdrawn, because the loan was deleted or reminders were turned off.
-- `const val LOAN_REMINDER_FIRED = "loan_reminder_fired"` — A payment reminder was delivered. Fired-minus-scheduled is how reminder loss on a given platform is spotted.
-
-```kotlin
-object LoansParamKeys
-```
-`loans` parameter keys. NOTE none of these carry money or identity. `principal` is bucketed by `LoansParamValues`, and the loan id is deliberately absent: a Firebase event is not the place to reconstruct a user's debts.
-
-<details><summary>Used in the template — <code>core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansAnalyticsExtensions.kt:35</code></summary>
-
-```kotlin
-            if (completed) LoansEventTypes.LOAN_FORM_OPENED else LoansEventTypes.LOAN_FORM_ABANDONED,
-            listOf(
-                Param(LoansParamKeys.FORM_STEP, step),
-                Param(ParamKeys.SUCCESS, completed.toString()),
-            ),
-        ),
-    )
-```
-
-</details>
-
-- `const val LOAN_KIND = "loan_kind"` — The loan's category. Low-cardinality by construction, so it is safe to break every event down by it.
-- `const val PRINCIPAL_BAND = "principal_band"` — Principal as a BAND, never the amount — an exact figure would make the event personal data.
-- `const val TENURE_MONTHS = "tenure_months"` — Tenure in months. A raw number rather than a band — tenure is not identifying on its own the way an amount is.
-- `const val RATE_BAND = "rate_band"` — APR as a band, for the same reason as `PRINCIPAL_BAND`.
-- `const val FORM_STEP = "form_step"` — Which wizard step the event refers to, so abandonment can be attributed to a specific step rather than to the form as a whole.
-- `const val LOAN_COUNT = "loan_count"` — How many loans the user has.
-- `const val REMINDER_LEAD_DAYS = "reminder_lead_days"` — How many days before the due date the reminder is set for.
-
-```kotlin
-object LoansParamValues
-```
-`loans` parameter values. Bands rather than amounts. Analytics answers "do people track large loans?", which a band answers and an exact figure answers at the cost of shipping a financial profile to a third party.
-
-<details><summary>Used in the template — <code>core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansAnalyticsTracker.kt:58</code></summary>
-
-```kotlin
-
-    /** Add/edit form opened. [step] is one of the `LoansParamValues.FORM_STEP_*` values. */
-    fun trackFormOpened(editing: Boolean, step: String = LoansParamValues.FORM_STEP_DETAILS) {
-        analyticsHelper.logEvent(
-            AnalyticsEvent(
-                LoansEventTypes.LOAN_FORM_OPENED,
-                listOf(
-```
-
-</details>
-
-- `const val PRINCIPAL_BAND_SMALL = "lt_1k"` — Under 1,000.
-- `const val PRINCIPAL_BAND_MEDIUM = "1k_10k"` — 1,000 to 10,000.
-- `const val PRINCIPAL_BAND_LARGE = "10k_100k"` — 10,000 to 100,000.
-- `const val PRINCIPAL_BAND_XLARGE = "gte_100k"` — 100,000 and above.
-- `const val RATE_BAND_LOW = "lt_5pct"` — Under 5%.
-- `const val RATE_BAND_MID = "5_15pct"` — 5% to 15%.
-- `const val RATE_BAND_HIGH = "gte_15pct"` — 15% and above.
-- `const val FORM_STEP_DETAILS = "details"` — Name and category.
-- `const val FORM_STEP_TERMS = "terms"` — Principal, rate and tenure.
-- `const val FORM_STEP_REVIEW = "review"` — Final confirmation.
-
-### `core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansAnalyticsExtensions.kt`
-
-```kotlin
-fun AnalyticsHelper.trackLoanFormStep(step: String, completed: Boolean)
-```
-One step of the add/edit funnel. Emitting a step event rather than only start/finish is what makes "where do people give up entering a loan?" answerable.
-
-```kotlin
-fun AnalyticsHelper.trackAmortizationViewed(kind: String, tenureMonths: Int)
-```
-The amortization schedule opened for a loan. Lives here rather than in the `amortization` feature because the schedule is a projection OF a loan — the funnel it belongs to is the loans funnel.
-
-```kotlin
-fun AnalyticsHelper.trackLoanReminderScheduled(leadDays: Int)
-```
-A reminder scheduled from `LoanReminderUseCase`, where no tracker is in scope.
-
-### `core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansAnalyticsTracker.kt`
-
-```kotlin
-class LoansAnalyticsTracker(
-```
-`loans` feature tracker — DEMO-SHOWCASE. It is the template's worked example of the per-feature layout: shipped and synced like template code, and deleted by `remove-demo.sh --clean` along with the `feature/loans` module it tracks.
-
-```kotlin
-fun rememberLoansAnalyticsTracker(): LoansAnalyticsTracker
-```
-Composition-scoped `LoansAnalyticsTracker`, sharing the ambient `AnalyticsHelper`.
-
-### `core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansCrashExtensions.kt`
-
-```kotlin
-fun CrashReporter.setLoanContext(
-```
-The loan being edited or viewed when a crash occurs. `principal` is banded on the way in — the caller passes the real figure and this function decides what reaches the report, exactly as `LoansAnalyticsTracker` does.
-
-```kotlin
-fun CrashReporter.setAmortizationContext(scheduleRows: Int)
-```
-Amortisation is the one place in this feature that builds an unbounded list — one row per month — so the row count is the first thing worth knowing about an OOM or a jank report here.
-
-```kotlin
-fun CrashReporter.setLoanFormStep(step: String)
-```
-Which step of the add/edit form was open. Pairs with the analytics funnel of the same name.
-
-```kotlin
-fun CrashReporter.setLoanCount(count: Int)
-```
-How many loans the user holds — list-rendering crashes scale with this.
-
-### `core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansCrashKeys.kt`
-
-```kotlin
-object LoansCrashKeys
-```
-`loans` crash context — DEMO-SHOWCASE, deleted by `--clean` with the loans feature. The same file in a fork's own feature package is fork-owned.
-
-<details><summary>Used in the template — <code>core/firebase/src/commonMain/kotlin/kpt/core/firebase/loans/LoansCrashExtensions.kt:36</code></summary>
-
-```kotlin
-    tenureMonths: Int,
-) {
-    setCustomKey(LoansCrashKeys.LOAN_KIND, kind)
-    setCustomKey(LoansCrashKeys.PRINCIPAL_BAND, principalBand(principal))
-    setCustomKey(LoansCrashKeys.TENURE_MONTHS, tenureMonths.toString())
-    log("loans -> $kind / ${tenureMonths}mo")
-}
-```
-
-</details>
-
-- `const val LOAN_KIND = "loans_kind"` — Category of the loan being acted on.
-- `const val PRINCIPAL_BAND = "loans_principal_band"` — Principal as a BAND, never the amount. A crash report leaves the device, so an exact balance must not be in it.
-- `const val TENURE_MONTHS = "loans_tenure_months"` — Tenure in months — the input that drives schedule size, and so the memory a schedule crash scales with.
-- `const val SCHEDULE_ROWS = "loans_schedule_rows"` — How many rows the amortization schedule produced, which is what an out-of-memory crash there scales with.
-- `const val FORM_STEP = "loans_form_step"` — Which wizard step was active when the crash happened, so a step-specific crash is not averaged across the whole form.
-- `const val LOAN_COUNT = "loans_count"` — How many loans the user has.
-
 ---
 
-_10 type(s), 105 function(s)/property(ies); 115 carry KDoc at source; 0 authored example(s); 8 live call site(s)._
+_5 type(s), 63 function(s)/property(ies); 68 carry KDoc at source; 0 authored example(s); 4 live call site(s)._
 <!-- api-docs:end -->

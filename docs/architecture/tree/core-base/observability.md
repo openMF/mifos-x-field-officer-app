@@ -60,16 +60,16 @@ interface CrashReporter
 ```
 Fork-customization seam for crash + non-fatal-error reporting. The toolkit ships `ConsoleCrashReporter` which writes everything to stdout — sufficient for local development but not for shipped builds.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/cloudtodo/CloudTodoDataProviders.kt:54</code></summary>
+<details><summary>Used in the template — <code>core/firebase/src/commonMain/kotlin/kpt/core/firebase/config/crashlytics/KptCrashExtensions.kt:31</code></summary>
 
 ```kotlin
-    todoDao: CloudTodoDao,
-    repository: CloudTodoRepository,
-    crashReporter: CrashReporter?,
-): CloudTodoSyncOrchestrator = CloudTodoSyncOrchestrator(
-    scope = scope,
-    networkMonitor = networkMonitor,
-    bookkeeperDao = bookkeeperDao,
+ * Call from the navigation observer that already raises `trackScreenView`.
+ */
+fun CrashReporter.setCurrentScreen(screenName: String, previousScreen: String? = null) {
+    setCustomKey(KptCrashKeys.CURRENT_SCREEN, screenName)
+    previousScreen?.let { setCustomKey(KptCrashKeys.PREVIOUS_SCREEN, it) }
+    log("screen -> $screenName")
+}
 ```
 
 </details>
