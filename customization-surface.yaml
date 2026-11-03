@@ -83,6 +83,16 @@ rules:
   - glob: "core-base/**/AndroidManifest.xml"
     owner: template
 
+  # The feature starters (home/profile/settings) are the FORK's foundation — shipped once, never synced
+  # (not in SYNC_DIRS). Declared here, above the repo-wide manifest/strings merge rules, so those do not
+  # claim the starters' files for a merge the engine can never reach (sync-coverage-reconcile CL-1).
+  - glob: "feature/home/**"
+    owner: fork
+  - glob: "feature/profile/**"
+    owner: fork
+  - glob: "feature/settings/**"
+    owner: fork
+
   # ── merge-required (declared FIRST — must win over the template module globs) ──
   # AndroidManifest: template ships the base manifest; forks add permissions
   # (RECORD_AUDIO, FOREGROUND_SERVICE_*, etc). A blind copy DROPS the fork's — the

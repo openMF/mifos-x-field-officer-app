@@ -83,6 +83,7 @@ DEFAULT_UPSTREAM_URL="https://github.com/openMF/kmp-project-template.git"
 
 # Script options
 DRY_RUN=false
+POST_SYNC_ONLY=false   # --post-sync: run only post_sync_fork_steps (after a hand-resolved conflicted sync)
 MIRROR=false   # --mirror: template-owned sync roots become a strict mirror (see mirror_template_owned)
 FORCE=false
 ONLY_ITEMS=""   # --only <a,b,c>: restrict the sync to this subset of SYNC_DIRS/SYNC_FILES
@@ -318,6 +319,30 @@ migrate_base() {
     bash "$MIGRATE_DIR/apply.sh" --ledger "$MIGRATE_DIR/ledger.yaml" --file "$1" >/dev/null 2>&1 || true
 }
 
+# post_sync_fork_steps — re-derive the fork's own state on top of the synced tree, before the commit.
+# A sync restores whatever the template ships, so two things must be redone after EVERY sync, or the
+# fork does not build (measured 2026-11-03 on mifos-x-field-officer-app: template demo code back in
+# sync/DataSyncWorker.kt, and the template's sample access points over the fork's generated ones):
+#   1. the demo strip — `scripts/remove-demo.sh --apply`, ONLY when the fork stripped its demo, which
+#      it records as `status: removed` rows in its own app-profile/package-ledger.yaml (a fork that
+#      keeps the demo is left alone); it keeps the fork's database lineage
+#   2. `./gradlew syncForkConfig` — every app-profile projection (access points, BuildKonfig fields,
+#      identity, icons) regenerated from the fork's app-profile/
+# Either failing stops the sync before it commits: the tree would not be the fork's.
+post_sync_fork_steps() {
+    if [ -f app-profile/package-ledger.yaml ] && grep -q 'status: removed' app-profile/package-ledger.yaml \
+       && [ -f scripts/remove-demo.sh ]; then
+        print_step "Re-applying the fork's demo strip (app-profile/package-ledger.yaml records it)"
+        bash scripts/remove-demo.sh --apply --no-format --no-regen >/dev/null \
+            || handle_error "remove-demo.sh failed after the sync — the tree still carries template demo code"
+    fi
+    if [ -x ./gradlew ]; then
+        print_step "Regenerating app-profile projections (./gradlew syncForkConfig)"
+        ./gradlew syncForkConfig --console=plain -q >/dev/null \
+            || handle_error "./gradlew syncForkConfig failed after the sync — generated files are the template's, not the fork's"
+    fi
+}
+
 # is_excluded <dir> <path> <type> — 0 when the sync must leave <path> in the FORK's state.
 # ONE source decides: the ownership contract, read through scripts/customization-surface.sh (its rules,
 # the per-module module-packages.yaml manifests it loads, the sync roots). A path is kept when it is
@@ -355,6 +380,8 @@ is_held() {
     [ -n "${_HELD[$1]:-}" ]
 }
 
+# is_excluded <dir> <path> <type> — 0 when the sync must leave <path> in the fork's state: held, or
+# owned `fork` / `demo-showcase` (see the ownership note above owner_of).
 is_excluded() {
     local full_path="${2#./}"
     is_held "$full_path" && return 0
@@ -1121,6 +1148,12 @@ while [[ $# -gt 0 ]]; do
             MIRROR=true
             shift
             ;;
+        --post-sync)
+            # Only the post-sync fork steps (demo strip + syncForkConfig) — after resolving a
+            # conflicted sync by hand, before committing it.
+            POST_SYNC_ONLY=true
+            shift
+            ;;
         --template-ref)
             TEMPLATE_REF_ARG="${2:-}"
             [ -z "$TEMPLATE_REF_ARG" ] && handle_error "--template-ref requires a commit hash or ref"
@@ -1140,6 +1173,12 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+if [ "$POST_SYNC_ONLY" = true ]; then
+    post_sync_fork_steps
+    print_step "Post-sync fork steps done — review, then commit the sync"
+    exit 0
+fi
 
 # --only: restrict SYNC_DIRS/SYNC_FILES to the named subset (targeted sync for diverged forks
 # that only want specific infra refreshed). Each named item MUST already be a declared SYNC_DIR
@@ -1627,7 +1666,7 @@ if [ "$DRY_RUN" = false ]; then
     if [ "${#SYNC_CONFLICTS[@]}" -gt 0 ]; then
         print_error "Sync has ${#SYNC_CONFLICTS[@]} unresolved merge conflict(s) — markers are in the working tree:"
         printf '    %s\n' "${SYNC_CONFLICTS[@]}"
-        print_error "Resolve each (keep both sides' intent), then commit on this branch. Nothing was committed."
+        print_error "Resolve each (keep both sides' intent), run: bash scripts/white-label/sync-dirs.sh --post-sync, then commit on this branch. Nothing was committed."
         exit 3
     fi
 
@@ -1639,6 +1678,9 @@ if [ "$DRY_RUN" = false ]; then
         if [ -f "gradle/libs.versions.toml" ]; then
             git add "gradle/libs.versions.toml"
         fi
+        post_sync_fork_steps
+        git add -A -- "${SYNC_DIRS[@]}" "${SYNC_FILES[@]}" 2>/dev/null || true   # the strip deletes files
+
         # Lint only what the sync WROTE — its 3-way merge results. Template-owned files were checked in
         # the template and fork-owned files are untouched, so running the commit hook over the whole
         # staged sync re-checked hundreds of template files (206 s of a 275 s sync, measured
