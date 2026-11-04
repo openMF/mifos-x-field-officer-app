@@ -257,7 +257,7 @@ org:
   email: team@mifos.org
   first_name: Mifos
   last_name: Initiative
-  phone: "+19078675309"
+  phone: "+919015090523"   # = workspaces/mifos-x/_org/company.yaml#deploy_contact.phone (the template's +1 907-867-5309 is a placeholder)
   copyright: "© 2026 Mifos Initiative. All rights reserved."   # desktop / Mac App Store packaging copyright (org.copyright)
   secrets_namespace: mifos-x   # vault-alias prefix for org-shared secrets (`mifos-x-<suffix>`); per-app ones use projectName
   marketing_url: https://mifos.org
@@ -296,31 +296,22 @@ store:
   # (fastlane/metadata/android/en-US/{title,short_description,full_description}.txt and
   # changelogs/6.txt) — authored by Mifos for this app, not the template's demo copy.
   title: 'Mifos X Field Officer'                    # app display name (App Store name / Play title)
-  subtitle: 'Field operations on Apache Fineract'
-  promotional_text: 'Mobile field operations app for financial inclusion built on Apache Fineract.'
+  subtitle: 'Loans & savings in the field'
+  promotional_text: 'Serve clients where they are: register clients, disburse and collect loans, and record savings deposits in the field, even with no network. Syncs to your Fineract server.'
   description: 'Mifos X Field Officer is the mobile app for loan officers and field staff at microfinance institutions, credit unions and banks that run Mifos X / Apache Fineract. Visit clients, open accounts, disburse and collect loans, and record savings deposits from the field, even where there is no network.\n\nBuilt by the Mifos Initiative, a nonprofit working on financial inclusion for the world''s unbanked, it connects to your institution''s own Fineract server. Your institution holds the data; the app is the field officer''s window into it.\n\nWORK OFFLINE, SYNC LATER\n• Choose the centres, groups and clients you will visit, and the app downloads everything you need before you leave the office.\n• Keep working with no connection. Actions you take offline are saved as drafts.\n• When you are back in coverage, Sync & Drafts uploads them to the server.\n\nYOUR DAY ON ONE SCREEN\n• A home dashboard with today''s collections, your work queue, meetings and your portfolio.\n• Every card follows your Fineract permissions, so you only see what you are allowed to act on.\n\nCLIENTS\n• Register new clients with their personal details, identifiers, photo and signature.\n• View, edit and activate clients, and attach documents and notes.\n• Search across clients, groups, centres and accounts.\n\nLOANS\n• Create loan applications and follow them through approval and disbursement.\n• Record repayments and view each loan''s schedule, charges and transactions.\n\nSAVINGS AND RECURRING DEPOSITS\n• Open savings and recurring deposit accounts.\n• Record deposits and withdrawals, and view balances and history.\n\nCENTRES, GROUPS AND COLLECTION SHEETS\n• Manage centres and groups and their members.\n• Run individual and group collection sheets for a meeting in one pass.\n\nREPORTS AND APPROVALS\n• Run your institution''s reports from the device.\n• Work through the checker inbox to approve or reject pending tasks.\n\nSECURE BY DESIGN\n• Sign in with the credentials your institution issues.\n• Data is sent only to your institution''s server, over an encrypted connection.\n• The offline copy on the device is encrypted and cleared when you sign out.\n\nThis app needs a Mifos X / Apache Fineract account from your institution. Mifos X Field Officer is free and open source under the Mozilla Public License 2.0. Source code, issues and contributor guides: github.com/openMF/mifos-x-field-officer-app'
-  release_notes: |-
-    - Create center new groups & centers
-    - Create clients & groups from parent entity
-    - Improved navigation & advanced search
-    - Open, approve, disburse new loan & savings accounts
-    - Attach documents to loan & savings accounts.
-    - Offline Data Collection & Synchronization
-    - Synchronize clients and groups for offline
-    - Enter repayments, deposits, and withdrawals while offline
-    - Create new clients, loans & savings accounts while offline
-    - Pinpoint client GPS location
-    - Track route of field officer
-  copyright: 'Copyright © 2026 Mifos Initiative'
+  release_notes: 'Rebuilt on Kotlin Multiplatform. A new home dashboard with today''s work, offline sync for chosen centres, groups and clients, a Profile screen with password change, a server picker, and faster, more reliable loading across every screen.'
+  copyright: '© 2026 The Mifos Initiative'
   age_rating: '4+'                            # iOS + macOS App Store age rating (store.ios.age.rating)
   review:
     notes: >-
-      Sign in to a Fineract server. The server picker on the sign-in screen lists the community
-      demo instances; pick one and use the demo account it shows.
+      This app signs in to a Mifos X / Apache Fineract server. Use the public Mifos community demo
+      server, https://apis.mifos.community/1.0/field (the app's default server; no setup needed),
+      with the demo account below. It holds sample data only.
     first_name: 'Mifos'                        # App Store review contact (mirrors org.first_name)
     last_name: 'Initiative'                    # App Store review contact (mirrors org.last_name)
-    demo_user: ""                            # store.review.demo.user (per-instance; shown in the picker)
-    demo_password: ""                        # store.review.demo.password
+    # PUBLIC community-sandbox demo account (published in the app's server picker) — not a secret.
+    demo_user: "fieldofficer"                # store.review.demo.user
+    demo_password: "password"                # store.review.demo.password
   app_description: 'MifosX Android Client'                # desktop packaging description (app.description)
 
 # In-app review prompting — NOT the `store.review` block above.
