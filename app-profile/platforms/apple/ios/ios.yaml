@@ -2,7 +2,7 @@
 # Empty stub: this fork has no iOS-specific overrides today. Keys documented for forks that need them.
 apple:
   ios:
-    secondary_category: 'PRODUCTIVITY'                   # store.ios.secondary.category (optional)
+    secondary_category: 'BUSINESS'                   # store.ios.secondary.category (optional)
     apple_tv_privacy_url: ""                 # store.ios.apple.tv.privacy.url (only if targeting tvOS)
     # keywords_override: ""                   # override apple.keywords for iOS specifically (rare)
     primary_first_sub_category: ''           # store.ios.primary.first.subcategory (optional, ASC-controlled vocabulary)
