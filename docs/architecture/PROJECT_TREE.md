@@ -18,7 +18,7 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `feature/` | 883 | [`feature/`](tree/feature.md) |
+| `feature/` | 931 | [`feature/`](tree/feature.md) |
 
 ## Core layers
 
@@ -38,7 +38,7 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `app-profile/` | 168 | [`app-profile/`](tree/app-profile.md) |
+| `app-profile/` | 255 | [`app-profile/`](tree/app-profile.md) |
 | `gradle/` | 5 | [`gradle/`](tree/gradle.md) |
 | `secrets/` | 55 | [`secrets/`](tree/secrets.md) |
 
@@ -75,9 +75,9 @@ oversight. A directory missing from a map reads the same as one nobody looked at
 |---|---:|---|
 | `.bundle/` | 1 | bundler config (two lines) |
 | `.run/` | 4 | IDE run configurations |
-| `.swiftpm-locks/` | 31 | generated SwiftPM resolution locks |
+| `.swiftpm-locks/` | 51 | generated SwiftPM resolution locks |
 | `META-INF/` | 1 | one service-registration file |
 | `config/` | 1 | the detekt config — documented where detekt is configured |
-| `docs/` | 150 | this documentation tree |
+| `docs/` | 151 | this documentation tree |
 | `kotlin-js-store/` | 2 | generated yarn.lock for Kotlin/JS |
 | `spotless/` | 1 | the license-header template applied by Spotless |

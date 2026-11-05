@@ -47,6 +47,20 @@ val LocalUrlLauncher: ProvidableCompositionLocal<UrlLauncher> =
 ```
 Opens URLs, email, maps, phone and SMS. Provided by `LocalManagerProvider`.
 
+<details><summary>Used in the template — <code>feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingScreen.kt:143</code></summary>
+
+```kotlin
+) {
+    val state by viewModel.stateFlow.collectAsStateWithLifecycle()
+    val urlLauncher = LocalUrlLauncher.current
+
+    // System back steps to the previous page; on the first page it falls through to the system, which leaves
+    // without saving — both choices stay off and onboarding shows again next launch.
+    BackHandler(enabled = state.page != OnboardingPage.Clients) {
+```
+
+</details>
+
 ```kotlin
 val LocalShareManager: ProvidableCompositionLocal<ShareManager> =
 ```
@@ -447,5 +461,5 @@ The one `UrlLauncher`, for every target. `cmp-open-url` carries the per-target `
 
 ---
 
-_15 type(s), 32 function(s)/property(ies); 47 carry KDoc at source; 0 authored example(s); 16 live call site(s)._
+_15 type(s), 32 function(s)/property(ies); 47 carry KDoc at source; 0 authored example(s); 17 live call site(s)._
 <!-- api-docs:end -->

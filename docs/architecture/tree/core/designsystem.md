@@ -864,7 +864,7 @@ data class AppPasswordToggle(
 ```
 Password visibility toggle state. `isDisplayed` left null shows the toggle for password fields (`KeyboardType.Password`) only.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:367</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:376</code></summary>
 
 ```kotlin
         // while there is no error, an error icon instead when there is one. Disabling

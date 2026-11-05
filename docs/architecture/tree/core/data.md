@@ -1988,16 +1988,16 @@ interface UserDataRepository
 ```
 Repository interface for managing user preferences with reactive capabilities. This interface provides reactive access to user preferences including theme settings, dark mode configuration, and dynamic color preferences.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsViewModel.kt:44</code></summary>
+<details><summary>Used in the template — <code>feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingViewModel.kt:34</code></summary>
 
 ```kotlin
  */
-class SettingsViewModel(
-    private val settingsRepository: UserDataRepository,
-    private val analyticsHelper: AnalyticsHelper,
-) : BaseViewModel<Unit, Nothing, SettingsAction>(Unit) {
+class OnboardingViewModel(
+    private val userDataRepository: UserDataRepository,
+) : BaseViewModel<OnboardingState, Nothing, OnboardingAction>(OnboardingState()) {
 
-    /** The store-backed preferences read — retained so [onRetry] re-runs it. */
+    override fun handleAction(action: OnboardingAction) {
+        when (action) {
 ```
 
 </details>
