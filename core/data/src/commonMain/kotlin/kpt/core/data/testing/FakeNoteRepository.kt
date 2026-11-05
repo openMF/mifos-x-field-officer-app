@@ -9,7 +9,7 @@
  */
 @file:OptIn(kpt.core.base.store.screen.ExperimentalScreenDataStreamTestingApi::class)
 
-package kpt.feature.note.testing
+package kpt.core.data.testing
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
@@ -35,10 +35,12 @@ import kpt.core.model.objects.note.UpdateNoteResponseDto
  * rather than a parallel fake of the state machine — so a test exercises the same Loading /
  * Content / Empty / Error transitions production does.
  */
-internal class FakeNoteRepository(
+@ExperimentalDataTestingApi
+class FakeNoteRepository(
     initial: ScreenState<List<Note>> = ScreenState.Loading,
 ) : NoteRepository {
 
+    /** What the notes stream emits; set it to drive the screen. */
     val state = MutableStateFlow(initial)
     private val refreshes = MutableSharedFlow<Unit>(extraBufferCapacity = 4)
 
@@ -60,6 +62,7 @@ internal class FakeNoteRepository(
         state.value = ScreenState.Content(notes.toList())
     }
 
+    /** Every resourceType the ViewModel asked for, in order. */
     val requestedTypes = mutableListOf<String>()
 
     override fun notesStream(
@@ -83,15 +86,28 @@ internal class FakeNoteRepository(
  * Recording the `resourceType` matters: it is no longer a route parameter (see `NoteNavigation`)
  * but it still has to reach the wire, and nothing else would catch it going missing.
  */
-internal class FakeNoteCommandRepository(
+@ExperimentalDataTestingApi
+class FakeNoteCommandRepository(
     private val outcome: () -> MutationResult<Unit> = { MutationResult.Applied(Unit, synced = true) },
 ) : NoteCommandRepository {
 
+    /** Notes added, in order. */
     val added = mutableListOf<Written>()
+
+    /** Notes updated, in order. */
     val updated = mutableListOf<Written>()
+
+    /** Notes deleted, in order. */
     val deleted = mutableListOf<Written>()
 
-    /** One recorded write. `noteId` is null for an add; `text` is null for a delete. */
+    /**
+     * One recorded write.
+     *
+     * @property resourceType the owner's resource type (`clients`, `groups`)
+     * @property resourceId the owner's id
+     * @property noteId the note's id; null for an add
+     * @property text the note text; null for a delete
+     */
     data class Written(
         val resourceType: String,
         val resourceId: Long,

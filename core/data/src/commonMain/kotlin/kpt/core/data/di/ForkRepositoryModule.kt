@@ -111,6 +111,9 @@ val ForkRepositoryModule = module {
         )
         OfflineSyncRepositoryImpl(
             dao = get(),
+            recordStore = get(AppStoreRegistry.OfflineRecord),
+            statusStore = get(AppStoreRegistry.OfflineRecordStatus),
+            jobStore = get(AppStoreRegistry.SyncJob),
             engine = engine,
             scheduler = get(),
             settingsStore = get(),

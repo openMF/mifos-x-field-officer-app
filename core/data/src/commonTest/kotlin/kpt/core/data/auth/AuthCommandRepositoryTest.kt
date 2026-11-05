@@ -65,10 +65,11 @@ class AuthCommandRepositoryTest {
     private val passwordChanges = mutableListOf<Pair<Long, ChangePasswordRequest>>()
     private var passwordChangeError: Throwable? = null
     private val refusedPasswords = mutableSetOf<String>()
+    private var signInError: Throwable? = null
 
     private fun api(authenticated: Boolean) = object : AuthApi {
         override suspend fun authenticate(postAuthenticationRequest: PostAuthenticationRequest) =
-            PostAuthenticationResponse(
+            signInError?.let { throw it } ?: PostAuthenticationResponse(
                 authenticated = authenticated && postAuthenticationRequest.password !in refusedPasswords,
                 username = postAuthenticationRequest.username,
                 userId = 7,
@@ -245,6 +246,21 @@ class AuthCommandRepositoryTest {
         val result = repository().changePassword(newPassword, newPassword)
 
         assertIs<PasswordChangedSignInFailed>(assertIs<MutationResult.Failed>(result).cause)
+        assertFalse(preferences.fineractUser.value.isAuthenticated)
+        assertEquals(0, cache.cleared)
+    }
+
+    @Test
+    fun aSignInThatCannotReachTheServerAfterTheChangeAlsoEndsTheSession() = runTest {
+        repository().authenticate(request)
+        // The change landed, then the connection dropped: the stored key is the OLD password's.
+        signInError = IllegalStateException("connection reset")
+
+        val result = repository().changePassword(newPassword, newPassword)
+
+        assertEquals(listOf(7L to ChangePasswordRequest(newPassword, newPassword)), passwordChanges)
+        val failure = assertIs<PasswordChangedSignInFailed>(assertIs<MutationResult.Failed>(result).cause)
+        assertEquals("connection reset", failure.cause?.message)
         assertFalse(preferences.fineractUser.value.isAuthenticated)
         assertEquals(0, cache.cleared)
     }
