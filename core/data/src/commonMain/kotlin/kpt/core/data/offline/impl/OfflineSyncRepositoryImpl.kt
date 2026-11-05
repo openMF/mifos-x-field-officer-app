@@ -15,6 +15,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
@@ -23,26 +24,38 @@ import kotlinx.coroutines.withContext
 import kpt.core.data.offline.OfflineSyncRepository
 import kpt.core.data.offline.OfflineSyncScheduler
 import kpt.core.database.offline.dao.OfflineSyncDao
-import kpt.core.database.offline.entity.OfflineRecordEntity
-import kpt.core.database.offline.entity.SyncJobEntity
 import kpt.core.datastore.offline.OfflineSyncSettingsStore
 import kpt.core.datastore.prefs.ForkPreferencesRepository
 import kpt.core.model.offline.DownloadFailure
 import kpt.core.model.offline.OfflineRecord
-import kpt.core.model.offline.RecordKind
 import kpt.core.model.offline.RecordSyncStatus
 import kpt.core.model.offline.RefreshSettings
 import kpt.core.model.offline.SyncJob
 import kpt.core.model.offline.SyncJobStatus
 import kpt.core.model.offline.SyncTarget
+import kpt.core.store.offline.OfflineRecordKey
+import kpt.core.store.offline.SyncJobKey
+import kpt.core.store.offline.toModel
+import org.mobilenativefoundation.store.core5.ExperimentalStoreApi
+import org.mobilenativefoundation.store.store5.MutableStore
+import org.mobilenativefoundation.store.store5.StoreWriteRequest
+import org.mobilenativefoundation.store.store5.StoreWriteResponse
 
 /**
  * Room-backed and keyed by the signed-in user. Wired in `ForkRepositoryModule` because the engine's
  * stores are grouped into holders there (a constructor of 28 stores is not a readable contract).
+ *
+ * Reads come straight from [dao]; keyed writes go through the three local stores in
+ * `core/store/offline` ([recordStore], [statusStore], [jobStore]). The two set-based statements —
+ * every SYNCING record back to WAITING, and trimming old jobs — stay single DAO statements: a keyed
+ * store would split each into a read and N writes, and lose the atomic `WHERE`.
  */
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalStoreApi::class)
 internal class OfflineSyncRepositoryImpl(
     private val dao: OfflineSyncDao,
+    private val recordStore: MutableStore<OfflineRecordKey, OfflineRecord>,
+    private val statusStore: MutableStore<OfflineRecordKey, RecordSyncStatus>,
+    private val jobStore: MutableStore<SyncJobKey, SyncJob>,
     private val engine: OfflineSyncEngine,
     private val scheduler: OfflineSyncScheduler,
     private val settingsStore: OfflineSyncSettingsStore,
@@ -67,10 +80,11 @@ internal class OfflineSyncRepositoryImpl(
     override suspend fun download(targets: List<SyncTarget>) {
         val user = userId
         for (target in targets) {
-            val existing = dao.record(user, target.kind.name, target.id)
-            dao.upsertRecord(
-                (existing ?: OfflineRecord(target.kind, target.id, target.name).toEntity(user))
-                    .copy(chosen = true, status = RecordSyncStatus.WAITING.name),
+            val existing = dao.record(user, target.kind.name, target.id)?.toModel()
+            recordStore.put(
+                OfflineRecordKey(user, target.kind.name, target.id),
+                (existing ?: OfflineRecord(target.kind, target.id, target.name))
+                    .copy(chosen = true, status = RecordSyncStatus.WAITING),
             )
         }
         scheduler.runNow()
@@ -78,26 +92,19 @@ internal class OfflineSyncRepositoryImpl(
 
     override suspend fun syncNow() {
         val user = userId
-        dao.records(user).filter { it.chosen }.forEach {
-            dao.setStatus(
-                user,
-                it.kind,
-                it.id,
-                RecordSyncStatus.WAITING.name,
-            )
-        }
+        dao.records(user).filter { it.chosen }.forEach { setStatus(user, it.kind, it.id, RecordSyncStatus.WAITING) }
         scheduler.runNow()
     }
 
     override suspend fun refreshRecord(target: SyncTarget) {
-        dao.setStatus(userId, target.kind.name, target.id, RecordSyncStatus.WAITING.name)
+        setStatus(userId, target.kind.name, target.id, RecordSyncStatus.WAITING)
         scheduler.runNow()
     }
 
     override suspend fun retryFailed() {
         val user = userId
         dao.records(user).filter { it.chosen && it.status == RecordSyncStatus.FAILED.name }
-            .forEach { dao.setStatus(user, it.kind, it.id, RecordSyncStatus.WAITING.name) }
+            .forEach { setStatus(user, it.kind, it.id, RecordSyncStatus.WAITING) }
         scheduler.runNow()
     }
 
@@ -110,10 +117,10 @@ internal class OfflineSyncRepositoryImpl(
         val user = userId
         // A centre's groups bring their clients; remove those two levels deep, keeping anything chosen.
         dao.children(user, target.kind.name, target.id).forEach { child ->
-            if (!child.chosen) dao.deleteChildren(user, child.kind, child.id)
+            if (!child.chosen) removeUnchosenChildren(user, child.kind, child.id)
         }
-        dao.deleteChildren(user, target.kind.name, target.id)
-        dao.deleteRecord(user, target.kind.name, target.id)
+        removeUnchosenChildren(user, target.kind.name, target.id)
+        recordStore.clear(OfflineRecordKey(user, target.kind.name, target.id))
     }
 
     override suspend fun setRefresh(settings: RefreshSettings) {
@@ -127,14 +134,7 @@ internal class OfflineSyncRepositoryImpl(
         // re-runs the work after a kill). Close it and put its records back in the queue.
         stopRunningJob(user)
         if (refreshAll) {
-            dao.records(user).filter { it.chosen }.forEach {
-                dao.setStatus(
-                    user,
-                    it.kind,
-                    it.id,
-                    RecordSyncStatus.WAITING.name,
-                )
-            }
+            dao.records(user).filter { it.chosen }.forEach { setStatus(user, it.kind, it.id, RecordSyncStatus.WAITING) }
         }
         while (true) {
             val pending = dao.records(user).filter { it.chosen && it.status == RecordSyncStatus.WAITING.name }
@@ -145,26 +145,28 @@ internal class OfflineSyncRepositoryImpl(
     }
 
     private suspend fun runJob(user: Long, targets: List<SyncTarget>) {
-        val started = nowMs()
-        var job = SyncJobEntity(
-            userId = user, status = SyncJobStatus.RUNNING.name, targets = targets.encodeTargets(),
-            done = 0, total = targets.size, reads = 0, currentLabel = null, failures = "",
-            startedAtMs = started, finishedAtMs = null,
+        // Id 0: the write inserts the row and Room assigns its id. Only runJob inserts jobs, and it runs
+        // under [running], so the user's newest job right after that write is this one.
+        jobStore.put(
+            SyncJobKey(user, 0),
+            SyncJob(id = 0, status = SyncJobStatus.RUNNING, targets = targets, startedAtMs = nowMs()),
         )
-        job = job.copy(id = dao.insertJob(job))
-        targets.forEach { dao.setStatus(user, it.kind.name, it.id, RecordSyncStatus.SYNCING.name) }
+        var job = checkNotNull(dao.observeLatestJob(user).first()?.toModel()) { "the sync job was not saved" }
+        targets.forEach { setStatus(user, it.kind.name, it.id, RecordSyncStatus.SYNCING) }
         val progress = Mutex()
         val failures = mutableListOf<DownloadFailure>()
+        suspend fun save(change: SyncJob.() -> SyncJob) {
+            job = job.change()
+            jobStore.put(SyncJobKey(user, job.id), job)
+        }
         val sink = object : SyncSink {
             override suspend fun read(label: String) = progress.withLock {
-                job = job.copy(reads = job.reads + 1, currentLabel = label)
-                dao.updateJob(job)
+                save { copy(reads = reads + 1, currentLabel = label) }
             }
 
             override suspend fun failed(failure: DownloadFailure) = progress.withLock {
                 failures += failure
-                job = job.copy(failures = failures.encodeFailures())
-                dao.updateJob(job)
+                save { copy(failures = failures.toList()) }
             }
 
             override suspend fun record(record: OfflineRecord) = progress.withLock { upsertKeepingChoice(user, record) }
@@ -176,13 +178,11 @@ internal class OfflineSyncRepositoryImpl(
                 val record = engine.sync(target, sink, run)
                 progress.withLock {
                     upsertKeepingChoice(user, record.copy(chosen = true))
-                    job = job.copy(done = job.done + 1)
-                    dao.updateJob(job)
+                    save { copy(done = done + 1) }
                 }
             }
             progress.withLock {
-                job = job.copy(status = SyncJobStatus.FINISHED.name, currentLabel = null, finishedAtMs = nowMs())
-                dao.updateJob(job)
+                save { copy(status = SyncJobStatus.FINISHED, currentLabel = null, finishedAtMs = nowMs()) }
             }
             dao.trimJobs(user, KEEP_JOBS)
         } catch (cancellation: CancellationException) {
@@ -193,30 +193,33 @@ internal class OfflineSyncRepositoryImpl(
 
     /** A record reached two ways (chosen AND under a centre) stays chosen — and keeps its own parent. */
     private suspend fun upsertKeepingChoice(user: Long, record: OfflineRecord) {
-        val existing = dao.record(user, record.kind.name, record.id)
-        val row = record.toEntity(user)
-        dao.upsertRecord(
-            if (existing?.chosen == true) {
-                row.copy(
+        val chosen = dao.record(user, record.kind.name, record.id)?.toModel()?.takeIf { it.chosen }
+        recordStore.put(
+            OfflineRecordKey(user, record.kind.name, record.id),
+            chosen?.let {
+                record.copy(
                     chosen = true,
-                    parentKind = existing.parentKind,
-                    parentId = existing.parentId,
-                    parentName = existing.parentName,
+                    parentKind = it.parentKind,
+                    parentId = it.parentId,
+                    parentName = it.parentName,
                 )
-            } else {
-                row
-            },
+            } ?: record,
         )
     }
 
+    private suspend fun removeUnchosenChildren(user: Long, parentKind: String, parentId: Int) {
+        dao.children(user, parentKind, parentId).filterNot { it.chosen }
+            .forEach { recordStore.clear(OfflineRecordKey(user, it.kind, it.id)) }
+    }
+
+    private suspend fun setStatus(user: Long, kind: String, id: Int, status: RecordSyncStatus) =
+        statusStore.put(OfflineRecordKey(user, kind, id), status)
+
     private suspend fun stopRunningJob(user: Long) {
-        dao.runningJob(user)?.let {
-            dao.updateJob(
-                it.copy(
-                    status = SyncJobStatus.CANCELLED.name,
-                    currentLabel = null,
-                    finishedAtMs = nowMs(),
-                ),
+        dao.runningJob(user)?.toModel()?.let {
+            jobStore.put(
+                SyncJobKey(user, it.id),
+                it.copy(status = SyncJobStatus.CANCELLED, currentLabel = null, finishedAtMs = nowMs()),
             )
         }
         dao.moveStatus(user, RecordSyncStatus.SYNCING.name, RecordSyncStatus.WAITING.name)
@@ -227,55 +230,15 @@ internal class OfflineSyncRepositoryImpl(
     }
 }
 
-private fun OfflineRecord.toEntity(userId: Long) = OfflineRecordEntity(
-    userId = userId, kind = kind.name, id = id, name = name,
-    parentKind = parentKind?.name, parentId = parentId, parentName = parentName, chosen = chosen,
-    groups = groups, clients = clients, loans = loans, savings = savings, documents = documents,
-    status = status.name, refreshedAtMs = refreshedAtMs, failedCount = failedCount,
-)
-
-private fun OfflineRecordEntity.toModel(): OfflineRecord? {
-    val kind = RecordKind.entries.firstOrNull { it.name == kind } ?: return null
-    return OfflineRecord(
-        kind = kind, id = id, name = name,
-        parentKind = RecordKind.entries.firstOrNull { it.name == parentKind },
-        parentId = parentId,
-        parentName = parentName,
-        chosen = chosen, groups = groups, clients = clients, loans = loans, savings = savings, documents = documents,
-        status = RecordSyncStatus.entries.firstOrNull { it.name == status } ?: RecordSyncStatus.WAITING,
-        refreshedAtMs = refreshedAtMs, failedCount = failedCount,
-    )
+/**
+ * Writes through the store and FAILS like the DAO call it replaces. Store5 reports a failed write as a
+ * [StoreWriteResponse.Error] instead of throwing, which would make a sync that could not save its
+ * progress look like one that did.
+ */
+private suspend fun <K : Any, V : Any> MutableStore<K, V>.put(key: K, value: V) {
+    when (val response = write(StoreWriteRequest.of<K, V, Any>(key = key, value = value))) {
+        is StoreWriteResponse.Error.Exception -> throw response.error
+        is StoreWriteResponse.Error.Message -> error(response.message)
+        is StoreWriteResponse.Success -> Unit
+    }
 }
-
-private fun SyncJobEntity.toModel(): SyncJob? {
-    val status = SyncJobStatus.entries.firstOrNull { it.name == status } ?: return null
-    return SyncJob(
-        id = id, status = status, targets = targets.decodeTargets(), done = done, total = total, reads = reads,
-        currentLabel = currentLabel,
-        failures = failures.decodeFailures(),
-        startedAtMs = startedAtMs,
-        finishedAtMs = finishedAtMs,
-    )
-}
-
-// Line-encoded (see SyncJobEntity): tabs and newlines inside a name or a server message are flattened
-// to spaces first, so a field can never split a row.
-private fun String.flat() = replace('\t', ' ').replace('\n', ' ')
-
-internal fun List<SyncTarget>.encodeTargets(): String =
-    joinToString("\n") { "${it.kind.name}\t${it.id}\t${it.name.flat()}" }
-
-internal fun String.decodeTargets(): List<SyncTarget> = lineSequence().mapNotNull { line ->
-    val parts = line.split('\t', limit = 3)
-    val kind = RecordKind.entries.firstOrNull { it.name == parts.getOrNull(0) } ?: return@mapNotNull null
-    val id = parts.getOrNull(1)?.toIntOrNull() ?: return@mapNotNull null
-    SyncTarget(kind, id, parts.getOrNull(2).orEmpty())
-}.toList()
-
-internal fun List<DownloadFailure>.encodeFailures(): String =
-    joinToString("\n") { "${it.item.flat()}\t${it.reason?.flat().orEmpty()}" }
-
-internal fun String.decodeFailures(): List<DownloadFailure> = lineSequence().filter { it.isNotBlank() }.map { line ->
-    val parts = line.split('\t', limit = 2)
-    DownloadFailure(parts[0], parts.getOrNull(1)?.takeIf { it.isNotEmpty() })
-}.toList()

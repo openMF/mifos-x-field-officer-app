@@ -15,24 +15,29 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kpt.core.base.data.infra.NetworkMonitor
 import kpt.core.base.store.mutation.BlockReason
 import kpt.core.base.store.mutation.MutationResult
+import kpt.core.base.store.screen.ScreenDataStream
 import kpt.core.base.store.screen.ScreenState
 import kpt.core.base.ui.viewmodel.BaseViewModel
 import kpt.core.data.auth.AuthCommandRepository
 import kpt.core.data.auth.PasswordChangedSignInFailed
 import kpt.core.data.dashboard.DashboardRepository
 import kpt.core.data.serverconfig.ServerConfigRepository
+import kpt.core.data.session.SessionRepository
 import kpt.core.data.staff.StaffRepository
-import kpt.core.datastore.prefs.ForkPreferencesRepository
 import kpt.core.model.dashboard.DashboardUser
 import kpt.core.model.objects.error.serverErrorMessage
+import kpt.core.model.objects.users.User
 import kpt.core.model.utils.ServerConfig
 import kpt.core.model.utils.getInstanceUrl
 import kpt.core.model.utils.matching
@@ -41,13 +46,13 @@ import kpt.core.model.utils.matching
  * The signed-in officer's own account (screens/profile): who they are, which office Home counts,
  * which server they are on — and the one write, a password change.
  *
- * The session saved at sign-in renders at once and offline; `GET users/{id}` (the SAME store and key
- * Home's greeting reads) adds the name, email, roles and staff link. A failed name read never blanks
- * the screen: the session identity stays and only the name slot shows the error.
+ * The session saved at sign-in (local, through `SessionRepository`) renders offline; `GET users/{id}`
+ * (the SAME store and key Home's greeting reads) adds the name, email, roles and staff link. A failed
+ * name read never blanks the screen: the session identity stays and only the name slot shows the error.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class ProfileViewModel(
-    project: ForkPreferencesRepository,
+    sessions: SessionRepository,
     serverConfigs: ServerConfigRepository,
     dashboard: DashboardRepository,
     staff: StaffRepository,
@@ -55,16 +60,27 @@ class ProfileViewModel(
     private val auth: AuthCommandRepository,
 ) : BaseViewModel<ProfileUiState, ProfileEvent, ProfileAction>(ProfileUiState()) {
 
-    private val session = project.fineractUser.value
-    private val userStream = dashboard.userStream(session.userId, viewModelScope)
+    /** The stored session; null until it first loads. Shared, so it is read once. */
+    private val session: StateFlow<User?> = sessions.sessionStream(viewModelScope).state
+        .mapNotNull { (it as? ScreenState.Content<User>)?.data }
+        .stateIn(viewModelScope, SharingStarted.Lazily, null)
+
+    /** The user record's stream, keyed on the session's user — created once per user, as before. */
+    private var userStream: ScreenDataStream<DashboardUser>? = null
+    private val me: StateFlow<ScreenState<DashboardUser>> = session.filterNotNull()
+        .map { it.userId }
+        .distinctUntilChanged()
+        .flatMapLatest { id -> dashboard.userStream(id, viewModelScope).also { userStream = it }.state }
+        .stateIn(viewModelScope, SharingStarted.Lazily, ScreenState.Loading)
 
     /** The linked staff record, for the Loan officer / Staff label. Only read when there is a link. */
-    private val staffRecord: Flow<Boolean?> = userStream.state.flatMapLatest { state ->
-        val staffId = (state as? ScreenState.Content<DashboardUser>)?.data?.staffId
+    private val staffRecord: Flow<Boolean?> = combine(me, session.filterNotNull()) { state, user ->
+        (state as? ScreenState.Content<DashboardUser>)?.data?.staffId to user.officeId
+    }.distinctUntilChanged().flatMapLatest { (staffId, officeId) ->
         if (staffId == null) {
             flowOf(null)
         } else {
-            staff.staffStream(session.officeId.toInt(), viewModelScope).state.map { list ->
+            staff.staffStream(officeId.toInt(), viewModelScope).state.map { list ->
                 (list as? ScreenState.Content)?.data?.firstOrNull { it.id?.toLong() == staffId }?.isLoanOfficer
             }
         }
@@ -86,12 +102,13 @@ class ProfileViewModel(
 
     /** What the screen renders. Derived — no `init {}` collector. */
     val profile: StateFlow<ProfileUiState> = combine(
-        stateFlow,
-        userStream.state,
+        combine(stateFlow, session, ::Pair),
+        me,
         staffRecord,
         server,
         network.isOnline,
-    ) { ui, me, isLoanOfficer, srv, online ->
+    ) { (ui, stored), me, isLoanOfficer, srv, online ->
+        val session = stored ?: User()
         val self = (me as? ScreenState.Content<DashboardUser>)?.data
         ui.copy(
             username = session.username.orEmpty(),
@@ -118,7 +135,7 @@ class ProfileViewModel(
 
     override fun handleAction(action: ProfileAction) {
         when (action) {
-            ProfileAction.Retry -> userStream.retry()
+            ProfileAction.Retry -> userStream?.retry()
             ProfileAction.OpenChangePassword -> updateState { copy(password = PasswordForm()) }
             ProfileAction.DismissPassword -> updateState { copy(password = null) }
             is ProfileAction.NewPassword -> updatePassword { copy(new = action.value, error = null) }

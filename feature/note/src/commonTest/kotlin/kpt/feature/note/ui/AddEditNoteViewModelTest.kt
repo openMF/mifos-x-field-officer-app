@@ -21,9 +21,10 @@ import kpt.core.base.store.submit.SubmitOutboxStatus
 import kpt.core.common.utils.Constants
 import kpt.core.data.note.NOTE_FORM_KEY
 import kpt.core.data.note.NoteSubmitException
+import kpt.core.data.testing.ExperimentalDataTestingApi
+import kpt.core.data.testing.FakeNoteCommandRepository
+import kpt.core.data.testing.FakeNoteRepository
 import kpt.core.model.objects.note.Note
-import kpt.feature.note.testing.FakeNoteCommandRepository
-import kpt.feature.note.testing.FakeNoteRepository
 import kpt.feature.note.testing.FakeSubmitOutbox
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -41,6 +42,7 @@ import kotlin.test.assertTrue
  * note in a text field and nowhere else, so navigating away lost it. The guarantee is now "the
  * note is in the outbox", and these assert exactly that rather than taking it on trust.
  */
+@OptIn(ExperimentalDataTestingApi::class)
 class AddEditNoteViewModelTest {
 
     private val repository = FakeNoteRepository()

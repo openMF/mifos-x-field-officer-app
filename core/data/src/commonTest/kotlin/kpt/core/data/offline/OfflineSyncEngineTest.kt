@@ -20,10 +20,6 @@ import kpt.core.data.offline.impl.OfflineSyncEngine
 import kpt.core.data.offline.impl.SharedStores
 import kpt.core.data.offline.impl.SyncRun
 import kpt.core.data.offline.impl.SyncSink
-import kpt.core.data.offline.impl.decodeFailures
-import kpt.core.data.offline.impl.decodeTargets
-import kpt.core.data.offline.impl.encodeFailures
-import kpt.core.data.offline.impl.encodeTargets
 import kpt.core.model.center.Center
 import kpt.core.model.center.CenterAccounts
 import kpt.core.model.center.CenterWithAssociations
@@ -42,6 +38,8 @@ import kpt.core.model.offline.DownloadFailure
 import kpt.core.model.offline.OfflineRecord
 import kpt.core.model.offline.RecordKind
 import kpt.core.model.offline.RecordSyncStatus
+import kpt.core.model.offline.SyncJob
+import kpt.core.model.offline.SyncJobStatus
 import kpt.core.model.offline.SyncTarget
 import kpt.core.model.savings.SavingAccountDepositType
 import kpt.core.model.savings.SavingsAccount
@@ -49,6 +47,8 @@ import kpt.core.model.savings.SavingsAccountStatus
 import kpt.core.model.savings.SavingsAccountTransactionTemplate
 import kpt.core.model.savings.SavingsAccountWithAssociations
 import kpt.core.store.document.DocumentKey
+import kpt.core.store.offline.toEntity
+import kpt.core.store.offline.toModel
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.SourceOfTruth
 import org.mobilenativefoundation.store.store5.Store
@@ -262,16 +262,28 @@ class OfflineSyncEngineTest {
             SyncTarget(RecordKind.CENTRE, 1, "North\tside"),
             SyncTarget(RecordKind.CLIENT, 9, "Ana\nRíos"),
         )
-        assertEquals(
-            listOf(SyncTarget(RecordKind.CENTRE, 1, "North side"), SyncTarget(RecordKind.CLIENT, 9, "Ana Ríos")),
-            targets.encodeTargets().decodeTargets(),
-        )
-
         val failures = listOf(
             DownloadFailure("Asha · notes", "Access denied"),
-            DownloadFailure("Bimal · client", null),
+            DownloadFailure("Bimal\t· client", null),
         )
-        assertEquals(failures, failures.encodeFailures().decodeFailures())
+        val job = SyncJob(
+            id = 4,
+            status = SyncJobStatus.RUNNING,
+            targets = targets,
+            failures = failures,
+            startedAtMs = NOW,
+        )
+
+        // Through the job row the sync-job store writes, and back.
+        val read = job.toEntity(userId = 32).toModel()!!
+        assertEquals(
+            listOf(SyncTarget(RecordKind.CENTRE, 1, "North side"), SyncTarget(RecordKind.CLIENT, 9, "Ana Ríos")),
+            read.targets,
+        )
+        assertEquals(
+            listOf(DownloadFailure("Asha · notes", "Access denied"), DownloadFailure("Bimal · client", null)),
+            read.failures,
+        )
     }
 
     private companion object {
