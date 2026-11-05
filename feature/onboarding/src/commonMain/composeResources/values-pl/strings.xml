@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: pl · seeded by /idea-locale · values carry SOURCE text until translated -->
+<resources>
+    <string name="feature_onboarding_skip">Pomiń</string>
+    <string name="feature_onboarding_skip_a11y">Przejdź do ustawień prywatności</string>
+    <string name="feature_onboarding_next">Dalej</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">Strona %1$d z %2$d</string>
+    <string name="feature_onboarding_clients_title">Klienci, grupy i centra — w terenie</string>
+    <string name="feature_onboarding_clients_body">Wyszukiwanie klienta, otwieranie grupy lub centrum i podgląd ich pożyczek oraz oszczędności — podczas każdej wizyty.</string>
+    <string name="feature_onboarding_collections_title">Pobieranie spłat i arkusze inkasa</string>
+    <string name="feature_onboarding_collections_body">Rejestrowanie spłat podczas spotkania i realizacja arkusza inkasa centrum, klient po kliencie.</string>
+    <string name="feature_onboarding_offline_title">Brak zasięgu? Praca bez przerw</string>
+    <string name="feature_onboarding_offline_body">Dane zapisane na urządzeniu można otwierać offline. Wprowadzone informacje są zapisywane i synchronizowane po powrocie do trybu online.</string>
+    <string name="feature_onboarding_privacy_title">Prosimy o pomoc w ulepszaniu aplikacji</string>
+    <string name="feature_onboarding_privacy_lead">Obie opcje są wyłączone, dopóki użytkownik ich nie włączy. Można zezwolić na obie jednym dotknięciem lub wybrać poniżej — wszystkie funkcje pozostają dostępne.</string>
+    <string name="feature_onboarding_analytics_label">Udostępniaj statystyki użytkowania</string>
+    <string name="feature_onboarding_analytics_body">Które ekrany i funkcje są używane i jak często. Bez nazwisk klientów, numerów rachunków ani kwot.</string>
+    <string name="feature_onboarding_crash_label">Wysyłaj raporty o awariach</string>
+    <string name="feature_onboarding_crash_body">Gdy aplikacja ulegnie awarii: błąd, wersja aplikacji i model urządzenia, abyśmy mogli to naprawić. Bez danych klientów.</string>
+    <string name="feature_onboarding_no_client_data">Żadne informacje o klientach, pożyczkach ani oszczędnościach nigdy nie są wysyłane.</string>
+    <string name="feature_onboarding_settings_later">To ustawienie można później zmienić w Ustawieniach.</string>
+    <string name="feature_onboarding_connect_instance">Połącz z instancją Mifos</string>
+    <string name="feature_onboarding_agreement">Korzystanie z naszej usługi oznacza akceptację następujących dokumentów: %1$s i %2$s.</string>
+    <string name="feature_onboarding_terms">Regulamin</string>
+    <string name="feature_onboarding_privacy_policy">Polityka prywatności</string>
+    <string name="feature_onboarding_allow_get_started">Zezwól i rozpocznij</string>
+    <string name="feature_onboarding_continue_without">Kontynuuj bez udostępniania</string>
+    <string name="feature_onboarding_continue_choices">Kontynuuj z moimi wyborami</string>
+    <string name="feature_onboarding_save_failed">Nie udało się zapisać wyborów. Prosimy spróbować ponownie.</string>
+</resources>

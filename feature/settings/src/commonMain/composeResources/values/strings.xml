@@ -127,4 +127,11 @@
     <string name="feature_settings_about_row_description">Version, help, community and licence</string>
     <string name="feature_settings_offline_sync_row">Offline sync</string>
     <string name="feature_settings_offline_sync_row_description">Keep centres, groups and clients on this device</string>
+    <string name="feature_settings_privacy">Privacy</string>
+    <string name="feature_settings_privacy_analytics">Share usage analytics</string>
+    <string name="feature_settings_privacy_crash_reports">Send crash reports</string>
+    <string name="feature_settings_privacy_row_description">Open privacy settings</string>
+    <string name="feature_settings_privacy_intro">You decide what this app shares. Nothing is sent until you turn it on, and you can change it at any time.</string>
+    <string name="feature_settings_privacy_analytics_description">Anonymous information about which features are used, to improve the app.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Technical details when the app crashes, so we can fix the problem.</string>
 </resources>

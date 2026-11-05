@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Phiên bản, trợ giúp, cộng đồng và giấy phép</string>
     <string name="feature_settings_offline_sync_row">Đồng bộ ngoại tuyến</string>
     <string name="feature_settings_offline_sync_row_description">Lưu giữ trung tâm, nhóm và khách hàng trên thiết bị này</string>
+    <string name="feature_settings_privacy">Quyền riêng tư</string>
+    <string name="feature_settings_privacy_analytics">Chia sẻ phân tích sử dụng</string>
+    <string name="feature_settings_privacy_crash_reports">Gửi báo cáo sự cố</string>
+    <string name="feature_settings_privacy_row_description">Mở cài đặt quyền riêng tư</string>
+    <string name="feature_settings_privacy_intro">Bạn quyết định ứng dụng này chia sẻ những gì. Không có gì được gửi cho đến khi bạn bật, và bạn có thể thay đổi bất cứ lúc nào.</string>
+    <string name="feature_settings_privacy_analytics_description">Thông tin ẩn danh về các tính năng được sử dụng, nhằm cải thiện ứng dụng.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Chi tiết kỹ thuật khi ứng dụng gặp sự cố, để chúng tôi có thể khắc phục.</string>
 </resources>

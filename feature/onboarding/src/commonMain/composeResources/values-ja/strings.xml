@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: ja · seeded by /idea-locale · values carry SOURCE text until translated -->
+<resources>
+    <string name="feature_onboarding_skip">スキップ</string>
+    <string name="feature_onboarding_skip_a11y">プライバシー設定へスキップ</string>
+    <string name="feature_onboarding_next">次へ</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">%2$d ページ中 %1$d ページ目</string>
+    <string name="feature_onboarding_clients_title">顧客、グループ、センターを現場で</string>
+    <string name="feature_onboarding_clients_body">訪問先がどこでも、顧客を検索し、グループやセンターを開いて、ローンや貯蓄を確認できます。</string>
+    <string name="feature_onboarding_collections_title">返済の回収と回収シートの処理</string>
+    <string name="feature_onboarding_collections_body">ミーティングの場で返済を記録し、センターの回収シートを顧客ごとに順に処理できます。</string>
+    <string name="feature_onboarding_offline_title">電波がなくても作業を続けられます</string>
+    <string name="feature_onboarding_offline_body">端末に保存した記録はオフラインでも開けます。入力した内容は保存され、オンラインに戻ると同期されます。</string>
+    <string name="feature_onboarding_privacy_title">アプリの改善にご協力ください</string>
+    <string name="feature_onboarding_privacy_lead">どちらも、ご自身でオンにしない限りオフのままです。ワンタップで両方を許可するか、下で個別に選択してください。いずれの場合もすべての機能をご利用いただけます。</string>
+    <string name="feature_onboarding_analytics_label">利用状況データを共有</string>
+    <string name="feature_onboarding_analytics_body">どの画面や機能がどのくらいの頻度で使われているか。顧客名、口座番号、金額は含まれません。</string>
+    <string name="feature_onboarding_crash_label">クラッシュレポートを送信</string>
+    <string name="feature_onboarding_crash_body">アプリがクラッシュした際に、エラー内容、アプリのバージョン、端末の機種を送信し、問題の修正に役立てます。顧客データは含まれません。</string>
+    <string name="feature_onboarding_no_client_data">顧客、ローン、貯蓄に関する情報が送信されることは一切ありません。</string>
+    <string name="feature_onboarding_settings_later">この設定は後から「設定」で変更できます。</string>
+    <string name="feature_onboarding_connect_instance">Mifos インスタンスに接続</string>
+    <string name="feature_onboarding_agreement">本サービスをご利用いただくことで、%1$sおよび%2$sに同意したものとみなされます。</string>
+    <string name="feature_onboarding_terms">利用規約</string>
+    <string name="feature_onboarding_privacy_policy">プライバシーポリシー</string>
+    <string name="feature_onboarding_allow_get_started">許可して開始</string>
+    <string name="feature_onboarding_continue_without">共有せずに続行</string>
+    <string name="feature_onboarding_continue_choices">選択した内容で続行</string>
+    <string name="feature_onboarding_save_failed">選択内容を保存できませんでした。もう一度お試しください。</string>
+</resources>

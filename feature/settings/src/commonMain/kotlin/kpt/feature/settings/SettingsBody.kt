@@ -45,7 +45,7 @@ import org.koin.compose.viewmodel.koinViewModel
  *
  * ## What it wires
  *
- * Theme and language are local dialog state (`rememberSaveable`, so they survive rotation);
+ * Theme, language and privacy are local dialog/sheet state (`rememberSaveable`, so they survive rotation);
  * [SettingsDialog] and [LanguageDialog] both default to a `koinViewModel()`, so no ViewModel is
  * threaded through the seam.
  *
@@ -68,6 +68,7 @@ fun SettingsBody(
 ) {
     var showThemeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
 
     SettingsScreenContent(
         onBackClick = onBackClick,
@@ -77,6 +78,7 @@ fun SettingsBody(
         onServerConfigClick = onServerConfigClick,
         onAboutClick = onAboutClick,
         onOfflineSyncClick = onOfflineSyncClick,
+        onPrivacyClick = { showPrivacySheet = true },
         onSignOutClick = { signOutViewModel.trySendAction(SignOutAction.Requested) },
         modifier = modifier,
     )
@@ -86,6 +88,9 @@ fun SettingsBody(
     }
     if (showLanguageDialog) {
         LanguageDialog(onDismiss = { showLanguageDialog = false })
+    }
+    if (showPrivacySheet) {
+        PrivacySheet(onDismiss = { showPrivacySheet = false })
     }
     val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
     if (signOut.confirming) {

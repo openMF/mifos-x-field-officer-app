@@ -9,6 +9,7 @@
  */
 package kpt.feature.signin.ui
 
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
@@ -18,8 +19,10 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.v2.runComposeUiTest
+import androidx.compose.ui.text.LinkAnnotation
 import kpt.core.designsystem.theme.KptTheme
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 /**
  * RENDER-level cover for what the ViewModel cannot see.
@@ -176,6 +179,31 @@ class SignInScreenUiTest {
         // Absent in v1 entirely. Pinned, never behind a scroll: a consent the user cannot read is
         // not a consent.
         onNodeWithTag(SignInTestTags.CONSENT, useUnmergedTree = true).assertIsDisplayed()
+    }
+
+    @Test
+    fun theConsentLineLinksBothDocumentsItAccepts() = runComposeUiTest {
+        val opened = mutableListOf<String>()
+        setContent {
+            KptTheme {
+                SignInContent(
+                    state = SignInState(),
+                    onAction = {},
+                    onUpdateServerConfig = {},
+                    onOpenTerms = { opened += "terms" },
+                    onOpenPrivacyPolicy = { opened += "privacy" },
+                )
+            }
+        }
+        val text = onNodeWithTag(SignInTestTags.CONSENT, useUnmergedTree = true)
+            .fetchSemanticsNode().config[SemanticsProperties.Text].single()
+        assertEquals("By signing in you accept our Terms & Conditions and Privacy Policy.", text.text)
+
+        // Each link covers exactly its document's name, and tapping it opens that document.
+        val links = text.getLinkAnnotations(0, text.length)
+        assertEquals(listOf("Terms & Conditions", "Privacy Policy"), links.map { text.substring(it.start, it.end) })
+        links.forEach { (it.item as LinkAnnotation.Clickable).linkInteractionListener?.onClick(it.item) }
+        assertEquals(listOf("terms", "privacy"), opened)
     }
 
     @Test

@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Versione, aiuto, community e licenza</string>
     <string name="feature_settings_offline_sync_row">Sincronizzazione offline</string>
     <string name="feature_settings_offline_sync_row_description">Mantieni centri, gruppi e clienti su questo dispositivo</string>
+    <string name="feature_settings_privacy">Privacy</string>
+    <string name="feature_settings_privacy_analytics">Condividi le analisi di utilizzo</string>
+    <string name="feature_settings_privacy_crash_reports">Invia i report degli arresti anomali</string>
+    <string name="feature_settings_privacy_row_description">Apri le impostazioni della privacy</string>
+    <string name="feature_settings_privacy_intro">Sei tu a decidere cosa condivide questa app. Non viene inviato nulla finché non lo attivi e puoi cambiarlo in qualsiasi momento.</string>
+    <string name="feature_settings_privacy_analytics_description">Informazioni anonime sulle funzioni utilizzate, per migliorare l'app.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Dettagli tecnici quando l'app si arresta in modo anomalo, per poter risolvere il problema.</string>
 </resources>

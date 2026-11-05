@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Версия, помощь, сообщество и лицензия</string>
     <string name="feature_settings_offline_sync_row">Офлайн-синхронизация</string>
     <string name="feature_settings_offline_sync_row_description">Сохраняйте центры, группы и клиентов на этом устройстве</string>
+    <string name="feature_settings_privacy">Конфиденциальность</string>
+    <string name="feature_settings_privacy_analytics">Передавать аналитику использования</string>
+    <string name="feature_settings_privacy_crash_reports">Отправлять отчёты о сбоях</string>
+    <string name="feature_settings_privacy_row_description">Открыть настройки конфиденциальности</string>
+    <string name="feature_settings_privacy_intro">Вы решаете, чем делится это приложение. Ничего не отправляется, пока вы это не включите, и вы можете изменить это в любой момент.</string>
+    <string name="feature_settings_privacy_analytics_description">Анонимные сведения о том, какие функции используются, чтобы улучшать приложение.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Технические сведения при сбое приложения, чтобы мы могли устранить проблему.</string>
 </resources>

@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Versie, hulp, community en licentie</string>
     <string name="feature_settings_offline_sync_row">Offlinesynchronisatie</string>
     <string name="feature_settings_offline_sync_row_description">Bewaar centra, groepen en klanten op dit apparaat</string>
+    <string name="feature_settings_privacy">Privacy</string>
+    <string name="feature_settings_privacy_analytics">Gebruiksanalyses delen</string>
+    <string name="feature_settings_privacy_crash_reports">Crashrapporten verzenden</string>
+    <string name="feature_settings_privacy_row_description">Privacyinstellingen openen</string>
+    <string name="feature_settings_privacy_intro">U bepaalt wat deze app deelt. Er wordt niets verzonden totdat u het inschakelt, en u kunt het op elk moment wijzigen.</string>
+    <string name="feature_settings_privacy_analytics_description">Anonieme informatie over welke functies worden gebruikt, om de app te verbeteren.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Technische details wanneer de app crasht, zodat we het probleem kunnen oplossen.</string>
 </resources>

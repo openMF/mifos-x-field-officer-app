@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: ar · seeded by /idea-locale · values carry SOURCE text until translated -->
+<resources>
+    <string name="feature_onboarding_skip">تخطٍّ</string>
+    <string name="feature_onboarding_skip_a11y">الانتقال مباشرةً إلى خيارات الخصوصية</string>
+    <string name="feature_onboarding_next">التالي</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">الصفحة %1$d من %2$d</string>
+    <string name="feature_onboarding_clients_title">عملاؤك ومجموعاتك ومراكزك — في الميدان</string>
+    <string name="feature_onboarding_clients_body">ابحث عن عميل، أو افتح مجموعة أو مركزًا، واطّلع على قروضه ومدخراته أينما قادتك زياراتك.</string>
+    <string name="feature_onboarding_collections_title">تحصيل الأقساط وإدارة كشوف التحصيل</string>
+    <string name="feature_onboarding_collections_body">سجّل الأقساط المسددة أثناء الاجتماع، وأنجز كشف تحصيل المركز عميلًا تلو الآخر.</string>
+    <string name="feature_onboarding_offline_title">لا توجد تغطية؟ تابع العمل</string>
+    <string name="feature_onboarding_offline_body">تُفتح السجلات المحفوظة على الجهاز دون اتصال. ويُحفظ كل ما تسجّله ويُزامَن عند عودتك إلى الاتصال.</string>
+    <string name="feature_onboarding_privacy_title">ساعدنا في تحسين التطبيق</string>
+    <string name="feature_onboarding_privacy_lead">كلا الخيارين معطّل ما لم تفعّله بنفسك. اسمح بكليهما بنقرة واحدة، أو اختر أدناه — ويمكنك استخدام جميع الميزات في كل الأحوال.</string>
+    <string name="feature_onboarding_analytics_label">مشاركة تحليلات الاستخدام</string>
+    <string name="feature_onboarding_analytics_body">الشاشات والميزات المستخدَمة ومدى تكرار استخدامها. دون أسماء العملاء أو أرقام الحسابات أو المبالغ.</string>
+    <string name="feature_onboarding_crash_label">إرسال تقارير الأعطال</string>
+    <string name="feature_onboarding_crash_body">عند تعطّل التطبيق: الخطأ وإصدار التطبيق وطراز الجهاز، لنتمكن من إصلاحه. دون أي بيانات للعملاء.</string>
+    <string name="feature_onboarding_no_client_data">لا يُرسَل أبدًا أي شيء عن عملائك أو قروضهم أو مدخراتهم.</string>
+    <string name="feature_onboarding_settings_later">يمكنك تغيير ذلك لاحقًا من الإعدادات.</string>
+    <string name="feature_onboarding_connect_instance">الاتصال بنسخة Mifos الخاصة بك</string>
+    <string name="feature_onboarding_agreement">باستخدامك خدمتنا، فإنك توافق على %1$s و%2$s.</string>
+    <string name="feature_onboarding_terms">الشروط والأحكام</string>
+    <string name="feature_onboarding_privacy_policy">سياسة الخصوصية</string>
+    <string name="feature_onboarding_allow_get_started">السماح والبدء</string>
+    <string name="feature_onboarding_continue_without">المتابعة دون مشاركة</string>
+    <string name="feature_onboarding_continue_choices">المتابعة بخياراتي</string>
+    <string name="feature_onboarding_save_failed">تعذّر حفظ خياراتك. يُرجى المحاولة مرة أخرى.</string>
+</resources>

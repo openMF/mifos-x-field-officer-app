@@ -28,6 +28,7 @@ object AppOrgLinks {
     private val links: Map<String, String> = linkedMapOf(
         "community" to "https://mifos.slack.com/",
         "product" to "https://mifos-products.pages.dev/mobile/field-officer/",
+        "terms" to "https://mifos-products.pages.dev/mobile/field-officer/terms/",
     )
     // syncForkConfig:org-links:end
 

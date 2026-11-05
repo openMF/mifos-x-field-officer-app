@@ -269,6 +269,9 @@ org:
   links:
     community: https://mifos.slack.com/
     product: https://mifos-products.pages.dev/mobile/field-officer/
+    # content/legal/field-officer/terms.md on the Mifos products site — linked beside the privacy policy on
+    # onboarding's consent page ("By continuing, you agree to the Privacy Policy and Terms").
+    terms: https://mifos-products.pages.dev/mobile/field-officer/terms/
 
 # Legal entity behind the app — rendered into the generated privacy policy and terms.
 # Required before a store submission; a store rejects a listing whose policy names no entity.
@@ -353,6 +356,10 @@ security:
   # The field officer signs in to a Fineract server, so a fresh install starts signed OUT and lands on
   # sign-in. An absent key means `true` (the template has no login).
   signed_in_by_default: false
+  # A fresh install shows the first-run onboarding (feature/onboarding) once — three intro pages and the
+  # privacy-consent page — before sign-in. Generated into AppSecurityConfig.FIRST_RUN_ONBOARDING, which
+  # UserData.DEFAULT.firstTimeUser reads. ABSENT means `false` (the template ships no onboarding).
+  first_run_onboarding: true
 # Privacy consent (GDPR Art. 6(1)(a) / 7): analytics and crash reporting are CONSENT-based processing, so
 # they must start OFF and be as easy to withdraw as to give (Settings → Privacy). These are only the
 # starting values for a fresh install; the user's own choice is persisted by core/datastore and wins.

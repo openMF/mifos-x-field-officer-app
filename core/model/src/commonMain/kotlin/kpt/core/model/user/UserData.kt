@@ -83,7 +83,9 @@ data class UserData(
             isPasscodeEnabled = false,
             isBiometricsEnabled = false,
             showOnboarding = false,
-            firstTimeUser = false,
+            // app-profile/app.yaml#security.first_run_onboarding (generated) — true only in a fork that ships an
+            // onboarding destination; RootNavViewModel shows it once, until setFirstTimeState(false).
+            firstTimeUser = AppSecurityConfig.FIRST_RUN_ONBOARDING,
             // app-profile/app.yaml#security.screen_capture_allowed_by_default (generated) — a fork
             // decides; the user's later choice is persisted by core/datastore and wins.
             enableScreenCapture = AppSecurityConfig.SCREEN_CAPTURE_ALLOWED_BY_DEFAULT,

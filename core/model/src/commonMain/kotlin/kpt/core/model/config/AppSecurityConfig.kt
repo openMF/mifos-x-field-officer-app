@@ -26,5 +26,8 @@ object AppSecurityConfig {
 
     /** `security.signed_in_by_default` — whether a fresh install starts signed in (false = the app has a login). */
     const val SIGNED_IN_BY_DEFAULT: Boolean = false
+
+    /** `security.first_run_onboarding` — whether a fresh install shows onboarding once (false = the app has none). */
+    const val FIRST_RUN_ONBOARDING: Boolean = true
     // syncForkConfig:app-security:end
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: hi · seeded by /idea-locale · values carry SOURCE text until translated -->
+<resources>
+    <string name="feature_onboarding_skip">छोड़ें</string>
+    <string name="feature_onboarding_skip_a11y">सीधे गोपनीयता विकल्पों पर जाएँ</string>
+    <string name="feature_onboarding_next">आगे</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">पृष्ठ %1$d / %2$d</string>
+    <string name="feature_onboarding_clients_title">आपके ग्राहक, समूह और केंद्र — फ़ील्ड में</string>
+    <string name="feature_onboarding_clients_body">किसी ग्राहक को खोजें, कोई समूह या केंद्र खोलें और उनके ऋण व बचत देखें, आपकी विज़िट आपको जहाँ भी ले जाएँ।</string>
+    <string name="feature_onboarding_collections_title">किस्तें वसूलें और संग्रह पत्रक चलाएँ</string>
+    <string name="feature_onboarding_collections_body">बैठक में ही किस्तों की भुगतान राशि दर्ज करें और केंद्र का संग्रह पत्रक एक-एक ग्राहक करके पूरा करें।</string>
+    <string name="feature_onboarding_offline_title">नेटवर्क नहीं? काम जारी रखें</string>
+    <string name="feature_onboarding_offline_body">डिवाइस पर रखे गए रिकॉर्ड ऑफ़लाइन खुलते हैं। आप जो भी दर्ज करते हैं, वह सहेजा जाता है और ऑनलाइन लौटने पर सिंक हो जाता है।</string>
+    <string name="feature_onboarding_privacy_title">ऐप को बेहतर बनाने में मदद करें</string>
+    <string name="feature_onboarding_privacy_lead">जब तक आप इन्हें चालू नहीं करते, दोनों बंद रहते हैं। एक टैप में दोनों की अनुमति दें या नीचे चुनें — आप फिर भी सभी सुविधाओं का उपयोग कर सकते हैं।</string>
+    <string name="feature_onboarding_analytics_label">उपयोग विश्लेषण साझा करें</string>
+    <string name="feature_onboarding_analytics_body">कौन-सी स्क्रीन और सुविधाएँ उपयोग होती हैं, और कितनी बार। ग्राहकों के नाम, खाता संख्या या राशियाँ नहीं।</string>
+    <string name="feature_onboarding_crash_label">क्रैश रिपोर्ट भेजें</string>
+    <string name="feature_onboarding_crash_body">ऐप क्रैश होने पर: त्रुटि, ऐप संस्करण और डिवाइस मॉडल, ताकि हम इसे ठीक कर सकें। कोई ग्राहक डेटा नहीं।</string>
+    <string name="feature_onboarding_no_client_data">आपके ग्राहकों, ऋणों या बचत के बारे में कभी कुछ नहीं भेजा जाता।</string>
+    <string name="feature_onboarding_settings_later">आप इसे बाद में सेटिंग्स में बदल सकते हैं।</string>
+    <string name="feature_onboarding_connect_instance">अपने Mifos इंस्टेंस से कनेक्ट करें</string>
+    <string name="feature_onboarding_agreement">हमारी सेवा का उपयोग करके आप हमारे %1$s और %2$s स्वीकार करते हैं।</string>
+    <string name="feature_onboarding_terms">नियम और शर्तें</string>
+    <string name="feature_onboarding_privacy_policy">गोपनीयता नीति</string>
+    <string name="feature_onboarding_allow_get_started">अनुमति दें और शुरू करें</string>
+    <string name="feature_onboarding_continue_without">साझा किए बिना जारी रखें</string>
+    <string name="feature_onboarding_continue_choices">मेरे विकल्पों के साथ जारी रखें</string>
+    <string name="feature_onboarding_save_failed">आपके विकल्प सहेजे नहीं जा सके। कृपया फिर से प्रयास करें।</string>
+</resources>

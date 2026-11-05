@@ -34,6 +34,7 @@ import kpt.feature.client.navigation.ClientSignatureRoute
 import kpt.feature.client.navigation.ClientStaffRoute
 import kpt.feature.client.navigation.ClientTransferRoute
 import kpt.feature.home.HomeRoute
+import kpt.feature.onboarding.OnboardingRoute
 import kpt.feature.profile.ProfileRoute
 import kpt.feature.settings.NotificationRoute
 import kpt.feature.settings.SettingsRoute
@@ -82,6 +83,7 @@ class NavigationGraphSmokeTest {
         AuthenticatedGraphRoute,
         AuthenticatedNavbarRoute,
         // features
+        OnboardingRoute,
         SignInRoute,
         HomeRoute,
         ProfileRoute,
@@ -233,6 +235,6 @@ class NavigationGraphSmokeTest {
 
     private companion object {
         /** Route count at S1 (Phase 10). Bumped by each slice that adds destinations. */
-        const val EXPECTED_ROUTE_COUNT = 10
+        const val EXPECTED_ROUTE_COUNT = 11
     }
 }

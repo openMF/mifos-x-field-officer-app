@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: ko · seeded by /idea-locale · values carry SOURCE text until translated -->
+<resources>
+    <string name="feature_onboarding_skip">건너뛰기</string>
+    <string name="feature_onboarding_skip_a11y">개인정보 선택 화면으로 건너뛰기</string>
+    <string name="feature_onboarding_next">다음</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">%2$d페이지 중 %1$d페이지</string>
+    <string name="feature_onboarding_clients_title">현장에서 고객, 그룹, 센터를 한눈에</string>
+    <string name="feature_onboarding_clients_body">어디를 방문하든 고객을 조회하고, 그룹이나 센터를 열어 대출과 예금 현황을 확인할 수 있습니다.</string>
+    <string name="feature_onboarding_collections_title">상환금 수납 및 수금표 처리</string>
+    <string name="feature_onboarding_collections_body">모임 현장에서 상환금을 기록하고 센터의 수금표를 고객별로 차례차례 처리하세요.</string>
+    <string name="feature_onboarding_offline_title">신호가 없어도 계속 작업하세요</string>
+    <string name="feature_onboarding_offline_body">기기에 보관한 기록은 오프라인에서도 열립니다. 입력한 내용은 저장되며 다시 온라인이 되면 동기화됩니다.</string>
+    <string name="feature_onboarding_privacy_title">앱 개선에 참여해 주세요</string>
+    <string name="feature_onboarding_privacy_lead">두 항목 모두 직접 켜지 않는 한 꺼져 있습니다. 한 번에 모두 허용하거나 아래에서 선택하세요. 어느 경우든 모든 기능을 사용할 수 있습니다.</string>
+    <string name="feature_onboarding_analytics_label">사용 통계 공유</string>
+    <string name="feature_onboarding_analytics_body">어떤 화면과 기능이 얼마나 자주 사용되는지에 대한 정보입니다. 고객 이름, 계좌 번호, 금액은 포함되지 않습니다.</string>
+    <string name="feature_onboarding_crash_label">오류 보고서 전송</string>
+    <string name="feature_onboarding_crash_body">앱이 비정상 종료되면 오류 내용, 앱 버전, 기기 모델을 전송하여 문제를 해결할 수 있도록 합니다. 고객 데이터는 포함되지 않습니다.</string>
+    <string name="feature_onboarding_no_client_data">고객, 대출 또는 예금에 관한 정보는 절대 전송되지 않습니다.</string>
+    <string name="feature_onboarding_settings_later">나중에 설정에서 변경할 수 있습니다.</string>
+    <string name="feature_onboarding_connect_instance">Mifos 인스턴스에 연결</string>
+    <string name="feature_onboarding_agreement">서비스를 이용하시면 %1$s 및 %2$s에 동의하는 것으로 간주됩니다.</string>
+    <string name="feature_onboarding_terms">이용약관</string>
+    <string name="feature_onboarding_privacy_policy">개인정보 처리방침</string>
+    <string name="feature_onboarding_allow_get_started">허용하고 시작하기</string>
+    <string name="feature_onboarding_continue_without">공유하지 않고 계속</string>
+    <string name="feature_onboarding_continue_choices">선택한 항목으로 계속</string>
+    <string name="feature_onboarding_save_failed">선택 사항을 저장하지 못했습니다. 다시 시도해 주세요.</string>
+</resources>
