@@ -16,6 +16,36 @@ ViewModels: `OnboardingViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
+First-run onboarding, and the place an app asks for analytics and crash-report consent before collecting
+anything. Three intro pages and a privacy page, shown once on a fresh install.
+
+**It is off by default.** `RootNavViewModel` routes to it only when `UserData.firstTimeUser` is true, and a fresh
+install's value comes from `app-profile/app.yaml#security.first_run_onboarding` (generated into
+`AppSecurityConfig.FIRST_RUN_ONBOARDING`, default `false`). An app that turns it on gets the screen on first launch;
+every other app is unaffected. `RootNavScreen` installs it on the root graph — it is not a `@FeatureDestination`,
+because it runs before the authenticated graph exists.
+
+**The consent behaviour is the part to keep when you rebrand it.** Both switches start OFF. Nothing is saved while
+the user browses or flips switches — only a finishing button writes. "Allow and get started" is the one-tap
+affirmative consent (both on); "Continue without sharing" / "Continue with my choices" saves the switches exactly as
+shown, and is the same size and prominence. Pre-ticked switches, or "turn it off later in Settings", are not valid
+consent under GDPR/ePrivacy, UK GDPR/PECR or India's DPDP Act. The two choices are written FIRST and
+`setFirstTimeState(false)` LAST, so RootNav only moves on once consent is stored; `PrivacyConsentApplier` then
+applies it on every platform. A failed write keeps the user on the privacy page and does not mark first run done.
+
+**What a fork changes:** the three intro pages (copy, page art — this starter uses design-system icons, a fork
+drops in its own illustrations and brand mark), and the agreement wording. The Terms link reads
+`AppOrgLinks["terms"]` (`app-profile/app.yaml#org.links.terms`) and the policy link
+`AppPrivacyConfig.PRIVACY_POLICY_URL`, both opened in-app. An app with a server-setup screen passes it to
+`onboardingDestination(onOpenServerConfig = …)` to show a "Set up your server" link; the template passes nothing and
+the link is hidden.
+
+**Layout:** the page dots and actions sit in a fixed bottom bar, only the content above scrolls, and pages move with
+the template shared-axis motion (`KptSharedAxis`). Wide windows get a two-pane layout. System back and horizontal
+swipes move between pages; back on the first page leaves without saving.
+
+Like the other `feature/` starters, this module is fork-owned once forked: a template sync never overwrites it.
+
 <!-- api-docs:begin module=feature/onboarding sha=eb1744817f069e48c10b7ac866883844d499c572 -->
 ## API reference
 

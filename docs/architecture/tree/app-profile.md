@@ -63,6 +63,14 @@ display name, version, org details, endpoints, icons, store listing, the store-c
 version catalog, `Config.xcconfig`, per-module BuildKonfig, per-flavor BuildConfig, the platform icon
 trees and the deployment metadata.
 
+**The deployment metadata is derived, so it must derive from nothing but a clone.** Each platform's
+`deployment/…/metadata/` tree is gitignored and the template tracks only some sub-dirs, so
+`syncForkConfig` creates any missing sub-dir (`review_information/`, `<locale>/changelogs/`) under a
+metadata root that exists — the App Review contact and the Play changelog are written on a fresh CI
+checkout too. A platform with no metadata root is one the fork does not ship, and is skipped
+(`ensureMetadataParent`, pinned by `MetadataParentTest`). `org.phone` ships empty: it is the App
+Review contact, and a placeholder there is uploaded as every fork's real number.
+
 **Edit here, never downstream.** `gradle/fork.properties` is a generated bridge, not the SoT, and
 `libs.versions.toml#appId` is written from it — `scripts/product-health/checks/appid-consistency.sh`
 fails CI when the two drift. A hand-edit to the bridge survives exactly until the next sync.

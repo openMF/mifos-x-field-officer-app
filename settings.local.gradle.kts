@@ -44,5 +44,4 @@ include(":feature:checkerinbox")
 include(":feature:notification")
 include(":feature:pathtracking")
 include(":feature:offlinesync")
-// First-run onboarding + privacy consent (2026-11-04), shown once before sign-in.
-include(":feature:onboarding")
+// feature/onboarding is template-owned now: settings.gradle.kts includes it (the module itself stays fork-owned).

@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">Kredileriniz · %1$d</string>
     <string name="screens_home_remaining_label">Kalan</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Taksit $%1$s · %2$d%% ödendi</string>
+    <string name="screens_home_loan_tile_footer">Taksit $%1$s · %2$d% ödendi</string>
     <string name="screens_home_section_this_week">Bu hafta</string>
     <string name="screens_home_section_tools">Araçlar</string>
     <string name="screens_home_section_tools_subtitle">Hesaplayıcılar, karşılaştırmalar, makro göstergeler</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Bugünkü oranlar</string>
     <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
     <string name="screens_home_rates_mortgage_30y_label">30 yıllık konut kredisi</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">USD kuru</string>

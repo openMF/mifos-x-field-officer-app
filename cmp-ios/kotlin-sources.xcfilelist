@@ -3,6 +3,7 @@ $(SRCROOT)/../cmp-shared/src/commonMain/kotlin/cmp/shared/SharedApp.kt
 $(SRCROOT)/../cmp-shared/src/commonMain/kotlin/cmp/shared/WorkerDeclarations.kt
 $(SRCROOT)/../cmp-shared/src/commonMain/kotlin/cmp/shared/utils/KoinExt.kt
 $(SRCROOT)/../cmp-shared/src/nativeMain/kotlin/kpt/shared/ViewController.kt
+$(SRCROOT)/../cmp-shared/src/nativeMain/kotlin/kpt/shared/fork/ForkIosHooks.kt
 $(SRCROOT)/../core-base/common/src/androidMain/kotlin/kpt/core/base/common/Parcelize.android.kt
 $(SRCROOT)/../core-base/common/src/androidMain/kotlin/kpt/core/base/common/di/CommonModule.android.kt
 $(SRCROOT)/../core-base/common/src/androidMain/kotlin/kpt/core/base/common/manager/DispatchManagerImpl.kt
@@ -46,7 +47,9 @@ $(SRCROOT)/../core-base/data/src/commonMain/kotlin/kpt/core/base/data/infra/impl
 $(SRCROOT)/../core-base/data/src/nonAndroidMain/kotlin/kpt/core/base/data/infra/impl/TimeZoneMonitorImpl.kt
 $(SRCROOT)/../core-base/database/src/androidMain/kotlin/kpt/core/base/database/AppDatabaseFactory.kt
 $(SRCROOT)/../core-base/database/src/androidMain/kotlin/kpt/core/base/database/PlatformDatabaseModule.android.kt
+$(SRCROOT)/../core-base/database/src/androidMain/kotlin/kpt/core/base/database/RawSqlConnection.android.kt
 $(SRCROOT)/../core-base/database/src/commonMain/kotlin/kpt/core/base/database/DatabaseNaming.kt
+$(SRCROOT)/../core-base/database/src/commonMain/kotlin/kpt/core/base/database/RawSqlConnection.kt
 $(SRCROOT)/../core-base/database/src/commonMain/kotlin/kpt/core/base/database/annotation/DatabaseSchema.kt
 $(SRCROOT)/../core-base/database/src/commonMain/kotlin/kpt/core/base/database/infra/dao/BookkeeperDao.kt
 $(SRCROOT)/../core-base/database/src/commonMain/kotlin/kpt/core/base/database/infra/dao/ConflictDao.kt
@@ -58,12 +61,17 @@ $(SRCROOT)/../core-base/database/src/commonMain/kotlin/kpt/core/base/database/in
 $(SRCROOT)/../core-base/database/src/commonMain/kotlin/kpt/core/base/database/infra/entity/FetchedAtEntity.kt
 $(SRCROOT)/../core-base/database/src/desktopMain/kotlin/kpt/core/base/database/AppDatabaseFactory.kt
 $(SRCROOT)/../core-base/database/src/desktopMain/kotlin/kpt/core/base/database/PlatformDatabaseModule.desktop.kt
+$(SRCROOT)/../core-base/database/src/desktopMain/kotlin/kpt/core/base/database/RawSqlConnection.desktop.kt
+$(SRCROOT)/../core-base/database/src/iosArm64Main/kotlin/kpt/core/base/database/RawSqlConnection.iosArm64.kt
+$(SRCROOT)/../core-base/database/src/iosSimulatorArm64Main/kotlin/kpt/core/base/database/RawSqlConnection.iosSimulatorArm64.kt
 $(SRCROOT)/../core-base/database/src/jsMain/kotlin/kpt/core/base/database/AppDatabaseFactory.kt
 $(SRCROOT)/../core-base/database/src/jsMain/kotlin/kpt/core/base/database/PlatformDatabaseModule.js.kt
+$(SRCROOT)/../core-base/database/src/jsMain/kotlin/kpt/core/base/database/RawSqlConnection.js.kt
 $(SRCROOT)/../core-base/database/src/nativeMain/kotlin/kpt/core/base/database/AppDatabaseFactory.kt
 $(SRCROOT)/../core-base/database/src/nativeMain/kotlin/kpt/core/base/database/PlatformDatabaseModule.native.kt
 $(SRCROOT)/../core-base/database/src/wasmJsMain/kotlin/kpt/core/base/database/AppDatabaseFactory.kt
 $(SRCROOT)/../core-base/database/src/wasmJsMain/kotlin/kpt/core/base/database/PlatformDatabaseModule.wasmJs.kt
+$(SRCROOT)/../core-base/database/src/wasmJsMain/kotlin/kpt/core/base/database/RawSqlConnection.wasmJs.kt
 $(SRCROOT)/../core-base/datastore/src/androidMain/kotlin/kpt/core/base/datastore/SecureSettingsFactory.kt
 $(SRCROOT)/../core-base/datastore/src/androidMain/kotlin/kpt/core/base/datastore/di/DatastoreBasePlatformModule.kt
 $(SRCROOT)/../core-base/datastore/src/commonMain/kotlin/kpt/core/base/datastore/CachedSecureSettings.kt
@@ -181,6 +189,7 @@ $(SRCROOT)/../core-base/platform/src/commonMain/kotlin/kpt/core/base/platform/up
 $(SRCROOT)/../core-base/platform/src/commonMain/kotlin/kpt/core/base/platform/update/AppUpdateManagerImpl.kt
 $(SRCROOT)/../core-base/platform/src/commonMain/kotlin/kpt/core/base/platform/url/UrlLauncher.kt
 $(SRCROOT)/../core-base/platform/src/commonMain/kotlin/kpt/core/base/platform/url/UrlLauncherImpl.kt
+$(SRCROOT)/../core-base/platform/src/commonTest/kotlin/kpt/core/base/platform/di/PlatformModuleBindingKeysTest.kt
 $(SRCROOT)/../core-base/platform/src/commonTest/kotlin/kpt/core/base/platform/url/UrlLauncherDelegationTest.kt
 $(SRCROOT)/../core-base/platform/src/nonAndroidMain/kotlin/kpt/core/base/platform/context/AppContext.native.kt
 $(SRCROOT)/../core-base/platform/src/nonAndroidMain/kotlin/kpt/core/base/platform/garbage/GarbageCollectionManager.nonAndroid.kt
@@ -778,6 +787,7 @@ $(SRCROOT)/../core/database/src/nonWebTest/kotlin/kpt/core/database/config/AppDa
 $(SRCROOT)/../core/database/src/nonWebTest/kotlin/kpt/core/database/di/DatabaseModuleTest.kt
 $(SRCROOT)/../core/database/src/nonWebTest/kotlin/kpt/core/database/document/DocumentDaoTest.kt
 $(SRCROOT)/../core/database/src/nonWebTest/kotlin/kpt/core/database/fieldofficer/FieldOfficerDatabaseTest.kt
+$(SRCROOT)/../core/database/src/nonWebTest/kotlin/kpt/core/database/infra/RawConnectionTest.kt
 $(SRCROOT)/../core/database/src/nonWebTest/kotlin/kpt/core/database/infra/dao/FetchedAtDaoTest.kt
 $(SRCROOT)/../core/database/src/nonWebTest/kotlin/kpt/core/database/savings/SavingsDaoTest.kt
 $(SRCROOT)/../core/database/src/wasmJsMain/kotlin/kpt/core/database/di/DatabaseModule.wasmJs.kt
@@ -1943,6 +1953,15 @@ $(SRCROOT)/../feature/offlinesync/src/commonMain/kotlin/kpt/feature/offlinesync/
 $(SRCROOT)/../feature/offlinesync/src/commonMain/kotlin/kpt/feature/offlinesync/ui/OfflineSyncViewModel.kt
 $(SRCROOT)/../feature/offlinesync/src/commonTest/kotlin/kpt/feature/offlinesync/ui/OfflineSyncViewModelTest.kt
 $(SRCROOT)/../feature/offlinesync/src/desktopTest/kotlin/kpt/feature/offlinesync/OfflineSyncPreviewScreenshotTest.kt
+$(SRCROOT)/../feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/OnboardingRoute.kt
+$(SRCROOT)/../feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/di/OnboardingModule.kt
+$(SRCROOT)/../feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingScreen.kt
+$(SRCROOT)/../feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingScreenPreview.kt
+$(SRCROOT)/../feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingTestTags.kt
+$(SRCROOT)/../feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingViewModel.kt
+$(SRCROOT)/../feature/onboarding/src/commonTest/kotlin/kpt/feature/onboarding/ui/OnboardingScreenUiTest.kt
+$(SRCROOT)/../feature/onboarding/src/commonTest/kotlin/kpt/feature/onboarding/ui/OnboardingViewModelTest.kt
+$(SRCROOT)/../feature/onboarding/src/desktopTest/kotlin/kpt/feature/onboarding/OnboardingPreviewScreenshotTest.kt
 $(SRCROOT)/../feature/pathtracking/src/commonMain/kotlin/kpt/feature/pathtracking/di/PathTrackingModule.kt
 $(SRCROOT)/../feature/pathtracking/src/commonMain/kotlin/kpt/feature/pathtracking/navigation/PathTrackingRoute.kt
 $(SRCROOT)/../feature/pathtracking/src/commonMain/kotlin/kpt/feature/pathtracking/ui/PathTrackingPreviews.kt
@@ -2026,6 +2045,7 @@ $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/Langua
 $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/NotificationScreen.kt
 $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/NotificationScreenPreview.kt
 $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/Platform.kt
+$(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/PrivacySheet.kt
 $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt
 $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsDialog.kt
 $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsRoute.kt
@@ -2046,6 +2066,7 @@ $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/signou
 $(SRCROOT)/../feature/settings/src/commonMain/kotlin/kpt/feature/settings/signout/SignOutViewModel.kt
 $(SRCROOT)/../feature/settings/src/commonTest/kotlin/kpt/feature/settings/ConflictInboxViewModelTest.kt
 $(SRCROOT)/../feature/settings/src/commonTest/kotlin/kpt/feature/settings/NotificationScreenUiTest.kt
+$(SRCROOT)/../feature/settings/src/commonTest/kotlin/kpt/feature/settings/PrivacySheetUiTest.kt
 $(SRCROOT)/../feature/settings/src/commonTest/kotlin/kpt/feature/settings/SettingsScreenUiTest.kt
 $(SRCROOT)/../feature/settings/src/commonTest/kotlin/kpt/feature/settings/SettingsViewModelTest.kt
 $(SRCROOT)/../feature/settings/src/commonTest/kotlin/kpt/feature/settings/SyncAndDraftsViewModelTest.kt

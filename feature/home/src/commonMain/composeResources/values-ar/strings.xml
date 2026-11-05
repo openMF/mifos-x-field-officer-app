@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">قروضك · %1$d</string>
     <string name="screens_home_remaining_label">المتبقي</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">القسط $%1$s · تم سداد %2$d%%</string>
+    <string name="screens_home_loan_tile_footer">القسط $%1$s · تم سداد %2$d%</string>
     <string name="screens_home_section_this_week">هذا الأسبوع</string>
     <string name="screens_home_section_tools">الأدوات</string>
     <string name="screens_home_section_tools_subtitle">حاسبات ومقارنات ومؤشرات كلية</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">أسعار اليوم</string>
     <string name="screens_home_rates_fed_funds_label">الأموال الفيدرالية</string>
     <string name="screens_home_rates_mortgage_30y_label">رهن عقاري 30 سنة</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">صرف الدولار</string>

@@ -87,7 +87,8 @@ migrations:
       template could never deliver anything new into it. Template-first inverts that: the template
       owns what is not claimed. The flip is only safe once every fork-owned path has an EXPLICIT rule,
       which is why it ships with the contract rather than as a fork-side edit.
-    detect: awk '/glob: "\*\*"$/{getline; print; exit}' "$SRC/customization-surface.yaml" | grep -q "owner: fork"   # the catch-all still fork
+    detect: >-   # the catch-all still fork
+      awk '/glob: "\*\*"$/{getline; print; exit}' "$SRC/customization-surface.yaml" | grep -q "owner: fork"
     migrate: >
       Adopt the template's customization-surface.yaml AND scripts/customization-surface.sh together —
       they are one atomic pair and the engine's STEP 0 self-guard HALTs on a mismatched pair
@@ -159,3 +160,53 @@ migrations:
       - "cmp-navigation/src/commonMain/kotlin/cmp/navigation/ui/KptRootScaffold.kt -> cmp-navigation/src/commonMain/kotlin/cmp/navigation/ui/KptForkRootScaffold.kt"
       # ktlint file-name rule (PascalCase); the facade class stays MainKt, so mainClass is unchanged
       - "cmp-desktop/src/jvmMain/kotlin/main.kt -> cmp-desktop/src/jvmMain/kotlin/Main.kt"
+
+  - id: ios-platform-bridges-seam
+    order: 70
+    title: Swift-only platform bridges reach the fork through viewController(platformBridges:)
+    why: >
+      The template-owned ViewController.kt took no parameter, so a fork that needed an object only Swift
+      can create (PayCraft's StoreKit 2 shim) edited the template file — `viewController(storeKit2Bridge:)`
+      in reels-downloader and steady — and every sync overwrote it. The template now takes
+      `platformBridges: List<Any>` and hands it to the fork-owned `List<Any>.onForkIosConfigure()`
+      (cmp-shared kpt/shared/fork/ForkIosHooks.kt, seeded once); ContentView.swift is merge-owned so the
+      fork's argument survives. A fork still on its own parameter fails to compile after the sync.
+    detect: grep -q 'fun viewController(storeKit2Bridge' "$SRC/cmp-shared/src/nativeMain/kotlin/kpt/shared/ViewController.kt"
+    migrate: >
+      Before the sync, move the fork's bridge handling into kpt/shared/fork/ForkIosHooks.kt
+      (`filterIsInstance<StoreKit2Bridge>().firstOrNull()?.let { loadKoinModules(paycraftStoreKit2BillingModule(it)) }`),
+      change ContentView.swift to `viewController(platformBridges: [PayCraftStoreKit2()])` (iOS 15+, `[]`
+      otherwise), and drop ViewController.kt from .template-sync-holds so the template copy lands.
+    blocking: true    # the sync replaces ViewController.kt; the fork's call site must already use the seam
+
+  - id: onboarding-root-install
+    order: 80
+    title: feature/onboarding ships with the template and RootNavScreen installs it on the root graph
+    why: >
+      The template now includes :feature:onboarding in settings.gradle.kts, depends on it from
+      cmp-navigation, and RootNavScreen installs `onboardingDestination()` on the root graph for
+      RootNavState.ShowOnboarding. A fork that already shipped its OWN feature/onboarding wired it itself —
+      installed from another nav file (AuthNavigation.kt's authNavGraph), included in
+      settings.local.gradle.kts, with a feature-deps.gradle.kts edge — and often with a required parameter
+      (`onboardingDestination(onOpenServerConfig: () -> Unit)`). feature/** is fork-owned, so the fork's
+      module survives the sync, but the 3-way RootNavScreen gains the template's no-argument call: a
+      compile error against the fork's signature, and once that compiles, a second install of the same
+      route — a duplicate-destination crash at runtime.
+    detect: >-
+      grep -qE '^[[:space:]]*include\(":feature:onboarding"\)' "$SRC/settings.local.gradle.kts" 2>/dev/null
+      || grep -qE '^[[:space:]]*"[A-Za-z]+"\(project\(":feature:onboarding"\)\)' "$SRC/feature-deps.gradle.kts" 2>/dev/null
+      || grep -rlE --include='*.kt' '^[[:space:]]*onboardingDestination\(' "$SRC" 2>/dev/null
+      | grep -vE '/build/|/src/[A-Za-z]*Test/|/feature/onboarding/|/rootnav/RootNavScreen\.kt$' | grep -q .
+    migrate: >
+      Inside the sync branch, after the merge and BEFORE building: (1) move the fork's install into
+      RootNavScreen — replace the template's `onboardingDestination()` with the fork's call and callbacks
+      (`onboardingDestination(onOpenServerConfig = navController::navigateToServerConfig)`) and delete the
+      install from the fork's own nav file, so the route is installed exactly once; (2) drop
+      `include(":feature:onboarding")` from settings.local.gradle.kts and the `:feature:onboarding` edge
+      from feature-deps.gradle.kts — the template's settings.gradle.kts and cmp-navigation build now carry
+      both. Keep the fork's own feature/onboarding content where it diverges (it is fork-owned and the sync
+      leaves it alone); giving the fork's parameters the template's defaults
+      (`onOpenServerConfig: (() -> Unit)? = null`) keeps the shared call site compiling across future
+      syncs. Verify by building, then launching a fresh install and confirming first run opens onboarding
+      once and back does not return to a second copy.
+    blocking: false   # the include and edge cannot be dropped before the template's settings.gradle.kts lands; enforced inside the sync branch

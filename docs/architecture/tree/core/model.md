@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/model sha=ede28f417cbdc185867336ee9ca9c5902468e4a9 -->
+<!-- api-docs:begin module=core/model sha=82f26fb6cdec2d468dc31bdf0ab637f1edf86788 -->
 ## API reference
 
-_Generated from `core/model` at tree `ede28f417cbd` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/model` at tree `82f26fb6cdec` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/auth/ChangePasswordRequest.kt`
@@ -1193,7 +1193,7 @@ Security defaults a fresh install starts with. **SoT: `app-profile/app.yaml#secu
 
 - `const val SCREEN_CAPTURE_ALLOWED_BY_DEFAULT: Boolean = false` — `security.screen_capture_allowed_by_default` — whether a fresh install allows screenshots + recording.
 - `const val SIGNED_IN_BY_DEFAULT: Boolean = false` — `security.signed_in_by_default` — whether a fresh install starts signed in (false = the app has a login).
-- `const val FIRST_RUN_ONBOARDING: Boolean = true` — `security.first_run_onboarding` — whether a fresh install shows onboarding once (false = the app has none).
+- `const val FIRST_RUN_ONBOARDING: Boolean = true` — `security.first_run_onboarding` — whether a fresh install shows onboarding once (false = skip it).
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/dashboard/Dashboard.kt`
 

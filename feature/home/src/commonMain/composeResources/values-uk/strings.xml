@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">Ваші кредити · %1$d</string>
     <string name="screens_home_remaining_label">Залишилось</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Платіж $%1$s · погашено %2$d%%</string>
+    <string name="screens_home_loan_tile_footer">Платіж $%1$s · погашено %2$d%</string>
     <string name="screens_home_section_this_week">Цього тижня</string>
     <string name="screens_home_section_tools">Інструменти</string>
     <string name="screens_home_section_tools_subtitle">Калькулятори, порівняння, макропоказники</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Ставки сьогодні</string>
     <string name="screens_home_rates_fed_funds_label">Ставка ФРС</string>
     <string name="screens_home_rates_mortgage_30y_label">Іпотека 30 років</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">Курс USD</string>

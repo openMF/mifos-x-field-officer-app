@@ -40,6 +40,13 @@ if [ ! -x "$GRADLEW" ]; then
   exit 1
 fi
 
+# A module that cinterops a pod (the Kotlin cocoapods plugin) runs a nested `xcodebuild` from its
+# podBuild* tasks, and xcodebuild reads environment variables as build settings. Xcode exports the app
+# target's EMBED_PACKAGE_RESOURCE_BUNDLE_NAMES (the SwiftPM Firebase_*.bundle list) to this script, so
+# it leaked into the pod's resource-bundle target and failed it ("Firebase_FirebaseCore.bundle couldn't
+# be opened" — mbs/reels-downloader, GoogleMobileAds/UMP). Gradle never needs it.
+unset EMBED_PACKAGE_RESOURCE_BUNDLE_NAMES
+
 # The app consumes ComposeApp as a SwiftPM BINARY TARGET (cmp-ios/Package.swift → the XCFramework at
 # cmp-shared/build/XCFrameworks/<type>/ComposeApp.xcframework). Kotlin REJECTS
 # `embedAndSignAppleFrameworkForXcode` — the direct-integration task — the moment the Xcode project
