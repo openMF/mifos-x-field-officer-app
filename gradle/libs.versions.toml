@@ -61,7 +61,7 @@ bouncycastle = "1.84"
 
 # Utility Dependencies
 dependencyGuard = "0.5.0"
-googleOss = "17.5.1"
+googleOss = "17.5.3"
 googleOssPlugin = "0.12.0"
 appUpdate = "2.1.0"
 integrity = "1.6.0"

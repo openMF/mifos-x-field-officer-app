@@ -22,14 +22,17 @@ apple:
     ios_app_id_demo: ""                       # firebase.ios.demo.app.id
     ios_app_id: ""                            # firebase.ios.app.id (legacy single-flavor key)
   testers:
-    internal_group: Internal Testers         # apple.testers.internal.group
+    internal_group: mifos-mobile-apps        # apple.testers.internal.group (= _org org_identity.apple_testflight_internal_group)
     external_group: mifos-mobile-apps        # apple.testers.external.group — the Firebase project's tester group
     external_public_link: "true"             # apple.testers.external.public.link
     # External TestFlight tester roster (emails — PUBLIC identifiers, not secrets). deployment/_shared/config.rb
     # #sync_testflight_testers reads this list and adds each as an external beta tester on the group.
     # For an org-shared roster, materialize this from your org SoT. Leave empty for public-link-only.
-    external_emails: []                      # apple.testers.external.emails — e.g. [alice@example.com, bob@example.com]
-  keywords: 'field officer,microfinance,Fineract,Mifos,loans,savings,collection sheet,financial inclusion'  # store.ios.keywords
+    external_emails:  # roster materialized from _org/company.yaml by deploy-testers-roster-sync.sh
+      - rajanmaurya154@gmail.com
+      - edcable@gmail.com
+      - skniyajali0@gmail.com
+  keywords: 'microfinance,fineract,collections,MFI,credit union,banking,offline,clients,repayment,deposits,groups'  # store.ios.keywords
   category: 'FINANCE'                          # store.ios.category
   # App Store trade-representative contact (App Review → App Information). iOS + macOS App Store.
   # Only the values Mifos has actually published are filled; the rest stay empty until authored.

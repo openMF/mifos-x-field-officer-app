@@ -10,7 +10,7 @@
 # the derivation can never drift from the mapping the rest of the toolchain uses.
 #
 # Usage:
-#   ruby scripts/white-label/derive.rb [--check] [--out <path>]
+#   ruby scripts/white-label/derive.rb [--check] [--out <path>] [--fork <dir>]
 #     (no flag)  writes gradle/fork.properties from app-profile
 #     --check    prints the derived content + any UNRESOLVED (placeholder/blank) SoT keys; exits 3 if any
 #                required key is missing (so `white-label-doctor --check` can gate on it). Writes nothing.
@@ -19,8 +19,14 @@
 
 require "yaml"
 
-REPO_ROOT = File.expand_path("../..", __dir__)
-CONFIG_RB = File.join(REPO_ROOT, "deployment", "_shared", "config.rb")
+TEMPLATE_ROOT = File.expand_path("../..", __dir__)
+# --fork <dir>: verify a fork that has NO white-label machinery yet (pre-white-label adoption) with THIS
+# checkout's resolver. The fork's app-profile/ + catalog are read and its fork.properties is the default
+# --out; config.rb comes from here. Without it the script runs in its own repo, as before.
+fork_idx = ARGV.index("--fork")
+REPO_ROOT = fork_idx ? File.expand_path(ARGV[fork_idx + 1].to_s) : TEMPLATE_ROOT
+ENV["APP_PROFILE_ROOT"] = File.join(REPO_ROOT, "app-profile") if fork_idx
+CONFIG_RB = File.join(TEMPLATE_ROOT, "deployment", "_shared", "config.rb")
 FORK_PROPS = File.join(REPO_ROOT, "gradle", "fork.properties")
 
 abort("white-label-derive: app-profile/app.yaml missing — not a white-label fork") \

@@ -28,6 +28,47 @@ that whole class of silent loss becomes impossible.
 | `fork` | the fork is the sole author | **never touch** it (branding, demo, the `core/store` seam, generated `Config.xcconfig`, local flavors, icons, store listings, fork identity). |
 | `merge` | both author | **3-way merge**, never a blind copy (`AndroidManifest.xml`, `strings.xml`, `libs.versions.toml`, `settings.gradle.kts`, nav host). |
 
+### Repository community files — `owner: fork`, `strategy: repo-files`
+
+`CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` (or `Contributing.md`), `LICENSE` (or `LICENCE`, `LICENSE.md`)
+and `SECURITY.md` belong to the **repository**: the org's devops and security teams set them up per
+repository (a CLA bot or an org-wide `SECURITY.md` commit lands straight in each repo). They are not
+the template's, and not this repo's tooling's. A sync never writes them.
+They were `owner: template` until 2026-11-03, and the field-officer sync replaced that app's own
+`Contributing.md` and `LICENCE` with the template's.
+
+Each file declares who may **edit** it, per file. The repo's `app-profile/app.yaml#repo_files.files`
+holds the default; the framework workspace's `_org/company.yaml#repo_files.<file>` overrides it, file by
+file, and the framework's edit guard enforces the result.
+
+```yaml
+# app-profile/app.yaml — the template ships every file locked
+repo_files:
+  managed_by: org
+  files:
+    CODE_OF_CONDUCT.md: { access: read }
+    CONTRIBUTING.md:    { access: read }
+    LICENSE:            { access: read }
+    SECURITY.md:        { access: read }
+    .github/workflows/cla-check.yml: { access: read }   # the org's CLA bot workflow, keyed by path
+
+# workspaces/<ws>/_org/company.yaml — the org's override, per file
+repo_files:
+  CONTRIBUTING.md: { access: write, writers: [some-login] }   # only these GitHub logins
+  LICENSE:         { access: write }                          # anyone in the workspace
+```
+
+| access | meaning |
+|---|---|
+| `read` (default) | locked. Also applies when a file, or the whole block, is absent. |
+| `write` | editable; with `writers`, only those GitHub logins (an unknown login is refused). |
+
+Other spellings share an entry: `Contributing.md` → `CONTRIBUTING.md`; `LICENCE` / `LICENSE.md` →
+`LICENSE`. A file outside the repo root is keyed by its path: `.github/workflows/cla-check.yml`, the CLA
+contributor check the org's automation pushes into every repo, sits in this class too (its rule precedes
+the `.github/**` template rule, since the first match wins). `scripts/customization-surface.sh resolve
+LICENSE` prints `fork  (strategy: repo-files)`.
+
 > The most-edited `owner: fork` files are the **white-label extension seams** — the registries a fork
 > uses to add features, tabs, the home body, and startup hooks without touching template infra. They are
 > documented in
@@ -178,6 +219,24 @@ Rows without a `strategy:` use `cs_merge`'s default `git merge-file`; structure-
 the rows that name one filetype (`plist-union`, `pbxproj-3way`, `manifest-union`, `kotlin-3way`). Binaries under these
 directories are carved out `fork` (`res/**`, `Assets.xcassets/**`, `cmp-desktop/icons/**`, the
 `cmp-web` resources), and the engine additionally refuses to line-merge a binary.
+
+Every merge goes through one dispatcher, `merge_by_strategy`, and a file the template did not change
+since the base (`BASE == THEIRS`) comes back as the fork's copy, untouched, whatever the strategy. A
+re-serializing merger would otherwise rebuild it around the template's comments and report the
+fork's own lines as dropped. Proof: `tests/customization-surface/template-unchanged-test.sh`.
+
+Four root files are merged but never checked out: `settings.gradle.kts`, `gradle/libs.versions.toml`,
+`gradle.properties` and `lib-integrate.properties` (`CONTRACT_ROOT_MERGES` in `sync-dirs.sh`). A full
+checkout would clobber the fork's half first. `tests/customization-surface/sync-reach-test.sh` fails
+when a `template`/`merge` path is reachable by none of `SYNC_DIRS`, `SYNC_FILES` or
+`CONTRACT_ROOT_MERGES`. Feature modules are not sync roots, so their manifests and strings resolve
+`fork` like the rest of the module.
+
+**New fork-owned seams are seeded.** A fork-owned file absent at the last-synced template commit is one
+the fork never had, so the template's copy lands as its seed, even in a directory that is new too
+(`cmp/android/app/fork/ForkAndroidHooks.kt`, which `AndroidApp.onCreate` calls). It is dropped only
+when the fork deleted the package it sits in, the nearest directory the template already shipped.
+Room schemas and demo code are never seeded. Proof: `tests/customization-surface/seam-seed-test.sh`.
 
 The fork-owned seams inside the shells are `ForkWorkerDeclarations.kt` (cmp-shared) and `registry/**`
 (cmp-navigation).

@@ -56,6 +56,8 @@ class SettingsViewModel(
                 useDynamicColor = userData.useDynamicColor,
                 darkThemeConfig = userData.darkThemeConfig,
                 language = userData.appLanguage,
+                analyticsConsent = userData.analyticsConsent,
+                crashReportingConsent = userData.crashReportingConsent,
             )
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ScreenState.Loading)
@@ -81,6 +83,14 @@ class SettingsViewModel(
                 analyticsHelper.logLanguageChanged(action.language)
                 settingsRepository.setLanguage(action.language)
             }
+            // Deliberately NOT logged as an analytics event: a consent change is not usage data, and logging
+            // a withdrawal would itself be processing the user just refused.
+            is SettingsAction.UpdateAnalyticsConsent -> viewModelScope.launch {
+                settingsRepository.setAnalyticsConsent(action.granted)
+            }
+            is SettingsAction.UpdateCrashReportingConsent -> viewModelScope.launch {
+                settingsRepository.setCrashReportingConsent(action.granted)
+            }
         }
     }
 
@@ -97,6 +107,13 @@ class SettingsViewModel(
 
     /** Convenience emitter — see [SettingsAction.UpdateLanguage]. */
     fun updateLanguage(language: LanguageConfig) = trySendAction(SettingsAction.UpdateLanguage(language))
+
+    /** Convenience emitter — see [SettingsAction.UpdateAnalyticsConsent]. */
+    fun updateAnalyticsConsent(granted: Boolean) = trySendAction(SettingsAction.UpdateAnalyticsConsent(granted))
+
+    /** Convenience emitter — see [SettingsAction.UpdateCrashReportingConsent]. */
+    fun updateCrashReportingConsent(granted: Boolean) =
+        trySendAction(SettingsAction.UpdateCrashReportingConsent(granted))
 }
 
 /** Preference-mutation intents accepted by [SettingsViewModel]. */
@@ -128,6 +145,20 @@ sealed interface SettingsAction {
      * @property language the language to switch to
      */
     data class UpdateLanguage(val language: LanguageConfig) : SettingsAction
+
+    /**
+     * Give or withdraw consent to usage analytics.
+     *
+     * @property granted the user's choice
+     */
+    data class UpdateAnalyticsConsent(val granted: Boolean) : SettingsAction
+
+    /**
+     * Give or withdraw consent to crash reporting.
+     *
+     * @property granted the user's choice
+     */
+    data class UpdateCrashReportingConsent(val granted: Boolean) : SettingsAction
 }
 
 /** The settings the user can change, as one snapshot. */
@@ -140,6 +171,10 @@ data class UserEditableSettings(
     val darkThemeConfig: DarkThemeConfig,
     /** The app's language. */
     val language: LanguageConfig,
+    /** Consent to share usage analytics. */
+    val analyticsConsent: Boolean = false,
+    /** Consent to send crash reports. */
+    val crashReportingConsent: Boolean = false,
 )
 
 private fun AnalyticsHelper.logThemeBrandChanged(themeBrand: ThemeBrand) {

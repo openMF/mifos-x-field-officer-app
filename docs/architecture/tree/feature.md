@@ -1,7 +1,7 @@
 # `feature/`
 
 > **Kind:** Kotlin Multiplatform module group  
-> **Measured:** 883 tracked files — 475× `.kt`, 172× `.xml`, 164× `.png`, 41× `.md`, 22× `.kts`
+> **Measured:** 931 tracked files — 486× `.kt`, 193× `.xml`, 179× `.png`, 41× `.md`, 23× `.kts`
 
 ## Shape
 
@@ -9,9 +9,10 @@
 |---|---:|
 | `feature/client/` | 158 |
 | `feature/loan/` | 93 |
-| `feature/settings/` | 83 |
+| `feature/settings/` | 85 |
 | `feature/home/` | 59 |
 | `feature/profile/` | 49 |
+| `feature/onboarding/` | 46 |
 | `feature/savings/` | 43 |
 | `feature/offlinesync/` | 39 |
 | `feature/center/` | 34 |
@@ -50,12 +51,13 @@
 | `feature:note` | 16 Kotlin files — [guide](feature/note.md) |
 | `feature:notification` | 7 Kotlin files — [guide](feature/notification.md) |
 | `feature:offlinesync` | 10 Kotlin files — [guide](feature/offlinesync.md) |
+| `feature:onboarding` | 9 Kotlin files — [guide](feature/onboarding.md) |
 | `feature:pathtracking` | 7 Kotlin files — [guide](feature/pathtracking.md) |
 | `feature:profile` | 14 Kotlin files — [guide](feature/profile.md) |
 | `feature:report` | 17 Kotlin files — [guide](feature/report.md) |
 | `feature:savings` | 29 Kotlin files — [guide](feature/savings.md) |
 | `feature:searchrecord` | 8 Kotlin files — [guide](feature/searchrecord.md) |
-| `feature:settings` | 38 Kotlin files — [guide](feature/settings.md) |
+| `feature:settings` | 40 Kotlin files — [guide](feature/settings.md) |
 | `feature:signin` | 9 Kotlin files — [guide](feature/signin.md) |
 
 ## Subsections
@@ -77,12 +79,13 @@
 | `feature/note/` | 29 | [note](feature/note.md) |
 | `feature/notification/` | 33 | [notification](feature/notification.md) |
 | `feature/offlinesync/` | 39 | [offlinesync](feature/offlinesync.md) |
+| `feature/onboarding/` | 46 | [onboarding](feature/onboarding.md) |
 | `feature/pathtracking/` | 32 | [pathtracking](feature/pathtracking.md) |
 | `feature/profile/` | 49 | [profile](feature/profile.md) |
 | `feature/report/` | 27 | [report](feature/report.md) |
 | `feature/savings/` | 43 | [savings](feature/savings.md) |
 | `feature/searchrecord/` | 17 | [searchrecord](feature/searchrecord.md) |
-| `feature/settings/` | 83 | [settings](feature/settings.md) |
+| `feature/settings/` | 85 | [settings](feature/settings.md) |
 | `feature/signin/` | 19 | [signin](feature/signin.md) |
 
 ## Docs in the tree

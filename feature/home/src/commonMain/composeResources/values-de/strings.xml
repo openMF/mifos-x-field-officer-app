@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">Deine Darlehen · %1$d</string>
     <string name="screens_home_remaining_label">Verbleibend</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Rate $%1$s · %2$d%% getilgt</string>
+    <string name="screens_home_loan_tile_footer">Rate $%1$s · %2$d% getilgt</string>
     <string name="screens_home_section_this_week">Diese Woche</string>
     <string name="screens_home_section_tools">Werkzeuge</string>
     <string name="screens_home_section_tools_subtitle">Rechner, Vergleiche, Makroindikatoren</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Zinssätze heute</string>
     <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
     <string name="screens_home_rates_mortgage_30y_label">30-J-Hypothek</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">USD-Kurs</string>

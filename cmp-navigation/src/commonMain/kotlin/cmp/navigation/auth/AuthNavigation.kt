@@ -31,6 +31,8 @@ import kpt.feature.signin.signInDestination
  * so a logged-out user could not reach a login screen at all.
  */
 internal fun NavGraphBuilder.authNavGraph(navController: NavController) {
+    // First-run onboarding is installed by RootNavScreen (the template's root-graph install); installing it here
+    // too would register one route twice on the same NavHost.
     signInDestination(
         onLoggedIn = {
             navController.navigate(

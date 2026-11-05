@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_onboarding_skip">ข้าม</string>
+    <string name="feature_onboarding_skip_a11y">ข้ามไปยังตัวเลือกความเป็นส่วนตัว</string>
+    <string name="feature_onboarding_next">ถัดไป</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">หน้า %1$d จาก %2$d</string>
+    <string name="feature_onboarding_clients_title">ลูกค้า กลุ่ม และศูนย์ของคุณ — ในภาคสนาม</string>
+    <string name="feature_onboarding_clients_body">ค้นหาลูกค้า เปิดดูกลุ่มหรือศูนย์ และดูสินเชื่อและเงินออมของพวกเขา ไม่ว่าคุณจะลงพื้นที่ที่ใด</string>
+    <string name="feature_onboarding_collections_title">รับชำระคืนและดำเนินการใบเรียกเก็บ</string>
+    <string name="feature_onboarding_collections_body">บันทึกการชำระคืนระหว่างการประชุม และดำเนินการตามใบเรียกเก็บของศูนย์ทีละราย</string>
+    <string name="feature_onboarding_offline_title">ไม่มีสัญญาณ? ทำงานต่อได้</string>
+    <string name="feature_onboarding_offline_body">ข้อมูลที่จัดเก็บไว้ในอุปกรณ์เปิดได้แบบออฟไลน์ สิ่งที่คุณบันทึกจะถูกจัดเก็บและซิงค์เมื่อกลับมาออนไลน์</string>
+    <string name="feature_onboarding_privacy_title">ช่วยปรับปรุงแอป</string>
+    <string name="feature_onboarding_privacy_lead">ทั้งสองตัวเลือกจะปิดอยู่ เว้นแต่คุณจะเปิดเอง อนุญาตทั้งสองได้ในแตะเดียว หรือเลือกด้านล่าง — คุณยังคงใช้งานได้ทุกฟีเจอร์</string>
+    <string name="feature_onboarding_analytics_label">แชร์ข้อมูลการใช้งาน</string>
+    <string name="feature_onboarding_analytics_body">หน้าจอและฟีเจอร์ใดที่มีการใช้งาน และบ่อยเพียงใด ไม่มีชื่อลูกค้า เลขที่บัญชี หรือจำนวนเงิน</string>
+    <string name="feature_onboarding_crash_label">ส่งรายงานข้อขัดข้อง</string>
+    <string name="feature_onboarding_crash_body">เมื่อแอปขัดข้อง: ข้อผิดพลาด เวอร์ชันแอป และรุ่นอุปกรณ์ เพื่อให้เราแก้ไขได้ ไม่มีข้อมูลลูกค้า</string>
+    <string name="feature_onboarding_no_client_data">จะไม่มีการส่งข้อมูลใดๆ เกี่ยวกับลูกค้า สินเชื่อ หรือเงินออมของคุณ</string>
+    <string name="feature_onboarding_settings_later">คุณสามารถเปลี่ยนแปลงได้ภายหลังในการตั้งค่า</string>
+    <string name="feature_onboarding_connect_instance">เชื่อมต่อกับอินสแตนซ์ Mifos ของคุณ</string>
+    <string name="feature_onboarding_agreement">การใช้บริการของเราถือว่าคุณยอมรับ%1$sและ%2$sของเรา</string>
+    <string name="feature_onboarding_terms">ข้อกำหนดและเงื่อนไข</string>
+    <string name="feature_onboarding_privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="feature_onboarding_allow_get_started">อนุญาตและเริ่มต้นใช้งาน</string>
+    <string name="feature_onboarding_continue_without">ดำเนินการต่อโดยไม่แชร์</string>
+    <string name="feature_onboarding_continue_choices">ดำเนินการต่อตามที่เลือก</string>
+    <string name="feature_onboarding_save_failed">ไม่สามารถบันทึกตัวเลือกของคุณได้ โปรดลองอีกครั้ง</string>
+</resources>

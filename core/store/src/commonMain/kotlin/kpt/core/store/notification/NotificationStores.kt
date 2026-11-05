@@ -16,7 +16,9 @@ import kpt.core.model.notification.AppNotification
 import kpt.core.network.mifos.notification.api.NotificationApi
 import kpt.core.network.mifos.notification.dto.NotificationDto
 import kpt.core.store.cache.cachedRead
+import kpt.core.store.client.cachedLocal
 import kpt.core.store.config.AppCacheKeys
+import org.mobilenativefoundation.store.store5.MutableStore
 import org.mobilenativefoundation.store.store5.Store
 
 // Read history kept on screen. Unread rows are always all fetched — they are the point of the bell.
@@ -41,6 +43,17 @@ fun provideNotificationsStore(
         (unread + read).distinctBy { it.id }.map(NotificationDto::toModel)
     },
 )
+
+/**
+ * The WRITE half of [provideNotificationsStore]: the same `api_response_cache` row, written locally.
+ * `NotificationRepository.markAllRead` records the server's acceptance through it, so the list and
+ * the bell re-emit without waiting for the next fetch. Local-only — the network leg already ran.
+ */
+// logout-exempt: MutableStore is outside the purge; the paired read store's deleteAll clears its row
+@StoreProvider(id = "notificationsLocal", logout = false)
+fun provideNotificationsLocalStore(
+    cache: ApiResponseCacheDao,
+): MutableStore<Unit, List<AppNotification>> = cachedLocal(cache) { AppCacheKeys.Notifications.LIST }
 
 internal fun NotificationDto.toModel() = AppNotification(
     id = id,

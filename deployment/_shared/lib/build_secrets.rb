@@ -23,6 +23,26 @@ module BuildSecrets
   # <repo>/deployment/_shared/lib/build_secrets.rb → three dirs up to the repo root.
   REPO_ROOT = File.expand_path("../../..", __dir__)
   LAYOUT    = File.join(REPO_ROOT, "secrets", "LAYOUT.yaml")
+  # The fork's own secret rows (its client keys, its extra service files) — FORK-owned, so a sync never
+  # touches it. LAYOUT.yaml is template-owned and replaced on every sync, which deleted any row a fork
+  # added there. Rows here are ADDED to the template's; a key the template already declares is ignored
+  # (with a warning) so a fork cannot silently redirect a template secret.
+  FORK_LAYOUT = File.join(REPO_ROOT, "secrets", "fork-layout.yaml")
+
+  # LAYOUT.yaml with the fork's rows from fork-layout.yaml added.
+  def self.load_layout
+    doc = YAML.load_file(LAYOUT)
+    return doc unless File.exist?(FORK_LAYOUT)
+    fork_rows = (YAML.load_file(FORK_LAYOUT) || {})["secrets"] || {}
+    fork_rows.each do |key, row|
+      if doc["secrets"].key?(key)
+        warn "build_secrets: secrets/fork-layout.yaml '#{key}' ignored — LAYOUT.yaml already declares it"
+      else
+        doc["secrets"][key] = row
+      end
+    end
+    doc
+  end
 
   # Product-flavor → applicationId suffix. Mirrors org.convention.AppFlavor.
   FLAVOR_SUFFIX = { "prod" => "", "demo" => ".demo" }.freeze
@@ -38,7 +58,7 @@ module BuildSecrets
     def initialize(flavor, variant)
       @flavor  = flavor
       @variant = variant
-      @doc     = YAML.load_file(LAYOUT)
+      @doc     = BuildSecrets.load_layout
     end
 
     # Spec for a secret, with any `by_flavor[<flavor>]` override merged on top.

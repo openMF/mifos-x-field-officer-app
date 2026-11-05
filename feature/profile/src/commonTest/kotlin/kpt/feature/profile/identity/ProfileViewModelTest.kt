@@ -9,11 +9,8 @@
  */
 package kpt.feature.profile.identity
 
-import com.russhwolf.settings.MapSettings
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -21,7 +18,6 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kpt.core.base.common.manager.DispatcherManager
 import kpt.core.base.store.mutation.BlockReason
 import kpt.core.base.store.mutation.MutationResult
 import kpt.core.base.store.screen.ScreenDataStream
@@ -33,8 +29,7 @@ import kpt.core.data.testing.FakeAuthCommandRepository
 import kpt.core.data.testing.FakeDashboardRepository
 import kpt.core.data.testing.FakeNetworkMonitor
 import kpt.core.data.testing.FakeServerConfigRepository
-import kpt.core.datastore.prefs.ForkPreferencesRepositoryImpl
-import kpt.core.datastore.prefs.UserPreferencesRepositoryImpl
+import kpt.core.data.testing.FakeSessionRepository
 import kpt.core.model.dashboard.DashboardUser
 import kpt.core.model.objects.users.User
 import kpt.core.model.staff.Staff
@@ -60,14 +55,6 @@ class ProfileViewModelTest {
     @BeforeTest fun setUp() = Dispatchers.setMain(Dispatchers.Unconfined)
 
     @AfterTest fun tearDown() = Dispatchers.resetMain()
-
-    private val dispatchers = object : DispatcherManager {
-        override val default: CoroutineDispatcher = Dispatchers.Unconfined
-        override val main: MainCoroutineDispatcher = Dispatchers.Main
-        override val io: CoroutineDispatcher = Dispatchers.Unconfined
-        override val unconfined: CoroutineDispatcher = Dispatchers.Unconfined
-        override val appScope: CoroutineScope = CoroutineScope(Dispatchers.Unconfined)
-    }
 
     private val session = User(
         username = "fieldofficer",
@@ -97,19 +84,8 @@ class ProfileViewModelTest {
     private val auth = FakeAuthCommandRepository()
     private val servers = FakeServerConfigRepository()
 
-    private suspend fun preferences() = run {
-        val plain = MapSettings()
-        val secure = MapSettings()
-        ForkPreferencesRepositoryImpl(
-            delegate = UserPreferencesRepositoryImpl(plain, secure, dispatchers),
-            plainSettings = plain,
-            secureSettings = secure,
-            dispatcher = dispatchers,
-        ).also { it.updateFineractUser(session) }
-    }
-
     private suspend fun TestScope.viewModel(): ProfileViewModel {
-        val vm = ProfileViewModel(preferences(), servers, dashboard, staff, network, auth)
+        val vm = ProfileViewModel(FakeSessionRepository(session), servers, dashboard, staff, network, auth)
         backgroundScope.launch { vm.profile.collect {} }
         testScheduler.runCurrent()
         return vm
@@ -125,6 +101,14 @@ class ProfileViewModelTest {
         assertEquals(listOf("OFICIAL DE CAMPO"), p.roles)
         assertEquals("CENTRAL", p.officeName)
         assertEquals(NameState.Loaded, p.name)
+    }
+
+    @Test
+    fun theUserRecordIsOpenedOnceForTheStoredSessionsUser() = runTest {
+        viewModel()
+        // The session now arrives as a stream; the name, the staff chip and the screen state all
+        // read the ONE user stream it keys, not one each.
+        assertEquals(listOf("user"), dashboard.requested)
     }
 
     @Test

@@ -48,6 +48,10 @@ import kpt.core.base.ui.KptConnectivityBanner
 import kpt.core.base.ui.util.NonNullEnterTransitionProvider
 import kpt.core.base.ui.util.NonNullExitTransitionProvider
 import kpt.core.base.ui.util.RootTransitionProviders
+import kpt.feature.onboarding.OnboardingRoute
+import kpt.feature.onboarding.navigateToOnboarding
+import kpt.feature.onboarding.onboardingDestination
+import kpt.feature.settings.serverconfig.navigateToServerConfig
 import kpt.feature.signin.SignInRoute
 import kpt.feature.signin.navigateToSignIn
 import org.koin.compose.viewmodel.koinViewModel
@@ -104,6 +108,9 @@ fun RootNavScreen(
                 popExitTransition = { pickExit(fadeThroughExit, noExit)(this) },
             ) {
                 splashDestination()
+                // First-run onboarding (feature/onboarding). Only reached when app-profile/app.yaml
+                // sets security.first_run_onboarding: true; this fork has a server-setup screen, so it passes it here.
+                onboardingDestination(onOpenServerConfig = navController::navigateToServerConfig)
                 authenticatedGraph(navController)
                 authNavGraph(navController)
             }
@@ -176,9 +183,9 @@ fun RootNavScreen(
 
         when (state) {
             RootNavState.Splash -> navController.navigateToSplash(rootNavOptions)
-            // Auth, ShowOnboarding and UserLocked all land on sign-in — see [rootTargetRoute].
+            // A first run shows onboarding once; Auth and UserLocked land on sign-in — see [rootTargetRoute].
+            RootNavState.ShowOnboarding -> navController.navigateToOnboarding(rootNavOptions)
             RootNavState.Auth,
-            RootNavState.ShowOnboarding,
             RootNavState.UserLocked,
             -> navController.navigateToSignIn(rootNavOptions)
             is RootNavState.UserUnlocked -> navController.navigateToAuthenticatedGraph(
@@ -236,17 +243,17 @@ fun ClearFocus() {
  * which is `<T : Any> T.() -> String` over the KClass serializer: on a `String` receiver it yields
  * `"kotlin.String"`, so the already-at-target comparison was silently comparing against that.
  *
- * Returning route OBJECTS removes the placeholder entirely. `Auth`, `ShowOnboarding` and `UserLocked`
- * all resolve to [SignInRoute], which is exactly what the original app did
- * (`6b66e8a43:RootNavScreen.kt` — `else -> SignInRoute`): it shipped no onboarding destination, and
- * passed `navigatePasscode = {}`, its passcode implementation being an Android-only library
- * (`libs/mifos-passcode`) with no multiplatform form.
+ * Returning route OBJECTS removes the placeholder entirely. `ShowOnboarding` resolves to [OnboardingRoute]
+ * (feature/onboarding, 2026-11-05 — the original shipped no onboarding and fell through to sign-in). `Auth` and
+ * `UserLocked` resolve to [SignInRoute], as the original did (`6b66e8a43:RootNavScreen.kt` —
+ * `else -> SignInRoute`): it passed `navigatePasscode = {}`, its passcode implementation being an Android-only
+ * library (`libs/mifos-passcode`) with no multiplatform form.
  */
 internal fun rootTargetRoute(state: RootNavState): Any = when (state) {
     RootNavState.Splash -> SplashRoute
     is RootNavState.UserUnlocked -> AuthenticatedGraphRoute
+    RootNavState.ShowOnboarding -> OnboardingRoute
     RootNavState.Auth,
-    RootNavState.ShowOnboarding,
     RootNavState.UserLocked,
     -> SignInRoute
 }

@@ -2,7 +2,7 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_DATABASE.md`
-> **Measured:** 177 Kotlin files, 11 test files
+> **Measured:** 178 Kotlin files, 12 test files
 
 ## Codegen contracts owned here
 
@@ -24,10 +24,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/database sha=193fdcc9a60abfb2ad0e67e2c5e0f9f73b17c2c5 -->
+<!-- api-docs:begin module=core/database sha=5a6e68a28dc71da9f4b5f3b814e6c927ceafe9d0 -->
 ## API reference
 
-_Generated from `core/database` at tree `193fdcc9a60a` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/database` at tree `5a6e68a28dc7` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/database/src/commonMain/kotlin/kpt/core/database/cache/dao/ApiResponseCacheDao.kt`

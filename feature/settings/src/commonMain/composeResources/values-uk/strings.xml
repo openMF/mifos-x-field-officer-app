@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Версія, допомога, спільнота та ліцензія</string>
     <string name="feature_settings_offline_sync_row">Офлайн-синхронізація</string>
     <string name="feature_settings_offline_sync_row_description">Зберігайте центри, групи та клієнтів на цьому пристрої</string>
+    <string name="feature_settings_privacy">Конфіденційність</string>
+    <string name="feature_settings_privacy_analytics">Надсилати аналітику використання</string>
+    <string name="feature_settings_privacy_crash_reports">Надсилати звіти про збої</string>
+    <string name="feature_settings_privacy_row_description">Відкрити налаштування конфіденційності</string>
+    <string name="feature_settings_privacy_intro">Ви вирішуєте, чим ділиться цей застосунок. Нічого не надсилається, доки ви це не ввімкнете, і ви можете змінити це будь-коли.</string>
+    <string name="feature_settings_privacy_analytics_description">Анонімні відомості про те, які функції використовуються, щоб покращувати застосунок.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Технічні відомості про збій застосунку, щоб ми могли усунути проблему.</string>
 </resources>

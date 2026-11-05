@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">版本、說明、社群與授權</string>
     <string name="feature_settings_offline_sync_row">離線同步</string>
     <string name="feature_settings_offline_sync_row_description">將中心、小組和客戶保存在此裝置上</string>
+    <string name="feature_settings_privacy">隱私權</string>
+    <string name="feature_settings_privacy_analytics">分享使用情況分析</string>
+    <string name="feature_settings_privacy_crash_reports">傳送當機報告</string>
+    <string name="feature_settings_privacy_row_description">開啟隱私權設定</string>
+    <string name="feature_settings_privacy_intro">由你決定此應用程式分享哪些內容。在你開啟之前不會傳送任何資料，你可以隨時變更。</string>
+    <string name="feature_settings_privacy_analytics_description">關於使用了哪些功能的匿名資訊，用於改善應用程式。</string>
+    <string name="feature_settings_privacy_crash_reports_description">應用程式當機時的技術細節，以便我們修正問題。</string>
 </resources>

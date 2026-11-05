@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">版本、帮助、社区和许可</string>
     <string name="feature_settings_offline_sync_row">离线同步</string>
     <string name="feature_settings_offline_sync_row_description">在此设备上保存中心、小组和客户</string>
+    <string name="feature_settings_privacy">隐私</string>
+    <string name="feature_settings_privacy_analytics">共享使用情况分析</string>
+    <string name="feature_settings_privacy_crash_reports">发送崩溃报告</string>
+    <string name="feature_settings_privacy_row_description">打开隐私设置</string>
+    <string name="feature_settings_privacy_intro">由你决定此应用共享哪些内容。在你开启之前不会发送任何数据，你可以随时更改。</string>
+    <string name="feature_settings_privacy_analytics_description">关于使用了哪些功能的匿名信息，用于改进应用。</string>
+    <string name="feature_settings_privacy_crash_reports_description">应用崩溃时的技术详情，以便我们修复问题。</string>
 </resources>

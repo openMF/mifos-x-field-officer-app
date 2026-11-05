@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">Khoản vay của bạn · %1$d</string>
     <string name="screens_home_remaining_label">Còn lại</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Trả góp $%1$s · đã trả %2$d%%</string>
+    <string name="screens_home_loan_tile_footer">Trả góp $%1$s · đã trả %2$d%</string>
     <string name="screens_home_section_this_week">Tuần này</string>
     <string name="screens_home_section_tools">Công cụ</string>
     <string name="screens_home_section_tools_subtitle">Máy tính, so sánh, chỉ số vĩ mô</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Lãi suất hôm nay</string>
     <string name="screens_home_rates_fed_funds_label">Lãi suất Fed</string>
     <string name="screens_home_rates_mortgage_30y_label">Vay mua nhà 30 năm</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">Tỷ giá USD</string>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2026 Mifos Initiative
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+    See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
+-->
+<resources>
+    <string name="feature_onboarding_skip">Atla</string>
+    <string name="feature_onboarding_skip_a11y">Gizlilik tercihlerine geç</string>
+    <string name="feature_onboarding_next">İleri</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">Sayfa %1$d / %2$d</string>
+    <string name="feature_onboarding_clients_title">Müşterileriniz, gruplarınız ve merkezleriniz — sahada</string>
+    <string name="feature_onboarding_clients_body">Ziyaretleriniz sizi nereye götürürse götürsün bir müşteriyi arayın, bir grubu veya merkezi açın ve kredilerini ve birikimlerini görün.</string>
+    <string name="feature_onboarding_collections_title">Geri ödemeleri tahsil edin ve tahsilat listelerini yürütün</string>
+    <string name="feature_onboarding_collections_body">Geri ödemeleri toplantıda kaydedin ve bir merkezin tahsilat listesini müşteri müşteri tamamlayın.</string>
+    <string name="feature_onboarding_offline_title">Sinyal yok mu? Çalışmaya devam edin</string>
+    <string name="feature_onboarding_offline_body">Cihazda tuttuğunuz kayıtlar çevrimdışı açılır. Girdiğiniz veriler kaydedilir ve yeniden çevrimiçi olduğunuzda eşitlenir.</string>
+    <string name="feature_onboarding_privacy_title">Uygulamanın gelişmesine yardımcı olun</string>
+    <string name="feature_onboarding_privacy_lead">Siz açmadığınız sürece ikisi de kapalıdır. Tek dokunuşla ikisine de izin verin veya aşağıdan seçin — her özelliği yine de kullanabilirsiniz.</string>
+    <string name="feature_onboarding_analytics_label">Kullanım analizlerini paylaş</string>
+    <string name="feature_onboarding_analytics_body">Hangi ekranların ve özelliklerin ne sıklıkla kullanıldığı. Müşteri adı, hesap numarası veya tutar içermez.</string>
+    <string name="feature_onboarding_crash_label">Çökme raporları gönder</string>
+    <string name="feature_onboarding_crash_body">Uygulama çöktüğünde: hatayı düzeltebilmemiz için hata, uygulama sürümü ve cihaz modeli. Müşteri verisi içermez.</string>
+    <string name="feature_onboarding_no_client_data">Müşterileriniz, kredileriniz veya birikimleriniz hakkında hiçbir bilgi asla gönderilmez.</string>
+    <string name="feature_onboarding_settings_later">Bunu daha sonra Ayarlar'dan değiştirebilirsiniz.</string>
+    <string name="feature_onboarding_connect_instance">Mifos sunucunuza bağlanın</string>
+    <string name="feature_onboarding_agreement">Hizmetimizi kullanarak %1$s ile %2$s metinlerimizi kabul etmiş olursunuz.</string>
+    <string name="feature_onboarding_terms">Şartlar ve Koşullar</string>
+    <string name="feature_onboarding_privacy_policy">Gizlilik Politikası</string>
+    <string name="feature_onboarding_allow_get_started">İzin ver ve başla</string>
+    <string name="feature_onboarding_continue_without">Paylaşmadan devam et</string>
+    <string name="feature_onboarding_continue_choices">Seçimlerimle devam et</string>
+    <string name="feature_onboarding_save_failed">Tercihleriniz kaydedilemedi. Lütfen tekrar deneyin.</string>
+</resources>

@@ -33,7 +33,7 @@
     <string name="screens_home_loans_carousel_title">Your loans · %1$d</string>
     <string name="screens_home_remaining_label">Remaining</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">EMI $%1$s · %2$d%% paid</string>
+    <string name="screens_home_loan_tile_footer">EMI $%1$s · %2$d% paid</string>
 
     <!-- ===== HomeScreen — Section headers ===== -->
     <string name="screens_home_section_this_week">This week</string>
@@ -50,7 +50,7 @@
     <string name="screens_home_rates_card_title">Today's Rates</string>
     <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
     <string name="screens_home_rates_mortgage_30y_label">30Y Mortgage</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
 

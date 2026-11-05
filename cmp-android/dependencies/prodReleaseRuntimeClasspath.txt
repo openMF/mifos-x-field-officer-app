@@ -40,6 +40,7 @@
 :feature:note
 :feature:notification
 :feature:offlinesync
+:feature:onboarding
 :feature:pathtracking
 :feature:profile
 :feature:report

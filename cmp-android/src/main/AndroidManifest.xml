@@ -29,6 +29,27 @@
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
+    <!-- Same for the Privacy Sandbox ad-ID / attribution permissions play-services-measurement merges in:
+         the app shows no ads and never uses an advertising identifier. -->
+    <uses-permission
+        android:name="android.permission.ACCESS_ADSERVICES_AD_ID"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION"
+        tools:node="remove" />
+
+    <!--
+    kmptoolkit's cmp-clipboard and cmp-bubble arrive through core-base/platform (`api`), but this app uses
+    neither (no import anywhere). Their manifests would ship a draw-over-other-apps permission and a
+    special-use foreground service that Play asks every app to justify, so remove what they merge in.
+    Upstream fix (let a fork opt out in core-base/platform) is queued for kmp-project-template.
+    -->
+    <uses-permission
+        android:name="android.permission.SYSTEM_ALERT_WINDOW"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"
+        tools:node="remove" />
 
     <application
         android:name="cmp.android.app.AndroidApp"
@@ -114,6 +135,23 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
+
+        <!-- Unused kmptoolkit clipboard / bubble components (see the permission note above). -->
+        <service
+            android:name="com.mobilebytelabs.kmptoolkit.clipboard.monitor.ClipboardMonitorService"
+            tools:node="remove" />
+        <receiver
+            android:name="com.mobilebytelabs.kmptoolkit.clipboard.monitor.ClipboardBootReceiver"
+            tools:node="remove" />
+        <provider
+            android:name="com.mobilebytelabs.kmptoolkit.clipboard.ClipboardInitProvider"
+            tools:node="remove" />
+        <provider
+            android:name="com.mobilebytelabs.kmptoolkit.bubble.BubbleInitProvider"
+            tools:node="remove" />
+        <activity
+            android:name="com.mobilebytelabs.kmptoolkit.bubble.android.BubbleActivity"
+            tools:node="remove" />
     </application>
 
 </manifest>

@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">Seus empréstimos · %1$d</string>
     <string name="screens_home_remaining_label">Restante</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Parcela $%1$s · %2$d%% pago</string>
+    <string name="screens_home_loan_tile_footer">Parcela $%1$s · %2$d% pago</string>
     <string name="screens_home_section_this_week">Esta semana</string>
     <string name="screens_home_section_tools">Ferramentas</string>
     <string name="screens_home_section_tools_subtitle">Calculadoras, comparações, indicadores macro</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Taxas de hoje</string>
     <string name="screens_home_rates_fed_funds_label">Fed Funds</string>
     <string name="screens_home_rates_mortgage_30y_label">Hipoteca 30 anos</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">Câmbio do dólar</string>

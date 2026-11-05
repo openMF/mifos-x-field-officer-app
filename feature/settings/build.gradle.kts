@@ -21,35 +21,17 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core.domain)
-            implementation(projects.core.datastore)
             implementation(projects.core.data)
             implementation(projects.core.model)
             implementation(projects.core.ui)
-            // Sync & Drafts screen consumes the DraftInventory seam. Depend on core/store (the fork
-            // seam), which `api`-re-exposes core-base/store — features never depend on core-base directly.
-            implementation(projects.core.store)
             // Firebase analytics (AnalyticsHelper + Compose TrackScreenView/rememberAnalyticsHelper) via core/firebase.
             implementation(projects.core.firebase)
-            // AppReviewManager + the generated AppReviewConfig for the "Rate this app" row. Same rule
-            // as core/store above: depend on core/platform, which `api`-re-exposes core-base/platform.
-            implementation(projects.core.platform)
 
             implementation(compose.ui)
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-        }
-        commonTest.dependencies {
-            // ServerConfigViewModelTest builds a real ForkPreferencesRepository over MapSettings
-            // and needs DispatcherManager — the same fakes feature/signin's SignInViewModelTest uses.
-            implementation(projects.coreBase.common)
-            implementation(projects.core.datastore)
-            // `Settings` itself, not just MapSettings: core/datastore declares
-            // multiplatform-settings as `implementation`, so the interface in
-            // ForkPreferencesRepositoryImpl's signature is not exposed transitively.
-            implementation(libs.multiplatform.settings)
-            implementation(libs.multiplatform.settings.test)
         }
     }
 }

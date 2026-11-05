@@ -23,10 +23,10 @@ ViewModels: `SignInViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/signin sha=87e371e849a6f1f884b8c3aa5cabdc8c62cb124e -->
+<!-- api-docs:begin module=feature/signin sha=f416fcb6bced687106735db29690043cf8d6c1ad -->
 ## API reference
 
-_Generated from `feature/signin` at tree `87e371e849a6` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/signin` at tree `f416fcb6bced` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -86,16 +86,16 @@ object SignInTestTags
 ```
 Stable handles for the login screen — asserted by UI tests, never shown to a user.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:189</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:208</code></summary>
 
 ```kotlin
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 16.dp)
-                    .testTag(SignInTestTags.CONSENT),
-            )
-        },
-    ) { padding ->
-        Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 24.dp)
+                    .testTag(SignInTestTags.SCREEN),
+                verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                // ui.yaml#components.instance_chip — REPLACES v1's blind "Update Server
 ```
 
 </details>
@@ -139,7 +139,7 @@ data class SignInState(
 ```
 What the sign-in screen shows: the typed credentials, the server, lockout progress and the biometric shortcut.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:153</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:168</code></summary>
 
 ```kotlin
 @Composable
@@ -148,7 +148,7 @@ internal fun SignInContent(
     onAction: (SignInAction) -> Unit,
     onUpdateServerConfig: () -> Unit,
     modifier: Modifier = Modifier,
-) {
+    onOpenTerms: () -> Unit = {},
 ```
 
 </details>
@@ -158,7 +158,7 @@ enum class SignInError
 ```
 Distinct causes, because the officer's next step differs for each.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:326</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:335</code></summary>
 
 ```kotlin
         // the server rejected it with a message the user could do nothing about.
@@ -177,7 +177,7 @@ sealed interface SignInAction
 ```
 What the officer did on the sign-in screen.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:154</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:169</code></summary>
 
 ```kotlin
 internal fun SignInContent(
@@ -185,8 +185,8 @@ internal fun SignInContent(
     onAction: (SignInAction) -> Unit,
     onUpdateServerConfig: () -> Unit,
     modifier: Modifier = Modifier,
-) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    onOpenTerms: () -> Unit = {},
+    onOpenPrivacyPolicy: () -> Unit = {},
 ```
 
 </details>
@@ -196,7 +196,7 @@ sealed interface SignInEvent
 ```
 One-off effects of the sign-in screen, for the screen to act on.
 
-<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:138</code></summary>
+<details><summary>Used in the template — <code>feature/signin/src/commonMain/kotlin/kpt/feature/signin/ui/SignInScreen.kt:149</code></summary>
 
 ```kotlin
         viewModel.eventFlow.collect { event ->

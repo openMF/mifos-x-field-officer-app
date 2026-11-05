@@ -159,10 +159,63 @@ _ruby_exec_framework_helper() {
 
 /usr/bin/true   # keep the file harmless if executed rather than sourced
 
+# The resolved interpreter's OWN gem directory. RubyGems also searches the per-user dir
+# ~/.gem/ruby/<ABI> — and every Ruby of one ABI shares it, so a native gem a DIFFERENT 3.3.x built there
+# (Homebrew's, say) is loaded by the pinned rbenv 3.3.12 and dies with "linked to incompatible
+# libruby.3.3.dylib" (json's parser.bundle, 2026-11-05). Pinning GEM_HOME/GEM_PATH to the interpreter's
+# own dir — plus this repo's shared bundler tree (vendor/bundle, .bundle/config BUNDLE_PATH), which holds
+# the gems built FOR the pinned interpreter (xcodeproj & co. for the pbxproj merger) — drops that user dir.
+# A caller that set GEM_HOME/GEM_PATH itself keeps them, and RUBY_EXEC_KEEP_GEM_PATH=1 opts out entirely.
+_ruby_exec_gem_dir() {
+  [ -n "${RUBY_EXEC_GEM_DIR:-}" ] && return 0
+  RUBY_EXEC_GEM_DIR="$("$RUBY_EXEC_RESOLVED" -e 'print Gem.default_dir' 2>/dev/null)"
+  local abi vendor; abi="$("$RUBY_EXEC_RESOLVED" -e 'print Gem.ruby_api_version' 2>/dev/null)"
+  vendor="$(_ruby_exec_repo_root)/vendor/bundle/ruby/$abi"
+  RUBY_EXEC_GEM_PATH="$RUBY_EXEC_GEM_DIR"
+  [ -n "$abi" ] && [ -d "$vendor" ] && RUBY_EXEC_GEM_PATH="$RUBY_EXEC_GEM_DIR:$vendor"
+}
+
+# Native extensions are keyed by ABI (3.3.0), not by patch version, so vendor/bundle can hold gems
+# another 3.3.x compiled ("linked to incompatible …/3.3.6/lib/libruby.3.3.dylib" — 9 of 10 on the machine
+# this was written on). RubyGems records the compiling interpreter in each extension's gem_make.out, so
+# once per shell rebuild every extension whose builder is not the pinned interpreter — but only inside a
+# tree this interpreter owns (its own gem dir or the repo's vendor/bundle). Never in the shared ~/.gem user
+# dir: rebuilding there just moves the breakage to the other Ruby.
+_ruby_exec_heal_native() {
+  [ -n "${RUBY_EXEC_NATIVE_OK:-}" ] && return 0
+  RUBY_EXEC_NATIVE_OK=1
+  local home out spec ver failed=""
+  for home in ${RUBY_EXEC_GEM_PATH//:/ }; do
+    for out in "$home"/extensions/*/*/*/gem_make.out; do
+      [ -f "$out" ] || continue
+      head -3 "$out" | grep -qF -- "$RUBY_EXEC_RESOLVED" && continue
+      head -3 "$out" | grep -qE '/bin/ruby' || continue      # unknown format — leave it alone
+      spec="$(basename "$(dirname "$out")")"; ver="${spec##*-}"
+      echo "note: ruby-exec: rebuilding $spec's extension for the pinned interpreter (${home#"$(_ruby_exec_repo_root)/"})" >&2
+      GEM_HOME="$home" GEM_PATH="$RUBY_EXEC_GEM_PATH" "$RUBY_EXEC_RESOLVED" -S gem pristine "${spec%-*}" \
+        -v "$ver" --extensions >/dev/null 2>&1 || failed="$failed $spec"
+    done
+  done
+  # Never a silent half-heal: name what could not be rebuilt and the exact repair.
+  [ -z "$failed" ] || echo "⚠️  ruby-exec: could not rebuild$failed — run: (cd $(_ruby_exec_repo_root) && bundle pristine)" >&2
+}
+
+# Run "$@" with the gem path isolated to the resolved interpreter (see _ruby_exec_gem_dir).
+_ruby_exec_isolated() {
+  if [ "${RUBY_EXEC_KEEP_GEM_PATH:-0}" = "1" ] || [ -n "${GEM_HOME:-}${GEM_PATH:-}" ]; then "$@"; return; fi
+  _ruby_exec_gem_dir
+  if [ -n "$RUBY_EXEC_GEM_DIR" ]; then
+    _ruby_exec_heal_native
+    GEM_HOME="$RUBY_EXEC_GEM_DIR" GEM_PATH="$RUBY_EXEC_GEM_PATH" "$@"
+  else
+    "$@"
+  fi
+}
+
 # Run a ruby script under the pinned interpreter.
 ruby_exec() {
   _ruby_exec_resolve || return 1
-  "$RUBY_EXEC_RESOLVED" "$@"
+  _ruby_exec_isolated "$RUBY_EXEC_RESOLVED" "$@"
 }
 
 # Run bundler in <app-root> under the pinned interpreter.
@@ -185,9 +238,9 @@ ruby_bundle() {
   # ruby owns it, which is the same trap one level up.
   local bundle_bin; bundle_bin="$(dirname "$RUBY_EXEC_RESOLVED")/bundle"
   if [ -x "$bundle_bin" ]; then
-    ( cd "$app_root" && "$RUBY_EXEC_RESOLVED" "$bundle_bin" "$@" )
+    ( cd "$app_root" && _ruby_exec_isolated "$RUBY_EXEC_RESOLVED" "$bundle_bin" "$@" )
   else
-    ( cd "$app_root" && bundle "$@" )
+    ( cd "$app_root" && _ruby_exec_isolated bundle "$@" )
   fi
 }
 

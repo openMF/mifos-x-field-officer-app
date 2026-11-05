@@ -7,38 +7,38 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `cmp-android/` | 57 | [`cmp-android/`](tree/cmp-android.md) |
-| `cmp-ios/` | 45 | [`cmp-ios/`](tree/cmp-ios.md) |
+| `cmp-android/` | 60 | [`cmp-android/`](tree/cmp-android.md) |
+| `cmp-ios/` | 46 | [`cmp-ios/`](tree/cmp-ios.md) |
 | `cmp-desktop/` | 12 | [`cmp-desktop/`](tree/cmp-desktop.md) |
-| `cmp-web/` | 17 | [`cmp-web/`](tree/cmp-web.md) |
-| `cmp-shared/` | 8 | [`cmp-shared/`](tree/cmp-shared.md) |
+| `cmp-web/` | 22 | [`cmp-web/`](tree/cmp-web.md) |
+| `cmp-shared/` | 9 | [`cmp-shared/`](tree/cmp-shared.md) |
 | `cmp-navigation/` | 63 | [`cmp-navigation/`](tree/cmp-navigation.md) |
 
 ## Features
 
 | Area | Files | Page |
 |---|---:|---|
-| `feature/` | 883 | [`feature/`](tree/feature.md) |
+| `feature/` | 931 | [`feature/`](tree/feature.md) |
 
 ## Core layers
 
 | Area | Files | Page |
 |---|---:|---|
-| `core/` | 1353 | [`core/`](tree/core.md) |
-| `core-base/` | 499 | [`core-base/`](tree/core-base.md) |
+| `core/` | 1354 | [`core/`](tree/core.md) |
+| `core-base/` | 507 | [`core-base/`](tree/core-base.md) |
 
 ## Codegen
 
 | Area | Files | Page |
 |---|---:|---|
 | `tools/` | 13 | [`tools/`](tree/tools.md) |
-| `build-logic/` | 42 | [`build-logic/`](tree/build-logic.md) |
+| `build-logic/` | 44 | [`build-logic/`](tree/build-logic.md) |
 
 ## Configuration
 
 | Area | Files | Page |
 |---|---:|---|
-| `app-profile/` | 168 | [`app-profile/`](tree/app-profile.md) |
+| `app-profile/` | 255 | [`app-profile/`](tree/app-profile.md) |
 | `gradle/` | 5 | [`gradle/`](tree/gradle.md) |
 | `secrets/` | 55 | [`secrets/`](tree/secrets.md) |
 
@@ -56,9 +56,9 @@
 
 | Area | Files | Page |
 |---|---:|---|
-| `scripts/` | 477 | [`scripts/`](tree/scripts.md) |
+| `scripts/` | 480 | [`scripts/`](tree/scripts.md) |
 | `sync/` | 16 | [`sync/`](tree/sync.md) |
-| `tests/` | 21 | [`tests/`](tree/tests.md) |
+| `tests/` | 27 | [`tests/`](tree/tests.md) |
 
 ## Other
 
@@ -75,9 +75,9 @@ oversight. A directory missing from a map reads the same as one nobody looked at
 |---|---:|---|
 | `.bundle/` | 1 | bundler config (two lines) |
 | `.run/` | 4 | IDE run configurations |
-| `.swiftpm-locks/` | 31 | generated SwiftPM resolution locks |
+| `.swiftpm-locks/` | 51 | generated SwiftPM resolution locks |
 | `META-INF/` | 1 | one service-registration file |
 | `config/` | 1 | the detekt config — documented where detekt is configured |
-| `docs/` | 150 | this documentation tree |
+| `docs/` | 151 | this documentation tree |
 | `kotlin-js-store/` | 2 | generated yarn.lock for Kotlin/JS |
 | `spotless/` | 1 | the license-header template applied by Spotless |
