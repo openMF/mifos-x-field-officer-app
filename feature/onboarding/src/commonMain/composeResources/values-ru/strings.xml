@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: ru · seeded by /idea-locale · values carry SOURCE text until translated -->
+<resources>
+    <string name="feature_onboarding_skip">Пропустить</string>
+    <string name="feature_onboarding_skip_a11y">Перейти к настройкам конфиденциальности</string>
+    <string name="feature_onboarding_next">Далее</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">Страница %1$d из %2$d</string>
+    <string name="feature_onboarding_clients_title">Ваши клиенты, группы и центры — в полевых условиях</string>
+    <string name="feature_onboarding_clients_body">Находите клиентов, открывайте группы и центры и просматривайте их займы и сбережения — где бы вы ни находились.</string>
+    <string name="feature_onboarding_collections_title">Принимайте платежи и работайте с ведомостями сбора</string>
+    <string name="feature_onboarding_collections_body">Записывайте платежи прямо на встрече и проходите ведомость сбора центра клиент за клиентом.</string>
+    <string name="feature_onboarding_offline_title">Нет связи? Продолжайте работу</string>
+    <string name="feature_onboarding_offline_body">Записи, сохранённые на устройстве, открываются без сети. Введённые данные сохраняются и синхронизируются, когда связь восстановится.</string>
+    <string name="feature_onboarding_privacy_title">Помогите улучшить приложение</string>
+    <string name="feature_onboarding_privacy_lead">Обе функции выключены, пока вы их не включите. Разрешите обе одним нажатием или выберите ниже — все возможности приложения останутся доступны.</string>
+    <string name="feature_onboarding_analytics_label">Передавать статистику использования</string>
+    <string name="feature_onboarding_analytics_body">Какие экраны и функции используются и как часто. Без имён клиентов, номеров счетов и сумм.</string>
+    <string name="feature_onboarding_crash_label">Отправлять отчёты о сбоях</string>
+    <string name="feature_onboarding_crash_body">При сбое приложения: ошибка, версия приложения и модель устройства, чтобы мы могли всё исправить. Без данных клиентов.</string>
+    <string name="feature_onboarding_no_client_data">Никакие сведения о ваших клиентах, займах или сбережениях никогда не передаются.</string>
+    <string name="feature_onboarding_settings_later">Вы можете изменить это позже в настройках.</string>
+    <string name="feature_onboarding_connect_instance">Подключиться к вашему экземпляру Mifos</string>
+    <string name="feature_onboarding_agreement">Используя наш сервис, вы принимаете следующие документы: %1$s и %2$s.</string>
+    <string name="feature_onboarding_terms">Условия использования</string>
+    <string name="feature_onboarding_privacy_policy">Политика конфиденциальности</string>
+    <string name="feature_onboarding_allow_get_started">Разрешить и начать</string>
+    <string name="feature_onboarding_continue_without">Продолжить без передачи данных</string>
+    <string name="feature_onboarding_continue_choices">Продолжить с выбранными настройками</string>
+    <string name="feature_onboarding_save_failed">Не удалось сохранить выбранные настройки. Повторите попытку.</string>
+</resources>

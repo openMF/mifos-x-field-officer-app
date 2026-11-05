@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- locale: zh-rTW · seeded by /idea-locale · values carry SOURCE text until translated -->
+<resources>
+    <string name="feature_onboarding_skip">略過</string>
+    <string name="feature_onboarding_skip_a11y">跳至隱私選項</string>
+    <string name="feature_onboarding_next">下一步</string>
+    <string name="feature_onboarding_brand_a11y">Mifos X</string>
+    <string name="feature_onboarding_page_of">第 %1$d 頁，共 %2$d 頁</string>
+    <string name="feature_onboarding_clients_title">您的客戶、小組和中心 — 隨時隨地</string>
+    <string name="feature_onboarding_clients_body">無論您前往何處拜訪，都能查詢客戶、開啟小組或中心，並檢視其貸款與儲蓄。</string>
+    <string name="feature_onboarding_collections_title">收取還款並處理收款表</string>
+    <string name="feature_onboarding_collections_body">在會議現場記錄還款，並逐一完成中心收款表上每位客戶的收款。</string>
+    <string name="feature_onboarding_offline_title">沒有訊號？照常工作</string>
+    <string name="feature_onboarding_offline_body">儲存在裝置上的紀錄可離線開啟。您輸入的內容會被儲存，並在恢復連線後同步。</string>
+    <string name="feature_onboarding_privacy_title">協助改善應用程式</string>
+    <string name="feature_onboarding_privacy_lead">除非您主動開啟，否則兩項均為關閉狀態。您可以一鍵全部允許，或在下方選擇 — 無論如何都能使用所有功能。</string>
+    <string name="feature_onboarding_analytics_label">分享使用情況分析</string>
+    <string name="feature_onboarding_analytics_body">使用了哪些畫面和功能，以及使用頻率。不包含客戶姓名、帳號或金額。</string>
+    <string name="feature_onboarding_crash_label">傳送當機報告</string>
+    <string name="feature_onboarding_crash_body">應用程式當機時：傳送錯誤資訊、應用程式版本和裝置型號，以便我們修正問題。不包含客戶資料。</string>
+    <string name="feature_onboarding_no_client_data">絕不會傳送任何有關您的客戶、貸款或儲蓄的資訊。</string>
+    <string name="feature_onboarding_settings_later">您稍後可以在「設定」中變更此項目。</string>
+    <string name="feature_onboarding_connect_instance">連線至您的 Mifos 執行個體</string>
+    <string name="feature_onboarding_agreement">使用我們的服務即表示您接受我們的%1$s及%2$s。</string>
+    <string name="feature_onboarding_terms">條款與細則</string>
+    <string name="feature_onboarding_privacy_policy">隱私權政策</string>
+    <string name="feature_onboarding_allow_get_started">允許並開始使用</string>
+    <string name="feature_onboarding_continue_without">不分享並繼續</string>
+    <string name="feature_onboarding_continue_choices">依我的選擇繼續</string>
+    <string name="feature_onboarding_save_failed">無法儲存您的選擇，請再試一次。</string>
+</resources>

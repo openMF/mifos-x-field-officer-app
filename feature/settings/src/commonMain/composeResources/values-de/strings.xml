@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Version, Hilfe, Community und Lizenz</string>
     <string name="feature_settings_offline_sync_row">Offline-Sync</string>
     <string name="feature_settings_offline_sync_row_description">Zentren, Gruppen und Kunden auf diesem Gerät behalten</string>
+    <string name="feature_settings_privacy">Datenschutz</string>
+    <string name="feature_settings_privacy_analytics">Nutzungsanalysen teilen</string>
+    <string name="feature_settings_privacy_crash_reports">Absturzberichte senden</string>
+    <string name="feature_settings_privacy_row_description">Datenschutzeinstellungen öffnen</string>
+    <string name="feature_settings_privacy_intro">Sie entscheiden, was diese App teilt. Nichts wird gesendet, bevor Sie es aktivieren, und Sie können es jederzeit ändern.</string>
+    <string name="feature_settings_privacy_analytics_description">Anonyme Informationen darüber, welche Funktionen genutzt werden, um die App zu verbessern.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Technische Details bei einem Absturz der App, damit wir das Problem beheben können.</string>
 </resources>

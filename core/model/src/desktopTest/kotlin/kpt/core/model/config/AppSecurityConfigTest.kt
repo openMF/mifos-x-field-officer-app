@@ -29,4 +29,10 @@ class AppSecurityConfigTest {
         // Wiring only — the value is the fork's (`security.signed_in_by_default`); a login app sets false.
         assertEquals(AppSecurityConfig.SIGNED_IN_BY_DEFAULT, UserData.DEFAULT.isAuthenticated)
     }
+
+    @Test
+    fun freshInstallOnboardingFollowsAppProfile() {
+        // Wiring only — `security.first_run_onboarding`; true only in a fork that ships an onboarding destination.
+        assertEquals(AppSecurityConfig.FIRST_RUN_ONBOARDING, UserData.DEFAULT.firstTimeUser)
+    }
 }

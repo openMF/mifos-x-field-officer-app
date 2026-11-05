@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navOptions
 import cmp.navigation.authenticated.AuthenticatedGraphRoute
+import kpt.feature.onboarding.onboardingDestination
 import kpt.feature.settings.serverconfig.navigateToServerConfig
 import kpt.feature.settings.serverconfig.serverConfigDestination
 import kpt.feature.signin.SignInRoute
@@ -31,6 +32,10 @@ import kpt.feature.signin.signInDestination
  * so a logged-out user could not reach a login screen at all.
  */
 internal fun NavGraphBuilder.authNavGraph(navController: NavController) {
+    // First-run onboarding (RootNavState.ShowOnboarding). Pre-auth like sign-in, so it lives here on the root graph.
+    // It needs no "finished" callback: finishing marks first run done and RootNav moves to sign-in itself.
+    onboardingDestination(onOpenServerConfig = navController::navigateToServerConfig)
+
     signInDestination(
         onLoggedIn = {
             navController.navigate(
