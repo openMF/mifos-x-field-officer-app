@@ -8,7 +8,6 @@
 
     See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
 -->
-<!-- Source: idea-layer/_strings/strings.yaml#screens.onboarding.* -->
 <resources>
     <string name="feature_onboarding_skip">Skip</string>
     <string name="feature_onboarding_skip_a11y">Skip to the privacy choices</string>

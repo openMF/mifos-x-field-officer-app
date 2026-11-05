@@ -510,16 +510,16 @@ object KptSharedAxis
 ```
 Shared-axis-X enter/exit factories, per Material Motion. Use for **forward/back navigation in a single stack** — pushing onto the stack slides left-and-fades, popping reverses.
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/motion/NavTransitions.kt:43</code></summary>
+<details><summary>Used in the template — <code>feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingScreen.kt:216</code></summary>
 
 ```kotlin
-    // Snapshot @Composable-resolved transitions at graph-build time so the non-Composable
-    // enterTransition lambdas can capture them as plain data.
-    val enterFwd = KptSharedAxis.enterForward()
-    val exitFwd = KptSharedAxis.exitForward()
-    val enterBack = KptSharedAxis.enterBack()
-    val exitBack = KptSharedAxis.exitBack()
-    composable<T>(
+                transitionSpec = {
+                    if (targetState.ordinal > initialState.ordinal) {
+                        KptSharedAxis.enterForward(motion) togetherWith KptSharedAxis.exitForward(motion)
+                    } else {
+                        KptSharedAxis.enterBack(motion) togetherWith KptSharedAxis.exitBack(motion)
+                    }
+                },
 ```
 
 </details>

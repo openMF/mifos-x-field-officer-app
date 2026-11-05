@@ -1,13 +1,13 @@
 # `app-profile/`
 
 > **Kind:** Fork-owned configuration source of truth  
-> **Measured:** 168 tracked files — 107× `.png`, 24× `.yaml`, 12× `.gitkeep`, 10× `.webp`, 5× `.md`
+> **Measured:** 255 tracked files — 194× `.png`, 24× `.yaml`, 12× `.gitkeep`, 10× `.webp`, 5× `.md`
 
 ## Shape
 
 | Path | Files |
 |---|---:|
-| `app-profile/platforms/` | 143 |
+| `app-profile/platforms/` | 230 |
 | `app-profile/icons/` | 19 |
 | (files at the root) | 6 |
 
@@ -21,20 +21,20 @@
 | `app-profile/migration-ledger.yaml` | the FORK's Room schema state. owner: fork, never synced. |
 | `app-profile/package-ledger.yaml` | the FORK's record of what it did to the template's declared packages. |
 | `app-profile/platforms/android/android.yaml` | Android-only (Play Store + Firebase) values. |
-| `app-profile/platforms/android/app-content/app-content.yaml` | deployment-layer/store-listing/variants/v1/app-content/android/en-US/app-content.yaml |
-| `app-profile/platforms/android/app-content/content-rating.yaml` | deployment-layer/store-listing/variants/v1/app-content/android/en-US/content-rating.yaml |
+| `app-profile/platforms/android/app-content/app-content.yaml` | App content declarations for Mifos X Field Officer (com.mifos.mifosxdroid) |
+| `app-profile/platforms/android/app-content/content-rating.yaml` | folds 1:1 into app-profile/platforms/android/app-content/. |
 | `app-profile/platforms/apple/apple.yaml` | Apple-shared (iOS + macOS: signing, Firebase, TestFlight, ASC). |
-| `app-profile/platforms/apple/ios/app-content/age-rating.yaml` | deployment-layer/store-listing/variants/v1/app-content/ios/en-US/age-rating.yaml |
-| `app-profile/platforms/apple/ios/app-content/content-rights.yaml` | deployment-layer/store-listing/variants/v1/app-content/ios/en-US/content-rights.yaml |
-| `app-profile/platforms/apple/ios/app-content/export-compliance.yaml` | deployment-layer/store-listing/variants/v1/app-content/ios/en-US/export-compliance.yaml |
+| `app-profile/platforms/apple/ios/app-content/age-rating.yaml` | Discrete App Store age-rating declaration (ASC 2023 questionnaire). Every answer derived from the app: |
+| `app-profile/platforms/apple/ios/app-content/content-rights.yaml` |  |
+| `app-profile/platforms/apple/ios/app-content/export-compliance.yaml` | Export compliance (ITSAppUsesNonExemptEncryption). The app uses only standard, OS-provided HTTPS/TLS |
 | `app-profile/platforms/apple/ios/ios.yaml` | iOS-ONLY overrides (deep-merged under `apple.ios`). |
-| `app-profile/platforms/apple/macos/app-content/age-rating.yaml` | deployment-layer/store-listing/variants/v1/app-content/macos/en-US/age-rating.yaml |
+| `app-profile/platforms/apple/macos/app-content/age-rating.yaml` | Discrete App Store age-rating declaration (ASC 2023 questionnaire). Every answer derived from the app: |
 
 ## Subsections
 
 | Unit | Files | Page |
 |---|---:|---|
-| `app-profile/platforms/` | 143 | [platforms](app-profile/platforms.md) |
+| `app-profile/platforms/` | 230 | [platforms](app-profile/platforms.md) |
 
 ## Docs in the tree
 
