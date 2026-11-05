@@ -345,6 +345,16 @@ repo_files:
     LICENSE:            { access: read }
     SECURITY.md:        { access: read }
     .github/workflows/cla-check.yml: { access: read }   # the org CLA bot pushes it
+# Where this repository's work is tracked — read by /idea-jira (the ticket ↔ code audit) and the
+# /flow-to-tickets-* commands. Fork-owned: a fork sets ITS OWN board here. `repo` names the repository
+# the board belongs to, so a fork that inherited the template's block is refused instead of auditing
+# the template's tickets against the fork's code.
+tracking:
+  jira:
+    site: mifosforge.jira.com           # Jira Cloud site (no scheme)
+    project_key: KMPPT                  # the project whose issues are audited
+    board_id: 63                        # https://mifosforge.jira.com/jira/software/c/projects/KMPPT/boards/63
+    repo: openMF/kmp-project-template   # the repository this board tracks
 
 # Generated into kpt.core.model.config.AppSecurityConfig by syncForkConfig.
 security:

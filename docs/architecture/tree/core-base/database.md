@@ -2,13 +2,13 @@
 
 > **Layer:** core-base — framework-shared; generators CONSUME, never write
 > **Corpus surface:** `CORE_BASE_DATABASE.md`
-> **Measured:** 20 Kotlin files, 0 test files
+> **Measured:** 27 Kotlin files, 0 test files
 
 **Defines annotations:** `@DbConverters`, `@DbDao`, `@DbEntity`
 
 ## Principal types
 
-`AppDatabaseFactory`, `BookkeeperDao`, `BookkeeperEntity`, `ConflictDao`, `ConflictEntity`, `DatabaseNaming`, `DbConverters`, `DbDao`, `DbEntity`, `DraftDao`, `DraftEntity`, `FetchedAtDao`, `FetchedAtEntity`
+`AppDatabaseFactory`, `BookkeeperDao`, `BookkeeperEntity`, `ConflictDao`, `ConflictEntity`, `DatabaseNaming`, `DbConverters`, `DbDao`, `DbEntity`, `DraftDao`, `DraftEntity`, `FetchedAtDao`, `FetchedAtEntity`, `RawSqlConnection`
 
 <!-- scaffold:end -->
 
@@ -16,10 +16,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core-base/database sha=1fe65c5a5f43bcf5c6592c30ea4e2a7877849945 -->
+<!-- api-docs:begin module=core-base/database sha=74fc1fe09303ee0e00b713a73c3fb07a94e092e3 -->
 ## API reference
 
-_Generated from `core-base/database` at tree `1fe65c5a5f43` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core-base/database` at tree `74fc1fe09303` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **framework-shared and read-only to generators** (D9). Everything below is
@@ -43,6 +43,18 @@ actual val platformModule: Module = platformDatabaseModule<AppDatabase>(appDatab
 ```
 
 </details>
+
+### `core-base/database/src/commonMain/kotlin/kpt/core/base/database/RawSqlConnection.kt`
+
+```kotlin
+class RawSqlConnection internal constructor(private val connection: PooledConnection)
+```
+Raw SQL against a Room database from common code, for statements a DAO cannot declare: `ATTACH` / `DETACH`, `PRAGMA`, or SQL over a schema Room does not know (an attached file). Obtained from `withRawConnection`.
+
+```kotlin
+suspend fun <R> RoomDatabase.withRawConnection(block: suspend RawSqlConnection.() -> R): R =
+```
+Runs `block` on the database's writer connection, outside any transaction, so `ATTACH`, `DETACH` and `PRAGMA` are allowed.
 
 ### `core-base/database/src/commonMain/kotlin/kpt/core/base/database/annotation/DatabaseSchema.kt`
 
@@ -322,5 +334,5 @@ Persistent record of the last successful network fetch for a Store, keyed by the
 
 ---
 
-_12 type(s), 25 function(s)/property(ies); 37 carry KDoc at source; 2 authored example(s); 12 live call site(s)._
+_13 type(s), 26 function(s)/property(ies); 39 carry KDoc at source; 2 authored example(s); 12 live call site(s)._
 <!-- api-docs:end -->

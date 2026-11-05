@@ -31,10 +31,8 @@ dependencies {
     // The codegen derives the REGISTRATION from source; it cannot derive the BUILD EDGE. Both halves
     // are required for every fork feature.
     "commonMainImplementation"(project(":feature:signin"))
-    // feature/onboarding — first-run intro + privacy consent, shown once before sign-in. Installed on the ROOT
-    // graph by `authNavGraph` (like sign-in, never @FeatureDestination); the Koin codegen emits
-    // `includes(OnboardingModule)`, which needs this build edge to resolve.
-    "commonMainImplementation"(project(":feature:onboarding"))
+    // feature/onboarding needs no edge here: cmp-navigation/build.gradle.kts (template) depends on it directly,
+    // and RootNavScreen installs it on the root graph.
 
     // feature/client â the client vertical (S3). Registration is three steps: this build
     // edge, the settings.local include, and @FeatureDestination on the graph builder.

@@ -34,6 +34,10 @@ module AppProfile
   # Walk up from this file's dir to the first ancestor containing app-profile/.
   def _root
     return @_root if defined?(@_root)
+    # APP_PROFILE_ROOT: an explicit app-profile/ dir — set by `derive.rb --fork <dir>` so a fork that
+    # has no white-label machinery yet can verify its app-profile with the template's resolver.
+    override = ENV["APP_PROFILE_ROOT"]
+    return @_root = override if override && File.directory?(override)
     @_root = nil
     dir = __dir__
     while dir && dir != "/"

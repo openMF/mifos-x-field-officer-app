@@ -12,9 +12,7 @@ package kpt.core.base.platform.di
 import com.mobilebytelabs.kmptoolkit.appintents.di.appIntentsModule
 import com.mobilebytelabs.kmptoolkit.bubble.di.bubbleModule
 import com.mobilebytelabs.kmptoolkit.clipboard.di.clipboardModule
-import com.mobilebytelabs.kmptoolkit.intentlauncher.di.intentLauncherModule
 import com.mobilebytelabs.kmptoolkit.pdfgenerator.di.pdfModule
-import com.mobilebytelabs.kmptoolkit.share.di.shareModule
 import com.mobilebytelabs.kmptoolkit.toast.di.toastModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +28,18 @@ import kpt.core.base.platform.update.AppUpdateManager
 import kpt.core.base.platform.update.AppUpdateManagerImpl
 import kpt.core.base.platform.url.UrlLauncher
 import kpt.core.base.platform.url.UrlLauncherImpl
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import com.mobilebytelabs.kmptoolkit.intentlauncher.IntentManager as ToolkitIntentManager
+import com.mobilebytelabs.kmptoolkit.intentlauncher.IntentManagerImpl as ToolkitIntentManagerImpl
+import com.mobilebytelabs.kmptoolkit.share.ShareManager as ToolkitShareManager
+import com.mobilebytelabs.kmptoolkit.share.ShareManagerImpl as ToolkitShareManagerImpl
+
+/**
+ * Qualifier for the toolkit bindings whose simple names collide with the template's own
+ * (`ShareManager`, `IntentManager`). Inject them with `koinInject<…>(ToolkitQualifier)`.
+ */
+val ToolkitQualifier = named("kmptoolkit")
 
 /**
  * Koin module binding every `core-base/platform` capability — toast, share, URL launch, app update,
@@ -89,17 +98,23 @@ val platformModule = module {
     // (FakeClipboard, FakeAppIntentsManager, FakeBubble, FakePdfManager, FakeAppReviewManager), so
     // substitution in tests never needed a template-owned type, and insulation was already gone
     // once these types appeared in this module's public API.
-    // shareModule binds the TOOLKIT's ShareManager. The template's ShareManager (a wrapper adding
-    // MimeType + ImageBitmap encoding) stays the one this module's own local exposes; this exists so
-    // the toolkit's LocalShareManager can be provided from DI rather than defaulting to a second
-    // instance. Both delegate to the same global `Share` engine, so they cannot disagree.
-    includes(shareModule)
-    // Binds the TOOLKIT's IntentManager. On Android this instance has no IntentLauncher (one is
-    // Activity-scoped), so its pickers report unsupported and `rememberIntentCapabilities` says so —
-    // that is the library's documented, honest degradation, not a fault. A fork wanting pickers
-    // calls `rememberIntentManagerFromLauncher()` inside its ComponentActivity's setContent and
-    // wraps the app in `ProvideIntentManager(manager)`, which overrides the local below.
-    includes(intentLauncherModule)
+    // The TOOLKIT's ShareManager and IntentManager, bound under [ToolkitQualifier] instead of
+    // via `includes(shareModule)` / `includes(intentLauncherModule)`. Koin keys a binding by the
+    // class's simple name on JS and Wasm, and the template has its own `ShareManager` /
+    // `ShareManagerImpl` / `IntentManager` — so unqualified, each pair shares one key and the later
+    // binding replaces the earlier: Wasm crashes at startup ("Cannot cast IntentManagerImpl"), JS
+    // silently hands the template's local the toolkit object. The modules each held one binding,
+    // re-declared here as they are (no-arg constructors, the toolkit's per-platform defaults).
+    //
+    // The template's ShareManager (a wrapper adding MimeType + ImageBitmap encoding) stays the one
+    // this module's own local exposes; the toolkit's exists so its LocalShareManager is provided from
+    // DI rather than defaulting to a second instance. Both delegate to the same global `Share` engine.
+    // On Android the toolkit IntentManager has no IntentLauncher (one is Activity-scoped), so its
+    // pickers report unsupported — the library's documented degradation. A fork wanting pickers calls
+    // `rememberIntentManagerFromLauncher()` in its Activity and wraps the app in
+    // `ProvideIntentManager(manager)`, which overrides the local.
+    single<ToolkitShareManager>(ToolkitQualifier) { ToolkitShareManagerImpl() }
+    single<ToolkitIntentManager>(ToolkitQualifier) { ToolkitIntentManagerImpl() }
     includes(clipboardModule())
     includes(bubbleModule())
     includes(appIntentsModule)

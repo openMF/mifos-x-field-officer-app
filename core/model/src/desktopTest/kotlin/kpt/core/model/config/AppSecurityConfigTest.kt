@@ -32,7 +32,7 @@ class AppSecurityConfigTest {
 
     @Test
     fun freshInstallOnboardingFollowsAppProfile() {
-        // Wiring only — `security.first_run_onboarding`; true only in a fork that ships an onboarding destination.
+        // Wiring only — `security.first_run_onboarding`; true only in an app that wants feature/onboarding shown.
         assertEquals(AppSecurityConfig.FIRST_RUN_ONBOARDING, UserData.DEFAULT.firstTimeUser)
     }
 }

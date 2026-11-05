@@ -9,8 +9,12 @@
 # occurrences across 32 files of this template.
 #
 #   CS-1 a `\'` inside a composeResources/values*/strings.xml
+#   CS-2 a `%%` inside one — same class: Android's formatter turns `%%` into `%`, Compose's
+#        `stringResource(res, args)` only substitutes `%1$s`/`%1$d` and leaves `%%` as is. Found on
+#        a device (2026-11-05): Today's Rates showed "3.88%%" and loan rows "40%% paid".
 #
-# A plain `'` is valid XML text; that is the fix. Exit 0 = PASS · 1 = FAIL (blocks).
+# A plain `'` / a single `%` is valid text and renders correctly; that is the fix.
+# Exit 0 = PASS · 1 = FAIL (blocks).
 set -uo pipefail
 
 ROOT="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}"
@@ -24,13 +28,22 @@ if [ -z "$FILES" ]; then
     exit 0
 fi
 
-HITS="$(printf '%s\n' "$FILES" | xargs grep -nF "\\'" 2>/dev/null | sed 's|^\./||' || true)"
-if [ -n "$HITS" ]; then
-    echo "  ✗ CS-1 \\' in Compose strings — Compose Multiplatform renders the backslash; use a plain '"
-    printf '%s\n' "$HITS" | head -20 | sed 's/^/      /'
-    n=$(printf '%s\n' "$HITS" | wc -l | tr -d ' ')
+# report <id> <message> <hits> — print up to 20 hits; returns 1 when there are any.
+report() {
+    [ -n "$3" ] || return 0
+    echo "  ✗ $1 $2"
+    printf '%s\n' "$3" | head -20 | sed 's/^/      /'
+    local n; n=$(printf '%s\n' "$3" | wc -l | tr -d ' ')
     [ "$n" -gt 20 ] && echo "      … and $((n - 20)) more"
-    exit 1
-fi
-echo "  ✓ CS-1 no \\' escapes in $(printf '%s\n' "$FILES" | wc -l | tr -d ' ') Compose strings files"
+    return 1
+}
+
+fail=0
+HITS="$(printf '%s\n' "$FILES" | xargs grep -nF "\\'" 2>/dev/null | sed 's|^\./||' || true)"
+report CS-1 "\\' in Compose strings — Compose Multiplatform renders the backslash; use a plain '" "$HITS" || fail=1
+# `%%` followed by a digit is a literal `%` before a placeholder (Turkish "%%1$d" → "%40") — fine.
+HITS="$(printf '%s\n' "$FILES" | xargs grep -nE '%%([^0-9]|$)' 2>/dev/null | sed 's|^\./||' || true)"
+report CS-2 "%% in Compose strings — Compose Multiplatform renders both; use a single %" "$HITS" || fail=1
+[ "$fail" = 0 ] || exit 1
+echo "  ✓ CS-1/CS-2 no \\' or %% escapes in $(printf '%s\n' "$FILES" | wc -l | tr -d ' ') Compose strings files"
 exit 0

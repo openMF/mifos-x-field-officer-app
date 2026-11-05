@@ -1,7 +1,7 @@
 # `scripts/product-health/`
 
 > Part of [`scripts/`](../scripts.md)  
-> **Measured:** 415 tracked files — 134× `.kt`, 91× `.sh`, 52× `.md`, 50× `.yaml`, 12× `.gitkeep`
+> **Measured:** 418 tracked files — 134× `.kt`, 92× `.sh`, 52× `.md`, 50× `.yaml`, 12× `.gitkeep`
 
 ### Scripts
 
@@ -38,7 +38,7 @@
 | `shell-portability.sh` | tracked shell scripts must run on the RUNNERS, not just on a Mac. |
 | `store-archetype-coverage.sh` | the 8 Store5 archetypes each keep a real showcase. |
 
-_…and 61 more._
+_…and 62 more._
 
 <!-- tree-scaffold:end -->
 ## Significance

@@ -78,6 +78,34 @@ MARKED_FILES=$(grep -rl 'demo:begin' --include='*.kt' --include='*.kts' --includ
   | grep -v '/build/' | grep -v '/product-health/tests/' \
   | grep -v '/module-packages\.yaml$' || true)
 
+# ── 2a. The fork's database lineage — decided BEFORE anything is stripped ─────────────
+#     A ledger recording a migration unit that is neither a declared framework unit
+#     (core/database/migration-units.yaml) nor a `demo-*` unit belongs to a fork that has shipped its
+#     own schema: it has installed users on that version. For such a fork the strip must not touch the
+#     database lineage at all. It used to: the fence strip (step 3) cut the demo-fenced rows out of the
+#     fork's own ledger, and the package sweep (4b2) deleted the @Entity packages behind tables the
+#     shipped schema still holds — mbs/reels-downloader v15 lost 158 files and syncForkConfig then
+#     re-appended the framework units as migrations 15→20, re-running applied migrations on every
+#     installed database. So: the ledger is never fence-stripped, and a core/database demo package
+#     whose table is in the latest exported schema is kept.
+LEDGER="app-profile/migration-ledger.yaml"
+SCHEMA_DIR="core/database/schemas/kpt.core.database.AppDatabase"
+FORK_UNITS=""
+SHIPPED_TABLES=""
+if [ -f "$LEDGER" ]; then
+  FORK_UNITS=$(grep -oE 'unit:[[:space:]]*[A-Za-z0-9_-]+' "$LEDGER" | sed 's/.*unit:[[:space:]]*//' \
+    | while read -r u; do
+        case "$u" in demo-*) continue ;; esac
+        grep -qE "id:[[:space:]]*${u}([[:space:],}]|\$)" core/database/migration-units.yaml 2>/dev/null || echo "$u"
+      done | paste -sd' ' - || true)
+fi
+if [ -n "$FORK_UNITS" ]; then
+  MARKED_FILES=$(printf '%s\n' "$MARKED_FILES" | grep -v "/${LEDGER}\$" || true)
+  latest=$(ls "$SCHEMA_DIR"/*.json 2>/dev/null | sed 's#.*/##; s#\.json$##' | sort -n | tail -1)
+  [ -n "$latest" ] && SHIPPED_TABLES=$(grep -oE '"tableName":[[:space:]]*"[^"]+"' "$SCHEMA_DIR/$latest.json" \
+    | sed 's/.*"\([^"]*\)"$/\1/' | sort -u | paste -sd' ' - || true)
+fi
+
 echo "remove-demo ($MODE): demo features = ${DEMO_FEATURES//$'\n'/ }"
 echo "remove-demo ($MODE): demo access points = ${DEMO_POINTS//$'\n'/ }"
 
@@ -207,6 +235,21 @@ while IFS=$'\t' read -r mod id; do
   # while its TEST in desktopTest survived, referencing types that no longer exist. That is a
   # compile break in a supposedly clean fork, and it only shows up for a module that happens to
   # test in one of the missed source sets (core/model does).
+  # Decided per PACKAGE (every source set together), so a kept entity keeps its tests and migrations.
+  if [ "$mod" = "database" ] && [ -n "$FORK_UNITS" ]; then
+    kept=""
+    [ "$id" = "migrations" ] && kept="migration specs of the fork's lineage"
+    if [ -z "$kept" ] && [ -n "$SHIPPED_TABLES" ]; then
+      for t in $(grep -rhoE '@Entity\(tableName[[:space:]]*=[[:space:]]*"[^"]+"' "core/$mod"/src/*/kotlin/kpt/core/"$mod"/"$id" 2>/dev/null \
+                   | sed 's/.*"\([^"]*\)"$/\1/'); do
+        case " $SHIPPED_TABLES " in *" $t "*) kept="table '$t' is in the fork's shipped schema" ; break ;; esac
+      done
+    fi
+    if [ -n "$kept" ]; then
+      say "keep core/$mod package '$id'  ($kept — installed databases hold it)"
+      continue
+    fi
+  fi
   for d in "core/$mod"/src/*/kotlin/kpt/core/"$mod"/"$id"; do
     [ -d "$d" ] || continue
     say "rm -rf $d  (core/$mod package '$id', owner: demo)"
@@ -291,20 +334,10 @@ done <<< "$DEMO_FEATURES"
 #     A fresh fork is CREATED with the framework tables in their current shape, so it needs no
 #     migration for them — it records every declared unit in `baseline_units` instead. Without that,
 #     the next syncForkConfig would append all of them as migrations the fork's v1 already contains.
-LEDGER="app-profile/migration-ledger.yaml"
-# …but ONLY when the lineage is still the template's. A ledger that records a migration unit which is
-# neither a declared framework unit (core/database/migration-units.yaml) nor a `demo-*` unit belongs
-# to a fork that has shipped its own schema changes — it has installed users on that version, and
-# resetting it to v1 (plus dropping its exported schemas below) would destroy the upgrade path for
-# every one of them. That fork keeps its version, migrations and schema JSONs; only the demo code goes.
-FORK_UNITS=""
-if [ -f "$LEDGER" ]; then
-  FORK_UNITS=$(grep -oE 'unit:[[:space:]]*[A-Za-z0-9_-]+' "$LEDGER" | sed 's/.*unit:[[:space:]]*//' \
-    | while read -r u; do
-        case "$u" in demo-*) continue ;; esac
-        grep -qE "id:[[:space:]]*${u}([[:space:],}]|\$)" core/database/migration-units.yaml 2>/dev/null || echo "$u"
-      done | paste -sd' ' - || true)
-fi
+# …but ONLY when the lineage is still the template's (FORK_UNITS, step 2a). A fork that has shipped its
+# own schema changes has installed users on that version, and resetting it to v1 (plus dropping its
+# exported schemas below) would destroy the upgrade path for every one of them. That fork keeps its
+# version, migrations and schema JSONs; only the demo code goes.
 if [ -n "$FORK_UNITS" ]; then
   say "keep $LEDGER + core/database/schemas/ — the fork's own lineage (units: $FORK_UNITS)"
 elif [ -f "$LEDGER" ]; then

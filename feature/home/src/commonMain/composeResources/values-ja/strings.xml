@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">あなたのローン · %1$d</string>
     <string name="screens_home_remaining_label">残り</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">返済額 $%1$s · %2$d%% 完済</string>
+    <string name="screens_home_loan_tile_footer">返済額 $%1$s · %2$d% 完済</string>
     <string name="screens_home_section_this_week">今週</string>
     <string name="screens_home_section_tools">ツール</string>
     <string name="screens_home_section_tools_subtitle">計算機・比較・マクロ指標</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">本日の金利</string>
     <string name="screens_home_rates_fed_funds_label">フェデラルファンド金利</string>
     <string name="screens_home_rates_mortgage_30y_label">30年住宅ローン</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">米ドル為替</string>

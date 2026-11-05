@@ -24,6 +24,16 @@ SDK="${SDK_NAME:-iphoneos}"
 
 # The framework slice embed-xcframework.sh staged for FRAMEWORK_SEARCH_PATHS
 # (cmp-shared/build/xcode-frameworks/$CONFIGURATION/$SDK_NAME/ComposeApp.framework).
+# The fork's Firebase iOS config (fork-owned cmp-ios/iosApp/firebase/, like Android's google-services.json).
+# Copied here rather than referenced from the Xcode project, so a fork without one still builds;
+# iOSApp.swift calls FirebaseApp.configure() only when it is in the bundle.
+# ponytail: a plist edit alone does not re-run this phase on an incremental build — Clean Build after changing it.
+FIREBASE_PLIST="$SRCROOT/iosApp/firebase/GoogleService-Info.plist"
+if [ -f "$FIREBASE_PLIST" ] && [ -n "${TARGET_BUILD_DIR:-}" ] && [ -n "${WRAPPER_NAME:-}" ]; then
+  cp "$FIREBASE_PLIST" "$TARGET_BUILD_DIR/$WRAPPER_NAME/GoogleService-Info.plist"
+  echo "note: [KMP] bundled GoogleService-Info.plist (Firebase iOS)"
+fi
+
 SRC="$REPO_ROOT/cmp-shared/build/xcode-frameworks/$CONFIG/$SDK/ComposeApp.framework/composeResources"
 
 if [ ! -d "$SRC" ]; then

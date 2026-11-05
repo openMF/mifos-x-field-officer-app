@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">Twoje kredyty · %1$d</string>
     <string name="screens_home_remaining_label">Pozostało</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Rata $%1$s · spłacono %2$d%%</string>
+    <string name="screens_home_loan_tile_footer">Rata $%1$s · spłacono %2$d%</string>
     <string name="screens_home_section_this_week">W tym tygodniu</string>
     <string name="screens_home_section_tools">Narzędzia</string>
     <string name="screens_home_section_tools_subtitle">Kalkulatory, porównania, wskaźniki makro</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Dzisiejsze stopy</string>
     <string name="screens_home_rates_fed_funds_label">Stopa Fed</string>
     <string name="screens_home_rates_mortgage_30y_label">Kredyt hipoteczny 30 lat</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">Kurs USD</string>

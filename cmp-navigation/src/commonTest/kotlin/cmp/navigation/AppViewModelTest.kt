@@ -238,10 +238,12 @@ class AppViewModelTest {
         )
         drain()
 
-        vm.trySendAction(AppAction.AppSpecificLanguageUpdate(LanguageConfig.SPANISH))
+        // ENGLISH, not a translation: LanguageConfig is generated per fork from its enabled locales, and
+        // English is the one every fork ships — a fork without Spanish would not compile this source set.
+        vm.trySendAction(AppAction.AppSpecificLanguageUpdate(LanguageConfig.ENGLISH))
         drain()
 
-        assertEquals(listOf(LanguageConfig.SPANISH), repo.languageWrites)
+        assertEquals(listOf(LanguageConfig.ENGLISH), repo.languageWrites)
     }
 
     @Test

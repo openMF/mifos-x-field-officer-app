@@ -12,6 +12,7 @@ package kpt.shared
 import androidx.compose.ui.window.ComposeUIViewController
 import cmp.shared.SharedApp
 import cmp.shared.utils.initKoin
+import kpt.shared.fork.onForkIosConfigure
 import platform.Foundation.NSUserDefaults
 import platform.QuartzCore.CALayer
 import platform.UIKit.UIApplication
@@ -20,10 +21,17 @@ import platform.UIKit.UIUserInterfaceStyle
 
 private var secureTextField: UITextField? = null
 
-/** The `UIViewController` the iOS app embeds — the whole Compose app behind one UIKit handle. */
-fun viewController() = ComposeUIViewController(
+/**
+ * The `UIViewController` the iOS app embeds — the whole Compose app behind one UIKit handle.
+ *
+ * @param platformBridges objects only Swift can create (a StoreKit 2 shim implementing a Kotlin
+ *   interface, …), handed to the fork's `onForkIosConfigure` hook (kpt/shared/fork, fork-owned) once
+ *   Koin has started. Swift does not see Kotlin default arguments, so `ContentView.swift` passes `[]`.
+ */
+fun viewController(platformBridges: List<Any>) = ComposeUIViewController(
     configure = {
         initKoin()
+        platformBridges.onForkIosConfigure()
     },
 ) {
     SharedApp(

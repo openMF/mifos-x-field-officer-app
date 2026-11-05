@@ -50,6 +50,8 @@ import kpt.core.base.ui.util.NonNullExitTransitionProvider
 import kpt.core.base.ui.util.RootTransitionProviders
 import kpt.feature.onboarding.OnboardingRoute
 import kpt.feature.onboarding.navigateToOnboarding
+import kpt.feature.onboarding.onboardingDestination
+import kpt.feature.settings.serverconfig.navigateToServerConfig
 import kpt.feature.signin.SignInRoute
 import kpt.feature.signin.navigateToSignIn
 import org.koin.compose.viewmodel.koinViewModel
@@ -106,6 +108,9 @@ fun RootNavScreen(
                 popExitTransition = { pickExit(fadeThroughExit, noExit)(this) },
             ) {
                 splashDestination()
+                // First-run onboarding (feature/onboarding). Only reached when app-profile/app.yaml
+                // sets security.first_run_onboarding: true; this fork has a server-setup screen, so it passes it here.
+                onboardingDestination(onOpenServerConfig = navController::navigateToServerConfig)
                 authenticatedGraph(navController)
                 authNavGraph(navController)
             }

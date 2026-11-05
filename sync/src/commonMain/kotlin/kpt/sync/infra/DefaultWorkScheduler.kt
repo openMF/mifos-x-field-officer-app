@@ -14,11 +14,13 @@
 
 package kpt.sync.infra
 
+import io.github.mobilebytelabs.worker.ExistingPeriodicWorkPolicy
 import io.github.mobilebytelabs.worker.ExistingWorkPolicy
 import io.github.mobilebytelabs.worker.OutOfQuotaPolicy
 import io.github.mobilebytelabs.worker.WorkInfo
 import io.github.mobilebytelabs.worker.WorkManager
 import io.github.mobilebytelabs.worker.oneTimeWorkRequest
+import io.github.mobilebytelabs.worker.periodicWorkRequest
 import io.github.mobilebytelabs.worker.workDataOf
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -94,6 +96,35 @@ public class DefaultWorkScheduler(
         } else {
             workManager.enqueue(request)
         }
+        return WorkHandle(id = id, uniqueName = uniqueName)
+    }
+
+    override suspend fun schedulePeriodicNotification(
+        content: NotificationContent,
+        interval: Duration,
+        uniqueName: String,
+        initialDelay: Duration,
+        tags: List<String>,
+    ): WorkHandle {
+        val request = periodicWorkRequest<NotificationWorker>(interval) {
+            setInputData(
+                workDataOf(
+                    NotificationWorker.KEY_TITLE to content.title,
+                    NotificationWorker.KEY_BODY to content.body,
+                    NotificationWorker.KEY_CHANNEL_ID to content.channelId,
+                ),
+            )
+            setInitialDelay(initialDelay)
+            addTag(NOTIFICATION_WORK_NAME_PREFIX)
+            tags.forEach { addTag(it) }
+        }
+        // UPDATE keeps the running schedule and takes the new content, so calling this on every app
+        // start does not reset the period or stack duplicates.
+        val id = workManager.enqueueUniquePeriodicWork(
+            uniqueWorkName = uniqueName,
+            existingPeriodicWorkPolicy = ExistingPeriodicWorkPolicy.UPDATE,
+            request = request,
+        )
         return WorkHandle(id = id, uniqueName = uniqueName)
     }
 

@@ -1,25 +1,70 @@
 #!/usr/bin/env bash
-# kotlin-checks.sh pre-commit|pre-push|files <paths…> — the git hooks' checks, scoped to what the commit
-# or push CHANGES. The hooks (pre-commit.sh / pre-push.sh) only call this, so a template sync updates
-# the checks without reinstalling hooks. The style rules themselves live in kotlin-conform.sh.
+# kotlin-checks.sh pre-commit|pre-push|files <paths…>|changed [<base>]|module <dir…>|all [--fix]
+# — the git hooks' checks, scoped to what the commit or push CHANGES, plus on-demand CI-parity runs.
+# The hooks (pre-commit.sh / pre-push.sh) only call this, so a template sync updates the checks without
+# reinstalling hooks. The style rules themselves live in kotlin-conform.sh.
 #
 # Why scoped and Gradle-free: the old hooks ran `./gradlew spotlessCheck detekt dependencyGuard` over
 # the whole repo on every commit AND again on every push — 25+ min on a fork with ~40 feature modules,
 # and a fork's pre-existing Detekt findings blocked every push no matter what it touched.
-#   pre-commit  formats the staged .kt/.kts files (licence header + ktlint), re-stages them, and fails on
-#               anything left — ktlint findings it cannot fix, Detekt findings
-#   pre-push    checks (does not change) the .kt/.kts files the pushed commits change; dependencyGuard
-#               runs only when a build file changed (warn-only: a local `.local=true` lib-integrate makes
-#               it differ from the committed baselines; CI enforces it)
+#   pre-commit  formats the staged .kt/.kts/.xml files (licence header + ktlint), re-stages them, and
+#               fails on anything left — ktlint findings it cannot fix, Detekt findings
+#   pre-push    checks (does not change) the .kt/.kts/.xml files the pushed commits change;
+#               dependencyGuard runs only when a build file changed (warn-only: a local `.local=true`
+#               lib-integrate makes it differ from the committed baselines; CI enforces it)
 #   files       formats + checks exactly the given paths (the sync engine's 3-way merge results)
+#
+# On-demand — CI's `spotlessCheck detekt` in seconds instead of ~13 min (check-only; --fix applies):
+#   changed [<base>]  what this branch changes vs <base> (default: origin/HEAD's branch, else origin/dev),
+#                     committed or not — the files a PR's checks will see. ~4 s for a 30-file PR.
+#   module <dir…>     every file under the given module directories (e.g. feature/onboarding)
+#   all               the whole repo — ~35 s for 2,400 files. Scope mirrors Gradle (see kotlin-conform.sh)
+# None of these touch Gradle; dependencyGuard is printed as a reminder when build files changed.
 # A tree that passed is remembered (`.git/kpt-checked-trees`), so a push of commits the pre-commit hook
 # already checked costs nothing.
 set -uo pipefail
-stage="${1:?usage: kotlin-checks.sh pre-commit|pre-push|files <paths…>}"; shift
+stage="${1:?usage: kotlin-checks.sh pre-commit|pre-push|files <paths…>|changed [<base>]|module <dir…>|all [--fix]}"; shift
 cd "$(git rev-parse --show-toplevel)" || exit 1
 CACHE="$(git rev-parse --git-path kpt-checked-trees)"
 CONFORM="scripts/ci/kotlin-conform.sh"
 ZERO=0000000000000000000000000000000000000000
+
+# kotlin_files — the existing style-checked files (.kt/.kts/.xml) among stdin's paths, fixtures and build
+# output excluded. kotlin-conform.sh then narrows to what Gradle's Spotless/Detekt actually cover.
+kotlin_files() {
+  grep -E '\.(kts?|xml)$' | grep -vE '(^|/)(build|tests)/' | while IFS= read -r f; do [ -f "$f" ] && echo "$f"; done
+}
+
+# On-demand CI-parity modes — no branch guard (they never commit), check-only unless --fix.
+case "$stage" in changed|module|all)
+  fix=0; args=(); for a in "$@"; do if [ "$a" = --fix ]; then fix=1; else args+=("$a"); fi; done
+  case "$stage" in
+    changed)
+      base="${args[0]:-}"
+      if [ -z "$base" ]; then
+        base="$(git symbolic-ref -q --short refs/remotes/origin/HEAD 2>/dev/null || true)"
+        [ -n "$base" ] || base=origin/dev
+      fi
+      git rev-parse -q --verify "$base^{commit}" >/dev/null || { echo "kotlin-checks: unknown base '$base'" >&2; exit 2; }
+      mb="$(git merge-base "$base" HEAD)"
+      list="$( { git diff --name-only --diff-filter=ACMR "$mb"; git ls-files --others --exclude-standard; } | sort -u)" ;;
+    module)
+      [ "${#args[@]}" -gt 0 ] || { echo "usage: kotlin-checks.sh module <dir…>" >&2; exit 2; }
+      list="$(git ls-files --cached --others --exclude-standard -- "${args[@]}")" ;;
+    all) list="$(git ls-files --cached --others --exclude-standard)" ;;
+  esac
+  files=(); while IFS= read -r f; do files+=("$f"); done < <(printf '%s\n' "$list" | kotlin_files)
+  [ "${#files[@]}" -gt 0 ] || { echo "✓ nothing to check ($stage)"; exit 0; }
+  start=$SECONDS
+  echo "▶ Spotless + Detekt on ${#files[@]} file(s) ($stage$([ "$fix" = 1 ] && echo ', fixing'))"
+  if [ "$fix" = 1 ]; then bash "$CONFORM" "${files[@]}"; else bash "$CONFORM" --check "${files[@]}"; fi
+  rc=$?
+  if [ "$stage" = changed ] && printf '%s\n' "$list" | grep -qE '\.kts$|^gradle/libs\.versions\.toml$|/dependencies/'; then
+    echo "ℹ build files changed — CI also runs dependencyGuard: ./gradlew dependencyGuard (refresh: dependencyGuardBaseline)"
+  fi
+  [ "$rc" = 0 ] && echo "✓ clean in $((SECONDS - start)) s" || echo "✗ findings above ($((SECONDS - start)) s)$([ "$fix" = 0 ] && echo ' — rerun with --fix to apply the fixable ones')" >&2
+  exit "$rc" ;;
+esac
 
 branch="$(git rev-parse --abbrev-ref HEAD)"
 if [ "$branch" = master ] || [ "$branch" = dev ]; then
@@ -32,10 +77,6 @@ checked() { [ -f "$CACHE" ] && grep -qxF -- "$1" "$CACHE"; }
 # remember <tree> — record a tree that passed.
 remember() { echo "$1" >> "$CACHE"; }
 
-# kotlin_files — the existing .kt/.kts files among stdin's paths, fixtures and build output excluded.
-kotlin_files() {
-  grep -E '\.kts?$' | grep -vE '(^|/)(build|tests)/' | while IFS= read -r f; do [ -f "$f" ] && echo "$f"; done
-}
 
 if [ "$stage" = files ]; then
   files=(); while IFS= read -r f; do files+=("$f"); done < <(printf '%s\n' "$@" | kotlin_files)

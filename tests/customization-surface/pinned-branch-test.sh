@@ -48,7 +48,7 @@ g checkout -q session
 fnsrc="$WORK/fns.sh"
 {
   echo 'print_step(){ :; }; print_warning(){ :; }; print_error(){ :; }; show_progress(){ :; }; declare -A EXCLUSIONS=(); SYNC_CONFLICTS=(); SYNC_FAILED=()'
-  for fn in owner_of is_held is_excluded resolve_merge_base remove_stale_path propagate_template_deletions mirror_template_owned sync_directory; do
+  for fn in owner_of is_held is_excluded fork_deleted_dir resolve_merge_base remove_stale_path propagate_template_deletions mirror_template_owned sync_directory; do
     awk -v f="$fn" '$0 ~ "^"f"\\(\\) \\{" {p=1} p{print} p&&/^}/{p=0}' "$ENGINE"
   done
 } > "$fnsrc"
