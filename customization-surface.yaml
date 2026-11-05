@@ -62,9 +62,13 @@ rules:
   # them outright. So the contract promised to sync 280 files the engine cannot fetch and the
   # customizer will delete.
   #
-  # Every feature module, the home/profile/settings starters included, is the fork's — its strings
-  # follow the module.
+  # Every feature module, the home/profile/settings/onboarding starters included, is the fork's — its
+  # strings and its manifest follow the module. The repo-wide manifest rule below would otherwise claim
+  # every feature's manifest (a starter's, and any feature a fork authors) for a merge the engine never
+  # runs: no feature module is a sync root.
   - glob: "feature/**/composeResources/**/strings.xml"
+    owner: fork
+  - glob: "feature/**/AndroidManifest.xml"
     owner: fork
 
   # ── core-base is FRAMEWORK-SHARED — declared before the merge-required globs below ──
