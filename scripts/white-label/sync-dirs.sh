@@ -136,7 +136,6 @@ SYNC_FILES=(
     "LICENSE"
     "CONTRIBUTING.md"
     "CODE_OF_CONDUCT.md"
-    "lib-integrate.properties"
     "Gemfile"
     "Gemfile.lock"
     "ci-prepush.bat"
@@ -362,6 +361,18 @@ post_sync_fork_steps() {
         bash scripts/docs/refresh.sh >/dev/null 2>&1 \
             || handle_error "scripts/docs/refresh.sh failed after the sync — docs/ no longer matches the source"
     fi
+}
+
+# dirty_paths — every modified/untracked path, one per line, sorted (a snapshot for stage_new_dirty).
+dirty_paths() { git status --porcelain --untracked-files=all | cut -c4- | sort; }
+
+# stage_new_dirty <snapshot> — stage every path that became dirty since <snapshot>. post_sync_fork_steps
+# writes fork-owned paths OUTSIDE the synced roots (module-packages.yaml status stamps, app-profile
+# projections, generated docs); staging only the roots left those uncommitted after "Sync committed".
+# A path that was already dirty before the steps ran (the operator's own work) is left alone.
+stage_new_dirty() {
+    comm -13 <(printf '%s\n' "$1") <(dirty_paths) \
+        | while IFS= read -r _p; do [ -n "$_p" ] && git add -A -- "$_p" 2>/dev/null; done || true
 }
 
 # is_excluded <dir> <path> <type> — 0 when the sync must leave <path> in the FORK's state.
@@ -705,10 +716,13 @@ merge_contract_root_files() {
     local f strat o b t rc
     # gradle.properties joins these rather than SYNC_FILES: it is `owner: merge` and carries the
       # fork's own `fork.project.name`, so a full checkout would clobber it. A 3-way takes the
-      # template's added build-tuning keys while the fork's values win.
-      for f in "settings.gradle.kts" "gradle/libs.versions.toml" "gradle.properties"; do
+      # template's added build-tuning keys while the fork's values win. lib-integrate.properties joins for
+      # the same reason: /lib-integrate writes per-fork `<lib>.local=true` links into it, and a full copy
+      # reset every fork's local-source links; a 3-way takes the template's new library rows.
+      for f in "settings.gradle.kts" "gradle/libs.versions.toml" "gradle.properties" "lib-integrate.properties"; do
         cs_match_g "$f"
         [ "${CS_M_OWNER:-}" = "merge" ] || continue
+        is_held "$f" && { print_step "Held ${BOLD}$f${NC} — kept the fork's copy (.template-sync-holds)"; continue; }
         git show "$TEMP_BRANCH:$f" >/dev/null 2>&1 || { print_warning "Template has no $f — skipping."; continue; }
         strat="${CS_M_STRAT:-3way}"
         o="$(mktemp)"; b="$(mktemp)"; t="$(mktemp)"
@@ -950,6 +964,13 @@ sync_directory() {
                 while IFS= read -r _mf; do
                     [ -z "$_mf" ] && continue
                     cs_match_g "$_mf"; [ "${CS_M_OWNER:-}" = "merge" ] || continue
+                    # A HELD path keeps the fork's copy on the merge path too, not only on the overlay and
+                    # the mirror: a held project.pbxproj was 3-way merged against a stale base and lost the
+                    # fork's SwiftPM packages (mbs/reels-downloader, 2026-11-03).
+                    if is_held "$_mf"; then
+                        print_step "Held ${BOLD}$_mf${NC} — kept the fork's copy (.template-sync-holds)"
+                        continue
+                    fi
                     # A line-based 3-way on a binary produces corruption that still LOOKS like a
                     # successful merge. The blanket `merge` rows cover whole platform shells, so a
                     # binary reaching here is expected (icons, .webp, .ico) rather than exceptional —
@@ -1006,6 +1027,20 @@ sync_directory() {
                                 CS_YAML_SCHEMA="$_sch" cs_merge "$_ms" "$_o" "$_b" "$_t" "$_mf"; _mrc=$?
                                 rm -f "$_sch" ;;
                             *)             cs_merge "$_ms" "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
+                        esac
+                        # A "clean" line merge must still keep every line the FORK added (in ours, not in
+                        # base). A stale base (.template-version older than the fork's content) made
+                        # pbxproj-3way and manifest-union report success while dropping the fork's
+                        # SwiftPM packages and 61 manifest lines. Losing a template change is visible on
+                        # the next sync; losing fork work is not — so keep the fork's copy and surface it.
+                        case "$_ms" in
+                            3way|kotlin-3way|pbxproj-3way|plist-union|manifest-union)
+                                if [ "${_mrc:-0}" = 0 ] && declare -F cs_fork_lines_kept >/dev/null 2>&1 \
+                                   && ! cs_fork_lines_kept "$_o" "$_b" "$_mf"; then
+                                    cp "$_o" "$_mf"
+                                    print_warning "Merge of ${BOLD}$_mf${NC} (${_ms}) would DROP lines the fork added — kept the fork's copy; apply the template's change by hand"
+                                    _mrc=4
+                                fi ;;
                         esac
                         # THREE outcomes, not two. A strategy that could not run keeps the fork's
                         # copy and returns 3; reporting that as "Merged — fork edits preserved" is
@@ -1699,8 +1734,10 @@ if [ "$DRY_RUN" = false ]; then
         if [ -f "gradle/libs.versions.toml" ]; then
             git add "gradle/libs.versions.toml"
         fi
+        _pre_post="$(dirty_paths)"
         post_sync_fork_steps
         git add -A -- "${SYNC_DIRS[@]}" "${SYNC_FILES[@]}" 2>/dev/null || true   # the strip deletes files
+        stage_new_dirty "$_pre_post"
 
         # Lint only what the sync WROTE — its 3-way merge results. Template-owned files were checked in
         # the template and fork-owned files are untouched, so running the commit hook over the whole
