@@ -14,22 +14,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.base.ui.nav.composableWithStayTransitions
 import kpt.core.base.ui.nav.popBackStackSafely
 import kpt.core.common.utils.Constants
-import kpt.feature.activate.navigation.navigateToActivateGroup
-import kpt.feature.datatable.navigation.navigateToDataTableList
-import kpt.feature.document.navigation.navigateToDocumentList
 import kpt.feature.groups.create.CreateGroupScreen
 import kpt.feature.groups.detail.GroupsDetailScreen
 import kpt.feature.groups.list.GroupsListScreen
-import kpt.feature.loan.navigation.navigateToGroupLoanApplication
-import kpt.feature.loan.navigation.navigateToLoanSummary
-import kpt.feature.note.navigation.navigateToNotes
-import kpt.feature.savings.navigation.navigateToSavingsApplication
-import kpt.feature.savings.navigation.navigateToSavingsSummary
 
 /** The tab's graph. Mirrors `ClientDestination` — the tab points at the graph, not at a screen. */
 @Serializable
@@ -68,20 +59,41 @@ fun NavController.navigateToCreateGroup(navOptions: NavOptions? = null) =
     navigate(CreateGroupRoute, navOptions)
 
 /**
- * The group list — a TOP-LEVEL destination on the authenticated graph, collected into
- * `GeneratedFeatureDestinations` by `:cmp-navigation:generateFeatureDestinations`.
+ * Where the group screens lead outside this feature. A feature never depends on another, so these are
+ * callbacks; `ForkFeatureRegistry` fills each with the owning feature's `navigateTo…` of the same shape.
  *
- * This file MUST live in a `navigation` package: the generator calls `scan(roots, "navigation")`, so
- * an annotated destination anywhere else is silently skipped — a clean build and a screen that does
- * not exist in the app.
+ * @property activateGroup opens the activation form for a group
+ * @property openDocumentList opens an entity's documents (`entityType`, `entityId`)
+ * @property openDataTableList opens an entity's datatables (`appTable`, `entityId`)
+ * @property openGroupLoanApplication opens the group loan application
+ * @property openSavingsApplication opens a savings application (`ownerId`, `isGroup`)
+ * @property openNotes opens an entity's notes (`resourceType`, `resourceId`)
+ * @property openLoanSummary opens a loan account's summary
+ * @property openSavingsSummary opens a savings account's summary (`accountId`, deposit-type endpoint)
+ * @property openClientProfile opens a client's profile
+ */
+data class GroupLinks(
+    val activateGroup: (groupId: Int) -> Unit,
+    val openDocumentList: (entityType: String, entityId: Int) -> Unit,
+    val openDataTableList: (appTable: String, entityId: Int) -> Unit,
+    val openGroupLoanApplication: (groupId: Int) -> Unit,
+    val openSavingsApplication: (ownerId: Int, isGroup: Boolean) -> Unit,
+    val openNotes: (resourceType: String, resourceId: Int) -> Unit,
+    val openLoanSummary: (loanId: Int) -> Unit,
+    val openSavingsSummary: (accountId: Int, accountType: String) -> Unit,
+    val openClientProfile: (clientId: Int) -> Unit,
+)
+
+/**
+ * The group list — a TOP-LEVEL destination on the authenticated graph. Not `@FeatureDestination`: the
+ * detail screen opens other features, so `ForkFeatureRegistry` registers it with [GroupLinks].
  *
  * ## Writes from this list
  *
  * `CreateNewGroup` → [CreateGroupRoute] (the list's create action). `SyncGroupDialog` became the
  * list's multi-select "Download for offline use". Activation lives on the detail screen.
  */
-@FeatureDestination
-fun NavGraphBuilder.groupsListDestination(navController: NavController) {
+fun NavGraphBuilder.groupsListDestination(navController: NavController, links: GroupLinks) {
     composableWithStayTransitions<GroupsListRoute> {
         GroupsListScreen(
             onGroupClick = navController::navigateToGroupsDetail,
@@ -107,35 +119,33 @@ fun NavGraphBuilder.groupsListDestination(navController: NavController) {
     composableWithPushTransitions<GroupsDetailRoute> {
         GroupsDetailScreen(
             onBackClick = navController::popBackStackSafely,
-            onActivate = navController::navigateToActivateGroup,
+            onActivate = links.activateGroup,
             // The generic document list, scoped to this group — the original's `loadDocumentList`.
             onDocuments = { groupId ->
-                navController.navigateToDocumentList(Constants.ENTITY_TYPE_GROUPS, groupId)
+                links.openDocumentList(Constants.ENTITY_TYPE_GROUPS, groupId)
             },
             // The group's datatables. The APPLICATION table name is what selects them — the
             // original passed `Constants.DATA_TABLE_NAME_GROUP` here.
             onDataTables = { groupId ->
-                navController.navigateToDataTableList(Constants.DATA_TABLE_NAME_GROUP, groupId)
+                links.openDataTableList(Constants.DATA_TABLE_NAME_GROUP, groupId)
             },
             // The group loan application form in `feature/loan` — the original's
             // `addGroupLoanAccount`. This edge is what makes `GroupLoanApplicationRoute`
             // reachable; it was registered and caller-less until S4k.
-            onAddLoanAccount = navController::navigateToGroupLoanApplication,
+            onAddLoanAccount = links.openGroupLoanApplication,
             // The savings application in `feature/savings`, as a GROUP application — the original's
             // `addSavingsAccount` edge passed `(groupId, 0, true)` into a wizard that read only the
             // client id, so this path created an application against client 0.
             onAddSavingsAccount = { groupId ->
-                navController.navigateToSavingsApplication(ownerId = groupId, isGroup = true)
+                links.openSavingsApplication(groupId, true)
             },
             // The original's `loadNotes = navigateToNoteScreen` with the group as owner.
-            onNotes = { groupId -> navController.navigateToNotes(Constants.ENTITY_TYPE_GROUPS, groupId) },
+            onNotes = { groupId -> links.openNotes(Constants.ENTITY_TYPE_GROUPS, groupId) },
             // The original's `loadLoanAccountSummary` / `loadSavingsAccountSummary`.
-            onOpenLoan = navController::navigateToLoanSummary,
-            onOpenSavings = { accountId, endpoint -> navController.navigateToSavingsSummary(accountId, endpoint) },
-            // A member row opens that client's profile. feature/client depends on feature/groups (the
-            // profile's Group chip opens this screen), so this edge goes by the route's NAME rather than
-            // its class — `ClientProfileRouteNameTest` (feature/client) pins the name to the class.
-            onOpenClient = { clientId -> navController.navigate(clientProfileRoute(clientId)) },
+            onOpenLoan = links.openLoanSummary,
+            onOpenSavings = links.openSavingsSummary,
+            // A member row opens that client's profile.
+            onOpenClient = links.openClientProfile,
         )
     }
 }
@@ -163,12 +173,3 @@ fun NavGraphBuilder.groupsTabGraph(outerNav: NavController) {
         }
     }
 }
-
-/**
- * `ClientProfileRoute(clientId)` by name — the class lives in feature/client, which depends on this
- * module. Type-safe routes register as `<serial name>/{clientId}`, so this string matches it.
- */
-const val CLIENT_PROFILE_ROUTE_NAME = "kpt.feature.client.navigation.ClientProfileRoute"
-
-/** The string route of client [clientId]'s profile, for navigating there without depending on the client module. */
-fun clientProfileRoute(clientId: Int): String = "$CLIENT_PROFILE_ROUTE_NAME/$clientId"

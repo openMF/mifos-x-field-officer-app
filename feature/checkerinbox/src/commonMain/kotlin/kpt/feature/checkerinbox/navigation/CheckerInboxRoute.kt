@@ -12,10 +12,8 @@ package kpt.feature.checkerinbox.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.feature.checkerinbox.ui.CheckerInboxScreen
-import kpt.feature.loan.navigation.LoanReschedulesRoute
 
 /**
  * The drawer's "Checker Inbox & Tasks" — the original's `CheckerInboxTaskScreenRoute` hub +
@@ -24,14 +22,24 @@ import kpt.feature.loan.navigation.LoanReschedulesRoute
 @Serializable
 data object CheckerInboxRoute
 
-/** Registers the checker inbox and its task detail in the nav graph. */
-@FeatureDestination
-fun NavGraphBuilder.checkerInboxDestinations(navController: NavController) {
+/**
+ * Where the checker inbox leads outside this feature — callbacks `ForkFeatureRegistry` fills, since a
+ * feature never depends on another.
+ *
+ * @property openLoanReschedules opens a loan's reschedules screen, which approves and rejects them
+ */
+data class CheckerInboxLinks(val openLoanReschedules: (loanId: Int) -> Unit)
+
+/**
+ * Registers the checker inbox and its task detail in the nav graph. Not `@FeatureDestination`: it
+ * opens a loan's reschedules, so `ForkFeatureRegistry` registers it with [CheckerInboxLinks].
+ */
+fun NavGraphBuilder.checkerInboxDestinations(navController: NavController, links: CheckerInboxLinks) {
     composableWithPushTransitions<CheckerInboxRoute> {
         CheckerInboxScreen(
             onNavigateBack = { navController.popBackStack() },
             // The loan's own reschedules screen approves and rejects — not duplicated here.
-            onOpenLoanReschedules = { loanId -> navController.navigate(LoanReschedulesRoute(loanId)) },
+            onOpenLoanReschedules = links.openLoanReschedules,
         )
     }
 }

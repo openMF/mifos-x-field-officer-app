@@ -43,7 +43,6 @@ kotlin {
         commonTest.dependencies {
             // screenDataStreamForTesting — the sanctioned test factory, so the fake repository
             // hands back real ScreenDataStreams rather than a parallel fake of the state machine.
-            implementation(projects.coreBase.store)
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)

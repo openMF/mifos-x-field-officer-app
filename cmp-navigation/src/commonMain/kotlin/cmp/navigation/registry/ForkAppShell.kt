@@ -11,7 +11,15 @@ package cmp.navigation.registry
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.navOptions
+import cmp.navigation.authenticated.AuthenticatedGraphRoute
 import cmp.navigation.rootnav.RootNavScreen
+import kpt.feature.settings.serverconfig.navigateToServerConfig
+import kpt.feature.settings.serverconfig.serverConfigDestination
+import kpt.feature.signin.SignInRoute
+import kpt.feature.signin.signInDestination
 
 /**
  * ForkAppShell — the FORK-OWNED seam for the app root, so a fork never edits the template's
@@ -47,4 +55,36 @@ object ForkAppShell {
         { modifier, onSplashScreenRemoved ->
             RootNavScreen(modifier = modifier, onSplashScreenRemoved = onSplashScreenRemoved)
         }
+
+    /**
+     * The signed-out part of the root graph: sign-in and server config, installed beside splash and
+     * onboarding and OUTSIDE the signed-in graph. `feature/signin` does not annotate `signInDestination`
+     * with `@FeatureDestination` because that registers onto the AUTHENTICATED graph — the one place the
+     * gate in front of it must not be. The feature owns the screen; this seam owns its placement.
+     */
+    val rootDestinations: NavGraphBuilder.(NavController) -> Unit = { navController ->
+        // First-run onboarding is installed by RootNavScreen (the template's root-graph install); installing it here
+        // too would register one route twice on the same NavHost.
+        signInDestination(
+            onLoggedIn = {
+                navController.navigate(
+                    route = AuthenticatedGraphRoute,
+                    navOptions = navOptions {
+                        // Drop login off the back stack: pressing back from the authenticated graph must
+                        // not return a signed-in user to the sign-in screen.
+                        popUpTo(SignInRoute) { inclusive = true }
+                        launchSingleTop = true
+                    },
+                )
+            },
+            onUpdateServerConfig = navController::navigateToServerConfig,
+        )
+
+        // Server config sits on the ROOT graph, not inside the authenticated one, because a first-run
+        // user has no Fineract URL and so cannot sign in until they have set one — the screen has to be
+        // reachable while signed OUT. Registered here exactly once: `navigate()` resolves across the
+        // nested boundary, so Settings reaches the same destination once authenticated, whereas a second
+        // registration inside `authenticatedGraph` would be a duplicate destination on one NavHost.
+        serverConfigDestination(onBackClick = navController::popBackStack)
+    }
 }

@@ -28,7 +28,7 @@ kotlin {
         }
         commonTest.dependencies {
             // screenDataStreamForTesting — the fake repository hands back real ScreenDataStreams.
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

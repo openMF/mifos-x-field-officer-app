@@ -18,6 +18,8 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.serialization.json.JsonArray
+import kpt.core.base.data.annotation.FromStore
+import kpt.core.base.data.annotation.RepositoryBinding
 import kpt.core.base.store.error.ErrorCategory
 import kpt.core.base.store.error.categorize
 import kpt.core.data.center.impl.toCenter
@@ -53,6 +55,7 @@ import kpt.core.model.savings.SavingsAccount
 import kpt.core.model.savings.SavingsAccountTransactionTemplate
 import kpt.core.model.savings.SavingsAccountWithAssociations
 import kpt.core.model.shared.CollateralItemResult
+import kpt.core.store.config.AppStoreIds
 import kpt.core.store.datatable.DataTableDataKey
 import kpt.core.store.document.DocumentContentKey
 import kpt.core.store.document.DocumentKey
@@ -63,6 +66,7 @@ import org.mobilenativefoundation.store.store5.MutableStore
 import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreWriteRequest
 import org.mobilenativefoundation.store.store5.impl.extensions.fresh
+import kotlin.time.Clock
 
 /** Where the engine reports as it walks — the repository turns these into job + inventory rows. */
 internal interface SyncSink {
@@ -95,42 +99,47 @@ internal class SyncRun {
 }
 
 /** The stores a centre / group / client screen reads, keyed exactly as the screen keys them. */
+@RepositoryBinding(binds = EntityStores::class)
 internal class EntityStores(
+    @FromStore(AppStoreIds.CenterGetCenterWithGroupMembersAndCollectionMeetingCalendar)
     val centre: Store<Int, CenterWithAssociations>,
-    val centreAccounts: Store<Int, CenterAccounts>,
-    val centreItem: MutableStore<Int, Center>,
-    val group: Store<Int, GroupWithAssociations>,
-    val groupRow: Store<Int, Group>,
-    val groupAccounts: Store<Int, GroupAccounts>,
-    val groupItem: MutableStore<Int, Group>,
-    val client: Store<Int, Client>,
-    val clientAccounts: Store<Int, ClientAccounts>,
-    val addresses: Store<Int, List<ClientAddressEntity>>,
-    val identifiers: Store<Long, List<Identifier>>,
-    val pinpoints: Store<Int, List<ClientAddressResponse>>,
-    val collateral: Store<Int, List<CollateralItemResult>>,
-    val image: Store<Int, String>,
+    @FromStore(AppStoreIds.CenterGetCenterAccounts) val centreAccounts: Store<Int, CenterAccounts>,
+    @FromStore(AppStoreIds.CenterItem) val centreItem: MutableStore<Int, Center>,
+    @FromStore(AppStoreIds.GroupGetGroupWithAssociations) val group: Store<Int, GroupWithAssociations>,
+    @FromStore(AppStoreIds.GroupGetGroup) val groupRow: Store<Int, Group>,
+    @FromStore(AppStoreIds.GroupGetGroupAccounts) val groupAccounts: Store<Int, GroupAccounts>,
+    @FromStore(AppStoreIds.GroupItem) val groupItem: MutableStore<Int, Group>,
+    @FromStore(AppStoreIds.ClientGetClient) val client: Store<Int, Client>,
+    @FromStore(AppStoreIds.ClientGetClientAccounts) val clientAccounts: Store<Int, ClientAccounts>,
+    @FromStore(AppStoreIds.ClientGetClientAddresses) val addresses: Store<Int, List<ClientAddressEntity>>,
+    @FromStore(AppStoreIds.ClientGetClientListIdentifiers) val identifiers: Store<Long, List<Identifier>>,
+    @FromStore(AppStoreIds.ClientGetClientPinpointLocations) val pinpoints: Store<Int, List<ClientAddressResponse>>,
+    @FromStore(AppStoreIds.ClientGetClientCollateralItems) val collateral: Store<Int, List<CollateralItemResult>>,
+    @FromStore(AppStoreIds.ClientImage) val image: Store<Int, String>,
 )
 
 /** The stores shared by every owner type (notes, documents, datatables) and the global templates. */
+@RepositoryBinding(binds = SharedStores::class)
 internal class SharedStores(
-    val notes: Store<NoteKey, List<Note>>,
-    val documents: Store<DocumentKey, List<Document>>,
-    val documentContent: Store<DocumentContentKey, ByteArray>,
-    val dataTables: Store<String, List<DataTable>>,
-    val dataTableRows: Store<DataTableDataKey, JsonArray>,
-    val loanProducts: Store<Unit, List<LoanProducts>>,
-    val savingsProducts: Store<Unit, List<ProductSavings>>,
-    val offices: Store<Unit, List<Office>>,
+    @FromStore(AppStoreIds.Notes) val notes: Store<NoteKey, List<Note>>,
+    @FromStore(AppStoreIds.Documents) val documents: Store<DocumentKey, List<Document>>,
+    @FromStore(AppStoreIds.DocumentContent) val documentContent: Store<DocumentContentKey, ByteArray>,
+    @FromStore(AppStoreIds.DataTables) val dataTables: Store<String, List<DataTable>>,
+    @FromStore(AppStoreIds.DatatableGetDataOfDataTable) val dataTableRows: Store<DataTableDataKey, JsonArray>,
+    @FromStore(AppStoreIds.LoanProducts) val loanProducts: Store<Unit, List<LoanProducts>>,
+    @FromStore(AppStoreIds.SavingsProducts) val savingsProducts: Store<Unit, List<ProductSavings>>,
+    @FromStore(AppStoreIds.Offices) val offices: Store<Unit, List<Office>>,
 )
 
 /** The stores a loan / savings account screen reads. */
+@RepositoryBinding(binds = AccountStores::class)
 internal class AccountStores(
-    val loan: Store<Int, LoanWithAssociations>,
-    val repaymentTemplate: Store<Int, LoanRepaymentTemplate>,
-    val loanCharges: Store<Int, List<Charges>>,
-    val loanReschedules: Store<Int, List<LoanRescheduleResponse>>,
-    val savings: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+    @FromStore(AppStoreIds.Loans) val loan: Store<Int, LoanWithAssociations>,
+    @FromStore(AppStoreIds.LoanRepaymentTemplates) val repaymentTemplate: Store<Int, LoanRepaymentTemplate>,
+    @FromStore(AppStoreIds.LoanGetListOfLoanCharges) val loanCharges: Store<Int, List<Charges>>,
+    @FromStore(AppStoreIds.LoanGetLoanReschedules) val loanReschedules: Store<Int, List<LoanRescheduleResponse>>,
+    @FromStore(AppStoreIds.SavingsAccounts) val savings: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+    @FromStore(AppStoreIds.SavingsGetSavingsAccountTransactionTemplate)
     val savingsTemplate: Store<GetSavingsAccountTransactionTemplateKey, SavingsAccountTransactionTemplate>,
 )
 
@@ -151,11 +160,12 @@ internal class AccountStores(
  * At most [MAX_IN_FLIGHT] reads run at once (OkHttp's per-host limit), and the clients of a group are
  * walked in parallel under that cap — a centre is thousands of reads, sequential would be an hour.
  */
+@RepositoryBinding(binds = OfflineSyncEngine::class)
 internal class OfflineSyncEngine(
     private val entities: EntityStores,
     private val shared: SharedStores,
     private val accounts: AccountStores,
-    private val nowMs: () -> Long,
+    private val nowMs: () -> Long = { Clock.System.now().toEpochMilliseconds() },
 ) {
     private val permits = Semaphore(MAX_IN_FLIGHT)
 

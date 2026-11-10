@@ -19,8 +19,6 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.core.data)
-            // Sign-out is the Settings dialog + ViewModel — one implementation, two entry points.
-            implementation(projects.feature.settings)
             implementation(projects.core.model)
             // koinNavViewModel(), imported aliased as `retainedKoinViewModel` — same contract
             // as feature/home's demo body.

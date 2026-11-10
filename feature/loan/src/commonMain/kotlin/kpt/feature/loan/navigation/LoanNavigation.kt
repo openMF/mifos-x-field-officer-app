@@ -13,14 +13,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.base.ui.nav.popBackStackSafely
 import kpt.core.common.utils.Constants
 import kpt.core.model.objects.charge.ChargeResource
-import kpt.feature.charge.navigation.navigateToCharges
-import kpt.feature.datatable.navigation.navigateToDataTableList
-import kpt.feature.document.navigation.navigateToDocumentList
 import kpt.feature.loan.approval.LoanApprovalScreen
 import kpt.feature.loan.disbursement.LoanDisbursementScreen
 import kpt.feature.loan.grouploan.GroupLoanApplicationScreen
@@ -37,7 +33,6 @@ import kpt.feature.loan.summary.LoanSummaryMenuItem
 import kpt.feature.loan.summary.LoanSummaryScreen
 import kpt.feature.loan.transactions.LoanTransactionsScreen
 import kpt.feature.loan.transfer.LoanTransferScreen
-import kpt.feature.note.navigation.navigateToNotes
 
 /**
  * A loan account's profile. `loanId` is required — the original's route defaulted it, so a missing
@@ -139,6 +134,9 @@ data class LoanTransferRoute(val loanId: Int)
 @Serializable
 data class LoanReschedulesRoute(val loanId: Int)
 
+/** Opens loan [loanId]'s reschedules — where they are proposed, approved and rejected. */
+fun NavController.navigateToLoanReschedules(loanId: Int) = navigate(LoanReschedulesRoute(loanId))
+
 /**
  * Propose a reschedule. Reached from the reschedules list's "+".
  *
@@ -197,15 +195,31 @@ fun NavController.navigateToLoanRepayment(loanId: Int, navOptions: NavOptions? =
     navigate(LoanRepaymentRoute(loanId), navOptions)
 
 /**
- * `@FeatureDestination`, so the generator registers it ONCE — the same reasoning as the other
- * shared drill-downs. The client's loan list and group detail both open it.
+ * Where the loan screens lead outside this feature — the generic per-entity modules. A feature never
+ * depends on another, so these are callbacks; `ForkFeatureRegistry` fills each with the owning
+ * feature's `navigateTo…` of the same shape.
+ *
+ * @property openCharges opens the charges of an entity (`resource`, `resourceId`)
+ * @property openDocumentList opens an entity's documents (`entityType`, `entityId`)
+ * @property openDataTableList opens an entity's datatables (`appTable`, `entityId`)
+ * @property openNotes opens an entity's notes (`resourceType`, `resourceId`)
  */
-@FeatureDestination
-fun NavGraphBuilder.loanDestinations(navController: NavController) {
+data class LoanLinks(
+    val openCharges: (resource: ChargeResource, resourceId: Int) -> Unit,
+    val openDocumentList: (entityType: String, entityId: Int) -> Unit,
+    val openDataTableList: (appTable: String, entityId: Int) -> Unit,
+    val openNotes: (resourceType: String, resourceId: Int) -> Unit,
+)
+
+/**
+ * Registered ONCE, by `ForkFeatureRegistry` with [LoanLinks] — the client's loan list and group detail
+ * both open it. Not `@FeatureDestination`, because it opens charges, documents, datatables and notes.
+ */
+fun NavGraphBuilder.loanDestinations(navController: NavController, links: LoanLinks) {
     composableWithPushTransitions<LoanProfileRoute> {
         LoanProfileScreen(
             onBackPressed = navController::popBackStackSafely,
-            onDetail = navController::navigateToProfileDetail,
+            onDetail = { item, loanId -> navController.navigateToProfileDetail(item, loanId, links) },
             // Only the rows whose destination exists are drawn. The other eleven arrive with the
             // rest of S4; until then they are ABSENT rather than tappable-and-dead.
             availableDetails = PORTED_DETAILS,
@@ -262,7 +276,7 @@ fun NavGraphBuilder.loanDestinations(navController: NavController) {
     composableWithPushTransitions<LoanSummaryRoute> {
         LoanSummaryScreen(
             onBackPressed = navController::popBackStackSafely,
-            onMenuItem = navController::navigateToSummaryMenuItem,
+            onMenuItem = { item, loanId -> navController.navigateToSummaryMenuItem(item, loanId, links) },
             availableMenuItems = SUMMARY_MENU_ITEMS,
             onAction = navController::navigateToSummaryAction,
             availableActions = SUMMARY_ACTIONS,
@@ -270,7 +284,7 @@ fun NavGraphBuilder.loanDestinations(navController: NavController) {
     }
 }
 
-private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, loanId: Int) {
+private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, loanId: Int, links: LoanLinks) {
     when (item) {
         LoanProfileActionItem.RepaymentSchedule ->
             navigate(LoanScheduleRoute(loanId))
@@ -278,16 +292,16 @@ private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, l
             navigate(LoanTransactionsRoute(loanId))
         // The ONE charge module, scoped to this loan — list, add, edit, delete.
         LoanProfileActionItem.Charges ->
-            navigateToCharges(ChargeResource.LOAN, loanId)
+            links.openCharges(ChargeResource.LOAN, loanId)
         LoanProfileActionItem.Reschedules ->
             navigate(LoanReschedulesRoute(loanId))
         // The GENERIC document list, which is entity-agnostic and already ported —
         // the original passed `Constants.ENTITY_TYPE_LOANS` to the same screen.
         LoanProfileActionItem.Documents ->
-            navigateToDocumentList(Constants.ENTITY_TYPE_LOANS, loanId)
+            links.openDocumentList(Constants.ENTITY_TYPE_LOANS, loanId)
         // The original's `navigateToNotes(loanId)` — the generic note module, owner `loans`.
         LoanProfileActionItem.Notes ->
-            navigateToNotes(Constants.ENTITY_TYPE_LOANS, loanId)
+            links.openNotes(Constants.ENTITY_TYPE_LOANS, loanId)
         // Unreachable: only the items in `PORTED_DETAILS` are drawn as rows.
         else -> Unit
     }
@@ -301,19 +315,19 @@ private fun NavController.navigateToProfilePrimaryAction(action: LoanPrimaryActi
     }
 }
 
-private fun NavController.navigateToSummaryMenuItem(item: LoanSummaryMenuItem, loanId: Int) {
+private fun NavController.navigateToSummaryMenuItem(item: LoanSummaryMenuItem, loanId: Int, links: LoanLinks) {
     when (item) {
         LoanSummaryMenuItem.Transactions ->
             navigate(LoanTransactionsRoute(loanId))
         LoanSummaryMenuItem.RepaymentSchedule ->
             navigate(LoanScheduleRoute(loanId))
         LoanSummaryMenuItem.Charges ->
-            navigateToCharges(ChargeResource.LOAN, loanId)
+            links.openCharges(ChargeResource.LOAN, loanId)
         LoanSummaryMenuItem.Documents ->
-            navigateToDocumentList(Constants.ENTITY_TYPE_LOANS, loanId)
+            links.openDocumentList(Constants.ENTITY_TYPE_LOANS, loanId)
         // The loan's datatables — the original's "More Loan Info" (`DATA_TABLE_NAME_LOANS`).
         LoanSummaryMenuItem.MoreInfo ->
-            navigateToDataTableList(Constants.DATA_TABLE_NAME_LOANS, loanId)
+            links.openDataTableList(Constants.DATA_TABLE_NAME_LOANS, loanId)
     }
 }
 

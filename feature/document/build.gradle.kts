@@ -30,7 +30,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

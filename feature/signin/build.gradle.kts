@@ -38,8 +38,8 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
-            implementation(projects.coreBase.common)
-            implementation(projects.coreBase.store)
+            implementation(projects.core.common)
+            implementation(projects.core.store)
             implementation(libs.multiplatform.settings.test)
         }
     }

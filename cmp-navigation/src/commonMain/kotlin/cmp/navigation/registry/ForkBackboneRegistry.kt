@@ -10,6 +10,8 @@
 package cmp.navigation.registry
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import kpt.core.base.ui.nav.popBackStackSafely
@@ -43,7 +45,11 @@ import kpt.feature.settings.navigateToSyncAndDrafts
 import kpt.feature.settings.notificationDestination
 import kpt.feature.settings.serverconfig.navigateToServerConfig
 import kpt.feature.settings.settingsDestination
+import kpt.feature.settings.signout.SignOutAction
+import kpt.feature.settings.signout.SignOutDialog
+import kpt.feature.settings.signout.SignOutViewModel
 import kpt.feature.settings.syncAndDraftsDestination
+import org.koin.compose.viewmodel.koinViewModel
 
 /**
  * ForkBackboneRegistry — the FORK-OWNED white-label seam for the app **backbone** (the home-tab body and,
@@ -104,11 +110,17 @@ object ForkBackboneRegistry {
      * `homeBody`). WS01 / AC7.
      */
     val profileBody: @Composable (NavController) -> Unit = { navController ->
-        // The officer's account (screens/profile). Only navigation is wired here; ProfileBody owns its
-        // sign-out (the Settings dialog + ViewModel).
+        // The officer's account (screens/profile). Sign-out is the Settings flow (its dialog and
+        // ViewModel); it is supplied here because a feature never depends on another.
+        val signOutViewModel: SignOutViewModel = koinViewModel()
+        val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
         ProfileBody(
             onBack = { navController.popBackStackSafely() },
             onServerSettings = { navController.navigateToServerConfig() },
+            onSignOut = { signOutViewModel.trySendAction(SignOutAction.Requested) },
+            signOutDialog = {
+                if (signOut.confirming) SignOutDialog(state = signOut, onAction = signOutViewModel::trySendAction)
+            },
         )
     }
 

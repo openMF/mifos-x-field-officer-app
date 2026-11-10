@@ -20,8 +20,6 @@ kotlin {
             implementation(projects.core.data)
             implementation(projects.core.model)
             implementation(projects.core.ui)
-            // A pending reschedule opens the loan's own reschedules screen, where approve / reject live.
-            implementation(projects.feature.loan)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)
@@ -32,7 +30,7 @@ kotlin {
         }
         commonTest.dependencies {
             // screenDataStreamForTesting, behind the core/data fakes.
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

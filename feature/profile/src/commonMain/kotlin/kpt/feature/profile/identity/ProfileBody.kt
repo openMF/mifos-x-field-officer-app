@@ -79,9 +79,6 @@ import kpt.feature.profile.generated.resources.feature_profile_sign_out
 import kpt.feature.profile.generated.resources.feature_profile_staff
 import kpt.feature.profile.generated.resources.feature_profile_tenant
 import kpt.feature.profile.generated.resources.feature_profile_title
-import kpt.feature.settings.signout.SignOutAction
-import kpt.feature.settings.signout.SignOutDialog
-import kpt.feature.settings.signout.SignOutViewModel
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -96,12 +93,12 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ProfileBody(
     onBack: () -> Unit,
     onServerSettings: () -> Unit,
+    onSignOut: () -> Unit,
     modifier: Modifier = Modifier,
+    signOutDialog: @Composable () -> Unit = {},
     viewModel: ProfileViewModel = koinViewModel(),
-    signOutViewModel: SignOutViewModel = koinViewModel(),
 ) {
     val state by viewModel.profile.collectAsStateWithLifecycle()
-    val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
     EventsEffect(viewModel.eventFlow) { event ->
         when (event) {
@@ -114,13 +111,11 @@ fun ProfileBody(
         onAction = viewModel::trySendAction,
         onBack = onBack,
         onServerSettings = onServerSettings,
-        onSignOut = { signOutViewModel.trySendAction(SignOutAction.Requested) },
+        onSignOut = onSignOut,
         snackbarHostState = snackbar,
         modifier = modifier,
     )
-    if (signOut.confirming) {
-        SignOutDialog(state = signOut, onAction = signOutViewModel::trySendAction)
-    }
+    signOutDialog()
 }
 
 /** Stateless half — previews and UI tests drive it directly. */

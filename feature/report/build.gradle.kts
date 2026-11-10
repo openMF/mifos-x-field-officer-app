@@ -34,7 +34,7 @@ kotlin {
         }
         commonTest.dependencies {
             // screenDataStreamForTesting, behind the core/data fakes.
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

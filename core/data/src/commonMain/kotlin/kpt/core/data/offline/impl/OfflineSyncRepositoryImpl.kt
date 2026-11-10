@@ -21,6 +21,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kpt.core.base.data.annotation.FromStore
+import kpt.core.base.data.annotation.RepositoryBinding
 import kpt.core.data.offline.OfflineSyncRepository
 import kpt.core.data.offline.OfflineSyncScheduler
 import kpt.core.database.offline.dao.OfflineSyncDao
@@ -33,6 +35,7 @@ import kpt.core.model.offline.RefreshSettings
 import kpt.core.model.offline.SyncJob
 import kpt.core.model.offline.SyncJobStatus
 import kpt.core.model.offline.SyncTarget
+import kpt.core.store.config.AppStoreIds
 import kpt.core.store.offline.OfflineRecordKey
 import kpt.core.store.offline.SyncJobKey
 import kpt.core.store.offline.toModel
@@ -40,6 +43,7 @@ import org.mobilenativefoundation.store.core5.ExperimentalStoreApi
 import org.mobilenativefoundation.store.store5.MutableStore
 import org.mobilenativefoundation.store.store5.StoreWriteRequest
 import org.mobilenativefoundation.store.store5.StoreWriteResponse
+import kotlin.time.Clock
 
 /**
  * Room-backed and keyed by the signed-in user. Wired in `ForkRepositoryModule` because the engine's
@@ -51,16 +55,18 @@ import org.mobilenativefoundation.store.store5.StoreWriteResponse
  * store would split each into a read and N writes, and lose the atomic `WHERE`.
  */
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalStoreApi::class)
+@RepositoryBinding(binds = OfflineSyncRepository::class)
 internal class OfflineSyncRepositoryImpl(
     private val dao: OfflineSyncDao,
-    private val recordStore: MutableStore<OfflineRecordKey, OfflineRecord>,
+    @FromStore(AppStoreIds.OfflineRecord) private val recordStore: MutableStore<OfflineRecordKey, OfflineRecord>,
+    @FromStore(AppStoreIds.OfflineRecordStatus)
     private val statusStore: MutableStore<OfflineRecordKey, RecordSyncStatus>,
-    private val jobStore: MutableStore<SyncJobKey, SyncJob>,
+    @FromStore(AppStoreIds.SyncJob) private val jobStore: MutableStore<SyncJobKey, SyncJob>,
     private val engine: OfflineSyncEngine,
     private val scheduler: OfflineSyncScheduler,
     private val settingsStore: OfflineSyncSettingsStore,
     private val preferences: ForkPreferencesRepository,
-    private val nowMs: () -> Long,
+    private val nowMs: () -> Long = { Clock.System.now().toEpochMilliseconds() },
 ) : OfflineSyncRepository {
 
     /** One job at a time in this process, whichever trigger started it. */

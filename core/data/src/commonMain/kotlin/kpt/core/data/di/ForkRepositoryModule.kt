@@ -15,21 +15,13 @@ import kpt.core.base.network.NetworkConfigRepository
 import kpt.core.base.network.UnauthorizedHandler
 import kpt.core.data.auth.AuthCommandRepository
 import kpt.core.data.auth.impl.SignOutOnRejectedSession
-import kpt.core.data.offline.OfflineSyncRepository
 import kpt.core.data.offline.OfflineSyncScheduler
-import kpt.core.data.offline.impl.AccountStores
-import kpt.core.data.offline.impl.EntityStores
-import kpt.core.data.offline.impl.OfflineSyncEngine
-import kpt.core.data.offline.impl.OfflineSyncRepositoryImpl
-import kpt.core.data.offline.impl.SharedStores
 import kpt.core.data.offline.work.WorkManagerOfflineSyncScheduler
 import kpt.core.datastore.prefs.ForkPreferencesRepository
 import kpt.core.network.mifos.server.toServerConfig
-import kpt.core.store.config.AppStoreRegistry
 import kpt.core.store.serverconfig.ServerConfigSource
 import kpt.core.store.session.SessionSource
 import org.koin.dsl.module
-import kotlin.time.Clock
 
 /**
  * THE FORK'S repository DI seam. Empty on the neutral template — this is yours to fill.
@@ -58,70 +50,10 @@ val ForkRepositoryModule = module {
         }
     }
     single<SessionSource> { SessionSource { get<ForkPreferencesRepository>().fineractUser } }
-    single<kpt.core.data.recent.RecentRecordsRepository> {
-        kpt.core.data.recent.RecentRecordsRepositoryImpl(
-            get(),
-            get(),
-        )
-    }
-
-    // Settings → Offline sync. Wired by hand rather than `@RepositoryBinding` because the engine takes
-    // its 28 stores grouped by owner (EntityStores / SharedStores / AccountStores) — each `get` below
-    // is the SAME qualified store the record's screen reads, which is what makes "synced" mean
-    // "opens offline".
+    // RecentRecordsRepositoryImpl, OfflineSyncRepositoryImpl and its OfflineSyncEngine are @RepositoryBinding:
+    // each engine store is the SAME qualified store the record's screen reads (its @FromStore), which is
+    // what makes "synced" mean "opens offline".
     single<OfflineSyncScheduler> { WorkManagerOfflineSyncScheduler(workManager = get()) }
-    single<OfflineSyncRepository> {
-        val nowMs = { Clock.System.now().toEpochMilliseconds() }
-        val engine = OfflineSyncEngine(
-            entities = EntityStores(
-                centre = get(AppStoreRegistry.CenterGetCenterWithGroupMembersAndCollectionMeetingCalendar),
-                centreAccounts = get(AppStoreRegistry.CenterGetCenterAccounts),
-                centreItem = get(AppStoreRegistry.CenterItem),
-                group = get(AppStoreRegistry.GroupGetGroupWithAssociations),
-                groupRow = get(AppStoreRegistry.GroupGetGroup),
-                groupAccounts = get(AppStoreRegistry.GroupGetGroupAccounts),
-                groupItem = get(AppStoreRegistry.GroupItem),
-                client = get(AppStoreRegistry.ClientGetClient),
-                clientAccounts = get(AppStoreRegistry.ClientGetClientAccounts),
-                addresses = get(AppStoreRegistry.ClientGetClientAddresses),
-                identifiers = get(AppStoreRegistry.ClientGetClientListIdentifiers),
-                pinpoints = get(AppStoreRegistry.ClientGetClientPinpointLocations),
-                collateral = get(AppStoreRegistry.ClientGetClientCollateralItems),
-                image = get(AppStoreRegistry.ClientImage),
-            ),
-            shared = SharedStores(
-                notes = get(AppStoreRegistry.Notes),
-                documents = get(AppStoreRegistry.Documents),
-                documentContent = get(AppStoreRegistry.DocumentContent),
-                dataTables = get(AppStoreRegistry.DataTables),
-                dataTableRows = get(AppStoreRegistry.DatatableGetDataOfDataTable),
-                loanProducts = get(AppStoreRegistry.LoanProducts),
-                savingsProducts = get(AppStoreRegistry.SavingsProducts),
-                offices = get(AppStoreRegistry.Offices),
-            ),
-            accounts = AccountStores(
-                loan = get(AppStoreRegistry.Loans),
-                repaymentTemplate = get(AppStoreRegistry.LoanRepaymentTemplates),
-                loanCharges = get(AppStoreRegistry.LoanGetListOfLoanCharges),
-                loanReschedules = get(AppStoreRegistry.LoanGetLoanReschedules),
-                savings = get(AppStoreRegistry.SavingsAccounts),
-                savingsTemplate = get(AppStoreRegistry.SavingsGetSavingsAccountTransactionTemplate),
-            ),
-            nowMs = nowMs,
-        )
-        OfflineSyncRepositoryImpl(
-            dao = get(),
-            recordStore = get(AppStoreRegistry.OfflineRecord),
-            statusStore = get(AppStoreRegistry.OfflineRecordStatus),
-            jobStore = get(AppStoreRegistry.SyncJob),
-            engine = engine,
-            scheduler = get(),
-            settingsStore = get(),
-            preferences = get(),
-            nowMs = nowMs,
-        )
-    }
-
     // A rejected session (401 on a credentialed request) ends it — see SignOutOnRejectedSession.
     // `restApi` picks this up for every REST client; the auth repository is resolved lazily because
     // its own API client is one of them.

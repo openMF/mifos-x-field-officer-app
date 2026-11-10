@@ -12,33 +12,46 @@ package kpt.feature.offlinesync.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.model.offline.RecordKind
-import kpt.feature.center.navigation.navigateToCenterDetail
-import kpt.feature.client.navigation.navigateToClientProfile
-import kpt.feature.groups.navigation.navigateToGroupsDetail
 import kpt.feature.offlinesync.ui.OfflineSyncScreen
-import kpt.feature.settings.navigateToSyncAndDrafts
 
 /** Settings → Offline sync. */
 @Serializable
 data object OfflineSyncRoute
 
-/** Registers the offline-sync screen in the nav graph. */
-@FeatureDestination
-fun NavGraphBuilder.offlineSyncDestination(navController: NavController) {
+/**
+ * Where the offline-sync screen leads outside this feature — callbacks `ForkFeatureRegistry` fills,
+ * since a feature never depends on another.
+ *
+ * @property openCenter opens a centre's details
+ * @property openGroup opens a group's details
+ * @property openClient opens a client's profile
+ * @property openDrafts opens Settings → Sync and drafts
+ */
+data class OfflineSyncLinks(
+    val openCenter: (centerId: Int) -> Unit,
+    val openGroup: (groupId: Int) -> Unit,
+    val openClient: (clientId: Int) -> Unit,
+    val openDrafts: () -> Unit,
+)
+
+/**
+ * Registers the offline-sync screen in the nav graph. Not `@FeatureDestination`: it opens records and
+ * drafts owned by other features, so `ForkFeatureRegistry` registers it with [OfflineSyncLinks].
+ */
+fun NavGraphBuilder.offlineSyncDestination(navController: NavController, links: OfflineSyncLinks) {
     composableWithPushTransitions<OfflineSyncRoute> {
         OfflineSyncScreen(
             onNavigateBack = { navController.popBackStack() },
             onOpenRecord = { kind, id ->
                 when (kind) {
-                    RecordKind.CENTRE -> navController.navigateToCenterDetail(id)
-                    RecordKind.GROUP -> navController.navigateToGroupsDetail(id)
-                    RecordKind.CLIENT -> navController.navigateToClientProfile(id)
+                    RecordKind.CENTRE -> links.openCenter(id)
+                    RecordKind.GROUP -> links.openGroup(id)
+                    RecordKind.CLIENT -> links.openClient(id)
                 }
             },
-            onOpenDrafts = { navController.navigateToSyncAndDrafts() },
+            onOpenDrafts = links.openDrafts,
         )
     }
 }

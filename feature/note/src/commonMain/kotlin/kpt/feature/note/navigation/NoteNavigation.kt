@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import kotlinx.serialization.Serializable
+import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.base.ui.nav.popBackStackSafely
 import kpt.core.common.utils.Constants
@@ -32,11 +33,6 @@ import kpt.feature.note.ui.NoteListScreen
  * So the routes carry the owner again, the `notes` store is keyed by it, and the `Note` table has a
  * `resourceType` column (v18). [navigateToClientNotes] stays for the client callers.
  *
- * ## Why nothing here is annotated
- *
- * Both destinations are nested drill-downs reached from client detail. Only TOP-LEVEL entries carry
- * `@FeatureDestination` (spec §4); annotating these would register them as their own root entries
- * on the authenticated graph.
  *
  * @property resourceType the Fineract resource the notes belong to (`clients`, `loans`, …)
  * @property resourceId the id of that resource
@@ -93,6 +89,7 @@ fun NavController.navigateToEditNote(resourceType: String, resourceId: Int, note
  * earlier version passed a "note written" nav result to force a re-fetch, back when the commands
  * were cache-free.
  */
+@FeatureDestination
 fun NavGraphBuilder.noteDestinations(navController: NavController) {
     composableWithPushTransitions<NoteListRoute> {
         NoteListScreen(
