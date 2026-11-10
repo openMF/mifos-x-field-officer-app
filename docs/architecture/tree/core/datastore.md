@@ -55,14 +55,14 @@ interface OfflineSyncSettingsStore
 ```
 _No KDoc at source._
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:48</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:67</code></summary>
 
 ```kotlin
     private val engine: OfflineSyncEngine,
     private val scheduler: OfflineSyncScheduler,
     private val settingsStore: OfflineSyncSettingsStore,
     private val preferences: ForkPreferencesRepository,
-    private val nowMs: () -> Long,
+    private val nowMs: () -> Long = { Clock.System.now().toEpochMilliseconds() },
 ) : OfflineSyncRepository {
 ```
 
@@ -76,7 +76,7 @@ class SettingsOfflineSyncSettingsStore(private val plainSettings: Settings) : Of
 ```
 `Settings`-backed, on the same plain store as the other device preferences.
 
-<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/offline/OfflineSyncRepositoryTest.kt:156</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/offline/OfflineSyncRepositoryTest.kt:166</code></summary>
 
 ```kotlin
         engine = engine,
@@ -144,16 +144,16 @@ interface ForkPreferencesRepository : UserPreferencesRepository
 ```
 The fork's preference surface: everything the framework has no concept of. Inheritance is the contract — a framework preference cannot be dropped without a compile error, and anything declared here is additive.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:50</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/auth/impl/AuthCommandRepositoryImpl.kt:38</code></summary>
 
 ```kotlin
-@OptIn(ExperimentalCoroutinesApi::class)
-class ProfileViewModel(
-    project: ForkPreferencesRepository,
-    serverConfigs: ServerConfigRepository,
-    dashboard: DashboardRepository,
-    staff: StaffRepository,
-    network: NetworkMonitor,
+    private val authApi: AuthApi,
+    private val gateway: MutationGateway,
+    private val preferences: ForkPreferencesRepository,
+    private val storeCacheManager: StoreCacheManager,
+) : AuthCommandRepository {
+
+    override suspend fun authenticate(postAuthenticationRequest: PostAuthenticationRequest) =
 ```
 
 </details>
@@ -170,7 +170,7 @@ class ForkPreferencesRepositoryImpl(
 ```
 Fork preferences, delegating every framework preference to the template's implementation. The keys are namespaced `fineract.*` per the seam's contract, so a future framework preference cannot collide with one of these.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:103</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/auth/AuthCommandRepositoryTest.kt:55</code></summary>
 
 ```kotlin
         val plain = MapSettings()
@@ -228,7 +228,7 @@ class UserPreferencesRepositoryImpl(
 ```
 Splits user data storage between plain (UI preferences) and secure (credentials/auth state) Settings backends.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:104</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/auth/AuthCommandRepositoryTest.kt:56</code></summary>
 
 ```kotlin
         val secure = MapSettings()
@@ -237,7 +237,7 @@ Splits user data storage between plain (UI preferences) and secure (credentials/
             plainSettings = plain,
             secureSettings = secure,
             dispatcher = dispatchers,
-        ).also { it.updateFineractUser(session) }
+        )
 ```
 
 </details>

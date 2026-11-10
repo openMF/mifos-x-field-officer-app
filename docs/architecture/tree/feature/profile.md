@@ -9,7 +9,7 @@ Screens: `ProfileScreen`
 
 ViewModels: `ProfileViewModel`
 
-**Consumes:** `core/store/auth`, `core/store/dashboard`, `core/store/serverconfig`, `core/store/staff`, `core/store/testing`
+**Consumes:** `core/store/auth`, `core/store/dashboard`, `core/store/serverconfig`, `core/store/session`, `core/store/staff`, `core/store/testing`
 
 ### Docs in the tree
 
@@ -26,10 +26,10 @@ only the app's display name, yet it is a real domain model rather than a raw `St
 replaces the *fetcher*, not the screen. Swapping in a signed-in user means widening the model and
 returning it from the store, with the ViewModel and composable untouched.
 
-<!-- api-docs:begin module=feature/profile sha=5d27a7682ed27f822b3120703ef3673783c81d33 -->
+<!-- api-docs:begin module=feature/profile sha=661b010e3b83a0a02b1fe86cb01def3e165c9c98 -->
 ## API reference
 
-_Generated from `feature/profile` at tree `5d27a7682ed2` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/profile` at tree `661b010e3b83` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -43,18 +43,6 @@ rather than re-declaring what they already own.
 data object ProfileRoute
 ```
 The signed-in user's profile screen.
-
-<details><summary>Used in the template — <code>feature/client/src/commonTest/kotlin/kpt/feature/client/navigation/ClientProfileRouteNameTest.kt:32</code></summary>
-
-```kotlin
-    @Test
-    fun theRouteCarriesTheClientIdAsItsPathArgument() {
-        assertEquals("$CLIENT_PROFILE_ROUTE_NAME/42", clientProfileRoute(42))
-    }
-}
-```
-
-</details>
 
 ```kotlin
 fun NavController.navigateToProfile(navOptions: NavOptions? = null) = navigate(ProfileRoute, navOptions)
@@ -140,7 +128,7 @@ data class ProfileUiState(
 ```
 What the profile screen shows: the signed-in user, their staff link, the server session and the change-password sheet.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:129</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:124</code></summary>
 
 ```kotlin
 @Composable
@@ -159,7 +147,7 @@ sealed interface NameState
 ```
 The load state of the user's full name.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:153</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:148</code></summary>
 
 ```kotlin
             if (!state.online) OfflineBanner()
@@ -235,7 +223,7 @@ sealed interface ProfileAction
 ```
 What the user did on the profile screen.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:130</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:125</code></summary>
 
 ```kotlin
 internal fun ProfileBodyContent(
@@ -254,7 +242,7 @@ sealed interface ProfileEvent
 ```
 One-off effects of the profile screen, for the screen to act on.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:108</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:105</code></summary>
 
 ```kotlin
     EventsEffect(viewModel.eventFlow) { event ->
@@ -270,5 +258,5 @@ One-off effects of the profile screen, for the screen to act on.
 
 ---
 
-_10 type(s), 18 function(s)/property(ies); 28 carry KDoc at source; 0 authored example(s); 10 live call site(s)._
+_10 type(s), 18 function(s)/property(ies); 28 carry KDoc at source; 0 authored example(s); 9 live call site(s)._
 <!-- api-docs:end -->

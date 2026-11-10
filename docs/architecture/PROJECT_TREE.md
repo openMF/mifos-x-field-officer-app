@@ -12,19 +12,19 @@
 | `cmp-desktop/` | 12 | [`cmp-desktop/`](tree/cmp-desktop.md) |
 | `cmp-web/` | 22 | [`cmp-web/`](tree/cmp-web.md) |
 | `cmp-shared/` | 9 | [`cmp-shared/`](tree/cmp-shared.md) |
-| `cmp-navigation/` | 63 | [`cmp-navigation/`](tree/cmp-navigation.md) |
+| `cmp-navigation/` | 62 | [`cmp-navigation/`](tree/cmp-navigation.md) |
 
 ## Features
 
 | Area | Files | Page |
 |---|---:|---|
-| `feature/` | 931 | [`feature/`](tree/feature.md) |
+| `feature/` | 932 | [`feature/`](tree/feature.md) |
 
 ## Core layers
 
 | Area | Files | Page |
 |---|---:|---|
-| `core/` | 1354 | [`core/`](tree/core.md) |
+| `core/` | 1357 | [`core/`](tree/core.md) |
 | `core-base/` | 507 | [`core-base/`](tree/core-base.md) |
 
 ## Codegen

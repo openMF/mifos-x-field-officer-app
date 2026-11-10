@@ -2082,7 +2082,7 @@ interface NotificationApi
 ```
 Fineract's in-app notifications — what the top bar's bell opens. No original: the app being ported had none.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/notification/impl/NotificationRepositoryImpl.kt:32</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/notification/impl/NotificationRepositoryImpl.kt:43</code></summary>
 
 ```kotlin
 @RepositoryBinding(binds = NotificationRepository::class)
@@ -2090,6 +2090,7 @@ internal class NotificationRepositoryImpl(
     private val notificationApi: NotificationApi,
     private val gateway: MutationGateway,
     @FromStore(AppStoreIds.Notifications) private val store: Store<Unit, List<AppNotification>>,
+    @FromStore(AppStoreIds.NotificationsLocal) private val localStore: MutableStore<Unit, List<AppNotification>>,
 ) : NotificationRepository {
 ```
 
@@ -2105,16 +2106,16 @@ data class NotificationPageDto(val totalFilteredRecords: Int = 0, val pageItems:
 ```
 `GET notifications` — one page; Fineract returns only unread rows unless `isRead=true`.
 
-<details><summary>Used in the template — <code>core/network/src/commonMain/kotlin/kpt/core/network/mifos/notification/api/NotificationApi.kt:30</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/notification/NotificationRepositoryTest.kt:60</code></summary>
 
 ```kotlin
-        @Query("orderBy") orderBy: String = "id",
-        @Query("sortOrder") sortOrder: String = "DESC",
-    ): NotificationPageDto
+            orderBy: String,
+            sortOrder: String,
+        ) = NotificationPageDto(pageItems = server.filter { it.isRead == isRead })
 
-    /** Marks every notification of the signed-in user read. Fineract answers with an empty body. */
-    @PUT("notifications")
-    suspend fun markAllRead()
+        override suspend fun markAllRead() {
+            markRefused?.let { throw it }
+            marked++
 ```
 
 </details>
@@ -2124,16 +2125,16 @@ data class NotificationDto(
 ```
 A Fineract notification: `objectType` / `objectId` name the record it is about (`loan` 1439).
 
-<details><summary>Used in the template — <code>core/store/src/commonMain/kotlin/kpt/core/store/notification/NotificationStores.kt:41</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/notification/NotificationRepositoryTest.kt:46</code></summary>
 
 ```kotlin
-        val unread = notificationApi.getNotifications(isRead = false, limit = UNREAD_CAP).pageItems
-        val read = notificationApi.getNotifications(isRead = true, limit = READ_HISTORY).pageItems
-        (unread + read).distinctBy { it.id }.map(NotificationDto::toModel)
-    },
-)
 
-internal fun NotificationDto.toModel() = AppNotification(
+    private var server = listOf(
+        NotificationDto(id = 1, objectType = "loan", objectId = 10, content = "Loan approved"),
+        NotificationDto(id = 2, objectType = "client", objectId = 20, content = "Client activated"),
+        NotificationDto(id = 3, objectType = "loan", objectId = 11, content = "Repayment", isRead = true),
+    )
+    private var markRefused: Throwable? = null
 ```
 
 </details>

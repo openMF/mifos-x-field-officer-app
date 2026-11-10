@@ -130,16 +130,16 @@ data class CenterAccounts(
 ```
 Created by mayankjindal on 11/07/17.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:100</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:106</code></summary>
 
 ```kotlin
-internal class EntityStores(
+    @FromStore(AppStoreIds.CenterGetCenterWithGroupMembersAndCollectionMeetingCalendar)
     val centre: Store<Int, CenterWithAssociations>,
-    val centreAccounts: Store<Int, CenterAccounts>,
-    val centreItem: MutableStore<Int, Center>,
-    val group: Store<Int, GroupWithAssociations>,
-    val groupRow: Store<Int, Group>,
-    val groupAccounts: Store<Int, GroupAccounts>,
+    @FromStore(AppStoreIds.CenterGetCenterAccounts) val centreAccounts: Store<Int, CenterAccounts>,
+    @FromStore(AppStoreIds.CenterItem) val centreItem: MutableStore<Int, Center>,
+    @FromStore(AppStoreIds.GroupGetGroupWithAssociations) val group: Store<Int, GroupWithAssociations>,
+    @FromStore(AppStoreIds.GroupGetGroup) val groupRow: Store<Int, Group>,
+    @FromStore(AppStoreIds.GroupGetGroupAccounts) val groupAccounts: Store<Int, GroupAccounts>,
 ```
 
 </details>
@@ -2269,16 +2269,16 @@ interface OfflineSyncDao
 ```
 Room queries for offline sync rows.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:45</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:60</code></summary>
 
 ```kotlin
-@OptIn(ExperimentalCoroutinesApi::class)
+@RepositoryBinding(binds = OfflineSyncRepository::class)
 internal class OfflineSyncRepositoryImpl(
     private val dao: OfflineSyncDao,
-    private val engine: OfflineSyncEngine,
-    private val scheduler: OfflineSyncScheduler,
-    private val settingsStore: OfflineSyncSettingsStore,
-    private val preferences: ForkPreferencesRepository,
+    @FromStore(AppStoreIds.OfflineRecord) private val recordStore: MutableStore<OfflineRecordKey, OfflineRecord>,
+    @FromStore(AppStoreIds.OfflineRecordStatus)
+    private val statusStore: MutableStore<OfflineRecordKey, RecordSyncStatus>,
+    @FromStore(AppStoreIds.SyncJob) private val jobStore: MutableStore<SyncJobKey, SyncJob>,
 ```
 
 </details>
@@ -2305,16 +2305,16 @@ data class OfflineRecordEntity(
 ```
 A centre, group or client held on the device for Offline sync — chosen by the officer or brought in through a parent. Keyed by user as well as record, so on a shared field device one officer's inventory is never shown to the next.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:230</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/offline/OfflineSyncRepositoryTest.kt:323</code></summary>
 
 ```kotlin
-}
+        // swallow it — the officer would see "downloading" for a record that was never queued.
+        val broken = object : OfflineSyncDao by dao {
+            override suspend fun upsertRecord(record: OfflineRecordEntity) = error("disk full")
+        }
 
-private fun OfflineRecord.toEntity(userId: Long) = OfflineRecordEntity(
-    userId = userId, kind = kind.name, id = id, name = name,
-    parentKind = parentKind?.name, parentId = parentId, parentName = parentName, chosen = chosen,
-    groups = groups, clients = clients, loans = loans, savings = savings, documents = documents,
-    status = status.name, refreshedAtMs = refreshedAtMs, failedCount = failedCount,
+        val failure = assertFailsWith<Exception> {
+            repository(broken).download(listOf(SyncTarget(RecordKind.CENTRE, 1, "North")))
 ```
 
 </details>
@@ -2324,16 +2324,16 @@ data class SyncJobEntity(
 ```
 One background download — durable so its progress survives the screen and the process. `targets` and `failures` are line-encoded (`KIND\tid\tname`, `item\treason`): they are only ever read back whole, so a child table would be ceremony.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:149</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonTest/kotlin/kpt/core/data/offline/OfflineSyncRepositoryTest.kt:247</code></summary>
 
 ```kotlin
-    private suspend fun runJob(user: Long, targets: List<SyncTarget>) {
-        val started = nowMs()
-        var job = SyncJobEntity(
-            userId = user, status = SyncJobStatus.RUNNING.name, targets = targets.encodeTargets(),
-            done = 0, total = targets.size, reads = 0, currentLabel = null, failures = "",
-            startedAtMs = started, finishedAtMs = null,
-        )
+        repository.download(listOf(SyncTarget(RecordKind.CENTRE, 1, "North")))
+        dao.insertJob(
+            SyncJobEntity(
+                userId = USER,
+                status = "RUNNING",
+                targets = "",
+                done = 0,
 ```
 
 </details>
@@ -2366,10 +2366,10 @@ interface RecentRecordDao
 ```
 Room queries for recent record rows.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:36</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:38</code></summary>
 
 ```kotlin
-@OptIn(ExperimentalCoroutinesApi::class)
+@RepositoryBinding(binds = RecentRecordsRepository::class)
 class RecentRecordsRepositoryImpl(
     private val dao: RecentRecordDao,
     private val preferences: ForkPreferencesRepository,
@@ -2392,7 +2392,7 @@ data class RecentRecordEntity(
 ```
 A record the signed-in officer opened, for Home's "Recently opened". Keyed by user as well as record, so on a shared field device one officer's history is never shown to the next.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:56</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/recent/RecentRecordsRepository.kt:58</code></summary>
 
 ```kotlin
 

@@ -1,9 +1,9 @@
 # `feature/client/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 158 tracked files — 118× `.kt`, 32× `.xml`, 3× `.png`, 2× `.md`, 2× `.js`
+> **Measured:** 157 tracked files — 117× `.kt`, 32× `.xml`, 3× `.png`, 2× `.md`, 2× `.js`
 
-**118 Kotlin files** — 27 screen(s), 27 ViewModel(s).
+**117 Kotlin files** — 27 screen(s), 27 ViewModel(s).
 
 Screens: `ClientAddAddressScreen`, `ClientAddDocumentScreen`, `ClientAddIdentifierScreen`, `ClientAddressScreen`, `ClientApplyNewScreen`, `ClientClosureScreen`, `ClientCollateralDetailsScreen`, `ClientCollateralScreen`, `ClientDefaultAccountScreen`, `ClientDepositAccountsScreen`, `ClientDetailsScreen`, `ClientDocumentPreviewScreen`, `ClientDocumentsScreen`, `ClientEditDetailsScreen`, `ClientEditProfileScreen`, `ClientGeneralScreen`, `ClientIdentifiersScreen`, `ClientListScreen`, `ClientLoanAccountsScreen`, `ClientProfileScreen`, `ClientShareAccountsScreen`, `ClientSignatureScreen`, `ClientStaffScreen`, `ClientTransferScreen`, `CreateNewClientScreen`, `FixedDepositApplicationScreen`, `ShareApplicationScreen`
 
@@ -23,10 +23,10 @@ ViewModels: `ClientAddAddressViewModel`, `ClientAddDocumentViewModel`, `ClientAd
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/client sha=5e306da5aad66e3c7559c84b56696dd8803e28ba -->
+<!-- api-docs:begin module=feature/client sha=87eed40052647acdf98244ba360fb1316437b464 -->
 ## API reference
 
-_Generated from `feature/client` at tree `5e306da5aad6` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/client` at tree `87eed4005264` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -727,9 +727,19 @@ fun NavController.navigateToClientDocumentPreview(route: ClientDocumentPreviewRo
 </details>
 
 ```kotlin
-fun NavGraphBuilder.clientListDestination(navController: NavController)
+data class ClientLinks(
 ```
-The client list — a TOP-LEVEL destination on the authenticated graph, so it is annotated and collected into `GeneratedFeatureDestinations` by `:cmp-navigation:generateFeatureDestinations`.
+Where the client screens lead outside this feature. A feature never depends on another, so these are callbacks; `ForkFeatureRegistry` fills each with the owning feature's `navigateTo…` of the same shape.
+
+```kotlin
+fun NavGraphBuilder.clientListDestination(navController: NavController, links: ClientLinks)
+```
+The client list — a TOP-LEVEL destination on the authenticated graph.
+
+```kotlin
+fun NavController.openClientRecord(record: GenericSearchRecord)
+```
+Opens what a record-search result points at: the client's address or identifier list, by the record's type.
 
 ```kotlin
 fun NavGraphBuilder.clientTabGraph(outerNav: NavController)
@@ -843,5 +853,5 @@ Ported verbatim from `6b66e8a43:feature/client/clientProfile/ClientProfileAction
 
 ---
 
-_34 type(s), 39 function(s)/property(ies); 73 carry KDoc at source; 0 authored example(s); 33 live call site(s)._
+_35 type(s), 40 function(s)/property(ies); 75 carry KDoc at source; 0 authored example(s); 33 live call site(s)._
 <!-- api-docs:end -->

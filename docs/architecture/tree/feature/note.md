@@ -1,15 +1,15 @@
 # `feature/note/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 29 tracked files — 16× `.kt`, 9× `.png`, 2× `.md`, 1× `.kts`, 1× `.xml`
+> **Measured:** 28 tracked files — 15× `.kt`, 9× `.png`, 2× `.md`, 1× `.kts`, 1× `.xml`
 
-**16 Kotlin files** — 2 screen(s), 2 ViewModel(s).
+**15 Kotlin files** — 2 screen(s), 2 ViewModel(s).
 
 Screens: `AddEditNoteScreen`, `NoteListScreen`
 
 ViewModels: `AddEditNoteViewModel`, `NoteListViewModel`
 
-**Consumes:** `core/store/note`
+**Consumes:** `core/store/note`, `core/store/testing`
 
 ### Docs in the tree
 
@@ -23,10 +23,10 @@ ViewModels: `AddEditNoteViewModel`, `NoteListViewModel`
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/note sha=f0e31264d162fb8c07aac48071412be36ab44549 -->
+<!-- api-docs:begin module=feature/note sha=52faafee789b9397d1be1c473dab4f0490f47aa3 -->
 ## API reference
 
-_Generated from `feature/note` at tree `f0e31264d162` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/note` at tree `52faafee789b` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published

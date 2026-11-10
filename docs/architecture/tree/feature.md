@@ -1,26 +1,26 @@
 # `feature/`
 
 > **Kind:** Kotlin Multiplatform module group  
-> **Measured:** 931 tracked files — 486× `.kt`, 193× `.xml`, 179× `.png`, 41× `.md`, 23× `.kts`
+> **Measured:** 932 tracked files — 484× `.kt`, 193× `.xml`, 179× `.png`, 44× `.md`, 23× `.kts`
 
 ## Shape
 
 | Path | Files |
 |---|---:|
-| `feature/client/` | 158 |
+| `feature/client/` | 157 |
 | `feature/loan/` | 93 |
 | `feature/settings/` | 85 |
 | `feature/home/` | 59 |
 | `feature/profile/` | 49 |
 | `feature/onboarding/` | 46 |
 | `feature/savings/` | 43 |
-| `feature/offlinesync/` | 39 |
+| `feature/offlinesync/` | 40 |
 | `feature/center/` | 34 |
-| `feature/notification/` | 33 |
+| `feature/notification/` | 34 |
+| `feature/pathtracking/` | 33 |
 | `feature/groups/` | 32 |
-| `feature/pathtracking/` | 32 |
 | `feature/charge/` | 29 |
-| `feature/note/` | 29 |
+| `feature/note/` | 28 |
 | `feature/report/` | 27 |
 | `feature/collectionsheet/` | 19 |
 | `feature/document/` | 19 |
@@ -41,14 +41,14 @@
 | `feature:center` | 20 Kotlin files — [guide](feature/center.md) |
 | `feature:charge` | 15 Kotlin files — [guide](feature/charge.md) |
 | `feature:checkerinbox` | 7 Kotlin files — [guide](feature/checkerinbox.md) |
-| `feature:client` | 118 Kotlin files — [guide](feature/client.md) |
+| `feature:client` | 117 Kotlin files — [guide](feature/client.md) |
 | `feature:collectionsheet` | 10 Kotlin files — [guide](feature/collectionsheet.md) |
 | `feature:datatable` | 10 Kotlin files — [guide](feature/datatable.md) |
 | `feature:document` | 11 Kotlin files — [guide](feature/document.md) |
 | `feature:groups` | 22 Kotlin files — [guide](feature/groups.md) |
 | `feature:home` | 26 Kotlin files — [guide](feature/home.md) |
 | `feature:loan` | 66 Kotlin files — [guide](feature/loan.md) |
-| `feature:note` | 16 Kotlin files — [guide](feature/note.md) |
+| `feature:note` | 15 Kotlin files — [guide](feature/note.md) |
 | `feature:notification` | 7 Kotlin files — [guide](feature/notification.md) |
 | `feature:offlinesync` | 10 Kotlin files — [guide](feature/offlinesync.md) |
 | `feature:onboarding` | 9 Kotlin files — [guide](feature/onboarding.md) |
@@ -69,18 +69,18 @@
 | `feature/center/` | 34 | [center](feature/center.md) |
 | `feature/charge/` | 29 | [charge](feature/charge.md) |
 | `feature/checkerinbox/` | 18 | [checkerinbox](feature/checkerinbox.md) |
-| `feature/client/` | 158 | [client](feature/client.md) |
+| `feature/client/` | 157 | [client](feature/client.md) |
 | `feature/collectionsheet/` | 19 | [collectionsheet](feature/collectionsheet.md) |
 | `feature/datatable/` | 18 | [datatable](feature/datatable.md) |
 | `feature/document/` | 19 | [document](feature/document.md) |
 | `feature/groups/` | 32 | [groups](feature/groups.md) |
 | `feature/home/` | 59 | [home](feature/home.md) |
 | `feature/loan/` | 93 | [loan](feature/loan.md) |
-| `feature/note/` | 29 | [note](feature/note.md) |
-| `feature/notification/` | 33 | [notification](feature/notification.md) |
-| `feature/offlinesync/` | 39 | [offlinesync](feature/offlinesync.md) |
+| `feature/note/` | 28 | [note](feature/note.md) |
+| `feature/notification/` | 34 | [notification](feature/notification.md) |
+| `feature/offlinesync/` | 40 | [offlinesync](feature/offlinesync.md) |
 | `feature/onboarding/` | 46 | [onboarding](feature/onboarding.md) |
-| `feature/pathtracking/` | 32 | [pathtracking](feature/pathtracking.md) |
+| `feature/pathtracking/` | 33 | [pathtracking](feature/pathtracking.md) |
 | `feature/profile/` | 49 | [profile](feature/profile.md) |
 | `feature/report/` | 27 | [report](feature/report.md) |
 | `feature/savings/` | 43 | [savings](feature/savings.md) |
@@ -121,8 +121,11 @@ _Authored beside the code, where the module's own consumers read them._
 | `feature/note/MIGRATION.md` | feature/note — migration ledger |
 | `feature/note/README.md` | :feature:note |
 | `feature/notification/MIGRATION.md` | feature/notification — ledger |
+| `feature/notification/README.md` | :feature:notification |
 | `feature/offlinesync/MIGRATION.md` | feature/offlinesync — migration notes |
+| `feature/offlinesync/README.md` | :feature:offlinesync |
 | `feature/pathtracking/MIGRATION.md` | feature/pathtracking — migration ledger |
+| `feature/pathtracking/README.md` | :feature:pathtracking |
 | `feature/profile/MIGRATION.md` | feature/profile — migration ledger |
 | `feature/profile/README.md` | :feature:profile |
 | `feature/report/MIGRATION.md` | feature/report — migration ledger |

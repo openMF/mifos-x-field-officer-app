@@ -620,16 +620,14 @@ fun SignOutDialog(state: SignOutState, onAction: (SignOutAction) -> Unit)
 ```
 The sign-out choice, shown while `SignOutState.confirming`. Stateless — `SignOutViewModel` owns it.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:122</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:97</code></summary>
 
 ```kotlin
-    )
+    val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
     if (signOut.confirming) {
-        SignOutDialog(state = signOut, onAction = signOutViewModel::trySendAction)
+        SignOutDialog(state = signOut, onAction = { signOutViewModel.trySendAction(it) })
     }
 }
-
-/** Stateless half — previews and UI tests drive it directly. */
 ```
 
 </details>
@@ -668,16 +666,16 @@ class SignOutViewModel(
 ```
 Sign-out, at the bottom of Settings (moved from the Profile tab, 2026-10-25). Local only, so it works offline — a field officer who cannot sign out without signal is stranded.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:101</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:67</code></summary>
 
 ```kotlin
-    modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel = koinViewModel(),
+    onAboutClick: (() -> Unit)? = null,
+    onOfflineSyncClick: (() -> Unit)? = null,
     signOutViewModel: SignOutViewModel = koinViewModel(),
 ) {
-    val state by viewModel.profile.collectAsStateWithLifecycle()
-    val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
-    val snackbar = remember { SnackbarHostState() }
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
+    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
 ```
 
 </details>
@@ -725,16 +723,16 @@ sealed interface SignOutAction
 ```
 What the officer did in the sign-out flow.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:117</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:82</code></summary>
 
 ```kotlin
-        onBack = onBack,
-        onServerSettings = onServerSettings,
-        onSignOut = { signOutViewModel.trySendAction(SignOutAction.Requested) },
-        snackbarHostState = snackbar,
+        onOfflineSyncClick = onOfflineSyncClick,
+        onPrivacyClick = { showPrivacySheet = true },
+        onSignOutClick = { signOutViewModel.trySendAction(SignOutAction.Requested) },
         modifier = modifier,
     )
-    if (signOut.confirming) {
+
+    if (showThemeDialog) {
 ```
 
 </details>

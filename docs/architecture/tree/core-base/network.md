@@ -551,7 +551,7 @@ class NetworkConfigRepository(
 ```
 The app's network configs at runtime: every access point app-profile declares, changeable, plus any added at runtime — with one of them MAIN. **Main.** App-profile marks one access point `main: true`.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:44</code></summary>
 
 ```kotlin
     // server-config screen's five fields. One persisted source for the screen and the HTTP client.

@@ -23,10 +23,10 @@ ViewModels: `RecurringDepositViewModel`, `SavingsApplicationViewModel`, `Savings
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/savings sha=f1da4f6f4e007956975cb92b7bbf7f3a54f31c71 -->
+<!-- api-docs:begin module=feature/savings sha=2408f7fe68eb981d37224567725e5d15b275390c -->
 ## API reference
 
-_Generated from `feature/savings` at tree `f1da4f6f4e00` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/savings` at tree `2408f7fe68eb` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -94,11 +94,16 @@ fun NavController.navigateToSavingsActivation(accountId: Int, navOptions: NavOpt
 Opens the activation of savings account `accountId`.
 
 ```kotlin
-fun NavGraphBuilder.savingsDestination(navController: NavController)
+data class SavingsLinks(
 ```
-Registers every savings screen in the nav graph.
+Where the savings screens lead outside this feature — callbacks `ForkFeatureRegistry` fills with the owning feature's `navigateTo…` of the same shape, since a feature never depends on another.
+
+```kotlin
+fun NavGraphBuilder.savingsDestination(navController: NavController, links: SavingsLinks)
+```
+Registers every savings screen in the nav graph. Not `@FeatureDestination`: the summary opens charges, documents and datatables, so `ForkFeatureRegistry` registers it with `SavingsLinks`.
 
 ---
 
-_5 type(s), 7 function(s)/property(ies); 12 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_6 type(s), 7 function(s)/property(ies); 13 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

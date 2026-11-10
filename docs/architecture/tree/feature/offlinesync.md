@@ -1,7 +1,7 @@
 # `feature/offlinesync/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 39 tracked files — 20× `.xml`, 10× `.kt`, 7× `.png`, 1× `.md`, 1× `.kts`
+> **Measured:** 40 tracked files — 20× `.xml`, 10× `.kt`, 7× `.png`, 2× `.md`, 1× `.kts`
 
 **10 Kotlin files** — 1 screen(s), 1 ViewModel(s).
 
@@ -16,16 +16,17 @@ ViewModels: `OfflineSyncViewModel`
 | Path | |
 |---|---|
 | `feature/offlinesync/MIGRATION.md` | feature/offlinesync — migration notes |
+| `feature/offlinesync/README.md` | :feature:offlinesync |
 
 <!-- tree-scaffold:end -->
 ## Significance
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/offlinesync sha=b8c378b2d672effd2ec04db82b0e69424e71bd41 -->
+<!-- api-docs:begin module=feature/offlinesync sha=efd5d5d632aabf128564f49716b4c5755cb22262 -->
 ## API reference
 
-_Generated from `feature/offlinesync` at tree `b8c378b2d672` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/offlinesync` at tree `efd5d5d632aa` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -48,9 +49,14 @@ data object OfflineSyncRoute
 Settings → Offline sync.
 
 ```kotlin
-fun NavGraphBuilder.offlineSyncDestination(navController: NavController)
+data class OfflineSyncLinks(
 ```
-Registers the offline-sync screen in the nav graph.
+Where the offline-sync screen leads outside this feature — callbacks `ForkFeatureRegistry` fills, since a feature never depends on another.
+
+```kotlin
+fun NavGraphBuilder.offlineSyncDestination(navController: NavController, links: OfflineSyncLinks)
+```
+Registers the offline-sync screen in the nav graph. Not `@FeatureDestination`: it opens records and drafts owned by other features, so `ForkFeatureRegistry` registers it with `OfflineSyncLinks`.
 
 ```kotlin
 fun NavController.navigateToOfflineSync() = navigate(OfflineSyncRoute)
@@ -59,5 +65,5 @@ Opens the offline-sync screen.
 
 ---
 
-_1 type(s), 3 function(s)/property(ies); 4 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_2 type(s), 3 function(s)/property(ies); 5 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

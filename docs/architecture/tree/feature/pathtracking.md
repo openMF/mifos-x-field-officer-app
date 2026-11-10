@@ -1,7 +1,7 @@
 # `feature/pathtracking/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 32 tracked files — 20× `.xml`, 7× `.kt`, 3× `.png`, 1× `.md`, 1× `.kts`
+> **Measured:** 33 tracked files — 20× `.xml`, 7× `.kt`, 3× `.png`, 2× `.md`, 1× `.kts`
 
 **7 Kotlin files** — 1 screen(s), 1 ViewModel(s).
 
@@ -16,6 +16,7 @@ ViewModels: `PathTrackingViewModel`
 | Path | |
 |---|---|
 | `feature/pathtracking/MIGRATION.md` | feature/pathtracking — migration ledger |
+| `feature/pathtracking/README.md` | :feature:pathtracking |
 
 <!-- tree-scaffold:end -->
 ## Significance

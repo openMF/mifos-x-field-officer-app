@@ -23,10 +23,10 @@ ViewModels: `CenterDetailViewModel`, `CenterListViewModel`, `CreateCenterViewMod
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/center sha=4402a3bfc66518d10740bea0fc7c66be616c24bb -->
+<!-- api-docs:begin module=feature/center sha=cb169447d5317b695f44e02c9c2d0969354427eb -->
 ## API reference
 
-_Generated from `feature/center` at tree `4402a3bfc665` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/center` at tree `cb169447d531` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -109,9 +109,14 @@ fun NavController.navigateToCreateCenter(navOptions: NavOptions? = null) = navig
 Opens the new-centre form.
 
 ```kotlin
-fun NavGraphBuilder.centerListDestination(navController: NavController)
+data class CenterLinks(
 ```
-The center list — a TOP-LEVEL destination on the authenticated graph, collected into `GeneratedFeatureDestinations` by `:cmp-navigation:generateFeatureDestinations`.
+Where the centre screens lead outside this feature. A feature never depends on another, so these are callbacks; `ForkFeatureRegistry` fills them with the owning feature's `navigateTo…`.
+
+```kotlin
+fun NavGraphBuilder.centerListDestination(navController: NavController, links: CenterLinks)
+```
+The center list — a TOP-LEVEL destination on the authenticated graph. Not `@FeatureDestination`: the detail screen opens other features, so `ForkFeatureRegistry` registers it with `CenterLinks`.
 
 ```kotlin
 fun NavGraphBuilder.centerTabGraph(outerNav: NavController)
@@ -127,5 +132,5 @@ The Centers bottom-nav tab. Declared here via `@FeatureTab` rather than in `cmp-
 
 ---
 
-_5 type(s), 7 function(s)/property(ies); 12 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
+_6 type(s), 7 function(s)/property(ies); 13 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
 <!-- api-docs:end -->

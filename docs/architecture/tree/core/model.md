@@ -14,10 +14,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/model sha=82f26fb6cdec2d468dc31bdf0ab637f1edf86788 -->
+<!-- api-docs:begin module=core/model sha=a8b3a63e3bd7ee492011bf68da557d437b5b416e -->
 ## API reference
 
-_Generated from `core/model` at tree `82f26fb6cdec` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/model` at tree `a8b3a63e3bd7` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/model/src/commonMain/kotlin/kpt/core/model/auth/ChangePasswordRequest.kt`
@@ -27,16 +27,16 @@ data class ChangePasswordRequest(
 ```
 `POST users/{userId}/pwd` — the signed-in user changes their own password. The server checks the policy AND that the two match (measured on the gateway 2026-10-27), so the screen's own match check only saves a round trip.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/auth/impl/AuthCommandRepositoryImpl.kt:93</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/auth/impl/AuthCommandRepositoryImpl.kt:99</code></summary>
 
 ```kotlin
-        val changed = gateway.command(
+        val result = gateway.command(
             CommandSpec(
                 payload = ChangePasswordRequest(password = newPassword, repeatPassword = repeatPassword),
-                endpoint = { authApi.changePassword(userId = user.userId, request = it) },
-            ),
-            policy = MutationPolicy.OnlineRequired,
-        )
+                endpoint = {
+                    authApi.changePassword(userId = user.userId, request = it)
+                    changed = true
+                    authApi.authenticate(PostAuthenticationRequest(password = newPassword, username = username))
 ```
 
 </details>
@@ -111,16 +111,16 @@ data class CenterAccounts(
 ```
 GENERATED twin — what every layer above `core/store` sees of `core/database`'s `CenterAccounts`. Same field names as the row; the `core/store/mapping/` mappers convert between them.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:100</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:106</code></summary>
 
 ```kotlin
-internal class EntityStores(
+    @FromStore(AppStoreIds.CenterGetCenterWithGroupMembersAndCollectionMeetingCalendar)
     val centre: Store<Int, CenterWithAssociations>,
-    val centreAccounts: Store<Int, CenterAccounts>,
-    val centreItem: MutableStore<Int, Center>,
-    val group: Store<Int, GroupWithAssociations>,
-    val groupRow: Store<Int, Group>,
-    val groupAccounts: Store<Int, GroupAccounts>,
+    @FromStore(AppStoreIds.CenterGetCenterAccounts) val centreAccounts: Store<Int, CenterAccounts>,
+    @FromStore(AppStoreIds.CenterItem) val centreItem: MutableStore<Int, Center>,
+    @FromStore(AppStoreIds.GroupGetGroupWithAssociations) val group: Store<Int, GroupWithAssociations>,
+    @FromStore(AppStoreIds.GroupGetGroup) val groupRow: Store<Int, Group>,
+    @FromStore(AppStoreIds.GroupGetGroupAccounts) val groupAccounts: Store<Int, GroupAccounts>,
 ```
 
 </details>
@@ -2100,16 +2100,16 @@ data class AppNotification(
 ```
 One Fineract notification. `objectType` (`loan`, `client`, `group`, `center`, `savingsAccount` …) and `objectId` name the record it is about; `createdAt` is the server's ISO local date-time.
 
-<details><summary>Used in the template — <code>feature/notification/src/commonMain/kotlin/kpt/feature/notification/navigation/NotificationsRoute.kt:46</code></summary>
+<details><summary>Used in the template — <code>feature/notification/src/commonMain/kotlin/kpt/feature/notification/navigation/NotificationsRoute.kt:61</code></summary>
 
 ```kotlin
 
 /** Opens the record a notification is about; the screen only offers the tap for these kinds. */
-private fun NavController.openRecordOf(notification: AppNotification) {
+private fun NotificationLinks.openRecordOf(notification: AppNotification) {
     val id = notification.objectId?.toInt() ?: return
     when (notification.target) {
-        NotificationTarget.LOAN -> navigateToLoanProfile(id)
-        NotificationTarget.CLIENT -> navigateToClientProfile(id)
+        NotificationTarget.LOAN -> openLoan(id)
+        NotificationTarget.CLIENT -> openClient(id)
 ```
 
 </details>
@@ -2121,7 +2121,7 @@ data class Changes(
 ```
 The fields a command changed, as the server echoes them.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:197</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:181</code></summary>
 
 ```kotlin
 
@@ -2557,10 +2557,10 @@ data class RepaymentSchedule(
 ```
 Created by ishankhanna on 19/06/14.
 
-<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:275</code></summary>
+<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:289</code></summary>
 
 ```kotlin
-private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, loanId: Int) {
+private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, loanId: Int, links: LoanLinks) {
     when (item) {
         LoanProfileActionItem.RepaymentSchedule ->
             navigate(LoanScheduleRoute(loanId))
@@ -2637,16 +2637,16 @@ data class SavingsApproval(
 ```
 The wire body for `POST savingsaccounts/{id}?command=approve`.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/savings/impl/SavingsCommandRepositoryImpl.kt:144</code></summary>
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/navigation/ClientNavigation.kt:373</code></summary>
 
 ```kotlin
-                savingsAccountApi.approveSavingsApplication(
-                    savingsAccountId = savingsAccountId,
-                    savingsApproval = SavingsApproval(
-                        approvedOnDate = it.approvedOnDate,
-                        locale = it.locale,
-                        dateFormat = it.dateFormat,
-                        note = it.note,
+    val openLoanRepayment: (loanId: Int) -> Unit,
+    val openSavingsSummary: (accountId: Int, accountType: String) -> Unit,
+    val openSavingsApproval: (accountId: Int) -> Unit,
+)
+
+/**
+ * The client list — a TOP-LEVEL destination on the authenticated graph. Not `@FeatureDestination`:
 ```
 
 </details>
@@ -4617,16 +4617,15 @@ data class CreateNoteResponseDto(
 ```
 Server response to a create note request.
 
-<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:110</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/note/NoteCommandRepository.kt:39</code></summary>
 
 ```kotlin
         noteRequestDto: NoteRequestDto,
         idempotencyKey: String,
-    ): MutationResult<CreateNoteResponseDto> {
-        added += Written(resourceType, resourceId, text = noteRequestDto.note)
-        createKeys += idempotencyKey
-        return outcome().map { CreateNoteResponseDto() }
-    }
+    ): MutationResult<CreateNoteResponseDto>
+
+    /** Deletes a note of a resource. */
+    suspend fun deleteNote(resourceType: String, resourceId: Long, noteId: Long): MutationResult<DeleteNoteResponseDto>
 ```
 
 </details>
@@ -4638,15 +4637,16 @@ data class DeleteNoteResponseDto(
 ```
 Server response to a delete note request.
 
-<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:130</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/note/NoteCommandRepository.kt:42</code></summary>
 
 ```kotlin
-        resourceId: Long,
-        noteId: Long,
-    ): MutationResult<DeleteNoteResponseDto> {
-        deleted += Written(resourceType, resourceId, noteId)
-        return outcome().map { DeleteNoteResponseDto() }
-    }
+
+    /** Deletes a note of a resource. */
+    suspend fun deleteNote(resourceType: String, resourceId: Long, noteId: Long): MutationResult<DeleteNoteResponseDto>
+
+    /** Updates a note of a resource. */
+    suspend fun updateNote(
+        resourceType: String,
 ```
 
 </details>
@@ -4679,16 +4679,16 @@ data class NoteRequestDto(
 ```
 Request body for a note.
 
-<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:108</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/note/NoteCommandRepository.kt:37</code></summary>
 
 ```kotlin
         resourceType: String,
         resourceId: Long,
         noteRequestDto: NoteRequestDto,
         idempotencyKey: String,
-    ): MutationResult<CreateNoteResponseDto> {
-        added += Written(resourceType, resourceId, text = noteRequestDto.note)
-        createKeys += idempotencyKey
+    ): MutationResult<CreateNoteResponseDto>
+
+    /** Deletes a note of a resource. */
 ```
 
 </details>
@@ -4700,15 +4700,16 @@ data class UpdateNoteResponseDto(
 ```
 Server response to an update note request.
 
-<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/testing/FakeNoteRepository.kt:121</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/note/NoteCommandRepository.kt:50</code></summary>
 
 ```kotlin
         noteId: Long,
         noteRequestDto: NoteRequestDto,
-    ): MutationResult<UpdateNoteResponseDto> {
-        updated += Written(resourceType, resourceId, noteId, noteRequestDto.note)
-        return outcome().map { UpdateNoteResponseDto() }
-    }
+    ): MutationResult<UpdateNoteResponseDto>
+
+    /**
+     * Send one [NoteDraft] — create or update, decided by `noteId`.
+     *
 ```
 
 </details>
@@ -5230,16 +5231,16 @@ data class GenericSearchRecord(
 ```
 One search hit: a client, group, centre or account.
 
-<details><summary>Used in the template — <code>feature/searchrecord/src/commonMain/kotlin/kpt/feature/searchrecord/navigation/SearchRecordRoute.kt:37</code></summary>
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/navigation/ClientNavigation.kt:787</code></summary>
 
 ```kotlin
-fun NavGraphBuilder.searchRecordDestination(
-    onBackClick: () -> Unit,
-    onRecordSelected: (GenericSearchRecord) -> Unit,
-) {
-    composableWithPushTransitions<SearchRecordRoute> {
-        SearchRecordScreen(
-            onBackClick = onBackClick,
+ * routes its results here, since both ends of the search are client screens.
+ */
+fun NavController.openClientRecord(record: GenericSearchRecord) {
+    val clientId = record.metadata[Constants.CLIENT_ID]?.toIntOrNull()
+    if (clientId == null) {
+        Logger.w(TAG) { "search result ${record.type}/${record.id} has no client id; not navigating" }
+    } else if (record.type.equals(RecordType.ADDRESS.name, ignoreCase = true)) {
 ```
 
 </details>
@@ -5251,16 +5252,16 @@ enum class RecordType
 ```
 Kind of a record.
 
-<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/navigation/ClientNavigation.kt:494</code></summary>
+<details><summary>Used in the template — <code>feature/client/src/commonMain/kotlin/kpt/feature/client/navigation/ClientNavigation.kt:365</code></summary>
 
 ```kotlin
-            // landed.
-            onAddNewIdentifier = navController::navigateToClientAddIdentifier,
-            onNavigateToSearch = { navController.navigateToSearchRecord(RecordType.IDENTIFIER) },
-            // The original form's VIEW_DOCUMENT phase, now the shared in-app preview. The scan
-            // is a `client_identifiers` document keyed by the CLIENT's id — the original's
-            // storage convention, kept so scans it uploaded are still found.
-            onViewDocument = { event ->
+    val openCharges: (resource: ChargeResource, resourceId: Int) -> Unit,
+    val openAddCharge: (resource: ChargeResource, resourceId: Int) -> Unit,
+    val openSearchRecord: (type: RecordType) -> Unit,
+    val openNewLoanApplication: (clientId: Int) -> Unit,
+    val openSavingsApplication: (ownerId: Int, isGroup: Boolean) -> Unit,
+    val openRecurringDepositApplication: (clientId: Int) -> Unit,
+    val activateClient: (clientId: Int) -> Unit,
 ```
 
 </details>
@@ -8836,7 +8837,7 @@ data class Changes(
 ```
 The fields a command changed, as the server echoes them.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:197</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:181</code></summary>
 
 ```kotlin
 
@@ -9413,7 +9414,7 @@ data class ServerConfig(
 ```
 A server config.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:77</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:93</code></summary>
 
 ```kotlin
         serverConfigs.instancesStream(viewModelScope).state,
