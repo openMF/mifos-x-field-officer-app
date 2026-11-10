@@ -1,12 +1,17 @@
 # Discrete content-rating declaration — folds 1:1 into app-profile/platforms/android/app-content/.
 # Split out from app-content.yaml because store-assets-sync.ts reads the per-question files by key.
 schema_version: 1
+# The store this declaration is for.
 platform: android
+# The listing locale it applies to.
 locale: en-US
 
+# The IARC questionnaire category.
 category: "Utility, Productivity, Communication, or Other"
+# The contact address IARC sends the rating certificate to.
 email: "team@mifos.org"
 
+# The questionnaire answers, one per question.
 answers:
   violence: none
   sexuality_nudity: none
@@ -20,6 +25,7 @@ answers:
   digital_purchases: false
   contains_ads: false
 
+# The rating the answers produce, and why.
 outcome:
   iarc_rating: "Everyone"
   rationale: >-

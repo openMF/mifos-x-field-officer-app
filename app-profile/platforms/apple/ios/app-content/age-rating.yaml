@@ -2,18 +2,33 @@
 # a business tool for financial-institution staff — no media library, no social features, no web view
 # to arbitrary sites, no gambling, no purchases.
 cartoon_fantasy_violence: NONE
+# Realistic depictions of violence against people or animals.
 realistic_violence: NONE
+# Prolonged, graphic or sadistic realistic violence.
 prolonged_graphic_sadistic_violence: NONE
+# Profanity or crude humour.
 profanity_crude_humor: NONE
+# Mature or suggestive themes.
 mature_suggestive_themes: NONE
+# Horror or fear themes.
 horror_fear_themes: NONE
+# Medical or treatment information.
 medical_treatment_info: NONE
+# Alcohol, tobacco or drug use or references.
 alcohol_tobacco_drugs: NONE
+# Simulated gambling.
 simulated_gambling: NONE
+# Sexual content or nudity.
 sexual_content_nudity: NONE
+# Graphic sexual content or nudity.
 graphic_sexual_content_nudity: NONE
+# Contests.
 contests: NONE
+# Whether the app opens arbitrary web content (an in-app browser); true raises the rating to 17+.
 unrestricted_web_access: false
+# Real-money gambling or contests.
 gambling_and_contests: false
+# Whether the app is in the Kids category; it is a staff tool, so no.
 made_for_kids: false
+# The rating these answers should produce — a check against a misread question.
 expected_rating: "4+"

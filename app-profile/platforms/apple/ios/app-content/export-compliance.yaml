@@ -2,10 +2,14 @@
 # to reach the institution's Fineract server, plus standard cryptography from the platform and
 # third-party SDKs (Firebase). No proprietary or non-standard encryption is implemented.
 uses_encryption: true
+# Whether that use is exempt from US export rules: standard HTTPS and platform crypto are.
 exempt: true
+# Why the exemption applies, quoted at submission.
 exemption_reason: >
   Uses only standard HTTPS/TLS provided by the operating system and standard cryptography in
   platform and third-party SDKs (Firebase). No proprietary or non-standard encryption is implemented,
   which qualifies for the ITSAppUsesNonExemptEncryption = NO exemption.
+# Whether the app ships its own (non-standard) encryption algorithm.
 contains_proprietary_cryptography: false
+# Whether the app is offered in France, which asks its own encryption declaration.
 available_on_french_store: true

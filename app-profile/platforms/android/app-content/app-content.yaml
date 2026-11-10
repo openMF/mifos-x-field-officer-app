@@ -24,11 +24,16 @@
 #   3. Reviewer credentials for app access (must be a working demo account).
 #   4. The privacy policy URL must be LIVE before submission (see privacy-policy.md).
 schema_version: 1
+# The store this declaration is for.
 platform: android
+# The Play application id the declarations are filed against.
 package_name: com.mifos.mifosxdroid
+# The listing locale it applies to.
 locale: en-US
+# The public privacy policy Play links from the listing; it must be reachable.
 privacy_policy_url: "https://mifos-products.pages.dev/mobile/field-officer/privacy/"   # REVIEW 4 — publish first
 
+# Summary of the IARC content-rating answers (the full form is in content-rating.yaml).
 content_rating:
   target_rating: "Everyone"
   category: "Utility, Productivity, Communication, or Other"
@@ -44,6 +49,7 @@ content_rating:
     A business tool for staff of financial institutions. It shows the institution's own records to an
     authorised officer; it hosts no content of its own, has no social features and no purchases.
 
+# The "Target audience and content" declaration.
 target_audience:
   target_age_groups: ["18+"]
   appeals_to_children: false
@@ -51,11 +57,13 @@ target_audience:
     Used by employees of financial institutions, who sign in with credentials their employer issues.
     Not directed at, or usable by, children.
 
+# The ads declaration.
 ads:
   contains_ads: false
   ad_networks: []
   rationale: "No ads SDK and no advertising ID in the build."
 
+# How reviewers get past sign-in ("App access").
 app_access:
   all_functionality_available: false
   credentials_required: true
@@ -64,6 +72,7 @@ app_access:
     working demo account on a demo server (REVIEW 3): server, username and password entered in Play Console,
     never committed here.
 
+# The financial-features, health, government, news and COVID-19 declarations.
 special_categories:
   financial_features: true            # REVIEW 2
   financial_features_detail: >-
@@ -75,6 +84,7 @@ special_categories:
   news: false
   covid19: false
 
+# The Data safety form: what is collected, why, and whether it is shared.
 data_safety:
   collects_data: true
   shares_data: false                  # REVIEW 1

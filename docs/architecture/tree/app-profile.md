@@ -25,7 +25,7 @@
 | `app-profile/platforms/android/app-content/content-rating.yaml` | folds 1:1 into app-profile/platforms/android/app-content/. |
 | `app-profile/platforms/apple/apple.yaml` | Apple-shared (iOS + macOS: signing, Firebase, TestFlight, ASC). |
 | `app-profile/platforms/apple/ios/app-content/age-rating.yaml` | Discrete App Store age-rating declaration (ASC 2023 questionnaire). Every answer derived from the app: |
-| `app-profile/platforms/apple/ios/app-content/content-rights.yaml` |  |
+| `app-profile/platforms/apple/ios/app-content/content-rights.yaml` | App Store Connect "Content Rights" declaration (App Information). Folds 1:1 into |
 | `app-profile/platforms/apple/ios/app-content/export-compliance.yaml` | Export compliance (ITSAppUsesNonExemptEncryption). The app uses only standard, OS-provided HTTPS/TLS |
 | `app-profile/platforms/apple/ios/ios.yaml` | iOS-ONLY overrides (deep-merged under `apple.ios`). |
 | `app-profile/platforms/apple/macos/app-content/age-rating.yaml` | Discrete App Store age-rating declaration (ASC 2023 questionnaire). Every answer derived from the app: |

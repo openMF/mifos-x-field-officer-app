@@ -1,4 +1,8 @@
+# App Store Connect "Content Rights" declaration (App Information). Folds 1:1 into
+# app-profile/platforms/apple/ios/app-content/content-rights.yaml when the variant is promoted.
+# Whether the app contains, shows or accesses third-party content that needs rights.
 contains_third_party_content: false
+# The basis for that answer, for App Store review.
 notes: >
   All artwork, copy and icons shipped in the app are original to the Mifos Initiative or used under their
   open-source licences. The app shows the user's institution's own records; it hosts no third-party media.
