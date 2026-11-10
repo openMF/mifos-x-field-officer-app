@@ -21,7 +21,6 @@ kotlin {
             implementation(projects.core.common)
             implementation(projects.core.model)
             // For `PostClientAddressRequest`, which the add-address form must construct.
-            //
             // That DTO is the ODD ONE OUT: its sibling command payloads (`AssignStaffRequest`,
             // `IdentifierPayload`) live in core/model, which is why no other client screen needs
             // this dependency. `ClientCommandRepository.createClientAddress` therefore exposes a
@@ -31,30 +30,6 @@ kotlin {
             // across 6 files — and is tracked as `address-dtos-live-in-core-network`.
             // NavigationItem + @FeatureTab + toObjectNavigationRoute — the tab declaration seam.
             implementation(projects.core.ui)
-            // Client is the hub that navigates into its drill-down features. The original declared
-            // the same edge (`6b66e8a43:feature/client/build.gradle.kts` → projects.feature.note,
-            // plus dataTable/savings/loan/document/recurringDeposit/groups as those slices land).
-            implementation(projects.feature.note)
-            // Record search over cached addresses / identifiers — opened from, and returning to,
-            // client screens, so the client graph registers it (the note pattern above).
-            implementation(projects.feature.searchrecord)
-            // feature/charge — "Upcoming Charges" and "Add Charge" open the ONE charge module.
-            implementation(projects.feature.charge)
-            // feature/loan — the client's loan-accounts list opens the loan PROFILE and the
-            // REPAYMENT form directly, which is the same edge the original had
-            // (`6b66e8a43:feature/client/.../ClientNavigation.kt` imports
-            // `navigateToLoanAccountProfileScreen` + `navigateToLoanRepaymentScreen`).
-            //
-            // One-directional: `feature/loan` has no dependency on `feature/client`, so there is
-            // no cycle. The loan screens take `onX` callbacks and know nothing about who opened
-            // them.
-            implementation(projects.feature.loan)
-            // feature/savings — the apply-new chooser opens the savings and recurring-deposit
-            // applications (S5e). Same edges as the original's `clientApplyNewApplicationRoute`.
-            implementation(projects.feature.savings)
-            implementation(projects.feature.groups)
-            // The pending client's "Activate Client" button (the original's `activateClient`).
-            implementation(projects.feature.activate)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)
@@ -71,7 +46,7 @@ kotlin {
         commonTest.dependencies {
             // screenDataStreamForTesting — the sanctioned test factory, so the fake repository hands
             // back real ScreenDataStreams rather than a parallel fake of the state machine.
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

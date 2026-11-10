@@ -1,7 +1,7 @@
 # `feature/notification/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 33 tracked files — 20× `.xml`, 7× `.kt`, 4× `.png`, 1× `.md`, 1× `.kts`
+> **Measured:** 34 tracked files — 20× `.xml`, 7× `.kt`, 4× `.png`, 2× `.md`, 1× `.kts`
 
 **7 Kotlin files** — 1 screen(s), 1 ViewModel(s).
 
@@ -16,16 +16,17 @@ ViewModels: `NotificationsViewModel`
 | Path | |
 |---|---|
 | `feature/notification/MIGRATION.md` | feature/notification — ledger |
+| `feature/notification/README.md` | :feature:notification |
 
 <!-- tree-scaffold:end -->
 ## Significance
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/notification sha=4cd2e64c470afd7fbdda4001eea84153e5855b3b -->
+<!-- api-docs:begin module=feature/notification sha=d05235a890cfe80f6207b7376785c0c79b5a4b13 -->
 ## API reference
 
-_Generated from `feature/notification` at tree `4cd2e64c470a` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/notification` at tree `d05235a890cf` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -48,9 +49,14 @@ data object NotificationsRoute
 The top bar's bell.
 
 ```kotlin
-fun NavGraphBuilder.notificationsDestination(navController: NavController)
+data class NotificationLinks(
 ```
-Registers the notifications screen in the nav graph.
+Where a screen in this feature opens a record owned by another feature. A feature never depends on another, so these are callbacks; `ForkFeatureRegistry` fills each with the owning feature's `navigateTo…`.
+
+```kotlin
+fun NavGraphBuilder.notificationsDestination(navController: NavController, links: NotificationLinks)
+```
+Registers the notifications screen in the nav graph. Not `@FeatureDestination`: a notification opens the record it is about, in another feature, so `ForkFeatureRegistry` registers it with `NotificationLinks`.
 
 ```kotlin
 fun NavController.navigateToNotifications() = navigate(NotificationsRoute)
@@ -59,5 +65,5 @@ Opens the notifications screen.
 
 ---
 
-_1 type(s), 3 function(s)/property(ies); 4 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
+_2 type(s), 3 function(s)/property(ies); 5 carry KDoc at source; 0 authored example(s); 0 live call site(s)._
 <!-- api-docs:end -->

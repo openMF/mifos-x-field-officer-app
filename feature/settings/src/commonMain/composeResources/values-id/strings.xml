@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Versi, bantuan, komunitas, dan lisensi</string>
     <string name="feature_settings_offline_sync_row">Sinkronisasi luring</string>
     <string name="feature_settings_offline_sync_row_description">Simpan pusat, kelompok, dan klien di perangkat ini</string>
+    <string name="feature_settings_privacy">Privasi</string>
+    <string name="feature_settings_privacy_analytics">Bagikan analitik penggunaan</string>
+    <string name="feature_settings_privacy_crash_reports">Kirim laporan kerusakan</string>
+    <string name="feature_settings_privacy_row_description">Buka pengaturan privasi</string>
+    <string name="feature_settings_privacy_intro">Anda yang menentukan apa yang dibagikan aplikasi ini. Tidak ada yang dikirim sampai Anda mengaktifkannya, dan Anda dapat mengubahnya kapan saja.</string>
+    <string name="feature_settings_privacy_analytics_description">Informasi anonim tentang fitur yang digunakan, untuk meningkatkan aplikasi.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Detail teknis saat aplikasi mengalami kerusakan, agar kami dapat memperbaiki masalahnya.</string>
 </resources>

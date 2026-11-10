@@ -16,10 +16,10 @@
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core-base/ui sha=401a8d9b378807f018895a5926c5a38863e1701c -->
+<!-- api-docs:begin module=core-base/ui sha=7c2b5e951e7802d88367a27ad7f037e5fc58b72b -->
 ## API reference
 
-_Generated from `core-base/ui` at tree `401a8d9b3788` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core-base/ui` at tree `7c2b5e951e78` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **framework-shared and read-only to generators** (D9). Everything below is
@@ -510,16 +510,16 @@ object KptSharedAxis
 ```
 Shared-axis-X enter/exit factories, per Material Motion. Use for **forward/back navigation in a single stack** — pushing onto the stack slides left-and-fades, popping reverses.
 
-<details><summary>Used in the template — <code>core-base/ui/src/commonMain/kotlin/kpt/core/base/ui/motion/NavTransitions.kt:43</code></summary>
+<details><summary>Used in the template — <code>feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingScreen.kt:216</code></summary>
 
 ```kotlin
-    // Snapshot @Composable-resolved transitions at graph-build time so the non-Composable
-    // enterTransition lambdas can capture them as plain data.
-    val enterFwd = KptSharedAxis.enterForward()
-    val exitFwd = KptSharedAxis.exitForward()
-    val enterBack = KptSharedAxis.enterBack()
-    val exitBack = KptSharedAxis.exitBack()
-    composable<T>(
+                transitionSpec = {
+                    if (targetState.ordinal > initialState.ordinal) {
+                        KptSharedAxis.enterForward(motion) togetherWith KptSharedAxis.exitForward(motion)
+                    } else {
+                        KptSharedAxis.enterBack(motion) togetherWith KptSharedAxis.exitBack(motion)
+                    }
+                },
 ```
 
 </details>

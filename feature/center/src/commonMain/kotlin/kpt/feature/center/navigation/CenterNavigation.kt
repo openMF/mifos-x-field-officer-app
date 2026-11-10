@@ -14,16 +14,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.base.ui.nav.composableWithStayTransitions
 import kpt.core.base.ui.nav.popBackStackSafely
-import kpt.feature.activate.navigation.navigateToActivateCenter
 import kpt.feature.center.create.CreateCenterScreen
 import kpt.feature.center.detail.CenterDetailScreen
 import kpt.feature.center.list.CenterListScreen
-import kpt.feature.groups.navigation.navigateToGroupsDetail
-import kpt.feature.savings.navigation.navigateToSavingsApplication
 
 /** The tab's graph. Mirrors `ClientDestination` — the tab points at the graph, not at a screen. */
 @Serializable
@@ -61,17 +57,26 @@ data object CreateCenterRoute
 fun NavController.navigateToCreateCenter(navOptions: NavOptions? = null) = navigate(CreateCenterRoute, navOptions)
 
 /**
- * The center list — a TOP-LEVEL destination on the authenticated graph, collected into
- * `GeneratedFeatureDestinations` by `:cmp-navigation:generateFeatureDestinations`.
+ * Where the centre screens lead outside this feature. A feature never depends on another, so these are
+ * callbacks; `ForkFeatureRegistry` fills them with the owning feature's `navigateTo…`.
  *
- * This file MUST live in a `navigation` package: the generator calls `scan(roots, "navigation")`, so
- * an annotated destination anywhere else is silently skipped — a clean build and a screen that does
- * not exist in the app.
+ * @property openGroup opens a group's details
+ * @property activateCenter opens the activation form for a centre
+ * @property addSavingsApplication opens a savings application owned by the centre (a Fineract group)
+ */
+data class CenterLinks(
+    val openGroup: (groupId: Int) -> Unit,
+    val activateCenter: (centerId: Int) -> Unit,
+    val addSavingsApplication: (centerId: Int) -> Unit,
+)
+
+/**
+ * The center list — a TOP-LEVEL destination on the authenticated graph. Not `@FeatureDestination`:
+ * the detail screen opens other features, so `ForkFeatureRegistry` registers it with [CenterLinks].
  *
  * Create center (2026-10-24) is the list's FAB → [CreateCenterRoute], on `CenterCommandRepository.createCenter`.
  */
-@FeatureDestination
-fun NavGraphBuilder.centerListDestination(navController: NavController) {
+fun NavGraphBuilder.centerListDestination(navController: NavController, links: CenterLinks) {
     composableWithStayTransitions<CenterListRoute> {
         CenterListScreen(
             onCenterClick = navController::navigateToCenterDetail,
@@ -93,14 +98,11 @@ fun NavGraphBuilder.centerListDestination(navController: NavController) {
         CenterDetailScreen(
             onBackClick = navController::popBackStackSafely,
             // Group detail is owned by feature/groups; live now that it has landed.
-            onGroupClick = { groupId -> navController.navigateToGroupsDetail(groupId) },
-            onActivate = navController::navigateToActivateCenter,
+            onGroupClick = links.openGroup,
+            onActivate = links.activateCenter,
             // The original's "Add savings account". A centre is a Fineract GROUP (level 1), so the
-            // application goes as a group one. The original passed the centre's id as a CLIENT id
-            // (`navigateToAddSavingsAccount(0, centerId, false)`), creating it against a client.
-            onAddSavingsAccount = { centerId ->
-                navController.navigateToSavingsApplication(ownerId = centerId, isGroup = true)
-            },
+            // application goes as a group one (see ForkFeatureRegistry).
+            onAddSavingsAccount = links.addSavingsApplication,
         )
     }
 }

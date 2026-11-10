@@ -2,7 +2,7 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_STORE.md`
-> **Measured:** 86 Kotlin files, 6 test files
+> **Measured:** 87 Kotlin files, 6 test files
 
 ## Codegen contracts owned here
 
@@ -15,7 +15,7 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 ## Principal types
 
-`CenterCollectionSheetKey`, `ChargeItemKey`, `ChargeKey`, `ClientCountKey`, `CollectionSheetKey`, `DataTableDataKey`, `DocumentContentKey`, `DocumentItemKey`, `DocumentKey`, `DueTodayKey`, `ErrorMessageOverrides`, `FixedDepositProductTemplateKey`, `ForkErrorMapper`, `ForkScreenStateDefaults`  …and 37 more
+`CenterCollectionSheetKey`, `ChargeItemKey`, `ChargeKey`, `ClientCountKey`, `CollectionSheetKey`, `DataTableDataKey`, `DocumentContentKey`, `DocumentItemKey`, `DocumentKey`, `DueTodayKey`, `ErrorMessageOverrides`, `FixedDepositProductTemplateKey`, `ForkErrorMapper`, `ForkScreenStateDefaults`  …and 39 more
 
 <!-- scaffold:end -->
 
@@ -23,10 +23,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/store sha=c16173b4960893782f384bd10137400a7ef3fb94 -->
+<!-- api-docs:begin module=core/store sha=886add1efc499176234e423091735a6767723afc -->
 ## API reference
 
-_Generated from `core/store` at tree `c16173b49608` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/store` at tree `886add1efc49` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/center/CenterKeyedReadStores.kt`
@@ -1964,6 +1964,11 @@ fun provideNotificationsStore(
 ```
 The signed-in user's notifications, unread first then the recent read history — two reads, because Fineract's `GET notifications` returns only one side of `isRead` per call.
 
+```kotlin
+fun provideNotificationsLocalStore(
+```
+_No KDoc at source._
+
 ### `core/store/src/commonMain/kotlin/kpt/core/store/office/OfficeKeyedReadStores.kt`
 
 ```kotlin
@@ -1998,6 +2003,81 @@ Addresses one `retrieveOffices` read.
 ```
 
 </details>
+
+### `core/store/src/commonMain/kotlin/kpt/core/store/offline/OfflineSyncStores.kt`
+
+```kotlin
+data class OfflineRecordKey(val userId: Long, val kind: String, val id: Int)
+```
+One `offline_records` row.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:61</code></summary>
+
+```kotlin
+internal class OfflineSyncRepositoryImpl(
+    private val dao: OfflineSyncDao,
+    @FromStore(AppStoreIds.OfflineRecord) private val recordStore: MutableStore<OfflineRecordKey, OfflineRecord>,
+    @FromStore(AppStoreIds.OfflineRecordStatus)
+    private val statusStore: MutableStore<OfflineRecordKey, RecordSyncStatus>,
+    @FromStore(AppStoreIds.SyncJob) private val jobStore: MutableStore<SyncJobKey, SyncJob>,
+    private val engine: OfflineSyncEngine,
+```
+
+</details>
+
+```kotlin
+data class SyncJobKey(val userId: Long, val id: Long)
+```
+One `sync_jobs` row.
+
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncRepositoryImpl.kt:64</code></summary>
+
+```kotlin
+    @FromStore(AppStoreIds.OfflineRecordStatus)
+    private val statusStore: MutableStore<OfflineRecordKey, RecordSyncStatus>,
+    @FromStore(AppStoreIds.SyncJob) private val jobStore: MutableStore<SyncJobKey, SyncJob>,
+    private val engine: OfflineSyncEngine,
+    private val scheduler: OfflineSyncScheduler,
+    private val settingsStore: OfflineSyncSettingsStore,
+    private val preferences: ForkPreferencesRepository,
+```
+
+</details>
+
+```kotlin
+fun provideOfflineRecordStore(
+```
+_No KDoc at source._
+
+```kotlin
+fun provideOfflineRecordStatusStore(
+```
+_No KDoc at source._
+
+```kotlin
+fun provideSyncJobStore(
+```
+_No KDoc at source._
+
+```kotlin
+fun OfflineRecord.toEntity(userId: Long) = OfflineRecordEntity(
+```
+The row for this record, owned by `userId`.
+
+```kotlin
+fun OfflineRecordEntity.toModel(): OfflineRecord?
+```
+The record this row holds; null for a row whose kind this build does not know.
+
+```kotlin
+fun SyncJob.toEntity(userId: Long) = SyncJobEntity(
+```
+The row for this job, owned by `userId`.
+
+```kotlin
+fun SyncJobEntity.toModel(): SyncJob?
+```
+The job this row holds; null for a status this build does not know.
 
 ### `core/store/src/commonMain/kotlin/kpt/core/store/pathtracking/PathTrackingStores.kt`
 
@@ -2193,16 +2273,15 @@ data class SavingsAccountKey(
 ```
 `savingsAccountType` is a path segment on Fineract ("savingsaccounts" / "recurringdepositaccounts" / ...), so the same numeric id means different accounts under different types — it belongs in the key, not as a caller-side constant.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:133</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:141</code></summary>
 
 ```kotlin
-    val loanCharges: Store<Int, List<Charges>>,
-    val loanReschedules: Store<Int, List<LoanRescheduleResponse>>,
-    val savings: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+    @FromStore(AppStoreIds.LoanGetListOfLoanCharges) val loanCharges: Store<Int, List<Charges>>,
+    @FromStore(AppStoreIds.LoanGetLoanReschedules) val loanReschedules: Store<Int, List<LoanRescheduleResponse>>,
+    @FromStore(AppStoreIds.SavingsAccounts) val savings: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+    @FromStore(AppStoreIds.SavingsGetSavingsAccountTransactionTemplate)
     val savingsTemplate: Store<GetSavingsAccountTransactionTemplateKey, SavingsAccountTransactionTemplate>,
 )
-
-/**
 ```
 
 </details>
@@ -2328,11 +2407,11 @@ data class GetSavingsAccountTransactionTemplateKey(
 ```
 Addresses one `getSavingsAccountTransactionTemplate` read.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:134</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/offline/impl/OfflineSyncEngine.kt:143</code></summary>
 
 ```kotlin
-    val loanReschedules: Store<Int, List<LoanRescheduleResponse>>,
-    val savings: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+    @FromStore(AppStoreIds.SavingsAccounts) val savings: Store<SavingsAccountKey, SavingsAccountWithAssociations>,
+    @FromStore(AppStoreIds.SavingsGetSavingsAccountTransactionTemplate)
     val savingsTemplate: Store<GetSavingsAccountTransactionTemplateKey, SavingsAccountTransactionTemplate>,
 )
 
@@ -2427,5 +2506,5 @@ Surveys — READ-CACHE (`createStore`). Survey definitions are server-authoritat
 
 ---
 
-_48 type(s), 289 function(s)/property(ies); 316 carry KDoc at source; 4 authored example(s); 37 live call site(s)._
+_50 type(s), 297 function(s)/property(ies); 322 carry KDoc at source; 4 authored example(s); 39 live call site(s)._
 <!-- api-docs:end -->

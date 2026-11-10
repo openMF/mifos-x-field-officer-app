@@ -12,29 +12,44 @@ package kpt.feature.notification.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.model.notification.AppNotification
-import kpt.feature.center.navigation.navigateToCenterDetail
-import kpt.feature.client.navigation.navigateToClientProfile
-import kpt.feature.groups.navigation.navigateToGroupsDetail
-import kpt.feature.loan.navigation.navigateToLoanProfile
 import kpt.feature.notification.ui.NotificationTarget
 import kpt.feature.notification.ui.NotificationsScreen
 import kpt.feature.notification.ui.target
-import kpt.feature.savings.navigation.navigateToSavingsSummary
 
 /** The top bar's bell. */
 @Serializable
 data object NotificationsRoute
 
-/** Registers the notifications screen in the nav graph. */
-@FeatureDestination
-fun NavGraphBuilder.notificationsDestination(navController: NavController) {
+/**
+ * Where a screen in this feature opens a record owned by another feature. A feature never depends on
+ * another, so these are callbacks; `ForkFeatureRegistry` fills each with the owning feature's `navigateTo…`.
+ *
+ * @property openLoan opens a loan's profile
+ * @property openClient opens a client's profile
+ * @property openGroup opens a group's details
+ * @property openCenter opens a centre's details
+ * @property openSavings opens a savings account's summary
+ */
+data class NotificationLinks(
+    val openLoan: (loanId: Int) -> Unit,
+    val openClient: (clientId: Int) -> Unit,
+    val openGroup: (groupId: Int) -> Unit,
+    val openCenter: (centerId: Int) -> Unit,
+    val openSavings: (accountId: Int) -> Unit,
+)
+
+/**
+ * Registers the notifications screen in the nav graph. Not `@FeatureDestination`: a notification
+ * opens the record it is about, in another feature, so `ForkFeatureRegistry` registers it with
+ * [NotificationLinks].
+ */
+fun NavGraphBuilder.notificationsDestination(navController: NavController, links: NotificationLinks) {
     composableWithPushTransitions<NotificationsRoute> {
         NotificationsScreen(
             onNavigateBack = { navController.popBackStack() },
-            onOpen = { navController.openRecordOf(it) },
+            onOpen = { links.openRecordOf(it) },
         )
     }
 }
@@ -43,14 +58,14 @@ fun NavGraphBuilder.notificationsDestination(navController: NavController) {
 fun NavController.navigateToNotifications() = navigate(NotificationsRoute)
 
 /** Opens the record a notification is about; the screen only offers the tap for these kinds. */
-private fun NavController.openRecordOf(notification: AppNotification) {
+private fun NotificationLinks.openRecordOf(notification: AppNotification) {
     val id = notification.objectId?.toInt() ?: return
     when (notification.target) {
-        NotificationTarget.LOAN -> navigateToLoanProfile(id)
-        NotificationTarget.CLIENT -> navigateToClientProfile(id)
-        NotificationTarget.GROUP -> navigateToGroupsDetail(id)
-        NotificationTarget.CENTER -> navigateToCenterDetail(id)
-        NotificationTarget.SAVINGS -> navigateToSavingsSummary(id)
+        NotificationTarget.LOAN -> openLoan(id)
+        NotificationTarget.CLIENT -> openClient(id)
+        NotificationTarget.GROUP -> openGroup(id)
+        NotificationTarget.CENTER -> openCenter(id)
+        NotificationTarget.SAVINGS -> openSavings(id)
         null -> Unit
     }
 }

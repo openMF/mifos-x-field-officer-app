@@ -52,12 +52,16 @@ import kpt.core.model.offline.SyncJobStatus
 import kpt.core.model.offline.SyncTarget
 import kpt.core.model.savings.SavingsAccountTransactionTemplate
 import kpt.core.model.savings.SavingsAccountWithAssociations
+import kpt.core.store.offline.provideOfflineRecordStatusStore
+import kpt.core.store.offline.provideOfflineRecordStore
+import kpt.core.store.offline.provideSyncJobStore
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.SourceOfTruth
 import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreBuilder
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class OfflineSyncRepositoryTest {
@@ -149,8 +153,14 @@ class OfflineSyncRepositoryTest {
 
     private val dao = InMemoryOfflineSyncDao()
     private val scheduler = RecordingScheduler()
-    private val repository = OfflineSyncRepositoryImpl(
+    private val repository = repository(dao)
+
+    // The real core/store write stores over the same DAO the reads use — the app's wiring.
+    private fun repository(dao: OfflineSyncDao) = OfflineSyncRepositoryImpl(
         dao = dao,
+        recordStore = provideOfflineRecordStore(dao),
+        statusStore = provideOfflineRecordStatusStore(dao),
+        jobStore = provideSyncJobStore(dao),
         engine = engine,
         scheduler = scheduler,
         settingsStore = SettingsOfflineSyncSettingsStore(MapSettings()),
@@ -305,6 +315,23 @@ class OfflineSyncRepositoryTest {
     }
 
     @Test
+    fun aChoiceThatCannotBeSavedFailsTheCallInsteadOfReportingSuccess() = runTest {
+        signIn()
+        // Store5 reports a failed write as a response, not an exception; the repository must not
+        // swallow it — the officer would see "downloading" for a record that was never queued.
+        val broken = object : OfflineSyncDao by dao {
+            override suspend fun upsertRecord(record: OfflineRecordEntity) = error("disk full")
+        }
+
+        val failure = assertFailsWith<Exception> {
+            repository(broken).download(listOf(SyncTarget(RecordKind.CENTRE, 1, "North")))
+        }
+        assertEquals("disk full", generateSequence<Throwable>(failure) { it.cause }.last().message)
+        assertTrue(repository.records.first().isEmpty())
+        assertTrue(scheduler.calls.isEmpty(), "nothing queued, so no run is started")
+    }
+
+    @Test
     fun automaticSchedulesThePeriodicJobAndManualCancelsIt() = runTest {
         signIn()
         val automatic = RefreshSettings(mode = RefreshMode.AUTOMATIC, intervalHours = 12, wifiOnly = true)
@@ -399,8 +426,9 @@ private class InMemoryOfflineSyncDao : OfflineSyncDao {
         return id
     }
 
+    // Room's @Upsert on an autoGenerate key: id 0 inserts a new row with a fresh id.
     override suspend fun updateJob(job: SyncJobEntity) {
-        jobs.value += job.id to job
+        if (job.id == 0L) insertJob(job) else jobs.value += job.id to job
     }
 
     override suspend fun trimJobs(userId: Long, keep: Int) {

@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Version, aide, communauté et licence</string>
     <string name="feature_settings_offline_sync_row">Synchronisation hors ligne</string>
     <string name="feature_settings_offline_sync_row_description">Conserver les centres, groupes et clients sur cet appareil</string>
+    <string name="feature_settings_privacy">Confidentialité</string>
+    <string name="feature_settings_privacy_analytics">Partager les statistiques d'utilisation</string>
+    <string name="feature_settings_privacy_crash_reports">Envoyer les rapports de plantage</string>
+    <string name="feature_settings_privacy_row_description">Ouvrir les paramètres de confidentialité</string>
+    <string name="feature_settings_privacy_intro">Vous décidez de ce que cette application partage. Rien n'est envoyé tant que vous ne l'avez pas activé, et vous pouvez le modifier à tout moment.</string>
+    <string name="feature_settings_privacy_analytics_description">Des informations anonymes sur les fonctionnalités utilisées, pour améliorer l'application.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Des détails techniques en cas de plantage de l'application, pour que nous puissions corriger le problème.</string>
 </resources>

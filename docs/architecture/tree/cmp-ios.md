@@ -1,7 +1,7 @@
 # `cmp-ios/`
 
 > **Kind:** Project area  
-> **Measured:** 45 tracked files — 7× `.xcconfig`, 7× `.swift`, 6× `.xcscheme`, 4× `.m`, 4× `.h`
+> **Measured:** 46 tracked files — 7× `.xcconfig`, 7× `.swift`, 6× `.xcscheme`, 4× `.m`, 4× `.h`
 
 ## Shape
 
@@ -9,7 +9,7 @@
 |---|---:|
 | `cmp-ios/KotlinMultiplatformLinkedPackage/` | 12 |
 | `cmp-ios/iosApp.xcodeproj/` | 10 |
-| `cmp-ios/iosApp/` | 9 |
+| `cmp-ios/iosApp/` | 10 |
 | `cmp-ios/Configs/` | 6 |
 | (files at the root) | 4 |
 | `cmp-ios/scripts/` | 3 |

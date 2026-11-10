@@ -15,6 +15,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinHierarchyBuilder
 import org.jetbrains.kotlin.gradle.plugin.KotlinHierarchyTemplate
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 /**
@@ -43,6 +44,15 @@ private val hierarchyTemplate = KotlinHierarchyTemplate {
         groupMobile()
     }
 }
+
+/**
+ * Every Android compilation, whichever plugin made the target. `withAndroidTarget()` matches only the
+ * legacy `androidTarget()`; the AGP 9 `com.android.kotlin.multiplatform.library` target is a different
+ * type, so androidMain sat under no group and an expect in nonJsCommonMain / mobileMain had no actual
+ * on the Android compile (and androidHostTest never saw nonJsCommonTest).
+ */
+private fun KotlinHierarchyBuilder.withAndroid() =
+    withCompilations { it.target.platformType == KotlinPlatformType.androidJvm }
 
 /**
  * Creates a group of non-Android platforms (JVM, JS, and native).
@@ -80,7 +90,7 @@ private fun KotlinHierarchyBuilder.groupNonJsCommon() {
  */
 private fun KotlinHierarchyBuilder.groupJvmCommon() {
     group("jvmCommon") {
-        withAndroidTarget()
+        withAndroid()
         withJvm()
     }
 }
@@ -138,7 +148,7 @@ private fun KotlinHierarchyBuilder.groupNonNative() {
 
 private fun KotlinHierarchyBuilder.groupMobile() {
     group("mobile") {
-        withAndroidTarget()
+        withAndroid()
         withApple()
     }
 }

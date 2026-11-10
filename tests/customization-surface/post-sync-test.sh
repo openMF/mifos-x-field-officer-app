@@ -52,5 +52,17 @@ fork "$WORK/bumped" kept 0; printf '[versions]\nkotlin = "2"\n' > "$WORK/bumped/
 grep -q '^gradlew dependencyGuardBaseline' "$WORK/bumped/calls.log" && ! grep -q '^gradlew dependencyGuardBaseline' "$WORK/kept/calls.log" \
   && pass "S-6 dependency baseline regenerated only when the catalog changed" || bad "S-6 baseline: bumped=$(grep -c dependencyGuardBaseline "$WORK/bumped/calls.log") kept=$(grep -c dependencyGuardBaseline "$WORK/kept/calls.log")"
 
+# S-7 paths the post-sync steps dirty OUTSIDE the synced roots are staged; the operator's own work is not.
+stage_fns="$(awk '/^dirty_paths\(\)/{print; next} /^stage_new_dirty\(\) \{/{p=1} p{print} p&&/^}/{p=0}' "$REPO/scripts/white-label/sync-dirs.sh")"
+fork "$WORK/stage" kept 0
+( cd "$WORK/stage" && echo wip > operator-wip.txt && bash -c "$stage_fns
+  pre=\"\$(dirty_paths)\"
+  mkdir -p feature && echo stamped > feature/module-packages.yaml && echo x >> app-profile/package-ledger.yaml
+  stage_new_dirty \"\$pre\"" ) >/dev/null 2>&1
+staged="$(git -C "$WORK/stage" diff --cached --name-only | sort | tr '\n' ' ')"
+[ "$staged" = "app-profile/package-ledger.yaml feature/module-packages.yaml " ] \
+  && pass "S-7 post-sync writes outside the roots are staged, operator WIP is not" \
+  || bad "S-7 staged: [$staged]"
+
 [ "$fail" = 0 ] && echo "post-sync-test: PASS" || echo "post-sync-test: FAIL"
 exit "$fail"

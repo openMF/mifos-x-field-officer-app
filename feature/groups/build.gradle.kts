@@ -22,22 +22,6 @@ kotlin {
             implementation(projects.core.model)
             // NavigationItem + @FeatureTab + toObjectNavigationRoute — the tab declaration seam.
             implementation(projects.core.ui)
-            // The shared activate screen (client / centre / group all reach it). Same
-            // feature-depends-on-feature edge `feature/client` has on `feature/note`.
-            implementation(projects.feature.activate)
-            // The generic document list, opened from group detail (the original's
-            // `groupNavGraph(loadDocumentList = …)` edge).
-            implementation(projects.feature.document)
-            implementation(projects.feature.datatable)
-            // feature/loan — group detail's "Add Loan Account" opens the group loan application
-            // form, which lives in feature/loan because it is loan-shaped (product template,
-            // terms, amortization). The original has the same edge
-            // (`6b66e8a43:feature/groups/.../GroupNavGraph.kt` -> addGroupLoanAccount).
-            implementation(projects.feature.loan)
-            // feature/savings — group detail's "Add Savings Account" opens the savings application
-            // as a GROUP application (S5c). Same edge as the original's `addSavingsAccount`.
-            implementation(projects.feature.savings)
-            implementation(projects.feature.note)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)
@@ -47,7 +31,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

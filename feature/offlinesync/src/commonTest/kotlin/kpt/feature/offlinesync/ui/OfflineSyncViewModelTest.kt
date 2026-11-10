@@ -234,6 +234,22 @@ class OfflineSyncViewModelTest {
     }
 
     @Test
+    fun thePickerShapesTheListStreamsContentAndDropsRowsTheServerGaveNoId() = runTest(dispatcher) {
+        val centers = FakeCenterRepository(
+            listOf(Center(id = null, name = "Draft centre"), Center(id = 27, name = null)),
+        )
+        val vm = vm(centers = centers)
+        vm.pickerRows.test {
+            assertEquals(ScreenState.Loading, awaitItem())
+            vm.trySendAction(OfflineSyncAction.AddRecords)
+            val rows = expectMostRecentContent()
+            // No id, no target to download; a missing name falls back to the id.
+            assertEquals(listOf(SyncTarget(RecordKind.CENTRE, 27, "#27")), rows.map { it.target })
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
     fun removingAsksFirstAndAutomaticSavesTheSchedule() = runTest(dispatcher) {
         val repo = FakeOfflineSyncRepository(listOf(centre, irving))
         val vm = vm(repo)

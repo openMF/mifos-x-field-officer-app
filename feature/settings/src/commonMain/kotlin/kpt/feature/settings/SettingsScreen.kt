@@ -46,6 +46,8 @@ import kpt.feature.settings.generated.resources.feature_settings_change_theme_pl
 import kpt.feature.settings.generated.resources.feature_settings_change_theme_text
 import kpt.feature.settings.generated.resources.feature_settings_offline_sync_row
 import kpt.feature.settings.generated.resources.feature_settings_offline_sync_row_description
+import kpt.feature.settings.generated.resources.feature_settings_privacy
+import kpt.feature.settings.generated.resources.feature_settings_privacy_row_description
 import kpt.feature.settings.generated.resources.feature_settings_rate_app_row
 import kpt.feature.settings.generated.resources.feature_settings_rate_app_row_description
 import kpt.feature.settings.generated.resources.feature_settings_server_config_row
@@ -82,6 +84,7 @@ internal fun SettingsScreenContent(
     onSignOutClick: (() -> Unit)? = null,
     onAboutClick: (() -> Unit)? = null,
     onOfflineSyncClick: (() -> Unit)? = null,
+    onPrivacyClick: (() -> Unit)? = null,
 ) {
     val sp = MaterialTheme.spacing
     KptScaffold(
@@ -104,6 +107,8 @@ internal fun SettingsScreenContent(
         ) {
             ThemeCard(onClick = onThemeCardClick)
             LanguageCard(onClick = onLanguageCardClick)
+            // Consent to analytics + crash reports (PrivacySheet). Its own row so withdrawing is one tap.
+            onPrivacyClick?.let { PrivacyCard(onClick = it) }
             SyncAndDraftsCard(onClick = onSyncAndDraftsClick)
             // Keep centres / groups / clients on the device for the field — a separate feature from
             // Sync & Drafts (which uploads what was done offline). Null on a build without it.
@@ -230,6 +235,19 @@ internal fun ThemeCard(onClick: () -> Unit, modifier: Modifier = Modifier) {
         accentColor = MaterialTheme.colorScheme.tertiary,
         onClick = onClick,
         modifier = modifier,
+    )
+}
+
+/** "Privacy" row — opens [PrivacySheet]: consent switches plus the link to the hosted privacy policy. */
+@Composable
+internal fun PrivacyCard(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    SettingsRowCard(
+        icon = AppIcons.OutlinedLock,
+        title = stringResource(Res.string.feature_settings_privacy),
+        contentDescription = stringResource(Res.string.feature_settings_privacy_row_description),
+        accentColor = MaterialTheme.colorScheme.secondary,
+        onClick = onClick,
+        modifier = modifier.testTag(TestTags.Settings.PRIVACY_ROW),
     )
 }
 

@@ -13,20 +13,31 @@
 
     <application>
 
+        <!--
+        `prod` builds can collect analytics + crash reports, but ONLY after the user agrees. Both start
+        OFF at launch; cmp.navigation.privacy.PrivacyConsentApplier switches them on (and back off) from
+        the user's stored consent (default: not granted). Nothing is sent before the user says yes.
+
+        `firebase_analytics_collection_ENABLED=false` (not `…_deactivated=true`): deactivated cannot be
+        undone at runtime, so consent could never turn analytics on. Advertising-ID collection stays off.
+        -->
         <meta-data
             android:name="google_analytics_adid_collection_enabled"
-            android:value="true"
+            android:value="false"
             tools:replace="android:value" />
 
-        <!-- Enable Firebase analytics for `prod` builds -->
         <meta-data
             android:name="firebase_analytics_collection_deactivated"
             android:value="false"
             tools:replace="android:value" />
 
         <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+
+        <meta-data
             android:name="firebase_crashlytics_collection_enabled"
-            android:value="true"
+            android:value="false"
             tools:replace="android:value" />
     </application>
 

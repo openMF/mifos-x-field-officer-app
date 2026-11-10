@@ -1,14 +1,14 @@
 # `.github/`
 
 > **Kind:** GitHub Actions  
-> **Measured:** 16 tracked files — 12× `.yml`, 2× `.yaml`, 1× `.md`, 1× `.properties`
+> **Measured:** 17 tracked files — 12× `.yml`, 2× `.md`, 2× `.yaml`, 1× `.properties`
 
 ## Shape
 
 | Path | Files |
 |---|---:|
 | `.github/workflows/` | 14 |
-| (files at the root) | 2 |
+| (files at the root) | 3 |
 
 ## Workflows
 
@@ -42,6 +42,7 @@ _Authored beside the code, where the module's own consumers read them._
 | Path | |
 |---|---|
 | `.github/CLAUDE.md` | GitHub Actions - CI/CD Infrastructure |
+| `.github/PULL_REQUEST_TEMPLATE.md` |  |
 
 ## Guides
 

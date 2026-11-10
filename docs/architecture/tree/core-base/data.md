@@ -135,7 +135,7 @@ typealias NetworkMonitor = io.github.mobilebytelabs.kmptoolkit.networkmonitor.Ne
 ```
 Backward-compatible typealias — existing consumers keep their import. Delegates to cmp-network-monitor's full-featured NetworkMonitor interface.
 
-<details><summary>Used in the template — <code>feature/offlinesync/src/commonMain/kotlin/kpt/feature/offlinesync/ui/OfflineSyncViewModel.kt:56</code></summary>
+<details><summary>Used in the template — <code>feature/offlinesync/src/commonMain/kotlin/kpt/feature/offlinesync/ui/OfflineSyncViewModel.kt:57</code></summary>
 
 ```kotlin
     private val groups: GroupRepository,

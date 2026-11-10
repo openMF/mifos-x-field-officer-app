@@ -56,10 +56,10 @@ Changing the server usually invalidates the session, so sign out on a change.
 
 Tests: `core/network/src/commonTest/.../config/{NetworkConfigRepositoryTest,NetworkConfigRequestTest,DynamicBaseUrlTest}.kt`.
 
-<!-- api-docs:begin module=core-base/network sha=9d54b55829bd1924539869ada63b908a7156fa54 -->
+<!-- api-docs:begin module=core-base/network sha=a7112889dc8d9eabe44ed1b46e3a06857ae7d445 -->
 ## API reference
 
-_Generated from `core-base/network` at tree `9d54b55829bd` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core-base/network` at tree `a7112889dc8d` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **framework-shared and read-only to generators** (D9). Everything below is
@@ -551,7 +551,7 @@ class NetworkConfigRepository(
 ```
 The app's network configs at runtime: every access point app-profile declares, changeable, plus any added at runtime — with one of them MAIN. **Main.** App-profile marks one access point `main: true`.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:52</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:44</code></summary>
 
 ```kotlin
     // server-config screen's five fields. One persisted source for the screen and the HTTP client.

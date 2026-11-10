@@ -45,6 +45,8 @@ kotlin {
             implementation(projects.feature.home)
             implementation(projects.feature.profile)
             implementation(projects.feature.settings)
+            // First-run onboarding, installed by RootNavScreen (shown only when first_run_onboarding is on).
+            implementation(projects.feature.onboarding)
             // Fork feature-module deps come from the fork-owned `feature-deps.gradle.kts` seam
             // (applied at the bottom of this file, S7/F4). A fork adds a feature there, never here.
             implementation(projects.sync)

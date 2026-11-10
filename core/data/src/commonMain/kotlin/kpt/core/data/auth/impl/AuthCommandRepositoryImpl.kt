@@ -82,42 +82,49 @@ internal class AuthCommandRepositoryImpl(
         }
 
     /**
-     * One command for the change (online only — the server decides the policy), then the ordinary
-     * [authenticate] with the new password, which writes the new session key. The password itself is
-     * never stored, here as at sign-in.
+     * One command for the change (online only — the server decides the policy). Its local effect is the
+     * session key: Fineract derives the key from the password, so the endpoint signs in again with the
+     * new one and [CommandSpec.localApply] stores the key it returns — the same write a sign-in makes.
+     * The password itself is never stored, here as at sign-in.
+     *
+     * Once the server has accepted the change, a failed sign-in can no longer keep the old session (its
+     * key is dead), so it ends the session — data kept — and reports [PasswordChangedSignInFailed].
      */
     override suspend fun changePassword(newPassword: String, repeatPassword: String): MutationResult<Unit> {
         val user = preferences.fineractUser.value
-        val changed = gateway.command(
+        val username = user.username.orEmpty()
+        var changed = false
+        val result = gateway.command(
             CommandSpec(
                 payload = ChangePasswordRequest(password = newPassword, repeatPassword = repeatPassword),
-                endpoint = { authApi.changePassword(userId = user.userId, request = it) },
+                endpoint = {
+                    authApi.changePassword(userId = user.userId, request = it)
+                    changed = true
+                    authApi.authenticate(PostAuthenticationRequest(password = newPassword, username = username))
+                },
+                localApply = { response ->
+                    if (response?.authenticated == true) {
+                        preferences.updateFineractUser(response.toSessionUser(username))
+                    }
+                },
             ),
             policy = MutationPolicy.OnlineRequired,
         )
-        val failure: MutationResult<Unit>? = when (changed) {
-            is MutationResult.Applied -> null
-            is MutationResult.Blocked -> changed
-            is MutationResult.Failed -> changed
+        return when {
+            result is MutationResult.Applied && result.value.authenticated == true ->
+                MutationResult.Applied(Unit, synced = true)
+            changed -> {
+                signOut(clearLocalData = false)
+                MutationResult.Failed(
+                    PasswordChangedSignInFailed((result as? MutationResult.Failed)?.cause),
+                    rolledBack = false,
+                )
+            }
+            result is MutationResult.Blocked -> result
+            result is MutationResult.Failed -> result
             // A password has no server copy to conflict with; treat it as the failure it would be.
-            is MutationResult.Conflicted -> MutationResult.Failed(
-                IllegalStateException("password change conflicted"),
-                rolledBack = false,
-            )
+            else -> MutationResult.Failed(IllegalStateException("password change conflicted"), rolledBack = false)
         }
-        return failure ?: reauthenticate(username = user.username.orEmpty(), password = newPassword)
-    }
-
-    private suspend fun reauthenticate(username: String, password: String): MutationResult<Unit> {
-        val reauth = authenticate(PostAuthenticationRequest(password = password, username = username))
-        if (reauth is MutationResult.Applied && reauth.value.authenticated == true) {
-            return MutationResult.Applied(Unit, synced = true)
-        }
-        signOut(clearLocalData = false)
-        return MutationResult.Failed(
-            PasswordChangedSignInFailed((reauth as? MutationResult.Failed)?.cause),
-            rolledBack = false,
-        )
     }
 
     private companion object {

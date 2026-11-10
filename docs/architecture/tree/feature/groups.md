@@ -23,10 +23,10 @@ ViewModels: `CreateGroupViewModel`, `GroupsDetailViewModel`, `GroupsListViewMode
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/groups sha=3c2bf28574b7dc255c86b304eb0c27e63c3ad6df -->
+<!-- api-docs:begin module=feature/groups sha=8440dcdbbc1f3509d27c11a12aa7d960f6d299a2 -->
 ## API reference
 
-_Generated from `feature/groups` at tree `3c2bf28574b7` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/groups` at tree `8440dcdbbc1f` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -109,19 +109,19 @@ fun NavController.navigateToCreateGroup(navOptions: NavOptions? = null) =
 Opens the new-group form.
 
 ```kotlin
-fun NavGraphBuilder.groupsListDestination(navController: NavController)
+data class GroupLinks(
 ```
-The group list — a TOP-LEVEL destination on the authenticated graph, collected into `GeneratedFeatureDestinations` by `:cmp-navigation:generateFeatureDestinations`.
+Where the group screens lead outside this feature. A feature never depends on another, so these are callbacks; `ForkFeatureRegistry` fills each with the owning feature's `navigateTo…` of the same shape.
+
+```kotlin
+fun NavGraphBuilder.groupsListDestination(navController: NavController, links: GroupLinks)
+```
+The group list — a TOP-LEVEL destination on the authenticated graph. Not `@FeatureDestination`: the detail screen opens other features, so `ForkFeatureRegistry` registers it with `GroupLinks`.
 
 ```kotlin
 fun NavGraphBuilder.groupsTabGraph(outerNav: NavController)
 ```
 The group graph for the bottom-nav tab's INNER NavHost.
-
-```kotlin
-fun clientProfileRoute(clientId: Int): String = "$CLIENT_PROFILE_ROUTE_NAME/$clientId"
-```
-The string route of client `clientId`'s profile, for navigating there without depending on the client module.
 
 ### `feature/groups/src/commonMain/kotlin/kpt/feature/groups/navigation/GroupsTab.kt`
 
@@ -132,5 +132,5 @@ The Groups bottom-nav tab. Declared here via `@FeatureTab` rather than in `cmp-n
 
 ---
 
-_5 type(s), 8 function(s)/property(ies); 13 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
+_6 type(s), 7 function(s)/property(ies); 13 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
 <!-- api-docs:end -->

@@ -7,6 +7,7 @@
  *
  * See https://github.com/openMF/kmp-project-template/blob/main/LICENSE
  */
+
 package kpt.core.model.user
 
 /**
@@ -18,7 +19,7 @@ package kpt.core.model.user
  * that has translated strings but no picker entry is unreachable, and a picker entry with
  * no strings shows English. Add or remove languages in the registry, then re-run the sync.
  *
- * Enabled for mifos-x/kmp-project-template: 20 languages + system default.
+ * Enabled for mifos-x/mifos-x-field-officer-app: 20 languages + system default.
  * Resolved by core/scripts/locale-resolve.sh from locales.languages[].
  *
  * @property localeName platform locale tag (BCP-47) passed to the platform locale switcher;

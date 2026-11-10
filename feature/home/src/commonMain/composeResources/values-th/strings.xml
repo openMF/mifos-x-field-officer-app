@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">สินเชื่อของคุณ · %1$d</string>
     <string name="screens_home_remaining_label">คงเหลือ</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">ค่างวด $%1$s · ชำระแล้ว %2$d%%</string>
+    <string name="screens_home_loan_tile_footer">ค่างวด $%1$s · ชำระแล้ว %2$d%</string>
     <string name="screens_home_section_this_week">สัปดาห์นี้</string>
     <string name="screens_home_section_tools">เครื่องมือ</string>
     <string name="screens_home_section_tools_subtitle">เครื่องคำนวณ การเปรียบเทียบ ตัวชี้วัดมหภาค</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">อัตราวันนี้</string>
     <string name="screens_home_rates_fed_funds_label">อัตราดอกเบี้ยเฟด</string>
     <string name="screens_home_rates_mortgage_30y_label">สินเชื่อบ้าน 30 ปี</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">อัตราแลกเปลี่ยน USD</string>

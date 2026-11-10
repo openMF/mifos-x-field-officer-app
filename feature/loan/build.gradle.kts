@@ -19,18 +19,6 @@ kotlin {
             implementation(projects.core.data)
             implementation(projects.core.model)
             implementation(projects.core.ui)
-            // feature/document — the loan profile's "Loan Documents" row opens the GENERIC
-            // document list (`DocumentListRoute(entityType, entityId)`), which is already ported
-            // and entity-agnostic. The original passed `Constants.ENTITY_TYPE_LOANS` to the same
-            // screen, so this is a wiring edge rather than a new screen.
-            //
-            // One-directional: `feature/document` knows nothing about loans.
-            implementation(projects.feature.document)
-            // feature/charge — the profile's "Charges" row and the summary's "Charges" menu entry
-            // open the ONE charge module, scoped to the loan. One-directional, like document.
-            implementation(projects.feature.charge)
-            implementation(projects.feature.datatable)
-            implementation(projects.feature.note)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)
@@ -39,7 +27,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

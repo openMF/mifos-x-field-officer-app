@@ -21,11 +21,6 @@ kotlin {
             implementation(projects.core.model)
             // NavigationItem + @FeatureTab + toObjectNavigationRoute — the tab declaration seam.
             implementation(projects.core.ui)
-            // The shared activate screen (client / centre / group all reach it).
-            implementation(projects.feature.activate)
-            // Group rows in a center open the group detail, owned by feature/groups (no reverse edge).
-            implementation(projects.feature.groups)
-            implementation(projects.feature.savings)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)
@@ -35,7 +30,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
         }
         commonTest.dependencies {
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

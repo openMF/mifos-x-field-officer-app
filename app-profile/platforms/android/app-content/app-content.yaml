@@ -1,173 +1,292 @@
-# deployment-layer/store-listing/variants/v1/app-content/android/en-US/app-content.yaml
-# feeds Google Play Console "App content" section (Play Store listing → App content). Folds 1:1
-# into app-profile/platforms/android/app-content/app-content.yaml on `--sync`.
+# Google Play — App content declarations for Mifos X Field Officer (com.mifos.mifosxdroid)
 #
-# App Toolkit posture: 100% offline, no login, no account, no ads, no tracking, no analytics,
-# no data collection or transmission of any kind.
+# DERIVED FROM THE SOURCE, NOT FROM TEMPLATE DEFAULTS (STEP T2.6), checked 2026-11-04:
+#   • Login required: users sign in with credentials their institution issues (Fineract Basic auth;
+#     app-profile security.signed_in_by_default: false). Nothing works without an account.
+#   • Where data goes: ONLY to the Fineract server of the user's own institution (chosen in the server
+#     picker), over HTTPS. The Mifos Initiative (the publisher) receives none of it.
+#   • What the app handles: client personal details and identifiers, client photos and signatures,
+#     uploaded documents, loan / savings / repayment records, the officer's own credentials.
+#   • On the device: an offline copy of the chosen records, encrypted on Android
+#     (core/database/…/EncryptedDatabaseModule.android.kt); credentials in secure settings; cleared on sign-out.
+#   • Firebase Analytics + Crashlytics are in the build (no Performance Monitoring) (cmp-android depends on core/firebase)
+#     but OFF by default (app-profile privacy.analytics_enabled_by_default / crash_reporting_enabled_by_default:
+#     false) — they run only after the user opts in, so they are declared OPTIONAL below.
+#   • Android permissions: INTERNET, ACCESS_NETWORK_STATE, POST_NOTIFICATIONS only. No location, no camera
+#     permission (photos go through the system camera/picker via FileKit), no contacts, no SMS.
+#   • Path tracking only DISPLAYS routes already stored on the server; the app never reads device location.
+#   • No ads, no in-app purchases, no advertising ID.
+#
+# ⚠ REVIEW BEFORE SUBMITTING (judgement calls a human must confirm — marked REVIEW below):
+#   1. "Shared: No" for data sent to the institution's own server (Play counts the institution as the
+#      party the user works for, not a third party the developer shares with).
+#   2. The financial-features declaration (a staff tool for lenders, not a consumer lending app).
+#   3. Reviewer credentials for app access (must be a working demo account).
+#   4. The privacy policy URL must be LIVE before submission (see privacy-policy.md).
+schema_version: 1
+# The store this declaration is for.
+platform: android
+# The Play application id the declarations are filed against.
+package_name: com.mifos.mifosxdroid
+# The listing locale it applies to.
+locale: en-US
+# The public privacy policy Play links from the listing; it must be reachable.
+privacy_policy_url: "https://mifos-products.pages.dev/mobile/field-officer/privacy/"   # REVIEW 4 — publish first
 
-privacy_policy_url: https://raw.githubusercontent.com/openMF/kmp-project-template/main/legal/output/privacy-policy.md
+# Summary of the IARC content-rating answers (the full form is in content-rating.yaml).
+content_rating:
+  target_rating: "Everyone"
+  category: "Utility, Productivity, Communication, or Other"
+  violence: none
+  sexuality: none
+  language: none
+  controlled_substances: none
+  user_generated_content: false
+  user_interaction: false
+  shares_location: false
+  digital_purchases: false
+  notes: >-
+    A business tool for staff of financial institutions. It shows the institution's own records to an
+    authorised officer; it hosts no content of its own, has no social features and no purchases.
 
-# Whether the app shows ads. Play requires the declaration, and an incorrect answer is a
-# policy violation rather than a listing error.
+# The "Target audience and content" declaration.
+target_audience:
+  target_age_groups: ["18+"]
+  appeals_to_children: false
+  rationale: >-
+    Used by employees of financial institutions, who sign in with credentials their employer issues.
+    Not directed at, or usable by, children.
+
+# The ads declaration.
 ads:
   contains_ads: false
+  ad_networks: []
+  rationale: "No ads SDK and no advertising ID in the build."
 
-# How a reviewer reaches gated content — demo credentials, or a statement that all content
-# is open. Play cannot review what it cannot open.
+# How reviewers get past sign-in ("App access").
 app_access:
-  all_functionality_available_without_special_access: true
-  login_required: false
-  restricted_functionality: false
-  notes: >
-    No login, no account, no gated features. The full app (loan tracker, EMI
-    calculator, affordability calculator, bill reminders, amortization
-    schedule, loan comparison, interest rates, country macro data, currency
-    exchange rates) is usable immediately after install with zero setup.
+  all_functionality_available: false
+  credentials_required: true
+  notes: >-
+    Every screen is behind sign-in with Mifos X / Apache Fineract credentials. Give Google reviewers a
+    working demo account on a demo server (REVIEW 3): server, username and password entered in Play Console,
+    never committed here.
 
-# IARC content-rating answers. The full questionnaire lives in content-rating.yaml; this is
-# the summary Play stores against the listing.
-content_rating:
-  ref: ./content-rating.yaml
-  category: Utility
-  expected_rating: Everyone
-
-# Declared age bands. Selecting a child band puts the app under Families policy, which adds
-# requirements for ads, data collection and API usage.
-target_audience:
-  age_groups: ["18 and over"]
-  appeals_to_children: false
-  is_child_directed: false
-  notes: >
-    Personal-finance / loan-tracking utility aimed at adults managing their
-    own finances. Not designed or marketed for children.
-
-# The Data Safety form: what is collected, whether it is shared, and whether it is encrypted
-# in transit. Must match what the app actually does — Play audits against observed traffic.
-data_safety:
-  ref: ./data-safety.csv
-  collects_or_shares_data: false
-  encrypted_in_transit: not_applicable
-  data_deletion: not_applicable
-  notes: >
-    App collects and transmits NO user data. All state (loans, reminders,
-    calculator inputs) is stored locally on-device only. Read-only public-data
-    calls (FRED interest rates, World Bank macro data, currency exchange
-    rates) carry no personal identifiers and are not "data collected" from
-    the user. See data-safety.csv for the full Play Console questionnaire.
-
-# Declarations for regulated categories (finance, health, government, gambling).
-# An undeclared regulated app is removed rather than warned.
+# The financial-features, health, government, news and COVID-19 declarations.
 special_categories:
-  news_apps_declaration:
-    is_news_app: false
-  covid19_contact_tracing_status_apps:
-    is_covid_app: false
-  government_apps:
-    is_government_app: false
+  financial_features: true            # REVIEW 2
+  financial_features_detail: >-
+    Loan and savings account management for staff of microfinance institutions, credit unions and banks.
+    The app does not offer, broker or originate loans to the person using it; officers record their
+    institution's clients' accounts.
+  health: false
+  government: false
+  news: false
+  covid19: false
 
-# Play's financial-features form, required when the app handles loans, payments or
-# investments. The toolkit's demo features are calculators, not regulated products.
-financial_features_declaration:
-  is_financial_app_requiring_declaration: false
-  notes: >
-    App Toolkit is a personal offline utility (loan tracking, EMI
-    calculation) — it does not originate, process, or facilitate loans,
-    payments, or any regulated financial transaction, so it does not trigger
-    Play's financial-services app declaration requirements.
+# The Data safety form: what is collected, why, and whether it is shared.
+data_safety:
+  collects_data: true
+  shares_data: false                  # REVIEW 1
+  encrypted_in_transit: true
+  deletion_request_supported: true
+  deletion_notes: >-
+    Client and account records belong to the user's institution, which holds them on its own Fineract
+    server and handles deletion requests under its own policy. Signing out clears every record the app
+    stored on the device.
+  data_types:
+    - category: "Personal info"
+      type: "Name"
+      collected: true
+      shared: false
+      optional: false
+      purposes: ["App functionality"]
+      collected_by: "The app — client records sent to the institution's Fineract server"
+    - category: "Personal info"
+      type: "Email address"
+      collected: true
+      shared: false
+      optional: true
+      purposes: ["App functionality"]
+      collected_by: "The app — client contact details, when the institution records them"
+    - category: "Personal info"
+      type: "Phone number"
+      collected: true
+      shared: false
+      optional: true
+      purposes: ["App functionality"]
+      collected_by: "The app — client contact details"
+    - category: "Personal info"
+      type: "Address"
+      collected: true
+      shared: false
+      optional: true
+      purposes: ["App functionality"]
+      collected_by: "The app — client address"
+    - category: "Personal info"
+      type: "User IDs"
+      collected: true
+      shared: false
+      optional: false
+      purposes: ["App functionality", "Account management"]
+      collected_by: "The app — the officer's username, used to sign in"
+    - category: "Personal info"
+      type: "Other info"
+      collected: true
+      shared: false
+      optional: false
+      purposes: ["App functionality"]
+      collected_by: "The app — client date of birth, gender, identity documents and identifier numbers"
+    - category: "Financial info"
+      type: "Other financial info"
+      collected: true
+      shared: false
+      optional: false
+      purposes: ["App functionality"]
+      collected_by: "The app — loan, savings, deposit and repayment records"
+    - category: "Photos and videos"
+      type: "Photos"
+      collected: true
+      shared: false
+      optional: true
+      purposes: ["App functionality"]
+      collected_by: "The app — client photos and signatures, taken or picked by the officer"
+    - category: "Files and docs"
+      type: "Files and docs"
+      collected: true
+      shared: false
+      optional: true
+      purposes: ["App functionality"]
+      collected_by: "The app — documents the officer attaches to a client or account"
+    - category: "App info and performance"
+      type: "Crash logs"
+      collected: true
+      shared: false
+      optional: true
+      purposes: ["App functionality", "Analytics"]
+      collected_by: "Firebase Crashlytics — only after the user opts in"
+    - category: "App activity"
+      type: "App interactions"
+      collected: true
+      shared: false
+      optional: true
+      purposes: ["Analytics"]
+      collected_by: "Firebase Analytics — only after the user opts in"
+  not_collected:
+    - "Location — no location permission; path tracking only shows routes already on the server"
+    - "Device or other IDs — no advertising ID, no ads SDK"
+    - "Diagnostics — no performance-monitoring SDK"
+    - "Messages, contacts, calendar, health, audio, web browsing"
+    - "Financial payment info — no card or bank-account payments are made in the app"
 
-# Health-app declaration, required when the app handles health or fitness data.
-health_apps:
-  is_health_app: false
-
-# ── questionnaire: the actual multi-question Play Console forms, in order ──
-# Keyed by console form; every question the console asks paired with the exact answer to select.
-# Answers derived from the data-posture above (100% offline, no login, no data collection).
+# ── The console forms a human actually fills, question by question ───────────────────────────────
+# Keys match the store-readiness confirm keys so the gate can render each Q→A for confirmation.
 questionnaire:
   content-rating:
-    form: Content rating
-    where: Play Console → App content → Content rating → Start questionnaire
+    form: "Content rating questionnaire (IARC)"
+    where: "Play Console → Policy → App content → Content rating → Start questionnaire"
     steps:
-      - q: Select the category that best describes your app.
-        a: Utility, Productivity, or Communication
-      - q: Does your app contain violence?
+      - q: "Category"
+        a: "Utility, Productivity, Communication, or Other"
+      - q: "Does the app contain violence?"
         a: "No"
-      - q: Does your app contain sexual content or nudity?
+      - q: "Does the app contain sexuality or nudity?"
         a: "No"
-      - q: Does your app contain profanity or crude humor?
+      - q: "Does the app contain profanity or crude humour?"
         a: "No"
-      - q: Does your app reference alcohol, tobacco, drugs, or simulated gambling?
+      - q: "Does the app reference or depict controlled substances?"
         a: "No"
-      - q: Does your app contain real-money gambling?
+      - q: "Does the app allow users to interact or exchange content?"
         a: "No"
-      - q: Does your app share the user's location?
+      - q: "Does the app share the user's location with other users?"
         a: "No"
-      - q: Does your app allow user-generated content or user interaction?
+      - q: "Does the app allow users to purchase digital goods?"
         a: "No"
-      - q: Does your app contain digital purchases?
+      - q: "Does the app contain ads?"
         a: "No"
-      - q: Does your app depict illegal activity or hate speech?
-        a: "No"
-    outcome: Everyone / PEGI 3 / USK 0 / ESRB Everyone
-  data-safety:
-    form: Data safety
-    where: Play Console → App content → Data safety → Manage
-    steps:
-      - q: Does your app collect or share any of the required user data types?
-        a: "No"
-      - q: Is all of the user data collected by your app encrypted in transit?
-        a: Not applicable — no data is collected
-      - q: Does your app provide a way for users to request that their data be deleted?
-        a: Not applicable — no data is collected or stored off-device
-      - q: Which of the following methods of account creation does your app support?
-        a: My app does not allow users to create an account
-    outcome: "No data shared/collected — badge: Data safety section shows \"No data collected\""
+    outcome: "Everyone"
+
   target-audience:
-    form: Target audience and content
-    where: Play Console → App content → Target audience and content
+    form: "Target audience and content"
+    where: "Play Console → Policy → App content → Target audience and content"
     steps:
-      - q: Select all age groups your app is designed for.
-        a: "18 and over"
-      - q: Does your app appeal to children even if it is not primarily designed for them?
+      - q: "Select the age groups your app targets"
+        a: "18 and over only"
+      - q: "Is your app designed to appeal to children?"
         a: "No"
-      - q: Does your app fall under Google Play's Families Policy?
+      - q: "Store presence — could the app unintentionally appeal to children?"
         a: "No"
-    outcome: Not child-directed; standard adult utility audience
+    outcome: "Not directed at children; Families policy does not apply"
+
+  data-safety:
+    form: "Data safety"
+    where: "Play Console → Policy → App content → Data safety"
+    steps:
+      - q: "Does your app collect or share any of the required user data types?"
+        a: "Yes"
+      - q: "Is all of the user data collected by your app encrypted in transit?"
+        a: "Yes"
+      - q: "Do you provide a way for users to request that their data is deleted?"
+        a: "Yes — through the user's institution, which holds the records; sign-out clears the device copy"
+      - q: "Data types — Personal info → Name, User IDs, Other info"
+        a: "Collected: Yes · Shared: No · Purpose: App functionality (User IDs also Account management) · Required"
+      - q: "Data types — Personal info → Email address, Phone number, Address"
+        a: "Collected: Yes · Shared: No · Purpose: App functionality · Optional"
+      - q: "Data types — Financial info → Other financial info"
+        a: "Collected: Yes · Shared: No · Purpose: App functionality · Required"
+      - q: "Data types — Photos and videos → Photos; Files and docs"
+        a: "Collected: Yes · Shared: No · Purpose: App functionality · Optional"
+      - q: "Data types — App info and performance → Crash logs"
+        a: "Collected: Yes · Shared: No · Purpose: App functionality, Analytics · Optional (opt-in)"
+      - q: "Data types — App activity → App interactions"
+        a: "Collected: Yes · Shared: No · Purpose: Analytics · Optional (opt-in)"
+      - q: "Location / Device IDs / Messages / Contacts / Health / Audio"
+        a: "Not collected"
+    outcome: "Collected for app functionality, not shared; analytics and crash reporting opt-in"
+    api: "Uploadable via the Play Developer API data-safety CSV (see data-safety.csv)"
+
   ads:
-    form: Ads
-    where: Play Console → App content → Ads
+    form: "Ads declaration"
+    where: "Play Console → Policy → App content → Ads"
     steps:
-      - q: Does your app contain ads?
-        a: "No"
-    outcome: No ads declared
+      - q: "Does your app contain ads?"
+        a: "No, my app does not contain ads"
+    outcome: "No ads"
+
   app-access:
-    form: App access
-    where: Play Console → App content → App access
+    form: "App access"
+    where: "Play Console → Policy → App content → App access"
     steps:
-      - q: Is all or part of your app restricted, requiring special access for review (e.g. login credentials)?
-        a: All functionality is available without special access
-    outcome: No restricted access — reviewer can use every feature immediately
+      - q: "Is any part of your app restricted behind a login or other access requirement?"
+        a: "All or some functionality is restricted"
+      - q: "Instructions and credentials"
+        a: "Add a demo account: server URL, tenant, username, password — entered in Play Console only (REVIEW 3)"
+    outcome: "Reviewers sign in with the demo account"
+
   special-cats:
-    form: News apps / COVID-19 contact tracing / Government apps
-    where: Play Console → App content → News apps, COVID-19 apps, Government apps declarations
+    form: "Financial features / Health / Government apps"
+    where: "Play Console → Policy → App content → (each section)"
     steps:
-      - q: Is your app a news app?
+      - q: "Does your app provide financial features?"
+        a: "Yes — loan and savings management for financial-institution staff (REVIEW 2: pick the matching Play option; not personal-loan origination to the app's user)"
+      - q: "Is your app a health app?"
         a: "No"
-      - q: Is your app a COVID-19 contact tracing or status app?
+      - q: "Is your app a government app?"
         a: "No"
-      - q: Is your app a government-operated app?
-        a: "No"
-    outcome: None of the special categories apply
+    outcome: "Financial features declared; health and government do not apply"
+
   news:
-    form: News apps declaration
-    where: Play Console → App content → News apps
+    form: "News apps"
+    where: "Play Console → Policy → App content → News apps"
     steps:
-      - q: Does your app function as a news app (aggregates or publishes news content)?
+      - q: "Is your app a news app?"
         a: "No"
-    outcome: Not a news app
+    outcome: "Not a news app"
+
   privacy-policy:
-    form: Privacy policy
-    where: Play Console → App content → Privacy policy
+    form: "Privacy policy"
+    where: "Play Console → Policy → App content → Privacy policy"
     steps:
-      - q: Provide a link to your privacy policy.
-        a: https://raw.githubusercontent.com/openMF/kmp-project-template/main/legal/output/privacy-policy.md
-    outcome: Privacy policy URL on file
+      - q: "Privacy policy URL"
+        a: "https://mifos-products.pages.dev/mobile/field-officer/privacy/ (REVIEW 4 — must return 200 first)"
+    outcome: "Policy URL set and reachable"

@@ -2,7 +2,7 @@
 
 > **Layer:** core — fork-owned; a codegen target
 > **Corpus surface:** `CORE_DATA.md`
-> **Measured:** 165 Kotlin files, 33 test files
+> **Measured:** 167 Kotlin files, 34 test files
 
 ## Codegen contracts owned here
 
@@ -27,10 +27,10 @@ Declared in [`../../CONTRACT.yaml`](../../CONTRACT.yaml); that file is the machi
 
 _Authored prose below this marker is preserved by the scaffolder._
 
-<!-- api-docs:begin module=core/data sha=097dfc8ac4cd235eb46d2c26f18dac725f9b7c8a -->
+<!-- api-docs:begin module=core/data sha=79bb85849163a182153418e6252ac886a3cf1421 -->
 ## API reference
 
-_Generated from `core/data` at tree `097dfc8ac4cd` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `core/data` at tree `79bb85849163` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/auth/AuthCommandRepository.kt`
@@ -40,7 +40,7 @@ interface AuthCommandRepository
 ```
 Every auth write, as an explicit outcome.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:55</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:60</code></summary>
 
 ```kotlin
     staff: StaffRepository,
@@ -48,8 +48,8 @@ Every auth write, as an explicit outcome.
     private val auth: AuthCommandRepository,
 ) : BaseViewModel<ProfileUiState, ProfileEvent, ProfileAction>(ProfileUiState()) {
 
-    private val session = project.fineractUser.value
-    private val userStream = dashboard.userStream(session.userId, viewModelScope)
+    /** The stored session; null until it first loads. Shared, so it is read once. */
+    private val session: StateFlow<User?> = sessions.sessionStream(viewModelScope).state
 ```
 
 </details>
@@ -64,7 +64,7 @@ class PasswordChangedSignInFailed(cause: Throwable? = null) : Exception(
 ```
 The password changed, but signing in with it failed; the session was ended (data kept).
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:140</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileViewModel.kt:157</code></summary>
 
 ```kotlin
                     sendEvent(ProfileEvent.PasswordChanged)
@@ -756,7 +756,7 @@ sealed class NoteSubmitException(message: String, cause: Throwable? = null) :
 ```
 Why a note submission failed, as a THROWN signal. `SubmitHandler` and `OfflineSubmitSyncer` are built on throw-to-fail: a block that returns is a success and its draft is marked SUBMITTED.
 
-<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/ui/AddEditNoteViewModelTest.kt:128</code></summary>
+<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/ui/AddEditNoteViewModelTest.kt:130</code></summary>
 
 ```kotlin
         // THE regression this whole change exists for. Before it, this path showed "you are
@@ -854,16 +854,16 @@ interface OfflineSyncScheduler
 ```
 Where the work runs — the background scheduler, so a download survives the screen and the process.
 
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:72</code></summary>
+<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:56</code></summary>
 
 ```kotlin
-    // is the SAME qualified store the record's screen reads, which is what makes "synced" mean
-    // "opens offline".
+    // each engine store is the SAME qualified store the record's screen reads (its @FromStore), which is
+    // what makes "synced" mean "opens offline".
     single<OfflineSyncScheduler> { WorkManagerOfflineSyncScheduler(workManager = get()) }
-    single<OfflineSyncRepository> {
-        val nowMs = { Clock.System.now().toEpochMilliseconds() }
-        val engine = OfflineSyncEngine(
-            entities = EntityStores(
+    // A rejected session (401 on a credentialed request) ends it — see SignOutOnRejectedSession.
+    // `restApi` picks this up for every REST client; the auth repository is resolved lazily because
+    // its own API client is one of them.
+    single<UnauthorizedHandler> {
 ```
 
 </details>
@@ -929,20 +929,6 @@ The signed-in officer's recently-opened records — written by the profile scree
 class RecentRecordsRepositoryImpl(
 ```
 Room-backed and keyed by the signed-in user, so a shared device never mixes officers' histories.
-
-<details><summary>Used in the template — <code>core/data/src/commonMain/kotlin/kpt/core/data/di/ForkRepositoryModule.kt:62</code></summary>
-
-```kotlin
-    single<SessionSource> { SessionSource { get<ForkPreferencesRepository>().fineractUser } }
-    single<kpt.core.data.recent.RecentRecordsRepository> {
-        kpt.core.data.recent.RecentRecordsRepositoryImpl(
-            get(),
-            get(),
-        )
-    }
-```
-
-</details>
 
 ### `core/data/src/commonMain/kotlin/kpt/core/data/recurringdeposit/RecurringDepositCommandRepository.kt`
 
@@ -1299,7 +1285,7 @@ class FakeAuthCommandRepository : AuthCommandRepository
 ```
 Records sign-outs (the clearLocalData flag of each) and password changes; sign-in is not scripted.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:97</code></summary>
+<details><summary>Used in the template — <code>feature/profile/src/commonTest/kotlin/kpt/feature/profile/identity/ProfileViewModelTest.kt:84</code></summary>
 
 ```kotlin
     }
@@ -1307,8 +1293,8 @@ Records sign-outs (the clearLocalData flag of each) and password changes; sign-i
     private val auth = FakeAuthCommandRepository()
     private val servers = FakeServerConfigRepository()
 
-    private suspend fun preferences() = run {
-        val plain = MapSettings()
+    private suspend fun TestScope.viewModel(): ProfileViewModel {
+        val vm = ProfileViewModel(FakeSessionRepository(session), servers, dashboard, staff, network, auth)
 ```
 
 </details>
@@ -1627,6 +1613,45 @@ A `NetworkMonitor` the test switches: set `online` to drive a screen into / out 
             listOf(Center(id = 10, name = "Centro Arin"), Center(id = 27, name = "Centro Las Flores")),
         ),
     ) = OfflineSyncViewModel(repo, centers, FakeGroupRepository(), FakeClientRepository(), network, nowMs = { NOW })
+```
+
+</details>
+
+### `core/data/src/commonMain/kotlin/kpt/core/data/testing/FakeNoteRepository.kt`
+
+```kotlin
+class FakeNoteRepository(
+```
+In-memory `NoteRepository` for ViewModel- and screen-level tests.
+
+<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/ui/AddEditNoteViewModelTest.kt:48</code></summary>
+
+```kotlin
+class AddEditNoteViewModelTest {
+
+    private val repository = FakeNoteRepository()
+    private val commands = FakeNoteCommandRepository()
+    private val outbox = FakeSubmitOutbox<kpt.core.model.note.NoteDraft>()
+
+    @BeforeTest fun setUp() = Dispatchers.setMain(Dispatchers.Unconfined)
+```
+
+</details>
+
+```kotlin
+class FakeNoteCommandRepository(
+```
+In-memory `NoteCommandRepository` that RECORDS every write and replays a scripted outcome.
+
+<details><summary>Used in the template — <code>feature/note/src/commonTest/kotlin/kpt/feature/note/ui/AddEditNoteViewModelTest.kt:49</code></summary>
+
+```kotlin
+
+    private val repository = FakeNoteRepository()
+    private val commands = FakeNoteCommandRepository()
+    private val outbox = FakeSubmitOutbox<kpt.core.model.note.NoteDraft>()
+
+    @BeforeTest fun setUp() = Dispatchers.setMain(Dispatchers.Unconfined)
 ```
 
 </details>
@@ -1988,16 +2013,16 @@ interface UserDataRepository
 ```
 Repository interface for managing user preferences with reactive capabilities. This interface provides reactive access to user preferences including theme settings, dark mode configuration, and dynamic color preferences.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsViewModel.kt:44</code></summary>
+<details><summary>Used in the template — <code>feature/onboarding/src/commonMain/kotlin/kpt/feature/onboarding/ui/OnboardingViewModel.kt:34</code></summary>
 
 ```kotlin
  */
-class SettingsViewModel(
-    private val settingsRepository: UserDataRepository,
-    private val analyticsHelper: AnalyticsHelper,
-) : BaseViewModel<Unit, Nothing, SettingsAction>(Unit) {
+class OnboardingViewModel(
+    private val userDataRepository: UserDataRepository,
+) : BaseViewModel<OnboardingState, Nothing, OnboardingAction>(OnboardingState()) {
 
-    /** The store-backed preferences read — retained so [onRetry] re-runs it. */
+    override fun handleAction(action: OnboardingAction) {
+        when (action) {
 ```
 
 </details>
@@ -2080,5 +2105,5 @@ Creates a `MutableSharedFlow` with a buffer of `Int.MAX_VALUE` and the given `re
 
 ---
 
-_85 type(s), 208 function(s)/property(ies); 293 carry KDoc at source; 2 authored example(s); 81 live call site(s)._
+_87 type(s), 208 function(s)/property(ies); 295 carry KDoc at source; 2 authored example(s); 82 live call site(s)._
 <!-- api-docs:end -->

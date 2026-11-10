@@ -1,9 +1,9 @@
 # `feature/settings/`
 
 > Part of [`feature/`](../feature.md)  
-> **Measured:** 83 tracked files — 38× `.kt`, 20× `.xml`, 20× `.png`, 2× `.md`, 1× `.gitignore`
+> **Measured:** 85 tracked files — 40× `.kt`, 20× `.xml`, 20× `.png`, 2× `.md`, 1× `.gitignore`
 
-**38 Kotlin files** — 4 screen(s), 5 ViewModel(s).
+**40 Kotlin files** — 4 screen(s), 5 ViewModel(s).
 
 Screens: `NotificationScreen`, `ServerConfigScreen`, `SettingsScreen`, `SyncAndDraftsScreen`
 
@@ -32,10 +32,10 @@ The **sync-and-drafts** screen makes the offline write queue visible, which is t
 `UserEditableSettings` is deliberately narrower than `UserData`, so a settings screen cannot write a
 session or lock field it has no business touching.
 
-<!-- api-docs:begin module=feature/settings sha=b63549ff1fc68bc0b362a6d78d6f130739925859 -->
+<!-- api-docs:begin module=feature/settings sha=15b673247a31165719bb38083b779aa91a870434 -->
 ## API reference
 
-_Generated from `feature/settings` at tree `b63549ff1fc6` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/settings` at tree `15b673247a31` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -108,10 +108,10 @@ The language picker, wired to `SettingsViewModel`.
 ) {
     var showThemeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
 
     SettingsScreenContent(
         onBackClick = onBackClick,
-        onThemeCardClick = { showThemeDialog = true },
 ```
 
 </details>
@@ -127,10 +127,10 @@ The stateless language picker: the current `settings`, and `onChangeLanguage` fo
 ) {
     var showThemeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
 
     SettingsScreenContent(
         onBackClick = onBackClick,
-        onThemeCardClick = { showThemeDialog = true },
 ```
 
 </details>
@@ -171,6 +171,46 @@ expect fun supportsDynamicTheming(): Boolean
 ```
 True when the platform can derive the colour scheme from the wallpaper (Material You).
 
+### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/PrivacySheet.kt`
+
+```kotlin
+fun PrivacySheet(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinViewModel())
+```
+Settings → Privacy, as a bottom sheet: the user's consent to usage analytics and crash reporting, each one switch, plus the link to the hosted privacy policy.
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:71</code></summary>
+
+```kotlin
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
+    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
+
+    SettingsScreenContent(
+        onBackClick = onBackClick,
+        onThemeCardClick = { showThemeDialog = true },
+```
+
+</details>
+
+```kotlin
+fun PrivacySheet(
+```
+Privacy sheet over explicit state — the testable overload.
+
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:71</code></summary>
+
+```kotlin
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
+    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
+
+    SettingsScreenContent(
+        onBackClick = onBackClick,
+        onThemeCardClick = { showThemeDialog = true },
+```
+
+</details>
+
 ### `feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt`
 
 ```kotlin
@@ -185,7 +225,7 @@ fun SettingsDialog(onDismiss: () -> Unit, viewModel: SettingsViewModel = koinVie
 ```
 The theme settings dialog, wired to `SettingsViewModel`.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:85</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:87</code></summary>
 
 ```kotlin
 
@@ -204,7 +244,7 @@ fun SettingsDialog(
 ```
 The stateless theme settings dialog: brand, dark mode and dynamic colour.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:85</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:87</code></summary>
 
 ```kotlin
 
@@ -404,7 +444,12 @@ Append-only test-tag registry for the settings feature. Consumed by Compose UI t
 
 - `const val ABOUT_ROW: String = "settings_about_row"` — The settings row that opens About.
 - `const val OFFLINE_SYNC_ROW: String = "settings_offline_sync_row"` — The settings row that opens offline sync.
+- `const val PRIVACY_ROW: String = "settings_privacy_row"` — The Privacy row that opens `PrivacySheet`.
 - `const val SCREEN: String = "settings_screen"` — Root scaffold — always rendered regardless of dialog state.
+- `const val SHEET: String = "privacy_sheet"` — The bottom sheet root.
+- `const val ANALYTICS_SWITCH: String = "privacy_analytics_switch"` — The usage-analytics consent switch row.
+- `const val CRASH_REPORTS_SWITCH: String = "privacy_crash_reports_switch"` — The crash-reporting consent switch row.
+- `const val POLICY_LINK: String = "privacy_policy_link"` — The link that opens the privacy policy in the in-app browser.
 - `const val SCREEN: String = "notification_screen"` — Root scaffold — always rendered regardless of content state.
 - `const val SCREEN: String = "sync_and_drafts_screen"` — Root scaffold — always rendered regardless of content state.
 - `const val PRUNE: String = "sync_and_drafts_prune"` — The manual "Prune expired" button (rendered only when there is content).
@@ -575,16 +620,14 @@ fun SignOutDialog(state: SignOutState, onAction: (SignOutAction) -> Unit)
 ```
 The sign-out choice, shown while `SignOutState.confirming`. Stateless — `SignOutViewModel` owns it.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:122</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:97</code></summary>
 
 ```kotlin
-    )
+    val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
     if (signOut.confirming) {
-        SignOutDialog(state = signOut, onAction = signOutViewModel::trySendAction)
+        SignOutDialog(state = signOut, onAction = { signOutViewModel.trySendAction(it) })
     }
 }
-
-/** Stateless half — previews and UI tests drive it directly. */
 ```
 
 </details>
@@ -596,7 +639,7 @@ object SignOutTestTags
 ```
 Tags for the sign-out row and its confirm sheet.
 
-<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsScreen.kt:155</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsScreen.kt:160</code></summary>
 
 ```kotlin
                     accentColor = MaterialTheme.colorScheme.error,
@@ -623,16 +666,16 @@ class SignOutViewModel(
 ```
 Sign-out, at the bottom of Settings (moved from the Profile tab, 2026-10-25). Local only, so it works offline — a field officer who cannot sign out without signal is stranded.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:101</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:67</code></summary>
 
 ```kotlin
-    modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel = koinViewModel(),
+    onAboutClick: (() -> Unit)? = null,
+    onOfflineSyncClick: (() -> Unit)? = null,
     signOutViewModel: SignOutViewModel = koinViewModel(),
 ) {
-    val state by viewModel.profile.collectAsStateWithLifecycle()
-    val signOut by signOutViewModel.stateFlow.collectAsStateWithLifecycle()
-    val snackbar = remember { SnackbarHostState() }
+    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
+    var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showPrivacySheet by rememberSaveable { mutableStateOf(false) }
 ```
 
 </details>
@@ -680,16 +723,16 @@ sealed interface SignOutAction
 ```
 What the officer did in the sign-out flow.
 
-<details><summary>Used in the template — <code>feature/profile/src/commonMain/kotlin/kpt/feature/profile/identity/ProfileBody.kt:117</code></summary>
+<details><summary>Used in the template — <code>feature/settings/src/commonMain/kotlin/kpt/feature/settings/SettingsBody.kt:82</code></summary>
 
 ```kotlin
-        onBack = onBack,
-        onServerSettings = onServerSettings,
-        onSignOut = { signOutViewModel.trySendAction(SignOutAction.Requested) },
-        snackbarHostState = snackbar,
+        onOfflineSyncClick = onOfflineSyncClick,
+        onPrivacyClick = { showPrivacySheet = true },
+        onSignOutClick = { signOutViewModel.trySendAction(SignOutAction.Requested) },
         modifier = modifier,
     )
-    if (signOut.confirming) {
+
+    if (showThemeDialog) {
 ```
 
 </details>
@@ -715,5 +758,5 @@ One-off effects of the sign-out flow, for the screen to act on.
 
 ---
 
-_29 type(s), 46 function(s)/property(ies); 75 carry KDoc at source; 0 authored example(s); 26 live call site(s)._
+_29 type(s), 53 function(s)/property(ies); 82 carry KDoc at source; 0 authored example(s); 28 live call site(s)._
 <!-- api-docs:end -->

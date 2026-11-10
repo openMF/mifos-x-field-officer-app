@@ -17,11 +17,6 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.data)
             implementation(projects.core.model)
-            // A downloaded record opens on its own screen; offline work is handed to Sync & Drafts.
-            implementation(projects.feature.center)
-            implementation(projects.feature.groups)
-            implementation(projects.feature.client)
-            implementation(projects.feature.settings)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)

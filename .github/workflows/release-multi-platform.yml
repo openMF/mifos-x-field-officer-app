@@ -1,6 +1,6 @@
 # .github/workflows/release-multi-platform.yml
 #
-# Thin wrapper → openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.71
+# Thin wrapper → openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.72
 #
 # All orchestration logic lives in the centralized reusable workflow.
 # This file just declares the dispatch inputs + passes secrets through.
@@ -225,7 +225,7 @@ jobs:
     # @v2.0.15, publish-desktop @v2.0.8, publish-web @v2.0.10 — all carry the flavor
     # dimension). The `with:` block below threads the single dispatched
     # `inputs.flavor` / `inputs.build_type` straight through.
-    uses: openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.71
+    uses: openMF/mifos-x-actionhub/.github/workflows/release-multi-platform-v2.yaml@v1.0.72
     with:
       version_tag:          ${{ inputs.version_tag }}
       android_package_name: cmp-android
@@ -388,6 +388,7 @@ jobs:
       keychain_password:                  ${{ secrets.KEYCHAIN_PASSWORD }}
       # --- NEW: Web host tokens + Vercel project identity ---
       cloudflare_api_token:         ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      cloudflare_account_id:        ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       netlify_auth_token:           ${{ secrets.NETLIFY_AUTH_TOKEN }}
       vercel_token:                 ${{ secrets.VERCEL_TOKEN }}
       vercel_org_id:                ${{ secrets.VERCEL_ORG_ID }}

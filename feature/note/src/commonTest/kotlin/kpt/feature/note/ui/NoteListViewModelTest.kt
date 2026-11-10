@@ -21,9 +21,10 @@ import kpt.core.base.store.mutation.BlockReason
 import kpt.core.base.store.mutation.MutationResult
 import kpt.core.base.store.screen.ExperimentalScreenDataStreamTestingApi
 import kpt.core.base.store.screen.ScreenState
+import kpt.core.data.testing.ExperimentalDataTestingApi
+import kpt.core.data.testing.FakeNoteCommandRepository
+import kpt.core.data.testing.FakeNoteRepository
 import kpt.core.model.objects.note.Note
-import kpt.feature.note.testing.FakeNoteCommandRepository
-import kpt.feature.note.testing.FakeNoteRepository
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -39,7 +40,11 @@ import kotlin.test.assertTrue
  * "what is happening" (DataState + dialogState + isRefreshing + networkConnection) with no single
  * value to assert against.
  */
-@OptIn(ExperimentalScreenDataStreamTestingApi::class, ExperimentalCoroutinesApi::class)
+@OptIn(
+    ExperimentalScreenDataStreamTestingApi::class,
+    ExperimentalCoroutinesApi::class,
+    ExperimentalDataTestingApi::class,
+)
 class NoteListViewModelTest {
 
     private val repository = FakeNoteRepository()

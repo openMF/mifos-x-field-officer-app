@@ -47,16 +47,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kpt.core.base.designsystem.theme.KptTheme
+import kpt.core.base.platform.LocalUrlLauncher
 import kpt.core.designsystem.fieldofficer.component.AppOutlinedTextField
 import kpt.core.designsystem.fieldofficer.component.AppPasswordToggle
 import kpt.core.designsystem.icon.AppIcons
+import kpt.core.model.config.AppOrgLinks
+import kpt.core.model.config.AppPrivacyConfig
 import kpt.core.model.utils.DemoCredentials
 import kpt.core.ui.components.AppProgressIndicatorOverlay
 import kpt.feature.signin.BuildKonfig
@@ -82,7 +91,9 @@ import kpt.feature.signin.generated.resources.feature_signin_locked_out
 import kpt.feature.signin.generated.resources.feature_signin_login
 import kpt.feature.signin.generated.resources.feature_signin_password
 import kpt.feature.signin.generated.resources.feature_signin_password_placeholder
+import kpt.feature.signin.generated.resources.feature_signin_privacy_policy
 import kpt.feature.signin.generated.resources.feature_signin_set_instance
+import kpt.feature.signin.generated.resources.feature_signin_terms
 import kpt.feature.signin.generated.resources.feature_signin_username
 import kpt.feature.signin.generated.resources.feature_signin_username_placeholder
 import org.jetbrains.compose.resources.StringResource
@@ -140,10 +151,14 @@ fun SignInScreen(
         }
     }
 
+    val urlLauncher = LocalUrlLauncher.current
     SignInContent(
         state = state,
         onAction = { viewModel.actionChannel.trySend(it) },
         onUpdateServerConfig = onUpdateServerConfig,
+        // In-app (Custom Tabs / SFSafariViewController), from generated config — never a literal URL.
+        onOpenTerms = { AppOrgLinks["terms"]?.let(urlLauncher::launchInApp) },
+        onOpenPrivacyPolicy = { urlLauncher.launchInApp(AppPrivacyConfig.PRIVACY_POLICY_URL) },
         modifier = modifier,
     )
 }
@@ -154,6 +169,8 @@ internal fun SignInContent(
     onAction: (SignInAction) -> Unit,
     onUpdateServerConfig: () -> Unit,
     modifier: Modifier = Modifier,
+    onOpenTerms: () -> Unit = {},
+    onOpenPrivacyPolicy: () -> Unit = {},
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -177,17 +194,9 @@ internal fun SignInContent(
             // ui.yaml#components.consent_text — ABSENT in v1 and the clearest professional
             // omission: an app that collects credentials and transmits banking data states its
             // terms at the point of collection. Pinned, never scrollable: a consent the user
-            // cannot read is not a consent.
-            Text(
-                text = stringResource(Res.string.feature_signin_consent),
-                style = MaterialTheme.typography.bodySmall,
-                color = KptTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 16.dp)
-                    .testTag(SignInTestTags.CONSENT),
-            )
+            // cannot read is not a consent. Both documents are links, so the terms being accepted are
+            // one tap away from the sentence that accepts them.
+            ConsentText(onOpenTerms = onOpenTerms, onOpenPrivacyPolicy = onOpenPrivacyPolicy)
         },
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize().padding(padding)) {
@@ -572,3 +581,39 @@ private val SignInError.message: StringResource
         SignInError.LockedOut -> Res.string.feature_signin_locked_out
         SignInError.BiometricFailed -> Res.string.feature_signin_error_biometric_failed
     }
+
+/** "By signing in you accept our Terms & Conditions and Privacy Policy." — both names are in-app links. */
+@Composable
+internal fun ConsentText(onOpenTerms: () -> Unit, onOpenPrivacyPolicy: () -> Unit, modifier: Modifier = Modifier) {
+    val terms = stringResource(Res.string.feature_signin_terms)
+    val policy = stringResource(Res.string.feature_signin_privacy_policy)
+    val sentence = stringResource(Res.string.feature_signin_consent, terms, policy)
+    val linkStyle = TextLinkStyles(
+        style = SpanStyle(color = KptTheme.colorScheme.primary, textDecoration = TextDecoration.Underline),
+    )
+    val text = buildAnnotatedString {
+        // Find each link inside the LOCALIZED sentence, so a locale that orders them differently still links
+        // the right words.
+        var cursor = 0
+        listOf(terms to onOpenTerms, policy to onOpenPrivacyPolicy)
+            .map { (label, open) -> Triple(sentence.indexOf(label), label, open) }
+            .filter { it.first >= 0 }
+            .sortedBy { it.first }
+            .forEach { (start, label, open) ->
+                append(sentence.substring(cursor, start))
+                withLink(LinkAnnotation.Clickable(tag = label, styles = linkStyle) { open() }) { append(label) }
+                cursor = start + label.length
+            }
+        append(sentence.substring(cursor))
+    }
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodySmall,
+        color = KptTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 16.dp)
+            .testTag(SignInTestTags.CONSENT),
+    )
+}

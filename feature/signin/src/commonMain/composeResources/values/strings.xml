@@ -79,7 +79,11 @@
     <string name="feature_signin_set_instance">Set server</string>
     <string name="feature_signin_biometric_unlock">Unlock with biometrics</string>
     <string name="feature_signin_error_biometric_failed">Biometric check did not match. Enter your password instead.</string>
-    <string name="feature_signin_consent">By signing in you agree to our Terms of Service and Privacy Policy.</string>
+    <!-- %1$s = feature_signin_terms, %2$s = feature_signin_privacy_policy; each renders as an in-app link.
+         Same acceptance wording as onboarding's agreement line, so the officer reads one rule twice. -->
+    <string name="feature_signin_consent">By signing in you accept our %1$s and %2$s.</string>
+    <string name="feature_signin_terms">Terms &amp; Conditions</string>
+    <string name="feature_signin_privacy_policy">Privacy Policy</string>
     <string name="feature_signin_cd_username_error">Username is invalid</string>
     <string name="feature_signin_cd_password_error">Password is invalid</string>
     <!--

@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kpt.core.base.data.infra.NetworkMonitor
 import kpt.core.base.store.screen.ScreenState
+import kpt.core.base.store.screen.mapContent
 import kpt.core.base.ui.viewmodel.BaseViewModel
 import kpt.core.data.center.CenterRepository
 import kpt.core.data.client.ClientRepository
@@ -91,18 +92,18 @@ internal class OfflineSyncViewModel(
         .flatMapLatest { tab ->
             when (tab) {
                 null -> flowOf(ScreenState.Loading)
-                RecordKind.CENTRE -> centreList.state.map { s ->
-                    s.mapRows { c ->
+                RecordKind.CENTRE -> centreList.state.mapContent { list, _ ->
+                    list.mapNotNull { c ->
                         c.id?.let { PickerRow(SyncTarget(RecordKind.CENTRE, it, c.name ?: "#$it"), c.accountNo) }
                     }
                 }
-                RecordKind.GROUP -> groupList.state.map { s ->
-                    s.mapRows { g ->
+                RecordKind.GROUP -> groupList.state.mapContent { list, _ ->
+                    list.mapNotNull { g ->
                         g.id?.let { PickerRow(SyncTarget(RecordKind.GROUP, it, g.name ?: "#$it"), g.accountNo) }
                     }
                 }
-                RecordKind.CLIENT -> clientList.state.map { s ->
-                    s.mapRows { c ->
+                RecordKind.CLIENT -> clientList.state.mapContent { list, _ ->
+                    list.mapNotNull { c ->
                         c.id?.let {
                             PickerRow(SyncTarget(RecordKind.CLIENT, it, c.displayName ?: "#$it"), c.accountNo)
                         }
@@ -201,15 +202,6 @@ internal class OfflineSyncViewModel(
     private companion object {
         const val STATE_TIMEOUT_MS = 5_000L
     }
-}
-
-private fun <T> ScreenState<List<T>>.mapRows(row: (T) -> PickerRow?): ScreenState<List<PickerRow>> = when (this) {
-    is ScreenState.Content -> ScreenState.Content(data.mapNotNull(row), fetchedAt, freshnessSignal)
-    is ScreenState.Error -> this
-    is ScreenState.NoNetwork -> this
-    ScreenState.Loading -> ScreenState.Loading
-    ScreenState.Empty -> ScreenState.Empty
-    ScreenState.Unauthenticated -> ScreenState.Unauthenticated
 }
 
 internal data class OfflineSyncState(

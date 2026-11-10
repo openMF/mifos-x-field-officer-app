@@ -171,6 +171,29 @@ infra_e="$(grep -cE '^  - kpt\.core\.base\.database' "$SB/$INFRA_SCHEMA_REL" 2>/
   || bad "AppDatabase.kt exists in src/ — the hand-merged file is back and forks will 3-way merge it"
 
 ver="$(grep -oE '^version:[[:space:]]*[0-9]+' "$SB/$LEDGER_REL" 2>/dev/null | grep -oE '[0-9]+')"
+# The sandbox ledger is the running repo's own. A FORK whose ledger records its own migration units
+# (neither a declared framework unit nor demo-*) has installed users on that version, and remove-demo.sh
+# deliberately KEEPS its ledger + schema JSONs (FORK_UNITS). Asserting the fresh-fork reset there failed
+# every such fork for doing the right thing — so assert the branch the ledger actually calls for.
+fork_units=""
+if [ -f "$ROOT/$LEDGER_REL" ]; then
+  fork_units="$(grep -oE 'unit:[[:space:]]*[A-Za-z0-9_-]+' "$ROOT/$LEDGER_REL" | sed 's/.*unit:[[:space:]]*//' \
+    | while read -r u; do
+        case "$u" in demo-*) continue ;; esac
+        grep -qE "id:[[:space:]]*${u}([[:space:],}]|\$)" "$ROOT/core/database/migration-units.yaml" 2>/dev/null || echo "$u"
+      done | paste -sd' ' - || true)"
+fi
+if [ -n "$fork_units" ]; then
+  root_ver="$(grep -oE '^version:[[:space:]]*[0-9]+' "$ROOT/$LEDGER_REL" | grep -oE '[0-9]+')"
+  [ "$ver" = "$root_ver" ] \
+    && ok "fork lineage (units: $fork_units) — ledger KEPT at version $ver, not reset" \
+    || bad "fork ledger changed $root_ver → ${ver:-<unset>} — the strip reset a lineage with installed users"
+  after_schema="$(find "$SB/$SCHEMA_REL" -name '*.json' 2>/dev/null | wc -l | tr -d ' ')"
+  [ "$after_schema" = "$before_schema" ] \
+    && ok "fork lineage — all $before_schema exported schema JSON(s) kept (they carry its upgrade path)" \
+    || bad "$before_schema → $after_schema schema JSON(s) — the strip dropped a fork's exported lineage"
+  exit "$rc"
+fi
 [ "$ver" = "1" ] \
   && ok "ledger version reset to 1 (fresh-fork baseline)" \
   || bad "ledger version is ${ver:-<unset>}, not 1 — the reset silently missed (it did, for a while)"

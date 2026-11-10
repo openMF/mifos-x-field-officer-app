@@ -15,16 +15,13 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import co.touchlab.kermit.Logger
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.base.ui.nav.composableWithStayTransitions
 import kpt.core.base.ui.nav.popBackStackSafely
 import kpt.core.common.utils.Constants
 import kpt.core.model.objects.charge.ChargeResource
+import kpt.core.model.objects.searchrecord.GenericSearchRecord
 import kpt.core.model.objects.searchrecord.RecordType
-import kpt.feature.activate.navigation.navigateToActivateClient
-import kpt.feature.charge.navigation.navigateToAddCharge
-import kpt.feature.charge.navigation.navigateToCharges
 import kpt.feature.client.addaddress.ClientAddAddressScreen
 import kpt.feature.client.adddocument.ClientAddDocumentScreen
 import kpt.feature.client.addidentifier.ClientAddIdentifierScreen
@@ -54,18 +51,6 @@ import kpt.feature.client.shareapplication.ShareApplicationScreen
 import kpt.feature.client.signature.ClientSignatureScreen
 import kpt.feature.client.staff.ClientStaffScreen
 import kpt.feature.client.transfer.ClientTransferScreen
-import kpt.feature.groups.navigation.navigateToGroupsDetail
-import kpt.feature.loan.navigation.navigateToLoanProfile
-import kpt.feature.loan.navigation.navigateToLoanRepayment
-import kpt.feature.loan.navigation.navigateToNewLoanApplication
-import kpt.feature.note.navigation.navigateToClientNotes
-import kpt.feature.note.navigation.noteDestinations
-import kpt.feature.savings.navigation.navigateToRecurringDepositApplication
-import kpt.feature.savings.navigation.navigateToSavingsApplication
-import kpt.feature.savings.navigation.navigateToSavingsApproval
-import kpt.feature.savings.navigation.navigateToSavingsSummary
-import kpt.feature.searchrecord.navigation.navigateToSearchRecord
-import kpt.feature.searchrecord.navigation.searchRecordDestination
 
 /** The tab's graph. Mirrors `HomeDestination` — the tab points at the graph, not at a screen. */
 @Serializable
@@ -355,13 +340,43 @@ data class ClientDocumentPreviewRoute(
 )
 
 /**
- * The client list — a TOP-LEVEL destination on the authenticated graph, so it is annotated and
- * collected into `GeneratedFeatureDestinations` by `:cmp-navigation:generateFeatureDestinations`.
+ * Where the client screens lead outside this feature. A feature never depends on another, so these are
+ * callbacks; `ForkFeatureRegistry` fills each with the owning feature's `navigateTo…` of the same shape.
  *
- * This file MUST live in a `navigation` package: the generator calls `scan(roots, "navigation")`, so
- * an annotated destination anywhere else is silently skipped and the screen simply does not exist in
- * the app — with a clean build. (A wrong SIGNATURE throws loudly; a wrong PACKAGE does not. Found the
- * hard way in S3a, when `ClientModule` appeared in the Koin aggregate and the destination did not.)
+ * @property openClientNotes opens a client's notes
+ * @property openGroup opens a group's details
+ * @property openCharges opens the charges of an entity (`resource`, `resourceId`)
+ * @property openAddCharge opens the add-charge form for an entity (`resource`, `resourceId`)
+ * @property openSearchRecord opens the record search for one record type
+ * @property openNewLoanApplication opens a new individual loan application for a client
+ * @property openSavingsApplication opens a savings application (`ownerId`, `isGroup`)
+ * @property openRecurringDepositApplication opens a recurring-deposit application for a client
+ * @property activateClient opens the activation form for a client
+ * @property openLoanProfile opens a loan's profile
+ * @property openLoanRepayment opens a loan's repayment form
+ * @property openSavingsSummary opens a savings account's summary (`accountId`, deposit-type endpoint)
+ * @property openSavingsApproval opens the approval of a savings account
+ */
+data class ClientLinks(
+    val openClientNotes: (clientId: Int) -> Unit,
+    val openGroup: (groupId: Int) -> Unit,
+    val openCharges: (resource: ChargeResource, resourceId: Int) -> Unit,
+    val openAddCharge: (resource: ChargeResource, resourceId: Int) -> Unit,
+    val openSearchRecord: (type: RecordType) -> Unit,
+    val openNewLoanApplication: (clientId: Int) -> Unit,
+    val openSavingsApplication: (ownerId: Int, isGroup: Boolean) -> Unit,
+    val openRecurringDepositApplication: (clientId: Int) -> Unit,
+    val activateClient: (clientId: Int) -> Unit,
+    val openLoanProfile: (loanId: Int) -> Unit,
+    val openLoanRepayment: (loanId: Int) -> Unit,
+    val openSavingsSummary: (accountId: Int, accountType: String) -> Unit,
+    val openSavingsApproval: (accountId: Int) -> Unit,
+)
+
+/**
+ * The client list — a TOP-LEVEL destination on the authenticated graph. Not `@FeatureDestination`:
+ * client screens open loans, savings, charges, notes, groups and record search, so
+ * `ForkFeatureRegistry` registers this graph with [ClientLinks].
  *
  * The original registered ~38 client destinations through one `clientNavGraph`. Those arrive with
  * their screens across S3a–S3d; nested drill-downs stay nested and are NOT annotated — only
@@ -370,8 +385,7 @@ data class ClientDocumentPreviewRoute(
  * Create-client does not exist yet, so it is passed as `null` rather than as an empty lambda — the
  * screen then omits the FAB entirely instead of drawing one that does nothing. S3c supplies it.
  */
-@FeatureDestination
-fun NavGraphBuilder.clientListDestination(navController: NavController) {
+fun NavGraphBuilder.clientListDestination(navController: NavController, links: ClientLinks) {
     composableWithStayTransitions<ClientListRoute> {
         ClientListScreen(
             // Detail exists as of S3b, so rows are clickable. The create FAB went live in
@@ -390,7 +404,7 @@ fun NavGraphBuilder.clientListDestination(navController: NavController) {
             onNavigateToClientDetails = navController::navigateToClientDetails,
             // Live as of S3b/S5. The rest are null, so their ROWS are not drawn at all rather than
             // drawn inert (RULE-IMPL-DEAD-CLICKABLE-001).
-            onNotes = navController::navigateToClientNotes,
+            onNotes = links.openClientNotes,
             onIdentifiers = navController::navigateToClientIdentifiers,
             onDocuments = navController::navigateToClientDocuments,
             onViewAddress = navController::navigateToClientAddress,
@@ -398,7 +412,7 @@ fun NavGraphBuilder.clientListDestination(navController: NavController) {
             // Blocked on Google Maps — see `client-pinpoint-blocked-on-maps-key`.
             onPinpointLocation = null,
             // The original's `navigateToGroupDetails` — group detail (feature/groups) has landed.
-            onNavigateToGroupDetails = navController::navigateToGroupsDetail,
+            onNavigateToGroupDetails = links.openGroup,
         )
     }
 
@@ -441,12 +455,12 @@ fun NavGraphBuilder.clientListDestination(navController: NavController) {
         )
     }
 
-    clientDrillDownDestinations(navController)
-    clientAccountDestinations(navController)
+    clientDrillDownDestinations(navController, links)
+    clientAccountDestinations(navController, links)
     clientFormDestinations(navController)
 }
 
-private fun NavGraphBuilder.clientDrillDownDestinations(navController: NavController) {
+private fun NavGraphBuilder.clientDrillDownDestinations(navController: NavController, links: ClientLinks) {
     // The client's general view. Nested drill-down, NOT annotated.
     composableWithPushTransitions<ClientGeneralRoute> {
         ClientGeneralScreen(
@@ -461,7 +475,7 @@ private fun NavGraphBuilder.clientDrillDownDestinations(navController: NavContro
             // (`getListOfPagingCharges` vs `getListOfClientCharges`, the same path with
             // `?offset=0&limit=0`); neither filters for anything "upcoming" — the name is a
             // misnomer (`upcoming-charges-is-the-same-list-as-charges`).
-            onUpcomingCharges = { clientId -> navController.navigateToCharges(ChargeResource.CLIENT, clientId) },
+            onUpcomingCharges = { clientId -> links.openCharges(ChargeResource.CLIENT, clientId) },
             // The client's loan accounts — and the loan PROFILE's only path in, which is why this
             // row is no longer null-gated. See `ClientLoanAccountsRoute`.
             onLoanAccounts = navController::navigateToClientLoanAccounts,
@@ -491,7 +505,7 @@ private fun NavGraphBuilder.clientDrillDownDestinations(navController: NavContro
             // Live as of cluster C — null (so the "+" was ABSENT, not inert) until the add form
             // landed.
             onAddNewIdentifier = navController::navigateToClientAddIdentifier,
-            onNavigateToSearch = { navController.navigateToSearchRecord(RecordType.IDENTIFIER) },
+            onNavigateToSearch = { links.openSearchRecord(RecordType.IDENTIFIER) },
             // The original form's VIEW_DOCUMENT phase, now the shared in-app preview. The scan
             // is a `client_identifiers` document keyed by the CLIENT's id — the original's
             // storage convention, kept so scans it uploaded are still found.
@@ -518,13 +532,13 @@ private fun NavGraphBuilder.clientDrillDownDestinations(navController: NavContro
             // Every row is drawn: loan, savings, recurring deposit, share and fixed deposit all
             // have an application now, so the chooser finally offers every product type the
             // client's eligibility allows rather than the subset this port had reached.
-            onApplyLoan = navController::navigateToNewLoanApplication,
+            onApplyLoan = links.openNewLoanApplication,
             // This is what gives the savings wizard its CLIENT path — S5c wired only the group
             // path, from group detail, so `isGroup = false` was unreachable.
             onApplySavings = { clientId ->
-                navController.navigateToSavingsApplication(ownerId = clientId, isGroup = false)
+                links.openSavingsApplication(clientId, false)
             },
-            onApplyRecurringDeposit = navController::navigateToRecurringDepositApplication,
+            onApplyRecurringDeposit = links.openRecurringDepositApplication,
             onApplyShare = navController::navigateToShareApplication,
             onApplyFixedDeposit = navController::navigateToFixedDepositApplication,
         )
@@ -540,7 +554,7 @@ private fun NavGraphBuilder.clientDrillDownDestinations(navController: NavContro
             // Straight to the add form — the original's `navigateToChargesRoute(it, clients)`
             // opened on that same form. Was null (row absent) until feature/charge landed a
             // client-charge CREATE; before that it pointed at a read-only list.
-            onAddCharge = { clientId -> navController.navigateToAddCharge(ChargeResource.CLIENT, clientId) },
+            onAddCharge = { clientId -> links.openAddCharge(ChargeResource.CLIENT, clientId) },
             onApplyNewApplication = navController::navigateToClientApplyNew,
             // Live as of cluster B — each was null (so the row was ABSENT, not inert) until its
             // destination landed.
@@ -552,12 +566,12 @@ private fun NavGraphBuilder.clientDrillDownDestinations(navController: NavContro
             onCreateStandingInstructions = null,
             onUpdateSignature = navController::navigateToClientSignature,
             // The original's `activateClient` → feature/activate (was a route with no caller).
-            onActivate = navController::navigateToActivateClient,
+            onActivate = links.activateClient,
         )
     }
 }
 
-private fun NavGraphBuilder.clientAccountDestinations(navController: NavController) {
+private fun NavGraphBuilder.clientAccountDestinations(navController: NavController, links: ClientLinks) {
     // The client's postal addresses + attached documents. Nested drill-downs, NOT annotated.
     composableWithPushTransitions<ClientAddressRoute> {
         ClientAddressScreen(
@@ -565,7 +579,7 @@ private fun NavGraphBuilder.clientAccountDestinations(navController: NavControll
             // The add-address form is a 610-line screen (S3d) — null, so the "+" is absent.
             // Live as of cluster C — null (so the "+" was ABSENT) until the form landed.
             onAddAddress = navController::navigateToClientAddAddress,
-            onNavigateToSearch = { navController.navigateToSearchRecord(RecordType.ADDRESS) },
+            onNavigateToSearch = { links.openSearchRecord(RecordType.ADDRESS) },
         )
     }
 
@@ -600,14 +614,14 @@ private fun NavGraphBuilder.clientAccountDestinations(navController: NavControll
             onNavigateBack = navController::popBackStackSafely,
             // The loan PROFILE, not the summary — this list is what the original points at the
             // profile, and the two are different screens over the same loan.
-            onViewAccount = navController::navigateToLoanProfile,
-            onMakeRepayment = navController::navigateToLoanRepayment,
+            onViewAccount = links.openLoanProfile,
+            onMakeRepayment = links.openLoanRepayment,
             // `newLoanAccount` is a ~2,900-line five-page wizard and is not ported, so the "+"
             // and the empty state's create button are not drawn at all.
             // The new-application wizard in `feature/loan` — the original's
             // `clientLoanAccountsDestination(createAccount = …)`. This was `null` (so the "add
             // account" affordance was ABSENT rather than drawn dead) until S4l landed the screen.
-            onAddAccount = navController::navigateToNewLoanApplication,
+            onAddAccount = links.openNewLoanApplication,
         )
     }
 
@@ -629,11 +643,11 @@ private fun NavGraphBuilder.clientAccountDestinations(navController: NavControll
             // The account SUMMARY, addressed by the row's own deposit-type endpoint so a
             // recurring-deposit row opens `recurringdepositaccounts` rather than `savingsaccounts`.
             onViewAccount = { accountId, endpoint ->
-                navController.navigateToSavingsSummary(accountId, endpoint)
+                links.openSavingsSummary(accountId, endpoint)
             },
             // The approval half of the status-change screen. The ACCOUNT id — the original passed
             // the CLIENT id here, which approved the wrong record.
-            onApproveAccount = navController::navigateToSavingsApproval,
+            onApproveAccount = links.openSavingsApproval,
             // All three kinds have a create destination as of cluster D, so the "+" and the empty
             // state's create button are drawn for every one.
             //
@@ -641,9 +655,9 @@ private fun NavGraphBuilder.clientAccountDestinations(navController: NavControll
                 when (which) {
                     // The savings wizard serves both owners; a client is not a group.
                     DepositAccountKind.SAVINGS ->
-                        navController.navigateToSavingsApplication(clientId, isGroup = false)
+                        links.openSavingsApplication(clientId, false)
                     DepositAccountKind.RECURRING ->
-                        navController.navigateToRecurringDepositApplication(clientId)
+                        links.openRecurringDepositApplication(clientId)
                     DepositAccountKind.FIXED ->
                         navController.navigateToFixedDepositApplication(clientId)
                 }
@@ -763,34 +777,22 @@ private fun NavGraphBuilder.clientFormDestinations(navController: NavController)
             onNavigateBack = navController::popBackStackSafely,
         )
     }
+}
 
-    // Notes list + add/edit, owned by `feature/note` and registered here.
-    //
-    // The ORIGINAL did exactly this: `noteDestination(navController, onBackPressed)` called from
-    // the client graph, with `feature/client` depending on `projects.feature.note`. Keeping the
-    // dependency direction is what makes the remaining drill-down slices mechanical — client is
-    // the hub, and each feature owns its own routes and screens.
-    //
-    // Nested, so NOT annotated: only TOP-LEVEL entries carry @FeatureDestination (spec §4).
-    noteDestinations(navController)
-
-    // Record search, owned by `feature/searchrecord`. The ORIGINAL registered it in the app shell
-    // (`AuthenticatedNavbarNavigationScreen`); it belongs here instead because both ends are client
-    // screens — it is opened from the address / identifiers headers, and a result opens that
-    // client's address or identifier list. Same routing as the original, by the record's type.
-    searchRecordDestination(
-        onBackClick = navController::popBackStackSafely,
-        onRecordSelected = { record ->
-            val clientId = record.metadata[Constants.CLIENT_ID]?.toIntOrNull()
-            if (clientId == null) {
-                Logger.w(TAG) { "search result ${record.type}/${record.id} has no client id; not navigating" }
-            } else if (record.type.equals(RecordType.ADDRESS.name, ignoreCase = true)) {
-                navController.navigateToClientAddress(clientId)
-            } else if (record.type.equals(RecordType.IDENTIFIER.name, ignoreCase = true)) {
-                navController.navigateToClientIdentifiers(clientId)
-            }
-        },
-    )
+/**
+ * Opens what a record-search result points at: the client's address or identifier list, by the record's
+ * type. The search screen belongs to `feature/searchrecord`; `ForkFeatureRegistry` registers it and
+ * routes its results here, since both ends of the search are client screens.
+ */
+fun NavController.openClientRecord(record: GenericSearchRecord) {
+    val clientId = record.metadata[Constants.CLIENT_ID]?.toIntOrNull()
+    if (clientId == null) {
+        Logger.w(TAG) { "search result ${record.type}/${record.id} has no client id; not navigating" }
+    } else if (record.type.equals(RecordType.ADDRESS.name, ignoreCase = true)) {
+        navigateToClientAddress(clientId)
+    } else if (record.type.equals(RecordType.IDENTIFIER.name, ignoreCase = true)) {
+        navigateToClientIdentifiers(clientId)
+    }
 }
 
 /**

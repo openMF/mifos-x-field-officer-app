@@ -1,9 +1,9 @@
 # `build-logic/convention/`
 
 > Part of [`build-logic/`](../build-logic.md)  
-> **Measured:** 39 tracked files — 37× `.kt`, 1× `.kts`, 1× `.gitkeep`
+> **Measured:** 41 tracked files — 39× `.kt`, 1× `.kts`, 1× `.gitkeep`
 
-39 tracked files.
+41 tracked files.
 
 <!-- tree-scaffold:end -->
 ## Significance

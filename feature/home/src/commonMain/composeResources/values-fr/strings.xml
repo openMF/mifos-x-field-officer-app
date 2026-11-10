@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">Vos prêts · %1$d</string>
     <string name="screens_home_remaining_label">Restant</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Mensualité $%1$s · %2$d%% remboursé</string>
+    <string name="screens_home_loan_tile_footer">Mensualité $%1$s · %2$d% remboursé</string>
     <string name="screens_home_section_this_week">Cette semaine</string>
     <string name="screens_home_section_tools">Outils</string>
     <string name="screens_home_section_tools_subtitle">Calculateurs, comparaisons, indicateurs macro</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Taux du jour</string>
     <string name="screens_home_rates_fed_funds_label">Taux directeur Fed</string>
     <string name="screens_home_rates_mortgage_30y_label">Prêt immo 30 ans</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">Change USD</string>

@@ -20,7 +20,9 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import kpt.core.model.config.AppSecurityConfig
 import kpt.core.model.user.UserData
+import kpt.feature.onboarding.OnboardingRoute
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -153,13 +155,21 @@ class RootNavViewModelTest {
         assertEquals(emptyList(), deadEnds, "states mapped to a String are unrouted dead ends")
     }
 
-    /** The three non-terminal states land on sign-in, exactly as `6b66e8a43:RootNavScreen.kt` did. */
+    /** Signed out and locked land on sign-in, exactly as `6b66e8a43:RootNavScreen.kt` did. */
     @Test
-    fun unauthenticatedStatesAllRouteToLogin() {
+    fun unauthenticatedStatesRouteToLogin() {
         val login = rootTargetRoute(RootNavState.Auth)
-        assertEquals(login, rootTargetRoute(RootNavState.ShowOnboarding))
         assertEquals(login, rootTargetRoute(RootNavState.UserLocked))
         assertTrue(login !is String)
+    }
+
+    /**
+     * A first run routes to onboarding (2026-11-05), not straight to sign-in. Before `feature/onboarding` existed
+     * this state fell through to sign-in, and the privacy-consent question was never asked.
+     */
+    @Test
+    fun firstRunRoutesToOnboarding() {
+        assertEquals(OnboardingRoute, rootTargetRoute(RootNavState.ShowOnboarding))
     }
 
     /**
@@ -176,13 +186,22 @@ class RootNavViewModelTest {
      */
     @Test
     fun aFreshInstallDefaultIsNotAuthenticated() = runTest(dispatcher) {
-        val repo = FakeUserDataRepository(UserData.DEFAULT)
-        val vm = RootNavViewModel(repo)
+        // This fork ships onboarding (app.yaml#security.first_run_onboarding), so a fresh install shows it first.
+        val freshInstall = RootNavViewModel(FakeUserDataRepository(UserData.DEFAULT))
+        advanceUntilIdle()
+        assertEquals(
+            if (AppSecurityConfig.FIRST_RUN_ONBOARDING) RootNavState.ShowOnboarding else RootNavState.Auth,
+            freshInstall.stateFlow.value,
+            "a fresh install must reach onboarding or sign-in, never the authenticated graph",
+        )
+
+        // Once onboarding is finished, the same default must land on sign-in.
+        val onboarded = RootNavViewModel(FakeUserDataRepository(UserData.DEFAULT.copy(firstTimeUser = false)))
         advanceUntilIdle()
         assertEquals(
             RootNavState.Auth,
-            vm.stateFlow.value,
-            "a fresh install must reach sign-in, never the authenticated graph",
+            onboarded.stateFlow.value,
+            "after onboarding a fresh install must reach sign-in, never the authenticated graph",
         )
     }
 
@@ -196,7 +215,8 @@ class RootNavViewModelTest {
     @Test
     fun aSignedInUserReachesTheAuthenticatedGraphRatherThanLoopingToLocked() = runTest(dispatcher) {
         val repo = FakeUserDataRepository(
-            UserData.DEFAULT.copy(isAuthenticated = true, activeUserId = "officer-1"),
+            // firstTimeUser = false: onboarding always finishes before sign-in is reachable.
+            UserData.DEFAULT.copy(isAuthenticated = true, activeUserId = "officer-1", firstTimeUser = false),
         )
         val vm = RootNavViewModel(repo)
         advanceUntilIdle()

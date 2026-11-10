@@ -20,12 +20,6 @@ kotlin {
             implementation(projects.core.data)
             implementation(projects.core.model)
             implementation(projects.core.ui)
-            // A notification opens the record it is about — each record's screen lives in its feature.
-            implementation(projects.feature.loan)
-            implementation(projects.feature.client)
-            implementation(projects.feature.groups)
-            implementation(projects.feature.center)
-            implementation(projects.feature.savings)
             implementation(libs.koin.compose.navigation)
             implementation(compose.ui)
             implementation(compose.foundation)
@@ -36,7 +30,7 @@ kotlin {
         }
         commonTest.dependencies {
             // screenDataStreamForTesting, behind the core/data fakes.
-            implementation(projects.coreBase.store)
+            implementation(projects.core.store)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.turbine)
         }

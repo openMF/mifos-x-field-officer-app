@@ -21,7 +21,7 @@
     <string name="screens_home_loans_carousel_title">I tuoi prestiti · %1$d</string>
     <string name="screens_home_remaining_label">Residuo</string>
     <string name="screens_home_money_value">$%1$s</string>
-    <string name="screens_home_loan_tile_footer">Rata $%1$s · %2$d%% pagato</string>
+    <string name="screens_home_loan_tile_footer">Rata $%1$s · %2$d% pagato</string>
     <string name="screens_home_section_this_week">Questa settimana</string>
     <string name="screens_home_section_tools">Strumenti</string>
     <string name="screens_home_section_tools_subtitle">Calcolatori, confronti, indicatori macro</string>
@@ -32,7 +32,7 @@
     <string name="screens_home_rates_card_title">Tassi di oggi</string>
     <string name="screens_home_rates_fed_funds_label">Federal Funds</string>
     <string name="screens_home_rates_mortgage_30y_label">Mutuo 30 anni</string>
-    <string name="screens_home_rates_value_format">%1$s%%</string>
+    <string name="screens_home_rates_value_format">%1$s%</string>
     <string name="screens_home_rates_delta_flat">—</string>
     <string name="screens_home_rates_delta_mortgage">+0.05</string>
     <string name="screens_home_exchange_card_title">Cambio USD</string>

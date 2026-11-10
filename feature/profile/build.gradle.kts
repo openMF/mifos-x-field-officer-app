@@ -14,24 +14,12 @@ plugins {
 kotlin {
     sourceSets {
         commonTest.dependencies {
-            // Real preference repositories over in-memory MapSettings, as feature/signin does —
-            // a fake would test a reimplementation of the thing under test.
-            implementation(projects.coreBase.common)
             implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.multiplatform.settings)
-            implementation(libs.multiplatform.settings.test)
             implementation(libs.turbine)
-            // The fake AuthCommandRepository must implement `authenticate`, whose request/response
-            // DTOs live in core/network (as in feature/signin's test).
-            implementation(projects.core.network)
         }
         commonMain.dependencies {
             implementation(projects.core.data)
-            // Sign-out is the Settings dialog + ViewModel — one implementation, two entry points.
-            implementation(projects.feature.settings)
-            implementation(projects.core.datastore)
             implementation(projects.core.model)
-            implementation(projects.core.store)
             // koinNavViewModel(), imported aliased as `retainedKoinViewModel` — same contract
             // as feature/home's demo body.
             implementation(libs.koin.compose.navigation)

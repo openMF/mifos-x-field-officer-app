@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">เวอร์ชัน ความช่วยเหลือ ชุมชน และสัญญาอนุญาต</string>
     <string name="feature_settings_offline_sync_row">ซิงค์แบบออฟไลน์</string>
     <string name="feature_settings_offline_sync_row_description">เก็บศูนย์ กลุ่ม และลูกค้าไว้ในอุปกรณ์นี้</string>
+    <string name="feature_settings_privacy">ความเป็นส่วนตัว</string>
+    <string name="feature_settings_privacy_analytics">แชร์ข้อมูลวิเคราะห์การใช้งาน</string>
+    <string name="feature_settings_privacy_crash_reports">ส่งรายงานข้อขัดข้อง</string>
+    <string name="feature_settings_privacy_row_description">เปิดการตั้งค่าความเป็นส่วนตัว</string>
+    <string name="feature_settings_privacy_intro">คุณเป็นผู้ตัดสินใจว่าแอปนี้จะแชร์อะไร จะไม่มีการส่งข้อมูลใดจนกว่าคุณจะเปิดใช้ และคุณเปลี่ยนได้ทุกเมื่อ</string>
+    <string name="feature_settings_privacy_analytics_description">ข้อมูลแบบไม่ระบุตัวตนเกี่ยวกับฟีเจอร์ที่ใช้งาน เพื่อปรับปรุงแอป</string>
+    <string name="feature_settings_privacy_crash_reports_description">รายละเอียดทางเทคนิคเมื่อแอปขัดข้อง เพื่อให้เราแก้ไขปัญหาได้</string>
 </resources>

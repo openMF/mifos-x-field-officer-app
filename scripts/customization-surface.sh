@@ -265,16 +265,58 @@ cs_merge_3way() {
   [ "$rc" -eq 0 ] && return 0 || return 1
 }
 
-# Semantic AndroidManifest union — the `manifest-union` strategy. A textual 3-way
-# spurious-conflicts when fork + template both insert permission lines at the same
-# spot, so union by android:name instead: take THEIRS (the template's structurally
-# updated manifest) and inject every <uses-permission>/<uses-feature> line present
-# in OURS whose android:name theirs lacks. Always clean (returns 0).
+# AndroidManifest merge — the `manifest-union` strategy.
+#   1. A real line 3-way first: with a base it keeps EVERY fork addition (activities, intent filters,
+#      <queries>, <meta-data>, providers) and takes the template's changes.
+#   2. Only when that conflicts — typically both sides inserting permission lines at the same spot —
+#      fall back to the permission union below: THEIRS plus every <uses-permission>/<uses-feature> of
+#      OURS whose android:name theirs lacks.
+#   3. Either way, every line the FORK added (in ours, not in base) must survive in the result, or the
+#      merge returns 1 with the 3-way's conflict markers. The union alone used to drop everything that
+#      was not a permission and still report success: mbs/reels-downloader lost 50 manifest entries
+#      (AdMob APPLICATION_ID, share/VIEW intent filters, PayCraft deep link, package queries).
 #
-#   cs_merge_manifest <ours> <theirs> [<out>]
+#   cs_merge_manifest <ours> <base> <theirs> [<out>]
 cs_merge_manifest() {
-  local ours="$1" theirs="$2" out="${3:-$1}" tmp add
-  [ -f "$ours" ] && [ -f "$theirs" ] || { echo "cs_merge_manifest: need <ours> <theirs>" >&2; return 2; }
+  local ours="$1" base="$2" theirs="$3" out="${4:-$1}" tmp add tw
+  [ -f "$ours" ] && [ -f "$theirs" ] || { echo "cs_merge_manifest: need <ours> <base> <theirs>" >&2; return 2; }
+  [ -f "$base" ] || base=/dev/null
+  tw="$(mktemp)"
+  if git merge-file -p "$ours" "$base" "$theirs" > "$tw" 2>/dev/null; then
+    mv "$tw" "$out"; return 0
+  fi
+  # Every conflict is two INSERTIONS at the same spot (empty base section) — the usual manifest case:
+  # both sides added elements after the same line. Keeping both is exactly right, so union them.
+  # (a file, not a pipe: under a caller's `pipefail` the pipe returned merge-file's conflict status)
+  git merge-file -p --diff3 "$ours" "$base" "$theirs" > "$tw" 2>/dev/null
+  if awk '/^[|]{7} /{b=1; next} /^=======$/{b=0; next} b{bad=1} END{exit bad}' "$tw"; then
+    git merge-file -p --union "$ours" "$base" "$theirs" > "$tw" 2>/dev/null
+    mv "$tw" "$out"; return 0
+  fi
+  cs_merge_manifest_union "$ours" "$theirs" "$out"
+  if ! cs_fork_lines_kept "$ours" "$base" "$out"; then
+    git merge-file -p -L "fork (ours)" -L "last-synced template (base)" -L "template (theirs)" \
+      "$ours" "$base" "$theirs" > "$tw" 2>/dev/null
+    mv "$tw" "$out"; return 1
+  fi
+  rm -f "$tw"; return 0
+}
+
+# cs_fork_lines_kept <ours> <base> <out> — every non-blank line the fork added survives in <out>.
+cs_fork_lines_kept() {
+  local l
+  while IFS= read -r l; do
+    [ -n "${l//[[:space:]]/}" ] || continue
+    grep -qxF -- "$l" "$2" 2>/dev/null && continue
+    grep -qF -- "$(printf '%s' "$l" | sed 's/^[[:space:]]*//')" "$3" || return 1
+  done < "$1"
+  return 0
+}
+
+# Permission union (the conflict fallback of cs_merge_manifest).
+#   cs_merge_manifest_union <ours> <theirs> <out>
+cs_merge_manifest_union() {
+  local ours="$1" theirs="$2" out="$3" tmp add
   local theirs_names; theirs_names="$(grep -oE 'android:name="[^"]*"' "$theirs" 2>/dev/null | sort -u)"
   # Extract each uses-permission/uses-feature ELEMENT (robust to one-per-line AND
   # multiple-per-line manifests); add the ones whose android:name theirs lacks.
@@ -681,7 +723,7 @@ cs_merge_properties() {
 cs_merge() {
   local strat="$1" ours="$2" base="$3" theirs="$4" out="${5:-$2}"
   case "$strat" in
-    manifest-union)    cs_merge_manifest      "$ours" "$theirs" "$out" ;;
+    manifest-union)    cs_merge_manifest      "$ours" "$base" "$theirs" "$out" ;;
     include-union)     cs_merge_include_union "$ours" "$base" "$theirs" "$out" ;;
     yaml-schema-merge) cs_merge_yaml_schema   "$ours" "$base" "$theirs" "$out" ;;
     properties-3way)   cs_merge_properties    "$ours" "$base" "$theirs" "$out" ;;

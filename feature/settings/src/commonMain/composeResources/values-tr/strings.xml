@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">Sürüm, yardım, topluluk ve lisans</string>
     <string name="feature_settings_offline_sync_row">Çevrimdışı senkronizasyon</string>
     <string name="feature_settings_offline_sync_row_description">Merkezleri, grupları ve müşterileri bu cihazda saklayın</string>
+    <string name="feature_settings_privacy">Gizlilik</string>
+    <string name="feature_settings_privacy_analytics">Kullanım analizlerini paylaş</string>
+    <string name="feature_settings_privacy_crash_reports">Çökme raporlarını gönder</string>
+    <string name="feature_settings_privacy_row_description">Gizlilik ayarlarını aç</string>
+    <string name="feature_settings_privacy_intro">Bu uygulamanın neyi paylaşacağına siz karar verirsiniz. Siz açana kadar hiçbir şey gönderilmez ve bunu istediğiniz zaman değiştirebilirsiniz.</string>
+    <string name="feature_settings_privacy_analytics_description">Uygulamayı geliştirmek için hangi özelliklerin kullanıldığına dair anonim bilgiler.</string>
+    <string name="feature_settings_privacy_crash_reports_description">Uygulama çöktüğünde, sorunu düzeltebilmemiz için teknik ayrıntılar.</string>
 </resources>

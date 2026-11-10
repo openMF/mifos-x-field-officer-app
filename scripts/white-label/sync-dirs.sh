@@ -136,7 +136,6 @@ SYNC_FILES=(
     "LICENSE"
     "CONTRIBUTING.md"
     "CODE_OF_CONDUCT.md"
-    "lib-integrate.properties"
     "Gemfile"
     "Gemfile.lock"
     "ci-prepush.bat"
@@ -169,6 +168,16 @@ SYNC_FILES=(
     "SECURITY.md"                   # community file, same class as CODE_OF_CONDUCT.md (owner: template)
     "template-migrations.yaml"      # structural-migration record forks consult — was owner: template but never synced
     "FEATURE_AUTHORING.md"          # in-template feature-authoring guide (owner: template) — was declared "synced" but had no SYNC_FILES vector (WS4/T6)
+)
+
+# Root files that are `owner: merge` and reach the fork ONLY through merge_contract_root_files, never
+# through SYNC_FILES: a full checkout would clobber the fork's half before the merge reads it, and a
+# held file would stay clobbered. Coverage checks read this list as a third sync vector.
+CONTRACT_ROOT_MERGES=(
+    "settings.gradle.kts"           # include-union — template modules in, fork-local includes kept
+    "gradle/libs.versions.toml"     # catalog-3way — template bumps in, fork pins kept
+    "gradle.properties"             # properties-3way — template build-tuning keys in, the fork's fork.project.name kept
+    "lib-integrate.properties"      # properties-3way — template library rows in, /lib-integrate's per-fork `<lib>.local=true` links kept
 )
 
 # EXCLUSIONS — intentionally EMPTY. What a sync keeps in the fork's state is decided by the ownership
@@ -271,13 +280,13 @@ print_items() {
 }
 
 # apply_template_migrations — follow the template's renames BEFORE anything is merged.
+MIGRATE_DIR=""
 # The ledger (template-migrations.yaml) and its applier come from the commit being synced (a fork's
 # copies may predate a rename). FORK_STATE moves to a commit object holding the result (no hooks, branch
 # unmoved): every merge reads "ours" from FORK_STATE, so it must already carry the new names —
 # otherwise a renamed merge-owned file looks fork-deleted and a renamed fork seam keeps the old name
 # the template no longer calls. Keeps the ledger + applier in MIGRATE_DIR for migrated_from() and
 # migrate_base(), which serve every merge of the run.
-MIGRATE_DIR=""
 apply_template_migrations() {
     git cat-file -e "$TEMPLATE_REF:template-migrations.yaml" 2>/dev/null \
         && git cat-file -e "$TEMPLATE_REF:scripts/white-label/template-migrations.sh" 2>/dev/null || return 0
@@ -362,6 +371,18 @@ post_sync_fork_steps() {
         bash scripts/docs/refresh.sh >/dev/null 2>&1 \
             || handle_error "scripts/docs/refresh.sh failed after the sync — docs/ no longer matches the source"
     fi
+}
+
+# dirty_paths — every modified/untracked path, one per line, sorted (a snapshot for stage_new_dirty).
+dirty_paths() { git status --porcelain --untracked-files=all | cut -c4- | sort; }
+
+# stage_new_dirty <snapshot> — stage every path that became dirty since <snapshot>. post_sync_fork_steps
+# writes fork-owned paths OUTSIDE the synced roots (module-packages.yaml status stamps, app-profile
+# projections, generated docs); staging only the roots left those uncommitted after "Sync committed".
+# A path that was already dirty before the steps ran (the operator's own work) is left alone.
+stage_new_dirty() {
+    comm -13 <(printf '%s\n' "$1") <(dirty_paths) \
+        | while IFS= read -r _p; do [ -n "$_p" ] && git add -A -- "$_p" 2>/dev/null; done || true
 }
 
 # is_excluded <dir> <path> <type> — 0 when the sync must leave <path> in the FORK's state.
@@ -678,6 +699,26 @@ merge_libs_catalog_3way() {
     return $rc
 }
 
+# merge_by_strategy <strategy> <ours> <base> <theirs> <out> — the one dispatcher every merge-owned file
+# goes through. A file the template did not change since BASE is the fork's, so OURS is the answer for
+# every strategy. Checked here rather than left to each merger: a re-serializing one (plist-union,
+# pbxproj-3way, properties-3way) rebuilds the file around the template's comments and layout, and the
+# fork-lines-kept guard then calls the fork's own unchanged lines dropped — a conflict nobody caused.
+merge_by_strategy() {
+    local strat="$1" ours="$2" base="$3" theirs="$4" out="$5"
+    if [ -s "$base" ] && cmp -s "$base" "$theirs"; then
+        [ "$ours" = "$out" ] || cp "$ours" "$out"
+        return 0
+    fi
+    case "$strat" in
+        include-union) merge_settings_include_union "$ours" "$base" "$theirs" "$out" ;;
+        catalog-3way)  merge_libs_catalog_3way      "$ours" "$base" "$theirs" "$out" ;;
+        pbxproj-3way)  merge_pbxproj_3way          "$ours" "$base" "$theirs" "$out" ;;
+        plist-union)   merge_plist_union           "$ours" "$base" "$theirs" "$out" ;;
+        *)             cs_merge "$strat" "$ours" "$base" "$theirs" "$out" ;;
+    esac
+}
+
 # Drive the two contract-keyed root-file merges (settings.gradle.kts + libs.versions.toml)
 # after the directory sync, replacing the old one-way heal_libs_versions_toml. Resolves each
 # file's strategy from the contract; ours=BASE_BRANCH, theirs=TEMP_BRANCH, base=merge-base.
@@ -703,12 +744,10 @@ merge_contract_root_files() {
     # a full-copy. See resolve_merge_base().
     local mbase; mbase="$(resolve_merge_base "$FORK_STATE" "$TEMP_BRANCH")" || mbase=""
     local f strat o b t rc
-    # gradle.properties joins these rather than SYNC_FILES: it is `owner: merge` and carries the
-      # fork's own `fork.project.name`, so a full checkout would clobber it. A 3-way takes the
-      # template's added build-tuning keys while the fork's values win.
-      for f in "settings.gradle.kts" "gradle/libs.versions.toml" "gradle.properties"; do
+    for f in "${CONTRACT_ROOT_MERGES[@]}"; do
         cs_match_g "$f"
         [ "${CS_M_OWNER:-}" = "merge" ] || continue
+        is_held "$f" && { print_step "Held ${BOLD}$f${NC} — kept the fork's copy (.template-sync-holds)"; continue; }
         git show "$TEMP_BRANCH:$f" >/dev/null 2>&1 || { print_warning "Template has no $f — skipping."; continue; }
         strat="${CS_M_STRAT:-3way}"
         o="$(mktemp)"; b="$(mktemp)"; t="$(mktemp)"
@@ -717,13 +756,7 @@ merge_contract_root_files() {
         git show "${mbase}:$f"     > "$b" 2>/dev/null || cp "$o" "$b"
         migrate_base "$b"
         mkdir -p "$(dirname "$f")"
-        case "$strat" in
-            include-union) merge_settings_include_union "$o" "$b" "$t" "$f"; rc=$? ;;
-            catalog-3way)  merge_libs_catalog_3way      "$o" "$b" "$t" "$f"; rc=$? ;;
-            pbxproj-3way)  merge_pbxproj_3way          "$o" "$b" "$t" "$f"; rc=$? ;;
-            plist-union)   merge_plist_union           "$o" "$b" "$t" "$f"; rc=$? ;;
-            *)             cs_merge "$strat" "$o" "$b" "$t" "$f"; rc=$? ;;
-        esac
+        merge_by_strategy "$strat" "$o" "$b" "$t" "$f"; rc=$?
         case "${rc:-0}" in
             0) print_step "Merged (${strat}) ${BOLD}$f${NC} — template update + fork edits reconciled"; SYNC_MERGED+=("$f") ;;
             3) print_warning "SKIPPED (${strat}) ${BOLD}$f${NC} — kept the fork's copy; template changes NOT applied" ;;
@@ -854,6 +887,15 @@ mirror_template_owned() {
     done < <(git ls-tree -r --name-only "$FORK_STATE" -- "$dir" 2>/dev/null)
 }
 
+# fork_deleted_dir <path> — 0 when the fork deleted the directory <path> would land in: the nearest
+# ancestor the template already shipped at the last sync is gone from the fork. A directory that is
+# new upstream was never the fork's to delete, so a file landing in it does not count as removed.
+fork_deleted_dir() {
+    local d; d="$(dirname "$1")"
+    while [ "$d" != . ] && ! git cat-file -e "${PREV_TEMPLATE_SHA}:$d" 2>/dev/null; do d="$(dirname "$d")"; done
+    [ "$d" != . ] && [ -z "$(git ls-tree --name-only "$FORK_STATE" -- "$d/" 2>/dev/null | head -1)" ]
+}
+
 # Sync one directory $1 from the upstream branch checked out at $2.
 # Ownership is decided per path by customization-surface.yaml, so a fork-owned path inside
 # a synced directory is preserved rather than overwritten.
@@ -914,18 +956,24 @@ sync_directory() {
                     if git cat-file -e "${FORK_STATE}:${conv_f}" 2>/dev/null; then
                         git checkout "$FORK_STATE" -- "$conv_f" 2>/dev/null \
                             && print_step "Preserved fork's ${BOLD}$conv_f${NC} (convention)"
-                    elif [ -n "${PREV_TEMPLATE_SHA:-}" ] \
-                         && ! git cat-file -e "${PREV_TEMPLATE_SHA}:${conv_f}" 2>/dev/null \
+                    elif { { [ -n "${PREV_TEMPLATE_SHA:-}" ] \
+                             && ! git cat-file -e "${PREV_TEMPLATE_SHA}:${conv_f}" 2>/dev/null; } \
+                           || [ -z "$(git log -1 --format=%h "$FORK_STATE" -- "$conv_f" 2>/dev/null)" ]; } \
                          && case "$conv_f" in */schemas/*|*/demo/*|*/demo) false ;; *) true ;; esac \
-                         && [ -n "$(git ls-tree --name-only "$FORK_STATE" -- "$(dirname "$conv_f")/" 2>/dev/null | head -1)" ] \
+                         && ! fork_deleted_dir "$conv_f" \
                          && { owner_of "$conv_f"; [ "$OWNER" = fork ]; }; then
                         # A fork-owned file the template ships for the FIRST time (absent at the last
-                        # sync), beside code the fork already has, is a new SEAM the fork has never had —
-                        # not one it removed: keep the template's copy as the seed. Dropping it cost a
-                        # fork its spotless/license-header.txt (2026-11-02), after which spotlessApply
-                        # stripped the license header from ~2,500 files. Not seeded: a file in a
-                        # directory the fork lacks (a sample package's scaffold, e.g. network/main/), a
-                        # Room schema (the fork's own lineage) or demo code.
+                        # sync) is a new SEAM the fork has never had — not one it removed: keep the
+                        # template's copy as the seed. That holds when its directory is new as well:
+                        # template-owned code calls such seams (AndroidApp.onCreate → onForkCreate in
+                        # cmp/android/app/fork/), so dropping one breaks the fork's build, as dropping
+                        # spotless/license-header.txt once stripped the license header from ~2,500 files.
+                        # The same holds when the fork's history never held the file at all: a fork older
+                        # than the seam never received it, whatever the template had at the last sync
+                        # (mifos-pay synced after ForkWorkerDeclarations.kt shipped, was told it "removed"
+                        # it, and never had one). Only a file the fork once had and then deleted is a removal.
+                        # Not seeded: a file in a package the fork deleted (fork_deleted_dir), a Room
+                        # schema (the fork's own lineage) or demo code.
                         print_step "Seeded new fork-owned ${BOLD}$conv_f${NC} from the template"
                     else
                         git rm -f --quiet "$conv_f" 2>/dev/null || rm -f "$conv_f"
@@ -950,6 +998,13 @@ sync_directory() {
                 while IFS= read -r _mf; do
                     [ -z "$_mf" ] && continue
                     cs_match_g "$_mf"; [ "${CS_M_OWNER:-}" = "merge" ] || continue
+                    # A HELD path keeps the fork's copy on the merge path too, not only on the overlay and
+                    # the mirror: a held project.pbxproj was 3-way merged against a stale base and lost the
+                    # fork's SwiftPM packages (mbs/reels-downloader, 2026-11-03).
+                    if is_held "$_mf"; then
+                        print_step "Held ${BOLD}$_mf${NC} — kept the fork's copy (.template-sync-holds)"
+                        continue
+                    fi
                     # A line-based 3-way on a binary produces corruption that still LOOKS like a
                     # successful merge. The blanket `merge` rows cover whole platform shells, so a
                     # binary reaching here is expected (icons, .webp, .ico) rather than exceptional —
@@ -988,24 +1043,29 @@ sync_directory() {
                         fi
                         migrate_base "$_b"
                         mkdir -p "$(dirname "$_mf")"
-                        # Route the contract-declared strategy: the two structure-aware unions
-                        # (include-union / catalog-3way) use their dedicated engines; everything
-                        # else (manifest-union / kotlin-3way / strings-union / xml-union / 3way)
-                        # goes through cs_merge.
-                        local _ms="${CS_M_STRAT:-3way}" _mrc
+                        # Route the contract-declared strategy (merge_by_strategy).
+                        local _ms="${CS_M_STRAT:-3way}" _mrc _sch=""
+                        if [ "$_ms" = yaml-schema-merge ]; then
+                            # The TEMPLATE's key-ownership schema for this file (`<file>.schema.yaml`),
+                            # read from the commit being synced so a newly retired key is honoured.
+                            _sch="$(mktemp)"
+                            git show "$temp_branch:${_mf%.yaml}.schema.yaml" > "$_sch" 2>/dev/null || : > "$_sch"
+                        fi
+                        CS_YAML_SCHEMA="$_sch" merge_by_strategy "$_ms" "$_o" "$_b" "$_t" "$_mf"; _mrc=$?
+                        [ -z "$_sch" ] || rm -f "$_sch"
+                        # A "clean" line merge must still keep every line the FORK added (in ours, not in
+                        # base). A stale base (.template-version older than the fork's content) made
+                        # pbxproj-3way and manifest-union report success while dropping the fork's
+                        # SwiftPM packages and 61 manifest lines. Losing a template change is visible on
+                        # the next sync; losing fork work is not — so keep the fork's copy and surface it.
                         case "$_ms" in
-                            include-union) merge_settings_include_union "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
-                            catalog-3way)  merge_libs_catalog_3way      "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
-                            pbxproj-3way)  merge_pbxproj_3way          "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
-                            plist-union)   merge_plist_union           "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
-                            yaml-schema-merge)
-                                # The TEMPLATE's key-ownership schema for this file (`<file>.schema.yaml`),
-                                # read from the commit being synced so a newly retired key is honoured.
-                                local _sch; _sch="$(mktemp)"
-                                git show "$temp_branch:${_mf%.yaml}.schema.yaml" > "$_sch" 2>/dev/null || : > "$_sch"
-                                CS_YAML_SCHEMA="$_sch" cs_merge "$_ms" "$_o" "$_b" "$_t" "$_mf"; _mrc=$?
-                                rm -f "$_sch" ;;
-                            *)             cs_merge "$_ms" "$_o" "$_b" "$_t" "$_mf"; _mrc=$? ;;
+                            3way|kotlin-3way|pbxproj-3way|plist-union|manifest-union)
+                                if [ "${_mrc:-0}" = 0 ] && declare -F cs_fork_lines_kept >/dev/null 2>&1 \
+                                   && ! cs_fork_lines_kept "$_o" "$_b" "$_mf"; then
+                                    cp "$_o" "$_mf"
+                                    print_warning "Merge of ${BOLD}$_mf${NC} (${_ms}) would DROP lines the fork added — kept the fork's copy; apply the template's change by hand"
+                                    _mrc=4
+                                fi ;;
                         esac
                         # THREE outcomes, not two. A strategy that could not run keeps the fork's
                         # copy and returns 3; reporting that as "Merged — fork edits preserved" is
@@ -1699,8 +1759,10 @@ if [ "$DRY_RUN" = false ]; then
         if [ -f "gradle/libs.versions.toml" ]; then
             git add "gradle/libs.versions.toml"
         fi
+        _pre_post="$(dirty_paths)"
         post_sync_fork_steps
         git add -A -- "${SYNC_DIRS[@]}" "${SYNC_FILES[@]}" 2>/dev/null || true   # the strip deletes files
+        stage_new_dirty "$_pre_post"
 
         # Lint only what the sync WROTE — its 3-way merge results. Template-owned files were checked in
         # the template and fork-owned files are untouched, so running the commit hook over the whole

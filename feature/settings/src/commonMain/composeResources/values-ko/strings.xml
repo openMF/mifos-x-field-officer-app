@@ -68,4 +68,11 @@
     <string name="feature_settings_about_row_description">버전, 도움말, 커뮤니티 및 라이선스</string>
     <string name="feature_settings_offline_sync_row">오프라인 동기화</string>
     <string name="feature_settings_offline_sync_row_description">센터, 그룹, 고객을 이 기기에 저장합니다</string>
+    <string name="feature_settings_privacy">개인정보 보호</string>
+    <string name="feature_settings_privacy_analytics">사용 분석 공유</string>
+    <string name="feature_settings_privacy_crash_reports">충돌 보고서 보내기</string>
+    <string name="feature_settings_privacy_row_description">개인정보 보호 설정 열기</string>
+    <string name="feature_settings_privacy_intro">이 앱이 무엇을 공유할지는 사용자가 결정합니다. 켜기 전까지는 아무것도 전송되지 않으며 언제든지 변경할 수 있습니다.</string>
+    <string name="feature_settings_privacy_analytics_description">앱 개선을 위해 어떤 기능이 사용되는지에 대한 익명 정보입니다.</string>
+    <string name="feature_settings_privacy_crash_reports_description">앱이 비정상 종료될 때의 기술 정보로, 문제를 해결하는 데 사용됩니다.</string>
 </resources>

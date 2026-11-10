@@ -1,28 +1,8 @@
-# deployment-layer/store-listing/variants/v1/app-content/ios/en-US/content-rights.yaml
-# feeds App Store Connect "App Information" → "Content Rights" declaration. Folds 1:1 into
-# app-profile/platforms/apple/ios/app-content/content-rights.yaml on `--sync`.
-#
-# App Toolkit posture: fully original app (Your Organization Name, MIT licensed, source on GitHub).
-# No third-party media, no licensed content, no user-generated content.
-
+# App Store Connect "Content Rights" declaration (App Information). Folds 1:1 into
+# app-profile/platforms/apple/ios/app-content/content-rights.yaml when the variant is promoted.
+# Whether the app contains, shows or accesses third-party content that needs rights.
 contains_third_party_content: false
-# Whether the app contains, shows or accesses third-party content, and on what rights basis.
-declaration: >
-  This app does not contain, show, or access third-party content that
-  requires additional rights or licenses. All UI, copy, and iconography are
-  original or MIT-licensed open-source assets owned/authored by the Your Organization
-  Initiative. The Interest Rates, Country Macro Data, and Currency Exchange
-  Rates screens display factual, non-copyrightable numeric data retrieved
-  live from public government/international-institution data APIs (FRED,
-  World Bank, exchange-rate feeds) — this is data, not licensed third-party
-  media content.
-
-# Each third-party source and the licence covering it. The toolkit's demo data comes from
-# FRED, World Bank, Frankfurter and CoinGecko, all public APIs.
-third_party_content_sources: []
-
-# Whether users can post content. Declaring yes obliges the app to ship moderation, reporting
-# and blocking — Apple rejects a UGC app without all three.
-user_generated_content:
-  allows_ugc: false
-  moderation_policy_url: ""
+# The basis for that answer, for App Store review.
+notes: >
+  All artwork, copy and icons shipped in the app are original to the Mifos Initiative or used under their
+  open-source licences. The app shows the user's institution's own records; it hosts no third-party media.

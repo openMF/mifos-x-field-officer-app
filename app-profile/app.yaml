@@ -9,7 +9,7 @@
 
 identity:
   app_id: com.mifos.mifosxdroid              # SoT for appId (from dev: libs.versions.androidPackageNamespace)
-  app_name: MifosXDroid                      # from dev: cmp-android/src/main/res/values/strings.xml#app_name
+  app_name: MifosXDroid                      # launcher + in-app name. The Play listing title is store.title ("Mifos X Field Officer")
   namespace: com.mifos.mifosxdroid           # mirrors app_id
   # Apex domain the ARCHITECTURE DOCS publish under, as `docs.<this value>`. OPTIONAL and UNSET by
   # default: with no value the docs workflow still deploys, to the Cloudflare Pages `*.pages.dev`
@@ -257,11 +257,11 @@ org:
   email: team@mifos.org
   first_name: Mifos
   last_name: Initiative
-  phone: "+19078675309"
+  phone: "+919015090523"   # = workspaces/mifos-x/_org/company.yaml#deploy_contact.phone (the template's +1 907-867-5309 is a placeholder)
   copyright: "© 2026 Mifos Initiative. All rights reserved."   # desktop / Mac App Store packaging copyright (org.copyright)
   secrets_namespace: mifos-x   # vault-alias prefix for org-shared secrets (`mifos-x-<suffix>`); per-app ones use projectName
   marketing_url: https://mifos.org
-  privacy_url: https://raw.githubusercontent.com/openMF/kmp-project-template/main/legal/output/privacy-policy.md
+  privacy_url: https://mifos-products.pages.dev/mobile/field-officer/privacy/   # content/legal/field-officer/privacy.md on the Mifos products site
   support_url: https://github.com/openMF/mifos-x-field-officer-app   # this app's repo — About (source/license/contributors) + store support link
   # The fork's own named links, generated into kpt.core.model.config.AppOrgLinks by syncForkConfig
   # (`AppOrgLinks["community"]`). About reads `community` (Community row, the Mifos Slack — #mobile)
@@ -269,6 +269,9 @@ org:
   links:
     community: https://mifos.slack.com/
     product: https://mifos-products.pages.dev/mobile/field-officer/
+    # content/legal/field-officer/terms.md on the Mifos products site — linked beside the privacy policy on
+    # onboarding's consent page ("By continuing, you agree to the Privacy Policy and Terms").
+    terms: https://mifos-products.pages.dev/mobile/field-officer/terms/
 
 # Legal entity behind the app — rendered into the generated privacy policy and terms.
 # Required before a store submission; a store rejects a listing whose policy names no entity.
@@ -295,67 +298,23 @@ store:
   # Store copy taken from the app's own published Play listing on `dev`
   # (fastlane/metadata/android/en-US/{title,short_description,full_description}.txt and
   # changelogs/6.txt) — authored by Mifos for this app, not the template's demo copy.
-  title: 'MifosX Android Client'                    # app display name (App Store name / Play title)
-  subtitle: 'Field operations on Apache Fineract'
-  promotional_text: 'Mobile field operations app for financial inclusion built on Apache Fineract.'
-  description: |-
-    Financial Inclusion is at your fingertips directly in the field. This app gives financial institutions the full power of Mifos X wherever they are by allowing field-based staff to handle all their daily operations from onboarding new clients and accounts to collecting repayments and deposits, and surveying clients in the field. Supervisors can now ensure greater efficiency and transparency with field operations. Offline data synchronization for clients and groups is now available to support opening new clients and doing field collections while in remote regions without connectivity.
-
-    The following field operations are supported:
-
-    <b>Office Management</b>
-    - Create center new groups and centers
-    - Create clients from within parent group
-    - Create new groups from with parent center.
-
-    <b>Client Management</b>
-    - Create new clients individually and within a group
-    - View client details.
-    - Add identifiers and documents to clients.
-    - Take client photo via webcam.
-    - Pinpoint client GPS location
-
-    <b>Account Management</b>
-    - Open, approve, and disburse new loan accounts
-    - Open, approve, and activate new savings accounts
-    - Attach documents to loan and savings accounts.
-    - Support for data tables & adding documents
-    - Input repayments for loans
-    - Input deposits and withdrawals for savings accounts.
-    - Attach charges to accounts.
-    - View full details and transaction history for loan and savings accounts
-
-    <b>Offline Data Collection & Synchronization</b>
-    - Synchronize clients and groups for offline data entry
-    - Enter repayments, deposits, and withdrawals while offline
-    - Create new clients while offline
-    - Create new loan and savings accounts while offline.
-
-    <b>GIS & Location-Based Features</b>
-    - Pinpoint GPS location of a client residence.
-    - Track route of field officer.
-  release_notes: |-
-    - Create center new groups & centers
-    - Create clients & groups from parent entity
-    - Improved navigation & advanced search
-    - Open, approve, disburse new loan & savings accounts
-    - Attach documents to loan & savings accounts.
-    - Offline Data Collection & Synchronization
-    - Synchronize clients and groups for offline
-    - Enter repayments, deposits, and withdrawals while offline
-    - Create new clients, loans & savings accounts while offline
-    - Pinpoint client GPS location
-    - Track route of field officer
-  copyright: 'Copyright © 2026 Mifos Initiative'
+  title: 'Mifos X Field Officer'                    # app display name (App Store name / Play title)
+  subtitle: 'Loans & savings in the field'
+  promotional_text: 'Serve clients where they are: register clients, disburse and collect loans, and record savings deposits in the field, even with no network. Syncs to your Fineract server.'
+  description: 'Mifos X Field Officer is the mobile app for loan officers and field staff at microfinance institutions, credit unions and banks that run Mifos X / Apache Fineract. Visit clients, open accounts, disburse and collect loans, and record savings deposits from the field, even where there is no network.\n\nBuilt by the Mifos Initiative, a nonprofit working on financial inclusion for the world''s unbanked, it connects to your institution''s own Fineract server. Your institution holds the data; the app is the field officer''s window into it.\n\nWORK OFFLINE, SYNC LATER\n• Choose the centres, groups and clients you will visit, and the app downloads everything you need before you leave the office.\n• Keep working with no connection. Actions you take offline are saved as drafts.\n• When you are back in coverage, Sync & Drafts uploads them to the server.\n\nYOUR DAY ON ONE SCREEN\n• A home dashboard with today''s collections, your work queue, meetings and your portfolio.\n• Every card follows your Fineract permissions, so you only see what you are allowed to act on.\n\nCLIENTS\n• Register new clients with their personal details, identifiers, photo and signature.\n• View, edit and activate clients, and attach documents and notes.\n• Search across clients, groups, centres and accounts.\n\nLOANS\n• Create loan applications and follow them through approval and disbursement.\n• Record repayments and view each loan''s schedule, charges and transactions.\n\nSAVINGS AND RECURRING DEPOSITS\n• Open savings and recurring deposit accounts.\n• Record deposits and withdrawals, and view balances and history.\n\nCENTRES, GROUPS AND COLLECTION SHEETS\n• Manage centres and groups and their members.\n• Run individual and group collection sheets for a meeting in one pass.\n\nREPORTS AND APPROVALS\n• Run your institution''s reports from the device.\n• Work through the checker inbox to approve or reject pending tasks.\n\nSECURE BY DESIGN\n• Sign in with the credentials your institution issues.\n• Data is sent only to your institution''s server, over an encrypted connection.\n• The offline copy on the device is encrypted and cleared when you sign out.\n\nThis app needs a Mifos X / Apache Fineract account from your institution. Mifos X Field Officer is free and open source under the Mozilla Public License 2.0. Source code, issues and contributor guides: github.com/openMF/mifos-x-field-officer-app'
+  release_notes: 'Rebuilt on Kotlin Multiplatform. A new home dashboard with today''s work, offline sync for chosen centres, groups and clients, a Profile screen with password change, a server picker, and faster, more reliable loading across every screen.'
+  copyright: '© 2026 The Mifos Initiative'
   age_rating: '4+'                            # iOS + macOS App Store age rating (store.ios.age.rating)
   review:
     notes: >-
-      Sign in to a Fineract server. The server picker on the sign-in screen lists the community
-      demo instances; pick one and use the demo account it shows.
+      This app signs in to a Mifos X / Apache Fineract server. Use the public Mifos community demo
+      server, https://apis.mifos.community/1.0/field (the app's default server; no setup needed),
+      with the demo account below. It holds sample data only.
     first_name: 'Mifos'                        # App Store review contact (mirrors org.first_name)
     last_name: 'Initiative'                    # App Store review contact (mirrors org.last_name)
-    demo_user: ""                            # store.review.demo.user (per-instance; shown in the picker)
-    demo_password: ""                        # store.review.demo.password
+    # PUBLIC community-sandbox demo account (published in the app's server picker) — not a secret.
+    demo_user: "fieldofficer"                # store.review.demo.user
+    demo_password: "password"                # store.review.demo.password
   app_description: 'MifosX Android Client'                # desktop packaging description (app.description)
 
 # In-app review prompting — NOT the `store.review` block above.
@@ -375,6 +334,28 @@ in_app_review:
   min_days_since_install: 3
   cooldown_days: 90                          # after a prompt, do not ask again inside this window
 
+# The repository's community files. The Mifos devops and security teams set them up per repository —
+# not the template and not this repo's tooling — so a template sync never writes them. Who may edit
+# them is the org's call: workspaces/mifos-x/_org/company.yaml#repo_files (mifos-x: access: read).
+repo_files:
+  managed_by: org
+  files:
+    CODE_OF_CONDUCT.md: { access: read }
+    CONTRIBUTING.md:    { access: read }
+    LICENSE:            { access: read }
+    SECURITY.md:        { access: read }
+    .github/workflows/cla-check.yml: { access: read }   # the org CLA bot pushes it
+# Where this repository's work is tracked — read by /idea-jira (the ticket ↔ code audit) and the
+# /flow-to-tickets-* commands. Fork-owned: a fork sets ITS OWN board here. `repo` names the repository
+# the board belongs to, so a fork that inherited the template's block is refused instead of auditing
+# the template's tickets against the fork's code.
+tracking:
+  jira:
+    site: mifosforge.jira.com           # Jira Cloud site (no scheme)
+    project_key: KMPPT                  # the project whose issues are audited
+    board_id: 63                        # https://mifosforge.jira.com/jira/software/c/projects/KMPPT/boards/63
+    repo: openMF/kmp-project-template   # the repository this board tracks
+
 # Generated into kpt.core.model.config.AppSecurityConfig by syncForkConfig.
 security:
   # Whether a FRESH install allows screenshots + screen recording (false = FLAG_SECURE on Android, the
@@ -385,6 +366,10 @@ security:
   # The field officer signs in to a Fineract server, so a fresh install starts signed OUT and lands on
   # sign-in. An absent key means `true` (the template has no login).
   signed_in_by_default: false
+  # A fresh install shows the first-run onboarding (feature/onboarding) once — three intro pages and the
+  # privacy-consent page — before sign-in. Generated into AppSecurityConfig.FIRST_RUN_ONBOARDING, which
+  # UserData.DEFAULT.firstTimeUser reads. ABSENT means `false` (the template ships no onboarding).
+  first_run_onboarding: true
 # Privacy consent (GDPR Art. 6(1)(a) / 7): analytics and crash reporting are CONSENT-based processing, so
 # they must start OFF and be as easy to withdraw as to give (Settings → Privacy). These are only the
 # starting values for a fresh install; the user's own choice is persisted by core/datastore and wins.

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kpt.core.base.data.annotation.RepositoryBinding
 import kpt.core.database.recent.dao.RecentRecordDao
 import kpt.core.database.recent.entity.RecentRecordEntity
 import kpt.core.datastore.prefs.ForkPreferencesRepository
@@ -32,6 +33,7 @@ interface RecentRecordsRepository {
 
 /** Room-backed and keyed by the signed-in user, so a shared device never mixes officers' histories. */
 @OptIn(ExperimentalCoroutinesApi::class)
+@RepositoryBinding(binds = RecentRecordsRepository::class)
 class RecentRecordsRepositoryImpl(
     private val dao: RecentRecordDao,
     private val preferences: ForkPreferencesRepository,

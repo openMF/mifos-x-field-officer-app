@@ -34,6 +34,19 @@ object LicenseHeader {
     /** Repo-relative path of the one header source; fork-owned, never overwritten by a template sync. */
     const val SOURCE = "spotless/license-header.txt"
 
+    /** The template's copyright holder — the header TEMPLATE code carries in every fork. */
+    const val TEMPLATE_HOLDER = "Mifos Initiative"
+
+    /**
+     * Spotless `onlyIfContentMatches` pattern: matches a file that does NOT already carry the template's
+     * copyright. A fork's header is applied to every file, and a template-owned file (`Kpt*`, `core-base/`,
+     * module build scripts) re-stamped with the fork's holder stops being byte-identical to the template —
+     * the next sync overwrites it back and the ownership audit flags it as fork-modified (13 core/ui files on
+     * mbs/reels-downloader after one `spotlessApply`). Template code keeps its own header; in the template
+     * itself the holder is the same, so nothing changes there.
+     */
+    const val NOT_TEMPLATE_CODE = "\\A(?![\\s\\S]*Copyright \\d{4} $TEMPLATE_HOLDER)"
+
     /** KSP option carrying the rendered Kotlin header to `tools/<name>-ksp` (newlines escaped as `\n`). */
     const val KSP_OPTION = "kpt.licenseHeader"
 

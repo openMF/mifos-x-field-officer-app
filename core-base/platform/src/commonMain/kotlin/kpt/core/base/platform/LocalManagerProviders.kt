@@ -18,6 +18,7 @@ import com.mobilebytelabs.kmptoolkit.bubble.Bubble
 import com.mobilebytelabs.kmptoolkit.clipboard.ClipboardManager
 import com.mobilebytelabs.kmptoolkit.pdfgenerator.PdfManager
 import kpt.core.base.platform.context.AppContext
+import kpt.core.base.platform.di.ToolkitQualifier
 import kpt.core.base.platform.intent.IntentManager
 import kpt.core.base.platform.review.AppReviewManager
 import kpt.core.base.platform.share.ShareManager
@@ -69,9 +70,9 @@ fun LocalManagerProvider(
         // silently use a second object instead of failing. cmp-share-compose's composables
         // (ShareButton, ShareSheet) call the global `Share` engine directly and do not need this —
         // it exists so `rememberShareManager()` and `rememberAppIntentsManager()` resolve to the
-        // app's managers.
-        ToolkitLocalShareManager provides koinInject<ToolkitShareManager>(),
-        ToolkitLocalIntentManager provides koinInject<ToolkitIntentManager>(),
+        // app's managers. Qualified: see ToolkitQualifier in PlatformModule.
+        ToolkitLocalShareManager provides koinInject<ToolkitShareManager>(ToolkitQualifier),
+        ToolkitLocalIntentManager provides koinInject<ToolkitIntentManager>(ToolkitQualifier),
         LocalAppIntentsManager provides koinInject(),
     ) {
         content()

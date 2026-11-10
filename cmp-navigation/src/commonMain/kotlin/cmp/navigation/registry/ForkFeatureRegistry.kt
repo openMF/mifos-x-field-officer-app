@@ -11,11 +11,54 @@ package cmp.navigation.registry
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import kpt.core.base.ui.nav.popBackStackSafely
 import kpt.core.data.di.ForkRepositoryModule
 import kpt.core.database.di.ForkDatabaseModule
 import kpt.core.datastore.di.ForkDatastoreModule
 import kpt.core.network.di.ForkNetworkModule
 import kpt.core.store.di.ForkStoreModule
+import kpt.feature.activate.navigation.navigateToActivateCenter
+import kpt.feature.activate.navigation.navigateToActivateClient
+import kpt.feature.activate.navigation.navigateToActivateGroup
+import kpt.feature.center.navigation.CenterLinks
+import kpt.feature.center.navigation.centerListDestination
+import kpt.feature.center.navigation.navigateToCenterDetail
+import kpt.feature.charge.navigation.navigateToAddCharge
+import kpt.feature.charge.navigation.navigateToCharges
+import kpt.feature.checkerinbox.navigation.CheckerInboxLinks
+import kpt.feature.checkerinbox.navigation.checkerInboxDestinations
+import kpt.feature.client.navigation.ClientLinks
+import kpt.feature.client.navigation.clientListDestination
+import kpt.feature.client.navigation.navigateToClientProfile
+import kpt.feature.client.navigation.openClientRecord
+import kpt.feature.datatable.navigation.navigateToDataTableList
+import kpt.feature.document.navigation.navigateToDocumentList
+import kpt.feature.groups.navigation.GroupLinks
+import kpt.feature.groups.navigation.groupsListDestination
+import kpt.feature.groups.navigation.navigateToGroupsDetail
+import kpt.feature.loan.navigation.LoanLinks
+import kpt.feature.loan.navigation.loanDestinations
+import kpt.feature.loan.navigation.navigateToGroupLoanApplication
+import kpt.feature.loan.navigation.navigateToLoanProfile
+import kpt.feature.loan.navigation.navigateToLoanRepayment
+import kpt.feature.loan.navigation.navigateToLoanReschedules
+import kpt.feature.loan.navigation.navigateToLoanSummary
+import kpt.feature.loan.navigation.navigateToNewLoanApplication
+import kpt.feature.note.navigation.navigateToClientNotes
+import kpt.feature.note.navigation.navigateToNotes
+import kpt.feature.notification.navigation.NotificationLinks
+import kpt.feature.notification.navigation.notificationsDestination
+import kpt.feature.offlinesync.navigation.OfflineSyncLinks
+import kpt.feature.offlinesync.navigation.offlineSyncDestination
+import kpt.feature.savings.navigation.SavingsLinks
+import kpt.feature.savings.navigation.navigateToRecurringDepositApplication
+import kpt.feature.savings.navigation.navigateToSavingsApplication
+import kpt.feature.savings.navigation.navigateToSavingsApproval
+import kpt.feature.savings.navigation.navigateToSavingsSummary
+import kpt.feature.savings.navigation.savingsDestination
+import kpt.feature.searchrecord.navigation.navigateToSearchRecord
+import kpt.feature.searchrecord.navigation.searchRecordDestination
+import kpt.feature.settings.navigateToSyncAndDrafts
 import org.koin.core.module.Module
 
 /**
@@ -58,20 +101,105 @@ object ForkFeatureRegistry {
     )
 
     /**
-     * Feature nav destinations — registered into the authenticated graph. The shell destinations
-     * (settings, notification) stay in [cmp.navigation.authenticated] template; this is the fork's routes.
-     */
-    /**
-     * Every top-level feature destination, DERIVED from `@FeatureDestination`.
+     * Every destination of the signed-in graph.
      *
-     * `:cmp-navigation:generateFeatureDestinations` scans each feature's `navigation` package and
-     * emits [GeneratedFeatureDestinations]. Adding a screen to the app graph is now a matter of
-     * annotating it where it is declared, rather than editing this file — which previously took an
-     * import AND a call, and where a missed call meant a route that silently did not exist.
-     *
-     * Nested and non-feature-graph entries are left unannotated on purpose:
-     * `amortizationScheduleDestination` is registered inside `loansGraph`, and `cloudTodoGraph`
-     * belongs to ForkShowcaseRegistry.
+     * A feature whose screens only open each other declares a `@FeatureDestination` graph in its
+     * `navigation` package; `:cmp-navigation:generateFeatureDestinations` collects those into
+     * [GeneratedFeatureDestinations]. A graph that opens ANOTHER feature's screen takes those links as a
+     * `<Feature>Links` of callbacks and is registered below — features never depend on each other, so
+     * this registry is the one place that connects them. Each link is the target feature's own
+     * `navigateTo…`.
      */
-    val featureDestinations: NavGraphBuilder.(NavController) -> Unit = GeneratedFeatureDestinations
+    val featureDestinations: NavGraphBuilder.(NavController) -> Unit = { navController ->
+        GeneratedFeatureDestinations(navController)
+        centerListDestination(
+            navController = navController,
+            links = CenterLinks(
+                openGroup = { navController.navigateToGroupsDetail(it) },
+                activateCenter = { navController.navigateToActivateCenter(it) },
+                addSavingsApplication = { navController.navigateToSavingsApplication(ownerId = it, isGroup = true) },
+            ),
+        )
+        checkerInboxDestinations(
+            navController = navController,
+            links = CheckerInboxLinks(openLoanReschedules = { navController.navigateToLoanReschedules(it) }),
+        )
+        groupsListDestination(
+            navController = navController,
+            links = GroupLinks(
+                activateGroup = { navController.navigateToActivateGroup(it) },
+                openDocumentList = { type, id -> navController.navigateToDocumentList(type, id) },
+                openDataTableList = { table, id -> navController.navigateToDataTableList(table, id) },
+                openGroupLoanApplication = { navController.navigateToGroupLoanApplication(it) },
+                openSavingsApplication = { owner, isGroup ->
+                    navController.navigateToSavingsApplication(owner, isGroup)
+                },
+                openNotes = { type, id -> navController.navigateToNotes(type, id) },
+                openLoanSummary = { navController.navigateToLoanSummary(it) },
+                openSavingsSummary = { id, type -> navController.navigateToSavingsSummary(id, type) },
+                openClientProfile = { navController.navigateToClientProfile(it) },
+            ),
+        )
+        loanDestinations(
+            navController = navController,
+            links = LoanLinks(
+                openCharges = { resource, id -> navController.navigateToCharges(resource, id) },
+                openDocumentList = { type, id -> navController.navigateToDocumentList(type, id) },
+                openDataTableList = { table, id -> navController.navigateToDataTableList(table, id) },
+                openNotes = { type, id -> navController.navigateToNotes(type, id) },
+            ),
+        )
+        savingsDestination(
+            navController = navController,
+            links = SavingsLinks(
+                openCharges = { resource, id -> navController.navigateToCharges(resource, id) },
+                openDocumentList = { type, id -> navController.navigateToDocumentList(type, id) },
+                openDataTableList = { table, id -> navController.navigateToDataTableList(table, id) },
+            ),
+        )
+        notificationsDestination(
+            navController = navController,
+            links = NotificationLinks(
+                openLoan = { navController.navigateToLoanProfile(it) },
+                openClient = { navController.navigateToClientProfile(it) },
+                openGroup = { navController.navigateToGroupsDetail(it) },
+                openCenter = { navController.navigateToCenterDetail(it) },
+                openSavings = { navController.navigateToSavingsSummary(it) },
+            ),
+        )
+        offlineSyncDestination(
+            navController = navController,
+            links = OfflineSyncLinks(
+                openCenter = { navController.navigateToCenterDetail(it) },
+                openGroup = { navController.navigateToGroupsDetail(it) },
+                openClient = { navController.navigateToClientProfile(it) },
+                openDrafts = { navController.navigateToSyncAndDrafts() },
+            ),
+        )
+        clientListDestination(
+            navController = navController,
+            links = ClientLinks(
+                openClientNotes = { navController.navigateToClientNotes(it) },
+                openGroup = { navController.navigateToGroupsDetail(it) },
+                openCharges = { resource, id -> navController.navigateToCharges(resource, id) },
+                openAddCharge = { resource, id -> navController.navigateToAddCharge(resource, id) },
+                openSearchRecord = { navController.navigateToSearchRecord(it) },
+                openNewLoanApplication = { navController.navigateToNewLoanApplication(it) },
+                openSavingsApplication = { owner, isGroup ->
+                    navController.navigateToSavingsApplication(owner, isGroup)
+                },
+                openRecurringDepositApplication = { navController.navigateToRecurringDepositApplication(it) },
+                activateClient = { navController.navigateToActivateClient(it) },
+                openLoanProfile = { navController.navigateToLoanProfile(it) },
+                openLoanRepayment = { navController.navigateToLoanRepayment(it) },
+                openSavingsSummary = { id, type -> navController.navigateToSavingsSummary(id, type) },
+                openSavingsApproval = { navController.navigateToSavingsApproval(it) },
+            ),
+        )
+        // Record search belongs to feature/searchrecord; both ends of a search are client screens.
+        searchRecordDestination(
+            onBackClick = { navController.popBackStackSafely() },
+            onRecordSelected = { navController.openClientRecord(it) },
+        )
+    }
 }

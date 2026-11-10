@@ -13,15 +13,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import kotlinx.serialization.Serializable
-import kpt.core.base.ui.nav.FeatureDestination
 import kpt.core.base.ui.nav.composableWithPushTransitions
 import kpt.core.base.ui.nav.popBackStackSafely
 import kpt.core.common.utils.Constants
 import kpt.core.model.objects.charge.ChargeResource
 import kpt.core.model.savings.SavingAccountDepositType
-import kpt.feature.charge.navigation.navigateToCharges
-import kpt.feature.datatable.navigation.navigateToDataTableList
-import kpt.feature.document.navigation.navigateToDocumentList
 import kpt.feature.savings.application.SavingsApplicationScreen
 import kpt.feature.savings.recurring.RecurringDepositScreen
 import kpt.feature.savings.statuschange.SavingsStatusChange
@@ -150,23 +146,39 @@ fun NavController.navigateToSavingsApproval(accountId: Int, navOptions: NavOptio
 fun NavController.navigateToSavingsActivation(accountId: Int, navOptions: NavOptions? = null) =
     navigate(SavingsStatusChangeRoute(accountId, SavingsStatusChange.ACTIVATE.name), navOptions)
 
-/** Registers every savings screen in the nav graph. */
-@FeatureDestination
-fun NavGraphBuilder.savingsDestination(navController: NavController) {
+/**
+ * Where the savings screens lead outside this feature — callbacks `ForkFeatureRegistry` fills with the
+ * owning feature's `navigateTo…` of the same shape, since a feature never depends on another.
+ *
+ * @property openCharges opens the charges of an entity (`resource`, `resourceId`)
+ * @property openDocumentList opens an entity's documents (`entityType`, `entityId`)
+ * @property openDataTableList opens an entity's datatables (`appTable`, `entityId`)
+ */
+data class SavingsLinks(
+    val openCharges: (resource: ChargeResource, resourceId: Int) -> Unit,
+    val openDocumentList: (entityType: String, entityId: Int) -> Unit,
+    val openDataTableList: (appTable: String, entityId: Int) -> Unit,
+)
+
+/**
+ * Registers every savings screen in the nav graph. Not `@FeatureDestination`: the summary opens charges,
+ * documents and datatables, so `ForkFeatureRegistry` registers it with [SavingsLinks].
+ */
+fun NavGraphBuilder.savingsDestination(navController: NavController, links: SavingsLinks) {
     composableWithPushTransitions<SavingsSummaryRoute> {
         SavingsSummaryScreen(
             onBackPressed = navController::popBackStackSafely,
             // The generic document list, scoped to this savings account — the same entity-agnostic
             // screen group detail and the loan profile open.
             onDocuments = { accountId ->
-                navController.navigateToDocumentList(Constants.ENTITY_TYPE_SAVINGS, accountId)
+                links.openDocumentList(Constants.ENTITY_TYPE_SAVINGS, accountId)
             },
             // The ONE charge module, scoped to this account — `savingsaccounts/{id}/charges`,
             // which deposit accounts share (they are savings accounts underneath in Fineract).
-            onCharges = { accountId -> navController.navigateToCharges(ChargeResource.SAVINGS, accountId) },
+            onCharges = { accountId -> links.openCharges(ChargeResource.SAVINGS, accountId) },
             // The account's datatables — the original's "More savings account info".
             onMoreInfo = { accountId ->
-                navController.navigateToDataTableList(Constants.DATA_TABLE_NAME_SAVINGS, accountId)
+                links.openDataTableList(Constants.DATA_TABLE_NAME_SAVINGS, accountId)
             },
             onApprove = navController::navigateToSavingsApproval,
             onActivate = navController::navigateToSavingsActivation,

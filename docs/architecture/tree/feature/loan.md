@@ -23,10 +23,10 @@ ViewModels: `GroupLoanApplicationViewModel`, `LoanApprovalViewModel`, `LoanDisbu
 
 _Authored below this marker; regeneration never touches it._
 
-<!-- api-docs:begin module=feature/loan sha=26f0eea312db419cb478bf801336fcc2f330fb29 -->
+<!-- api-docs:begin module=feature/loan sha=256254bdaf7a1ff2f7a4056246d700e02c24a4b0 -->
 ## API reference
 
-_Generated from `feature/loan` at tree `26f0eea312db` by `scripts/docs/api-docs-gen.sh`._
+_Generated from `feature/loan` at tree `256254bdaf7a` by `scripts/docs/api-docs-gen.sh`._
 _Do not hand-edit inside this block — re-run the generator. Authored prose belongs outside it._
 
 This module is **fork-owned and writable** — the opposite of `core-base/**`. It is published
@@ -88,18 +88,10 @@ data class LoanReschedulesRoute(val loanId: Int)
 ```
 Every reschedule proposed on a loan, with approve and reject.
 
-<details><summary>Used in the template — <code>feature/checkerinbox/src/commonMain/kotlin/kpt/feature/checkerinbox/navigation/CheckerInboxRoute.kt:34</code></summary>
-
 ```kotlin
-            onNavigateBack = { navController.popBackStack() },
-            // The loan's own reschedules screen approves and rejects — not duplicated here.
-            onOpenLoanReschedules = { loanId -> navController.navigate(LoanReschedulesRoute(loanId)) },
-        )
-    }
-}
+fun NavController.navigateToLoanReschedules(loanId: Int) = navigate(LoanReschedulesRoute(loanId))
 ```
-
-</details>
+Opens loan `loanId`'s reschedules — where they are proposed, approved and rejected.
 
 ```kotlin
 data class LoanRescheduleFormRoute(val loanId: Int)
@@ -142,9 +134,14 @@ fun NavController.navigateToLoanRepayment(loanId: Int, navOptions: NavOptions? =
 Record a repayment, reached directly rather than through a loan detail screen.
 
 ```kotlin
-fun NavGraphBuilder.loanDestinations(navController: NavController)
+data class LoanLinks(
 ```
-`@FeatureDestination`, so the generator registers it ONCE — the same reasoning as the other shared drill-downs. The client's loan list and group detail both open it.
+Where the loan screens lead outside this feature — the generic per-entity modules. A feature never depends on another, so these are callbacks; `ForkFeatureRegistry` fills each with the owning feature's `navigateTo…` of the same shape.
+
+```kotlin
+fun NavGraphBuilder.loanDestinations(navController: NavController, links: LoanLinks)
+```
+Registered ONCE, by `ForkFeatureRegistry` with `LoanLinks` — the client's loan list and group detail both open it. Not `@FeatureDestination`, because it opens charges, documents, datatables and notes.
 
 ### `feature/loan/src/commonMain/kotlin/kpt/feature/loan/profile/components/LoanProfileActionItem.kt`
 
@@ -153,12 +150,12 @@ sealed class LoanProfileActionItem(
 ```
 Ported verbatim from `6b66e8a43:feature/loan/loanAccountProfile/components/LoanAccountProfileActionItem.kt` — all thirteen items, same titles, subtitles and icons.
 
-<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:273</code></summary>
+<details><summary>Used in the template — <code>feature/loan/src/commonMain/kotlin/kpt/feature/loan/navigation/LoanNavigation.kt:287</code></summary>
 
 ```kotlin
 }
 
-private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, loanId: Int) {
+private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, loanId: Int, links: LoanLinks) {
     when (item) {
         LoanProfileActionItem.RepaymentSchedule ->
             navigate(LoanScheduleRoute(loanId))
@@ -169,5 +166,5 @@ private fun NavController.navigateToProfileDetail(item: LoanProfileActionItem, l
 
 ---
 
-_13 type(s), 7 function(s)/property(ies); 20 carry KDoc at source; 0 authored example(s); 2 live call site(s)._
+_14 type(s), 8 function(s)/property(ies); 22 carry KDoc at source; 0 authored example(s); 1 live call site(s)._
 <!-- api-docs:end -->

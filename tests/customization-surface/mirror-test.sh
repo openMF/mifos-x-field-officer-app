@@ -86,5 +86,16 @@ excluded core-base/a/Shared.kt && pass "held template file is preserved from the
 excluded core-base/a/Other.kt  && bad "an unheld template path was preserved" \
                                || pass "an unheld template path is still synced"
 
+echo "── a hold also protects a merge-owned file from the 3-WAY MERGE ──"
+# Both merge loops (per-directory merge-owned files, root files) must consult is_held BEFORE merging:
+# holds were honoured by the overlay and the mirror but not by the merge, and a held project.pbxproj
+# was merged against a stale base. Structural, because the loops live inside sync_directory.
+for loop in '_mf' 'f'; do
+  body="$(awk -v v="$loop" '$0 ~ "cs_match_g \"\\$" v "\"" {p=1} p{print} p && /cs_merge /{exit}' "$ENGINE")"
+  printf '%s\n' "$body" | grep -q "is_held \"\\\$$loop\"" \
+    && pass "merge loop over \$$loop checks holds before merging" \
+    || bad "merge loop over \$$loop merges a held path"
+done
+
 [ "$fail" = 0 ] && echo "mirror-test: PASS" || echo "mirror-test: FAIL"
 exit "$fail"

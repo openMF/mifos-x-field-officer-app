@@ -44,3 +44,4 @@ include(":feature:checkerinbox")
 include(":feature:notification")
 include(":feature:pathtracking")
 include(":feature:offlinesync")
+// feature/onboarding is template-owned now: settings.gradle.kts includes it (the module itself stays fork-owned).
